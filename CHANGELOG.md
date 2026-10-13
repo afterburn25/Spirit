@@ -1,12 +1,14 @@
 # Changelog
 
-## 0.6.0-dev.1 — 2026-10-13 — booking and communication checkpoint
+## 0.6.0-dev.1 — 2026-10-13 — verified booking and communication checkpoint
 
-Recovered previously uncommitted communication code without treating it as a landed release. Added real public booking submissions and session-private receipts, contact consent, deduplication, owner review/search/pagination/status/assignment/private notes and durable recovery of interrupted notification queue writes.
+Recovered previously uncommitted communication code, reviewed it and verified the integrated application in Actions **38479213942**, source **dd0db41248a21b53968b2b26d7540c2944f9fa5a**. Both database environments and all configured Chromium suites passed. This documentation-only update changes no application code, schema, assets or tests. No provider inbox or production acceptance is implied.
 
-Added encrypted SMTP configuration and message bodies, TLS-only authenticated delivery, bounded transport operations, retries/backoff/worker locks and explicit uncertain-delivery recovery. Newsletter has separate opt-in, hashed expiring tokens, scanner-safe POST confirmation/unsubscribe, confirmed-only CSV export and stale-message suppression. No booking-to-marketing auto-enrollment, native ticketing or payment action is added.
+Added real public booking submissions and session-private receipts, contact consent, deduplication, owner review/search/pagination/status/assignment/private notes and durable recovery of interrupted notification queue writes.
 
-Fixed public audio test polling without weakening production CSP. Added communication unit, SQL/HTTP/root/subfolder/additive-upgrade, real loopback TLS SMTP and rendered desktop/mobile communication tests. Verification of this checkpoint is pending the new Actions run. No provider inbox or production acceptance is implied.
+Added encrypted SMTP configuration and message bodies, TLS-only authenticated delivery, bounded transport operations, retries/backoff/worker locks and explicit uncertain-delivery recovery. A failed database receipt after SMTP acceptance cannot cause an automatic resend. Newsletter has separate opt-in, hashed expiring tokens, scanner-safe POST confirmation/unsubscribe, confirmed-only CSV export and stale-message suppression. No booking-to-marketing auto-enrollment, native ticketing or payment action is added.
+
+Fixed public audio test polling without weakening production CSP and corrected phone roadmap status-label overflow without clipping. Added 27 communication unit checks, root/subfolder/additive-upgrade SQL/HTTP journeys, ten real loopback TLS SMTP scenarios, five post-acceptance database-failure assertions and rendered desktop/mobile communication tests. Inspected 14 actual synthetic browser screenshots. See docs/TEST_RESULTS.md.
 
 ## 0.5.0-dev.1 — 2026-10-13 — cumulative development checkpoint
 

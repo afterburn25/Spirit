@@ -6,7 +6,7 @@ Authoritative repository: **afterburn25/Spirit**, branch **main**. Read AGENTS.m
 
 **0.6.0-dev.1** adds database-first booking inquiries, owner review/assignment/private notes, TLS SMTP configuration, encrypted queued messages, retry/uncertainty handling, and newsletter confirmation/unsubscribe to the cumulative public website, CMS, media, music/player and shows foundation.
 
-This is a development checkpoint, **not an accepted 1.0 release**. The recovered communication code was never previously committed to main. Its new integration suite must pass before merging the recovery branch; see docs/TEST_RESULTS.md for exact evidence rather than treating source presence as a passing test.
+The complete verification workflow passed for application checkpoint `dd0db41248a21b53968b2b26d7540c2944f9fa5a` in Actions run **38479213942**: PHP 8.2/MariaDB 11.4, PHP 8.4/MySQL 8.4, TLS SMTP failure/recovery and Chromium desktop/mobile journeys. This documentation update does not change that application's code or tests. See docs/TEST_RESULTS.md for exact evidence and boundaries. This remains a development checkpoint, **not an accepted 1.0 release**.
 
 No invented band identities, releases, performances, products, orders or testimonials are seeded. Only owner-published approved content appears. Booking requests do not reserve a date, publish a show, take payment or subscribe an organizer to marketing. The merchandise store remains closed pending its implementation. Shows use the venue's external ticket seller; there is no native ticketing.
 
