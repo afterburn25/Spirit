@@ -1,19 +1,19 @@
 # Cumulative release roadmap
 
-Current cumulative development checkpoint: **0.6.0-dev.1**. Full application verification passed for dd0db412 in Actions **38479213942**. Consult docs/TEST_RESULTS.md for evidence and boundaries. A development version is not final production acceptance of every prior milestone.
+Current development work **0.7.0-dev.1**, verification pending. Verified baseline .6 main 6b00769fee969570872c88446110429047dc0499 passed run 38479822564. See TEST_RESULTS.md. Every package is cumulative; retain the selected design and existing data.
 
-| Target | Scope | Current status |
+| Target | Scope | Status |
 |---|---|---|
-| 0.1.0 | Shared-host installer, private runtime, owner auth, root/subfolder, lock/removal | Implemented and regression-tested. Actual host acceptance remains. |
-| 0.2.0 | Selected public design and responsive pages | Real components tested at desktop/mobile widths; approved-reference crops included; production art polish remains. |
-| 0.3.0 | CMS/drafts/previews, band/media/press | Owner workflows implemented and tested. Staff delegation and advanced revision restore/pagination remain. |
-| 0.4.0 | Releases/tracks/streaming and persistent local audio | Real playback and persistent-navigation checks pass with production CSP. Actual band audio approval remains. |
-| 0.5.0 | Shows/detail/archive/filter/external tickets | Implemented and tested. No native ticket issuance or scanning. |
-| 0.6.0 | Booking, transactional email, newsletter opt-in | Implemented; full unit, SQL/HTTP, TLS failure/recovery and desktop/mobile browser suite passed. Provider inbox and host acceptance remain. |
-| 0.7.0 | Merch catalog, variants, stock, cart, customers | Next implementation; store remains closed, no purchase claim. |
-| 0.8.0 | Authorize.net sandbox/payments/orders/fulfillment | Planned; no real credentials or transaction results claimed. |
-| 0.9.0 | Permissions, backup/restore/ZIP updates, audits/search/quality | Additive schema foundation exists; full maintenance and acceptance remain. |
+| 0.1 | Shared-host installer, private runtime, owner auth, root/subfolder, lock/removal | Implemented and prior regression-tested; actual host acceptance remains. |
+| 0.2 | Approved responsive public design | Real components; final high-resolution artwork and visual acceptance remain. |
+| 0.3 | CMS, private drafts/previews, band/media/press | Implemented; staff delegation and advanced revision controls remain. |
+| 0.4 | Music, streaming links and persistent local audio | Implemented; actual band recordings need approval. |
+| 0.5 | Shows, details, archives, external venue tickets | Implemented. No native ticket issuing or scanning. |
+| 0.6 | Booking, transactional email, newsletter opt-in | Implemented and .6 tests passed; provider inbox acceptance remains. |
+| 0.7 | Merchandise/variants/inventory/bag/customer accounts | Implemented in branch; new SQL/browser verification pending. US address book initially. Checkout closed. |
+| 0.8 | Authorize.net sandbox, guest checkout, orders and fulfillment | Next. No payment or order claim. |
+| 0.9 | Staff roles, backup/restore/browser upgrades, audits/SEO/quality | Additive schema foundation exists; full tools and acceptance remain. |
 | 1.0.0-rc.N | Complete staging/content/provider/browser/host acceptance | Not reached. |
 | 1.0.0 | Complete tested and explicitly accepted release | Not released. |
 
-Full packages are cumulative and immutable per delivered version. Preserve configuration/data/uploads. Do not add redesigns, native ticketing, newsletter campaigns or live deployment silently. No final release without complete scope and explicit acceptance.
+Do not silently introduce redesigns, native event ticketing, marketing campaigns or production deployment. Preserve configuration/encryption secret, uploaded media and all existing data through supported upgrades. Never overwrite a delivered version's package.

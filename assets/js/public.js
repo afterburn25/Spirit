@@ -57,7 +57,7 @@
   dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
   function internal(url) {
     const home = new URL(document.querySelector('.wordmark').href);
-    return url.origin === location.origin && url.pathname.startsWith(home.pathname) && !/\/(admin|install|account)(\/|$)/.test(url.pathname) && !/\/media\/file\.php$/.test(url.pathname);
+    return url.origin === location.origin && url.pathname.startsWith(home.pathname) && !/\/(admin|install|account)(\/|$)/.test(url.pathname) && !/\/shop\/(cart|checkout|order)\.php$/.test(url.pathname) && !/\/media\/file\.php$/.test(url.pathname);
   }
   async function navigate(url, push = true) {
     if (navigation) navigation.abort(); navigation = new AbortController();

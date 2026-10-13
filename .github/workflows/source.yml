@@ -1,7 +1,7 @@
 name: Source checkpoint artifact
 on:
   push:
-    branches: [main, 'work/booking-email-recovery']
+    branches: [main, 'work/booking-email-recovery', 'work/catalog-accounts']
   workflow_dispatch:
 permissions:
   contents: read

@@ -2,26 +2,28 @@
 
 Authoritative repository: **afterburn25/Spirit**, branch **main**. Read AGENTS.md, PROJECT_STATUS.md, SESSION_HANDOFF.md and docs/ROADMAP.md before changing anything.
 
-## Current development checkpoint
+## Current development work
 
-**0.6.0-dev.1** adds database-first booking inquiries, owner review/assignment/private notes, TLS SMTP configuration, encrypted queued messages, retry/uncertainty handling, and newsletter confirmation/unsubscribe to the cumulative public website, CMS, media, music/player and shows foundation.
+**0.7.0-dev.1** adds merchandise categories, private drafts/public product snapshots, SKU variants and inventory history, a private browser bag, verified customer accounts and a United States address book to the cumulative installer, website, CMS, music, shows and communication modules.
 
-The complete verification workflow passed for application checkpoint `dd0db41248a21b53968b2b26d7540c2944f9fa5a` in Actions run **38479213942**: PHP 8.2/MariaDB 11.4, PHP 8.4/MySQL 8.4, TLS SMTP failure/recovery and Chromium desktop/mobile journeys. This documentation update does not change that application's code or tests. See docs/TEST_RESULTS.md for exact evidence and boundaries. This remains a development checkpoint, **not an accepted 1.0 release**.
+New verification is pending on **work/catalog-accounts**. Exact-main baseline .6 commit 6b00769fee969570872c88446110429047dc0499 passed Actions 38479822564; that result must not be presented as verification of this new source. See PROJECT_STATUS.md and docs/TEST_RESULTS.md. This is not an accepted 1.0 release.
 
-No invented band identities, releases, performances, products, orders or testimonials are seeded. Only owner-published approved content appears. Booking requests do not reserve a date, publish a show, take payment or subscribe an organizer to marketing. The merchandise store remains closed pending its implementation. Shows use the venue's external ticket seller; there is no native ticketing.
+Only owner-published approved content appears. No fabricated band members, releases, shows, products, sales or testimonials are seeded. Show tickets link to the venue's external seller. The merchandise catalog starts closed; an owner can enable approved products, but checkout/payments/orders remain disabled until .8. Customer signup never subscribes a person to marketing.
 
 ## Deployment
 
-PHP 8.2+, PDO MySQL, OpenSSL, fileinfo and GD; MySQL/MariaDB; HTTPS; Apache/LiteSpeed rules as documented. No host-side Node, Composer, Python, SSH or root requirement. Browser installer and initial owner account; real private-storage probes; permanent lock and safe installer-folder removal attempt.
+PHP 8.2+, PDO MySQL, OpenSSL, fileinfo and GD; MySQL/MariaDB; HTTPS; Apache/LiteSpeed rules as documented. No host-side Node, Composer, Python, SSH or root requirement. Browser installer and initial owner account; actual private-storage probes, permanent lock and restricted installer-folder deletion attempt.
 
-On a development machine: `python3 tools/package.py --output ./dist`. It creates a cumulative deployment ZIP and a **separate private setup receipt**. Upload/extract only the ZIP. Keep the receipt and credentials off the website and out of Git. Source archives deliberately have no setup code. Existing supported foundation installations use the owner-only additive database update, never reinstall.
+On a development machine run `python3 tools/package.py --output ./dist`. This creates a cumulative deployment ZIP and a **separate private setup receipt**. Upload/extract only the ZIP. Keep receipt and credentials off the website and out of Git. Existing supported installations preserve config/secret/data/uploads and use owner-only additive database updates, never reinstall. Read docs/INSTALLATION.md.
 
-See docs/INSTALLATION.md and docs/COMMUNICATION.md before deployment. A quiet website needs the optional hosting-panel PHP scheduled task or manual owner queue processing for email retries. SMTP acceptance is not proof of inbox delivery.
+## Administration
 
-## Verification
+Content and media: structured drafts, publication, owner previews, band/gallery/press, releases/tracks and shows. Communication: saved booking inquiries, owner notes/assignment, encrypted TLS SMTP queue, newsletter confirmation/unsubscribe. Store: categories/products, variants/stock, customer suspension/restoration and settings. Read docs/OWNER_GUIDE.md, docs/COMMUNICATION.md and docs/COMMERCE.md.
 
-Local checks: `php tests/run.php`, `php tests/storage.php`, `php tests/foundation_paths.php`, `php tests/content_schema.php`, `php tests/communication_unit.php`, `python3 tests/package_test.py`. SQL/HTTP/browser/TLS transport tests run in the isolated environment in `.github/workflows/verify.yml`. Their fixtures refuse non-test databases and run without root. SMTP tests contact only loopback; CI never deploys or contacts a live payment provider.
+Customer activation/reset messages are queued. Configure a hosting-panel PHP schedule or use owner queue processing. SMTP acceptance is not proof of inbox delivery. No payment credentials or production mailbox tests are included in CI.
 
-## Design
+## Verification and remaining scope
 
-The selected black/navy, gold, blue-lighting and crowned-gorilla direction is fixed. The implementation uses real components, not a clickable screenshot. See docs/DESIGN_LOCK.md for source-art provenance and the low-resolution reference-crop limitation. High-resolution production artwork, genuine content, delegated staff permissions, commerce and complete maintenance/acceptance remain further work.
+The Actions matrix exercises PHP8.2/MariaDB11.4 and PHP8.4/MySQL8.4, real SQL/HTTP installation/migration/content/communication/commerce flows, loopback TLS mail transport and Chromium at 1440px/390px. Test fixtures refuse non-test databases. Test data, scripts, secrets and setup receipts never enter the public installation ZIP.
+
+The approved navy/gold/blue crowned-gorilla design remains fixed. Current reference-crop art still needs a high-resolution production pass. Authorize.net checkout/orders, delegated staff permissions, full backup/restore/browser ZIP upgrades, retention, broader quality checks and actual owner/provider/host acceptance remain. Never equate a version number with completion of those features.

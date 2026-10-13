@@ -1,29 +1,21 @@
-# Project status
+# Project status — 0.7.0-dev.1
 
-Updated 2026-10-13. Cumulative development checkpoint **0.6.0-dev.1**. Application source `dd0db41248a21b53968b2b26d7540c2944f9fa5a` passed the complete verification workflow, run **38479213942**, on the recovery branch before promotion to main. The following documentation-only update leaves application code, schema, assets and tests unchanged. Always inspect the live main ref before resuming.
+Cumulative development work on **work/catalog-accounts**, based on exact-main verified .6 commit **6b00769fee969570872c88446110429047dc0499**, run **38479822564**. Main remains the source of truth; this new checkpoint must pass its own tests before promotion. No accepted v1.0 or production deployment.
 
-## Implemented and regression-tested
+## Implemented in the new source
 
-- Public booking form, separate contact consent, session-bound private receipt, nonce deduplication, validation/rate limiting/honeypot and database-first saving.
-- Owner booking list/search/status filters/pagination, assignment to active owners, private notes and optimistic edit conflict protection.
-- Durable notification reconciliation after interrupted queue writes; idempotent encrypted outbox; TLS-only SMTP settings and owner test/queue controls.
-- Bounded transport deadline, verified certificates/hostnames, definite-failure retries/backoff, abandoned-worker uncertainty and explicit duplicate-risk acknowledgement. A database receipt failure after SMTP acceptance also stays uncertain and cannot automatically resend.
-- Separate newsletter opt-in, hashed expiring confirmation tokens, explicit POST confirmation/unsubscribe, confirmed-only formula-safe CSV export and stale-message suppression.
-- Corrected real-audio browser checks without unsafe-eval or CSP bypass; playback survives internal navigation on desktop and mobile.
-- Phone roadmap labels now reflow instead of overflowing. Public and communication screenshots were inspected after the successful run.
+Owner-managed merchandise categories, draft/published products, approved image references, SKU variants with exact USD minor-unit prices, auditable signed inventory adjustments with replay/conflict protection. Public responsive collection/detail pages and published homepage merchandise; images contained rather than cropped. Store starts closed and contains no fake products.
 
-## Preserved cumulative functionality
+Browser-owned persistent bag with hashed random cookie identity, CSRF and replay controls, server-side price/stock checks, unavailable-line handling and no private-draft disclosure. Bags do not reserve stock. Checkout, shipping/tax totals and orders remain unavailable pending .8.
 
-Organized shared-host browser installer, private runtime/ownership locks, safe cleanup, owner auth, additive schema ledger, selected public design, structured drafts/published snapshots/previews, media authorization/upload/ranges, band/press/gallery, releases/local player and external-ticket shows. Nothing is reset or replaced with mockup-only pages.
+Separate customer identities with email-first activation, a password chosen only after mailbox access, hashed expiring single-use reset/activation links, revocable sessions, owner suspension/restoration and customer-bound revision-safe address management. Address book initially supports United States addresses only. Registration is not newsletter consent. Account mail is queued; hosting-panel schedule or owner processing is required.
 
-## Verification evidence
+Additive migration 004; original migrations 001–003 remain unchanged. Existing installer/private runtime/config/secret, CMS/media, music/player, shows/external ticket links and booking/newsletter functions are preserved.
 
-Run 38479213942 finished successfully on 2026-10-13 at 22:41:16 UTC. PHP 8.2/MariaDB 11.4 job 115577390948 and PHP 8.4/MySQL 8.4 job 115577390730 both passed. Chromium ran installer/admin, public playback and booking/communication journeys at 1440px and 390px. Browser artifact 11856157592 contains 14 synthetic screenshots. See docs/TEST_RESULTS.md for the suite breakdown and corrected failures.
+## Verification
 
-No production mail, payment, hosting, artwork approval or complete security/accessibility acceptance is claimed. Real SMTP transport was tested against disposable loopback TLS servers, not a live provider inbox.
+Local PHP lint, 35 new money/address unit checks, prior schema/path/communication units and packaging tests pass. New full SQL/HTTP root/subfolder/additive-upgrade and Chromium desktop/mobile suites have been added and are awaiting their exact Actions run. Local PHP lacks pdo_mysql/GD and no browser/database run is claimed locally. Fix regressions rather than weakening security or skipping tests. See docs/COMMERCE.md and docs/TEST_RESULTS.md.
 
-## Remaining and next milestone
+## Next
 
-**0.7 merchandise/catalog, variants, stock, cart and customer accounts** is next. Then Authorize.net sandbox payments/orders, delegated staff management, complete backup/restore and browser ZIP upgrades, advanced CMS pagination/revision restoration, final metadata/redirects/event structured data, measured performance and full accessibility/security acceptance.
-
-Current artwork consists of modest-resolution approved-reference crops, not finished master art. Email supports password-based AUTH LOGIN over STARTTLS or implicit TLS, not every provider authentication method. Newsletter campaigns are not implemented. Preserve the private installation secret with database backups. Actual host aliases/TLS/ACL/open_basedir and legacy-runtime migration need staging verification. No final v1.0 acceptance has occurred.
+Verify and promote .7, then implement .8 sandbox-first Authorize.net, guest checkout, atomic inventory reservations, orders/fulfillment and shipping/tax configuration. Follow with staff delegation, full backup/restore/browser ZIP upgrades, retention, advanced CMS/SEO/accessibility/performance and staging acceptance. High-resolution production artwork and real band/product content still require a proper pass and approval. No provider inbox delivery or production payment is established by synthetic tests.

@@ -18,6 +18,7 @@ final class MailQueue
     /** An old confirmation or welcome must not be sent after consent changes. */
     private static function applicable(PDO $db,array $row): bool
     {
+        if(str_starts_with($row['dedupe_key'],'customer:')){return Customers::mailApplicable($db,$row);}
         if(!str_starts_with($row['dedupe_key'],'newsletter:')){return true;}
         if(!preg_match('/^newsletter:(confirm|welcome):([a-f0-9]{64})$/D',$row['dedupe_key'],$m)){return false;}
         $condition=$m[1]==='confirm'?"status='pending' AND confirm_hash=? AND confirm_expires_at>UTC_TIMESTAMP()":"status='confirmed' AND unsubscribe_hash=?";

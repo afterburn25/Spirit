@@ -58,6 +58,7 @@ jobs:
           php tests/foundation_paths.php
           php tests/content_schema.php
           php tests/communication_unit.php
+          php tests/commerce_unit.php
           python3 -m py_compile tools/package.py tests/*.py
           python3 tests/package_test.py
       - name: Database and HTTP integration
@@ -68,6 +69,7 @@ jobs:
           python3 tests/communication_integration.py
           python3 tests/smtp_integration.py
           python3 tests/mail_acceptance.py
+          python3 tests/commerce_integration.py
       - name: Install test-only Chromium
         if: matrix.php == '8.4'
         run: |
@@ -83,6 +85,9 @@ jobs:
       - name: Rendered booking and communication workflows
         if: matrix.php == '8.4'
         run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/communication_browser.py'
+      - name: Rendered commerce and customer workflows
+        if: matrix.php == '8.4'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/commerce_browser.py'
       - name: Preserve synthetic browser screenshots
         if: always() && matrix.php == '8.4'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

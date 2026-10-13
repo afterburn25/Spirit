@@ -55,7 +55,7 @@ final class Media
     }
     public static function serve(int $id): never
     {
-        $media=self::get($id);$public=$media!==null && Content::publicMedia($id);
+        $media=self::get($id);$public=$media!==null && (Content::publicMedia($id) || (Database::exists(Database::connect(),Paths::config()['db']['prefix'].'products') && Catalog::publicImage($id)));
         if (!$public) {$user=Auth::current();if (!$media || !$user || $user['role']!=='owner') {http_response_code(404);exit('Media unavailable.');}}
         $file=self::path($media);$size=(int)filesize($file);$etag='"'.$media['checksum'].'"';
         header('Content-Type: '.$media['mime']);header('X-Content-Type-Options: nosniff');header('Accept-Ranges: bytes');header('ETag: '.$etag);

@@ -1,1 +1,4 @@
-<?php declare(strict_types=1); require dirname(__DIR__).'/includes/bootstrap.php'; Spirit\PublicSite::render('shop');
+<?php
+declare(strict_types=1);
+require dirname(__DIR__).'/includes/bootstrap.php';
+Spirit\Storefront::render('catalog');
