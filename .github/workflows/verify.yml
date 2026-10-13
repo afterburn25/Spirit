@@ -39,11 +39,12 @@ jobs:
       SPIRIT_DB_NAME: spirit_ci
       SPIRIT_DB_USER: spirit_ci
       SPIRIT_DB_PASSWORD: ephemeral-ci-user-not-production
-      SPIRIT_SCREENSHOT_DIR: ${{ runner.temp }}/spirit-screenshots
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
+      - name: Configure synthetic screenshot output
+        run: echo "SPIRIT_SCREENSHOT_DIR=$RUNNER_TEMP/spirit-screenshots" >> "$GITHUB_ENV"
       - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
         with:
           php-version: ${{ matrix.php }}
