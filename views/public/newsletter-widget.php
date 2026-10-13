@@ -1,0 +1,1 @@
+<?php if(Spirit\Communications::newsletterReady()):?><section class="newsletter-callout"><div><p class="eyebrow">JOIN THE MOVEMENT</p><h2>Good music.<br><em>In your inbox.</em></h2><p>Band news, new releases and show updates. Your email, confirmed by you.</p></div><a class="button" href="<?=e(app_url('newsletter/'))?>">Join the mailing list →</a></section><?php endif;?>

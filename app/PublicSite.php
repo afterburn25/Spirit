@@ -40,7 +40,7 @@ final class PublicSite
         if(!$tracks){echo '<div class="empty-state compact"><p>On-site tracks have not been published for this release. Verified streaming links appear alongside the release when available.</p></div>';return;}
         echo '<ol class="track-list">';foreach($tracks as $index=>$track){$d=$track['data'];echo '<li><button type="button" class="play-track" data-audio="'.e(Media::url((int)$d['audio_id'])).'" data-track-id="'.$track['id'].'" data-title="'.e($track['title']).'" data-release="'.e($release['title']).'" aria-label="Play '.e($track['title']).'"><span class="play-circle" aria-hidden="true">▶</span><span class="track-number">'.($index+1).'.</span><span class="track-title">'.e($track['title']).'</span><span class="track-duration">'.e($d['duration']).'</span></button></li>';}echo '</ol><p class="small muted">Select a track to listen. Playback continues while you browse supported public pages.</p>';
     }
-    public static function render(string $view,?array $preview=null): void
+    public static function render(string $view,?array $preview=null,array $context=[]): void
     {
         if(!Paths::installed()){go('install/');}
         if(!Migrations::ready()) {http_response_code(503);View::start('Website update in progress');echo '<section class="panel"><h1>Website update in progress.</h1><p>The owner can finish the additive database update in administration. Existing website data has been preserved.</p><a class="button" href="'.e(app_url('admin/updates.php')).'">Owner administration</a></section>';View::end();return;}
@@ -49,13 +49,15 @@ final class PublicSite
         $details=['release'=>'release','event'=>'event','member'=>'member','page'=>'page'];
         if(isset($details[$view])&&!$record){$record=Content::bySlug($details[$view],$slug);if(!$record){http_response_code(404);$view='not-found';}}
         if(in_array($view,['home','band','booking','press'],true)){$pageContent=$preview??Content::bySlug('page',$view);}
-        $titles=['home'=>'Music with a higher purpose','music'=>'Our music','shows'=>'Upcoming shows','band'=>'The band','media'=>'Watch & explore','booking'=>'Book the band','press'=>'Electronic press kit','shop'=>'Official merchandise','not-found'=>'Page not found'];
-        $title=$record?$record['title']:($titles[$view]??'Spiritual Gorillaz');$active=match($view){'release'=>'music','event'=>'shows','member','page'=>'band',default=>$view};
+        $titles=['home'=>'Music with a higher purpose','music'=>'Our music','shows'=>'Upcoming shows','band'=>'The band','media'=>'Watch & explore','booking'=>'Book the band','booking-thanks'=>'Inquiry received','newsletter'=>'Band updates','press'=>'Electronic press kit','shop'=>'Official merchandise','not-found'=>'Page not found'];
+        $title=$record?$record['title']:($titles[$view]??'Spiritual Gorillaz');$active=match($view){'release'=>'music','event'=>'shows','member','page'=>'band','booking-thanks'=>'booking',default=>$view};
         $description=$record?substr((string)($record['data']['description']??$record['data']['body']??$record['title']),0,180):$settings['welcome'];
-        header('Cache-Control: '.($isPreview?'private, no-store':'no-cache'));if($isPreview){header('X-Robots-Tag: noindex, nofollow');}
-        $canonical=null;if(!$isPreview&&$view!=='not-found'){$path=$record?self::url($record):app_url($view==='home'?'':($view==='music'?'music/':$view.'/'));$base=Paths::basePath();$canonical=rtrim(Paths::config()['site_url'],'/').substr($path,strlen($base));}
+        $private=$isPreview||in_array($view,['booking','booking-thanks','newsletter'],true);
+        header('Cache-Control: '.($private?'private, no-store':'no-cache'));if($isPreview){header('X-Robots-Tag: noindex, nofollow');}
+        $canonical=null;if(!$private&&$view!=='not-found'){$path=$record?self::url($record):app_url($view==='home'?'':($view==='music'?'music/':$view.'/'));$base=Paths::basePath();$canonical=rtrim(Paths::config()['site_url'],'/').substr($path,strlen($base));}
         require Paths::root().'/views/public/header.php';
-        require Paths::root().'/views/public/sections.php';
+        $templates=['booking'=>'booking.php','booking-thanks'=>'booking-thanks.php','newsletter'=>'newsletter.php'];
+        require Paths::root().'/views/public/'.($templates[$view]??'sections.php');
         require Paths::root().'/views/public/footer.php';
     }
 }
