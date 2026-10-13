@@ -1,25 +1,23 @@
 # Changelog
 
-## 0.7.0-dev.1 — merchandise, inventory and customer accounts
+## 0.7.0-dev.1 — verified merchandise and customer checkpoint
 
-Additive 004 schema; owner-managed categories/products/private drafts, approved public snapshots/media, SKU pricing and auditable idempotent stock adjustments; responsive catalog/detail/homepage collection; browser-owned persistent bag with integer-cent server prices, replay protection and stale availability handling. Email-first customer activation, expiring single-use reset, session revocation, owner suspension and revision-safe customer-bound US address book. Staff and customer identities remain separate. Checkout deliberately closed; no live payments/orders or fake inventory. Added 35 unit checks and SQL/HTTP/browser regressions; exact new execution pending. See docs/COMMERCE.md.
+Application6a9396f571a3c8658886f84f1b64b754cd6c7fe6 passed full Actions38483296156 in both database environments and all configured desktop/mobile browser suites. Documentation-only follow-up preserves runtime/test bytes. Forty synthetic screenshots downloaded; contact sheets and selected full-size forms reviewed. See TEST_RESULTS.md for exact evidence and limitations.
 
-## 0.6.0-dev.1 — 2026-10-13 — verified booking and communication checkpoint
+Additive004 schema; owner categories/products/private drafts and approved public media; SKU integer-cent pricing and auditable idempotent stock changes; responsive collection/detail/homepage merchandise; private persistent bag with server prices/replay/stock checks. Email-first activation/reset, session revocation, owner suspension and customer-bound revision-safe US address book. Customer and staff identities stay separate. Added35 unit checks and full SQL/HTTP/root/subfolder/upgrade/browser regressions. Checkout remains closed; no live payment/order claim.
 
-Recovered previously uncommitted communication code, reviewed it and verified the integrated application in Actions 38479213942, source dd0db41248a21b53968b2b26d7540c2944f9fa5a. Exact-main documentation descendant 6b00769fee969570872c88446110429047dc0499 also passed run 38479822564. Both database environments and all configured Chromium suites passed. No provider inbox or production acceptance is implied.
+## 0.6.0-dev.1 — 2026-10-13
 
-Real booking submissions/private receipts, separate contact consent, deduplication, owner search/pagination/status/assignment/private notes and durable interrupted-notification recovery. Encrypted SMTP settings/bodies, verified TLS, bounded transport, retry/backoff/worker locks and uncertain-delivery recovery. Failed database receipts after SMTP acceptance cannot cause automatic resend. Newsletter DOI, hashed expiring links, scanner-safe POST confirmation/unsubscribe, confirmed-only CSV and stale-message suppression. No automatic marketing enrollment or native ticketing.
-
-Fixed CSP-compatible real audio polling and phone roadmap overflow. Added 27 communication units, root/subfolder/additive-update HTTP journeys, ten real loopback TLS scenarios, five post-acceptance DB-failure assertions and responsive communication tests. Fourteen synthetic browser screenshots inspected in the baseline session; see TEST_RESULTS.md.
+Applicationdd0db412 passed38479213942 and exact-main docs descendant6b00769fee969570872c88446110429047dc0499 passed38479822564. Recovered real saved code and verified it rather than treating prior unsuccessful writes as landed. Booking submissions/private receipts/consent/deduplication, owner inquiry management, interrupted notification recovery, encrypted TLS SMTP queue, retries/backoff/locks and acceptance uncertainty. Newsletter DOI/expiry/scanner-safe actions/unsubscribe/export/stale-message suppression. No automatic marketing enrollment or native tickets. Corrected CSP-compatible playback tests and phone roadmap overflow. Added27 communication units, ten loopback TLS scenarios, five post-acceptance database fault checks and browser journeys. Real provider/host acceptance remains separate.
 
 ## 0.5.0-dev.1 — 2026-10-13
 
-Responsive public pages, owner CMS/drafts/previews, protected image/audio/PDF media, band/gallery/press, releases/tracks/persistent audio and shows/archive/external venue tickets. Hardened installer ownership, database-prefix locks, config publication, legacy-runtime detection and additive schema. Reference crops remain lower-resolution, not final master art. Public test initially failed on CSP-incompatible polling, corrected in .6.
+Responsive public pages, owner CMS/drafts/previews, protected image/audio/PDF media, band/gallery/press, releases/tracks/persistent audio and shows/archive/external sellers. Installer ownership/prefix/config/legacy-runtime/additive-schema improvements. Reference crops are not final master art. Public test initially failed on CSP polling, corrected in .6.
 
 ## 0.1.0-dev.2 — 2026-10-13
 
-Account-private runtime, actual IO probes, cleanup denial/recovery, protected packaging and SQL/HTTP/Chromium installer-admin tests. Baseline cb1ce92a4af133e5a9c86fcfd7dce281af4ee336 passed run 38456010840: 43 units, 26 storage checks, 10 packaging checks, PHP8.2/MariaDB11.4 and PHP8.4/MySQL8.4, Chromium1440/390.
+Account-private runtime, real IO probes, cleanup denial/retry, protected packaging and SQL/HTTP/Chromium foundation. Baselinecb1ce92a passed38456010840 with43 units,26 storage,10 packaging tests and both database environments.
 
 ## 0.1.0-dev.1 — 2026-10-13
 
-Initial organized installer/admin foundation, private storage, owner authentication/settings, setup authorization, documentation and local unit tests. Not production-ready.
+Initial organized installer/admin, private storage, owner login/settings, setup authorization and documentation. Not a production release.
