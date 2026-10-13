@@ -50,8 +50,18 @@ jobs:
           coverage: none
       - name: Syntax and permission-aware unit tests
         run: |
-          find . -type f -name '*.php' -print0 | xargs -0 -n1 php -l
+          find . -type f \( -name '*.php' -o -name '*.inc' \) -print0 | xargs -0 -n1 php -l
           php tests/run.php
-          python3 -m py_compile tools/package.py tests/http_integration.py
+          php tests/storage.php
+          python3 -m py_compile tools/package.py tests/http_integration.py tests/browser_smoke.py
       - name: Database and HTTP integration
         run: python3 tests/http_integration.py
+      - name: Install test-only Chromium
+        if: matrix.php == '8.4'
+        run: |
+          python3 -m venv "$RUNNER_TEMP/spirit-browser"
+          "$RUNNER_TEMP/spirit-browser/bin/pip" install playwright==1.57.0
+          "$RUNNER_TEMP/spirit-browser/bin/python" -m playwright install --with-deps chromium
+      - name: Rendered installer and admin smoke checks
+        if: matrix.php == '8.4'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/browser_smoke.py'

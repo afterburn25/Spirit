@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
-"""Exercise real packaged PHP installations against an isolated MySQL/MariaDB.
-
-No production credentials. Database names/prefixes are guarded in db_fixture.php.
-Runs as a normal user so denied filesystem writes/deletion are meaningful.
-This tests PHP's local server, NOT Apache/LiteSpeed access rules or live hosting.
+"""Real packaged PHP/SQL/HTTP tests; disposable databases only, non-root runner.
+This is not proof of Apache rules, production TLS, or live shared hosting.
 """
 from __future__ import annotations
 import contextlib
@@ -14,7 +11,6 @@ import json
 import os
 import re
 import secrets
-import shutil
 import socket
 import subprocess
 import tempfile
@@ -34,6 +30,9 @@ def expect(condition: bool, label: str) -> None:
         raise AssertionError(label)
     CHECKS += 1
     print('PASS ' + label, flush=True)
+
+def dashboard(url: str) -> bool:
+    return urllib.parse.urlparse(url).path.endswith(('/admin/', '/admin/index.php'))
 
 class Client:
     def __init__(self, base: str):
@@ -84,6 +83,7 @@ class Site:
             except (OSError, urllib.error.URLError):
                 time.sleep(.1)
         else:
+            self.process.terminate(); self.process.wait(timeout=10); self.log.close()
             raise AssertionError('PHP server did not start')
     def database(self, command: str):
         result = subprocess.run(['php', str(ROOT/'tests/db_fixture.php'), command], env=self.env, capture_output=True, text=True, timeout=30)
@@ -120,11 +120,9 @@ def site(area: Path, archive: Path, code: str, subfolder: str = ''):
 def normal_journey(s: Site, blocked_cleanup: bool):
     status, body, _, _ = s.client.form('install/', {'action':'claim','setup_code':'incorrect'})
     expect(status == 200 and 'incorrect' in body, 'Wrong claim code denied')
-    status, _, _, _ = s.client.request('install/', {'action':'claim','setup_code':s.code,'csrf':'wrong'})
-    expect(status == 403, 'Invalid setup CSRF denied')
+    expect(s.client.request('install/', {'action':'claim','setup_code':s.code,'csrf':'wrong'})[0] == 403, 'Invalid setup CSRF denied')
     s.claim()
-    lock_path = s.runtime / 'install-operation.lock'
-    with lock_path.open('a+b') as lock:
+    with (s.runtime/'install-operation.lock').open('a+b') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         status, body, _, _ = s.client.form('install/', s.input())
         expect(status == 200 and 'already running' in body, 'Concurrent installer operation is rejected')
@@ -145,15 +143,15 @@ def normal_journey(s: Site, blocked_cleanup: bool):
     status, _, _, url = anonymous.request('admin/index.php')
     expect(status == 200 and url.endswith('/admin/login.php'), 'Anonymous admin access redirects to sign-in')
     status, _, _, url = s.login()
-    expect(status == 200 and url.endswith('/admin/index.php'), 'Owner login reaches dashboard')
+    expect(status == 200 and dashboard(url), 'Owner login reaches dashboard')
     second = Client(s.base)
-    expect(s.login(second)[3].endswith('/admin/index.php'), 'Second owner session can sign in')
+    expect(dashboard(s.login(second)[3]), 'Second owner session can sign in')
     status, _, headers, _ = s.client.request('admin/settings.php')
     expect(status == 200 and 'no-store' in headers.get('Cache-Control',''), 'Private admin pages prohibit caching')
     expect(all(c.has_nonstandard_attr('HttpOnly') for c in s.client.cookies), 'Session cookie is HttpOnly')
     expect(all(c.has_nonstandard_attr('SameSite') for c in s.client.cookies), 'Session cookie has SameSite policy')
-    status, _, _, _ = s.client.request('admin/settings.php', {'csrf':'wrong','site_name':'Unauthorized'})
-    expect(status == 403, 'Admin settings reject invalid CSRF')
+    expect(s.client.request('assets/css/app.css')[0] == 200, 'Stylesheet resolves under the installation base path')
+    expect(s.client.request('admin/settings.php', {'csrf':'wrong','site_name':'Unauthorized'})[0] == 403, 'Admin settings reject invalid CSRF')
     status, _, _, _ = s.client.form('admin/settings.php', {'site_name':'Integration Band','tagline':'Verified setting','welcome':'<script>alert(1)</script>'})
     expect(status == 200, 'Owner saves website settings')
     body = s.client.request('')[1]
@@ -175,7 +173,7 @@ def normal_journey(s: Site, blocked_cleanup: bool):
     status, _, _, url = s.client.request('admin/logout.php', {'csrf':token.group(1)})
     expect(status == 200 and url.endswith('/admin/login.php'), 'Logout returns to sign-in')
     expect(s.client.request('admin/index.php')[3].endswith('/admin/login.php'), 'Logged-out session cannot reopen admin')
-    expect(s.login()[3].endswith('/admin/index.php'), 'New password works after logout')
+    expect(dashboard(s.login()[3]), 'New password works after logout')
 
 def recovery_journey(s: Site):
     s.claim()
@@ -197,6 +195,17 @@ def recovery_journey(s: Site):
     expect(status == 200 and url.endswith('/admin/login.php'), 'Same-install retry completes after interrupted migration')
     expect(s.database('count')['users'] == 1, 'Recovery does not duplicate the owner')
 
+def build_package(destination: Path):
+    subprocess.run(['python3',str(ROOT/'tools/package.py'),'--output',str(destination)],check=True,capture_output=True)
+    archive = next(destination.glob('*-Full.zip'))
+    receipt = next(destination.glob('*-PRIVATE-SETUP.txt'))
+    code = re.search(r'^Setup code: (.+)$',receipt.read_text(),re.MULTILINE).group(1)
+    with zipfile.ZipFile(archive) as bundle:
+        expect(not any('PRIVATE-SETUP' in name for name in bundle.namelist()), 'Private setup receipt excluded from deployment ZIP')
+        manifest = json.loads(bundle.read('docs/PACKAGE-MANIFEST.json'))
+        expect(all(hashlib.sha256(bundle.read(name)).hexdigest() == digest for name,digest in manifest['files'].items()), 'Every deployment manifest hash matches its file')
+    return archive, code
+
 def main():
     if os.geteuid() == 0:
         raise RuntimeError('Run integration tests as an unprivileged user, not root.')
@@ -212,14 +221,7 @@ def main():
         raise RuntimeError('Disposable database did not become ready; driver/credentials/service must be checked.')
     with tempfile.TemporaryDirectory(prefix='spirit-integration-') as directory:
         temp = Path(directory)
-        subprocess.run(['python3',str(ROOT/'tools/package.py'),'--output',str(temp/'packages')],check=True,capture_output=True)
-        archive = next((temp/'packages').glob('*-Full.zip'))
-        receipt = next((temp/'packages').glob('*-PRIVATE-SETUP.txt'))
-        code = re.search(r'^Setup code: (.+)$',receipt.read_text(),re.MULTILINE).group(1)
-        with zipfile.ZipFile(archive) as bundle:
-            expect(not any('PRIVATE-SETUP' in name for name in bundle.namelist()), 'Private setup receipt excluded from deployment ZIP')
-            manifest = json.loads(bundle.read('docs/PACKAGE-MANIFEST.json'))
-            expect(all(hashlib.sha256(bundle.read(name)).hexdigest() == digest for name,digest in manifest['files'].items()), 'Every deployment manifest hash matches its file')
+        archive, code = build_package(temp/'packages')
         for folder, label, blocked in [('', 'root', False),('band', 'subfolder', True)]:
             print('SCENARIO ' + label, flush=True)
             with site(temp/label,archive,code,folder) as current:

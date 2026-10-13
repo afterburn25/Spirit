@@ -1,15 +1,14 @@
-# Local test evidence — 2026-10-13
+# Test evidence
 
-Development build: 0.1.0-dev.1. Environment: PHP 8.4.24 CLI on Linux. These are local checks, not CI or live-host results.
+Development work in progress: 0.1.0-dev.2. No production release or live-host test is claimed.
 
-## Executed
-- `find . -name '*.php' -print0 | xargs -0 -n1 php -l`: 23 PHP files passed syntax checking. After the final HTTPS guard change, app/Security.php was re-linted successfully.
-- `php tests/run.php`: initial root run passed 40 checks; root skips permission-denial scenarios. A subsequent security regression assertion was added.
-- `runuser -u nobody -- php tests/run.php`: final non-root run passed **43 checks, 0 failures**. On a normal development machine, run `php tests/run.php` as a non-root user; runuser is only the local test harness command.
+## Verified in this session
+- Baseline CI run 38454059128 executed on PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4. Syntax and the original 43 checks passed. HTTP tests reached successful fresh database installation, exactly one owner, private config/lock creation and actual installer deletion.
+- That run failed at the test's owner-dashboard URL assertion because the application correctly redirects to `/admin/`, while the fixture expected only `/admin/index.php`. The fixture now accepts both valid dashboard routes; this was a test expectation error, not evidence of a broken login.
+- The new storage suite passed all 26 checks locally as user nobody on PHP 8.4.24. Exact command: `runuser -u nobody -- php /mnt/data/spirit-work/tests/storage.php`. The two changed PHP classes and storage test also passed syntax checks.
+- The storage suite initially caught a nested public_html base-selection error; conventional public ancestors are now included, and the failing regression passes.
 
-Coverage: escaping; CSRF generation/validation; password hashing/validation; email validation; root/subfolder paths and URL restrictions; HTTPS and rejection of untrusted forwarded headers/production loopback bypass; database input validation; path boundaries; private storage provisioning and real IO probes; restricted permissions; atomic PHP config serialization; symlink refusal; allowlisted installer cleanup; unknown-file preservation; idempotence; completion lock without config; actual permission-denied write and delete scenarios.
+## Pending verification at this commit
+The updated matrix and new Chromium tests must finish before full SQL/HTTP/browser success is claimed. Root/subfolder auth, settings, password revocation, cleanup retry and migration recovery have executable tests, not yet a final green result. Tests run only against guarded disposable database names and prefixes.
 
-## Not executed
-PDO MySQL is absent in this environment (PDO and OpenSSL are present). No MySQL/MariaDB provisioning, schema migration, prefix-conflict recovery, authentication, settings persistence, installer HTTP journey or database-backed cleanup test ran. No production hosting, browser rendering, device, accessibility, performance, payment, mail, upgrade or restore test is claimed. Package script exists but deployment package acceptance is pending.
-
-Do not convert unit results into a claim that v0.1.0, much less v1.0.0, is finished.
+Still not verified: actual user hosting/ownership/open_basedir, Apache/LiteSpeed protection, production reverse-proxy/TLS configuration, full visual acceptance, measured performance/accessibility, migration from an existing dev.1 runtime, early-DDL crash windows, package secrecy under arbitrary output layouts, and later feature milestones.
