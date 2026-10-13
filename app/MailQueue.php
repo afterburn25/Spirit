@@ -42,12 +42,16 @@ final class MailQueue
                     $q=$db->prepare('UPDATE '.Database::table('mail_queue')." SET status='cancelled',last_error='subscription_changed_or_expired' WHERE id=? AND status IN ('queued','retry')");$q->execute([$row['id']]);$result['cancelled']++;continue;
                 }
                 $token=bin2hex(random_bytes(16));$q=$db->prepare('UPDATE '.Database::table('mail_queue')." SET status='sending',attempts=attempts+1,claimed_at=UTC_TIMESTAMP(),claim_token=? WHERE id=? AND status IN ('queued','retry')");$q->execute([$token,$row['id']]);if($q->rowCount()!==1){continue;}
+                $accepted=false;
                 try{
                     $message=['id'=>$row['id'],'dedupe_key'=>$row['dedupe_key'],'recipient'=>$row['recipient'],'subject'=>$row['subject'],'html'=>PrivateValue::open($row['encrypted_body'])];
                     if($sender){$sender($message);}else{SmtpMailer::send($message,Communications::options(),max(0.1,$deadline-microtime(true)));}
-                    $q=$db->prepare('UPDATE '.Database::table('mail_queue')." SET status='sent',sent_at=UTC_TIMESTAMP(),last_error=NULL WHERE id=? AND claim_token=?");$q->execute([$row['id'],$token]);$result['sent']++;
+                    $accepted=true;
+                    $q=$db->prepare('UPDATE '.Database::table('mail_queue')." SET status='sent',sent_at=UTC_TIMESTAMP(),last_error=NULL WHERE id=? AND claim_token=?");$q->execute([$row['id'],$token]);
+                    if($q->rowCount()!==1){throw new RuntimeException('smtp_receipt_not_persisted');}
+                    $result['sent']++;
                 }catch(Throwable $e){
-                    $uncertain=$e instanceof DeliveryUncertain;$attempts=(int)$row['attempts']+1;$state=$uncertain?'uncertain':($attempts>=5?'failed':'retry');
+                    $uncertain=$accepted||$e instanceof DeliveryUncertain;$attempts=(int)$row['attempts']+1;$state=$uncertain?'uncertain':($attempts>=5?'failed':'retry');
                     $error=$uncertain?'smtp_delivery_uncertain':(preg_match('/^smtp_[a-z0-9_]{1,60}$/D',$e->getMessage())?$e->getMessage():'delivery_failed');$next=gmdate('Y-m-d H:i:s',time()+min(3600,60*(2**$attempts)));
                     $q=$db->prepare('UPDATE '.Database::table('mail_queue').' SET status=?,last_error=?,available_at=? WHERE id=? AND claim_token=?');$q->execute([$state,$error,$next,$row['id'],$token]);$result[$uncertain?'uncertain':'failed']++;
                 }

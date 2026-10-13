@@ -20,6 +20,14 @@ Create a release, upload authorized audio, then create tracks attached to that r
 
 For a show, enter full local date/time, named timezone, venue, city and optional address. Paste the venue's HTTPS ticket-seller URL. Scheduled shows with a URL display Get Tickets. Missing links, sold-out, free, postponed or cancelled events have appropriate non-purchasing labels. Past shows archive automatically. Do not use sample concept dates as actual bookings.
 
+## Booking and communication
+
+Booking inquiries are saved before email work. Review organizer details, assign active owners, change inquiry status and keep private notes in Booking inquiries. Repeated submissions are deduplicated; stale note edits are refused. Booking contact consent never subscribes an organizer to marketing.
+
+Configure TLS SMTP in Email settings and verify an owner test with both the provider and receiving mailbox. Inspect Delivery queue for retries and uncertain acceptance. An uncertain message requires explicit duplicate-risk acknowledgement before retrying. Private settings and message bodies are encrypted; preserve the installation secret in your private config backup.
+
+Newsletter signup requires separate consent and a confirmation step. Export includes currently confirmed subscribers only. Use explicit unsubscribe to suppress future eligible messages; no marketing campaign composer is included. Read COMMUNICATION.md for quiet-site scheduled processing and the complete owner workflow.
+
 ## Not operational yet
 
-The booking page does not yet submit requests. Newsletter, customer accounts, inventory/orders and payment processing are not active in this checkpoint. The store explicitly states that no payments are collected. Full backup/restore/ZIP-upgrade tooling and delegated staff management remain later milestones.
+Customer accounts, inventory/orders and payment processing are not active in this checkpoint. The store explicitly states that no payments are collected. Full backup/restore/ZIP-upgrade tooling and delegated staff management remain later milestones.

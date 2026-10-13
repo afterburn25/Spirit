@@ -1,6 +1,6 @@
 # Security controls and verification boundaries
 
-Development version 0.1.0-dev.2; no security certification or production deployment is claimed.
+Development version 0.6.0-dev.1; no security certification or production deployment is claimed.
 
 ## Implemented controls
 
@@ -14,10 +14,12 @@ Deployment packaging includes known application paths only. Runtime files, custo
 
 ## Verified versus remaining
 
-CI run 38454993289 passed security-related unit/storage checks and real SQL/HTTP workflows on the two supported test combinations. Chromium smoke covered the real installer/admin at desktop/mobile widths. A successful smoke test does not constitute penetration testing or a complete accessibility/security audit.
+See TEST_RESULTS.md for exact commit/run evidence. Expanded tests cover SQL/HTTP forms, private content/media, subscription consent, encryption, TLS transport failures and desktop/mobile workflows. A successful smoke test does not constitute penetration testing or a complete accessibility/security audit.
 
 Remaining deployment reviews: Apache/LiteSpeed rule enforcement, all provider domain aliases, open_basedir/ownership restrictions, production TLS and explicitly trusted reverse proxies, early-DDL crash windows, and migration of existing dev.1 runtime. Never blindly trust X-Forwarded-Proto or accept an arbitrary public storage fallback.
 
-Later modules still need their own controls and tests: staff management, uploads/media delivery, email tokens, commerce, authenticated payment notifications, backup/restore and upgrades. Never mark those implemented merely because this foundation has authentication. No raw card storage; a payment-return URL will not be evidence of payment.
+Content/media authorization, validated uploads, encrypted communication settings/bodies, hashed expiring subscription tokens, CSRF-protected consent changes and durable inquiry/email recovery are implemented. Mail accepted by SMTP but not recorded successfully in the database is uncertain and cannot be automatically resent.
+
+Later modules still need their own controls and tests: delegated staff management, commerce, authenticated payment notifications, full backup/restore and ZIP upgrades. Never mark those implemented merely because this foundation has authentication. No raw card storage; a payment-return URL will not be evidence of payment.
 
 Errors must not expose credentials, private data or exception driver messages. Test databases are guarded by name/prefix and disposable; credentials in the CI workflow are deliberately test-only and must never be reused for production.

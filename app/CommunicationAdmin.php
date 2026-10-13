@@ -36,7 +36,7 @@ final class CommunicationAdmin
         $items=[];$total=0;$pages=1;$page=1;$status=is_string($_GET['status']??null)?$_GET['status']:'';$search=is_string($_GET['q']??null)?substr(trim($_GET['q']),0,100):'';
         if(in_array($section,['bookings','mail','subscribers'],true)){
             $table=Database::table(match($section){'bookings'=>'bookings','mail'=>'mail_queue',default=>'subscribers'});
-            $conditions=[];$parameters=[];$allowed=$section==='bookings'?array_keys(Bookings::STATUSES):($section==='subscribers'?['pending','confirmed','unsubscribed']:['queued','sending','sent','retry','failed','uncertain']);
+            $conditions=[];$parameters=[];$allowed=$section==='bookings'?array_keys(Bookings::STATUSES):($section==='subscribers'?['pending','confirmed','unsubscribed']:['queued','sending','sent','retry','failed','uncertain','cancelled']);
             if(in_array($status,$allowed,true)){$conditions[]='status=?';$parameters[]=$status;}
             if($section==='bookings'&&$search!==''){$conditions[]='(name LIKE ? OR email LIKE ? OR reference LIKE ?)';$parameters=array_merge($parameters,array_fill(0,3,'%'.$search.'%'));}
             $where=$conditions?' WHERE '.implode(' AND ',$conditions):'';
@@ -50,7 +50,7 @@ final class CommunicationAdmin
     }
     private static function batchMessage(array $r): string
     {
-        return $r['waiting']?'Delivery is not configured. Messages remain safely queued.':'SMTP accepted '.$r['sent'].' message(s); '.$r['failed'].' failed/deferred; '.$r['uncertain'].' uncertain. Check the provider and mailbox.';
+        return $r['waiting']?'Delivery is not configured. Messages remain safely queued.':'SMTP accepted '.$r['sent'].' message(s); '.$r['failed'].' failed/deferred; '.$r['uncertain'].' uncertain; '.($r['cancelled']??0).' obsolete subscription message(s) cancelled. Check the provider and mailbox.';
     }
     private static function export(int $actor): never
     {

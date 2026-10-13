@@ -1,10 +1,10 @@
-# Browser installation — development build 0.1.0-dev.2
+# Browser installation — development build 0.6.0-dev.1
 
 Use an isolated staging domain or subfolder, not the existing live band website. Real root/subfolder installations now pass automated MySQL/MariaDB and Chromium tests, but actual shared-host ownership, access rules, aliases and TLS/proxies still need staging acceptance.
 
 ## Hosting target
 
-PHP 8.2+ with PDO MySQL and OpenSSL; MySQL/MariaDB; HTTPS; Apache/LiteSpeed honoring supplied access rules. No required SSH/root, Python or Node build on the shared server. Other server configurations require explicit equivalent access rules and their own verification.
+PHP 8.2+ with PDO MySQL, OpenSSL, fileinfo and GD; MySQL/MariaDB; HTTPS; Apache/LiteSpeed honoring supplied access rules. No required SSH/root, Python or Node build on the shared server. Other server configurations require explicit equivalent access rules and their own verification.
 
 Create an empty staging database/user through the hosting panel. Required privileges are the SELECT/INSERT/UPDATE/DELETE and schema privileges exercised by CREATE/ALTER/DROP probes and migrations. The application does not provision hosting accounts or retrieve control-panel credentials.
 
@@ -28,12 +28,14 @@ PHP cannot override provider ownership, ACL or open_basedir restrictions. Panel 
 
 ## Completion and self-deletion
 
-A filesystem operation lock prevents concurrent setup. Existing table prefixes are preserved. Recovery metadata supports retries with the same database configuration after an interrupted migration; switching databases/prefixes during recovery is rejected. MySQL DDL is not transactional. Additional early-DDL crash windows remain review items.
+A filesystem operation lock prevents concurrent setup. Existing table prefixes are preserved. Recovery metadata supports retries with the same database configuration after an interrupted migration; switching databases/prefixes during recovery is rejected. MySQL DDL is not transactional. The table-ownership sentinel also covers interruption between its CREATE and initial INSERT. Actual host interruption behavior remains a staging review item.
 
 The installed configuration and completion marker are published before cleanup. Cleanup targets only the application's fixed install directory and known files, refuses symlinks/unknown content, and verifies physical removal. When deletion is denied, the installer returns a locked response and owner administration offers a POST/CSRF-protected cleanup retry.
 
 Automated tests verified successful physical removal, denied deletion with retained lock, and successful owner retry after permission repair. This does not guarantee that a specific hosting provider permits deletion.
 
-## Existing installations / not yet available
+## Existing installations and communication setup
 
-Do not extract this build over dev.1 without reviewing docs/STORAGE.md: nested-document-root runtime placement changed. Preserve the old runtime and database; never erase state to bypass a prefix conflict. Automated upgrades, backup/restore and migration tooling are later milestones, not part of this development delivery. The full public site and payments are also not complete.
+Do not extract this build over dev.1 without reviewing docs/STORAGE.md: nested-document-root runtime placement changed. Preserve the old runtime and database; never erase state to bypass a prefix conflict. For supported account-private foundation installations, preserve all configuration, uploaded media and data when uploading reviewed code; sign in and use Admin > Database updates for the additive schema. The update creates the new tables without reinstalling or resetting content. Do not remove the private installation secret: SMTP credentials and queued message bodies depend on it.
+
+After updating, follow COMMUNICATION.md to configure SMTP, verify a real mailbox test and optionally set up the hosting-panel PHP queue schedule. Automated ZIP upgrades, full backup/restore, automatic legacy-runtime relocation and merchandise payments remain later work. TEST_RESULTS.md identifies the exact automated evidence; provider and host acceptance are separate.

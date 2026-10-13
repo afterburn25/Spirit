@@ -25,6 +25,7 @@ final class Communications
         $o['smtp_security']=Input::choice($input,'smtp_security',['starttls','tls'],'starttls');
         $o['smtp_user']=Input::text($input,'smtp_user',254);
         $o['from_name']=Input::text($input,'from_name',120,true);
+        if(preg_match('/[\x00-\x1f\x7f]/',$o['from_name'])){throw new InvalidArgumentException('The From name cannot contain control characters.');}
         foreach(['from_email','booking_email','public_email'] as $key){$value=Input::text($input,$key,190);$o[$key]=$value!==''?Security::email($value):'';}
         $password=$input['smtp_password']??'';
         if(!is_string($password)||strlen($password)>1000||str_contains($password,"\0")){throw new InvalidArgumentException('Invalid SMTP password.');}

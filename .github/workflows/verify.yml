@@ -67,6 +67,7 @@ jobs:
           python3 tests/content_integration.py
           python3 tests/communication_integration.py
           python3 tests/smtp_integration.py
+          python3 tests/mail_acceptance.py
       - name: Install test-only Chromium
         if: matrix.php == '8.4'
         run: |

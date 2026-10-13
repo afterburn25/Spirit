@@ -41,7 +41,7 @@ def main():
                     page.goto(current.base + 'admin/login.php')
                     page.locator('[name="email"]').fill(current.owner)
                     page.locator('[name="password"]').fill(current.password)
-                    page.get_by_role('button', name='Sign in').click()
+                    page.get_by_role('button', name='Enter backstage').click()
                     page.wait_for_url('**/admin/')
                     for route in ['admin/bookings/', 'admin/communication/', 'admin/mail/', 'admin/subscribers/']:
                         response = page.goto(current.base + route, wait_until='networkidle')
