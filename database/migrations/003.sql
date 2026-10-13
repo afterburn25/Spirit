@@ -20,9 +20,11 @@ CREATE TABLE IF NOT EXISTS `{{prefix}}bookings` (
  private_notes MEDIUMTEXT NOT NULL,
  assigned_to BIGINT UNSIGNED NULL,
  revision INT UNSIGNED NOT NULL DEFAULT 1,
+ notifications_queued TINYINT NOT NULL DEFAULT 0,
  created_at DATETIME NOT NULL,
  updated_at DATETIME NOT NULL,
- INDEX booking_status (status,created_at)
+ INDEX booking_status (status,created_at),
+ INDEX booking_notifications (notifications_queued,id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 CREATE TABLE IF NOT EXISTS `{{prefix}}subscribers` (
  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,

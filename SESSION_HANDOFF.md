@@ -1,22 +1,21 @@
 # Session handoff — resume here
 
-Repository **afterburn25/Spirit**, authoritative **main**, development checkpoint **0.5.0-dev.1**. Preserve AGENTS.md and the user's selected cinematic design. No more mockups, no native ticketing, no fake content, no broad permission changes or secrets in Git.
+Repository **afterburn25/Spirit**; authoritative **main**. Current work: **0.6.0-dev.1** on `work/booking-email-recovery`. Preserve AGENTS.md and the selected navy/gold/blue crowned-gorilla design. No new mockups, native ticketing, fake public content, secrets in Git, destructive reinstall or force-push.
 
-## Current work
+## Recovery and implementation
 
-The application now includes the selected public layout, structured owner CMS/media library, band/press/gallery pages, music/releases/local-audio player and shows/external ticket sellers, plus remaining installer ownership/path fixes and additive schema handling. The new source has expanded automated tests. **Read the newest Actions run before claiming it is verified.** Prior foundation green run 38456010840 applies only to the old code.
+The last claimed booking/email writes had not advanced main beyond 32e7d9ba / 0.5.0-dev.1. Recovered the actual saved e05075b tree into cc5a7be on a separate branch. Added notification-recovery state, queue deduplication/uncertainty controls, stale-subscription-message cancellation, TLS transport bounds/header folding and comprehensive new tests. VERSION is now 0.6.0-dev.1; this is not a final or production release.
 
-## Where to resume
+## Next actions
 
-1. Inspect live main, latest run, PROJECT_STATUS and TEST_RESULTS. Fix any regression instead of suppressing a test. Preserve concurrent changes; never force-push.
-2. Verify root/subfolder installation, sentinel CREATE-before-INSERT ownership recovery, older schema update, draft/public isolation, media access/ranges, music playback across navigation and every public route at 1440px/390px.
-3. Continue into booking + durable email queue + newsletter double opt-in/unsubscribe, then merchandise/accounts, sandbox-first Authorize.net, then maintenance/backup/upgrade hardening. Do not stop merely because high-resolution art or live provider credentials are not supplied.
-4. High-resolution art is not finished: Git contains a small reference thumbnail plus isolated gorilla crops from the approved original; prepare proper production assets without changing the selected identity. Do not label these as high-resolution master art or use the full concept as a clickable website.
-5. Staff delegation, full pagination, revision restoration/archive UI, event structured data, final metadata/redirects, accessibility and measured performance still need work. Publish only approved actual content.
-6. Keep documentation honest: describe implemented, automated-tested, provider/host-blocked and pending separately. No accepted 1.0 tag or live deployment without approval.
+1. Inspect live branch/main and the exact newest verification run. Fix regressions; do not skip tests, weaken CSP or claim another commit's green checks. Merge/fast-forward only the tested recovery head and preserve concurrent changes.
+2. Run all SQL/HTTP suites on PHP8.2/MariaDB11.4 and PHP8.4/MySQL8.4, real loopback SMTP certificate/failure tests, Chromium installer/public/audio and communication journeys at 1440px/390px. Inspect the synthetic screenshot artifact.
+3. Record verified commit/run/jobs and remaining provider/host boundaries in TEST_RESULTS and status. Deliver an immutable cumulative full ZIP and separate private setup receipt after verification; do not publish the setup receipt in GitHub artifacts.
+4. Continue into 0.7 merchandise/catalog/variants/stock/cart/customer accounts, then sandbox-first Authorize.net and orders, then full maintenance/backup/restore/ZIP-upgrade hardening. Do not claim money was taken or mail reached an inbox without evidence.
+5. Finish staff delegation, advanced CMS pagination/revision restoration, event metadata/redirects, accessibility and measured performance. High-resolution production artwork and actual band content still require a proper pass/approval.
 
-## Environment
+## Environment and safety
 
-GitHub connector reads/writes work. Local network clone failed and local PHP lacks pdo_mysql/GD; real DB/browser validation runs in isolated GitHub Actions. No production secrets should be requested in chat. Host PHP cannot override ACLs or discover every arbitrary web-server alias. Legacy dev.1 runtime is detected and blocked rather than silently ignored, but automatic relocation is not claimed.
+Local Git clone has no DNS access and local PHP lacks pdo_mysql/GD. Retrieve tracked source via the source-artifact workflow, not an invented sandbox filename. New source artifacts run on main and the recovery branch. GitHub Actions provides disposable real database/browser validation. Test-only communication fixtures are CLI-guarded and refuse non-test databases; no executable tests enter the deployable ZIP.
 
-Each milestone is cumulative; packaging preserves private receipts, config/data/uploads and excludes executable test tooling from deployment. Existing installations use admin/updates.php for additive schema, not a destructive reinstall.
+Email is AUTH LOGIN over verified STARTTLS/implicit TLS. Queue processing after submission is a small best-effort shutdown batch, not a persistent daemon. Optional hosting-panel PHP schedule or owner queue action handles quiet-site retries; see docs/COMMUNICATION.md. No real production credentials, email delivery or payment verification occurred. Existing installations use admin/updates.php for additive schema; preserve private config including its encryption secret and all data/uploads.

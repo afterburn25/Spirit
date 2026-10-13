@@ -39,6 +39,7 @@ jobs:
       SPIRIT_DB_NAME: spirit_ci
       SPIRIT_DB_USER: spirit_ci
       SPIRIT_DB_PASSWORD: ephemeral-ci-user-not-production
+      SPIRIT_SCREENSHOT_DIR: ${{ runner.temp }}/spirit-screenshots
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -55,6 +56,7 @@ jobs:
           php tests/storage.php
           php tests/foundation_paths.php
           php tests/content_schema.php
+          php tests/communication_unit.php
           python3 -m py_compile tools/package.py tests/*.py
           python3 tests/package_test.py
       - name: Database and HTTP integration
@@ -62,6 +64,8 @@ jobs:
           python3 tests/http_integration.py
           php tests/foundation_db.php
           python3 tests/content_integration.py
+          python3 tests/communication_integration.py
+          python3 tests/smtp_integration.py
       - name: Install test-only Chromium
         if: matrix.php == '8.4'
         run: |
@@ -74,3 +78,14 @@ jobs:
       - name: Rendered public pages and persistent playback
         if: matrix.php == '8.4'
         run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/public_browser.py'
+      - name: Rendered booking and communication workflows
+        if: matrix.php == '8.4'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/communication_browser.py'
+      - name: Preserve synthetic browser screenshots
+        if: always() && matrix.php == '8.4'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spirit-browser-${{ github.sha }}
+          path: ${{ runner.temp }}/spirit-screenshots/*.png
+          if-no-files-found: ignore
+          retention-days: 7

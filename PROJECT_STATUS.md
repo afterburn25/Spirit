@@ -1,24 +1,27 @@
 # Project status
 
-Updated 2026-10-13. Development checkpoint **0.5.0-dev.1**. The earlier 0.1.0-dev.2 foundation passed run 38456010840. The new integrated application below is awaiting its expanded CI results; do not carry the previous green check forward as proof of new code.
+Updated 2026-10-13. Development checkpoint **0.6.0-dev.1**. Recovery/verification branch: `work/booking-email-recovery`. Main was verified at `32e7d9ba68d4416e73b11acafb7617223408a097` / 0.5.0-dev.1 before this work. The prior answer's booking/email checkpoint had not reached main; saved tree e05075b was recovered for review, not treated as a release.
 
-## Added in this checkpoint
+## Implemented in this checkpoint
 
-- Durable sentinel ownership embedded in table CREATE, database-prefix advisory lock, non-destructive legacy-runtime detection and actionable hosting diagnostics.
-- Idempotent, checksum-recorded additive migrations and an owner-only schema update for existing foundation installations.
-- Real public Home, Music, release detail, Shows, event detail, Band, member, Media, Press, generic page and coordinated booking/merchandise state pages.
-- Structured owner editing with private drafts, immutable published snapshots, saved-draft preview, unpublish, revision history and optimistic conflict detection.
-- Private image/audio/PDF uploads, rights confirmation, MIME limits, image re-encoding, publication-based authorization and streamed audio ranges.
-- A persistent local-audio player, supported same-origin public navigation, photo dialog, responsive navigation and reduced-motion styling.
-- Published releases/tracks/streaming links and complete event years/timezones, upcoming/past archive, city filter and external venue ticket buttons with status-aware alternatives.
-- Approved reference thumbnail and two isolated artwork crops stored in Git. These are lower-resolution concept-derived assets, not final high-resolution artwork masters.
+- Public booking form, separate contact consent, session-bound private receipt, nonce deduplication, validation/rate limiting/honeypot and database-first saving.
+- Owner booking list/search/status filters/pagination, assignment to active owners, private notes and optimistic edit conflict protection.
+- Durable notification reconciliation after interrupted queue writes; idempotent encrypted outbox; TLS-only SMTP settings and owner test/queue controls.
+- Bounded transport deadline, verified certificates/hostnames, definite-failure retries/backoff, abandoned-worker uncertainty and explicit duplicate-risk acknowledgement.
+- Separate newsletter opt-in, hashed expiring confirmation tokens, explicit POST confirmation/unsubscribe, confirmed-only formula-safe CSV export and stale-message suppression.
+- Corrected browser audio polling without adding unsafe-eval or bypassing the site's Content Security Policy.
+- Reproducible communication unit, SQL/HTTP root/subfolder/upgrade, real loopback TLS SMTP and desktop/mobile browser tests.
 
-## Verification status
+## Preserved cumulative functionality
 
-Expanded schema/path/SQL/HTTP/media/publishing and Chromium desktop/mobile/player suites are included. Await the run for this commit before reporting new pass counts. No live hosting, real payment or production email test is claimed.
+Organized shared-host browser installer, private runtime/ownership locks, safe cleanup, owner auth, additive schema ledger, selected public design, structured drafts/published snapshots/previews, media authorization/upload/ranges, band/press/gallery, releases/local player and external-ticket shows. Nothing is reset or replaced with mockup-only pages.
 
-## Still to build or finish
+## Verification
 
-Booking submissions, newsletter confirmation/unsubscribe and transactional email; merchandise/accounts/cart and Authorize.net; delegated staff permissions; polished maintenance/backup/restore/ZIP upgrades; event structured data, redirects and final search/accessibility/performance acceptance; high-resolution production artwork and genuine band content. Lists currently cap at 1000 items and advanced revision restore/archive UI is not implemented.
+The new checkpoint is awaiting its exact CI results. See docs/TEST_RESULTS.md. Previous successful tests do not establish success for recovered or changed code. No production mail, payment, hosting, artwork approval or complete security/accessibility acceptance is claimed.
 
-Actual shared-host Apache/TLS/alias/ownership acceptance and safe legacy-runtime migration remain separate checks. Detection refuses an unsafe fresh install; it does not claim automatic legacy migration. The original image file itself is not in Git; the derived reference thumbnail is. No final v1.0 release or user acceptance has occurred.
+## Remaining
+
+Merchandise/catalog/accounts/cart and Authorize.net; delegated staff management; complete backup/restore and browser ZIP upgrades; advanced CMS pagination/revision restoration; final metadata/redirects/event structured data; measured performance and full accessibility/security acceptance. Current artwork consists of modest-resolution approved-reference crops, not finished master art.
+
+Email supports password-based AUTH LOGIN over STARTTLS or implicit TLS, not every provider authentication method. Newsletter campaigns are not implemented. Configured credentials are not verified inbox delivery. Preserve the private installation secret with database backups. Actual host aliases/TLS/ACL/open_basedir and legacy-runtime migration need staging verification. No final v1.0 acceptance has occurred.
