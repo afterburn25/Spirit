@@ -1,0 +1,4 @@
+DirectoryIndex index.php
+<FilesMatch "^(?:access\.php|README\.md)$">
+Require all denied
+</FilesMatch>

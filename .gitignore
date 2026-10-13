@@ -1,0 +1,16 @@
+/dist/
+/build/
+/vendor/
+/install/access.php
+/config/local.php
+/storage/*
+!/storage/.htaccess
+!/storage/README.md
+/uploads/*
+!/uploads/.htaccess
+!/uploads/README.md
+.env
+*.log
+*.sql.gz
+__pycache__/
+/test-results/
