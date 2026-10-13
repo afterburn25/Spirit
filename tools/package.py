@@ -1,63 +1,103 @@
 #!/usr/bin/env python3
-"""Build a cumulative shared-host ZIP with a unique installer claim code.
+"""Build a full shared-host deployment ZIP and a separate private setup receipt.
 
-Run on a development machine, never on the shared host. The private receipt is
-outside the ZIP and must not be committed or uploaded to the public website.
+Development machine only. Shared hosting requires neither Python nor SSH.
+Only known deployment paths are included; runtime files/test tools stay out.
 """
 from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
+import re
 import secrets
 import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXCLUDE = {'.git', '.github', '__pycache__', 'dist', 'build', 'test-results', 'vendor'}
+DIRECTORIES = {'app','admin','includes','config','database','storage','uploads','views','assets','images','install','docs','music','shows','band','media','booking','press','shop','account'}
+ROOT_FILES = {'.htaccess','index.php','VERSION','README.md','CHANGELOG.md'}
+PRIVATE_SUFFIXES = {'.log','.zip','.pem','.key','.p12','.pfx','.sqlite','.sqlite3','.bak','.gz'}
+
+def eligible(source: Path, destination: Path) -> bool:
+    relative = source.relative_to(ROOT)
+    if not source.is_file() or any((ROOT / Path(*relative.parts[:i])).is_symlink() for i in range(1,len(relative.parts)+1)):
+        return False
+    if source.is_relative_to(destination):
+        return False
+    if len(relative.parts) == 1:
+        return relative.name in ROOT_FILES
+    if relative.parts[0] not in DIRECTORIES:
+        return False
+    if any(part in {'.git','__pycache__','vendor','node_modules'} for part in relative.parts):
+        return False
+    if source.name.startswith('.env') or 'PRIVATE-SETUP' in source.name.upper() or source.suffix.lower() in PRIVATE_SUFFIXES:
+        return False
+    if relative.as_posix() == 'install/access.php':
+        return False
+    if relative.parts[0] in {'config','storage','uploads'}:
+        return len(relative.parts)==2 and source.name in {'.htaccess','README.md'}
+    if source.suffix.lower()=='.sql' and relative.parts[:2] != ('database','migrations'):
+        return False
+    return True
 
 def package(destination: Path) -> tuple[Path, Path]:
-    version = (ROOT / 'VERSION').read_text().strip()
+    destination = destination.resolve()
+    version = (ROOT/'VERSION').read_text().strip()
+    if not re.fullmatch(r'\d+\.\d+\.\d+(?:-[A-Za-z0-9]+(?:[.-][A-Za-z0-9]+)*)?',version):
+        raise ValueError('Invalid application version.')
+    if destination == ROOT or (destination.is_relative_to(ROOT) and destination.relative_to(ROOT).parts[0] in DIRECTORIES):
+        raise ValueError('Choose an output directory outside deployable source folders.')
     destination.mkdir(parents=True, exist_ok=True)
-    archive = destination / f'Spiritual-Gorillaz-{version}-Full.zip'
-    receipt = destination / f'Spiritual-Gorillaz-{version}-PRIVATE-SETUP.txt'
+    archive = destination/f'Spiritual-Gorillaz-{version}-Full.zip'
+    receipt = destination/f'Spiritual-Gorillaz-{version}-PRIVATE-SETUP.txt'
     if archive.exists() or receipt.exists():
-        raise FileExistsError('Refusing to overwrite an existing versioned package or setup receipt.')
+        raise FileExistsError('Refusing to overwrite a versioned package or setup receipt.')
     code = secrets.token_urlsafe(32)
     digest = hashlib.sha256(code.encode()).hexdigest()
     manifest = {}
-    with zipfile.ZipFile(archive, 'x', compression=zipfile.ZIP_DEFLATED) as output:
-        for source in sorted(ROOT.rglob('*')):
-            relative = source.relative_to(ROOT)
-            if not source.is_file() or source.is_symlink() or any(p in EXCLUDE for p in relative.parts):
-                continue
-            if relative.as_posix() in ('install/access.php', 'config/local.php', '.env') or source.suffix in ('.log', '.zip'):
-                continue
-            if relative.parts[0] in ('storage', 'uploads', 'config') and source.name not in ('.htaccess', 'README.md'):
-                continue
-            body = source.read_bytes()
-            output.writestr(relative.as_posix(), body)
-            manifest[relative.as_posix()] = hashlib.sha256(body).hexdigest()
-        access = f"<?php declare(strict_types=1); return '{digest}';\n".encode()
-        output.writestr('install/access.php', access)
-        manifest['install/access.php'] = hashlib.sha256(access).hexdigest()
-        output.writestr('docs/PACKAGE-MANIFEST.json', json.dumps({'version':version, 'files':manifest}, indent=2))
-    receipt.write_text(
-        f'SPIRITUAL GORILLAZ — PRIVATE SETUP RECEIPT\nVersion: {version}\n\n'
-        f'Setup code: {code}\n\n'
-        'KEEP THIS FILE PRIVATE. Do not upload it to your website or commit it to Git.\n'
-        'Extract the Full ZIP into the intended website folder, including hidden .htaccess files.\n'
-        'Open https://YOUR-DOMAIN/YOUR-FOLDER/install/ and enter the code above.\n'
-        'Create the database/user in your hosting panel first. The installer creates its own private runtime.\n'
-        'See docs/INSTALLATION.md inside the ZIP. This development build is not the complete v1.0 website.\n', encoding='utf-8')
-    receipt.chmod(0o600)
-    return archive, receipt
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=ROOT/'dist')
-    arguments = parser.parse_args()
+    created_archive = created_receipt = False
     try:
-        archive, receipt = package(arguments.output.resolve())
-    except (OSError, ValueError) as error:
-        parser.exit(1, f'Packaging failed: {error}\n')
+        # Reserve both outputs exclusively; never replace another build's files.
+        fd = os.open(receipt,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
+        created_receipt = True
+        with os.fdopen(fd,'w',encoding='utf-8') as handle:
+            handle.write(f'SPIRITUAL GORILLAZ — PRIVATE SETUP RECEIPT\nVersion: {version}\n\nSetup code: {code}\n\n'
+                         'KEEP PRIVATE. Do not upload this receipt to the website or commit it to Git.\n'
+                         'Extract only the Full ZIP, including hidden .htaccess files.\n'
+                         'Open https://YOUR-DOMAIN/YOUR-FOLDER/install/ and enter the code above.\n'
+                         'Create an isolated database/user in the hosting panel first. See docs/INSTALLATION.md.\n'
+                         'This development build is not the complete v1.0 website.\n')
+            handle.flush(); os.fsync(handle.fileno())
+        with archive.open('xb') as handle:
+            created_archive = True
+            with zipfile.ZipFile(handle,'w',compression=zipfile.ZIP_DEFLATED) as output:
+                for source in sorted(ROOT.rglob('*')):
+                    if not eligible(source,destination):
+                        continue
+                    name = source.relative_to(ROOT).as_posix()
+                    body = source.read_bytes()
+                    output.writestr(name,body)
+                    manifest[name]=hashlib.sha256(body).hexdigest()
+                access=f"<?php declare(strict_types=1); return '{digest}';\n".encode()
+                output.writestr('install/access.php',access)
+                manifest['install/access.php']=hashlib.sha256(access).hexdigest()
+                output.writestr('docs/PACKAGE-MANIFEST.json',json.dumps({'version':version,'files':manifest},indent=2))
+            handle.flush(); os.fsync(handle.fileno())
+    except BaseException:
+        if created_archive:
+            archive.unlink(missing_ok=True)
+        if created_receipt:
+            receipt.unlink(missing_ok=True)
+        raise
+    return archive,receipt
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output',type=Path,default=ROOT/'dist')
+    args=parser.parse_args()
+    try:
+        archive,receipt=package(args.output)
+    except (OSError,ValueError) as error:
+        parser.exit(1,f'Packaging failed: {error}\n')
     print(f'ZIP: {archive}\nPrivate setup receipt: {receipt}')

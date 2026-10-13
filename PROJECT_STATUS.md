@@ -1,16 +1,21 @@
 # Project status
 
-Updated 2026-10-13. Development identifier: **0.1.0-dev.2**. Full milestone 0.1.0 is not yet promoted.
+Updated 2026-10-13. Version **0.1.0-dev.2**. The 0.1 foundation is now database/HTTP/browser-smoke verified, but is not yet an accepted release or a completed public website.
 
 ## Implemented
-Existing installer/owner-admin foundation plus account-level private runtime selection, known/explicit public-root checks, canonical-path/symlink refusal, private subdirectory IO probes, defensive deny rules, verified permissions before secret writes, and truthful unreadable/undeletable installer handling. Original 43 unit checks are isolated from real account runtime data; 26 new storage checks are added.
 
-GitHub Actions now runs real MySQL/MariaDB installation and HTTP account tests. Chromium smoke tests at 1440px and 390px are wired for actual installer/admin pages. They are not mockups or visual acceptance of the full public design.
+Organized PHP/MySQL source; guarded browser installer; owner account/authentication and basic administration; account-level private runtime selection; known/explicit public-root checks; canonical-path/symlink protections; real IO probes in private subdirectories; permission enforcement before secret writes; completion lock and safe installer deletion/retry; settings and password management.
 
-## Evidence
-Baseline CI syntax/original 43 checks passed. Baseline HTTP reached real database install and physical folder deletion, then stopped on a fixture URL expectation. That expectation has been corrected. All 26 new storage assertions passed locally as non-root. Full updated CI and browser outcomes are pending; see docs/TEST_RESULTS.md.
+Packaging now includes known deployment paths only, excludes test/build scripts and private/runtime data, protects separate setup receipts and refuses overwrites. Git contains executable unit, storage, package, SQL/HTTP and Chromium tests with an automated two-database matrix.
 
-## Still pending / blocked
-Shared-host and Apache/LiteSpeed acceptance, provider-specific proxy/TLS and account alias validation, package-output secrecy review, earlier DDL crash recovery, old-runtime migration verification, full release packaging and acceptance. The public page remains the temporary holding page. Approved design implementation and all features from 0.2.0 through 1.0.0 remain planned. No live deployment, payments, email delivery, visual sign-off, accepted release or binary moodboard commit is claimed.
+## Verified
 
-GitHub writes work. Continue from current main and update the handoff and evidence before ending each session.
+Run **38454993289** on commit **aa01c32bb5b9450579880b8d2372e5582a38c161** passed PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4. Original 43 unit and 26 storage checks passed; real root/subfolder installation, owner workflows, cleanup denial/retry and migration recovery passed. Chromium smoke passed at desktop/phone widths on PHP 8.4. The additional 10 package tests passed locally and are included in the next matrix revision; see docs/TEST_RESULTS.md for exact evidence.
+
+## Remaining
+
+Before promoting 0.1: additional DDL-crash boundary review, legacy-runtime migration safety, real Apache/hosting access-rule and TLS/alias validation, and staged package acceptance. Unknown hosting restrictions must fail safely, not claim permissions can be bypassed.
+
+The public site is still the temporary holding page. The approved design binary is not yet committed. Versions 0.2 through 1.0 remain the fixed next milestones; no content/payment/email/backup feature is falsely marked complete. No live deployment, real payments, production email delivery or owner acceptance is claimed.
+
+GitHub writes work. Main plus SESSION_HANDOFF.md and the evidence files are the continuation source of truth.
