@@ -9,11 +9,13 @@ use Spirit\{Paths,Database,MailQueue};
 $c=Paths::config();
 if(!$c||!preg_match('/^spirit_ci(?:_[a-z0-9]+)?$/D',$c['db']['name'])||!preg_match('/^sgci_[a-f0-9]{8}_$/D',$c['db']['prefix'])||$c['db']['prefix']!==getenv('SPIRIT_DB_PREFIX')){throw new RuntimeException('Refusing non-test database.');}
 function check(bool $ok,string $label):void{if(!$ok){throw new RuntimeException($label);}echo 'PASS '.$label."\n";}
-$db=Database::connect();$table=Database::table('mail_queue');$trigger=Database::table('fixture_receipt_failure');
+$db=Database::connect();$table=Database::table('mail_queue');$constraint=Database::table('fixture_receipt_failure');
 $id=MailQueue::enqueue('fixture@example.test','Synthetic receipt failure','<p>Test only.</p>','fixture:receipt-failure');
 $sent=0;$sender=static function(array $message)use(&$sent):void{$sent++;};
+// Enforced by both tested database engines. Requires only existing table ALTER
+// privileges, not a global SUPER grant or a relaxed binary-log configuration.
+$db->exec('ALTER TABLE '.$table.' ADD CONSTRAINT '.$constraint." CHECK (status <> 'sent')");
 try{
-    $db->exec("CREATE TRIGGER ".$trigger." BEFORE UPDATE ON ".$table." FOR EACH ROW BEGIN IF NEW.status='sent' THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='Synthetic receipt write failure'; END IF; END");
     $r=MailQueue::process(1,5,$sender);
     check($r['uncertain']===1&&$r['sent']===0&&$sent===1,'Accepted message with failed database receipt is uncertain, not retryable');
     $q=$db->prepare('SELECT status,last_error FROM '.$table.' WHERE id=?');$q->execute([$id]);$row=$q->fetch();
@@ -22,6 +24,6 @@ try{
     check($sent===1,'A second worker pass cannot resend an accepted message with an uncertain receipt');
     $rejected=false;try{MailQueue::retry($id,1);}catch(RuntimeException $e){$rejected=true;}
     check($rejected,'Database-receipt uncertainty still requires explicit duplicate-risk acknowledgement');
-}finally{$db->exec('DROP TRIGGER IF EXISTS '.$trigger);}
+}finally{$db->exec('ALTER TABLE '.$table.' DROP CONSTRAINT '.$constraint);}
 MailQueue::retry($id,1,true);$r=MailQueue::process(1,5,$sender);
 check($r['sent']===1&&$sent===2,'Explicitly acknowledged retry works after the database fault is repaired');
