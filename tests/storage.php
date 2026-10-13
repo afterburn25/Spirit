@@ -6,6 +6,7 @@ umask(0077);
 $base = sys_get_temp_dir() . '/spirit-storage-' . bin2hex(random_bytes(8));
 mkdir($base,0700); mkdir($base.'/home',0700); mkdir($base.'/home/public_html',0700); mkdir($base.'/home/public_html/addon',0700);
 define('SPIRIT_ROOT', $base.'/home/public_html/addon');
+require dirname(__DIR__).'/app/HostingException.php';
 require dirname(__DIR__).'/app/Paths.php';
 require dirname(__DIR__).'/app/Filesystem.php';
 use Spirit\{Paths,Filesystem};
@@ -22,7 +23,6 @@ $runtime=Paths::runtime();
 test('Addon runtime is placed at account level, not beside nested document root', fn()=>dirname($runtime)===$home && !Paths::within($runtime,$home.'/public_html'));
 test('Primary public_html is recognized when current root is an addon', fn()=>in_array($home.'/public_html',Paths::publicRoots($home),true));
 test('Configured public base is rejected', function() use($home) { putenv('SPIRIT_ACCOUNT_HOME='.$home.'/public_html'); $ok=denied(fn()=>Paths::accountHome()); putenv('SPIRIT_ACCOUNT_HOME='.$home); return $ok; });
-// The explicit list covers unusual account aliases not known by convention.
 test('Host-declared alternate public root is honored', function() use($base,$home) { putenv('SPIRIT_PUBLIC_ROOTS='.$home); $ok=denied(fn()=>Paths::accountHome()); putenv('SPIRIT_PUBLIC_ROOTS'); return $ok; });
 test('Invalid host-declared public root fails closed', function() use($base) { putenv('SPIRIT_PUBLIC_ROOTS='.$base.'/missing'); $ok=denied(fn()=>Paths::runtime()); putenv('SPIRIT_PUBLIC_ROOTS'); return $ok; });
 test('Symlink account base is rejected', function() use($base,$home) { symlink($home,$base.'/alias'); putenv('SPIRIT_ACCOUNT_HOME='.$base.'/alias'); $ok=denied(fn()=>Paths::runtime()); putenv('SPIRIT_ACCOUNT_HOME='.$home); return $ok; });
