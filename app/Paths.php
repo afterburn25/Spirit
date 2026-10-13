@@ -9,14 +9,10 @@ final class Paths
     public static function documentRoot(): string
     {
         $path = realpath((string)($_SERVER['DOCUMENT_ROOT'] ?? ''));
-        if (!$path || $path === DIRECTORY_SEPARATOR) { throw new RuntimeException('A valid document root is required.'); }
+        if (!$path || $path === DIRECTORY_SEPARATOR) { throw new HostingException('A valid public document root is required. The host must supply DOCUMENT_ROOT for this website.'); }
         return rtrim($path, DIRECTORY_SEPARATOR);
     }
-    public static function within(string $path, string $parent): bool
-    {
-        return $path === $parent || str_starts_with($path, rtrim($parent, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR);
-    }
-    /** Host configuration only. Never accept a path from a request or HTTP header. */
+    public static function within(string $path, string $parent): bool { return $path === $parent || str_starts_with($path, rtrim($parent, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR); }
     private static function hostSetting(string $key): string
     {
         $value = getenv($key);
@@ -25,71 +21,57 @@ final class Paths
     }
     public static function publicRoots(?string $accountHome = null): array
     {
-        $roots = [self::documentRoot()];
-        $publicNames = ['public_html','www','htdocs','httpdocs','public','web'];
-        for ($ancestor = self::documentRoot(); $ancestor !== DIRECTORY_SEPARATOR; $ancestor = dirname($ancestor)) {
-            if (in_array(basename($ancestor), $publicNames, true)) { $roots[] = $ancestor; }
-        }
+        $roots = [self::documentRoot()]; $publicNames = ['public_html','www','htdocs','httpdocs','public','web'];
+        for ($ancestor = self::documentRoot(); $ancestor !== DIRECTORY_SEPARATOR; $ancestor = dirname($ancestor)) { if (in_array(basename($ancestor), $publicNames, true)) { $roots[] = $ancestor; } }
         $context = $_SERVER['CONTEXT_DOCUMENT_ROOT'] ?? '';
         if (is_string($context) && $context !== '' && ($real = realpath($context))) { $roots[] = $real; }
         $configured = self::hostSetting('SPIRIT_PUBLIC_ROOTS');
         if ($configured !== '') {
             foreach (explode(PATH_SEPARATOR, $configured) as $path) {
                 $real = realpath($path);
-                if (!$real || !is_dir($real)) { throw new RuntimeException('A host-configured public root is invalid.'); }
+                if (!$real || !is_dir($real)) { throw new HostingException('A host-configured public root is invalid. Check SPIRIT_PUBLIC_ROOTS in the hosting configuration.'); }
                 $roots[] = $real;
             }
         }
-        if ($accountHome !== null) {
-            foreach ($publicNames as $name) {
-                $path = realpath($accountHome . '/' . $name);
-                if ($path && is_dir($path)) { $roots[] = $path; }
-            }
-        }
+        if ($accountHome !== null) { foreach ($publicNames as $name) { $path = realpath($accountHome . '/' . $name); if ($path && is_dir($path)) { $roots[] = $path; } } }
         return array_values(array_unique($roots));
     }
     public static function accountHome(): string
     {
-        $configured = self::hostSetting('SPIRIT_ACCOUNT_HOME');
-        $candidates = [];
+        $configured = self::hostSetting('SPIRIT_ACCOUNT_HOME'); $candidates = [];
         if ($configured !== '') { $candidates[] = [$configured, true]; }
         else {
-            if (function_exists('posix_geteuid') && function_exists('posix_getpwuid')) {
-                $account = posix_getpwuid(posix_geteuid());
-                if (is_array($account) && !empty($account['dir'])) { $candidates[] = [$account['dir'], false]; }
-            }
-            $home = getenv('HOME');
-            if (is_string($home) && $home !== '') { $candidates[] = [$home, false]; }
+            if (function_exists('posix_geteuid') && function_exists('posix_getpwuid')) { $account = posix_getpwuid(posix_geteuid()); if (is_array($account) && !empty($account['dir'])) { $candidates[] = [$account['dir'], false]; } }
+            $home = getenv('HOME'); if (is_string($home) && $home !== '') { $candidates[] = [$home, false]; }
         }
         foreach ($candidates as [$candidate, $explicit]) {
             $home = realpath($candidate);
             if (!$home || !is_dir($home) || $home === DIRECTORY_SEPARATOR || is_link($candidate) || rtrim($candidate, DIRECTORY_SEPARATOR) !== $home) {
-                if ($explicit) { throw new RuntimeException('The configured account-private base must be an existing canonical directory, not a symlink.'); }
-                continue;
+                if ($explicit) { throw new HostingException('The configured account-private base must be an existing canonical directory, not a symlink.'); } continue;
             }
-            // Inferred process homes must actually contain this application.
-            // An explicit host-managed private mount may be elsewhere.
             if (!$explicit && !self::within(self::root(), $home)) { continue; }
-            foreach (self::publicRoots($home) as $public) {
-                if (self::within($home, $public)) { throw new RuntimeException('The account-private base is inside a configured public root.'); }
-            }
+            foreach (self::publicRoots($home) as $public) { if (self::within($home, $public)) { throw new HostingException('The account-private base is inside a configured public root. Select a private hosting-account directory instead.'); } }
             return $home;
         }
-        throw new RuntimeException('Cannot verify an account-private base. The hosting configuration must provide SPIRIT_ACCOUNT_HOME outside all public roots. No public-storage fallback is allowed.');
+        throw new HostingException('Cannot verify an account-private base. The hosting configuration must provide SPIRIT_ACCOUNT_HOME outside all public roots. No public-storage fallback is allowed.');
     }
     public static function runtime(): string
     {
-        $home = self::accountHome();
-        $runtime = $home . '/.spirit-' . substr(hash('sha256', self::root()), 0, 20);
-        foreach (self::publicRoots($home) as $public) {
-            if (self::within($runtime, $public)) { throw new RuntimeException('Runtime would be inside a public root.'); }
-        }
+        $home = self::accountHome(); $runtime = $home . '/.spirit-' . substr(hash('sha256', self::root()), 0, 20);
+        foreach (self::publicRoots($home) as $public) { if (self::within($runtime, $public)) { throw new HostingException('Runtime would be inside a public root. No credentials have been moved there.'); } }
         return $runtime;
     }
     public static function config(): ?array
     {
-        $path = self::runtime() . '/config.php';
-        if (!file_exists($path) && !is_link($path)) { return null; }
+        $runtime = self::runtime(); $path = $runtime . '/config.php';
+        if (!file_exists($path) && !is_link($path)) {
+            // Detect, but never execute or silently adopt, an older dev.1 config.
+            $legacy = dirname(self::documentRoot()) . '/.spirit-' . substr(hash('sha256', self::root()), 0, 20);
+            if ($legacy !== $runtime && (is_link($legacy) || is_file($legacy . '/config.php') || is_file($legacy . '/installed.lock') || is_file($legacy . '/pending.php'))) {
+                throw new HostingException('An earlier development installation was detected at the old runtime location. Existing configuration and data were left untouched. A verified private-runtime migration is required; this is not a fresh installation.');
+            }
+            return null;
+        }
         if (is_link(dirname($path)) || is_link($path) || !is_file($path)) { throw new RuntimeException('Private configuration must be a regular file, not a symlink.'); }
         if ((fileperms($path) & 0077) !== 0) { throw new RuntimeException('Private configuration permissions are too broad.'); }
         $data = require $path;
@@ -102,8 +84,7 @@ final class Paths
         $script = (string)($_SERVER['SCRIPT_NAME'] ?? '/index.php');
         $file = str_replace('\\', '/', (string)($_SERVER['SCRIPT_FILENAME'] ?? self::root() . '/index.php'));
         $relative = substr($file, strlen(str_replace('\\', '/', self::root())));
-        if ($relative !== '' && str_ends_with($script, $relative)) { $base = substr($script, 0, -strlen($relative)); }
-        else { $base = ''; }
+        $base = ($relative !== '' && str_ends_with($script, $relative)) ? substr($script, 0, -strlen($relative)) : '';
         if (!preg_match('#^(?:/[A-Za-z0-9_.~-]+)*$#D', $base) || str_contains($base, '..')) { throw new RuntimeException('Unsupported installation URL path.'); }
         return rtrim($base, '/');
     }

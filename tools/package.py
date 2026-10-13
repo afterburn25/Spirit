@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-"""Build a full shared-host deployment ZIP and a separate private setup receipt.
-
-Development machine only. Shared hosting requires neither Python nor SSH.
-Only known deployment paths are included; runtime files/test tools stay out.
+"""Build a cumulative shared-host ZIP and a separate PRIVATE setup receipt.
+Run on a development machine; the host requires neither Python nor SSH.
 """
 from __future__ import annotations
 import argparse
@@ -15,7 +13,7 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DIRECTORIES = {'app','admin','includes','config','database','storage','uploads','views','assets','images','install','docs','music','shows','band','media','booking','press','shop','account'}
+DIRECTORIES = {'app','admin','includes','config','database','storage','uploads','views','assets','images','install','docs','music','shows','band','media','booking','press','shop','account','pages'}
 ROOT_FILES = {'.htaccess','index.php','VERSION','README.md','CHANGELOG.md'}
 PRIVATE_SUFFIXES = {'.log','.zip','.pem','.key','.p12','.pfx','.sqlite','.sqlite3','.bak','.gz'}
 
@@ -58,7 +56,6 @@ def package(destination: Path) -> tuple[Path, Path]:
     manifest = {}
     created_archive = created_receipt = False
     try:
-        # Reserve both outputs exclusively; never replace another build's files.
         fd = os.open(receipt,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600)
         created_receipt = True
         with os.fdopen(fd,'w',encoding='utf-8') as handle:
@@ -67,7 +64,7 @@ def package(destination: Path) -> tuple[Path, Path]:
                          'Extract only the Full ZIP, including hidden .htaccess files.\n'
                          'Open https://YOUR-DOMAIN/YOUR-FOLDER/install/ and enter the code above.\n'
                          'Create an isolated database/user in the hosting panel first. See docs/INSTALLATION.md.\n'
-                         'This development build is not the complete v1.0 website.\n')
+                         'This development build is not the complete accepted v1.0 website.\n')
             handle.flush(); os.fsync(handle.fileno())
         with archive.open('xb') as handle:
             created_archive = True

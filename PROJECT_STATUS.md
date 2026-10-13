@@ -1,19 +1,24 @@
 # Project status
 
-Updated 2026-10-13. Development version **0.1.0-dev.2**. Latest tested application/package commit **cb1ce92a4af133e5a9c86fcfd7dce281af4ee336**; both jobs in Actions run **38456010840** succeeded. The documentation checkpoint that follows changes no executable code.
+Updated 2026-10-13. Development checkpoint **0.5.0-dev.1**. The earlier 0.1.0-dev.2 foundation passed run 38456010840. The new integrated application below is awaiting its expanded CI results; do not carry the previous green check forward as proof of new code.
 
-## Implemented and verified
+## Added in this checkpoint
 
-Organized PHP/MySQL source, guarded browser installer, initial owner and basic administration, account-level private runtime selection, known/explicit public-root checks, path/symlink protection, actual IO probes in private subdirectories, restrictive permissions before secret writes, independent completion lock, safe installer removal and owner cleanup retry, settings and password/session management.
+- Durable sentinel ownership embedded in table CREATE, database-prefix advisory lock, non-destructive legacy-runtime detection and actionable hosting diagnostics.
+- Idempotent, checksum-recorded additive migrations and an owner-only schema update for existing foundation installations.
+- Real public Home, Music, release detail, Shows, event detail, Band, member, Media, Press, generic page and coordinated booking/merchandise state pages.
+- Structured owner editing with private drafts, immutable published snapshots, saved-draft preview, unpublish, revision history and optimistic conflict detection.
+- Private image/audio/PDF uploads, rights confirmation, MIME limits, image re-encoding, publication-based authorization and streamed audio ranges.
+- A persistent local-audio player, supported same-origin public navigation, photo dialog, responsive navigation and reduced-motion styling.
+- Published releases/tracks/streaming links and complete event years/timezones, upcoming/past archive, city filter and external venue ticket buttons with status-aware alternatives.
+- Approved reference thumbnail and two isolated artwork crops stored in Git. These are lower-resolution concept-derived assets, not final high-resolution artwork masters.
 
-Packaging includes known deployment paths only, excludes test/build scripts and private/runtime data, protects the separate setup receipt and refuses overwrites. Git retains executable tests and the automated matrix.
+## Verification status
 
-**43 unit + 26 storage + 10 package tests passed**, plus real SQL/HTTP root/subfolder/recovery workflows on PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4. Chromium smoke passed on PHP 8.4 at 1440px and 390px. See docs/TEST_RESULTS.md for exact scope, run and job evidence.
+Expanded schema/path/SQL/HTTP/media/publishing and Chromium desktop/mobile/player suites are included. Await the run for this commit before reporting new pass counts. No live hosting, real payment or production email test is claimed.
 
-## Not complete yet
+## Still to build or finish
 
-The 0.1 milestone still needs remaining restart/early-DDL edge-case review, legacy-runtime migration safety, graceful diagnostics for unusual host layouts, Apache/actual-host TLS/alias/ownership validation, and final staged package acceptance. Unknown provider restrictions must fail safely, not pretend they can be bypassed.
+Booking submissions, newsletter confirmation/unsubscribe and transactional email; merchandise/accounts/cart and Authorize.net; delegated staff permissions; polished maintenance/backup/restore/ZIP upgrades; event structured data, redirects and final search/accessibility/performance acceptance; high-resolution production artwork and genuine band content. Lists currently cap at 1000 items and advanced revision restore/archive UI is not implemented.
 
-The public site is still a temporary holding page. The approved design image binary has not yet been committed. Versions 0.2 through 1.0 remain the fixed next milestones; no CMS/music/events/booking/store/payment/backup feature is falsely marked complete. No live deployment, real transaction, production email delivery, final release or owner acceptance is claimed.
-
-GitHub read/write works. Main, AGENTS.md, SESSION_HANDOFF.md, design lock, roadmap and evidence are the continuation source of truth.
+Actual shared-host Apache/TLS/alias/ownership acceptance and safe legacy-runtime migration remain separate checks. Detection refuses an unsafe fresh install; it does not claim automatic legacy migration. The original image file itself is not in Git; the derived reference thumbnail is. No final v1.0 release or user acceptance has occurred.

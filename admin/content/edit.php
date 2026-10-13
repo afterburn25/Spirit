@@ -1,0 +1,21 @@
+<?php
+declare(strict_types=1);
+require dirname(__DIR__,2).'/includes/bootstrap.php';
+$user=Spirit\ContentAdmin::boot();$kind=is_string($_GET['kind']??null)?$_GET['kind']:'page';$id=max(0,(int)($_GET['id']??0));$error=null;
+try{$fields=Spirit\ContentSchema::fields($kind);}catch(InvalidArgumentException $e){http_response_code(400);exit('Unknown content section.');}
+$item=$id?Spirit\Content::get($id):null;if($id&&(!$item||$item['kind']!==$kind)){http_response_code(404);exit('Content not found.');}
+$values=$item?array_merge($item['data'],['title'=>$item['title'],'slug'=>$item['slug'],'sort_order'=>$item['sort_order'],'revision'=>$item['revision']]):['sort_order'=>0,'revision'=>0];
+if($_SERVER['REQUEST_METHOD']==='POST'){
+ Spirit\Security::checkPost();$values=$_POST;
+ try{$saved=Spirit\Content::save($kind,array_merge($_POST,['id'=>$id]),(int)$user['id'],post('action'));flash(match(post('action')){'publish'=>'Published. Referenced media is now publicly available.','unpublish'=>'Unpublished. Your draft is preserved.',default=>'Private draft saved. The current published version has not changed.'});go('admin/content/edit.php?kind='.$kind.'&id='.$saved);}catch(InvalidArgumentException|RuntimeException $e){$error=$e->getMessage();}
+}
+Spirit\View::start($id?'Edit '.$item['title']:'Add '.$kind,'admin',$kind,$user);
+?>
+<div class="page-heading"><div><p class="eyebrow">CONTENT / <?=e(Spirit\ContentSchema::kinds()[$kind])?></p><h1><?= $id?'Edit the':'Set the'?> <em>details.</em></h1></div><a class="text-link" href="<?=e(app_url('admin/content/?kind='.$kind))?>">← Back to list</a></div>
+<?php Spirit\View::notice($error);?>
+<form method="post" class="editor-layout"><?=csrf_field()?><input type="hidden" name="revision" value="<?=e($values['revision']??0)?>"><div class="panel stack"><label>Title<input name="title" value="<?=e($values['title']??'')?>" maxlength="180" required></label><label>URL name<input name="slug" value="<?=e($values['slug']??'')?>" pattern="[a-z0-9][a-z0-9-]{0,89}" maxlength="90" placeholder="Generated from title when empty"></label>
+<?php foreach($fields as $key=>$definition):?><div class="field-stack"><?php Spirit\ContentAdmin::field($key,$definition,$values[$key]??'');?></div><?php endforeach;?></div>
+<aside class="panel editor-actions"><p class="eyebrow">PUBLISHING</p><h2>Keep control.</h2><p>Draft changes do not alter the published page. Publishing makes its selected files public too.</p><label>Sort order<input type="number" name="sort_order" value="<?=e($values['sort_order']??0)?>" min="-100000" max="100000"></label><p class="small muted">Lower numbers appear first.</p><button class="button wide" name="action" value="save">Save private draft</button><button class="button outline wide" name="action" value="publish">Publish approved content</button>
+<?php if($id):?><a class="button outline wide" target="_blank" rel="noopener" href="<?=e(app_url('admin/content/preview.php?id='.$id))?>">Preview saved draft ↗</a><?php endif;?>
+<?php if($item&&$item['is_published']):?><button class="text-button" name="action" value="unpublish">Remove from public site</button><?php endif;?><p class="small muted">Only use approved names, photographs, music, dates and documents. Save before previewing.</p></aside></form>
+<?php Spirit\View::end();?>

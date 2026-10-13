@@ -1,27 +1,23 @@
 # Spiritual Gorillaz
 
-Authoritative repository: **afterburn25/Spirit**, branch **main**.
+Authoritative repository: **afterburn25/Spirit**, branch **main**. Read AGENTS.md, PROJECT_STATUS.md, SESSION_HANDOFF.md and docs/ROADMAP.md before changing anything.
 
-## Current state
+## Current development checkpoint
 
-**0.1.0-dev.2** is a working development foundation, not the accepted 0.1.0 milestone or the complete website. It contains the browser installer, private runtime provisioning, owner authentication, basic administration, editable holding-page settings, installation diagnostics and reproducible tests.
+**0.5.0-dev.1** integrates the installer foundation with the approved visual direction, structured owner content management, protected media, band/press/gallery pages, releases and local audio, and shows with external venue ticket links. This is a cumulative development checkpoint, **not an accepted 0.5 or 1.0 release**. Newly added workflows have an expanded CI suite; consult the current run and docs/TEST_RESULTS.md rather than assuming every test passed.
 
-GitHub Actions run **38454993289** passed on PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4, including real packaged root/subfolder installs and HTTP owner workflows. Chromium installer/admin smoke checks passed at 1440px and 390px on the PHP 8.4 job. This is not live shared-host acceptance or approval of the final public design. See docs/TEST_RESULTS.md for commit-specific evidence and later package checks.
+No invented band identities, releases, performances, products, orders or testimonials are seeded. Empty states are intentional until approved content is entered. Booking and merchandise pages are styled but do not yet submit inquiries or accept payments. Staff delegation, communications, commerce and complete maintenance tooling remain further work.
 
-The public page is still a temporary holding page. Do not deploy this over the existing live band website.
+## Deployment
 
-## Fixed scope
+PHP 8.2+, PDO MySQL, OpenSSL, fileinfo and GD; MySQL/MariaDB; HTTPS; Apache/LiteSpeed rules as documented. No host-side Node, Composer, Python, SSH or root requirement. Browser installer and initial owner account; real private-storage probes; permanent lock and safe installer-folder removal attempt.
 
-PHP/MySQL shared-hosting band website, full administration and the approved black/deep-navy, gold, blue-stage-lighting and crowned-gorilla design. Music, shows, band, media, booking, press kit and merchandise remain the agreed feature roadmap. Shows use external venue ticket-seller URLs; native tickets are excluded. Merchandise payments are planned separately with Authorize.net, sandbox first. No more mockups or unrequested redesigns.
+On a development machine: `python3 tools/package.py --output ./dist`. It creates a cumulative deployment ZIP and a **separate private setup receipt**. Upload/extract only the ZIP. Keep the receipt and all credentials out of Git and the website. Source archives deliberately have no setup code. Existing foundation installations use the owner-only additive database update, never reinstall.
 
-Read AGENTS.md, PROJECT_STATUS.md, SESSION_HANDOFF.md, docs/ROADMAP.md, docs/DESIGN_LOCK.md, docs/INSTALLATION.md and docs/SECURITY.md before changing code.
+## Verification
 
-## Development and packaging
+`php tests/run.php`, `php tests/storage.php`, `php tests/foundation_paths.php`, `php tests/content_schema.php`, and `python3 tests/package_test.py` are local checks. SQL/HTTP/browser tests require the isolated environment in `.github/workflows/verify.yml`. Their fixtures refuse non-test databases and run without root. CI never deploys or contacts a live payment provider.
 
-Application target: PHP 8.2+ with PDO MySQL and OpenSSL. Run `php tests/run.php`, `php tests/storage.php`, `python3 tests/package_test.py` and lint PHP source. Run permission tests as non-root. Disposable database/HTTP and Chromium instructions are in docs/CI.md.
+## Design
 
-On a development checkout, `python3 tools/package.py --output ./dist` creates one cumulative deployment ZIP and a separate PRIVATE setup receipt. Python/SSH are not needed on the shared host. The receipt must never be uploaded or committed. Source checkouts deliberately have no usable installer claim key.
-
-Packaging includes only known deployment paths; excludes test tools, runtime/customer data, local configs, setup receipts, symlinks and output folders; and refuses to overwrite existing versioned artifacts. Tests and build tools remain in Git, not in the deployment ZIP.
-
-Private runtime uses a validated account-level base, not merely the parent of the current document root. See docs/STORAGE.md for host configuration, addon domains and legacy development-runtime migration. No automatic production upgrade is available yet. Never remove configuration or locks to reinstall.
+The selected black/navy, gold, blue-lighting and crowned-gorilla direction is fixed. The original concept is not a clickable screenshot. See docs/DESIGN_LOCK.md for source-art provenance and the current low-resolution reference-crop limitation. See docs/OWNER_GUIDE.md for content and publication workflows.

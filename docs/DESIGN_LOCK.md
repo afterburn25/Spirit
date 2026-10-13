@@ -1,17 +1,19 @@
 # Approved visual design — locked
 
-The user selected the FIRST cinematic Spiritual Gorillaz composite, later uploaded as `Spiritual Gorillaz Website Concept Moodboard.png`. They explicitly said **no more mockups**. Build this visual direction, not the later six-concept alternatives.
+The user selected the FIRST cinematic Spiritual Gorillaz composite, reuploaded as **Spiritual Gorillaz Website Concept Moodboard.png**, and explicitly said **no more mockups**. Do not substitute the six-concept alternatives or another project.
 
-Reference SHA-256: `4e76c31eadeb7720701c7d8bd94f484824eb5eb9dd4ba04479393914efad033e`.
+Original image SHA-256: `4e76c31eadeb7720701c7d8bd94f484824eb5eb9dd4ba04479393914efad033e`. Original dimensions: 1214 × 1295. The original PNG is a conversation attachment, not a tracked repository file.
 
-The image binary is not yet in this repository. It was supplied as a conversation attachment. Do not invent a Git asset path or pretend to have inspected it in a future session. Retrieve the approved attachment/reference before pixel-level implementation; do not ask for another concept round.
+## Tracked reference and assets
 
-## Preserve
-Black and deep navy backgrounds; crowned-gorilla identity; refined gold branding, typography accents and controls; blue stage lighting; cinematic imagery. Coordinated Home, Music, Shows, Band, Booking, Merch and mobile treatments. Interior and account/checkout screens must belong to the same design family.
+- `design/approved-reference-thumbnail.webp`: a derived 300-pixel-wide thumbnail of the selected composite. It preserves the overall reference, not its small text detail. It does NOT have the original PNG hash.
+- `images/gorilla-hero.webp`: isolated crown/gorilla/blue-light artwork crop from the chosen homepage panel, trimmed to avoid interface fragments.
+- `images/gorilla-music.webp`: isolated headphone-wearing gorilla artwork crop from the chosen music-page panel.
 
-Use real responsive HTML/CSS and actual interactions. Never use the full screenshot as a page background with invisible hit targets. Separate desktop/mobile artwork crops and focal points. No autoplay audio. Respect reduced motion. Keep genuine content readable and navigation clear.
+These crops are modest-resolution reference assets. Do not present them as final high-resolution production masters. They are separate art assets under real HTML/CSS, never a flattened full website screenshot with hit targets. Preserve the chosen composition while replacing them with appropriately prepared master art when available.
 
-Concept member names/portraits, tracks, releases, events, prices and products are unapproved examples. Do not publish them as real band facts. No invented testimonials, sales or metrics.
+## Visual contract
 
-## Current source boundary
-The dark/gold installer, admin shell and public holding page are a foundation only. The chosen full public website, crowned-gorilla production assets and responsive image system remain v0.2.0 work. The holding page must not be misrepresented as the delivered redesign.
+Black/deep navy, gold branding and controls, blue stage lighting, crowned-gorilla identity, large editorial headings, consistent interior/account/checkout styling. Public implementation is in assets/css/public.css and views/public. Admin and installer retain a matching dark-and-gold family with readable forms/tables.
+
+Separate image focal points, real buttons/forms, responsive navigation, no autoplay audio, reduced-motion support and keyboard-visible focus. Concept names, portraits, tracks, shows, prices and products remain unapproved examples. Only owner-published approved content belongs on the actual site.

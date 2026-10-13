@@ -1,17 +1,15 @@
 <?php
 declare(strict_types=1);
-require dirname(__DIR__) . '/includes/bootstrap.php';
-$user = Spirit\Auth::requireOwner();
-$db = Spirit\Database::connect();
-$owners = (int)$db->query('SELECT COUNT(*) FROM ' . Spirit\Database::table('users') . ' WHERE active=1')->fetchColumn();
-$events = $db->query('SELECT action,created_at FROM ' . Spirit\Database::table('audit') . ' ORDER BY id DESC LIMIT 6')->fetchAll();
-$cleanup = !file_exists(Spirit\Paths::root() . '/install');
-Spirit\View::start('Overview', 'admin', 'dashboard', $user);
+require dirname(__DIR__).'/includes/bootstrap.php';
+$user=Spirit\Auth::requireOwner();$db=Spirit\Database::connect();$ready=Spirit\Migrations::ready();
+$activity=$db->query('SELECT action,created_at FROM '.Spirit\Database::table('audit').' ORDER BY id DESC LIMIT 8')->fetchAll();
+$cleanup=!file_exists(Spirit\Paths::root().'/install');$counts=['release'=>0,'event'=>0,'page'=>0];
+if($ready){$q=$db->query('SELECT kind,COUNT(*) AS total FROM '.Spirit\Database::table('content').' WHERE published_json IS NOT NULL AND deleted_at IS NULL GROUP BY kind');foreach($q as $row){$counts[$row['kind']]=(int)$row['total'];}}
+Spirit\View::start('Overview','admin','dashboard',$user);
 ?>
-<div class="page-heading"><div><p class="eyebrow">BACKSTAGE / OVERVIEW</p><h1>Welcome back, <em><?= e($user['name']) ?>.</em></h1><p class="lead">Your website foundation is connected. Here is what is ready today.</p></div><a class="button secondary" href="<?= e(app_url('admin/settings.php')) ?>">Edit website settings</a></div>
-<?php Spirit\View::notice(); ?>
-<div class="stats"><article class="stat"><span>DATABASE</span><strong>Connected</strong><p>Real connection verified</p></article><article class="stat"><span>ACTIVE ACCOUNTS</span><strong><?= $owners ?></strong><p>From your database</p></article><article class="stat"><span>INSTALLER</span><strong><?= $cleanup ? 'Removed' : 'Locked' ?></strong><p><?= $cleanup ? 'Directory no longer exists' : 'Review cleanup in installation health' ?></p></article></div>
-<div class="content-grid"><section class="panel"><div class="section-title"><h2>Foundation is in place</h2><span class="pill">v<?= e(Spirit\Paths::version()) ?></span></div><p>Owner authentication, editable website settings, private runtime storage, the browser installer and cleanup diagnostics are implemented in this development build.</p><div class="notice info">The complete public design, music, shows, booking and store are not implemented yet. No sample sales or fabricated activity are shown.</div><a class="button" href="<?= e(app_url('admin/roadmap.php')) ?>">View the release roadmap →</a></section>
-<section class="panel"><h2>Recent activity</h2><div class="activity"><?php if (!$events): ?><p class="muted">No activity recorded yet.</p><?php endif; foreach ($events as $event): ?><div><strong><?= e(str_replace('.', ' · ', $event['action'])) ?></strong><span><?= e($event['created_at']) ?> UTC</span></div><?php endforeach; ?></div></section></div>
-<section class="panel next-module"><div><p class="eyebrow">NEXT MILESTONE / v0.2.0</p><h2>The approved design. Built for real.</h2><p>Black and navy, gold controls, blue lighting and the crowned-gorilla identity. The selected visual direction stays fixed.</p></div><span class="status-dot">PLANNED</span></section>
-<?php Spirit\View::end(); ?>
+<div class="page-heading"><div><p class="eyebrow">BACKSTAGE / OVERVIEW</p><h1>Welcome back, <em><?=e($user['name'])?>.</em></h1><p class="lead">Manage the music, the shows and the story behind your website.</p></div><a class="button" href="<?=e(app_url('admin/content/?kind=page'))?>">Manage website content</a></div>
+<?php Spirit\View::notice();if(!$ready):?><div class="notice error">The new content modules need an additive database update. <a href="<?=e(app_url('admin/updates.php'))?>">Open database updates</a>. Existing owner and website settings remain intact.</div><?php endif;?>
+<div class="stats"><article class="stat"><span>PUBLISHED RELEASES</span><strong><?=$counts['release']?></strong><p>Approved music in your database</p></article><article class="stat"><span>PUBLISHED SHOWS</span><strong><?=$counts['event']?></strong><p>Venue ticket links, not internal ticket sales</p></article><article class="stat"><span>INSTALLER</span><strong><?=$cleanup?'Removed':'Locked'?></strong><p><?=$cleanup?'Physical folder removal verified':'Review cleanup in installation health'?></p></article></div>
+<div class="content-grid"><section class="panel"><div class="section-title"><h2>Make the site your own</h2><span class="pill">v<?=e(Spirit\Paths::version())?></span></div><p>Upload approved artwork and photographs, add a release, publish a show, or introduce the band. Draft changes stay private until you publish them.</p><div class="button-row"><a class="button" href="<?=e(app_url('admin/media/'))?>">Upload media</a><a class="button secondary" href="<?=e(app_url('admin/content/edit.php?kind=event'))?>">Add a show</a></div><p class="small muted">Booking submission, newsletters and merchandise checkout remain later integration work. No fake customer activity or sales are displayed.</p></section><section class="panel"><h2>Recent activity</h2><div class="activity"><?php if(!$activity):?><p class="muted">No activity recorded yet.</p><?php endif;foreach($activity as $item):?><div><strong><?=e(str_replace('.',' · ',$item['action']))?></strong><span><?=e($item['created_at'])?> UTC</span></div><?php endforeach;?></div></section></div>
+<section class="panel"><h2>The selected design stays selected.</h2><p>The public website uses actual responsive components, an audio player and content from this administration area. Concept names, releases, shows and merchandise are not seeded as real band information.</p><a class="text-link" href="<?=e(app_url())?>" target="_blank" rel="noopener">Open the public website ↗</a></section>
+<?php Spirit\View::end();?>

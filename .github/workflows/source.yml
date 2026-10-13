@@ -1,0 +1,23 @@
+name: Source checkpoint artifact
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Archive tracked public source only
+        run: git archive --format=zip --output="$RUNNER_TEMP/Spirit-source.zip" HEAD
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spirit-source-${{ github.sha }}
+          path: ${{ runner.temp }}/Spirit-source.zip
+          if-no-files-found: error
+          retention-days: 3

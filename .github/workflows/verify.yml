@@ -1,4 +1,4 @@
-name: Installer and admin verification
+name: Website and installer verification
 on:
   push:
     branches: [main]
@@ -13,7 +13,7 @@ jobs:
   integration:
     name: PHP ${{ matrix.php }} / ${{ matrix.database }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -46,17 +46,22 @@ jobs:
       - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
         with:
           php-version: ${{ matrix.php }}
-          extensions: pdo_mysql, openssl, posix
+          extensions: pdo_mysql, openssl, posix, fileinfo, gd
           coverage: none
       - name: Syntax and permission-aware unit tests
         run: |
           find . -type f \( -name '*.php' -o -name '*.inc' \) -print0 | xargs -0 -n1 php -l
           php tests/run.php
           php tests/storage.php
-          python3 -m py_compile tools/package.py tests/http_integration.py tests/browser_smoke.py tests/package_test.py
+          php tests/foundation_paths.php
+          php tests/content_schema.php
+          python3 -m py_compile tools/package.py tests/*.py
           python3 tests/package_test.py
       - name: Database and HTTP integration
-        run: python3 tests/http_integration.py
+        run: |
+          python3 tests/http_integration.py
+          php tests/foundation_db.php
+          python3 tests/content_integration.py
       - name: Install test-only Chromium
         if: matrix.php == '8.4'
         run: |
@@ -66,3 +71,6 @@ jobs:
       - name: Rendered installer and admin smoke checks
         if: matrix.php == '8.4'
         run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/browser_smoke.py'
+      - name: Rendered public pages and persistent playback
+        if: matrix.php == '8.4'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/public_browser.py'
