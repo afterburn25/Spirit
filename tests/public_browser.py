@@ -9,6 +9,20 @@ from http_integration import build_package, expect, site
 from content_integration import seed_media_and_music, save_content
 
 
+def decoded_images(page, label: str):
+    # Real assets may be lazy-loaded below the viewport. Load and decode them
+    # explicitly; the empty lightbox's image has no src until it is opened.
+    failures = page.locator('img[src]').evaluate_all('''async images => {
+      return (await Promise.all(images.map(async image => {
+        image.loading = 'eager';
+        try { await image.decode(); }
+        catch { return image.getAttribute('src'); }
+        return image.naturalWidth > 0 ? null : image.getAttribute('src');
+      }))).filter(Boolean);
+    }''')
+    expect(failures == [], label + ': all sourced images decode ' + repr(failures))
+
+
 def main():
     if os.geteuid() == 0 or os.environ.get('SPIRIT_TESTING') != '1':
         raise RuntimeError('Use a non-root disposable database environment.')
@@ -33,7 +47,7 @@ def main():
                         expect(response.status == 200, f'Chromium {width}px renders {route or "home"}')
                         expect(page.locator('h1').count() == 1 and page.locator('h1').is_visible(), f'Chromium {width}px has a visible primary heading')
                         expect(page.evaluate('document.documentElement.scrollWidth <= window.innerWidth + 1'), f'Chromium {width}px has no horizontal page overflow')
-                        expect(page.locator('img').evaluate_all('(images) => images.every(image => image.complete && image.naturalWidth > 0)'), f'Chromium {width}px images decode successfully')
+                        decoded_images(page, f'Chromium {width}px {route or "home"}')
                     page.goto(current.base, wait_until='networkidle')
                     if width == 390:
                         page.locator('.nav-toggle').click()
