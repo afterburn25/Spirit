@@ -1,20 +1,21 @@
 # Session handoff — resume here
 
-Repository: afterburn25/Spirit; authoritative branch: main. Current development version: 0.1.0-dev.1. No accepted release or live deployment.
+Repository: afterburn25/Spirit. Authoritative branch: main. Development version remains 0.1.0-dev.1 while integration tests are being added; no accepted release or live deployment.
 
-## What happened
-The repository initially contained only AGENTS.md. A local installer/admin source draft existed but had not been committed. This change saves that draft, reproducible tests, the fixed project scope, roadmap and honest verification status. GitHub access has successfully supported writes; do not ask the user to reconnect or grant wider permissions without a new, actual permission failure.
+## Current work
+The existing installer/admin source has now been given an automated GitHub Actions test matrix: PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4. New real-database HTTP fixtures build a package and exercise root/subfolder installation, claim/CSRF/permission denial, installer cleanup, login, settings, password/session changes and interrupted-migration recovery. Execution is pending until Actions reports results. Do not equate source tests with passing tests.
 
-## First actions next session
-1. Read AGENTS.md, README.md, PROJECT_STATUS.md, docs/ROADMAP.md, docs/DESIGN_LOCK.md, docs/INSTALLATION.md, docs/SECURITY.md and docs/TEST_RESULTS.md from current main. Preserve concurrent changes; never force push.
-2. Provision a development-only PHP/pdo_mysql and MySQL/MariaDB test environment. Use isolated databases and temporary fake credentials, never request production secrets in chat.
-3. Run the unit suite as non-root, lint all PHP files, then add database and browser integration tests. Test both / and a subfolder URL; wrong claim code; CSRF rejection; non-owner denial; fresh installation; prefix conflicts; interrupted installation; owner login/logout/password rotation; settings persistence; lock enforcement; cleanup success and host denial.
-4. Review automatic private-runtime selection on realistic shared-host addon/subdomain layouts. A path outside this document root may be under another domain's web root. Do not claim the current algorithm proves account-wide privacy. Implement a safe verified strategy; never fall back to publicly exposed credentials or chmod 0777.
-5. Verify private sessions, HTTPS detection behind explicitly trusted hosting proxies, deletion permissions after panel extraction, and installation retry/crash states. Fix issues before calling 0.1.0 complete.
-6. Build and inspect a cumulative staging package, test its installer, and preserve the setup receipt privately. No live-site replacement without explicit deployment authorization.
-7. Commit the approved moodboard reference asset when practical, then implement v0.2.0 as real responsive HTML/CSS using its locked direction. Current public holding page is temporary, not the chosen design.
+The local execution environment lacks pdo_mysql and a database daemon, and its package/network retrieval attempt failed. GitHub connector reads/writes work. Do NOT ask the user to reconnect GitHub or grant broader access unless an actual new permission error occurs.
 
-## Non-negotiables
-Full admin, PHP/MySQL shared hosting, organized folders, browser installer with actual write tests and attempted safe self-deletion. Permanent lock remains when deletion is blocked. Venue ticket links only; merchandise payments separate and sandbox-first. No invented band content or metrics. No more mockups or unrequested redesigns. Preserve data/config/uploads during future supported upgrades.
+## Next steps
+1. Read AGENTS.md, README.md, PROJECT_STATUS.md, docs/ROADMAP.md, docs/DESIGN_LOCK.md, docs/INSTALLATION.md, docs/SECURITY.md and docs/TEST_RESULTS.md on current main.
+2. Inspect the newly triggered Actions run, read failed job logs, correct application/fixture issues, rerun and record exact evidence. Never force push.
+3. Fix runtime selection: a sibling of one document root can be public under another domain. Prefer validated account-home placement and fail closed on ambiguous hosts. Test multiple-domain layouts, explicit host configuration, symlinks and denied permissions.
+4. Verify config publication, completion and retry boundaries, including interruption after database DDL; maintain protection even when physical deletion is blocked.
+5. Add rendered-browser and Apache/hosting-rule acceptance; source HTTP tests are not equivalent. Build and inspect a cumulative staging package, keep its claim receipt private, and never replace the live site without deployment authorization.
+6. Commit the approved image reference, then implement the chosen public design at v0.2.0. The holding page is not the delivered redesign.
 
-Update status, handoff, changelog, roadmap and test evidence in every implementation commit. Track implemented, tested, untested and blocked separately. Do not label this draft 1.0.0.
+## Fixed boundaries
+Full owner admin; organized PHP/MySQL shared hosting; browser installer; actual IO probes; attempted safe folder deletion with independent permanent lock; external venue ticket links only; sandbox-first merchandise payments; no made-up band content; no more mockups. All later milestones remain pending.
+
+Every implementation session updates status, handoff, changelog, roadmap and test evidence. GitHub main is the source of truth.

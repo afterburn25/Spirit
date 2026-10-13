@@ -1,0 +1,57 @@
+name: Installer and admin verification
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  integration:
+    name: PHP ${{ matrix.php }} / ${{ matrix.database }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '8.2'
+            database: 'mariadb:11.4'
+          - php: '8.4'
+            database: 'mysql:8.4'
+    services:
+      database:
+        image: ${{ matrix.database }}
+        env:
+          MYSQL_ROOT_PASSWORD: ephemeral-ci-root-not-production
+          MYSQL_DATABASE: spirit_ci
+          MYSQL_USER: spirit_ci
+          MYSQL_PASSWORD: ephemeral-ci-user-not-production
+        ports:
+          - 3306:3306
+    env:
+      SPIRIT_TESTING: '1'
+      SPIRIT_DB_HOST: 127.0.0.1
+      SPIRIT_DB_PORT: '3306'
+      SPIRIT_DB_NAME: spirit_ci
+      SPIRIT_DB_USER: spirit_ci
+      SPIRIT_DB_PASSWORD: ephemeral-ci-user-not-production
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_mysql, openssl, posix
+          coverage: none
+      - name: Syntax and permission-aware unit tests
+        run: |
+          find . -type f -name '*.php' -print0 | xargs -0 -n1 php -l
+          php tests/run.php
+          python3 -m py_compile tools/package.py tests/http_integration.py
+      - name: Database and HTTP integration
+        run: python3 tests/http_integration.py
