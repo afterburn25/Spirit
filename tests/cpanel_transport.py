@@ -32,10 +32,14 @@ def main():
                     if mode=='unauthorized':self.send_response(401)
                     elif mode=='redirect':self.send_response(302);self.send_header('Location','https://cpanel.example.com:2083/steal')
                     else:self.send_response(200)
-                    self.send_header('Content-Type','application/json');self.end_headers()
                     data={'status':0 if mode=='reject' else 1,'data':None,'errors':['PRIVATE-PROVIDER-ERROR'] if mode=='reject' else None}
                     if mode=='wrapped':data={'apiversion':3,'module':'Mysql','func':'create_user','result':data}
                     content=b'bad' if mode=='malformed' else b'x'*1048577 if mode=='oversize' else json.dumps(data).encode()
+                    # A complete HTTP response has explicit framing. Otherwise a
+                    # bare TLS socket close is correctly treated as transport loss.
+                    self.send_header('Content-Type','application/json')
+                    self.send_header('Content-Length',str(len(content)))
+                    self.end_headers()
                     try:self.wfile.write(content)
                     except (OSError,ssl.SSLError):pass
             server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
