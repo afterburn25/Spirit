@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 require dirname(__DIR__,2).'/includes/bootstrap.php';
-$user=Spirit\ContentAdmin::boot();$kind=is_string($_GET['kind']??null)?$_GET['kind']:'page';
+$user=Spirit\ContentAdmin::boot('content.manage');$kind=is_string($_GET['kind']??null)?$_GET['kind']:'page';
 try {$items=Spirit\Content::listing($kind);$label=Spirit\ContentSchema::kinds()[$kind];}catch(InvalidArgumentException $e){http_response_code(400);exit('Unknown content section.');}
 Spirit\View::start($label,'admin',$kind,$user);
 ?>

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 require dirname(__DIR__,2).'/includes/bootstrap.php';
-$user=Spirit\ContentAdmin::boot();$error=null;
+$user=Spirit\ContentAdmin::boot('media.manage');$error=null;
 if($_SERVER['REQUEST_METHOD']==='POST'){
  Spirit\Security::checkPost();
  try{if(post('rights_confirmed')!=='1'){throw new InvalidArgumentException('Confirm that the band has permission to use this file.');}$id=Spirit\Media::upload(is_array($_FILES['file']??null)?$_FILES['file']:[],post('alt_text'),(int)$user['id']);flash('File #'.$id.' uploaded privately. Select it in a content item to use it.');go('admin/media/');}catch(InvalidArgumentException|RuntimeException $e){$error=$e->getMessage();}

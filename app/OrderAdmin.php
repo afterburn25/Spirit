@@ -8,13 +8,11 @@ final class OrderAdmin
 {
     private static function reauthenticate(int $actor): void
     {
-        RequestLimit::consume('owner-payment-confirm',8,900,(string)$actor);$password=password_input('owner_password');
-        $q=Database::connect()->prepare('SELECT password_hash FROM '.Database::table('users')." WHERE id=? AND role='owner' AND active=1");$q->execute([$actor]);$hash=$q->fetchColumn();
-        if(strlen($password)>72||str_contains($password,"\0")||!$hash||!password_verify($password,$hash)){throw new RuntimeException('Confirm your current owner password for this sensitive operation.');}
+        Auth::reauthenticateOwner($actor,password_input('owner_password'));
     }
     public static function render(string $view): void
     {
-        $user=ContentAdmin::boot();$actor=(int)$user['id'];$db=Database::connect();$error=null;$id=Input::integer($_GET,'id',0,PHP_INT_MAX,0);
+        $user=ContentAdmin::boot(in_array($view,['orders','view'],true)?'orders.view':'owner');if(!Permissions::allows($user,'owner')){OrderStaff::render($view,$user);return;}$actor=(int)$user['id'];$db=Database::connect();$error=null;$id=Input::integer($_GET,'id',0,PHP_INT_MAX,0);
         $titles=['orders'=>'Merchandise orders','view'=>'Order details','payments'=>'Payment configuration','policy'=>'Shipping, tax & store terms','webhooks'=>'Payment notifications'];
         if(!isset($titles[$view])){throw new RuntimeException('Unknown order screen.');}
         $order=$view==='view'?Orders::get($id):null;if($view==='view'&&!$order){http_response_code(404);exit('Order not found.');}

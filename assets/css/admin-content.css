@@ -5,6 +5,9 @@
 .roadmap-row .pill{width:fit-content;max-width:100%;white-space:normal}
 @media(max-width:800px){.roadmap-row{grid-template-columns:80px minmax(0,1fr)}.roadmap-row .pill{grid-column:2}}
 @media(max-width:480px){.roadmap-row{grid-template-columns:minmax(0,1fr);gap:8px}.roadmap-row .pill{grid-column:1}}
+
+.staff-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.staff-card{min-width:0;padding:20px;border:1px solid #2b3949;margin-block:12px}.staff-card p{overflow-wrap:anywhere}.staff-card .form-stack{max-width:100%}.honeypot{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}@media(max-width:700px){.staff-list{grid-template-columns:minmax(0,1fr)}.staff-card{padding:15px}}
+
 /* Long gateway labels and configured endpoint URLs must reflow on phones. */
 .payment-key-form,.payment-key-form>*{min-width:0}
 .payment-key-form .button{max-width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere}

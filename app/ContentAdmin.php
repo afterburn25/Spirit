@@ -4,7 +4,7 @@ namespace Spirit;
 
 final class ContentAdmin
 {
-    public static function boot(): array { $user=Auth::requireOwner();if (!Migrations::ready()) {go('admin/updates.php');}return $user; }
+    public static function boot(string $permission='owner'): array { $user=Auth::requirePermission($permission);if (!Migrations::ready()) {if(Permissions::allows($user,'owner')){go('admin/updates.php');}http_response_code(503);exit('An owner must apply the pending website update before staff can continue.');}return $user; }
     public static function field(string $key,array $definition,mixed $value): void
     {
         [$label,$type,$options]=$definition;$id='field-'.$key;

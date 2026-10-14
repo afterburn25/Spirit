@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 require dirname(__DIR__,2).'/includes/bootstrap.php';
-$user=Spirit\ContentAdmin::boot();$kind=is_string($_GET['kind']??null)?$_GET['kind']:'page';$id=max(0,(int)($_GET['id']??0));$error=null;
+$user=Spirit\ContentAdmin::boot('content.manage');$kind=is_string($_GET['kind']??null)?$_GET['kind']:'page';$id=max(0,(int)($_GET['id']??0));$error=null;
 try{$fields=Spirit\ContentSchema::fields($kind);}catch(InvalidArgumentException $e){http_response_code(400);exit('Unknown content section.');}
 $item=$id?Spirit\Content::get($id):null;if($id&&(!$item||$item['kind']!==$kind)){http_response_code(404);exit('Content not found.');}
 $values=$item?array_merge($item['data'],['title'=>$item['title'],'slug'=>$item['slug'],'sort_order'=>$item['sort_order'],'revision'=>$item['revision']]):['sort_order'=>0,'revision'=>0];

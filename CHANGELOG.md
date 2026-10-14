@@ -1,27 +1,19 @@
 # Changelog
 
-## 0.8.0-dev.1 — verified checkout and order workflows
+## 0.9.0-dev.1 — staff/access checkpoint (full verification pending)
 
-Applicationcd3d645bf031e7ab8cf2a7c32b44278e8bc8d89e passed38493194973 on both database engines and all five configured Chromium suites. Fixed an invalid AUTO_INCREMENT CHECK fault in the post-acceptance test and a genuine mobile gateway-settings overflow. Documentation-only descendant changes no application code. No real provider transaction or production acceptance claimed.
+Add explicit owner/content-editor/store-manager capabilities; server-side entry-point gates and scoped dashboard/sidebar; owner-password-confirmed email-first invitations, role/access changes and cancellations; hashed single-use expiration/recovery tokens and encrypted mail; last-owner protection, session revocation and stale credential race checks; fulfillment-only store access and searchable owner audit history. Add006 without rewriting001–005. Add38 unit and SQL/HTTP/upgrade/desktop/mobile staff tests. This checkpoint does not implement full backup/restore/browser upgrades.
 
-Additive005; guest/customer checkout, reviewed shipping/tax/terms, server totals, atomic stock holds, durable once-only charge/reversal state, token-only Accept.js form, encrypted environment-bound credentials, private receipts/history, signed durable notifications plus authenticated reporting, missing-receipt recovery, separate fulfillment/tracking and guarded full void/refund. No blind repeat of uncertain charges or automatic refund restock.58 payment units plus SQL/HTTP/concurrency/loopback-TLS/browser regression suites.54 synthetic screenshots,14 payment/order renders inspected. See PAYMENTS.md and TEST_RESULTS.md.
+## 0.8.0-dev.1 — verified checkout and orders
 
-## 0.7.0-dev.1 — verified merchandise/customer checkpoint
+Applicationcd3d645b passed38493194973 on both databases and all five browser suites. Fixed invalid AUTO_INCREMENT CHECK fault injection and genuine390px payment-settings overflow. Additive005, server totals/atomic stock holds, token-only Accept.js boundary, encrypted environment credentials, private receipts/history, reporting-based recovery, separate shipment tracking and guarded full reversals.54 synthetic renders;14 payment/order/admin screens inspected. No real provider transaction or final production acceptance claimed.
 
-Application6a9396f passed38483296156; exact-main9abe656 passed38484316285. Both database engines and four browser suites passed;40 synthetic renders. Additive004; categories/products/private drafts/published media, integer-cent variants/audited stock, browser-private server-priced bag, verified email-first activation/reset, session revocation and customer-bound US address book. Checkout remained closed in this historical checkpoint.
+## 0.7.0-dev.1
+
+Verified application6a9396f run38483296156 and exact-main9abe656 run38484316285. Catalog/categories/private product drafts/published images, integer-cent variants/audited stock, private bag and verified customer activation/recovery/address book.40 synthetic screenshots.
 
 ## 0.6.0-dev.1
 
-Applicationdd0db412 passed38479213942; exact-main6b00769 passed38479822564. Booking/consent/private receipts/inquiry management, durable notifications, encrypted TLS mail and uncertainty, confirmed newsletter/unsubscribe/export. Fixed CSP-compatible playback and phone roadmap overflow.
+Verified applicationdd0db412 run38479213942 and exact-main6b00769 run38479822564. Booking/inquiry management, durable encrypted email/recovery, newsletter consent/unsubscribe/export and persistent-audio browser correction.
 
-## 0.5.0-dev.1
-
-Selected real responsive pages, CMS/drafts/previews, protected media, band/gallery/press, releases/tracks/player and external-ticket shows. Installer ownership/config/additive-schema hardening. Reference art is not final master art.
-
-## 0.1.0-dev.2
-
-Account-private runtime/IO probes, cleanup denial/retry and protected packaging;cb1ce92a passed38456010840.
-
-## 0.1.0-dev.1
-
-Initial organized browser installer/owner admin, private storage and continuity docs. Historical detailed notes are retained in Git.
+Earlier .5 public/CMS/media/music/shows and .1 shared-host installer/admin foundations are preserved cumulatively. Detailed historical release notes remain in Git.

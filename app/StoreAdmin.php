@@ -9,7 +9,7 @@ final class StoreAdmin
 {
     public static function render(string $view): void
     {
-        $user=ContentAdmin::boot();$actor=(int)$user['id'];$db=Database::connect();$error=null;
+        $user=ContentAdmin::boot(in_array($view,['settings','customers'],true)?'owner':'store.manage');$actor=(int)$user['id'];$db=Database::connect();$error=null;
         $titles=['products'=>'Merchandise catalog','edit'=>'Product editor','variants'=>'Variants & inventory','categories'=>'Merchandise categories','settings'=>'Store settings','customers'=>'Customer accounts'];
         if(!isset($titles[$view])){throw new RuntimeException('Unknown store administration page.');}
         $id=Input::integer($_GET,'id',0,PHP_INT_MAX,0);$product=in_array($view,['edit','variants'],true)&&$id?Catalog::product($id):null;
