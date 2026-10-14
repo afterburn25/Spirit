@@ -8,6 +8,8 @@
 
 /* Selected thumbnail state is separate from keyboard focus; originals stay contained. */
 .product-photo{display:grid;place-items:center;text-decoration:none}
+.product-main,.product-photo{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+.product-main img,.product-photo img{min-width:0;min-height:0;max-height:100%}
 .product-photo[aria-current="true"]{border:2px solid #e7c775;padding:2px}
 .product-photo:focus-visible{outline:3px solid #f4dc9c;outline-offset:4px}
 .product-photo-status{min-height:3em;overflow-wrap:anywhere}

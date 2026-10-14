@@ -63,6 +63,16 @@ def photo(page, ids, index, dimensions):
         expect(state['srcset'] and all(urllib.parse.parse_qs(urllib.parse.urlsplit(c.strip().split()[0]).query)['id']==[str(ids[index])] for c in state['srcset'].split(',')),'Every responsive candidate belongs to selected image')
     else:
         expect(state['srcset'] is None,'Small-image selection removes the previous large-image srcset')
+    geometry=page.locator('.product-gallery').evaluate('''gallery => {
+      const main=gallery.querySelector('.product-main').getBoundingClientRect();
+      const boxes=[gallery.querySelector('.product-main img'),...gallery.querySelectorAll('.product-photo img')];
+      return {square:Math.abs(main.width-main.height)<=1, contained:boxes.every(image=>{
+        const box=image.getBoundingClientRect(),parent=image.parentElement.getBoundingClientRect();
+        return box.width>0&&box.height>0&&box.left>=parent.left&&box.top>=parent.top&&box.right<=parent.right+1&&box.bottom<=parent.bottom+1&&getComputedStyle(image).objectFit==='contain';
+      })};
+    }''')
+    expect(geometry['square'],'Portrait selection cannot expand the intended square gallery container')
+    expect(geometry['contained'],'Every main/thumbnail image stays inside its own container without cropping')
     return state
 
 
