@@ -1,25 +1,29 @@
-# Resume the single-page A2/cPanel installer
+# Resume here — cumulative one-page A2/cPanel installer
 
-Repository **afterburn25/Spirit**, authoritative **main**. Work branch `work/single-page-installer`, PR11, target **0.9.0-dev.8**. Read live refs, AGENTS.md, current status, CPANEL_INSTALLER.md and TEST_RESULTS.md before changing code. Preserve the approved design, original config/secret/media/business data, migrations001–006 and pinned recovery/access files.
+Repository **afterburn25/Spirit**, **main** authoritative. Version **0.9.0-dev.8**. Inspect live refs before writing; preserve concurrent changes. Read AGENTS.md, current status, CPANEL_INSTALLER.md and TEST_RESULTS.md. No force pushes, destructive reinstall, fabricated public content, alternative redesign, native ticketing or 20i.
 
-## Fixed latest decisions
+## Verified checkpoint
 
-The user explicitly removed the package setup code and requires checks, database/owner settings, correction and completion on one page. Hosting is **A2 with cPanel only, no20i**. Optional automatic database/user/random-password creation is integrated; existing-database mode remains. Do not reintroduce package activation or derive hosting from another user project.
+Application **b9d32849e9b556dbc2b6d4f2adb7526703b46562** passed full workflow **38560767553** and focused maintenance **38560767558**. Both database environments, all twelve Chromium workflows and actual Apache HTTPS checks passed. This final documentation-only descendant changes no runtime, assets, database migrations or tests.
 
-## Implementation
+No setup code, claim stage or PRIVATE-SETUP receipt. User explicitly requires hosting checks, database/owner configuration, corrections and completion on one page. A2/cPanel automatic creation and existing-DB options are implemented; do not reintroduce activation or confuse unrelated backup/update recovery keys with the removed setup code.
 
-CpanelClient allows fixed Mysql operations over verified HTTPS2083, validates/pins public IPv4 DNS, disables proxies/redirects and bounds payload/time. Token is request-only. CpanelProvisioner runs under the installer operation lock, reads restrictions/inventory, saves private0600 generated credentials/progress before mutation, and grants only necessary database-scoped privileges. No root/WHM/reset/delete/global-grant functions. Owner validation/consent precede provider writes. Confirmed steps survive retry; unknown mutations pause rather than re-create/adopt resources. Read the documented uncertainty and local-MySQL limits before modifying it.
+## Preserve
 
-Single-page result reports actual folder deletion versus retained locked files. No setup receipt/hash is packaged. Existing installations must update, not reinstall. Backup/update keys remain protected.
+CpanelClient supports six fixed Mysql calls over verified HTTPS on port 2083, bounded payload/time, public IPv4 DNS pinning, no redirects/proxies and request-only token handling. CpanelProvisioner saves generated credentials/progress privately before mutation under the install lock. Confirmed steps resume; unknown creation/grant results pause, never blindly repeat/adopt/reset/delete. Owner validation/consent precedes resource writes. No application root/WHM/global privilege interface exists.
 
-## Current testing gate
+Cumulative approved public site, CMS/history/discovery/media/music/external-ticket shows, booking/email/newsletter, merchandise/accounts/token-only checkout/orders, staff permissions, encrypted snapshots/guarded restore, same-schema code ZIP upgrades/pinned recovery and retention remain. Keep original private encryption secret, config, media, business data, immutable migrations 001–006 and pinned access/recovery files.
 
-56 cPanel units, syntax checks and12 packaging tests passed locally. Full new CI pending. Added actual loopback cURL TLS/POST tests; guarded CLI-only cPanel simulation with real newly created dedicated SQL databases/users; fresh/rejected/unknown/migration scenarios at root/subfolder. Only the isolated simulator uses a disposable SQL administrator. CI blocks external cPanel networking. No user A2 account, real provider credentials, inbox or merchant transaction has been used.
+## Evidence and corrected regressions
 
-The initial baseline dev8 run38553237171 passed syntax/packaging and actual Apache HTTPS but failed a missing-directory404 expectation after successful installer deletion. PHP's development server falls back to its parent index. Tests now check the missing PHP file is404, no setup form returns, and replay cannot duplicate an owner; do not weaken production access rules. Run all cumulative SQL/browser/Apache suites, including one-page1440/390/320px and no-JS, inspect form/automatic-choice/completion screenshots, and record exact successful results before promoting main.
+498 pure assertions, 12 packaging tests, both SQL/HTTP environments, nine real loopback cPanel TLS cases, eight simulated-UAPI/real-dedicated-SQL cases, twelve Chromium workflows and Apache HTTPS passed. Installer checks include 1440 / 390 / 320 px and no-JavaScript, actual deletion/retained locks/replay safety, corrections and owner sign-in. Eleven installer screenshots inspected at a0f0f380 / artifact 11891257992; later changed runtime is only public audio timing, not installer layout.
 
-## Next steps
+Corrected incomplete TLS test-response framing without relaxing production transport checks. PHP 8.4 CLI-server missing-file lookup can return the actual public homepage; tests now enforce missing files, no reopened setup, unchanged config/lock hashes and one owner rather than a universal 404. Actual Apache rules remain separately tested. The later narrow-player race required native metadata/time rendering and observable-state browser waits, not fake playback or weaker assertions/CSP.
 
-Resolve any exact CI failures without suppressing assertions. Complete documentation consistency (INSTALLATION, SECURITY, TEST_RESULTS, LAUNCH_CHECKLIST, changelog/roadmap) and remove stale instructions that present historical setup keys as current requirements. Preserve historical evidence as historical. Promote only reviewed verified code, compare canonical tracked source, then generate an immutable cumulative Full ZIP with no PRIVATE-SETUP. Actual A2 token/port/naming/quota/ACL acceptance remains separate; never claim simulation is that acceptance.
+## Next work and delivery
 
-After dev8, continue remaining populated-site quality, production artwork/content, host/mail/merchant staging and owner acceptance from LAUNCH_CHECKLIST. No accepted1.0 yet. Local container cannot resolve network and lacks pdo_mysql/GD/cURL/ZIP; real integration runs in Actions. Source artifacts are available for canonical-byte comparison; do not invent sandbox links.
+Use the cumulative dev8 baseline, not an earlier setup-code package. The packager emits only the versioned Full ZIP; no PRIVATE-SETUP. Existing installations must follow reviewed upgrade paths, not create a new DB. Preserve backup/update recovery keys. Fresh setup is open until completion: install promptly or use cPanel Directory Privacy.
+
+Complete actual A2 token, TLS/port 2083, quota, naming and ACL acceptance on protected staging, then real mailbox and merchant sandbox, approved master artwork/content, broader populated-site accessibility/performance/security review and owner approval. No actual hosting account, mailbox or merchant transaction was used in CI. Do not enable live payments or claim accepted 1.0 without those gates.
+
+Local PHP lacks pdo_mysql/GD/cURL/ZIP; real integration is in Actions. Test-only cPanel SQL administrator is scoped to a disposable test step and never passed to application code. The source artifact is not itself application verification. Keep exact test evidence and all continuity docs current after each session.

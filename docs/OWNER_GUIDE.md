@@ -1,6 +1,12 @@
-# Owner guide — cumulative 0.9.0-dev.7
+# Owner guide — cumulative 0.9.0-dev.8
 
 Sign in with the owner created during browser installation. No public administrator signup/default password exists. Back up before updates and preserve the private installation secret. See INSTALLATION.md for fresh versus existing installations.
+
+## Fresh installation on A2 Hosting / cPanel
+
+Use the one-page browser installer for a new deployment only. No package setup code or PRIVATE-SETUP receipt is required. Select an existing database or authorize automatic cPanel database/user creation with the account's server hostname, username and short-lived API token. The installer generates the database password and saves it privately; it does not retain the cPanel token. Enter the token only into the HTTPS installer and revoke it after use. See CPANEL_INSTALLER.md for supported account settings and partial/uncertain outcomes.
+
+Checks, database/owner details, corrections and the completion result remain on the same page. The result distinguishes actual installer-folder deletion from a retained, permanently locked directory. Use **Open administration** after completion. Install promptly after uploading or use cPanel Directory Privacy while unattended. An already installed website must follow the upgrade instructions instead; never create a new database to replace its existing data.
 
 ## Content, music and media
 

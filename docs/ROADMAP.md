@@ -1,10 +1,10 @@
 # Cumulative roadmap
 
-Current **0.9.0-dev.8 implementation** is the user-requested code-free single-page installer with optional **A2/cPanel** database creation. No20i. Exact new full verification pending; prior dev7 evidence is retained in TEST_RESULTS.md and MEDIA_QUALITY_CHECKPOINT.md. Preserve approved design, private data, immutable migrations and external ticket sellers.
+Current **0.9.0-dev.8** includes the user-requested code-free single-page installer with optional **A2/cPanel** database creation. No 20i. Full workflow **38560767553** passed for application **b9d32849e9b556dbc2b6d4f2adb7526703b46562**; see TEST_RESULTS.md. Preserve the approved design, private data, immutable migrations and external ticket sellers.
 
 | Target | Scope | Current state |
 |---|---|---|
-| 0.1 | One-page code-free installer, automatic/existing DB, private runtime, owner, self-deletion/lock | Implemented changes; new verification pending and actual A2 acceptance remains. |
+| 0.1 | One-page code-free installer, automatic/existing DB, private runtime, owner, self-deletion/lock | Implemented and full matrix verified; actual A2 account acceptance remains. |
 | 0.2 | Approved responsive website design | Implemented; production artwork and real-content review remain. |
 | 0.3 | CMS, media, band, press and private revision history | Implemented and tested, including pagination and append-only private restoration. |
 | 0.4 | Music library and persistent audio | Implemented and browser-tested, with keyboard refinements. |
