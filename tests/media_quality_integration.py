@@ -23,8 +23,11 @@ def photograph(width=1800, height=1200):
     for y in range(height):
         row=bytearray(b'\0')
         for x in range(width):
-            grain=((x*73)^(y*151)^((x*y)>>3))&63
-            row.extend(((x//7+grain)&255,(y//5+grain)&255,(x//11+y//13+grain)&255,0 if x<48 or y<48 else 255))
+            # Keep the upload below PHP's common 2MB default without changing
+            # that limit. Pixel dimensions and alpha still exercise real resizing.
+            xx,yy=x//4,y//4
+            grain=((xx*73)^(yy*151)^((xx*yy)>>3))&63
+            row.extend(((xx//7+grain)&255,(yy//5+grain)&255,(xx//11+yy//13+grain)&255,0 if x<48 or y<48 else 255))
         rows.append(row)
     def chunk(kind, payload):return struct.pack('>I',len(payload))+kind+payload+struct.pack('>I',zlib.crc32(kind+payload)&0xffffffff)
     return b'\x89PNG\r\n\x1a\n'+chunk(b'IHDR',struct.pack('>IIBBBBB',width,height,8,6,0,0,0))+chunk(b'IDAT',zlib.compress(b''.join(rows),6))+chunk(b'IEND',b'')
