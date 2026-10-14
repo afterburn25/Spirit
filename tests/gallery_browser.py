@@ -9,6 +9,7 @@ import json
 import secrets
 import struct
 import tempfile
+import time
 import urllib.request
 import urllib.parse
 import zlib
@@ -50,11 +51,18 @@ def photo(page, ids, index, dimensions):
     links=page.locator('.product-photo')
     browser_expect(links.nth(index)).to_have_attribute('aria-current','true')
     expect(page.locator('.product-photo[aria-current]').count()==1,'Exactly one photograph is selected')
-    state=page.locator('.product-main-image').evaluate('''async image => {
-      await image.decode(); return {src:image.currentSrc, srcset:image.getAttribute('srcset'),
-        width:image.getAttribute('width'),height:image.getAttribute('height'),alt:image.alt,
-        fit:getComputedStyle(image).objectFit,complete:image.complete,naturalWidth:image.naturalWidth};
-    }''')
+    # A page-disabled JavaScript context must not depend on a Promise callback
+    # in the document. Poll native image state synchronously with a hard limit.
+    deadline=time.monotonic()+15
+    while True:
+        state=page.locator('.product-main-image').evaluate("""image => ({
+          src:image.currentSrc,srcset:image.getAttribute('srcset'),
+          width:image.getAttribute('width'),height:image.getAttribute('height'),alt:image.alt,
+          fit:getComputedStyle(image).objectFit,complete:image.complete,naturalWidth:image.naturalWidth
+        })""")
+        if state['complete'] and state['naturalWidth']>0:break
+        if time.monotonic()>deadline:raise AssertionError('Native image did not load: '+repr(state))
+        time.sleep(.05)
     expect(urllib.parse.parse_qs(urllib.parse.urlsplit(state['src']).query)['id']==[str(ids[index])],'Browser actually displays selected media, not stale responsive candidate')
     expect(state['complete'] and state['naturalWidth']>0 and state['fit']=='contain','Selected photograph decodes and is not cropped or stretched')
     expect((int(state['width']),int(state['height']))==dimensions[index],'Selected image carries its own intrinsic dimensions')
