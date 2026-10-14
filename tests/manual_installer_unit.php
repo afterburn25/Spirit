@@ -43,7 +43,7 @@ namespace {
         check($rejected, 'Retired automatic fields cannot reach a manual installation');
     }
     foreach (['CpanelClient','CpanelProvisioner','CpanelRejected'] as $name) {
-        check(!is_file(dirname(__DIR__).'/app/'.$name.'.php') && !class_exists('Spirit\\'.$name), 'Retired hosting API class is absent: '.$name);
+        check(is_file(dirname(__DIR__).'/app/'.$name.'.php') && !class_exists('Spirit\\'.$name), 'Inert upgrade-compatibility path exposes no retired hosting API class: '.$name);
     }
     echo $checks . " manual-installer checks passed.\n";
 }
