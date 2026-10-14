@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0-dev.4 — conservative technical retention (verification pending)
+
+Owner-reviewed bounded cleanup of expired technical tokens/limits and order-free bags; clear old accepted/cancelled message bodies while preserving delivery/idempotency metadata. Recognized old private temporary files only, with active/unknown/symlink/recovery data preserved. Optional CLI cleanup remains owner-opt-in and is not a created hosting schedule. Add17 pure filesystem/policy units plus SQL rollback/batch/privacy and ninth responsive browser suite. Prior updater queue still pending at checkpoint creation; no final acceptance claimed.
+
 ## 0.9.0-dev.3 — guarded browser code ZIP upgrades (verification pending)
 
 Add owner-trusted package staging, bounded ZIP streams, path/type/duplicate/hash/PHP syntax and immutable schema/kernel checks, write probes, private rollback originals and encrypted pre-update data snapshots, durable maintenance journal, separate authenticated new-code confirmation and code-only rollback preserving live DB rows. Independent pinned recovery entrance restores the latest originals even if replaceable bootstrap cannot start. Current automatic code updates are same-schema only; no implicit migration rollback or publisher-signature claim.34 new pure policy checks and real SQL/HTTP/process-interruption/desktop/mobile upgrade tests added. Package builder excludes recovery anchors and private receipts.

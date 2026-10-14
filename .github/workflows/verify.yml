@@ -64,6 +64,7 @@ jobs:
           php tests/staff_unit.php
           php tests/backup_unit.php
           php tests/upgrade_unit.php
+          php tests/cleanup_unit.php
           python3 -m py_compile tools/package.py tests/*.py
           python3 tests/package_test.py
       - name: Database and HTTP integration
@@ -80,6 +81,7 @@ jobs:
           python3 tests/staff_integration.py
           python3 tests/backup_integration.py
           python3 tests/upgrade_integration.py
+          python3 tests/cleanup_integration.py
       - name: Install test-only Chromium
         if: matrix.php == '8.4'
         run: |
@@ -110,6 +112,9 @@ jobs:
       - name: Rendered ZIP upgrade and independent recovery
         if: matrix.php == '8.4'
         run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/upgrade_browser.py'
+      - name: Rendered conservative retention workflow
+        if: matrix.php == '8.4'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/cleanup_browser.py'
       - name: Preserve synthetic browser screenshots
         if: always() && matrix.php == '8.4'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -118,3 +123,15 @@ jobs:
           path: ${{ runner.temp }}/spirit-screenshots/*.png
           if-no-files-found: ignore
           retention-days: 7
+  apache_access:
+    name: Actual Apache PHP 8.4 HTTPS access rules
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Build isolated Apache test environment
+        run: docker build -f tests/docker/Apache.Dockerfile -t spirit-apache-checks .
+      - name: Exercise shipped access rules without external networking
+        run: docker run --rm --network none --read-only --tmpfs /tmp:rw,nosuid,nodev,mode=1777 spirit-apache-checks
