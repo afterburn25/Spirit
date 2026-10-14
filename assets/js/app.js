@@ -13,10 +13,21 @@ if (toggle && sidebar) {
 }
 const install = document.getElementById('install-form');
 if (install) {
+  const button = install.querySelector('button[type="submit"]');
+  const status = document.getElementById('install-status');
   install.addEventListener('submit', () => {
-    const button = install.querySelector('button[type="submit"]');
     button.disabled = true;
     button.textContent = 'Installing…';
-    document.getElementById('install-status').hidden = false;
+    install.setAttribute('aria-busy', 'true');
+    status.hidden = false;
+  });
+  // A back/forward-cache restore must not leave a correctable form disabled.
+  window.addEventListener('pageshow', () => {
+    button.disabled = install.dataset.ready !== 'true';
+    button.textContent = 'Install website →';
+    install.removeAttribute('aria-busy');
+    status.hidden = true;
   });
 }
+const completedInstall = document.getElementById('install-complete');
+if (completedInstall) completedInstall.focus();

@@ -1,23 +1,19 @@
 # Resume the cumulative application
 
-Repository **afterburn25/Spirit**, branch **main** is authoritative. Preserve AGENTS.md, the approved design, private configuration/original installation secret/media/business data, immutable migrations 001–006 and pinned access/recovery files. No alternative mockups, native ticketing, fabricated public records, 0777, destructive reinstall or force push.
+Repository afterburn25/Spirit; main is authoritative. Preserve AGENTS.md, approved design, original private secret/media/data, immutable migrations001–006 and pinned access/recovery files. No destructive reinstall, fake public records, native ticketing,0777 or force push.
 
-## Current checkpoint
+## Current user decision and work
 
-**0.9.0-dev.7** application **7c5582075b4b47c01e721c2c5e30d4f4a593acbb**, tree **575c50eb2bc689c777d1fefe565f5aaea4eff66d**, passed full run **38525702729** and focused maintenance **38525702713**. Both database environments, twelve Chromium workflows and actual Apache HTTPS are in the full matrix. The new media/keyboard workflow covers 1440/390/320px. This documentation-only descendant changes no tested runtime, assets, schema or tests. Read the current main ref and exact workflow state before writing.
+**0.9.0-dev.8**, branch work/single-page-installer, based on1df65ce90124adda5ddb3fd5936be9f006dcee9a. The user explicitly requested **remove the setup code and put installation all on one page**. This supersedes old PRIVATE-SETUP and claim-step instructions. Do not reintroduce the code. Keep separate backup/update recovery credentials and the installation encryption secret.
 
-The earlier 238fa431 application passed 38524917377 and 38524917358. Its nine media/keyboard renders were inspected from the 99-PNG artifact 11875780837. The only subsequent application change is corrected owner-roadmap wording. Canonical source artifact 11875622065 was downloaded, its digest checked, and runtime/assets/schema/tests compared with local files. See MEDIA_QUALITY_CHECKPOINT.md.
+The new entry controller and views/install templates show preflight+DB+owner form immediately, validate/install by one protected POST, then display cleanup status and administration link on the same page even after self-deletion. No-JavaScript fallback is supported. The packager emits only the cumulative Full ZIP with no code/hash/receipt. Old setup files and stale package manifests are excluded. Legacy fixture callers use a documented test-only GET adapter, not an authorization bypass.
 
-## Completed work to preserve
+## Next actions
 
-Discovery/search/sharing/sitemap/old published URLs are already landed from dev6. Dev7 adds fixed-width alpha-safe private derivatives, original preservation, cache validation and memory/permission/busy-lock fallback; authorization before all cache reads/304; bounded derivative retention. Keyboard dialogs/player/validation feedback and 320px player reflow are implemented and tested. Do not reset to dev5 or rebuild these modules.
+Inspect live refs and newest full verification before promoting. Run both database environments, all12 browser workflows including enhanced installer1440/390/320 and no-JS journeys, packaging and actual Apache HTTPS. Inspect the new eight form/completion screenshots. Fix regressions without weakening CSP, access rules or skipping assertions. Update exact evidence and package the verified cumulative source. No staging or production payment/email acceptance is implied.
 
-A native dialog's close event is queued after Escape. The test now waits for actual hidden/focused/source-cleared states, without changing DOM state or weakening CSP. The same production handlers were separately exercised in local Chromium. PHP data/GD/cURL/ZIP tests ran in Actions; local PHP lacks those extensions. Full tests remain authoritative, not local syntax alone.
+Preserve the cumulative dev7 application rather than rebuilding earlier modules. Final master artwork/approved content, broader populated-site quality, actual shared-host/merchant/mailbox and owner acceptance remain. Same-schema ZIP upgrades and same-instance guarded restoration retain explicit limits. Do not call this1.0 merely because it installs.
 
-## Next implementation and acceptance work
+## Deployment tradeoff
 
-Continue the final quality/readiness work against the populated approved design: audit outstanding feature/operating-scope gaps, complete broader accessibility/performance/security checks, and prepare production artwork and genuine content for approval. Use LAUNCH_CHECKLIST.md to record actual host, merchant and mailbox outcomes. Never publish synthetic fixture members, shows, products, sales or policies as real band information.
-
-Actual merchant SDK/API and signed webhooks, real inbox delivery, hosting aliases/ACL/open_basedir/OPcache/proxy behavior, backup/recovery drills and owner acceptance remain independent of synthetic CI. Do not create a live charge or enable production silently. No accepted v1.0 yet.
-
-Keep the owner/install guides and exact verification evidence current. Deliver cumulative immutable Full ZIPs and separate PRIVATE setup receipts; keep setup/recovery keys and credentials out of Git and the public server. Existing installations preserve original secrets/data/media; same-schema browser upgrades and same-instance guarded restore have explicit limits. Older-schema installations need the reviewed staging/additive update path, never a fresh reinstall.
+Code-free fresh setup is open until completion. Install immediately after extraction, or use hosting-panel directory protection for unattended staging. Database credentials and CSRF are not hosting-owner authentication. Already-installed sites remain locked and must be updated, never freshly reinstalled. No backup/update recovery key or real credential belongs in Git or public website folders.

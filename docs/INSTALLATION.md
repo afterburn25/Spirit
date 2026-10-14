@@ -1,4 +1,4 @@
-# Browser installation and updates — 0.9.0-dev.7
+# Browser installation and updates — 0.9.0-dev.8
 
 Use isolated staging first, not the existing live band website. TEST_RESULTS.md records exact automated evidence. Actual shared-host ownership, domain aliases, execution limits, TLS/proxies, OPcache and provider behavior require staging acceptance.
 
@@ -8,7 +8,11 @@ PHP 8.2+ with PDO MySQL, OpenSSL, fileinfo and GD; cURL for payment transport an
 
 Create an empty staging database/user through the hosting panel. Installer probes exercise required CRUD/schema permissions. The application does not create hosting accounts, obtain panel credentials or elevate permissions.
 
-A development checkout can run `python3 tools/package.py --output ./dist`. Save the separate PRIVATE setup receipt offline. Upload/extract only the Full ZIP, including hidden .htaccess files, using the panel file manager. Open `/install/` beneath the intended installation URL; enter the receipt's unique setup code, review the checks, and enter database/initial-owner details. Only the code hash is in the ZIP. Success redirects to owner sign-in; review Installation health for actual storage and cleanup state.
+A development checkout can run `python3 tools/package.py --output ./dist`. Upload/extract the Full ZIP, including hidden .htaccess files, using the panel file manager. Open `/install/` beneath the intended installation URL. Hosting checks, public URL, database connection and owner details appear immediately in one form. **No setup code, access hash, claim page or separate PRIVATE-SETUP receipt is used.** This user decision supersedes earlier release instructions requiring a setup receipt.
+
+Fill in the form and click **Install website** once. JavaScript shows a busy state but is not required; the same native form works without it. Validation errors remain on that page, preserving non-secret values while clearing passwords. Success also remains on `/install/`, with the actual cleanup result and **Open administration** button. The running request can finish rendering after deleting its own installer folder. Refreshing the old URL afterward may return404; use the administration link rather than reinstalling. Owner login remains separate; installation does not silently log in or enable live payments.
+
+**Fresh setup is open until completion.** Anyone able to reach an uninstalled deployment can submit their own valid database/owner configuration. CSRF and database passwords do not prove the visitor owns the hosting account. Install promptly after upload, or restrict access using hosting-panel directory protection while preparing unattended staging. No substitute setup-code gate is added. Keep all database, owner and unrelated backup/update recovery credentials private.
 
 ## Writable private runtime and self-deletion
 

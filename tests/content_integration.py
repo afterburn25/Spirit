@@ -103,7 +103,7 @@ def seed_media_and_music(s):
 
 def journey(s):
     s.claim()
-    expect(s.client.form('install/', s.input())[3].endswith('/admin/login.php'), 'Content test installation completes')
+    expect(s.client.form('install/', s.input())[3].endswith('/install/'), 'Content test installation completes on the same page')
     expect(s.login()[0] == 200, 'Owner signs in for content management')
     for path in ['', 'music/', 'shows/', 'band/', 'media/', 'booking/', 'press/', 'shop/']:
         expect(s.client.request(path)[0] == 200, 'Public route loads: ' + (path or '/'))

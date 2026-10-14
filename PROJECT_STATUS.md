@@ -1,25 +1,19 @@
-# Project status — 0.9.0-dev.7
+# Project status — 0.9.0-dev.8 implementation
 
-Application **7c5582075b4b47c01e721c2c5e30d4f4a593acbb** passed full verification **38525702729** and focused maintenance **38525702713**. The documentation-only descendant changes no runtime, assets, schema or tests. Inspect live main before resuming.
+User-requested change: remove the setup code and put installation on one page. Based on main1df65ce90124adda5ddb3fd5936be9f006dcee9a / dev7. Work is on work/single-page-installer; the new exact full verification is pending.
 
-## Newly implemented and verified
+## Implemented in this checkpoint
 
-Responsive image delivery provides fixed 320/640/960/1440-pixel candidates, proportional resizing without upscaling, retained transparency and original downloads. Generated copies are private and regenerable. Authorization precedes every cache/304 response; unpublishing withdraws derivatives. Cache corruption, busy generation, restricted permissions and small memory budgets are covered by safe fallback/recovery tests. Retention preserves original media and the generation lock.
+No generated setup code/access hash/PRIVATE-SETUP receipt and no claim stage. Initial GET displays real hosting/write checks, URL, database settings and owner account fields together. One CSRF-protected POST installs and renders completion on the same URL, including verified deletion or retained-lock status and an explicit administration button. JavaScript supplies a busy state and restores cached-form controls; installation works without JavaScript. Errors remain on the form; non-secret values survive and passwords are not reflected.
 
-Keyboard refinements cover named gallery dialogs, opener focus, hidden full-image cleanup, playback queue boundaries, pressed track state, readable seek time, focus return and clearance above the fixed player. Long titles no longer overlap the controls, including the two-row player at 320px. Server validation errors receive focus without recording field values; ordinary Escape in admin fields no longer steals focus to a closed menu. Intrinsic image ratios, phone form text and forced-color focus styles are preserved.
+Safe writes, private permissions, database prefix ownership, concurrent-install lock, interrupted migration recovery, independent completion locks and restricted physical deletion remain. New required upload/image-extension checks align the installer with the cumulative application. cURL/ZIP absence is visible as optional capability guidance. Legacy setup files are excluded; the packager also excludes stale manifests rather than creating duplicate entries.
 
-The owner roadmap now reflects the already-implemented content history, payments and maintenance modules instead of stale planned labels. Genuine merchant, host and final acceptance remain separate.
+## Verification plan
 
-## Evidence
+Expanded SQL/HTTP installer tests cover code-free entry, same-page correction/completion, CSRF/obsolete-action rejection, no password reflection, blocked deletion, replays, existing prefixes and interrupted recovery. Chromium exercises1440/390/320px and a JavaScript-disabled journey, with form/completion screenshots. Existing feature fixtures retain a test-only GET compatibility adapter; it generates no setup credential and performs no claim POST. All existing cumulative suites remain required. See TEST_RESULTS.md for actual results.
 
-44 new pure media-quality checks; 442 cumulative pure assertions and 11 packaging tests; real root/subfolder SQL/HTTP image/cache/privacy/permission tests on both database environments; all twelve Chromium workflows and actual Apache HTTPS. The new workflow exercises 1440px, 390px and 320px. Nine new renders were inspected from the verified 99-image artifact at application 238fa431; the subsequent application change is only the owner roadmap text. Canonical source was compared with the local implementation. See MEDIA_QUALITY_CHECKPOINT.md and TEST_RESULTS.md.
+## Preserved and outstanding
 
-The generated 1800×1200 test image measured 412,565 bytes after upload processing and 21,306 bytes at 640px, a 94.8% reduction for that fixture. This is not a measured improvement for the band's actual photographs or a field performance score.
+Approved public design, discovery/media/player/CMS/history, external show ticket links, bookings/communication, catalog/customers/checkout/orders, staff permissions, backup/restore, same-schema code updates/recovery and retention are preserved. Migrations001–006 and pinned access/recovery files are unchanged. Real host, merchant sandbox, mailbox, artwork/content, populated-site quality and owner acceptance still precede v1.0.
 
-## Preserved cumulative scope
-
-Browser installer/private runtime/self-deletion and permanent locking; approved responsive site, CMS/private history, published metadata/search/sitemap/redirects, music/player/shows/external tickets; booking/email/newsletter; catalog/inventory/cart/customers; token-only checkout/orders/fulfillment; staff permissions; encrypted backups/guarded restore; same-schema browser ZIP upgrades/independent recovery; conservative retention. Migrations 001–006 and pinned access/recovery files are unchanged.
-
-## Remaining before v1.0
-
-Approved production-resolution artwork and real band/store content; broader populated-site accessibility/performance/security acceptance; actual shared-host, merchant sandbox and receiving-mailbox verification; final owner acceptance and cutover. Follow LAUNCH_CHECKLIST.md. Same-schema upgrades and same-instance guarded restoration retain their documented limits. No genuine merchant transaction, inbox delivery, universal accessibility conformance or accepted v1.0 is implied by synthetic tests.
+Fresh setup is intentionally open until completion. Install promptly or restrict unattended staging through hosting-panel directory protection. A CSRF token or database connection is not proof that the first visitor owns the deployment. This change does not remove backup/update recovery keys or the private installation secret.

@@ -1,58 +1,92 @@
 #!/usr/bin/env python3
-"""Chromium smoke checks of actual installer/admin pages; not visual acceptance."""
+"""Exercise the code-free one-page installer and actual owner screens."""
 from __future__ import annotations
 import os
 import tempfile
 from pathlib import Path
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect as browser_expect
 from http_integration import build_package, site, expect, dashboard
 
-def layout(page, label):
+
+def layout(page, label, javascript=True):
     page.wait_for_load_state('networkidle')
-    expect(page.evaluate('document.styleSheets.length > 0'), label + ': stylesheet loaded')
-    expect(page.evaluate('document.documentElement.scrollWidth <= window.innerWidth + 1'), label + ': no horizontal page overflow')
+    if javascript:
+        expect(page.evaluate('document.styleSheets.length > 0'), label + ': stylesheet loaded')
+        expect(page.evaluate('document.documentElement.scrollWidth <= window.innerWidth + 1'), label + ': no horizontal page overflow')
     expect(page.locator('h1').count() == 1, label + ': main heading present')
+
+
+def screenshot(page, name):
+    directory=os.environ.get('SPIRIT_SCREENSHOT_DIR')
+    if directory:
+        path=Path(directory);path.mkdir(parents=True,exist_ok=True)
+        page.screenshot(path=str(path/(name+'.png')),full_page=True)
+
 
 def main():
     if os.geteuid() == 0 or os.environ.get('SPIRIT_TESTING') != '1':
         raise RuntimeError('Use a non-root runner with disposable test credentials.')
     with tempfile.TemporaryDirectory(prefix='spirit-browser-') as directory, sync_playwright() as driver:
         temp = Path(directory)
-        archive, code = build_package(temp/'packages')
+        archive, unused = build_package(temp/'packages')
         browser = driver.chromium.launch()
         try:
-            for width, folder in [(1440,''),(390,'band')]:
-                with site(temp/str(width),archive,code,folder) as current:
-                    context = browser.new_context(viewport={'width':width,'height':900}, reduced_motion='reduce')
-                    page = context.new_page()
-                    errors = []
+            # Root, subfolder, a very narrow phone, and a JavaScript-free fallback.
+            for width, folder, javascript in [(1440,'',True),(390,'band',True),(320,'narrow',True),(390,'no-js',False)]:
+                label=f'{width}px'+(' no-JS' if not javascript else '')
+                with site(temp/(str(width)+folder),archive,unused,folder) as current:
+                    context = browser.new_context(viewport={'width':width,'height':900}, reduced_motion='reduce', java_script_enabled=javascript, bypass_csp=False)
+                    page = context.new_page(); errors=[]
                     page.on('pageerror', lambda error: errors.append(str(error)))
-                    expect(page.goto(current.base+'install/').status == 200, f'{width}px: installer opens')
-                    layout(page, f'{width}px authorization')
-                    page.locator('[name=setup_code]').fill(code)
-                    page.locator('button[type=submit]').click()
-                    page.wait_for_selector('[name=db_name]')
-                    layout(page, f'{width}px configuration')
+                    response=page.goto(current.base+'install/')
+                    expect(response.status == 200, label+': installer opens directly')
+                    expect('no-store' in response.headers.get('cache-control','') and 'noindex' in response.headers.get('x-robots-tag',''), label+': installer is uncached and unindexed')
+                    layout(page, label+' configuration',javascript)
+                    expect(page.locator('#install-form').count()==1 and page.locator('form').count()==1, label+': exactly one installation form')
+                    expect(page.locator('[name=setup_code]').count()==0, label+': no setup code field')
+                    expect(page.locator('[name=db_name]').is_visible() and page.locator('[name=owner_name]').is_visible(), label+': database and owner settings are visible together')
+                    screenshot(page,'installer-'+str(width)+('-nojs' if not javascript else '')+'-form')
                     for name,value in current.input().items():
-                        if name != 'action':
-                            page.locator('[name='+name+']').fill(value)
+                        if name != 'action': page.locator('[name='+name+']').fill(value)
+                    page.locator('[name=password_confirm]').fill('Different-password-123')
                     page.locator('#install-form button[type=submit]').click()
+                    browser_expect(page.locator('.notice.error')).to_contain_text('passwords do not match')
+                    expect(page.url==current.base+'install/', label+': validation stays on the same installer URL')
+                    expect(page.locator('[name=db_name]').input_value()==current.env['SPIRIT_DB_NAME'], label+': database name survives correction')
+                    for name in ['password','password_confirm','db_password']:
+                        expect(page.locator('[name='+name+']').input_value()=='', label+': secret cleared after error: '+name)
+                    expect(not (current.runtime/'config.php').exists(), label+': validation cannot partially install')
+                    if javascript:
+                        browser_expect(page.locator('.notice.error')).to_be_focused()
+                    for name in ['password','password_confirm','db_password']:
+                        page.locator('[name='+name+']').fill(current.input()[name])
+                    page.locator('#install-form button[type=submit]').click()
+                    browser_expect(page.locator('#install-complete')).to_be_visible()
+                    expect(page.url==current.base+'install/', label+': success stays on the same page')
+                    expect(not (current.root/'install').exists(), label+': browser install deletes installer')
+                    expect(page.locator('#install-form').count()==0, label+': completed result has no resubmission control')
+                    browser_expect(page.locator('#install-cleanup')).to_contain_text('Installer folder removed.')
+                    expect(current.password not in page.content() and current.env['SPIRIT_DB_PASSWORD'] not in page.content(), label+': completion contains no credentials')
+                    layout(page,label+' completion',javascript)
+                    screenshot(page,'installer-'+str(width)+('-nojs' if not javascript else '')+'-complete')
+                    page.locator('#owner-signin').click()
                     page.wait_for_url('**/admin/login.php')
-                    expect(not (current.root/'install').exists(), f'{width}px: browser install deletes installer')
-                    layout(page, f'{width}px sign-in')
+                    layout(page,label+' sign-in',javascript)
                     page.locator('[name=email]').fill(current.owner)
                     page.locator('[name=password]').fill(current.password)
                     page.locator('button[type=submit]').click()
                     page.wait_for_url(lambda url: dashboard(str(url)))
-                    layout(page, f'{width}px dashboard')
-                    for route in ['settings.php','account.php','installation.php','roadmap.php']:
-                        expect(page.goto(current.base+'admin/'+route).status == 200, f'{width}px: {route} opens')
-                        layout(page, f'{width}px {route}')
-                    expect(not errors, f'{width}px: no uncaught JavaScript errors')
+                    # Existing admin regression remains at its established widths.
+                    if javascript and width in [1440,390]:
+                        layout(page,label+' dashboard')
+                        for route in ['settings.php','account.php','installation.php','roadmap.php']:
+                            expect(page.goto(current.base+'admin/'+route).status == 200,label+': '+route+' opens')
+                            layout(page,label+' '+route)
+                    expect(not errors,label+': no uncaught JavaScript errors')
                     context.close()
         finally:
             browser.close()
-    print('Chromium installer/admin smoke checks passed at 1440px and 390px.', flush=True)
+    print('Code-free one-page installer passed at1440/390/320px and without JavaScript; owner/admin workflows preserved.',flush=True)
 
-if __name__ == '__main__':
-    main()
+
+if __name__ == '__main__': main()

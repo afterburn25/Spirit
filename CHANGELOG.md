@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.0-dev.8 — code-free, one-page browser installer
+
+User-requested removal of the setup-code/claim gate and PRIVATE-SETUP receipt. Checks, URL/database/owner configuration, validation feedback and completion now share one page. Preserve CSRF, secure private writes, prefix/concurrency/interruption recovery, permanent locks and verified cleanup. Completion offers explicit owner sign-in, not another installer step. Native forms work without JavaScript. Passwords are never reflected after correction or success. Add missing required media-extension checks and optional payment/update extension guidance.
+
+Packaging emits only one cumulative Full ZIP, excludes legacy setup keys and stale manifests, and keeps backup/update recovery keys protected. Expanded installer SQL/HTTP/browser and12 packaging tests; full exact verification pending. Fresh setup must be completed promptly or protected through the hosting panel. No production acceptance or v1.0 release is implied.
+
 ## 0.9.0-dev.7 — responsive media and keyboard quality
 
 Application **7c5582075b4b47c01e721c2c5e30d4f4a593acbb** passed full **38525702729** and focused **38525702713**. Both databases, twelve Chromium workflows and actual Apache HTTPS are included. This documentation-only update changes no tested runtime/assets/schema/tests. See MEDIA_QUALITY_CHECKPOINT.md.

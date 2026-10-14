@@ -4,7 +4,7 @@ Authoritative repository: **afterburn25/Spirit**, branch **main**. Read AGENTS.m
 
 ## Current development release
 
-**0.9.0-dev.7** application **7c5582075b4b47c01e721c2c5e30d4f4a593acbb** passed full verification **38525702729** and focused maintenance **38525702713**. Responsive image delivery, alpha/original preservation, safe shared-host caching and keyboard/media/form improvements are implemented. The full matrix includes both databases, twelve Chromium workflows and actual Apache HTTPS. See docs/MEDIA_QUALITY_CHECKPOINT.md for evidence and limitations.
+**0.9.0-dev.8 — single-page, code-free installation.** The user's updated installation flow removes the package setup code and separate receipt. Checks, database/owner configuration, correction and completion are one browser page. Private storage, CSRF, installation locks, self-deletion and all cumulative website modules remain. New full regression verification is pending; see docs/TEST_RESULTS.md. The previous dev7 checkpoint remains documented in MEDIA_QUALITY_CHECKPOINT.md.
 
 The cumulative application includes the browser installer, public site/CMS/history/discovery/music/player/shows, booking/email/newsletter, catalog/inventory/cart/customer accounts, token-only payments/orders/fulfillment, staff permissions, encrypted backups/guarded restoration, same-schema browser ZIP upgrades/pinned recovery and conservative retention.
 
@@ -12,7 +12,7 @@ The cumulative application includes the browser installer, public site/CMS/histo
 
 PHP 8.2+, PDO MySQL, OpenSSL, fileinfo and GD; cURL for payment transport and ZIP for browser updates; MySQL/MariaDB, HTTPS and reviewed server access rules. No required SSH/root or host-side Node, Python or Composer build.
 
-On a development checkout, `python3 tools/package.py --output ./dist` creates the cumulative Full ZIP and a separate PRIVATE setup receipt. Upload only the ZIP, including hidden access-rule files. Keep setup/recovery keys offline and preserve the original installation secret. Follow docs/INSTALLATION.md for fresh staging versus existing installations.
+On a development checkout, `python3 tools/package.py --output ./dist` creates one cumulative Full ZIP. No setup code, access hash or PRIVATE-SETUP receipt is created. Upload/extract the ZIP including hidden access-rule files, then open `/install/`. Install immediately or restrict staging through hosting-panel directory protection until ready. Backup/update recovery keys remain separate and private; preserve the original installation secret. Follow docs/INSTALLATION.md for fresh staging versus existing installations.
 
 ## Guides and final acceptance
 

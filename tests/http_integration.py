@@ -56,14 +56,13 @@ class Client:
         return self.request(path, {**data, 'csrf': token.group(1)})
 
 class Site:
-    def __init__(self, area: Path, archive: Path, code: str, subfolder: str):
+    def __init__(self, area: Path, archive: Path, code: None, subfolder: str):
         self.home = area
         self.docroot = area / 'public_html'
         self.root = self.docroot / subfolder if subfolder else self.docroot
         self.root.mkdir(parents=True)
         with zipfile.ZipFile(archive) as bundle:
             bundle.extractall(self.root)
-        self.code = code
         self.prefix = 'sgci_' + secrets.token_hex(4) + '_'
         self.env = {**os.environ, 'SPIRIT_TESTING':'1', 'SPIRIT_DB_PREFIX':self.prefix, 'SPIRIT_ACCOUNT_HOME':str(area)}
         with socket.socket() as sock:
@@ -92,9 +91,17 @@ class Site:
         return json.loads(result.stdout)
     def input(self):
         return {'action':'install','site_url':self.base.rstrip('/'),'db_host':self.env.get('SPIRIT_DB_HOST','127.0.0.1'),'db_port':self.env.get('SPIRIT_DB_PORT','3306'),'db_name':self.env['SPIRIT_DB_NAME'],'db_user':self.env['SPIRIT_DB_USER'],'db_password':self.env['SPIRIT_DB_PASSWORD'],'db_prefix':self.prefix,'email':self.owner,'owner_name':'Test Owner','password':self.password,'password_confirm':self.password}
+    def open_installer(self):
+        status, body, headers, _ = self.client.request('install/')
+        expect(status == 200 and 'Database connection' in body and 'Your owner account' in body,
+               'First request opens the complete single-page installer')
+        expect('name="setup_code"' not in body and 'name="action" value="claim"' not in body,
+               'Installer has no setup-code or claim stage')
+        expect('no-store' in headers.get('Cache-Control', ''), 'Installer response cannot be cached')
     def claim(self):
-        status, body, _, _ = self.client.form('install/', {'action':'claim','setup_code':self.code})
-        expect(status == 200 and 'Database connection' in body, 'Correct package code opens hosting configuration')
+        # Compatibility for existing cumulative feature fixtures. This is now
+        # only a GET of the complete form, not authorization or a secret input.
+        self.open_installer()
     def login(self, client: Client | None = None, password: str | None = None):
         client = client or self.client
         return client.form('admin/login.php', {'email':self.owner,'password':password or self.password})
@@ -110,7 +117,7 @@ class Site:
         self.database('cleanup')
 
 @contextlib.contextmanager
-def site(area: Path, archive: Path, code: str, subfolder: str = ''):
+def site(area: Path, archive: Path, code: None, subfolder: str = ''):
     instance = Site(area, archive, code, subfolder)
     try:
         yield instance
@@ -118,27 +125,39 @@ def site(area: Path, archive: Path, code: str, subfolder: str = ''):
         instance.close()
 
 def normal_journey(s: Site, blocked_cleanup: bool):
-    status, body, _, _ = s.client.form('install/', {'action':'claim','setup_code':'incorrect'})
-    expect(status == 200 and 'incorrect' in body, 'Wrong claim code denied')
-    expect(s.client.request('install/', {'action':'claim','setup_code':s.code,'csrf':'wrong'})[0] == 403, 'Invalid setup CSRF denied')
-    s.claim()
+    s.open_installer()
+    expect(s.client.request('install/', {**s.input(), 'csrf':'wrong'})[0] == 403, 'Invalid setup CSRF denied')
+    expect(s.client.form('install/', {'action':'claim', 'setup_code':'obsolete'})[0] == 400, 'Removed claim action cannot create an installation')
+    expect(not (s.runtime/'config.php').exists(), 'Rejected requests do not publish configuration')
+    invalid = {**s.input(), 'password_confirm': 'a-different-password'}
+    status, body, _, url = s.client.form('install/', invalid)
+    expect(status == 200 and url.endswith('/install/') and 'passwords do not match' in body, 'Validation errors stay on the complete installer page')
+    expect(s.prefix in body and s.owner in body and s.password not in body and s.env['SPIRIT_DB_PASSWORD'] not in body, 'Correction preserves non-secret fields but never reflects passwords')
+    expect('name="db_name"' in body and 'name="password"' in body, 'An error does not hide the database or owner form')
     with (s.runtime/'install-operation.lock').open('a+b') as lock:
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         status, body, _, _ = s.client.form('install/', s.input())
         expect(status == 200 and 'already running' in body, 'Concurrent installer operation is rejected')
     if blocked_cleanup:
         (s.root/'install').chmod(0o500)
-    status, _, _, url = s.client.form('install/', s.input())
-    expect(status == 200 and url.endswith('/admin/login.php'), 'Fresh database install reaches owner sign-in')
+    status, completed, headers, url = s.client.form('install/', s.input())
+    expect(status == 200 and url.endswith('/install/') and 'id="install-complete"' in completed, 'Installation completes on the same page with no redirect')
+    expect('id="owner-signin"' in completed and 'id="install-form"' not in completed, 'Completion offers administration instead of another install form')
+    expect('no-store' in headers.get('Cache-Control', '') and 'noindex' in headers.get('X-Robots-Tag', ''), 'Completion remains uncached and excluded from indexing')
+    expect(s.password not in completed and s.env['SPIRIT_DB_PASSWORD'] not in completed, 'Completion contains no database or owner password')
     expect(s.database('count') == {'users':1,'state':'installed'}, 'Exactly one owner and installed database state')
     expect((s.runtime/'config.php').is_file() and (s.runtime/'installed.lock').is_file(), 'Private config and completion lock persisted')
     expect((s.runtime/'config.php').stat().st_mode & 0o077 == 0, 'Database configuration permissions are private')
     expect(not (s.root/'config/local.php').exists(), 'No credentials placed in public source config')
     if blocked_cleanup:
+        expect('cleanup needs attention' in completed, 'Same-page completion truthfully reports blocked cleanup')
         expect((s.root/'install/index.php').exists(), 'Host-denied deletion is not reported as removal')
         expect(s.client.request('install/')[0] == 410, 'Retained installer is permanently locked')
+        expect(s.client.request('install/', {**s.input(), 'csrf':'old'})[0] == 410, 'Replayed POST cannot reinstall even when the directory remains')
     else:
         expect(not (s.root/'install').exists(), 'Installer directory physically removed')
+        expect('Installer folder removed.' in completed, 'Same-page completion confirms actual folder removal')
+        expect(s.client.request('install/')[0] == 404, 'Removed installer is unavailable on refresh')
     anonymous = Client(s.base)
     status, _, _, url = anonymous.request('admin/index.php')
     expect(status == 200 and url.endswith('/admin/login.php'), 'Anonymous admin access redirects to sign-in')
@@ -192,19 +211,19 @@ def recovery_journey(s: Site):
     expect('different database settings' in s.client.form('install/',changed)[1], 'Retry cannot silently switch databases or prefixes')
     schema.write_text(original)
     status, _, _, url = s.client.form('install/', s.input())
-    expect(status == 200 and url.endswith('/admin/login.php'), 'Same-install retry completes after interrupted migration')
+    expect(status == 200 and url.endswith('/install/'), 'Same-install retry completes on the same page after interrupted migration')
     expect(s.database('count')['users'] == 1, 'Recovery does not duplicate the owner')
 
 def build_package(destination: Path):
     subprocess.run(['python3',str(ROOT/'tools/package.py'),'--output',str(destination)],check=True,capture_output=True)
     archive = next(destination.glob('*-Full.zip'))
-    receipt = next(destination.glob('*-PRIVATE-SETUP.txt'))
-    code = re.search(r'^Setup code: (.+)$',receipt.read_text(),re.MULTILINE).group(1)
+    expect(not list(destination.glob('*-PRIVATE-SETUP.txt')), 'Packager does not generate a setup receipt')
     with zipfile.ZipFile(archive) as bundle:
-        expect(not any('PRIVATE-SETUP' in name for name in bundle.namelist()), 'Private setup receipt excluded from deployment ZIP')
+        expect('install/access.php' not in bundle.namelist() and not any('PRIVATE-SETUP' in name for name in bundle.namelist()), 'Deployment ZIP has no setup key or receipt')
         manifest = json.loads(bundle.read('docs/PACKAGE-MANIFEST.json'))
         expect(all(hashlib.sha256(bundle.read(name)).hexdigest() == digest for name,digest in manifest['files'].items()), 'Every deployment manifest hash matches its file')
-    return archive, code
+    # Keep tuple compatibility for cumulative fixtures; no secret is generated.
+    return archive, None
 
 def main():
     if os.geteuid() == 0:

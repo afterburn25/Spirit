@@ -14,6 +14,8 @@ final class Installer
             ['name'=>'PHP 8.2 or newer','ok'=>PHP_VERSION_ID >= 80200,'required'=>true,'detail'=>PHP_VERSION],
             ['name'=>'PDO MySQL','ok'=>extension_loaded('pdo_mysql'),'required'=>true,'detail'=>'Database driver'],
             ['name'=>'OpenSSL','ok'=>extension_loaded('openssl'),'required'=>true,'detail'=>'Secure service connections'],
+            ['name'=>'File information and GD','ok'=>extension_loaded('fileinfo') && extension_loaded('gd'),'required'=>true,'detail'=>'Validated uploads and image processing'],
+            ['name'=>'cURL and ZIP','ok'=>extension_loaded('curl') && extension_loaded('zip'),'required'=>false,'detail'=>'Needed for payment connections and browser ZIP upgrades'],
             ['name'=>'HTTPS','ok'=>Security::secureTransport(),'required'=>true,'detail'=>Security::isHttps() ? 'Encrypted connection' : 'Local development connection only'],
         ];
         try {
@@ -25,21 +27,9 @@ final class Installer
         $checks[] = ['name'=>'Installer cleanup readiness','ok'=>$deletable,'required'=>false,'detail'=>$deletable ? 'Final deletion will be attempted and verified.' : 'The host may prevent physical removal. The permanent installation lock remains enforced.'];
         return $checks;
     }
-    public static function setupHash(): ?string
+    public static function install(array $input): array
     {
-        $file = Paths::root() . '/install/access.php'; if (!is_file($file) || is_link($file)) { return null; }
-        $value = require $file; return is_string($value) && preg_match('/^[a-f0-9]{64}$/D', $value) ? $value : null;
-    }
-    public static function claim(string $code): bool
-    {
-        $hash = self::setupHash();
-        if ($hash !== null && hash_equals($hash, hash('sha256', $code))) { session_regenerate_id(true); $_SESSION['setup_claim'] = $hash; return true; }
-        usleep(250000); return false;
-    }
-    public static function claimed(): bool { $hash = self::setupHash(); return $hash !== null && isset($_SESSION['setup_claim']) && hash_equals($hash, $_SESSION['setup_claim']); }
-    public static function install(array $input): void
-    {
-        if (!self::claimed() || Paths::installed()) { throw new RuntimeException('Installation is not authorized or is already locked.'); }
+        if (Paths::installed()) { throw new RuntimeException('Installation is already locked.'); }
         foreach (self::preflight() as $check) { if ($check['required'] && !$check['ok']) { throw new RuntimeException('Resolve the required hosting checks before installing.'); } }
         $dbConfig = Database::validate($input['db']); $email = Security::email($input['email']); $passwordHash = Security::password($input['password']);
         if ($input['password'] !== $input['password_confirm']) { throw new InvalidArgumentException('Owner passwords do not match.'); }
@@ -78,7 +68,9 @@ final class Installer
             @unlink($pendingPath);
             $cleanup = Filesystem::cleanup(Paths::root());
             try { Filesystem::atomicPhp(Paths::runtime() . '/cleanup.php', $cleanup); } catch (RuntimeException $e) { error_log('Spirit: cleanup receipt unavailable; inspect installer directory from owner administration.'); }
-            $_SESSION = []; session_destroy();
+            $_SESSION = [];
+            if (session_status() === PHP_SESSION_ACTIVE) { session_destroy(); }
+            return $cleanup;
         } catch (PDOException $e) {
             throw new RuntimeException('Database verification or provisioning failed. Check connection details and schema privileges. An interrupted installation can be resumed with the same settings; existing tables are never dropped.');
         } finally {

@@ -1,5 +1,7 @@
-# Browser installer
+# Single-page browser installer
 
-Do not visit this directory without the package-specific setup code. Source checkouts intentionally have no access.php key. The packager inserts only its SHA-256 hash; the secret is supplied separately and must never be uploaded.
+From 0.9.0-dev.8, open this directory in the browser to see all hosting checks, database details and owner-account fields together. There is no setup code, generated access.php, claim step or private setup receipt. One protected POST installs and renders completion on the same page. A normal non-JavaScript submission also works; owner sign-in is a separate explicit button after completion.
 
-After installation the application publishes private configuration and a completion lock, then removes only these known files: index.php, access.php, .htaccess and README.md, followed by this directory. Unknown files, symlinks or host permission restrictions stop cleanup without bypassing the permanent lock. Use the owner's Installation health page to retry.
+Fresh setup is intentionally open until it is completed. Install immediately after extracting the package, or use hosting-panel directory protection for unattended staging. A CSRF token is not proof that the first visitor owns the deployment. The installer still requires valid database credentials and explicit owner details, refuses existing table prefixes and preserves permanent locks.
+
+Private configuration and completion locks are published before removing the installer. Only known index.php, legacy access.php, .htaccess and README.md files are eligible for cleanup. Unknown files/symlinks and host restrictions are not bypassed. Review the same-page cleanup result and use the owner's Installation health to retry if necessary. Refreshing the old URL after physical removal can return404; do not rerun installation.
