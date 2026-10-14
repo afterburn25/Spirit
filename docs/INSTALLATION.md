@@ -1,4 +1,4 @@
-# Browser installation and updates — 0.9.0-dev.9
+# Browser installation and updates — 0.9.0-dev.11
 
 Use isolated staging first, not the existing live band website. TEST_RESULTS.md records exact automated evidence. Actual shared-host ownership, domain aliases, execution limits, TLS/proxies, OPcache and provider behavior require staging acceptance.
 
@@ -45,3 +45,7 @@ Owner retention tools remove only eligible bounded technical data after review; 
 ## Final staging acceptance
 
 Follow LAUNCH_CHECKLIST.md before cutover. Responsive image caches are private, optional and regenerable; original approved media remains authoritative and belongs in backups. Real provider/host/master-art/content acceptance remains separate from regression results. Never treat the development version or a successful package upload as owner approval to enable live payments.
+
+## Post-install launch checks
+
+Use owner Admin > Launch checks for current PHP extension/limit observations and a private fixed-field support report. It does not modify PHP settings or perform provider acceptance. Read READINESS.md. Media/backup/ZIP forms now explain PHP whole-request rejection with413 while preserving state; normal permissions/CSRF still apply. Missing ZIP still requires the domain's host extension configuration.

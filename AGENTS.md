@@ -42,3 +42,8 @@ Some of these files are being established in the initial implementation. Do not 
 - Preserve private state from earlier unfinished attempts for manual review without executing, adopting, deleting or resetting it. Completed installations retain their original configuration, database/user and media; no reinstall or replacement DB.
 - The three retired Cpanel file paths are inert compatibility files, not API classes. Keep them while older supported update manifests require every previous path; do not weaken cumulative-update checks or restore their old logic.
 - Read docs/CPANEL_INSTALLER.md for manual setup and extension instructions. Actual A2 host/mailbox/merchant acceptance remains separate from automated tests.
+
+## Consolidated diagnostics continuity (2026-10-14)
+- Dev11 supersedes the differing dev10 preview and branch. Use one Launch checks implementation at admin/launch; admin/readiness must retain the same active-owner/method/CSRF boundary. Keep inert preview paths required by existing update manifests.
+- Support exports use a strict fixed-field allowlist, not raw settings, paths, logs or private data. Observations cannot enable services, process queues or certify external acceptance.
+- Oversized upload feedback must reject with no mutation while preserving normal CSRF and permission checks. Never solve a missing PHP ZIP notice by hiding it or pretending a host module was installed.

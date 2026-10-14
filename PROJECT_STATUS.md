@@ -1,13 +1,26 @@
-# Project status — 0.9.0-dev.11 consolidation
+# Project status — 0.9.0-dev.11
 
-Current work continues PR #13 / work/launch-diagnostics from f5e165cd793b82714c74898d2b2ce53cb7dc7bec. That saved dev10 branch passed full38577693558 and focused38577693838. A separate dev10 local preview was delivered while the prior session reported no writes. Both sources have now been inspected and reconciled; neither is discarded or mistaken for main. Main before this work remains verified dev9 bfb061766e0e1ebf7b2d97c58b61c4f8b2de6575.
+Updated 2026-10-14. Verified application **d699fd6e9f42a8fc2d0329fd07778c4a2718f7a8**, tree **df20fbeb8c1d552755b3fd8c4b7bc10e766e1c0c**. Full workflow **38589219303** and focused maintenance **38589219399** passed. The final documentation-only descendant leaves runtime, assets, schema, workflows and tests unchanged. Inspect live main before further work.
 
-Dev11 consolidates one owner-only Launch checks dashboard with 43 observations, private-config and upload-headroom checks, public-contact/account/sandbox settings, published merchandise, unfinished email/payment counts, a production-enabled warning and six permanent external acceptance tasks. Support export is a positive allowlist. The former preview admin/readiness URL invokes the same protected handler. Its old helper/template paths are inert for cumulative update compatibility.
+## Landed in this cumulative build
 
-Retain the saved branch's actionable PHP-size hints and oversized-upload 413 handling on media, backup import and browser ZIP staging. Read operations never send mail, contact providers, change settings or process queues. No fake production acceptance or completion percentage.
+- One owner-only **Launch checks** dashboard with 43 observations/review tasks. It distinguishes configured services and published records from actual launch acceptance; six external review gates never become approved automatically.
+- Current PHP extension availability, file-upload/whole-request/memory ceilings, upload headroom and private-configuration observations. No phpinfo dump or server-setting modification.
+- Published-only content and visible-category merchandise counts; contact, account, sandbox and operating-mode settings; unresolved email/payment counts. Production selected and enabled warns about live-charge risk even when checkout is otherwise unavailable. Viewing/exporting never processes work or contacts a provider.
+- Fixed-key private support export excludes hostnames, paths, credentials, logs, personal details and content text. Both admin/launch and the former preview admin/readiness URL use the same active-owner, method and CSRF checks.
+- Upload limits are shown on media, backup import and ZIP upgrade pages. A whole request discarded by PHP returns a usable HTTP 413 explanation with no requested action, rather than an unrelated form-expiry message. Ordinary forms still require CSRF and permissions.
+- Keyboard export focus no longer overlaps its timestamp. The page retains the approved dark-and-gold administration design and tested narrow-screen reflow.
 
-A2/cPanel only, manual DB only, no20i, no setup code/token/automatic creation. Installer, original config/encryption secret/data/uploads, six migrations and pinned recovery/access files remain unchanged. Prior preview and dev9 deployment paths are preserved.
+The interrupted work was not lost: saved dev11 branch2cb333b7 passed its own full/focused runs before this session. It reconciled a saved dev10 branch and a separately delivered local dev10 preview. The previous response's claim that no diagnostics were committed was not an accurate description of all repository branches. This build is their consolidated successor, not a replacement ZIP reusing the dev10 version.
 
-New full verification pending. 64 launch/hosting pure assertions pass locally; actual SQL/browser authorization, redaction and alias behavior require the exact new run. Added root/subfolder/no-cURL/no-ZIP tests for both routes, suspended/revoked owner denial, unavailable outbox, published-only category counts and passive follow-up. Cumulative suites remain mandatory.
+## Verification
 
-Actual A2/PHP/ACL/private-root/deletion, receiving mailbox, genuine merchant sandbox, approved master artwork/content, populated-site quality and owner acceptance remain open. No server setting or production service was changed. No accepted v1.0.
+211 PHP/inc files passed local syntax checks. All 544 pure assertions (480 retained +64 launch/hosting) passed locally under an unprivileged account; all 12 packaging tests passed. The exact full Actions run tested PHP8.2/MariaDB11.4, PHP8.4/MySQL8.4, all thirteen Chromium workflows and actual Apache HTTPS access rules. New diagnostics/alias/permission/redaction/no-mutation tests cover root/subfolder and real no-cURL/no-ZIP child environments. Oversized media/backup/upgrade requests are tested against real PHP size limits.
+
+The final launch browser journey covers 1440px,390px and320px, real keyboard JSON download, all43 rows, the preview alias, secret omission, whole-request rejection, fresh upload form and keyboard error focus. Current screenshots were inspected; source and delivery hashes are recorded in the release report. See TEST_RESULTS.md for exact jobs/artifact.
+
+## Preserved and still outstanding
+
+Manual database setup on A2/cPanel only; no token, setup code, automatic creation or20i. One-page installer, private writes, locks and self-deletion remain. Prior dev9 and delivered dev10-preview payload paths, six immutable migrations and five pinned recovery/access files remain compatible. Keep original config/encryption secret/database/media and separate recovery keys.
+
+Actual A2 permissions/aliases/PHP settings/deletion and ZIP enablement, receiving mailbox, genuine merchant sandbox, approved high-resolution artwork/content, populated-site accessibility/performance/security and owner acceptance remain. No production service or hosting setting has been changed. Same-instance guarded restoration and same-schema ZIP upgrades retain their documented limits. No accepted v1.0.

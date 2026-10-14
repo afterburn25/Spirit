@@ -1,6 +1,6 @@
 # Security controls and remaining acceptance
 
-Cumulative 0.9.0-dev.9; see TEST_RESULTS.md for the exact new verification status. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior.
+Cumulative 0.9.0-dev.11; see TEST_RESULTS.md for the exact new verification status. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior.
 
 ## Installation, sessions and storage
 
@@ -35,6 +35,12 @@ Automatic hosting provisioning is removed. No cPanel API class, token form, priv
 The three former Cpanel file paths contain only an inert declaration and comments, not class definitions or API logic. Their presence preserves dev8's cumulative-update requirements while replacing the retired functionality; this is not a supported automatic setup path.
 
 Separate optional cURL and ZIP notices do not grant capabilities or disable payment/ZIP validation. The installation can finish without either; the relevant feature must still pass its own configuration/runtime checks. Neither a token nor a modified public php.ini can be promised to bypass the provider's extension controls.
+
+## Passive diagnostics and rejected uploads
+
+Launch checks and its preview alias require an active owner. Unsupported methods/actions are refused; export is POST/CSRF-protected, private/no-store/no-referrer. The report uses fixed keys and allowed states, not raw snapshot serialization. Query failure reports unavailable data and does not leak driver text or fabricate empty work queues. Reading/exporting does not decrypt credentials, contact providers, process work or alter business records. Configuration and report counts cannot approve a launch.
+
+Authenticated media, backup and update handlers detect a POST exceeding PHP's whole-request limit before interpreting the discarded body, then return413 with no requested mutation. This is a rejection path, not a CSRF bypass: ordinary requests still require valid CSRF and the relevant privilege/reauthentication. Private config/database fingerprints and absence of staged operations are regression-tested. Upstream host rejection before PHP executes is outside this response path.
 
 ## Verification boundaries
 

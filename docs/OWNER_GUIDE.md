@@ -1,4 +1,4 @@
-# Owner guide — cumulative 0.9.0-dev.9
+# Owner guide — cumulative 0.9.0-dev.11
 
 Sign in with the owner created during browser installation. No public administrator signup/default password exists. Back up before updates and preserve the private installation secret. See INSTALLATION.md for fresh versus existing installations.
 
@@ -9,6 +9,14 @@ Use the one-page browser installer for a new deployment only. No package setup c
 Checks, database/owner details, corrections and the completion result remain on the same page. The result distinguishes actual installer-folder deletion from a retained, permanently locked directory. Use **Open administration** after completion. Install promptly after uploading or use cPanel Directory Privacy while unattended. An already installed website must follow the upgrade instructions instead; never create a new database to replace its existing data.
 
 PHP cURL and PHP ZIP are reported separately in setup and in owner **Installation health**. Neither blocks manual installation. Payment connections require cURL and browser ZIP upgrades require ZIP. Enable missing extensions for the domain's actual PHP version through cPanel Select PHP Version > Extensions, or ask A2 support; then refresh the check. No API token is involved. The owner health page remains available after the installer is deleted.
+
+## Launch checks and support report
+
+Open **Launch checks** from the owner navigation or overview. The43 observations distinguish local configuration from real launch acceptance. Review PHP limits/extensions, installation/private-storage flags, approved publication counts, service settings and unresolved delivery/payment work. The page is passive: it cannot send, charge, retry, enable services or launch the site. Six external acceptance tasks remain manual.
+
+Use **Download support report** for fixed software/extension/limit/status information without raw hostnames, paths, credentials, customer details or content. Review it before sharing. The old preview Launch readiness URL opens the same protected dashboard. See READINESS.md for scope and privacy.
+
+Media upload, backup import and ZIP staging show current PHP limits. A request rejected for exceeding PHP's whole-body limit gets a fresh form and an actionable413 explanation instead of a misleading form-expiry error. Select a smaller file or have A2 review this domain's limits; application rules and server limits still apply. No host setting changes automatically.
 
 ## Content, music and media
 
