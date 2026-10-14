@@ -1,15 +1,13 @@
-# Project status — 0.9.0-dev.10 work checkpoint
+# Project status — 0.9.0-dev.11 consolidation
 
-Based on verified manual-only main bfb061766e0e1ebf7b2d97c58b61c4f8b2de6575. New application verification is pending on work/launch-diagnostics. No accepted v1.0.
+Current work continues PR #13 / work/launch-diagnostics from f5e165cd793b82714c74898d2b2ce53cb7dc7bec. That saved dev10 branch passed full38577693558 and focused38577693838. A separate dev10 local preview was delivered while the prior session reported no writes. Both sources have now been inspected and reconciled; neither is discarded or mistaken for main. Main before this work remains verified dev9 bfb061766e0e1ebf7b2d97c58b61c4f8b2de6575.
 
-## Added
+Dev11 consolidates one owner-only Launch checks dashboard with 43 observations, private-config and upload-headroom checks, public-contact/account/sandbox settings, published merchandise, unfinished email/payment counts, a production-enabled warning and six permanent external acceptance tasks. Support export is a positive allowlist. The former preview admin/readiness URL invokes the same protected handler. Its old helper/template paths are inert for cumulative update compatibility.
 
-Owner-only Launch checks combines current PHP/extensions/upload limits, installation safeguards, database ledger, service configuration and published-section counts. It performs no hosting/provider calls, changes no settings, and does not turn local configuration into payment/mailbox/launch acceptance. A POST/CSRF download contains only explicitly allowed software/extension/limit/check-state fields, not hostnames, paths, credentials, logs, database names, customer details or content. Failed subchecks are unavailable, never green.
+Retain the saved branch's actionable PHP-size hints and oversized-upload 413 handling on media, backup import and browser ZIP staging. Read operations never send mail, contact providers, change settings or process queues. No fake production acceptance or completion percentage.
 
-Media upload, backup import and browser ZIP upgrade screens now show the actual domain PHP file/body limits. Requests discarded by PHP for exceeding post_max_size return413 with a usable page and specific feedback instead of an expired-form error. Normal submissions still require their existing authorization, CSRF and owner confirmations. No limits, file validation or recovery policies were weakened.
+A2/cPanel only, manual DB only, no20i, no setup code/token/automatic creation. Installer, original config/encryption secret/data/uploads, six migrations and pinned recovery/access files remain unchanged. Prior preview and dev9 deployment paths are preserved.
 
-Preserved: A2/cPanel manual database only, one-page code-free setup, no API token/automatic creation/20i; private configuration and uploads; inert retired Cpanel compatibility paths; six immutable migrations and five pinned recovery/access files. All existing website/admin/commerce/maintenance workflows remain.
+New full verification pending. 64 launch/hosting pure assertions pass locally; actual SQL/browser authorization, redaction and alias behavior require the exact new run. Added root/subfolder/no-cURL/no-ZIP tests for both routes, suspended/revoked owner denial, unavailable outbox, published-only category counts and passive follow-up. Cumulative suites remain mandatory.
 
-## Next verification and actual acceptance
-
-Execute cumulative units/package, both SQL environments, thirteen Chromium workflows and Apache HTTPS; inspect diagnostic/error screenshots and verify cumulative upgrade compatibility. Current provider/host testing, master artwork/content, broader populated-site quality and final owner approval remain open. Local configuration checks do not certify those tasks.
+Actual A2/PHP/ACL/private-root/deletion, receiving mailbox, genuine merchant sandbox, approved master artwork/content, populated-site quality and owner acceptance remain open. No server setting or production service was changed. No accepted v1.0.

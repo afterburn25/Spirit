@@ -30,6 +30,22 @@ case 'schema_restore':
     $q=$db->prepare('UPDATE '.Database::table('migrations').' SET checksum=? WHERE migration=?');foreach(Migrations::files() as $file){$q->execute([hash_file('sha256',$file),basename($file)]);}break;
 case 'service_offline':$db->exec('RENAME TABLE '.Database::table('service_settings').' TO '.Database::table('service_settings_offline'));break;
 case 'service_restore':$db->exec('RENAME TABLE '.Database::table('service_settings_offline').' TO '.Database::table('service_settings'));break;
+case 'extras':
+    $o=ConfigStore::read('payments');$o['environment']='production';$o['enabled']=true;ConfigStore::write('payments',$o,1);
+    $o=ConfigStore::read('communication');$o['public_email']='private-contact@example.test';ConfigStore::write('communication',$o,1);
+    $id=\Spirit\MailQueue::enqueue('private-recipient@example.test','EXTRA-PRIVATE-SUBJECT','<p>EXTRA-PRIVATE-MESSAGE</p>','launch-extra-fixture');
+    $q=$db->prepare('UPDATE '.Database::table('mail_queue')." SET status='uncertain' WHERE id=?");$q->execute([$id]);
+    $q=$db->prepare('INSERT INTO '.Database::table('payment_operations')." (order_id,kind,reference,nonce_hash,amount_cents,state,last_error,created_at,updated_at) VALUES (987,'charge','EXTRA-REFERENCE',?,100,'uncertain','EXTRA-PRIVATE-ERROR',UTC_TIMESTAMP(),UTC_TIMESTAMP())");$q->execute([str_repeat('c',64)]);
+    $db->exec('INSERT INTO '.Database::table('shop_categories')." (name,slug,description,active) VALUES ('EXTRA-HIDDEN','hidden-extra','hidden',0)");$category=(int)$db->lastInsertId();
+    $q=$db->prepare('INSERT INTO '.Database::table('products').' (name,slug,draft_json,published_json,created_at,updated_at) VALUES (?,?,?,?,UTC_TIMESTAMP(),UTC_TIMESTAMP())');
+    $q->execute(['EXTRA-DRAFT','extra-draft','{}',null]);
+    $q->execute(['EXTRA-HIDDEN','extra-hidden','{}',json_encode(['category_id'=>$category])]);
+    $q->execute(['EXTRA-VISIBLE','extra-visible','{}',json_encode(['category_id'=>0])]);break;
+case 'mail_offline':$db->exec('RENAME TABLE '.Database::table('mail_queue').' TO '.Database::table('mail_queue_extras_offline'));break;
+case 'mail_restore':$db->exec('RENAME TABLE '.Database::table('mail_queue_extras_offline').' TO '.Database::table('mail_queue'));break;
+case 'suspend':$db->exec('UPDATE '.Database::table('users').' SET active=0 WHERE id=1');break;
+case 'activate':$db->exec('UPDATE '.Database::table('users').' SET active=1 WHERE id=1');break;
+case 'revoke':$db->exec('UPDATE '.Database::table('users').' SET session_version=session_version+1 WHERE id=1');break;
 default:throw new RuntimeException('Unknown launch fixture.');
 }
 echo json_encode($out,JSON_THROW_ON_ERROR);

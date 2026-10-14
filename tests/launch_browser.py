@@ -17,6 +17,8 @@ def main():
         base=Path(directory);archive,unused=build_package(base/'packages')
         with limited_php(base/'php'),site(base/'website',archive,unused,'band') as s:
             s.claim();s.client.form('install/',s.input())
+            from launch_integration import fixture
+            fixture(s,'configure');fixture(s,'extras')
             with sync_playwright() as driver:
                 browser=driver.chromium.launch()
                 for width in [1440,390,320]:
@@ -27,14 +29,18 @@ def main():
                     page.get_by_role('button',name='Enter backstage').click();page.wait_for_url(lambda url:dashboard(str(url)))
                     page.get_by_role('link',name='Open launch checks').click();page.wait_for_url('**/admin/launch/')
                     browser_expect(page.locator('#sidebar a[aria-current="page"]')).to_contain_text('Launch checks')
-                    expect(page.locator('h1').count()==1 and page.locator('.launch-check').count()==28,f'{width}px diagnostics render all bounded checks')
+                    expect(page.locator('h1').count()==1 and page.locator('.launch-check').count()==43,f'{width}px diagnostics render all bounded checks')
                     expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),f'{width}px diagnostic states and text do not overflow')
                     page.get_by_role('button',name='Download support report').focus()
                     with page.expect_download() as event:page.keyboard.press('Enter')
                     download=event.value;data=json.loads(Path(download.path()).read_text())
                     expect(download.suggested_filename=='Spirit-support-report.json' and data['format']=='spirit-support-v1',f'{width}px keyboard export produces a real report')
                     expect('example.test' not in json.dumps(data) and str(s.runtime) not in json.dumps(data),'Browser report does not expose owner email or private filesystem location')
+                    browser_expect(page.locator('#check-payment_mode')).to_contain_text('live-charge risk')
+                    expect(data['check_states']['mail_pending']=='attention' and data['check_states']['external_merchant']=='review','Downloaded report preserves follow-up and acceptance distinctions')
                     screenshot(page,f'launch-{width}-checks')
+                    page.goto(s.base+'admin/readiness/',wait_until='networkidle')
+                    expect(page.locator('.launch-check').count()==43,'Former preview URL serves the same authenticated dashboard')
                     page.goto(s.base+'admin/media/',wait_until='networkidle')
                     expect('Current PHP file limit: 0.02 MiB' in page.content(),'Media form reports the actual small PHP file ceiling')
                     page.locator('[name=file]').set_input_files({'name':'large-synthetic.png','mimeType':'image/png','buffer':b'x'*100000})

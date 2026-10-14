@@ -19,4 +19,14 @@ verify($report['extensions']['curl']&&!$report['extensions']['zip'],'Report pres
 verify(array_keys($report['limits'])===['file_uploads','upload_max_bytes','post_max_bytes','memory_limit_bytes'],'Report limits cannot become a raw phpinfo dump');
 verify(str_contains($report['scope'],'No provider')&&!array_key_exists('ready',$report),'A support report cannot certify launch or provider acceptance');
 verify(!str_contains(HostingLimits::oversizedMessage(),'form expired')&&str_contains(HostingLimits::oversizedMessage(),'no requested action'),'Oversized request is distinguished from CSRF failure');
+foreach([[2097152,8388608,'review'],[2097152,2097152,'attention'],[2097152,1048576,'attention'],[0,8388608,'attention'],[2097152,0,'review'],[-1,1,'unavailable'],[1,-1,'unavailable'],[null,8,'unavailable'],['1M',8,'unavailable']] as [$upload,$post,$state]){
+    verify(\Spirit\LaunchExtras::headroom(['upload_max_bytes'=>$upload,'post_max_bytes'=>$post])[0]===$state,'Upload headroom distinguishes missing limits, whole forms and post zero');
+}
+verify(str_contains(\Spirit\LaunchExtras::headroom(['upload_max_bytes'=>2048,'post_max_bytes'=>0])[1],'multipart'),'Unlimited post directive is contextualized for multipart requests');
+verify(count(\Spirit\LaunchExtras::IDS)===15&&count(array_unique(\Spirit\LaunchExtras::IDS))===15,'Consolidated observations have fifteen unique fixed identifiers');
+foreach(\Spirit\LaunchExtras::IDS as $id){
+    $r=LaunchChecks::supportReport(['checks'=>[['id'=>$id,'state'=>'review','detail'=>'EXTRA-PRIVATE-TEXT','path'=>'https://private.invalid']]]);
+    verify(($r['check_states'][$id]??null)==='review'&&!str_contains(json_encode($r),'EXTRA-PRIVATE-TEXT')&&!str_contains(json_encode($r),'private.invalid'),'New report ID is allowed without its raw details: '.$id);
+}
+verify(!class_exists('Spirit\\LaunchReadiness'),'Former preview helper is inert; there is one canonical diagnostic implementation');
 echo $count." launch/hosting pure assertions passed.\n";

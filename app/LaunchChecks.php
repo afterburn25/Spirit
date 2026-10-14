@@ -7,7 +7,7 @@ use Throwable;
 final class LaunchChecks
 {
     public const STATES = ['observed'=>'Observed','attention'=>'Needs attention','review'=>'Review required','unavailable'=>'Not checked'];
-    public const GROUPS = ['hosting'=>'PHP and hosting','installation'=>'Installation safeguards','services'=>'Service configuration','content'=>'Published content'];
+    public const GROUPS = ['hosting'=>'PHP and hosting','installation'=>'Installation safeguards','services'=>'Service configuration','content'=>'Published content','operations'=>'Operational follow-up','acceptance'=>'External acceptance'];
     private array $rows = [];
 
     private function add(string $id, string $group, string $state, string $title, string $detail, string $path): void
@@ -83,6 +83,7 @@ final class LaunchChecks
             if($schema){$self->observe('content_'.$kind,'content',$label,'admin/content/?kind='.$kind,$read);}
             else{$self->add('content_'.$kind,'content','unavailable',$label,'Not checked until the current schema is confirmed.','admin/updates.php');}
         }
+        $self->rows=array_merge($self->rows,LaunchExtras::snapshot($schema));
         $counts=array_fill_keys(array_keys(self::STATES),0);foreach($self->rows as $row){$counts[$row['state']]++;}
         return ['version'=>Paths::version(),'checked_at'=>gmdate('c'),'runtime'=>$runtime,'counts'=>$counts,'checks'=>$self->rows];
     }
@@ -94,6 +95,7 @@ final class LaunchChecks
         $limits=['file_uploads'=>($snapshot['runtime']['limits']['file_uploads']??false)===true];
         foreach(['upload_max_bytes','post_max_bytes','memory_limit_bytes'] as $key){$v=$snapshot['runtime']['limits'][$key]??null;$limits[$key]=is_int($v)&&$v>=-1?$v:null;}
         $allowed=['php','extension_pdo_mysql','extension_openssl','extension_fileinfo','extension_gd','extension_curl','extension_zip','https','uploads','memory','install_lock','installer_removed','private_storage','schema','smtp','newsletter','store','payments','policy','indexing','content_page','content_release','content_track','content_event','content_member','content_gallery','content_video','content_press'];
+        $allowed=array_merge($allowed,LaunchExtras::IDS);
         $statuses=[];foreach($snapshot['checks']??[] as $row){
             if(is_array($row)&&in_array($row['id']??null,$allowed,true)&&is_string($row['state']??null)&&isset(self::STATES[$row['state']])){$statuses[$row['id']]=$row['state'];}
         }

@@ -85,6 +85,7 @@ jobs:
           python3 tests/smtp_integration.py
           python3 tests/manual_installer_integration.py
           python3 tests/launch_integration.py
+          python3 tests/launch_extras_integration.py
           python3 tests/mail_acceptance.py
           python3 tests/commerce_integration.py
           python3 tests/payment_integration.py
