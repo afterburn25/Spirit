@@ -62,6 +62,7 @@ jobs:
           php tests/commerce_unit.php
           php tests/payment_unit.php
           php tests/staff_unit.php
+          php tests/backup_unit.php
           python3 -m py_compile tools/package.py tests/*.py
           python3 tests/package_test.py
       - name: Database and HTTP integration
@@ -76,6 +77,7 @@ jobs:
           python3 tests/payment_integration.py
           python3 tests/payment_http.py
           python3 tests/staff_integration.py
+          python3 tests/backup_integration.py
       - name: Install test-only Chromium
         if: matrix.php == '8.4'
         run: |
@@ -100,6 +102,9 @@ jobs:
       - name: Rendered owner invitation and staff permissions
         if: matrix.php == '8.4'
         run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/staff_browser.py'
+      - name: Rendered backup and restore workflows
+        if: matrix.php == '8.4'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/backup_browser.py'
       - name: Preserve synthetic browser screenshots
         if: always() && matrix.php == '8.4'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

@@ -12,3 +12,4 @@
 .payment-key-form,.payment-key-form>*{min-width:0}
 .payment-key-form .button{max-width:100%;min-width:0;white-space:normal;overflow-wrap:anywhere}
 .panel>code{display:block;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.backup-card{border-top:1px solid #2b3949;padding-block:24px;min-width:0}.backup-card p{overflow-wrap:anywhere}.backup-card .button{max-width:100%;white-space:normal;overflow-wrap:anywhere}.backup-restore{padding:16px 0;border-top:1px solid #223140}.backup-restore summary{cursor:pointer;color:#dfb65e;font-weight:700}.backup-restore .form-stack{max-width:640px}
