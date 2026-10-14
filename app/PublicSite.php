@@ -12,6 +12,14 @@ final class PublicSite
         $path=match($item['kind']) {'release'=>'music/release.php?slug='.$slug,'event'=>'shows/event.php?slug='.$slug,'member'=>'band/member.php?slug='.$slug,'page'=>match($item['slug']){'home'=>'','band'=>'band/','booking'=>'booking/','press'=>'press/',default=>'pages/?slug='.$slug},default=>'media/'};
         return app_url($path);
     }
+    public static function imageSizes(string $class): string
+    {
+        $classes=preg_split('/\s+/',trim($class))?:[];
+        if(in_array('hero-art',$classes,true)){return '(max-width: 820px) 100vw, 65vw';}
+        if(in_array('page-image',$classes,true)||in_array('event-image',$classes,true)){return '(max-width: 600px) calc(100vw - 40px), (max-width: 900px) calc(100vw - 80px), 820px';}
+        if(in_array('band-image',$classes,true)){return '(max-width: 600px) calc(100vw - 40px), 640px';}
+        return '(max-width: 600px) calc(100vw - 40px), (max-width: 1100px) 50vw, 640px';
+    }
     public static function image(int $id,string $alt,string $class='',bool $eager=false): string
     {
         if($id<1){return '<span class="art-placeholder '.e($class).'" aria-hidden="true"><span>♛</span><b>SG</b></span>';}
@@ -22,7 +30,7 @@ final class PublicSite
             $candidates=[];
             foreach(ImageVariants::WIDTHS as $width){if($width<$dimensions['width']){$candidates[]=Media::url($id).'&width='.$width.' '.$width.'w';}}
             $candidates[]=Media::url($id).' '.$dimensions['width'].'w';
-            $sizes=match($class){'hero-art'=>'(max-width: 820px) 100vw, 65vw','page-image','band-image'=>'(max-width: 600px) calc(100vw - 40px), 640px',default=>'(max-width: 600px) calc(100vw - 40px), (max-width: 1100px) 50vw, 640px'};
+            $sizes=self::imageSizes($class);
             $responsive=' srcset="'.e(implode(', ',$candidates)).'" sizes="'.e($sizes).'"';
             $source=$dimensions['width']>640?Media::url($id).'&width=640':Media::url($id);
         }

@@ -20,4 +20,7 @@ check(ImageVariants::disposableName($name),'Only the fixed derivative cache name
 check(ImageVariants::disposableName('.image-v1-'.str_repeat('b',24).'.tmp'),'Recognized abandoned image temporary output may be removed');
 foreach(['.image-variants.lock','config.php',str_repeat('a',32).'.png','image-v1-'.str_repeat('a',64).'-641.webp','../'.$name,'image-v2-'.str_repeat('a',64).'-640.webp',$name.'.php'] as $bad){check(!ImageVariants::disposableName($bad),'Original, lock, unknown or unsafe file is preserved');}
 foreach([['../x',640,'webp'],[str_repeat('a',64),321,'webp'],[str_repeat('a',64),640,'php']] as $args){rejects(fn()=>ImageVariants::cacheName(...$args),'Invalid cache identity cannot construct a path');}
+check(str_ends_with(Spirit\PublicSite::imageSizes('page-image focal-center'),'820px'),'Reading-page size hint matches its padded 900px layout');
+check(Spirit\PublicSite::imageSizes('focal-left page-image')===Spirit\PublicSite::imageSizes('page-image'),'Focal-point classes do not disable responsive layout selection');
+check(str_ends_with(Spirit\PublicSite::imageSizes('hero-art focal-top'),'65vw'),'Hero sizing remains separate from reading-page sizing');
 echo $count." media-quality pure checks passed.\n";

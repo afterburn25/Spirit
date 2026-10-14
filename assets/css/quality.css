@@ -1,4 +1,6 @@
 /* Shared progressive accessibility/media rules; preserve the selected theme. */
+/* Low specificity lets designed card/hero heights keep their overrides. */
+img{height:auto}
 html{scroll-padding-bottom:var(--player-height,0px)}
 body.has-player{padding-bottom:var(--player-height,140px)}
 .public-site :is(button,a,input,select,textarea):focus-visible{scroll-margin-block:20px}
