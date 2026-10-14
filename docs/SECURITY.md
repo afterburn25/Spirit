@@ -1,33 +1,31 @@
-# Security controls and verification boundaries
+# Security controls and remaining acceptance
 
-Development0.8.0-dev.1. No certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes local tests, Actions and unverified provider/host acceptance.
+Cumulative 0.9.0-dev.5. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior.
 
-## Foundation
+## Installation, sessions and storage
 
-Package-specific random setup code with hash-only deployment; HTTPS with loopback HTTP exception only on PHP development server; strict sessions, HttpOnly/SameSite and Secure cookies under HTTPS; CSRF mutations; hashed passwords/session revocation; prepared SQL; rate limits; role-gated owner administration; escaped text, self-only script CSP and uncached private pages.
+Random package setup capability with hash-only deployment; native HTTPS (loopback HTTP exception only in PHP's test server); strict sessions, HttpOnly/SameSite/Secure cookies as applicable; hashed passwords, revocable session versions, CSRF mutations, prepared SQL and request limits. Private runtime validates canonical/known public roots, probes real IO and checks permissions before secrets. No web-controlled storage target, 0777 or public secret fallback. Prefix/operation ownership and independent completion markers prevent destructive reinstall. Physical installer removal is verified separately from permanent logical locking.
 
-Account-private storage validates known/declared public roots and canonical paths. Actual probes cover runtime children. Permissions are verified before secrets. Symlinks, ambiguous destinations, unreadable installer directories and unknown cleanup content fail closed. Installer operation locks, prefix ownership and independent completion markers prevent destructive reinstall. Physical deletion is separate from permanent setup locking.
+Packages exclude runtime/customer data, plaintext setup/recovery receipts, test fixtures, local pointers, credentials, symlinks and build output. There is no default owner password. Never commit real private data to this public repository.
 
-Deployment packaging allows known paths only and excludes runtime/customer data, plaintext receipts, scripts/tests/build tools, local configs, symlinks and output folders. The private receipt is exclusively created0600. No default owner password. Never place real secrets in this public repository regardless of packaging exclusions.
+## Content and identity
 
-## Content, communication and customer identity
+Published snapshots and media visibility are separate from drafts and history. Typed validation rejects malformed structures; comparison escapes saved text. Restore reloads database history, checks current locked staff role/session/revision and source-media integrity, then writes a new private revision without exposing it publicly. Staff roles are deny-by-default; content editors/store managers cannot inherit owner credentials, backups or financial controls. Invitations/recovery require the intended email holder, expiring single-use tokens and owner-authorized administration. Customer identities and addresses are separately bound and cannot create staff sessions.
 
-Private drafts/media are authorized independently from public snapshots. Uploads are validated and private until published. Settings/message bodies are authenticated-encrypted using the private installation secret. Newsletter tokens are hashed/expiring and consent changes use explicit POST. Booking consent never opts into marketing. Mail accepted by SMTP but lacking a persisted receipt remains uncertain, not automatically resent.
+Booking consent is not marketing consent. Newsletter confirmation/unsubscribe require explicit protected POST actions. Secrets/message bodies use authenticated encryption with the original private installation secret. Mail with uncertain acceptance or a failed post-acceptance database receipt is not blindly resent.
 
-Customer identities are separate from staff users. Email-first activation prevents attacker-preselected passwords; single-use reset/activation links expire and revoke. Password changes and suspension revoke sessions. Address mutations bind customer and revision. Private browser bags use random keyed-hash identities; all prices/availability are server computed. Test fixtures cannot become HTTP behavior.
+## Payments
 
-## Checkout and payment boundary
+Custom Accept.js checkout sends card details directly to the official provider and submits only opaque token fields to application code. Unexpected fields are rejected and tokens are not stored/logged. Payable-page CSP admits only the environment's official SDK/API hosts, without unsafe-eval/inline. Merchant PCI obligations and actual provider compatibility remain acceptance requirements.
 
-Sensitive card inputs have no native form names; intended application payment submission contains opaque token fields only. Unexpected fields are rejected before mutation and tokens are not stored/logged. Scoped payable-page CSP admits only the corresponding official SDK/API domains, without unsafe-eval/inline. A custom Accept.js form retains merchant PCI obligations.
+Durable operations precede charge/reversal calls. Repeated/concurrent requests do not create another operation. Unknown acceptance cannot silently free stock or retry a payment. Reservations/release are transactional and idempotent. Signed notifications are authenticated and deduplicated, then reconciled through merchant/environment/invoice/amount/type-aware reporting; a browser redirect or webhook receipt alone is not proof of current payment. Private receipts/history require ownership or scoped capability. Financial credentials/reversals require owner reauthentication. See PAYMENTS.md for operational limits and genuine sandbox acceptance.
 
-Durable processing precedes irreversible calls; repeated/concurrent requests cannot create another charge operation. Unknown acceptance, lost database receipt or interrupted worker cannot silently free stock or retry payment. Atomic reservations and idempotent release preserve stock. Reporting matches merchant/environment/invoice/amount/type and correlation. Browser return parameters do not prove payment.
+## Maintenance and recovery
 
-Webhooks verify unmodified bytes with the configured key before durable insertion and deduplication. Signed receipt alone is not current payment evidence; reporting follows separately. Receivers are machine requests without browser sessions, but still require HTTPS and signatures. Private order data is encrypted and accessed only by authenticated ownership, originating session or private capability. Private pages are no-store/no-referrer/noindex. Credential/reversal changes require owner reauthentication.
+Encrypted, authenticated, bounded snapshots do not execute uploaded SQL/PHP. Same-instance guarded restore preserves sensitive operational histories; content restores cannot rewind external transactions or consent. Exclusive maintenance locks coordinate application requests; external panel tools do not participate. Browser ZIP validation rejects unsafe entries, incompatible/pinned files, hash/version/schema mismatches and oversized archives. Originals and a durable journal precede replacement; a separate new-application request verifies before reopening. Pinned recovery restores only recorded code, not arbitrary paths. ZIP updates remain same-schema; backup restore is not a universal cross-host disaster recovery system.
 
-API endpoints are fixed HTTPS, bounded and non-redirecting with certificate/hostname checks. CLI-only synthetic gateway and loopback-TLS seams cannot be chosen through web requests. Actual provider signatures/SDK/API behavior and merchant compliance remain staging acceptance, not established by synthetic fixtures. Read PAYMENTS.md.
+Conservative cleanup is bounded, opt-in where scheduled, and preserves active credentials/tokens, business histories, payment/notification idempotency and recovery archives. It cannot be invoked by an unauthenticated web request.
 
-## Remaining review
+## Verified boundaries versus remaining review
 
-Actual Apache/LiteSpeed rules and arbitrary aliases; provider TLS/ACL/open_basedir/trusted-proxy configuration; early-DDL crash windows; legacy dev.1 runtime migration; actual mailbox/provider transactions; complete backup/restore/ZIP upgrade safety; delegated staff; retention; advanced application security/accessibility/performance. Never blindly trust forwarded headers, public storage fallback, a source-artifact success or another commit's test results.
-
-Exceptions must not expose credentials, private order data, raw gateway messages or driver diagnostics. CI credentials are deliberately disposable and never reusable for production. Runtime test data and temporary CA keys stay outside deployment archives.
+Current full tests cover both database engines, ten browser journeys, loopback TLS transport failures, permission/concurrency/recovery and actual Apache HTTPS access rules. They do not prove arbitrary provider aliases/ACL/open_basedir/OPcache/proxy behavior, real inbox or merchant transactions, field performance, full accessibility or penetration review, legacy relocation, master-art/content approval or v1.0 acceptance. Never trust forwarded headers indiscriminately, weaken safeguards to pass a test, or label a source-artifact run as application verification. Exceptions/logs must not expose private payloads, tokens, credentials or raw driver diagnostics.

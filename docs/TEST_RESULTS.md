@@ -1,17 +1,19 @@
 # Test evidence
 
-## Current .9dev5 implementation — verification pending
+## Current 0.9.0-dev.5 — full workflow passed
 
-39 content-history pure checks pass locally. Added SQL/HTTP/root/subfolder restore, publication/media isolation, source corruption, role boundaries, replay/stale input, literal search and1100-record pagination tests. Added tenth browser workflow and six screenshots to be inspected after execution. No changed-code SQL/browser pass is claimed yet. Baseline exact-main2a9497e completed38511337940 successfully.
+Application **9546b7c298b462d7457c0e911a71bf5fedb5bc81** passed full **38513423793** and focused maintenance **38513423736**. See **CONTENT_HISTORY_CHECKPOINT.md** for exact jobs, source/artifact comparison and visual evidence. This documentation-only descendant changes no tested application files.
 
-## Previous verified checkpoint
+39 new content-history pure checks, real SQL/HTTP root/subfolder restore, publication/media isolation, source corruption, role boundaries, replay/stale input, literal search and 1,100-record pagination passed. Tenth Chromium workflow passed at 1440px and 390px. All prior suites also passed on both database environments; actual Apache PHP 8.4 HTTPS checks passed. Six new renders were inspected from an 84-PNG synthetic artifact.
 
-**0.9.0-dev.4 application5e3c00b278b369154f10d61f5e651cdfb0a75572 passed full Actions38510178934**, including both PHP/database environments, all nine1440px/390px Chromium workflows and actual ApachePHP8.4HTTPS. Focused maintenance38510178953 passed. See MAINTENANCE_CHECKPOINT.md for exact jobs, artifact, assertions and corrected failures.
+## Earlier verified checkpoint
 
-The334 cumulative pure assertions cover foundation/storage/paths/content schema/communication/commerce/payment/staff/backup/upgrade/cleanup;11 packaging tests protect secrets, local recovery pointers, version immutability and manifests. Full SQL/HTTP, TLS SMTP/payment transport, permission/concurrency/recovery, root/subfolder/additive migration suites remain. Payment and external SDK boundaries in automated tests are explicitly synthetic; local TLS tests do not contact production providers.
+0.9.0-dev.4 application **5e3c00b278b369154f10d61f5e651cdfb0a75572** passed full **38510178934** and focused **38510178953**. Its documentation-only main **2a9497e831f6f3740fb5955a1f37b63dadc03ad4** also passed **38511337940**. See MAINTENANCE_CHECKPOINT.md for upgrade/retention/Apache evidence.
 
-Nine browser workflows: installer/admin, public/player, booking/communication, merchandise/customer, tokenization/order, staff/invitations, encrypted backups/restoration, ZIP upgrades/independent recovery, and conservative cleanup. The ten newest upgrade/cleanup screenshots were inspected from78-render artifact11869339348. The test ZIPs contain only generated fixtures and never enter deployment as band data.
+The prior 334 cumulative pure assertions cover foundation/storage/paths/content schema/communication/commerce/payment/staff/backup/upgrade/cleanup. 11 packaging tests protect secrets, local recovery pointers, version immutability and manifests. Existing SQL/HTTP, TLS SMTP/payment transport, permission/concurrency/recovery, root/subfolder/additive migration suites remain. External payment and SDK boundaries in automated tests are synthetic; loopback TLS is not a production provider transaction.
 
-Historical exact-main .8eb995810 passed38493945223; .9dev2a621b4b passed38503430004, app7d22bf8 passed38502208276. Earlier results and detailed reports remain in Git history and BACKUP_CHECKPOINT.md. Current documentation-only updates change no tested code/schema/assets. Check the current main run rather than assigning another commit's result to later application edits.
+Ten Chromium workflows now cover installer/admin, public/player, communication, merchandise/customer, tokenization/order, staff/invitations, encrypted backup/restore, ZIP upgrades/independent recovery, conservative cleanup, and content history. Tests use generated fixtures, not real band or customer records.
 
-Not proved: actual hosting aliases/ACL/open_basedir/OPcache/proxy behavior, production merchant and inbox delivery, domain mail configuration, complete penetration/accessibility review, field Core Web Vitals, approved high-resolution artwork and real content, cross-schema unattended upgrades or cross-host disaster restore. No accepted1.0 exists.
+Historical exact-main .8 eb995810 passed 38493945223; .9dev2 a621b4b passed 38503430004 and app 7d22bf8 passed 38502208276. Older detailed evidence remains in Git history and BACKUP_CHECKPOINT.md. Check the current main run, not a source-artifact workflow, for subsequent edits.
+
+Not established: real shared-host aliases/ACL/open_basedir/OPcache/proxy behavior, real merchant and inbox delivery, domain email configuration, full penetration/accessibility review, field Core Web Vitals, approved high-resolution artwork/content, cross-schema unattended upgrades, cross-host disaster restoration or accepted v1.0.

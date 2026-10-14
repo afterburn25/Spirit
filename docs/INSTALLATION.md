@@ -1,37 +1,33 @@
-# Browser installation — development build0.8.0-dev.1
+# Browser installation and updates — 0.9.0-dev.5
 
-Use an isolated staging domain/subfolder, not the existing live band website. Automated database/browser evidence is recorded in TEST_RESULTS.md; actual shared-host ownership, access rules, aliases, TLS/proxies and provider behavior require separate staging acceptance.
+Use isolated staging first, not the existing live band website. TEST_RESULTS.md records exact automated evidence. Actual shared-host ownership, domain aliases, execution limits, TLS/proxies, OPcache and provider behavior require staging acceptance.
 
-## Hosting target
+## Hosting and fresh installation
 
-PHP8.2+ with PDO MySQL, OpenSSL, fileinfo, GD and cURL for payments; MySQL/MariaDB; HTTPS; Apache/LiteSpeed honoring supplied access rules. No required SSH/root, Python, Node or Composer build on the host. Other server configurations need equivalent verified access rules. Create an empty staging database/user through the hosting panel. Schema/CRUD privileges are exercised by installer probes; the app does not provision hosting accounts or obtain panel credentials.
+PHP 8.2+ with PDO MySQL, OpenSSL, fileinfo and GD; cURL for payment transport and ZIP for browser package upgrades. MySQL/MariaDB; HTTPS; Apache/LiteSpeed honoring supplied access rules. Actual Apache PHP 8.4 HTTPS rules are regression-tested; this does not verify every LiteSpeed/provider configuration. No required SSH/root or host-side Node/Python/Composer build.
 
-## Package and browser flow
+Create an empty staging database/user through the hosting panel. Installer probes exercise required CRUD/schema permissions. The application does not create hosting accounts, obtain panel credentials or elevate permissions.
 
-On a development checkout run `python3 tools/package.py --output ./dist`. Keep the separate PRIVATE setup receipt off the server and out of Git. Upload/extract only the Full ZIP, including hidden .htaccess files, with the hosting file manager. Open `/install/` under the staging URL, enter the receipt's unique setup code, review checks and enter database/initial-owner details.
+A development checkout can run `python3 tools/package.py --output ./dist`. Save the separate PRIVATE setup receipt offline. Upload/extract only the Full ZIP, including hidden .htaccess files, using the panel file manager. Open `/install/` beneath the intended installation URL; enter the receipt's unique setup code, review the checks, and enter database/initial-owner details. Only the code hash is in the ZIP. Success redirects to owner sign-in; review Installation health for actual storage and cleanup state.
 
-The package contains only the code hash; source checkouts cannot be claimed by the first public visitor. Tests/build tools/local runtime/old receipts are excluded. The manifest records payload hashes, not a mandatory user-entered checksum. Success redirects to owner sign-in. Review Installation health for actual storage/cleanup state.
+## Writable private runtime and self-deletion
 
-## Writable private runtime
+Runtime is `.spirit-<installation identifier>` beneath a validated account-private base. Process/home and explicit server-side SPIRIT_ACCOUNT_HOME/SPIRIT_PUBLIC_ROOTS configuration identify permitted account/public roots. No web form/header chooses the private destination. Common/current/context public roots are checked, but arbitrary server aliases still require hosting review.
 
-Runtime is provisioned as `.spirit-<installation identifier>` under a validated account-private base. Per-account PHP hosting is detected from process home or host-provided HOME; atypical hosts may require server-configured SPIRIT_ACCOUNT_HOME/SPIRIT_PUBLIC_ROOTS. No web input or HTTP header chooses a filesystem destination.
+Private directories use 0700 and config 0600, checked before secret bytes. Actual create/write/read/rename/delete probes cover runtime children. No public credential fallback or 0777 is used. PHP cannot override ownership, ACLs or open_basedir; provider configuration may be necessary on incompatible hosts.
 
-Current/context roots, common public ancestors/children and declared roots are checked. PHP cannot discover arbitrary web aliases; verify domain mappings on staging. Ambiguous/public candidates fail closed. Private directories use0700, config0600 verified before secret bytes; actual create/write/read/rename/delete probes run in runtime/children. Defensive deny rules add another layer. No public credential fallback or0777.
+Durable setup/prefix ownership and filesystem locks prevent concurrent or destructive reinstall. Interrupted setup resumes with the same database binding instead of silently changing prefixes. Configuration/completion markers precede cleanup. Cleanup targets only the fixed installer and recognized files, refuses symlinks/unknown contents and verifies physical removal. Denied removal leaves the installer permanently locked and offers an owner POST/CSRF cleanup retry. Automated tests cover successful removal, denial and retry after permissions are corrected; no universal host deletion guarantee is made.
 
-PHP cannot override provider ownership, ACLs or open_basedir. Panel extraction can improve ownership compatibility but cannot guarantee deletion. A provider prohibiting private writable storage needs hosting configuration, not a misleading success state. See STORAGE.md.
+## Existing installations
 
-## Completion and self-deletion
+Never rerun a fresh installer. Back up config, original encryption secret, database and media before replacing code. Legacy dev.1 runtime placement needs the review in STORAGE.md; do not delete old state to bypass conflicts.
 
-Filesystem locks prevent concurrent setup. Existing database prefixes are preserved; durable recovery supports retries with the same database configuration after interruption and rejects silent switches. DDL is not transactional; ownership sentinel covers interruption between CREATE and initial INSERT. Actual host crash behavior still requires acceptance.
+Supported installations with the current maintenance/recovery foundation can use owner **Browser upgrades** for a newer trusted cumulative ZIP with **unchanged migrations/schema and pinned recovery layer**. The owner downloads a separate private update-recovery receipt, confirms it is stored, installs, then verifies the newly started application before public access resumes. The removed installer and private runtime are preserved. Interrupted replacement can recover via `/admin/upgrades/recover.php` and the saved private receipt. Read UPGRADES.md before updating.
 
-Configuration and completion marker precede cleanup. Only the fixed install directory and known files are targeted. Symlinks/unexpected contents are refused. Physical removal is verified separately from permanent locking. If deletion is denied, setup remains locked and the owner receives a CSRF-protected cleanup retry. Tests cover successful removal, denied removal and retry after permission repair, not a guarantee about every host.
+Cross-schema releases or changes to pinned recovery/access files require a reviewed staging deployment and the existing additive Database updates flow; the automatic updater deliberately refuses them. Do not rename versions or strip safety checks to force acceptance. Automatic legacy-runtime relocation and cross-host disaster recovery are not implemented.
 
-## Supported updates
+## Backups, retention and provider setup
 
-Do not overwrite original dev.1 without reviewing STORAGE.md: private-runtime placement changed. Preserve the old runtime/database; never delete state to bypass conflicts. For supported account-private installations, back up config/encryption secret/database/media, upload reviewed application code and use owner Database updates. Never rerun a fresh installer. Migrations001–004 remain unchanged;005 is additive and must not reset owners, content or customers.
+Owner **Backups & safe restore** supports authenticated encrypted snapshots, verification/import/download and guarded same-instance restoration. Keep the separate recovery key offline. Content-only restore preserves payment/account/stock/consent histories; broader site-data restore refuses changed protected operational state. Read BACKUPS.md and keep independent provider backups.
 
-Full automatic browser ZIP upgrades/restore and automatic legacy-runtime relocation are not complete yet. Preserve the installation encryption secret: SMTP/payment credentials, message bodies and private order data require it. Do not overwrite runtime with a new blank configuration.
-
-## Communication and payment staging
-
-Follow COMMUNICATION.md to configure/test SMTP and a hosting-panel PHP queue schedule. Follow PAYMENTS.md for separate bounded payment maintenance/reporting, sandbox-only staging, actual SDK/API/signed-webhook verification and explicit merchant shipping/tax/terms. No genuine provider transaction has been verified by this development build. Never enable production based on synthetic tests alone.
+Owner retention tools remove only eligible bounded technical data after review; they do not erase business histories or create a hosting schedule. See RETENTION.md if present and the administration guidance. Configure TLS SMTP and verify delivery with the real mailbox/provider using COMMUNICATION.md. Configure Authorize.net sandbox separately using PAYMENTS.md; synthetic tests do not establish actual SDK/API/webhook/merchant acceptance. Production enablement requires an explicit owner decision after staging validation.

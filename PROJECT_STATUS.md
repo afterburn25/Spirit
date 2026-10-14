@@ -1,11 +1,17 @@
-# Project status — 0.9.0-dev.5 implementation checkpoint
+# Project status — 0.9.0-dev.5
 
-Based on exact-main2a9497e (0.9.0-dev.4), whose complete run38511337940 passed. The new content-history checkpoint is implemented with full execution pending; do not assign baseline test results to changed code.
+**Verified cumulative application:** 9546b7c298b462d7457c0e911a71bf5fedb5bc81. Full run **38513423793** and focused maintenance **38513423736** passed. The following documentation-only descendant changes no runtime, assets, schema or tests. Read the live main ref before resuming.
 
-New work: literal title/URL search, visibility filters, sorting and25-row pagination; private per-item paginated revision metadata and escaped field comparison; transactional restore as a NEW PRIVATE DRAFT, preserving public snapshots, later revisions and public-media permissions; active role/session recheck and typed input; missing/damaged historical-file refusal; historical selected files/releases retained beyond1000 newer items. New drafts record sort order so editing order privately cannot reorder the live snapshot prematurely. Legacy revisions retain current order. No existing migration is edited.
+## Newly implemented and tested
 
-Tests added:39 pure checks, root/subfolder real database/HTTP large-library/restore/permission/replay/media regressions and a tenth1440px/390px Chromium workflow. New full CI and visual inspection pending.
+Literal title/URL search, visibility filters, sorting and 25-row pagination; private per-item revision lists and escaped field comparison; transactional restore as a **new private draft**, preserving current public snapshots, later revisions and media visibility; active role/session checks; typed input; missing/damaged historical-file refusal; historical selected files/releases retained beyond 1,000 newer items. New drafts record sort order, so private edits cannot prematurely reorder the live snapshot. Legacy revisions retain current order. No migration was changed.
 
-Preserved cumulative installer/private runtime/cleanup, approved public site/music/shows, booking/mail/newsletter, catalog/cart/customer, sandbox-first payment/order boundaries, staff, encrypted backups, same-schema ZIP updates/recovery and technical retention. No reset, mockup replacement, real gateway transaction or inbox-delivery claim.
+39 new pure checks, root/subfolder SQL/HTTP large-library/restore/permission/replay/media tests, and a tenth desktop/mobile Chromium workflow passed. Both database jobs and actual Apache HTTPS passed. Six new screenshots were inspected from the 84-render artifact. See CONTENT_HISTORY_CHECKPOINT.md and TEST_RESULTS.md.
 
-Next: final metadata, sitemap/search/redirect handling, broader media/accessibility/performance quality, master artwork and approved real content, actual hosting/provider acceptance. Same-schema upgrade and same-instance backup limitations remain explicit. No1.0 release or acceptance has occurred.
+## Preserved cumulative scope
+
+Browser installer/private runtime/installer-folder deletion and permanent lock; selected public website, music/player, shows/external ticket links; booking/email/newsletter; catalog/inventory/cart/customer accounts; token-only checkout/orders/fulfillment; staff permissions; encrypted backups and guarded restoration; owner-operated same-schema ZIP upgrades, independent recovery and conservative retention.
+
+## Still required
+
+Final metadata, sitemap/public search/redirect handling, wider media/accessibility/performance quality, high-resolution production artwork and approved real content, actual hosting and payment/mail-provider acceptance. Same-schema upgrade and same-instance backup limitations remain explicit. No genuine merchant transaction or real inbox result is claimed by synthetic tests. No final v1.0 acceptance or release has occurred.

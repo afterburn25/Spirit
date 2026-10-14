@@ -1,37 +1,41 @@
-# Owner guide — current development modules
+# Owner guide — cumulative 0.9.0-dev.5
 
-Sign in with the owner created by browser installation. No public admin registration/default password exists. Back up before updates; existing supported installations use owner Database updates, never destructive reinstall. See INSTALLATION.md.
+Sign in with the owner created during browser installation. No public administrator signup/default password exists. Back up before updates and preserve the private installation secret. See INSTALLATION.md for fresh versus existing installations.
 
-## Content workflow
+## Content, music and media
 
-Choose pages, releases, tracks, shows, members, gallery, videos or press downloads. Structured fields preserve the selected design. Save private draft leaves the published snapshot untouched; saved-draft preview is owner-only/no-store/noindex. Publish approved content updates public visibility/media references. Unpublish retains drafts. Stale revisions are rejected rather than overwritten. Revision history is stored; advanced restore/archive controls remain later work.
+Pages, releases, tracks, shows, band members, galleries, videos and press downloads use structured fields that preserve the selected design. Save private draft leaves the live snapshot untouched. Authorized content staff can preview saved drafts privately, compare earlier versions, and restore one as a new private draft. Explicitly publish after reviewing. Stale edits are refused. Search/filter/sort and 25-row pages reach older items in large libraries. Read CONTENT_HISTORY.md.
 
-Media library accepts authorized JPEG/PNG/WebP, MP3/OGG/WAV and PDF. Images are decoded/re-encoded; scripts/SVG/archives refused. Unreferenced uploads stay private; published pages/products authorize their selected media. PDFs download. Provide meaningful alternative text and confirm usage rights.
+Upload authorized JPEG/PNG/WebP, MP3/OGG/WAV and PDFs; scripts/SVG/archives are not accepted. Images are decoded/re-encoded, and unreferenced files remain private. Published content/products authorize their selected images/audio/documents. Provide meaningful alternative text and usage-rights confirmation. Historical damaged/missing media blocks restoration instead of silently dropping it.
 
-Reserved page URLs home/band/booking/press feed their designed sections. Generic pages have separate URLs. Website settings control name/tagline/welcome. The selected home composition remains fixed; home content may select its hero image.
+Reserved page URL names home/band/booking/press feed the designed sections; other pages have individual URLs. Website settings controls name/tagline/welcome. Publish a release and its authorized tracks for the user-initiated persistent player. External streaming platforms use verified outbound links.
 
-## Music and shows
+## Shows and booking
 
-Create/publish a release and its authorized uploaded tracks. Audio is user-initiated and persists during supported internal public browsing. External platforms use outbound links, not promised cross-platform continuous playback.
+Enter complete local date/time, timezone and venue/location. Paste the venue's HTTPS ticket URL. Missing links, free admission, sold-out/postponed/cancelled states are explicit; past shows archive. No internal tickets/scanning exist.
 
-Shows require complete local date/time, timezone, venue/city and optional address. Paste the venue's HTTPS ticket-seller URL. Missing tickets, free/sold-out/postponed/cancelled labels are explicit; past events archive automatically. Do not seed concept examples as real bookings. No native tickets/scanning.
+Booking inquiries are saved before notification work. Owners can review/assign/update status and private notes. Inquiry confirmation is not a reservation, payment, automatically published show or marketing enrollment.
 
-## Booking and communication
+## Email and subscribers
 
-Inquiries save before email work. Review organizer details, assign owners, manage status and private notes. Stale edits and duplicate submissions are guarded. Inquiry confirmation is not a reservation or marketing enrollment.
+Configure TLS SMTP, then verify an owner test with both the real provider and mailbox. Inspect queue failures and uncertain acceptance; do not retry a possible accepted message without checking duplicate risk. Newsletter signup requires separate consent and confirmation; unsubscribe and confirmed-only export are supported. No bulk campaign composer is included. COMMUNICATION.md explains optional hosting-panel queue schedules; merely saving a preference does not create a schedule.
 
-Configure TLS SMTP, test with provider/mailbox, inspect retries/uncertain delivery. Verify acceptance before acknowledging duplicate risk on retry. Preserve the encryption secret. Newsletter requires separate consent and confirmation, supports unsubscribe and confirmed-only export. No campaign composer. See COMMUNICATION.md for quiet-site scheduled processing.
+## Merchandise, accounts and orders
 
-## Merchandise and customers
+Manage categories/product drafts/photos/SKU variants/prices/stock adjustments with reasons. Publish descriptive snapshots separately from immediate price/stock changes. The catalog starts closed with no invented products. Customer enrollment is email-first and never grants staff access; address book is US-only initially. Owner suspension revokes sessions.
 
-Open Merchandise & customers. Add categories/product drafts, uploaded photographs, SKU variants, prices and signed stock adjustments with reasons. Publish approved product snapshots separately from immediate price/stock changes. Catalog starts closed and contains no fake products. Images are contained, not cropped. Customer signup is email-first; customer identity never grants staff access. Addresses are customer-bound and initially US-only. Owner suspension revokes sessions. See COMMERCE.md.
+Orders & payments includes explicit delivery/tax/terms configuration, environment-specific encrypted Authorize.net settings, order review, reporting/notifications, fulfillment/tracking and guarded full reversals. Start in sandbox and complete actual merchant/provider validation. Never share live keys through chat/Git. Payment and fulfillment are different; do not ship held/uncertain/unverified orders or blindly repeat a charge/refund. Read COMMERCE.md and PAYMENTS.md.
 
-## Orders and payments
+## Staff, backups and upgrades
 
-Orders & payments adds delivery/tax/store terms, protected environment-specific Authorize.net values, private order review, fulfillment/tracking, notification inbox and reporting. Start in sandbox; no actual provider acceptance has yet been established. Save/test credentials only through protected administration, not chat/Git. Final totals are computed before payment and stock holds are transactional.
+Owners can invite content editors/store managers and manage their scoped access without sharing the owner password. They cannot inherit owner backup/payment credential controls. See STAFF.md.
 
-Payment and fulfillment differ. Do not fulfill unverified/held/uncertain orders. Never blindly retry an uncertain charge/reversal; reconcile the original provider transaction. Full void/refund is bounded to one reversal operation per order and does not automatically restock possibly shipped goods. Partial/external unmatched refunds require review. See PAYMENTS.md for exact operating limits, provider acceptance and separate payment/mail schedules.
+Backups & safe restore creates/verifies/downloads/imports encrypted snapshots. Save the separate key offline. Same-instance content-only restore preserves operational identities/payments/stock/consent; broader restoration refuses changed protected business state. Keep provider backups too. See BACKUPS.md.
 
-## Still unfinished
+Browser upgrades accepts a trusted newer cumulative same-schema ZIP. Download the separate private recovery receipt before replacement, verify new code in the next request, and use the pinned recovery entrance when bootstrap cannot start. This is not an unattended cross-schema update service. See UPGRADES.md and MAINTENANCE_CHECKPOINT.md.
 
-Delegated staff management, complete automatic backup/restore/browser ZIP upgrades, retention, advanced CMS/SEO/accessibility/performance, final high-resolution artwork and staging acceptance remain. A development version is not the completed accepted1.0 site.
+Retention offers previewed/bounded technical cleanup, preserving business history and recovery files. New hosting schedules require actual panel configuration and verification.
+
+## Still pending before final release
+
+Site discovery/metadata, wider media/accessibility/performance quality, approved high-resolution artwork and real content, genuine provider/host tests and owner acceptance. A tested development checkpoint is not an accepted v1.0 website.
