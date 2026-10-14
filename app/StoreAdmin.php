@@ -39,7 +39,7 @@ final class StoreAdmin
                 }
             }catch(InvalidArgumentException|RuntimeException $e){$error=Storefront::error($e);}
         }
-        View::start($titles[$view],'admin','store',$user);
+        View::start($titles[$view],'admin',match($view){'categories'=>'store-categories','customers'=>'customers','settings'=>'store-settings',default=>'store'},$user);
         require Paths::root().'/views/admin/store.php';View::end();
     }
     public static function field(string $name,string $label,mixed $value='',string $type='text',int $max=180): void

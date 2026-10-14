@@ -1,5 +1,8 @@
 <?php
 declare(strict_types=1);
+// Explicit request shape keeps URL assertions independent of CLI working-directory length.
+$_SERVER['SCRIPT_NAME']='/tests/public_access_unit.php';
+$_SERVER['SCRIPT_FILENAME']=__FILE__;
 require dirname(__DIR__).'/includes/bootstrap.php';
 use Spirit\{PublicAccess,PublicSite,Storefront};
 $count=0;

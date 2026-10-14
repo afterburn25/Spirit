@@ -1,23 +1,21 @@
-# Project status — 1.0.0-rc.1 preparation
+# Project status — 1.0.0-rc.2 preparation
 
-The user requested continuing to 1.0. Candidate source is in preparation; exact branch verification is pending. Do not promote or claim final 1.0 until recorded evidence supports it. Baseline main **5e39af30e1c9b040fbb1e012046dda9db44b38c6** passed its exact full workflow **38634268315** after the prior response; its earlier tested application/gallery results remain in Git history.
+Current work adds the user's requested polished collapsible administration categories and remembered navigation state. The new exact verification is pending. Previous RC1 application e881a9a7f5f57fb6639a8d22a032a969c26837a9 passed full38646174199, storefront38646174182 and focused38646174211; these results do not establish RC2 success. Main remains5e39af30 until tested promotion.
 
 ## Implemented for this candidate
 
-Native mobile navigation and authorized photo links work without JavaScript. Published audio tracks gain native controls with no autoplay or preload; native full-page navigation does not promise persistent audio or unsaved form preservation. Enhanced navigation/dialog/player/gallery behavior remains, including ordinary modified photo-link actions.
+Six permission-filtered categories organize all28 existing sidebar destinations plus six existing store/order shortcuts. Overview stays direct. Native details/summary, icons, expanded/collapsed chevrons, current-link and current-category highlighting, independent sidebar scrolling and a page-context header retain the navy/gold visual system.
 
-Portrait catalog cards are constrained at both flex-item and grid-track boundaries, with complete contained images. Prices keep their intended emphasis and phone filter/quantity inputs use16px entry text. Image-only release/product links have useful escaped names even without artwork.
+First visit opens all permitted categories. The user's choices, including a deliberately closed current category, survive page changes and refresh using browser-local preferences scoped to installation/account/role. Sidebar scroll and mobile-drawer state are tab-specific. The code never stores URLs, filters, credentials or form data and never changes browser location or history. Refresh retains the actual page, query and hash. Selecting a phone destination closes the drawer to reveal the new page while preserving category choices.
 
-Published Pages with privacy/terms/shipping/returns URL names appear in footer policy navigation. Drafts remain private; unpublishing withdraws the endpoint and the next supported navigation refreshes the footer. No legal text, compliance approval or new schema is invented.
+Phone focus handling includes Escape, Tab boundaries, close/backdrop controls and inert closed/background content. Native no-JavaScript details/links remain available. Corrupt or unavailable browser storage cannot disable navigation. Server endpoint permissions are unchanged; staff receive only permitted links and nonempty categories.
 
-New tests cover public routes, structural names, identifiers, phone control sizes, card geometry, native menu/music/photo/booking, and checkout review/cancellation in Chromium/Firefox/WebKit, at root and subfolder paths. Existing SQL/HTTP,13 Chromium workflows, three-engine product-gallery and recovery suites remain required. Synthetic updater versions now advance from the current source; production forward-only checks are unchanged.
+The RC1 native public menu/photo/audio, portrait catalog and price fixes, published-policy footer, broader release review and all earlier website/admin/store/maintenance modules remain cumulative. Manual A2 one-page installation, no token/setup code/automatic database/20i, six migrations and five pinned recovery/access files remain.
 
-## Verification state
+## Verification
 
-Local checks:215 PHP/inc syntax files,591 distinct pure assertions (575 retained +16 public-access) and12 packaging tests passed; a Chromium CSS reproduction confirmed the required flex-item minimum fix. Exact Actions candidate runs are pending at this preparation checkpoint. The local container lacks PDO MySQL/GD/cURL/ZIP; no local end-to-end success is claimed.
+Local219 PHP/inc syntax checks,689 distinct pure assertions (591 retained +98 navigation) and12 packaging tests passed. New real root/subfolder Chromium/Firefox/WebKit tests cover four widths, exact URL/state persistence, sidebar scroll, phone drawer/focus, new-tab separation, account/role isolation, malformed/unavailable storage, no-JavaScript navigation and unchanged database fingerprints. Existing full/focused/gallery/public/payment/recovery suites remain required. Local offline renders do not establish persistence or SQL acceptance. Actual new Actions results must be recorded before promotion.
 
-## Scope preserved and final gates
+## Remaining final gates
 
-A2/cPanel one-page manual database installer; no20i/token/setup code/automatic creation. Approved design and external venue ticket sellers. Six migrations, five pinned recovery/access files and installer bytes stay unchanged; original private configuration/encryption secret/data/media and offline recovery keys remain authoritative. Existing sites upgrade rather than reinstall.
-
-Final1.0 still needs real A2/mailbox/merchant sandbox/recovery acceptance, approved production artwork and genuine content/policies, real-device review and owner approval. No production service or hosting setting was changed. See docs/RELEASE_CANDIDATE.md.
+Actual A2 PHP extensions/private-root/ACL/cleanup/recovery, real receiving mailbox and merchant sandbox, approved production artwork/genuine content/policies, populated real-device quality and owner acceptance remain. No production or hosting settings were changed. Final1.0 is not released.

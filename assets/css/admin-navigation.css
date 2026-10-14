@@ -1,0 +1,69 @@
+/* Grouped backstage navigation; the public design and installer are untouched. */
+.admin {--admin-sidebar-width:296px}
+.admin .grouped-sidebar{width:var(--admin-sidebar-width);padding:0;overflow:hidden;gap:0;background:linear-gradient(165deg,#0d2031 0,#07121e 47%,#050e18 100%);border-right:1px solid #304153;box-shadow:8px 0 36px #0002}
+.admin .workspace{margin-left:var(--admin-sidebar-width)}
+.admin-sidebar-heading{flex:none;padding:24px 18px 12px;border-bottom:1px solid #243a4b;background:linear-gradient(140deg,#112a3d80,transparent)}
+.grouped-sidebar .brand{margin:0 8px 18px;padding:0;gap:12px}
+.grouped-sidebar .nav-label{margin:0 8px 14px;color:#a0b6c6;font-size:9px;letter-spacing:.16em;padding:0}
+.admin-nav-tools{display:flex;gap:8px;flex-wrap:wrap}
+.admin-nav-tools button{flex:1;min-height:36px;padding:6px 10px;border:1px solid #405369;background:#101f2e;border-radius:6px;color:#d9e3ea;font-size:11px;font-weight:650;cursor:pointer;transition:background .15s,border-color .15s}
+.admin-nav-tools button:hover{border-color:#b89149;background:#1a2b3b;color:#ffe4a9}
+.admin-nav-memory{font-size:10px;color:#99adbd;margin:9px 0 0;line-height:1.45}
+.admin-nav-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#46617a transparent;scroll-behavior:auto;padding:14px 12px 24px;overflow-anchor:none}
+.grouped-sidebar nav.admin-navigation{display:block}
+.admin-nav-icon{width:19px;height:19px;flex:none;color:#94b4ce}
+.grouped-sidebar .admin-overview{justify-content:flex-start;gap:12px;padding:12px 14px;margin-bottom:12px;min-height:44px;font-weight:650}
+.admin-nav-group{border:1px solid #21394a;border-radius:9px;margin:0 0 10px;overflow:visible;background:#0b1b2880;transition:border-color .15s,background .15s}
+.admin-nav-group.has-current{border-color:#a17d3d88;background:linear-gradient(125deg,#aa82350c,transparent)}
+.admin-nav-group summary{display:flex;align-items:center;gap:10px;min-height:52px;list-style:none;padding:12px 11px;border-radius:8px;cursor:pointer;user-select:none;font-size:12px;font-weight:700;color:#d2e0eb;line-height:1.45}
+.admin-nav-group summary::-webkit-details-marker{display:none}
+.admin-nav-group summary:hover{background:#9dc7e60b;color:#fff}
+.admin-nav-group.has-current summary{color:#f5d692}
+.admin-nav-group.has-current .admin-nav-icon{color:#e3bc6d}
+.admin-nav-label{min-width:0;overflow-wrap:anywhere}
+.admin-nav-count{font-size:10px;line-height:1;border:1px solid #3b5265;border-radius:5px;padding:4px;min-width:19px;text-align:center;margin-left:auto;flex:none;color:#a5bacc}
+.admin-nav-chevron{width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(-45deg);flex:none;transition:transform .16s;margin:0 3px 2px 2px}
+.admin-nav-group[open] .admin-nav-chevron{transform:rotate(45deg)}
+.admin-nav-links{list-style:none;margin:0 8px 9px;padding:0 0 0 7px;border-left:1px solid #314a5b}
+.admin-nav-links li{margin:2px 0;padding:0}
+.grouped-sidebar nav .admin-nav-links a{padding:9px 11px;min-height:40px;font-size:12px;line-height:1.45;gap:8px;border-radius:5px;color:#b4c7d5}
+.grouped-sidebar nav a .admin-nav-label{color:inherit}
+.grouped-sidebar nav a[aria-current="page"]{color:#ffe2a0;background:linear-gradient(90deg,#cf9a3c26,#cf9a3c0a);border-color:#c8994e4d;box-shadow:inset 3px 0 #e0b054;font-weight:650}
+.admin-current-dot{width:5px;height:5px;background:#f4cc76;border-radius:50%;flex:none;margin-left:auto;box-shadow:0 0 9px #eec86766}
+.admin .grouped-sidebar .sidebar-bottom{flex:none;position:static;margin:0;padding:14px 20px 12px;border-top:1px solid #2b3d4d;background:#07121de8}
+.admin-build{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10px;color:#9ab0c1}
+.admin-build .pill{font-size:8px;letter-spacing:.06em;padding:4px 6px}
+.admin-sidebar-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px}
+.admin-sidebar-actions a,.admin-sidebar-actions .text-button{font-size:12px;min-height:40px;display:inline-flex;align-items:center;padding:6px 0}
+.grouped-sidebar .sidebar-bottom form{margin:0;border:0;padding:0}
+.admin-breadcrumb{display:grid;gap:3px;min-width:0;line-height:1.4}
+.admin-breadcrumb span{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#9fb6c8;overflow-wrap:anywhere}
+.admin-breadcrumb strong{font-weight:600;font-size:13px;color:#e8dfca;overflow-wrap:anywhere}
+.admin .topbar .user-chip{flex:none;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.admin-menu-toggle,.admin-nav-backdrop,.admin-sidebar-close{display:none}
+.nav-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.admin [hidden]{display:none!important}
+@media(max-width:1100px) and (min-width:801px){.admin{--admin-sidebar-width:280px}.admin .workspace{padding-left:24px;padding-right:24px}}
+@media(max-width:800px){
+  /* Without JavaScript the same native details/links stay usable above the page. */
+  .admin .grouped-sidebar{position:relative;width:100%;transform:none;box-shadow:none;border-right:0}
+  .admin .workspace{margin-left:0;padding-left:20px;padding-right:20px}
+  .admin .topbar{padding-left:0}
+  .grouped-sidebar .brand{padding:0;margin-bottom:18px}
+  .admin-nav-scroll{max-height:60vh}
+  .admin-nav-enhanced .grouped-sidebar{position:fixed;top:0;bottom:0;left:0;width:min(308px,calc(100vw - 24px));transform:translateX(-102%);visibility:hidden;pointer-events:none;z-index:41;transition:transform .18s ease,visibility .18s}
+  .admin-nav-enhanced .grouped-sidebar.is-open{transform:none;visibility:visible;pointer-events:auto;box-shadow:24px 0 70px #0009}
+  .admin-nav-enhanced .admin-nav-scroll{max-height:none}
+  .admin-nav-enhanced .admin-menu-toggle{display:flex;gap:8px;align-items:center;justify-content:center;position:fixed;top:16px;left:12px;z-index:42;padding:8px 11px;min-height:44px;border:1px solid #56738d;border-radius:7px;background:#14283b;color:#f8d795;box-shadow:0 4px 14px #0003;font-size:12px;cursor:pointer}
+  .admin-nav-enhanced .admin-sidebar-heading{padding-top:78px;position:relative}
+  .admin-nav-enhanced .admin-sidebar-close{display:block;position:absolute;right:15px;top:16px;min-width:44px;min-height:44px;border:1px solid #506a7e;border-radius:7px;color:#ffe0a4;background:#152738;font-size:24px;line-height:1;cursor:pointer}
+  .admin-nav-enhanced .admin-nav-backdrop{display:block;position:fixed;inset:0;width:100%;height:100%;z-index:40;border:0;background:#020914b8;cursor:pointer}
+  .admin-nav-enhanced .topbar{padding-left:85px;gap:10px}
+  .admin-nav-open body{overflow:hidden}
+  .admin .topbar .user-chip{max-width:86px;padding:5px 8px;font-size:10px}
+  .admin-breadcrumb span{font-size:9px;letter-spacing:.02em}
+  .admin-breadcrumb strong{font-size:12px}
+}
+@media(max-width:360px){.admin-nav-enhanced .topbar{flex-wrap:wrap;justify-content:flex-start;gap:5px;padding-top:12px;padding-bottom:12px}.admin .topbar .user-chip{max-width:100%}}
+@media(prefers-reduced-motion:reduce){.admin-nav-group,.admin-nav-chevron,.admin-nav-enhanced .grouped-sidebar{transition:none}}
+@media(forced-colors:active){.admin-nav-group,.admin-nav-count,.admin-nav-tools button{border-color:ButtonText}.admin-nav-group.has-current,.grouped-sidebar nav a[aria-current="page"]{border:2px solid Highlight}.admin-current-dot{background:Highlight}.admin-nav-backdrop{background:Canvas;opacity:.7}}

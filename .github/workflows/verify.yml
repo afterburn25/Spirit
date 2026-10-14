@@ -62,6 +62,7 @@ jobs:
           php tests/launch_unit.php
           php tests/gallery_unit.php
           php tests/public_access_unit.php
+          php tests/admin_navigation_unit.php
           php tests/content_schema.php
           php tests/content_history_unit.php
           php tests/discovery_unit.php
