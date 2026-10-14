@@ -39,7 +39,11 @@ def main():
                     receipt=event.value;receipt.save_as(base/f'fixture-{width}-private.txt');form.locator('[name="owner_password"]').fill('')
                     expect('Recovery key: ' in (base/f'fixture-{width}-private.txt').read_text(),'Browser receives a separate recovery receipt, never bundled in archive')
                     save_content(s,'page','Later browser story',{'body':'Later edited text'},item_id=page_id,slug='browser-backup-story')
-                    detail=card.locator('details').filter(has=card.get_by_text('Restore this snapshot',exact=True));detail.locator('summary').click()
+                    # A has locator is evaluated relative to each candidate details
+                    # node; do not include the outer card selector a second time.
+                    detail=card.locator('details').filter(has=page.get_by_text('Restore this snapshot',exact=True))
+                    expect(detail.count()==1,'Selected snapshot exposes exactly one restore disclosure')
+                    detail.locator('summary').click()
                     detail.locator('[name="scope"]').select_option('content');detail.locator('[name="confirm_restore"]').fill('RESTORE');detail.locator('[name="owner_password"]').fill(s.password)
                     detail.get_by_role('button',name='Restore selected site data').click();page.wait_for_load_state('networkidle')
                     expect('Restore committed' in page.locator('main').inner_text(),'Owner browser completes a real transactional restore')
