@@ -2,7 +2,7 @@
 <section class="panel form-width" id="install-complete" tabindex="-1" aria-labelledby="complete-heading">
     <p class="eyebrow">SPIRITUAL GORILLAZ / INSTALLATION COMPLETE</p>
     <h1 id="complete-heading">Your stage.<br><em>Ready to manage.</em></h1>
-    <div class="notice success" role="status">The database and owner account were created. Private configuration is saved and installation is permanently locked.</div>
+    <div class="notice success" role="status">The application tables and owner account were created. Private configuration is saved and installation is permanently locked.</div>
     <h2>Installer cleanup</h2>
     <div id="install-cleanup" class="notice <?= $completed['removed'] ? 'success' : 'info' ?>"><strong><?= $completed['removed'] ? 'Installer folder removed.' : 'Installer locked; cleanup needs attention.' ?></strong><br><?= e($completed['message']) ?></div>
     <?php if (!$completed['removed']): ?><p>The host prevented complete cleanup or the folder contains an unexpected file. Sign in and use <strong>Installation health</strong> to review the result and retry after the cause is corrected. Do not rerun setup.</p><?php endif; ?>

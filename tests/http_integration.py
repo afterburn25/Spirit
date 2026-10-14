@@ -157,7 +157,12 @@ def normal_journey(s: Site, blocked_cleanup: bool):
     else:
         expect(not (s.root/'install').exists(), 'Installer directory physically removed')
         expect('Installer folder removed.' in completed, 'Same-page completion confirms actual folder removal')
-        expect(s.client.request('install/')[0] == 404, 'Removed installer is unavailable on refresh')
+        # PHP's development server can route a missing directory to its parent
+        # index. Test the deleted PHP entry and inability to reopen setup, not
+        # an Apache-specific status for that directory URL.
+        expect(s.client.request('install/index.php')[0] == 404, 'Deleted installer PHP entry is unavailable')
+        expect('id="install-form"' not in s.client.request('install/')[1], 'Directory refresh cannot reopen the removed installation form')
+        expect(s.client.request('install/index.php', s.input())[0] == 404 and s.database('count') == {'users':1,'state':'installed'}, 'Replayed POST to the deleted installer cannot recreate an owner')
     anonymous = Client(s.base)
     status, _, _, url = anonymous.request('admin/index.php')
     expect(status == 200 and url.endswith('/admin/login.php'), 'Anonymous admin access redirects to sign-in')

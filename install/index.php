@@ -25,6 +25,10 @@ if ($method === 'POST') {
     } else {
         try {
             $completed = Spirit\Installer::install([
+                'db_mode' => post('db_mode') ?: 'existing',
+                'cpanel' => ['host'=>post('cpanel_host'),'user'=>post('cpanel_user'),'token'=>password_input('cpanel_token')],
+                'cpanel_consent'=>post('cpanel_consent'),
+                'cpanel_db_host'=>post('cpanel_db_host') ?: 'localhost',
                 'db' => ['host' => post('db_host'), 'port' => post('db_port'), 'name' => post('db_name'), 'user' => post('db_user'), 'password' => password_input('db_password'), 'prefix' => post('db_prefix')],
                 'email' => post('email'), 'owner_name' => post('owner_name'), 'password' => password_input('password'), 'password_confirm' => password_input('password_confirm'), 'site_url' => post('site_url'),
             ]);

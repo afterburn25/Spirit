@@ -11,6 +11,24 @@ if (toggle && sidebar) {
   document.addEventListener('keydown', event => { if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { close(); toggle.focus(); } });
   document.addEventListener('click', event => { if (!sidebar.contains(event.target) && !toggle.contains(event.target)) close(); });
 }
+// Both database choices remain ordinary fields on the same native form.
+// Without JavaScript, the server validates only the selected method.
+const databaseMode = document.getElementById('db-mode');
+if (databaseMode) {
+  const groups = {cpanel: document.getElementById('cpanel-fields'), existing: document.getElementById('existing-db-fields')};
+  const applyMode = () => Object.entries(groups).forEach(([mode, group]) => {
+    const selected = databaseMode.value === mode;
+    group.hidden = !selected;
+    group.querySelectorAll('input').forEach(input => {
+      input.disabled = !selected;
+      input.required = selected && input.hasAttribute('data-mode-required');
+      if (!selected && input.type === 'password') input.value = '';
+    });
+  });
+  databaseMode.addEventListener('change', applyMode);
+  window.addEventListener('pageshow', applyMode);
+  applyMode();
+}
 const install = document.getElementById('install-form');
 if (install) {
   const button = install.querySelector('button[type="submit"]');

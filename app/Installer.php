@@ -27,11 +27,15 @@ final class Installer
         $checks[] = ['name'=>'Installer cleanup readiness','ok'=>$deletable,'required'=>false,'detail'=>$deletable ? 'Final deletion will be attempted and verified.' : 'The host may prevent physical removal. The permanent installation lock remains enforced.'];
         return $checks;
     }
-    public static function install(array $input): array
+    public static function install(#[\SensitiveParameter] array $input, ?CpanelClient $testClient=null): array
     {
+        if($testClient!==null&&(PHP_SAPI!=='cli'||getenv('SPIRIT_TESTING')!=='1')){throw new RuntimeException('Test provisioning is CLI-only.');}
         if (Paths::installed()) { throw new RuntimeException('Installation is already locked.'); }
         foreach (self::preflight() as $check) { if ($check['required'] && !$check['ok']) { throw new RuntimeException('Resolve the required hosting checks before installing.'); } }
-        $dbConfig = Database::validate($input['db']); $email = Security::email($input['email']); $passwordHash = Security::password($input['password']);
+        $mode=$input['db_mode']??'existing';
+        if(!in_array($mode,['existing','cpanel'],true)){throw new InvalidArgumentException('Choose automatic cPanel setup or an existing database.');}
+        $dbConfig=$mode==='existing'?Database::validate($input['db']):Database::validate(['host'=>$input['cpanel_db_host']??'localhost','port'=>3306,'name'=>'validation','user'=>'validation','password'=>'','prefix'=>$input['db']['prefix']??'sg_']);
+        $email = Security::email($input['email']); $passwordHash = Security::password($input['password']);
         if ($input['password'] !== $input['password_confirm']) { throw new InvalidArgumentException('Owner passwords do not match.'); }
         $ownerName = trim($input['owner_name']); if ($ownerName === '' || strlen($ownerName) > 120) { throw new InvalidArgumentException('Owner name is required and must be at most 120 bytes.'); }
         $url = Security::siteUrl($input['site_url']); $lock = fopen(Paths::runtime() . '/install-operation.lock', 'c+b');
@@ -39,6 +43,11 @@ final class Installer
         $db = null; $dbLock = null;
         try {
             if (Paths::installed()) { throw new RuntimeException('This application is already installed.'); }
+            if($mode==='cpanel'){
+                if(($input['cpanel_consent']??'')!=='1'){throw new InvalidArgumentException('Confirm that this installer may create a new database and dedicated user in your A2 cPanel account.');}
+                $client=$testClient??new CpanelClient($input['cpanel']??[]);
+                $dbConfig=CpanelProvisioner::provision($client,$dbConfig['prefix'],$email,$url,$dbConfig['host']);
+            }elseif(CpanelProvisioner::exists()){throw new RuntimeException('An automatic cPanel setup is already saved. Resume automatic setup with the same account instead of creating another installation.');}
             $db = Database::connect($dbConfig); $dbLock = InstallState::lock($db, $dbConfig['prefix']); Database::probe($db);
             $pendingPath = Paths::runtime() . '/pending.php';
             $pending = is_file($pendingPath) && !is_link($pendingPath) ? require $pendingPath : null;
@@ -66,13 +75,14 @@ final class Installer
             // must never turn a completed install into a destructive retry.
             try { Filesystem::atomicPhp(Paths::runtime() . '/installed.lock', ['version'=>Paths::version(),'installed_at'=>gmdate('c')]); } catch (RuntimeException $e) { error_log('Spirit: secondary completion marker unavailable; installed configuration remains locked.'); }
             @unlink($pendingPath);
+            CpanelProvisioner::completed();
             $cleanup = Filesystem::cleanup(Paths::root());
             try { Filesystem::atomicPhp(Paths::runtime() . '/cleanup.php', $cleanup); } catch (RuntimeException $e) { error_log('Spirit: cleanup receipt unavailable; inspect installer directory from owner administration.'); }
             $_SESSION = [];
             if (session_status() === PHP_SESSION_ACTIVE) { session_destroy(); }
             return $cleanup;
         } catch (PDOException $e) {
-            throw new RuntimeException('Database verification or provisioning failed. Check connection details and schema privileges. An interrupted installation can be resumed with the same settings; existing tables are never dropped.');
+            throw new RuntimeException('Database verification or provisioning failed. Check connection details and schema privileges. For automatic cPanel setup, keep the same mode, hostname, account, owner email, URL and table prefix to reuse the saved generated credentials. An interrupted installation can be resumed with the same settings; existing tables are never dropped.');
         } finally {
             if ($db !== null && $dbLock !== null) { try { InstallState::unlock($db,$dbLock); } catch (Throwable $e) {} }
             flock($lock,LOCK_UN); fclose($lock);

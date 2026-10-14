@@ -1,19 +1,25 @@
-# Resume the cumulative application
+# Resume the single-page A2/cPanel installer
 
-Repository afterburn25/Spirit; main is authoritative. Preserve AGENTS.md, approved design, original private secret/media/data, immutable migrations001–006 and pinned access/recovery files. No destructive reinstall, fake public records, native ticketing,0777 or force push.
+Repository **afterburn25/Spirit**, authoritative **main**. Work branch `work/single-page-installer`, PR11, target **0.9.0-dev.8**. Read live refs, AGENTS.md, current status, CPANEL_INSTALLER.md and TEST_RESULTS.md before changing code. Preserve the approved design, original config/secret/media/business data, migrations001–006 and pinned recovery/access files.
 
-## Current user decision and work
+## Fixed latest decisions
 
-**0.9.0-dev.8**, branch work/single-page-installer, based on1df65ce90124adda5ddb3fd5936be9f006dcee9a. The user explicitly requested **remove the setup code and put installation all on one page**. This supersedes old PRIVATE-SETUP and claim-step instructions. Do not reintroduce the code. Keep separate backup/update recovery credentials and the installation encryption secret.
+The user explicitly removed the package setup code and requires checks, database/owner settings, correction and completion on one page. Hosting is **A2 with cPanel only, no20i**. Optional automatic database/user/random-password creation is integrated; existing-database mode remains. Do not reintroduce package activation or derive hosting from another user project.
 
-The new entry controller and views/install templates show preflight+DB+owner form immediately, validate/install by one protected POST, then display cleanup status and administration link on the same page even after self-deletion. No-JavaScript fallback is supported. The packager emits only the cumulative Full ZIP with no code/hash/receipt. Old setup files and stale package manifests are excluded. Legacy fixture callers use a documented test-only GET adapter, not an authorization bypass.
+## Implementation
 
-## Next actions
+CpanelClient allows fixed Mysql operations over verified HTTPS2083, validates/pins public IPv4 DNS, disables proxies/redirects and bounds payload/time. Token is request-only. CpanelProvisioner runs under the installer operation lock, reads restrictions/inventory, saves private0600 generated credentials/progress before mutation, and grants only necessary database-scoped privileges. No root/WHM/reset/delete/global-grant functions. Owner validation/consent precede provider writes. Confirmed steps survive retry; unknown mutations pause rather than re-create/adopt resources. Read the documented uncertainty and local-MySQL limits before modifying it.
 
-Inspect live refs and newest full verification before promoting. Run both database environments, all12 browser workflows including enhanced installer1440/390/320 and no-JS journeys, packaging and actual Apache HTTPS. Inspect the new eight form/completion screenshots. Fix regressions without weakening CSP, access rules or skipping assertions. Update exact evidence and package the verified cumulative source. No staging or production payment/email acceptance is implied.
+Single-page result reports actual folder deletion versus retained locked files. No setup receipt/hash is packaged. Existing installations must update, not reinstall. Backup/update keys remain protected.
 
-Preserve the cumulative dev7 application rather than rebuilding earlier modules. Final master artwork/approved content, broader populated-site quality, actual shared-host/merchant/mailbox and owner acceptance remain. Same-schema ZIP upgrades and same-instance guarded restoration retain explicit limits. Do not call this1.0 merely because it installs.
+## Current testing gate
 
-## Deployment tradeoff
+56 cPanel units, syntax checks and12 packaging tests passed locally. Full new CI pending. Added actual loopback cURL TLS/POST tests; guarded CLI-only cPanel simulation with real newly created dedicated SQL databases/users; fresh/rejected/unknown/migration scenarios at root/subfolder. Only the isolated simulator uses a disposable SQL administrator. CI blocks external cPanel networking. No user A2 account, real provider credentials, inbox or merchant transaction has been used.
 
-Code-free fresh setup is open until completion. Install immediately after extraction, or use hosting-panel directory protection for unattended staging. Database credentials and CSRF are not hosting-owner authentication. Already-installed sites remain locked and must be updated, never freshly reinstalled. No backup/update recovery key or real credential belongs in Git or public website folders.
+The initial baseline dev8 run38553237171 passed syntax/packaging and actual Apache HTTPS but failed a missing-directory404 expectation after successful installer deletion. PHP's development server falls back to its parent index. Tests now check the missing PHP file is404, no setup form returns, and replay cannot duplicate an owner; do not weaken production access rules. Run all cumulative SQL/browser/Apache suites, including one-page1440/390/320px and no-JS, inspect form/automatic-choice/completion screenshots, and record exact successful results before promoting main.
+
+## Next steps
+
+Resolve any exact CI failures without suppressing assertions. Complete documentation consistency (INSTALLATION, SECURITY, TEST_RESULTS, LAUNCH_CHECKLIST, changelog/roadmap) and remove stale instructions that present historical setup keys as current requirements. Preserve historical evidence as historical. Promote only reviewed verified code, compare canonical tracked source, then generate an immutable cumulative Full ZIP with no PRIVATE-SETUP. Actual A2 token/port/naming/quota/ACL acceptance remains separate; never claim simulation is that acceptance.
+
+After dev8, continue remaining populated-site quality, production artwork/content, host/mail/merchant staging and owner acceptance from LAUNCH_CHECKLIST. No accepted1.0 yet. Local container cannot resolve network and lacks pdo_mysql/GD/cURL/ZIP; real integration runs in Actions. Source artifacts are available for canonical-byte comparison; do not invent sandbox links.

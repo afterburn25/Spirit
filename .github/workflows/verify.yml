@@ -36,6 +36,7 @@ jobs:
     env:
       SPIRIT_TESTING: '1'
       SPIRIT_DISABLE_PAYMENT_NETWORK: '1'
+      SPIRIT_DISABLE_CPANEL_NETWORK: '1'
       SPIRIT_DB_HOST: 127.0.0.1
       SPIRIT_DB_PORT: '3306'
       SPIRIT_DB_NAME: spirit_ci
@@ -58,6 +59,7 @@ jobs:
           php tests/run.php
           php tests/storage.php
           php tests/foundation_paths.php
+          php tests/cpanel_unit.php
           php tests/content_schema.php
           php tests/content_history_unit.php
           php tests/discovery_unit.php
@@ -81,6 +83,7 @@ jobs:
           python3 tests/media_quality_integration.py
           python3 tests/communication_integration.py
           python3 tests/smtp_integration.py
+          python3 tests/cpanel_transport.py
           python3 tests/mail_acceptance.py
           python3 tests/commerce_integration.py
           python3 tests/payment_integration.py
@@ -89,6 +92,10 @@ jobs:
           python3 tests/backup_integration.py
           python3 tests/upgrade_integration.py
           python3 tests/cleanup_integration.py
+      - name: cPanel boundary with disposable database and dedicated user
+        env:
+          SPIRIT_CPANEL_TEST_ADMIN_PASSWORD: ephemeral-ci-root-not-production
+        run: python3 tests/cpanel_integration.py
       - name: Install test-only Chromium
         if: matrix.php == '8.4'
         run: |

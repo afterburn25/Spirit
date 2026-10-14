@@ -1,21 +1,21 @@
 # Spiritual Gorillaz
 
-Authoritative repository: **afterburn25/Spirit**, branch **main**. Read AGENTS.md, PROJECT_STATUS.md, SESSION_HANDOFF.md and docs/ROADMAP.md before implementation. Preserve the selected navy/black/gold/blue crowned-gorilla design and external venue ticket links.
+Authoritative repository: **afterburn25/Spirit**, branch **main**. Read AGENTS.md, PROJECT_STATUS.md, SESSION_HANDOFF.md and docs/ROADMAP.md before implementation. Preserve the approved navy/black/gold/blue crowned-gorilla design and external venue ticket links.
 
-## Current development release
+## Current development work
 
-**0.9.0-dev.8 — single-page, code-free installation.** The user's updated installation flow removes the package setup code and separate receipt. Checks, database/owner configuration, correction and completion are one browser page. Private storage, CSRF, installation locks, self-deletion and all cumulative website modules remain. New full regression verification is pending; see docs/TEST_RESULTS.md. The previous dev7 checkpoint remains documented in MEDIA_QUALITY_CHECKPOINT.md.
+**0.9.0-dev.8 — one-page installation with optional A2/cPanel database creation.** No package setup code, access hash, claim stage or PRIVATE-SETUP receipt. Checks, URL/database/owner settings, corrections and completion remain on one page. Existing-database mode and automatic cPanel-created database/user/random password are integrated. Private writes, CSRF, concurrency/prefix ownership, permanent locks and safe self-deletion remain. Exact new verification is pending; see TEST_RESULTS.md rather than interpreting source presence as a passing run.
 
-The cumulative application includes the browser installer, public site/CMS/history/discovery/music/player/shows, booking/email/newsletter, catalog/inventory/cart/customer accounts, token-only payments/orders/fulfillment, staff permissions, encrypted backups/guarded restoration, same-schema browser ZIP upgrades/pinned recovery and conservative retention.
+Hosting is **A2 with cPanel only, no20i**. See docs/CPANEL_INSTALLER.md for token handling, supported naming/local connections and partial/uncertain outcomes. The panel token is request-only. Real A2 acceptance is not established by simulation.
 
-## Shared-host delivery
+All cumulative public site/CMS/history/search/metadata/music/player/shows, booking/email/newsletter, catalog/inventory/cart/customers, token-only checkout/orders/fulfillment, staff permissions, encrypted backups/guarded restore, same-schema browser ZIP updates/pinned recovery and retention are preserved.
 
-PHP 8.2+, PDO MySQL, OpenSSL, fileinfo and GD; cURL for payment transport and ZIP for browser updates; MySQL/MariaDB, HTTPS and reviewed server access rules. No required SSH/root or host-side Node, Python or Composer build.
+## Delivery and staging
 
-On a development checkout, `python3 tools/package.py --output ./dist` creates one cumulative Full ZIP. No setup code, access hash or PRIVATE-SETUP receipt is created. Upload/extract the ZIP including hidden access-rule files, then open `/install/`. Install immediately or restrict staging through hosting-panel directory protection until ready. Backup/update recovery keys remain separate and private; preserve the original installation secret. Follow docs/INSTALLATION.md for fresh staging versus existing installations.
+PHP8.2+, PDO MySQL, OpenSSL, fileinfo and GD; cURL for cPanel/payment transport, ZIP for browser upgrades; MySQL/MariaDB, HTTPS and reviewed server rules. No host-side Node/Python/Composer build, SSH or root needed. On a development checkout `python3 tools/package.py --output ./dist` creates one cumulative Full ZIP without a setup receipt. Upload/extract including hidden access rules and open `/install/`.
 
-## Guides and final acceptance
+Fresh code-free setup is open until completion: install promptly or restrict unattended staging through cPanel Directory Privacy. Existing sites use the documented upgrade path, never fresh reinstall. Preserve original config/encryption secret, data/media and separate backup/update recovery keys.
 
-Read docs/OWNER_GUIDE.md, DISCOVERY.md, MEDIA_QUALITY.md, CONTENT_HISTORY.md, STAFF.md, PAYMENTS.md, BACKUPS.md, UPGRADES.md and LAUNCH_CHECKLIST.md. The documented same-schema update and same-instance restore limits are intentional, not universal disaster recovery.
+## Final acceptance
 
-Approved production artwork/content, broader populated-site quality review, actual host/provider verification and final owner acceptance remain. Synthetic payment tests do not establish a genuine merchant transaction, SMTP acceptance is not guaranteed inbox delivery, and fixture bandwidth measurements are not field Core Web Vitals. **No accepted v1.0 is claimed.**
+Read OWNER_GUIDE, INSTALLATION, CPANEL_INSTALLER, DISCOVERY, MEDIA_QUALITY, CONTENT_HISTORY, STAFF, PAYMENTS, BACKUPS, UPGRADES and LAUNCH_CHECKLIST in docs. Same-schema updates and same-instance guarded restore retain explicit limits. Approved artwork/content, broader populated-site quality, actual host/provider verification and final owner review remain. Synthetic payments do not establish real transactions, SMTP acceptance is not guaranteed inbox delivery, and fixture budgets are not field Core Web Vitals. **No acceptedv1.0 is claimed.**

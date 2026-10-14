@@ -22,14 +22,29 @@
             <p class="step-label">YOUR WEBSITE</p><h2>Connect. Create. Install.</h2>
             <label>Public website URL<input type="url" name="site_url" value="<?= e(post('site_url') ?: $defaultUrl) ?>" required placeholder="https://example.com/spirit" autocomplete="url"></label>
             <fieldset><legend>Database connection</legend>
+                <label>Database setup method<select name="db_mode" id="db-mode"><option value="existing" <?= post('db_mode')!=='cpanel'?'selected':'' ?>>Use an existing database</option><option value="cpanel" <?= post('db_mode')==='cpanel'?'selected':'' ?>>Create automatically — A2 Hosting / cPanel</option></select></label>
+                <div id="cpanel-fields" class="stack">
+                    <p>Authorize cPanel to create a new database and dedicated user. A strong database password is generated and saved privately. No 20i connection is used.</p>
+                    <div class="field-grid">
+                        <label>cPanel server hostname<input name="cpanel_host" value="<?= e(post('cpanel_host')) ?>" maxlength="253" placeholder="Your server hostname from A2" autocomplete="off" data-mode-required></label>
+                        <label>cPanel username<input name="cpanel_user" value="<?= e(post('cpanel_user')) ?>" maxlength="32" autocomplete="off" data-mode-required></label>
+                    </div>
+                    <label>cPanel API token<input type="password" name="cpanel_token" autocomplete="off" maxlength="512" data-mode-required></label>
+                    <p class="small muted">In cPanel: Security → Manage API Tokens. Create a short-lived token and enter it here, not in chat. Use the public server hostname only; HTTPS port 2083 is selected automatically. The token is not saved in website settings, recovery files or logs. Revoke it in cPanel after setup.</p>
+                    <label class="checkbox-label"><input type="checkbox" name="cpanel_consent" value="1" <?= post('cpanel_consent')==='1'?'checked':'' ?> data-mode-required> I authorize a new database and dedicated user in my A2 cPanel account.</label>
+                    <details><summary>Local database connection</summary><label>Local MySQL host<select name="cpanel_db_host"><option value="localhost" <?= post('cpanel_db_host')!=='127.0.0.1'?'selected':'' ?>>localhost (usual cPanel setting)</option><option value="127.0.0.1" <?= post('cpanel_db_host')==='127.0.0.1'?'selected':'' ?>>127.0.0.1 (local TCP)</option></select></label></details>
+                    <p class="small muted">Automatic mode uses local MySQL on port 3306 and grants only the required privileges on the new database. API access and available database quota are required. Interrupted requests preserve their private state; uncertain creation is paused rather than repeated.</p>
+                </div>
+                <div id="existing-db-fields" class="stack">
                 <p class="small muted">Create an empty MySQL/MariaDB database and database user in your hosting panel, then enter those details. Existing tables are never replaced.</p>
                 <div class="field-grid">
-                    <label>Database host<input name="db_host" value="<?= e(post('db_host') ?: 'localhost') ?>" required maxlength="253" autocomplete="off"></label>
-                    <label>Port<input type="number" name="db_port" value="<?= e(post('db_port') ?: '3306') ?>" min="1" max="65535" required></label>
-                    <label>Database name<input name="db_name" value="<?= e(post('db_name')) ?>" required maxlength="64" autocomplete="off"></label>
-                    <label>Database username<input name="db_user" value="<?= e(post('db_user')) ?>" required maxlength="128" autocomplete="off"></label>
+                    <label>Database host<input name="db_host" value="<?= e(post('db_host') ?: 'localhost') ?>" data-mode-required maxlength="253" autocomplete="off"></label>
+                    <label>Port<input type="number" name="db_port" value="<?= e(post('db_port') ?: '3306') ?>" min="1" max="65535" data-mode-required></label>
+                    <label>Database name<input name="db_name" value="<?= e(post('db_name')) ?>" data-mode-required maxlength="64" autocomplete="off"></label>
+                    <label>Database username<input name="db_user" value="<?= e(post('db_user')) ?>" data-mode-required maxlength="128" autocomplete="off"></label>
                 </div>
                 <label>Database password<input type="password" name="db_password" autocomplete="off"></label>
+                </div>
                 <label>Table prefix<input name="db_prefix" value="<?= e(post('db_prefix') ?: 'sg_') ?>" required pattern="[a-z][a-z0-9_]{0,15}" maxlength="16"></label>
             </fieldset>
             <fieldset><legend>Your owner account</legend>
