@@ -5,6 +5,7 @@ This does not claim coverage of every OS, mobile device or payment provider.
 """
 from __future__ import annotations
 import os
+import json
 import secrets
 import struct
 import tempfile
@@ -83,6 +84,15 @@ def journey(browser,s,ids,dimensions,name):
         expect(page.evaluate('window.galleryAudio===document.getElementById("site-audio")&&!window.galleryAudio.paused'),'Real audio continues from release through catalog to product')
         expect(page.locator('.product-photo').count()==3,'Published product exposes all three actual photographs')
         photo(page,ids,0,dimensions)
+        # Measure an unselected thumbnail before its larger source can be in the
+        # decoded-image cache. A warm browser may legitimately reuse a larger
+        # already-cached candidate, even with the correct 72px sizes hint.
+        thumbnail=page.locator('.product-photo img').nth(1)
+        thumbnail.scroll_into_view_if_needed()
+        thumbnail.evaluate('(image)=>image.decode()')
+        thumb_query=urllib.parse.parse_qs(urllib.parse.urlsplit(thumbnail.evaluate('(image)=>image.currentSrc')).query)
+        print('MEASURED '+json.dumps({'engine':name,'viewport':width,'cold_thumbnail':thumb_query}),flush=True)
+        expect(thumbnail.get_attribute('sizes')=='72px' and thumb_query.get('id')==[str(ids[1])] and thumb_query.get('width')==['320'],'Cold unselected thumbnail requests its small responsive candidate')
         quantity=page.locator('[name=quantity]');quantity.fill('3')
         history_length=page.evaluate('history.length')
         for index in [1,2,0]:
@@ -93,9 +103,6 @@ def journey(browser,s,ids,dimensions,name):
             expect(page.evaluate('window.galleryAudio===document.getElementById("site-audio")'),'Gallery preserves the original audio node')
         expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),f'{name}/{width}px populated storefront has no horizontal overflow')
         expect(page.locator('link[rel=canonical]').get_attribute('href')==s.base+'shop/product.php?slug=fixture-shirt','Photo URL does not change the canonical product')
-        thumbnail=page.locator('.product-photo img').first
-        thumbnail.evaluate('(image)=>image.decode()')
-        expect(thumbnail.get_attribute('sizes')=='72px' and urllib.parse.parse_qs(urllib.parse.urlsplit(thumbnail.evaluate('(image)=>image.currentSrc')).query).get('width')==['320'],'Thumbnail requests a small responsive candidate, not the main photograph')
         page.evaluate('window.scrollTo(0,0)');screenshot(page,f'gallery-{name}-{width}-product')
         expect(errors==[],f'{name}/{width}px gallery has no uncaught errors')
         context.close()
@@ -127,8 +134,15 @@ def failure_and_race(browser,s,ids,dimensions,name):
     expect('photo=2' not in page.url,'Failed image selection does not claim the new photo in the URL')
     screenshot(page,f'gallery-{name}-390-failed-photo')
     mode['value']='ok';page.locator('.product-photo').nth(1).click();photo(page,ids,1,dimensions)
-    page.locator('.product-photo').first.click();photo(page,ids,0,dimensions)
-    mode['value']='hold';page.locator('.product-photo').nth(1).click()
+    context.close()
+    # A fresh context has not already decoded the requested main photo. This
+    # guarantees a real pending network request rather than an immediate cache hit.
+    context=browser.new_context(viewport={'width':390,'height':900},reduced_motion='reduce',bypass_csp=False)
+    page=context.new_page();mode['value']='hold';held.clear()
+    page.route('**/media/file.php?*',intercept)
+    page.goto(s.base+'shop/product.php?slug=fixture-shirt',wait_until='networkidle')
+    with page.expect_request(lambda request: urllib.parse.parse_qs(urllib.parse.urlsplit(request.url).query).get('id')==[str(ids[1])] and urllib.parse.parse_qs(urllib.parse.urlsplit(request.url).query).get('width')!=['320']):
+        page.locator('.product-photo').nth(1).click()
     browser_expect(page.locator('.product-photo-status')).to_contain_text('Loading photograph 2')
     page.locator('.product-photo').nth(2).click();photo(page,ids,2,dimensions)
     expect(bool(held),'A real earlier image request remains pending for the race test')

@@ -52,15 +52,26 @@ jobs:
           python3 -m venv "$RUNNER_TEMP/spirit-browser"
           "$RUNNER_TEMP/spirit-browser/bin/pip" install playwright==1.57.0
           "$RUNNER_TEMP/spirit-browser/bin/python" -m playwright install --with-deps "$SPIRIT_BROWSER"
+      - name: Provide an audio output device on the disposable browser runner
+        run: |
+          sudo apt-get install -y --no-install-recommends pulseaudio pulseaudio-utils
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=spirit_ci_audio
+          pactl set-default-sink spirit_ci_audio
+          pactl info
+          pactl list short sinks
       - name: Verify published gallery, actual image selection and fallback
         run: |
           php tests/gallery_unit.php
-          "$RUNNER_TEMP/spirit-browser/bin/python" tests/gallery_browser.py
+          set -o pipefail
+          "$RUNNER_TEMP/spirit-browser/bin/python" tests/gallery_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-gallery.log"
       - name: Preserve synthetic storefront renders
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: Spirit-storefront-${{ matrix.browser }}-${{ github.sha }}
-          path: ${{ runner.temp }}/spirit-gallery-screens/*.png
+          path: |
+            ${{ runner.temp }}/spirit-gallery-screens/*.png
+            ${{ runner.temp }}/spirit-gallery.log
           if-no-files-found: ignore
           retention-days: 7
