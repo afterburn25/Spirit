@@ -73,7 +73,8 @@ final class Auth
         }catch(\Throwable $e){if($db->inTransaction()){$db->rollBack();}throw $e;}
         session_regenerate_id(true);
         $_SESSION=['user_id'=>(int)$fresh['id'],'session_version'=>(int)$fresh['session_version'],'last_activity'=>time(),'csrf'=>bin2hex(random_bytes(32))];
-        $q=$db->prepare('DELETE FROM '.Database::table('login_limits').' WHERE expires_at < ?');$q->execute([time()]);
+        // Expired counters reset in consumeLimit. Global pruning is handled
+        // by the separately authorized bounded retention workflow.
         return true;
     }
     public static function changePassword(array $user,string $current,string $password,string $confirmation): void
@@ -87,7 +88,7 @@ final class Auth
             $q=$db->prepare('SELECT * FROM '.Database::table('users').' WHERE id=? FOR UPDATE');$q->execute([$user['id']]);$fresh=$q->fetch();
             if(!Permissions::allows($fresh?:null,'account')||(int)$fresh['session_version']!==(int)$user['session_version']){throw new \RuntimeException('Staff access changed. Sign in again.');}
             if(strlen($current)>72||str_contains($current,"\0")||!password_verify($current,$fresh['password_hash'])){throw new \InvalidArgumentException('The current password is incorrect.');}
-            $q=$db->prepare('UPDATE '.Database::table('users').' SET password_hash=?,session_version=session_version+1 WHERE id=?');$q->execute([$hash,$user['id']]);
+            $q=$db->prepare('UPDATE '.Database::table('users').' SET password_hash=?,session_version=session_version+1 WHERE id=?');$q->execute([$hash,$fresh['id']]);
             if($tokens){$q=$db->prepare('UPDATE '.Database::table('staff_tokens')." SET used_at=UTC_TIMESTAMP() WHERE email=? AND kind='reset' AND used_at IS NULL");$q->execute([$fresh['email']]);}
             Database::audit($db,(int)$fresh['id'],$fresh['role']==='owner'?'owner.password_changed':'staff.password_changed');$db->commit();
         }catch(\Throwable $e){if($db->inTransaction()){$db->rollBack();}throw $e;}
