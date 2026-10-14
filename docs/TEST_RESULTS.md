@@ -1,17 +1,29 @@
 # Test evidence
 
-## 0.9.0-dev.7 — changed-code execution pending
+## Current 0.9.0-dev.7
 
-41 media-quality pure checks passed locally, along with retained pure/package suites and PHP/JavaScript syntax checks. Non-root local foundation/storage checks also passed. SQL/GD/cURL/ZIP and full browser environments remain Actions tests, not a local execution claim.
+Application **7c5582075b4b47c01e721c2c5e30d4f4a593acbb** passed full workflow **38525702729** and focused maintenance **38525702713**. This documentation-only descendant changes no tested runtime, assets, schema or tests. MEDIA_QUALITY_CHECKPOINT.md records the source/artifact and render evidence.
 
-Added root/subfolder SQL/HTTP checks exercise real resized bytes/alpha/ratio, immutable originals, authorization before cache/304, fixed width validation, ETag/HEAD/If-Range, original downloads, nonblocking generation fallback, corrupt cache recovery, denied writes, cache symlinks, source disappearance and bounded derivative cleanup. Twelfth Chromium workflow at1440/390/320px measures actual image and first-party asset bytes, checks keyboard dialogs/player/focus/error summaries/reduced motion/reflow. Full current run and render inspection are pending.
+The full matrix executes **442 cumulative pure assertions**, including **44 new media-quality checks**, **11 packaging tests**, existing and new real SQL/HTTP root/subfolder workflows on PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4, **twelve Chromium workflows**, and actual Apache PHP 8.4 HTTPS access-rule checks. Chromium runs in the PHP 8.4 job; it is intentionally not duplicated in the PHP 8.2 job.
 
-## Verified baseline
+New SQL/HTTP tests exercise actual resized bytes and alpha, preserved originals, authorization before cache/304, bounded widths, representation-specific ETag/HEAD/If-Range, original downloads, a busy generation lock, damaged cache regeneration, host-denied cache writes, symlink refusal, original disappearance, retention and low-memory fallback. Existing payment/mail/backup/update/security/consent tests remain in the matrix.
 
-.9dev6 application **af43d1539994daa2b03f0eaaea1b2ec9c51066aa** passed full **38518823266** and focused **38518823277**. Both databases, eleven Chromium suites and ApacheHTTPS passed. Six discovery renders inspected from90-image artifact11873262102. Canonical source artifact11872848844 archive digest verified. Documentation-only4f6005f7 changes no baseline runtime. See DISCOVERY_CHECKPOINT.md.
+The new browser workflow covers 1440px, 390px and 320px: real responsive candidate selection and lower image bytes, intrinsic aspect ratio, first-party asset budget, reduced motion/reflow, keyboard gallery open/close/focus, true audio progression and queue boundaries, pressed/seek state, narrow-player bounds, focus above the fixed player, close-focus return, server validation feedback and ordinary admin Escape behavior. This targeted evidence is not full WCAG conformance.
 
-.9dev5 exact-main11a5038 passed38514355067; app9546b7c passed38513423793 and38513423736. Prior maintenance/backup/payment evidence remains in checkpoint docs and Git history. Never report a source archive job as application verification.
+## Measured fixture evidence and visual review
 
-## Limits
+The generated 1800×1200 RGBA fixture is not band artwork. Its uploaded/re-encoded original measured **412,565 bytes** and its 640px copy **21,306 bytes**: **94.8% fewer bytes** for that fixture. The desktop browser selected a 960px copy measuring **64,820 bytes** in the media pass. The fixture page remained below its 130,000-byte first-party CSS/JavaScript budget. These are synthetic-fixture measurements, not field LCP/INP/CLS or a claim about the real band's photographs.
 
-No live provider inbox/merchant transaction, arbitrary shared-host aliases/ACL/open_basedir/OPcache/proxy acceptance, complete security/accessibility conformance, field Core Web Vitals, approved production art/content, cross-schema automatic update/cross-host disaster restore or accepted v1.0 is established. Measured generated-fixture transfer savings are not measured savings on the actual band's photographs.
+The preceding application **238fa431193a86fb00e867f96a445ecafc19f46b** passed full **38524917377** and focused **38524917358**. Nine new renders were inspected from its **99-PNG artifact 11875780837**. The only subsequent application change is owner-roadmap wording, separately included in the current full run. Canonical source artifact **11875622065** was digest-checked and its runtime/assets/schema/tests matched local files. Local pure/package/lint checks and isolated native Chromium component experiments were also run; local PHP did not run the real database/GD transport suites.
+
+## Corrected failures
+
+The original textured fixture exceeded common PHP upload defaults; a compressible four-pixel texture retained dimensions/alpha while fitting the existing limit. Intrinsic HTML dimensions plus CSS width exposed image stretching, corrected with low-specificity automatic height and class-token layout hints. The 320px player title could overlap controls, corrected with a constrained flex child and two-row layout. Native Escape returns focus before the queued dialog-close event; assertions now wait for real handler effects rather than racing them. No CSP bypass, skipped assertion or fabricated pass was introduced.
+
+## Previous verified checkpoints
+
+Dev6 af43d153 passed 38518823266/38518823277, with exact-main 4f6005f7 passing 38521278470. Dev5 exact-main 11a5038 passed 38514355067. Earlier exact evidence remains in DISCOVERY_CHECKPOINT.md, CONTENT_HISTORY_CHECKPOINT.md, MAINTENANCE_CHECKPOINT.md, BACKUP_CHECKPOINT.md and Git history.
+
+## Explicit limits
+
+No genuine merchant transaction, actual inbox result, arbitrary shared-host aliases/ACL/open_basedir/OPcache/proxy acceptance, full penetration/accessibility conformance, field Core Web Vitals, approved production artwork/content, automatic cross-schema upgrade/cross-host disaster restoration or accepted v1.0 is established. A source-artifact success is not an application test. Follow LAUNCH_CHECKLIST.md before live cutover.

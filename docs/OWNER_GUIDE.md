@@ -1,4 +1,4 @@
-# Owner guide — cumulative 0.9.0-dev.5
+# Owner guide — cumulative 0.9.0-dev.7
 
 Sign in with the owner created during browser installation. No public administrator signup/default password exists. Back up before updates and preserve the private installation secret. See INSTALLATION.md for fresh versus existing installations.
 
@@ -9,6 +9,12 @@ Pages, releases, tracks, shows, band members, galleries, videos and press downlo
 Upload authorized JPEG/PNG/WebP, MP3/OGG/WAV and PDFs; scripts/SVG/archives are not accepted. Images are decoded/re-encoded, and unreferenced files remain private. Published content/products authorize their selected images/audio/documents. Provide meaningful alternative text and usage-rights confirmation. Historical damaged/missing media blocks restoration instead of silently dropping it.
 
 Reserved page URL names home/band/booking/press feed the designed sections; other pages have individual URLs. Website settings controls name/tagline/welcome. Publish a release and its authorized tracks for the user-initiated persistent player. External streaming platforms use verified outbound links.
+
+## Search, sharing and responsive media
+
+Search & sharing controls site indexing and canonical sharing defaults. Published content can supply approved search/share descriptions and images. Public search, sitemap parts and former-published-slug redirects use published records only; noindex is not access control. See DISCOVERY.md.
+
+Large image displays provide bounded responsive copies while preserving original files, transparency and downloads. A small or read-only hosting cache falls back to the original rather than breaking the image. Unpublishing withdraws authorized generated copies too. Keep meaningful alternative text and verify focal-point crops on real phones. Gallery and player controls support keyboard focus/return, and validation summaries receive focus. See MEDIA_QUALITY.md for the measured test boundary.
 
 ## Shows and booking
 
@@ -38,4 +44,4 @@ Retention offers previewed/bounded technical cleanup, preserving business histor
 
 ## Still pending before final release
 
-Site discovery/metadata, wider media/accessibility/performance quality, approved high-resolution artwork and real content, genuine provider/host tests and owner acceptance. A tested development checkpoint is not an accepted v1.0 website.
+Full populated-site accessibility/performance/security acceptance, approved high-resolution artwork and real content, genuine provider/host tests and owner acceptance remain. Search/sharing/sitemap and targeted responsive-media/keyboard work are implemented; consult TEST_RESULTS.md for the exact verified checkpoint. LAUNCH_CHECKLIST.md lists the remaining approval and real-environment checks. A tested development checkpoint is not an accepted v1.0 website.

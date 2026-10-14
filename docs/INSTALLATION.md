@@ -1,4 +1,4 @@
-# Browser installation and updates — 0.9.0-dev.5
+# Browser installation and updates — 0.9.0-dev.7
 
 Use isolated staging first, not the existing live band website. TEST_RESULTS.md records exact automated evidence. Actual shared-host ownership, domain aliases, execution limits, TLS/proxies, OPcache and provider behavior require staging acceptance.
 
@@ -31,3 +31,7 @@ Cross-schema releases or changes to pinned recovery/access files require a revie
 Owner **Backups & safe restore** supports authenticated encrypted snapshots, verification/import/download and guarded same-instance restoration. Keep the separate recovery key offline. Content-only restore preserves payment/account/stock/consent histories; broader site-data restore refuses changed protected operational state. Read BACKUPS.md and keep independent provider backups.
 
 Owner retention tools remove only eligible bounded technical data after review; they do not erase business histories or create a hosting schedule. See RETENTION.md if present and the administration guidance. Configure TLS SMTP and verify delivery with the real mailbox/provider using COMMUNICATION.md. Configure Authorize.net sandbox separately using PAYMENTS.md; synthetic tests do not establish actual SDK/API/webhook/merchant acceptance. Production enablement requires an explicit owner decision after staging validation.
+
+## Final staging acceptance
+
+Follow LAUNCH_CHECKLIST.md before cutover. Responsive image caches are private, optional and regenerable; original approved media remains authoritative and belongs in backups. Real provider/host/master-art/content acceptance remains separate from regression results. Never treat the development version or a successful package upload as owner approval to enable live payments.
