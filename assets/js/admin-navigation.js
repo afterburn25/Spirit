@@ -46,6 +46,10 @@
     });
     write('localStorage', prefix, { version: 1, groups: values });
   }
+  function flushGroups() {
+    // A passive/older tab must not replace a newer explicit choice elsewhere.
+    if (groups.some(group => remembered.get(group.dataset.navGroup) !== group.open)) saveGroups();
+  }
   function savePosition() {
     if (restoring) return;
     write('sessionStorage', `${prefix}:view`, {
@@ -129,7 +133,7 @@
   sidebar.addEventListener('click', event => {
     const link = event.target.closest('a[href]');
     if (!link || event.defaultPrevented || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || link.target || link.hasAttribute('download')) return;
-    saveGroups();
+    flushGroups();
     // Selecting a page reveals its content on a phone. Reload without selecting
     // another page preserves the drawer's current open/closed state instead.
     if (media.matches) drawer(false);
@@ -139,7 +143,7 @@
     if (frame || restoring) return;
     frame = requestAnimationFrame(() => { frame = 0; savePosition(); });
   }, { passive: true });
-  window.addEventListener('pagehide', () => { saveGroups(); savePosition(); });
+  window.addEventListener('pagehide', () => { flushGroups(); savePosition(); });
   window.addEventListener('pageshow', event => { if (event.persisted) restore(); });
   sidebar.dataset.navReady = 'true';
   // Do not change location, History state, form data, authorization or the page's

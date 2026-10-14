@@ -3,7 +3,7 @@
 $navScope = Spirit\AdminNavigation::preferenceScope($user, Spirit\Paths::basePath(), Spirit\Paths::config()['secret'] ?? '');
 ?>
 <button class="admin-menu-toggle" type="button" aria-controls="sidebar" aria-expanded="false" hidden><span aria-hidden="true">☰</span> Menu</button>
-<button class="admin-nav-backdrop" type="button" aria-label="Close administration menu" hidden></button>
+<button class="admin-nav-backdrop" type="button" tabindex="-1" aria-label="Close administration menu" hidden></button>
 <aside class="sidebar grouped-sidebar" id="sidebar" data-nav-scope="<?=e($navScope)?>">
     <div class="admin-sidebar-heading">
         <a class="brand" href="<?=e(app_url('admin/'))?>"><span class="brand-crown" aria-hidden="true">♛</span><span>SPIRITUAL<br><strong>GORILLAZ</strong></span></a>
