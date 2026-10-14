@@ -98,7 +98,8 @@ final class UpdateManager
     public static function render(): void
     {
         $user=Auth::requireOwner();$actor=(int)$user['id'];$error=null;
-        if($_SERVER['REQUEST_METHOD']==='POST'){
+        if(HostingLimits::postTooLarge()){http_response_code(413);$error=HostingLimits::oversizedMessage();}
+        elseif($_SERVER['REQUEST_METHOD']==='POST'){
             Security::checkPost();
             try{
                 Auth::reauthenticateOwner($actor,password_input('owner_password'));

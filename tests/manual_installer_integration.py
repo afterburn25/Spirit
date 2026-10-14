@@ -70,6 +70,9 @@ def manual_journey(current, missing=False):
     expect(status==200 and 'PHP cURL' in body and 'PHP ZIP' in body and 'planned for v0.9.0' not in body, 'Owner installation health exposes individual extension results and current maintenance features')
     if missing:
         expect('PHP cURL · Notice' in body and 'PHP ZIP · Notice' in body, 'Installed owner health retains accurate missing-extension notices')
+        result=current.client.form('admin/launch/',{'action':'export'})
+        diagnostic=json.loads(result[1])
+        expect(result[0]==200 and diagnostic['check_states']['extension_curl']=='attention' and diagnostic['check_states']['extension_zip']=='attention','Launch report observes actual missing optional extensions without crashing')
         expect(current.client.request('admin/orders/payments.php')[0]==200 and current.client.request('admin/upgrades/')[0]==200, 'Missing optional extensions do not crash payment settings or upgrade administration')
 
 
