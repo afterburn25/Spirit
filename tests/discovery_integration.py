@@ -14,7 +14,7 @@ from pathlib import Path
 from http_integration import Client, build_package, expect, site
 from content_integration import save_content, upload, png_bytes
 from content_history_integration import fixture as history_fixture
-from commerce_integration import seed_catalog as make_product, product_values
+from commerce_integration import seed_catalog as make_product, product_values, snapshot as commerce_snapshot
 
 NS={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
 
@@ -96,12 +96,24 @@ def journey(s):
     product,variant,product_image=make_product(s)
     s.client.form(f'admin/shop/edit.php?id={product}',product_values(s,product,product_image,name='PRIVATE-MERCH-DISCOVERY'))
     result=anon.request('pages/search.php?q=Fixture+shirt&kind=product')[1]
-    expect('Fixture shirt' in result,'Published active catalog merchandise is searchable')
+    expect('shop/product.php?slug=fixture-shirt' in result and '<article>' in result,'Published active catalog merchandise is searchable')
     expect('0 result(s)' in anon.request('pages/search.php?q=PRIVATE-MERCH-DISCOVERY')[1],'Private product name is not searchable')
     tree,_,_=xml_tree(s,'?sitemap=1&part=content')
     expect(any('shop/product.php?slug=' in x.text for x in tree.findall('s:url/s:loc',NS)),'Active product URLs appear in the sitemap')
+    category={'name':'Discovery category','slug':'discovery-category','description':'Synthetic category','active':'1','revision':'1','id':'0'}
+    s.client.form('admin/shop/categories.php',category)
+    category_row=commerce_snapshot(s)['shop_categories'][0]
+    s.client.form(f'admin/shop/edit.php?id={product}',{**product_values(s,product,product_image,'publish'),'category_id':str(category_row['id'])})
+    s.client.form('admin/shop/categories.php',{**category,'id':str(category_row['id']),'active':'0'})
+    hidden=anon.request('pages/search.php?q=Fixture+shirt&kind=product')[1]
+    expect('0 result(s)' in hidden and '<article>' not in hidden,'Inactive category withdraws otherwise-published merchandise from search')
+    tree,_,_=xml_tree(s,'?sitemap=1&part=content')
+    expect(not any('shop/product.php?' in x.text for x in tree.findall('s:url/s:loc',NS)),'Inactive category products are absent from the sitemap')
+    category_row=commerce_snapshot(s)['shop_categories'][0]
+    s.client.form('admin/shop/categories.php',{**category,'id':str(category_row['id']),'revision':str(category_row['revision'])})
     s.client.form('admin/shop/settings.php',{'intro':'Closed fixture'})
-    expect('Fixture shirt' not in anon.request('pages/search.php?q=Fixture+shirt')[1],'Closing the catalog withdraws products from discovery')
+    closed=anon.request('pages/search.php?q=Fixture+shirt')[1]
+    expect('0 result(s)' in closed and '<article>' not in closed,'Closing the catalog withdraws products from discovery')
     # Global controls never change credentials or claim visibility is privacy.
     expect(anon.request('admin/discovery.php')[3].endswith('/admin/login.php'),'Anonymous visitors cannot configure indexing')
     expect(s.client.request('admin/discovery.php',{'csrf':'bad','indexing':'disabled'})[0]==403,'Global indexing change requires valid CSRF')

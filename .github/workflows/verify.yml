@@ -12,7 +12,8 @@ concurrency:
 jobs:
   integration:
     name: PHP ${{ matrix.php }} / ${{ matrix.database }}
-    runs-on: ubuntu-24.04
+    # Same assertions and PHP/database matrix; use the available Ubuntu22 pool.
+    runs-on: ubuntu-22.04
     timeout-minutes: 20
     strategy:
       fail-fast: false

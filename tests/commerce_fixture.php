@@ -10,7 +10,7 @@ $c=Paths::config();if(!$c||!preg_match('/^spirit_ci(?:_[a-z0-9]+)?$/D',$c['db'][
 $input=json_decode(stream_get_contents(STDIN)?:'{}',true,64,JSON_THROW_ON_ERROR);$db=Database::connect();$result=[];
 switch($argv[1]??''){
 case 'snapshot':
- foreach(['products','product_variants','inventory_adjustments','customers','customer_addresses','customer_tokens','mail_queue'] as $table){$result[$table]=$db->query('SELECT * FROM '.Database::table($table).' ORDER BY '.($table==='customer_tokens'?'customer_id':'id'))->fetchAll();}break;
+ foreach(['shop_categories','products','product_variants','inventory_adjustments','customers','customer_addresses','customer_tokens','mail_queue'] as $table){$result[$table]=$db->query('SELECT * FROM '.Database::table($table).' ORDER BY '.($table==='customer_tokens'?'customer_id':'id'))->fetchAll();}break;
 case 'mail':
  $q=$db->prepare('SELECT encrypted_body FROM '.Database::table('mail_queue').' WHERE dedupe_key LIKE ? ORDER BY id DESC LIMIT 1');$q->execute(['customer:'.$input['purpose'].':%']);$result=['html'=>PrivateValue::open((string)$q->fetchColumn())];break;
 case 'expire':
