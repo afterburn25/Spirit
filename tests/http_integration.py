@@ -157,12 +157,23 @@ def normal_journey(s: Site, blocked_cleanup: bool):
     else:
         expect(not (s.root/'install').exists(), 'Installer directory physically removed')
         expect('Installer folder removed.' in completed, 'Same-page completion confirms actual folder removal')
-        # PHP's development server can route a missing directory to its parent
-        # index. Test the deleted PHP entry and inability to reopen setup, not
-        # an Apache-specific status for that directory URL.
-        expect(s.client.request('install/index.php')[0] == 404, 'Deleted installer PHP entry is unavailable')
-        expect('id="install-form"' not in s.client.request('install/')[1], 'Directory refresh cannot reopen the removed installation form')
-        expect(s.client.request('install/index.php', s.input())[0] == 404 and s.database('count') == {'users':1,'state':'installed'}, 'Replayed POST to the deleted installer cannot recreate an owner')
+        # PHP 8.4's documented CLI-server index lookup also applies to missing
+        # file-looking paths; PHP 8.2 returns 404 for the deleted PHP entry.
+        # Check the security/data invariants in both cases, not a server-specific
+        # fallback status. The separate Apache suite verifies real access rules.
+        config_digest = hashlib.sha256((s.runtime/'config.php').read_bytes()).hexdigest()
+        lock_digest = hashlib.sha256((s.runtime/'installed.lock').read_bytes()).hexdigest()
+        for removed_path in ['install/', 'install/index.php']:
+            for submitted in [None, s.input()]:
+                response_status, response_body, _, _ = s.client.request(removed_path, submitted)
+                safe_response = response_status == 404 or (response_status == 200 and 'data-page="home"' in response_body)
+                expect(safe_response and 'id="install-form"' not in response_body and 'id="install-complete"' not in response_body,
+                       'Deleted installer GET/POST cannot reopen setup or claim a new installation: '+removed_path)
+        expect(s.database('count') == {'users':1,'state':'installed'} and not (s.root/'install').exists(),
+               'Replaying both removed URLs preserves the single owner and physical deletion')
+        expect(hashlib.sha256((s.runtime/'config.php').read_bytes()).hexdigest() == config_digest and
+               hashlib.sha256((s.runtime/'installed.lock').read_bytes()).hexdigest() == lock_digest,
+               'Replayed setup cannot replace private credentials or the permanent completion lock')
     anonymous = Client(s.base)
     status, _, _, url = anonymous.request('admin/index.php')
     expect(status == 200 and url.endswith('/admin/login.php'), 'Anonymous admin access redirects to sign-in')
