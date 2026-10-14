@@ -1,17 +1,11 @@
-# Test evidence
+# Test evidence — latest verified cumulative checkpoint
 
-## 0.9.0-dev.2 — verification pending
+**0.9.0-dev.4 application5e3c00b278b369154f10d61f5e651cdfb0a75572 passed full Actions38510178934**, including both PHP/database environments, all nine1440px/390px Chromium workflows and actual ApachePHP8.4HTTPS. Focused maintenance38510178953 passed. See MAINTENANCE_CHECKPOINT.md for exact jobs, artifact, assertions and corrected failures.
 
-Local25 backup stream/schema checks passed: authenticated roundtrip, private files, hidden plaintext, wrong key, ciphertext/tag tamper, truncation/footer/trailing data, reordered frames, bounded lengths, invalid IDs, symlinks and exact SQL-value encoding. Local PHP lint/Python compilation/existing permission/unit/package suites passed separately. New real database/browser tests have not yet passed a run for this checkpoint.
+The334 cumulative pure assertions cover foundation/storage/paths/content schema/communication/commerce/payment/staff/backup/upgrade/cleanup;11 packaging tests protect secrets, local recovery pointers, version immutability and manifests. Full SQL/HTTP, TLS SMTP/payment transport, permission/concurrency/recovery, root/subfolder/additive migration suites remain. Payment and external SDK boundaries in automated tests are explicitly synthetic; local TLS tests do not contact production providers.
 
-Added root/subfolder HTTP creation/verification/private-key and archive download, multipart import/wrong-key rejection, corruption rejection, content restore with real damaged-media repair, protection of staff/config/business history/newer uploads, stale-revision invalidation, site-data refusal after inventory changes, selected deletion, real CHECK-injected SQL rollback, missing-media repair, independent-process shared/exclusive locking and no permanent outage flag. Chromium creates/verifies/downloads/restores actual data at1440/390 and checks layout/password reflection and errors. CI must run all seven configured browser suites, not only the new one.
+Nine browser workflows: installer/admin, public/player, booking/communication, merchandise/customer, tokenization/order, staff/invitations, encrypted backups/restoration, ZIP upgrades/independent recovery, and conservative cleanup. The ten newest upgrade/cleanup screenshots were inspected from78-render artifact11869339348. The test ZIPs contain only generated fixtures and never enter deployment as band data.
 
-## Verified baselines
+Historical exact-main .8eb995810 passed38493945223; .9dev2a621b4b passed38503430004, app7d22bf8 passed38502208276. Earlier results and detailed reports remain in Git history and BACKUP_CHECKPOINT.md. Current documentation-only updates change no tested code/schema/assets. Check the current main run rather than assigning another commit's result to later application edits.
 
-Exact-main .8 **eb995810e35f23af28080f7f7b2b65f3021085c2** passed **38493945223**. Its applicationcd3d645b passed38493194973, both database engines and five browser suites.54 screenshots,14 payment/order/admin renders inspected. Payment provider/SDK test boundaries are synthetic; loopback TLS tests are real.58 payment units and database concurrency/failure/HTTP checks passed, not genuine merchant sandbox acceptance.
-
-Staff application **4611afd6b35ffe9745ec3834c0fee2d951888997** passed **38495719613**: MariaDB job115630905304, MySQL job115630905376, all six configured browser suites.38 capability units plus root/subfolder invitations/permissions/private media/content/fulfillment/recovery/upgrade checks passed. Artifact11863697472 contains64 renders;ten staff screenshots inspected. That review exposed a visible honeypot caused by global label styling. Correction871ce07 uses a true hidden input with a browser visibility assertion; the latest cumulative run must verify it.
-
-## Boundaries
-
-Actual hosting permissions/locks/timeouts/rules/TLS/aliases, legacy runtime relocation, real Authorize.net SDK/API/webhook and inbox delivery, cross-host disaster recovery, complete penetration testing/WCAG/field performance, final artwork/content and owner1.0 acceptance remain unverified. No CI fixture reaches a live payment endpoint, and real backup data/keys never enter Git or public build artifacts. A source-artifact workflow alone is not application verification.
+Not proved: actual hosting aliases/ACL/open_basedir/OPcache/proxy behavior, production merchant and inbox delivery, domain mail configuration, complete penetration/accessibility review, field Core Web Vitals, approved high-resolution artwork and real content, cross-schema unattended upgrades or cross-host disaster restore. No accepted1.0 exists.
