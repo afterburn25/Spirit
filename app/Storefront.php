@@ -25,6 +25,8 @@ final class Storefront
         $title=$titles[$view];$description=$settings['welcome'];$store=Catalog::options();$error=$context['error']??null;$customer=$context['customer']??null;
         if($view==='product'){$record=Catalog::bySlug(is_string($_GET['slug']??null)?$_GET['slug']:'');if(!$record){http_response_code(404);$title='Product unavailable';}else{$title=$record['data']['name'];}}
         if(!in_array($view,['catalog','product'],true)){header('X-Robots-Tag: noindex, nofollow');header('Referrer-Policy: no-referrer');}
+        if($store['enabled']&&$view==='product'&&$record){$canonical=Metadata::absolute(app_url('shop/product.php?slug='.rawurlencode($record['slug'])));$description=$record['data']['description'];$record['kind']='product';}
+        elseif($store['enabled']&&$view==='catalog'&&!isset($_GET['q'])&&!isset($_GET['category'])){$page=Input::integer($_GET,'page',1,1000000,1);$canonical=Metadata::absolute(app_url('shop/'.($page>1?'?page='.$page:'')));}
         require Paths::root().'/views/public/header.php';
         require Paths::root().'/views/public/'.(in_array($view,['catalog','product','cart'],true)?'store.php':'customer.php');
         require Paths::root().'/views/public/footer.php';

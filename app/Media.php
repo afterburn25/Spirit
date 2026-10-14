@@ -12,6 +12,14 @@ final class Media
         $q=Database::connect()->prepare('SELECT * FROM '.Database::table('media').($kind!==null?' WHERE kind=?':'').' ORDER BY id DESC LIMIT 1000');$q->execute($kind!==null?[$kind]:[]);return $q->fetchAll();
     }
     public static function get(int $id): ?array {$q=Database::connect()->prepare('SELECT * FROM '.Database::table('media').' WHERE id=?');$q->execute([$id]);return $q->fetch()?:null;}
+    private static array $dimensions=[];
+    public static function dimensions(array $media): array
+    {
+        $key=(string)$media['id'];if(isset(self::$dimensions[$key])){return self::$dimensions[$key];}
+        try{$info=$media['kind']==='image'?@getimagesize(self::path($media)):false;}catch(Throwable $e){$info=false;}
+        $value=$info?['width'=>(int)$info[0],'height'=>(int)$info[1]]:[];
+        if(count(self::$dimensions)<128){self::$dimensions[$key]=$value;}return $value;
+    }
     public static function url(int $id): string {return app_url('media/file.php?id='.$id);}
     public static function path(array $media): string
     {

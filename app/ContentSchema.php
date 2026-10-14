@@ -22,6 +22,10 @@ final class ContentSchema
             'press' => ['file_id'=>['Approved PDF document','media:pdf',0],'description'=>['Document description','textarea',2000]],
             default => throw new InvalidArgumentException('Unknown content section.'),
         };
+        if(in_array($kind,['page','release','event','member'],true)){
+            $fields+=['seo_title'=>['Search / share title (optional)','text',140],'seo_description'=>['Search / share description (optional)','textarea',320],'share_image_id'=>['Social sharing image (optional)','media:image',0],'seo_visibility'=>['Search discovery','select',['include'=>'Include when published','exclude'=>'Exclude from search and sitemap']]];
+        }
+        if($kind==='event'){$fields+=['event_access'=>['Event audience confirmation','select',['unconfirmed'=>'Not yet confirmed','public'=>'Open to the public','invitation'=>'Invitation only']],'region'=>['State / region','text',120],'postal_code'=>['Venue postal code','text',30],'country'=>['Venue country','text',80]];}
         return $fields;
     }
     public static function url(string $value): string
@@ -67,6 +71,7 @@ final class ContentSchema
         }
         if ($publishing) {
             $required = match($kind) { 'track'=>['release_id','audio_id'], 'event'=>['starts_at','venue','city'], 'gallery'=>['image_id'], 'video'=>['url'], 'press'=>['file_id'], default=>[] };
+            if($kind==='event'&&$data['event_access']==='public'){$required=array_merge($required,['address','country']);}
             foreach ($required as $key) { if (empty($data[$key])) { throw new InvalidArgumentException(self::fields($kind)[$key][0] . ' is required before publishing.'); } }
         }
         return $data;

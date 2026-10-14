@@ -33,7 +33,7 @@ def main():
                     expect(page.locator('tbody tr').count()==6,'Next page reaches the remaining matching records')
                     response=page.goto(s.base+f'admin/content/history.php?id={id}&revision=2')
                     expect(response.status==200 and 'no-store' in response.headers.get('cache-control',''),'Browser revision screen is private')
-                    expect(page.locator('.revision-field').count()==7,'Revision comparison renders every declared field')
+                    expect(page.locator('.revision-field').count()==11,'Revision comparison renders every declared field')
                     expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),f'Revision comparison fits {width}px without clipping')
                     screenshot(page,f'history-{width}-comparison')
                     page.get_by_role('button',name='Restore as private draft').click();page.wait_for_url('**/admin/content/edit.php?kind=page&id=*')

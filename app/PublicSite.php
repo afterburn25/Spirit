@@ -16,7 +16,8 @@ final class PublicSite
     {
         if($id<1){return '<span class="art-placeholder '.e($class).'" aria-hidden="true"><span>♛</span><b>SG</b></span>';}
         $media=Media::get($id);if(!$media||$media['kind']!=='image'){return '<span class="art-placeholder '.e($class).'" aria-hidden="true">SG</span>';}
-        return '<img src="'.e(Media::url($id)).'" alt="'.e($media['alt_text']?:$alt).'" class="'.e($class).'" loading="'.($eager?'eager':'lazy').'" decoding="async">';
+        $dimensions=Media::dimensions($media);$size=isset($dimensions['width'],$dimensions['height'])?' width="'.$dimensions['width'].'" height="'.$dimensions['height'].'"':'';
+        return '<img'.$size.' src="'.e(Media::url($id)).'" alt="'.e($media['alt_text']?:$alt).'" class="'.e($class).'" loading="'.($eager?'eager':'lazy').'" decoding="async">';
     }
     public static function text(string $text): string {return nl2br(e($text));}
     public static function releaseCard(array $release): void
@@ -47,16 +48,17 @@ final class PublicSite
         $settings=Settings::all();$record=$preview;$pageContent=null;$isPreview=$preview!==null;
         $slug=is_string($_GET['slug']??null)?$_GET['slug']:'';
         $details=['release'=>'release','event'=>'event','member'=>'member','page'=>'page'];
-        if(isset($details[$view])&&!$record){$record=Content::bySlug($details[$view],$slug);if(!$record){http_response_code(404);$view='not-found';}}
+        if(isset($details[$view])&&!$record){$record=Content::bySlug($details[$view],$slug);if(!$record){$previous=Discovery::former($details[$view],$slug);if($previous&&in_array($_SERVER['REQUEST_METHOD']??'GET',['GET','HEAD'],true)){header('Cache-Control: no-cache');header('Location: '.self::url($previous),true,301);return;}http_response_code(404);$view='not-found';}}
         if(in_array($view,['home','band','booking','press'],true)){$pageContent=$preview??Content::bySlug('page',$view);}
-        $titles=['home'=>'Music with a higher purpose','music'=>'Our music','shows'=>'Upcoming shows','band'=>'The band','media'=>'Watch & explore','booking'=>'Book the band','booking-thanks'=>'Inquiry received','newsletter'=>'Band updates','press'=>'Electronic press kit','shop'=>'Official merchandise','not-found'=>'Page not found'];
+        $titles=['home'=>'Music with a higher purpose','music'=>'Our music','shows'=>'Upcoming shows','band'=>'The band','media'=>'Watch & explore','booking'=>'Book the band','booking-thanks'=>'Inquiry received','newsletter'=>'Band updates','press'=>'Electronic press kit','shop'=>'Official merchandise','search'=>'Search the website','not-found'=>'Page not found'];
         $title=$record?$record['title']:($titles[$view]??'Spiritual Gorillaz');$active=match($view){'release'=>'music','event'=>'shows','member','page'=>'band','booking-thanks'=>'booking',default=>$view};
-        $description=$record?substr((string)($record['data']['description']??$record['data']['body']??$record['title']),0,180):$settings['welcome'];
-        $private=$isPreview||in_array($view,['booking','booking-thanks','newsletter'],true);
+        $description=$record?Metadata::text((string)($record['data']['description']??$record['data']['body']??$record['data']['bio']??$record['title']),180):Metadata::text($settings['welcome'],180);
+        $private=$isPreview||in_array($view,['booking','booking-thanks','newsletter','search'],true);
         header('Cache-Control: '.($private?'private, no-store':'no-cache'));if($isPreview){header('X-Robots-Tag: noindex, nofollow');}
         $canonical=null;if(!$private&&$view!=='not-found'){$path=$record?self::url($record):app_url($view==='home'?'':($view==='music'?'music/':$view.'/'));$base=Paths::basePath();$canonical=rtrim(Paths::config()['site_url'],'/').substr($path,strlen($base));}
+        $metaRecord=$record??$pageContent;
         require Paths::root().'/views/public/header.php';
-        $templates=['booking'=>'booking.php','booking-thanks'=>'booking-thanks.php','newsletter'=>'newsletter.php'];
+        $templates=['booking'=>'booking.php','booking-thanks'=>'booking-thanks.php','newsletter'=>'newsletter.php','search'=>'discovery.php'];
         require Paths::root().'/views/public/'.($templates[$view]??'sections.php');
         require Paths::root().'/views/public/footer.php';
     }

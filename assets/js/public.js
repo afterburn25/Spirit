@@ -12,7 +12,7 @@
   const announce = (message, error = false) => { status.textContent = message; status.className = error ? 'player-error' : 'visually-hidden'; };
   const menu = open => { nav.classList.toggle('is-open', open); toggle.setAttribute('aria-expanded', String(open)); };
   toggle.addEventListener('click', () => menu(toggle.getAttribute('aria-expanded') !== 'true'));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') menu(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { menu(false); toggle.focus(); } });
   const paintPlayback = () => {
     const playing = !audio.paused;
     playToggle.textContent = playing ? 'Ⅱ' : '▶';
@@ -57,7 +57,7 @@
   dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
   function internal(url) {
     const home = new URL(document.querySelector('.wordmark').href);
-    return url.origin === location.origin && url.pathname.startsWith(home.pathname) && !/\/(admin|install|account)(\/|$)/.test(url.pathname) && !/\/shop\/(cart|checkout|order)\.php$/.test(url.pathname) && !/\/media\/file\.php$/.test(url.pathname);
+    return !url.searchParams.has('sitemap') && url.origin === location.origin && url.pathname.startsWith(home.pathname) && !/\/(admin|install|account|payments)(\/|$)/.test(url.pathname) && !/\/shop\/(cart|checkout|order|pay)\.php$/.test(url.pathname) && !/\/media\/file\.php$/.test(url.pathname);
   }
   async function navigate(url, push = true) {
     if (navigation) navigation.abort(); navigation = new AbortController();
@@ -70,15 +70,18 @@
       const documentNext = new DOMParser().parseFromString(html, 'text/html');
       const next = documentNext.getElementById('site-content');
       if (!response.ok || !next) { location.assign(url.href); return; }
+      const resolved = new URL(response.url);
+      if (!internal(resolved)) { location.assign(resolved.href); return; }
       // Only same-origin server-rendered, escaped public content enters this shell.
       document.getElementById('site-content').replaceWith(next);
       const nextNav = documentNext.getElementById('public-nav'); if (nextNav) nav.innerHTML = nextNav.innerHTML;
       document.title = documentNext.title;
-      for (const selector of ['meta[name="description"]', 'link[rel="canonical"]', 'meta[property="og:title"]', 'meta[property="og:description"]', 'meta[property="og:url"]']) {
-        const old = document.querySelector(selector), replacement = documentNext.querySelector(selector);
-        if (old) old.remove(); if (replacement) document.head.append(replacement);
+      for (const selector of ['meta[name="description"]', 'meta[name="robots"]', 'link[rel="canonical"]', 'meta[property^="og:"]', 'meta[name^="twitter:"]', 'script#page-structured-data[type="application/ld+json"]']) {
+        document.querySelectorAll(selector).forEach(node => node.remove());
+        documentNext.querySelectorAll(selector).forEach(node => document.head.append(node));
       }
-      if (push) history.pushState({ spirit: true }, '', url.href);
+      if (push) history.pushState({ spirit: true }, '', resolved.href + url.hash);
+      else if (location.href !== resolved.href + url.hash) history.replaceState({ spirit: true }, '', resolved.href + url.hash);
       menu(false); paintPlayback();
       const anchor = url.hash ? document.getElementById(decodeURIComponent(url.hash.slice(1))) : null;
       if (anchor) anchor.scrollIntoView(); else window.scrollTo(0, 0);

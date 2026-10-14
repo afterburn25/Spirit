@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.0-dev.6 — search, sharing and published discovery (verification pending)
+
+Optional published metadata and sharing artwork, configured canonical URLs, Unicode-safe descriptions, owner indexing toggle, public search/pagination, XML sitemap parts and former published-slug redirects. Explicit-public-event JSON-LD uses supplied location/date/status and no invented prices/ratings. Internal navigation replaces stale social/schema/robots tags while audio continues; public images reserve actual dimensions and phone Escape returns focus. No migration or pinned access/recovery files changed.25 new pure checks, root/subfolder SQL/HTTP regressions and eleventh browser workflow added; current full execution pending.
+
 ## 0.9.0-dev.5 — verified content history and large-library controls
 
 Application 9546b7c passed full Actions **38513423793** and focused maintenance **38513423736**. Both database jobs, ten Chromium suites and actual Apache HTTPS passed. Six new screens inspected from 84-render artifact 11870239075. Canonical source compared with local implementation. This documentation-only update changes no application code, schema, assets or tests. See CONTENT_HISTORY_CHECKPOINT.md.

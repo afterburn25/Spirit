@@ -1,17 +1,17 @@
-# Project status — 0.9.0-dev.5
+# Project status — 0.9.0-dev.6 implementation
 
-**Verified cumulative application:** 9546b7c298b462d7457c0e911a71bf5fedb5bc81. Full run **38513423793** and focused maintenance **38513423736** passed. The following documentation-only descendant changes no runtime, assets, schema or tests. Read the live main ref before resuming.
+New work on **work/site-quality**; full current verification pending. Baseline exact-main **11a50387514f0f744363a660c0ff86f3d79024ff** passed **38514355067** with both databases, ten Chromium suites and actual Apache HTTPS.
 
-## Newly implemented and tested
+## Implemented in the current checkpoint
 
-Literal title/URL search, visibility filters, sorting and 25-row pagination; private per-item revision lists and escaped field comparison; transactional restore as a **new private draft**, preserving current public snapshots, later revisions and media visibility; active role/session checks; typed input; missing/damaged historical-file refusal; historical selected files/releases retained beyond 1,000 newer items. New drafts record sort order, so private edits cannot prematurely reorder the live snapshot. Legacy revisions retain current order. No migration was changed.
+Published-only optional SEO/share fields, approved sharing images, canonical configured URLs and Unicode-safe descriptions; owner global indexing control; real public search with filters/20-row pages; bounded XML sitemap index/parts using installation-root URLs; GET/HEAD/ETag handling; unique former-published-slug redirects without draft leaks; explicitly confirmed public-event JSON-LD using supplied venue/location/date/status only. Internal navigation updates all metadata and preserves actual audio playback. Public images carry actual dimensions and phone menu Escape restores focus.
 
-39 new pure checks, root/subfolder SQL/HTTP large-library/restore/permission/replay/media tests, and a tenth desktop/mobile Chromium workflow passed. Both database jobs and actual Apache HTTPS passed. Six new screenshots were inspected from the 84-render artifact. See CONTENT_HISTORY_CHECKPOINT.md and TEST_RESULTS.md.
+No SQL migration, pinned access/recovery file or external server configuration is changed. Search exclusion/noindex is not authentication. Old unrelated website URL migration is not automatic. Existing indexing defaults are preserved; staging owners should explicitly disable indexing.
 
-## Preserved cumulative scope
+## Verification
 
-Browser installer/private runtime/installer-folder deletion and permanent lock; selected public website, music/player, shows/external ticket links; booking/email/newsletter; catalog/inventory/cart/customer accounts; token-only checkout/orders/fulfillment; staff permissions; encrypted backups and guarded restoration; owner-operated same-schema ZIP upgrades, independent recovery and conservative retention.
+25 new discovery units and all existing pure/package checks passed locally. Root/subfolder SQL/HTTP privacy, redirect, sitemap/category/pagination tests and an eleventh desktop/mobile Chromium workflow are added; exact current CI and render inspection remain pending. Read TEST_RESULTS.md.
 
-## Still required
+## Cumulative and remaining scope
 
-Final metadata, sitemap/public search/redirect handling, wider media/accessibility/performance quality, high-resolution production artwork and approved real content, actual hosting and payment/mail-provider acceptance. Same-schema upgrade and same-instance backup limitations remain explicit. No genuine merchant transaction or real inbox result is claimed by synthetic tests. No final v1.0 acceptance or release has occurred.
+All original installer, public/CMS/history/music/shows, booking/communication, catalog/customer/payment/order/staff, encrypted backup/restore, same-schema ZIP recovery and retention features are preserved. Still required: broader image/accessibility/performance work, master artwork and genuine approved content, actual merchant/email/host acceptance and final owner review. No real provider payment or accepted v1.0 exists merely because application tests pass.

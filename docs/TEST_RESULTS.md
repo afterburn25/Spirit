@@ -1,19 +1,15 @@
 # Test evidence
 
-## Current 0.9.0-dev.5 — full workflow passed
+## Current 0.9.0-dev.6 — full execution pending
 
-Application **9546b7c298b462d7457c0e911a71bf5fedb5bc81** passed full **38513423793** and focused maintenance **38513423736**. See **CONTENT_HISTORY_CHECKPOINT.md** for exact jobs, source/artifact comparison and visual evidence. This documentation-only descendant changes no tested application files.
+25 discovery pure checks plus all existing pure suites and 11 packaging tests pass locally. New SQL/HTTP root/subfolder checks cover published-only metadata/search/sitemap projections, draft and private-data isolation, historic redirect precedence/ambiguity, event schema conditions, owner indexing controls and bounded search pages. An eleventh Chromium suite exercises desktop/mobile search, settings and metadata updates while real audio continues. Current CI and six-render inspection are pending; no changed-code full pass is claimed yet.
 
-39 new content-history pure checks, real SQL/HTTP root/subfolder restore, publication/media isolation, source corruption, role boundaries, replay/stale input, literal search and 1,100-record pagination passed. Tenth Chromium workflow passed at 1440px and 390px. All prior suites also passed on both database environments; actual Apache PHP 8.4 HTTPS checks passed. Six new renders were inspected from an 84-PNG synthetic artifact.
+## Verified preceding checkpoint
 
-## Earlier verified checkpoint
+Exact-main **11a50387514f0f744363a660c0ff86f3d79024ff**, .9dev5, passed full **38514355067**. Application **9546b7c298b462d7457c0e911a71bf5fedb5bc81** passed **38513423793** and focused maintenance **38513423736**. Both database engines, ten Chromium suites and actual Apache HTTPS passed. See CONTENT_HISTORY_CHECKPOINT.md for source comparison and six new history renders from its84-image synthetic artifact.
 
-0.9.0-dev.4 application **5e3c00b278b369154f10d61f5e651cdfb0a75572** passed full **38510178934** and focused **38510178953**. Its documentation-only main **2a9497e831f6f3740fb5955a1f37b63dadc03ad4** also passed **38511337940**. See MAINTENANCE_CHECKPOINT.md for upgrade/retention/Apache evidence.
+Prior .9dev4 application5e3c00b passed38510178934 and focused38510178953; exact-main2a9497e passed38511337940. See MAINTENANCE_CHECKPOINT.md. Older .8 and backup evidence remains in Git history and BACKUP_CHECKPOINT.md. Never mistake a successful source-artifact job for application verification.
 
-The prior 334 cumulative pure assertions cover foundation/storage/paths/content schema/communication/commerce/payment/staff/backup/upgrade/cleanup. 11 packaging tests protect secrets, local recovery pointers, version immutability and manifests. Existing SQL/HTTP, TLS SMTP/payment transport, permission/concurrency/recovery, root/subfolder/additive migration suites remain. External payment and SDK boundaries in automated tests are synthetic; loopback TLS is not a production provider transaction.
+Current pure coverage spans foundation/storage/paths/content schema/history/discovery/communication/commerce/payment/staff/backup/upgrade/cleanup. Existing full SQL/HTTP/TLS/role/concurrency/upgrade/backup/recovery tests are retained. External payment and SDK boundaries are synthetic, not actual merchant transactions. Local PHP does not execute the SQL/GD/cURL/ZIP/Chromium environments; those run in Actions.
 
-Ten Chromium workflows now cover installer/admin, public/player, communication, merchandise/customer, tokenization/order, staff/invitations, encrypted backup/restore, ZIP upgrades/independent recovery, conservative cleanup, and content history. Tests use generated fixtures, not real band or customer records.
-
-Historical exact-main .8 eb995810 passed 38493945223; .9dev2 a621b4b passed 38503430004 and app 7d22bf8 passed 38502208276. Older detailed evidence remains in Git history and BACKUP_CHECKPOINT.md. Check the current main run, not a source-artifact workflow, for subsequent edits.
-
-Not established: real shared-host aliases/ACL/open_basedir/OPcache/proxy behavior, real merchant and inbox delivery, domain email configuration, full penetration/accessibility review, field Core Web Vitals, approved high-resolution artwork/content, cross-schema unattended upgrades, cross-host disaster restoration or accepted v1.0.
+Not established: actual shared-host aliases/ACL/open_basedir/OPcache/proxy configuration, genuine merchant and inbox delivery, field Core Web Vitals, complete penetration/accessibility conformance, master artwork/real content approval, cross-schema automatic upgrades, cross-host disaster restore or accepted v1.0.
