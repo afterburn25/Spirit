@@ -1,19 +1,19 @@
-# Cumulative roadmap
+# Cumulative roadmap — 0.9.0-dev.12
 
-Current **0.9.0-dev.11** consolidates launch checks and upload-limit feedback. A2/cPanel manual database only; no token, no setup code, no20i. The exact verified application is d699fd6e, full38589219303 and focused38589219399. Consult TEST_RESULTS.md rather than treating a version as a completion percentage.
+Current quality pass fixes complete responsive product-photo selection, portrait container geometry, failure/stale-response recovery, keyboard/native fallback and adds Chromium/Firefox/WebKit storefront verification. Consult TEST_RESULTS.md for exact source/run evidence. Version numbers are not project-completion percentages.
 
 | Target | Scope | Current state |
 |---|---|---|
-| 0.1 | One-page code-free installer, existing manual DB, private runtime, owner, self-deletion/lock | Implemented and regression-tested, including no-cURL/no-ZIP installation. Actual A2 acceptance remains. |
-| 0.2 | Approved responsive website | Implemented. Production artwork and approved populated-site review remain. |
-| 0.3 | CMS, media, band, press and revision history | Implemented and tested, including pagination and append-only private draft restoration. |
-| 0.4 | Releases, tracks and persistent audio | Implemented and browser-tested with keyboard refinements. |
-| 0.5 | Shows and external venue ticket links | Implemented and tested. No native tickets or admission scanning. |
+| 0.1 | One-page code-free manual installer, private runtime, owner, self-deletion/lock | Implemented and regression-tested. Actual A2 account acceptance remains. No setup code, token or automatic DB creation. |
+| 0.2 | Approved responsive public design | Implemented. Production master artwork and approved populated-site review remain. |
+| 0.3 | CMS, band/media/press, search and private revision history | Implemented and tested, including publication boundaries and append-only private restoration. |
+| 0.4 | Releases/tracks and persistent local audio | Implemented and browser-tested, including navigation to merchandise in the new engine matrix. |
+| 0.5 | Shows and external venue ticket links | Implemented and tested; no native ticket sales or admission scanning. |
 | 0.6 | Booking, transactional email and newsletter | Implemented and tested. Actual receiving-mailbox/provider acceptance remains. |
-| 0.7 | Catalog, variants, stock, cart and customers | Implemented and tested; initial addresses are US-only. |
+| 0.7 | Catalog, variants, stock, cart and customers | Implemented. Multi-photo selection and portrait gallery layouts corrected and tested across three engines. Initial addresses remain US-only. |
 | 0.8 | Token-only checkout, orders and fulfillment | Application boundaries tested. Genuine merchant sandbox acceptance remains. |
-| 0.9 | Staff, backups, upgrades, retention, discovery and quality | Core workflows tested.43 passive launch checks, private report export and oversized-upload feedback added. Broader populated-site quality and operating-scope acceptance remain. |
+| 0.9 | Staff, backups, upgrades, retention, discovery and quality | Core modules and passive Launch checks/413 upload feedback implemented. Current gallery quality pass adds to, not replaces, broader populated-site accessibility/performance/security review. |
 | 1.0.0-rc.N | Complete staging and acceptance candidate | Not reached. |
 | 1.0.0 | Complete explicitly accepted release | Not released. |
 
-Follow LAUNCH_CHECKLIST.md for real-environment evidence. Packages are cumulative and immutable. Preserve existing configuration, original encryption secret, database/media, earlier private recovery state and separate backup/update recovery keys. Six migrations and five pinned recovery/access files are unchanged. Browser upgrades remain same-schema; guarded restoration remains same-instance. No report, configured service or test replaces actual provider/host/content/owner acceptance.
+Packages are cumulative and immutable. Preserve prior configuration/data/media and recovery keys. Six migrations and five pinned recovery/access files remain unchanged; browser upgrades remain same-schema and guarded restoration same-instance. A2/cPanel only, no20i. Use LAUNCH_CHECKLIST.md for actual host, provider, content and owner acceptance; fixtures and configured settings are not launch approval.

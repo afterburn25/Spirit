@@ -1,47 +1,63 @@
-# Verification — 0.9.0-dev.11
+# Verification — 0.9.0-dev.12
 
 ## Exact application evidence
 
-Application source **d699fd6e9f42a8fc2d0329fd07778c4a2718f7a8**; tree **df20fbeb8c1d552755b3fd8c4b7bc10e766e1c0c**.
-Full workflow **38589219303: completed / success**, 2026-10-14.
-Focused maintenance **38589219399: completed / success**.
-PR #13 tested merge reference **7c2f10ce46eef7b5470d63bef6bfcf133e5088e6**.
-The final documentation-only descendant changes no runtime, assets, database migrations, workflows or tests. Check subsequent exact-main runs directly; a source-artifact result is not application verification.
+Application **eefab5ab98b27397a5be48ba311bf9b9ffe869fb**; tree **7efabaa53a80676f04c841706f436c286fa7ba35**.
+Date: **2026-10-14**.
+Full workflow **38632645453 — completed / success**.
+Focused maintenance **38632645480 — completed / success**.
+Populated storefront workflow **38632644731 — completed / success**.
+PR #14 tested merge reference **a8cc68830a9ff90081daabf19c31234e272f37d6**.
+
+The final documentation-only descendant leaves application runtime, assets, database migrations, workflows and tests unchanged. An additional exact-main rerun can be checked directly in Actions; never confuse a source-artifact success with application verification.
 
 | Environment | Job | Result |
 |---|---|---|
-| PHP 8.2 / MariaDB 11.4 | 115939297865 | PASS |
-| PHP 8.4 / MySQL 8.4, including thirteen Chromium workflows | 115939297301 | PASS |
-| Actual Apache PHP 8.4 HTTPS access rules | 115939297356 | PASS |
+| PHP8.2 / MariaDB11.4, cumulative SQL/HTTP | 116088363059 | PASS |
+| PHP8.4 / MySQL8.4, cumulative SQL/HTTP and13 Chromium suites | 116088363845 | PASS |
+| Actual Apache PHP8.4 HTTPS access rules | 116088363838 | PASS |
+| Populated storefront / Chromium | 116087862457 | PASS |
+| Populated storefront / Firefox | 116087862866 | PASS |
+| Populated storefront / WebKit | 116087862994 | PASS |
 
-## Tests executed
+## Executed coverage
 
-**544 cumulative pure assertions** (480 retained and 64 launch/hosting assertions), **12 packaging tests**, both SQL/HTTP environments and all configured browser/access suites passed. Local verification separately checked 211 PHP/inc files, all 544 pure assertions under an unprivileged account, Python compilation, JavaScript syntax and the packaging suite. The local container lacks the database/image extensions needed for end-to-end integration; those results come from Actions, not local lint.
+**575 distinct pure assertions**:544 retained assertions in the cumulative suite plus31 gallery assertions in the dedicated matrix. Running the same31 checks in three engines does not create93 distinct checks. **12 packaging tests** passed. Separate local validation checked213 PHP/inc files, all575 pure assertions as an unprivileged user, five JavaScript syntax files and Python compilation. The local environment does not have the required SQL/GD/cURL/ZIP extensions; real SQL/HTTP/browser/Apache evidence comes from Actions.
 
-Launch and hosting coverage includes PHP quantity parsing, malformed/unlimited/overflow cases, oversized Content-Length detection, strict report projection and suppression of arbitrary private fields. Real SQL/HTTP cases cover domain-root and subfolder installations, the canonical and preview URLs, actual no-cURL/no-ZIP PHP environments, partial schema and unavailable-table behavior. Owner, content-editor, store-manager, anonymous, suspended and revoked-access paths are exercised. Viewing and exporting preserve full database-table fingerprints. Private drafts and products under hidden categories do not inflate published counts. Missing outbox data becomes an isolated unavailable observation rather than leaking an exception or failing the whole screen.
+All13 retained Chromium workflows passed: installer/admin, public/player, communication, commerce/accounts, tokenization/orders, staff, backup/restore, ZIP upgrade/recovery, retention, content history, discovery, responsive-media/keyboard and launch-diagnostics/upload feedback. Both database environments retain actual no-cURL/no-ZIP manual setup tests. Production CSP and original publication/authorization/payment/recovery checks were not weakened.
 
-The report verifies all 43 fixed check IDs and the distinction between configuration, unresolved work and six external review gates. Selected and enabled production payments warn even when other checkout prerequisites are absent. Report values exclude credentials, hostnames, paths, database names, logs, email addresses and content text. Unsupported methods/actions and invalid CSRF are rejected; no provider request or queue action is performed by diagnostics.
+The added storefront workflow uses PHP8.4/MariaDB11.4 and actual owner forms to create synthetic merchandise with three different landscape, portrait and small photographs. Each engine runs1440px,390px and320px, plus390px without page JavaScript. Each produced212 PASS lines from browser/integration assertions. Tests verify actual selected currentSrc and every responsive candidate, source dimensions and alternative text, loaded image state, exactly one selection, square main geometry and thumbnail containment, focus, form quantity, canonical URL and history length.
 
-Upload tests use actual deliberately small PHP limits, not a mocked successful upload. Media, backup-import and ZIP-staging requests over the whole-request ceiling receive HTTP 413 without executing the requested action or modifying business data. Normal-sized forms retain CSRF and role/reauthentication requirements. Existing installation, payments, mail, staff, maintenance, backup, restoration and recovery regressions remain in the full workflow.
+Real user-initiated audio continues from a release through merchandise navigation, retaining the same audio node. Failed-photo requests keep the previous image and URL, a retry succeeds, and an actually intercepted earlier response cannot replace a later photograph when released. Native photo links cannot select unrelated media or revive an unpublished product. Reading and switching photos preserves catalog, inventory, account and audit snapshots. Unpublishing withdraws otherwise-private originals and resized copies.
 
-## Browser and visual evidence
+## Visual evidence
 
-Thirteen Chromium workflows passed: installer/admin, public/player, communication, commerce/accounts, tokenization/orders, staff, backup/restore, ZIP upgrades/independent recovery, retention, content history, discovery, responsive media/keyboard and launch diagnostics/upload feedback. CSP remains enforced. Payment-provider results remain synthetic, not real merchant transactions.
+Fifteen final storefront screenshots were inspected: five per engine, covering desktop, both narrow widths, native portrait selection and failed-load fallback. Files are actual endpoint renders, not new design mockups. Synthetic patterned images and fixture products are not band inventory and never enter deployment databases. A fixed player appears at its viewport position in a full-page capture; that is not a claim that its live CSS position is mid-page.
 
-The launch workflow runs at **1440px, 390px and 320px**. It verifies all 43 rows, active navigation, the former preview URL, no horizontal overflow, a real keyboard-triggered JSON download, private-value omission, operating-mode warning and report states. It then submits a genuinely oversized multipart upload, receives 413, focuses the explanatory error and leaves a fresh usable file field. The export button's keyboard focus ring has at least 12 pixels before the timestamp, measured in the actual browser.
+| Artifact | Engine | Archive SHA-256 |
+|---|---|---|
+| 11927155848 | Chromium | 9c23d6d0f6081ee3371348cae846adef54b7031c2da1ff23d8ce6d1dbcf5c7fe |
+| 11927515633 | Firefox | 2654b75e115d9aa26bbc2b3cf55abb76cf05bfcc9e59a9a7540e4324684f241c |
+| 11927395726 | WebKit | 4455fed5d744192d6653820bccb9d6e5a051598ec420c403ad5675935d6b1d1b |
 
-Final artifact **11906393696**, `Spirit-browser-7c2f10ce46eef7b5470d63bef6bfcf133e5088e6`, contains **115 synthetic screenshots**. Its archive SHA-256 is `184d12865b08f95c3d077da84d5c091a36b80b2e8dc1a432b961f1f3457394d7` and was independently checked. The six current launch/upload renders were inspected, including the corrected support-card focus spacing on desktop and both phone widths. These are actual endpoint renders, not new design mockups. Other suites' screenshots are retained as evidence; this is not a claim that every screenshot received a new visual review.
+All three downloaded archive hashes were independently verified and their successful final log lines read. The full workflow's other screenshots were not all subjected to another manual visual review in this pass.
 
-## Recovery and source integrity
+## Corrected defects and fixture assumptions
 
-Live branch discovery recovered the saved dev10 diagnostics application f5e165cd and consolidated dev11 source 2cb333b7. Their successful runs were not known in the earlier reply describing only the separate local dev10 preview. The recovered 2cb333b7 passed full38581606678/focused38581606460. This session fixed a visible support-card focus overlap and required the new d699fd6e run above. No failed test was skipped or weakened.
+An in-memory reproduction using the actual old and new gallery scripts confirmed the stale-srcset defect: the old script changed fallback src to photo2 while actual currentSrc and alternative text remained photo1. The fixed script selected photo2. A separate actual-CSS reproduction measured a portrait thumbnail overflowing its78px anchor and a390px-wide main container expanding to584px high; the bounded-grid fix restored containment and a390px square. Final real-browser geometry assertions cover the same behavior.
 
-The recovered canonical source artifact 11903570900 was hashed and reconstructed to Git tree bc5fa28e7dcb25a1286ce089b8744165870ab7d5. The three changed template/CSS/browser-test paths reconstructed the same df20fbeb tree returned by GitHub. Final documentation-only source and deployment checks are recorded in the delivered release report.
+Early tests incorrectly demanded a warm thumbnail reload a smaller image rather than reuse cached decoded data; the measurement now uses an unselected cold thumbnail. Delayed-response testing uses a fresh context instead of assuming a warm image must refetch. Firefox receives a disposable CI audio output sink; actual playback state is observed, not fabricated. With page JavaScript disabled, image readiness is polled synchronously with a failure bound rather than awaiting an indefinitely stalled document Promise. A deliberately held fallback request cannot reach network-idle before release, so that test waits for DOM readiness and explicitly verifies a real intercepted response. All image, privacy, failure and last-selection assertions remain.
 
-Cumulative package checks preserve all deployment paths from both delivered dev9 and the distinct local dev10 preview, six immutable migration files, five pinned access/recovery files, and the manual one-page installer bytes. Preview helper/template paths and retired Cpanel paths remain inert compatibility files, not callable old features. Package manifests are independently verified; executable test/build scripts and private setup receipts are excluded. No existing delivered ZIP is overwritten with different bytes.
+Canonical comparison also caught and restored an unrelated address-card margin omitted during a stylesheet copy. Visual inspection found the portrait-cell defects even after earlier behavior assertions passed. No browser was removed and no failing assertion was replaced with an unconditional success.
 
-## Remaining acceptance boundaries
+## Source and delivery integrity
 
-Not established by these tests: actual A2 account/domain PHP settings, ZIP enablement, aliases/ACL/open_basedir/OPcache/proxy behavior; real receiving-mailbox delivery; genuine merchant SDK/API/webhook/settlement/reversal acceptance; approved master artwork/content; complete populated-site accessibility/performance/security review; or final owner approval. Diagnostics do not certify backups or a real recovery drill. Same-instance guarded restoration and same-schema ZIP upgrades retain their documented limits. No hosting setting, production payment mode or live website was changed.
+Canonical main21e9bd6f/dev11 was recovered from its source artifact and exact-main run38591939605 was verified before work. Successive Git tree reconstructions matched the connector's returned tree IDs, including final application7efabaa5. Only product-gallery runtime paths, the dedicated browser workflow/tests and documentation were changed. All manual installer files, six migrations and five pinned recovery/access files remain byte-identical to the baseline. Previous dev9 and distinct delivered dev10-preview payload paths are preserved.
 
-Historical dev9 evidence is preserved in history/TEST_RESULTS-dev9.md and earlier checkpoints remain in Git history. The separate delivered dev10 preview's 561 local assertions are not being added to this consolidated build's 544 executed pure assertions.
+The final cumulative Full ZIP and manifest are independently checked against canonical source. Executable tests/build scripts, private runtime data and setup receipts are excluded. Do not overwrite an already delivered version with different bytes. The delivered report records final commit/tree/package hashes and whether the subsequent exact-main rerun was finished at handoff.
+
+## Boundaries and history
+
+Not established: actual A2 account PHP ZIP/cURL settings, aliases/ACL/open_basedir/OPcache/proxies; real receiving-mailbox or merchant SDK/API/webhook/settlement/reversal acceptance; audible-speaker or physical-device/native-Safari coverage; approved master artwork/content; complete populated-site accessibility/performance/security; or final owner approval. No hosting setting or production payment mode was changed. Same-instance guarded restoration and same-schema browser upgrades retain their documented limits.
+
+Previous complete evidence is retained in history/TEST_RESULTS-dev11.md and earlier Git checkpoints. This focused gallery pass is not the finished v1.0 launch.
