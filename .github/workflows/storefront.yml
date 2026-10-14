@@ -1,0 +1,66 @@
+name: Populated storefront browser verification
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: storefront-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  gallery:
+    name: Storefront / ${{ matrix.browser }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    services:
+      database:
+        image: mariadb:11.4
+        env:
+          MYSQL_ROOT_PASSWORD: ephemeral-ci-root-not-production
+          MYSQL_DATABASE: spirit_ci
+          MYSQL_USER: spirit_ci
+          MYSQL_PASSWORD: ephemeral-ci-user-not-production
+        ports:
+          - 3306:3306
+    env:
+      SPIRIT_TESTING: '1'
+      SPIRIT_DISABLE_PAYMENT_NETWORK: '1'
+      SPIRIT_DB_HOST: 127.0.0.1
+      SPIRIT_DB_PORT: '3306'
+      SPIRIT_DB_NAME: spirit_ci
+      SPIRIT_DB_USER: spirit_ci
+      SPIRIT_DB_PASSWORD: ephemeral-ci-user-not-production
+      SPIRIT_BROWSER: ${{ matrix.browser }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl, zip
+          coverage: none
+      - name: Prepare browser and synthetic evidence directory
+        run: |
+          echo "SPIRIT_SCREENSHOT_DIR=$RUNNER_TEMP/spirit-gallery-screens" >> "$GITHUB_ENV"
+          python3 -m venv "$RUNNER_TEMP/spirit-browser"
+          "$RUNNER_TEMP/spirit-browser/bin/pip" install playwright==1.57.0
+          "$RUNNER_TEMP/spirit-browser/bin/python" -m playwright install --with-deps "$SPIRIT_BROWSER"
+      - name: Verify published gallery, actual image selection and fallback
+        run: |
+          php tests/gallery_unit.php
+          "$RUNNER_TEMP/spirit-browser/bin/python" tests/gallery_browser.py
+      - name: Preserve synthetic storefront renders
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spirit-storefront-${{ matrix.browser }}-${{ github.sha }}
+          path: ${{ runner.temp }}/spirit-gallery-screens/*.png
+          if-no-files-found: ignore
+          retention-days: 7

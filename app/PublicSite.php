@@ -15,6 +15,8 @@ final class PublicSite
     public static function imageSizes(string $class): string
     {
         $classes=preg_split('/\s+/',trim($class))?:[];
+        if(in_array('product-thumb-image',$classes,true)){return '72px';}
+        if(in_array('product-main-image',$classes,true)){return '(max-width: 600px) calc(100vw - 42px), (max-width: 760px) calc(100vw - 82px), (max-width: 1000px) 680px, (max-width: 1440px) 52vw, 680px';}
         if(in_array('hero-art',$classes,true)){return '(max-width: 820px) 100vw, 65vw';}
         if(in_array('page-image',$classes,true)||in_array('event-image',$classes,true)){return '(max-width: 600px) calc(100vw - 40px), (max-width: 900px) calc(100vw - 80px), 820px';}
         if(in_array('band-image',$classes,true)){return '(max-width: 600px) calc(100vw - 40px), 640px';}
