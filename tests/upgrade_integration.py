@@ -102,8 +102,8 @@ def journey(s, archive):
     expect('New business data after code update' in Client(s.base).request('pages/?slug=after-update')[1],'Code rollback preserves newer database content')
     expect(not (s.root/'install').exists(),'Code upgrades never recreate the installer directory')
     expect('already been restored' in rescue(s,job,key)[1],'Completed code rollback consumes its recovery capability')
-    for path in ['admin/upgrades/RecoveryEngine.php','admin/upgrades/location.php']:
-        expect(Client(s.base).request(path)[0]==403,'Recovery implementation and pointer are not directly public: '+path)
+    # Apache .htaccess access assertions execute in apache_access.py against
+    # real Apache/PHP/HTTPS, not this lightweight PHP development server.
     s.database('editor');expect(s.client.request('admin/upgrades/')[0]==403,'Non-owner content staff cannot replace application code');s.database('owner')
 
 
