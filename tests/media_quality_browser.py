@@ -5,6 +5,7 @@ This is targeted evidence, not a claim of full WCAG conformance or field CWV.
 from __future__ import annotations
 import json
 import os
+import re
 import tempfile
 from pathlib import Path
 from urllib.parse import urlsplit, parse_qs
@@ -68,9 +69,20 @@ def main():
                     expect(page.locator('.photo-open').evaluate('(n)=>n===document.activeElement') and page.locator('#dialog-photo').get_attribute('src') is None,'Closing the dialog restores its opener and releases the original-image source')
                     page.goto(s.base+'music/release.php?slug=fixture-release',wait_until='networkidle')
                     page.locator('.play-track').first.focus();page.keyboard.press('Enter');wait_for_audio(page)
+                    browser_expect(page.locator('.play-track').first).to_have_attribute('aria-pressed','true')
+                    browser_expect(page.locator('#player-next')).to_be_enabled()
                     expect(page.locator('.play-track').first.get_attribute('aria-pressed')=='true','Current playing track exposes its pressed state')
                     expect(page.locator('#player-next').is_enabled(),'Next track is available when the queue has another recording')
                     page.locator('#player-next').focus();page.keyboard.press('Enter');wait_for_audio(page)
+                    browser_expect(page.locator('#player-next')).to_be_disabled()
+                    browser_expect(page.locator('#player-previous')).to_be_enabled()
+                    # Read real media duration, then await observable event-handler
+                    # output. Playback >.15s alone does not imply timeupdate ran.
+                    duration=page.locator('#site-audio').evaluate('(n)=>n.duration')
+                    expect(duration==8,'Playback duration comes from the actual eight-second fixture recording')
+                    browser_expect(page.locator('#player-seek')).to_be_enabled()
+                    browser_expect(page.locator('#player-duration')).to_have_text('0:08')
+                    browser_expect(page.locator('#player-seek')).to_have_attribute('aria-valuetext',re.compile(r'^\d+:\d{2} of 0:08$'))
                     expect(page.locator('#player-next').is_disabled() and page.locator('#player-previous').is_enabled(),'Transport availability follows real queue boundaries')
                     expect(' of ' in (page.locator('#player-seek').get_attribute('aria-valuetext') or ''),'Seek slider exposes elapsed and total playback time')
                     expect(page.locator('#player-title').evaluate('(n)=>n.getBoundingClientRect().right<=n.closest(".now-playing").getBoundingClientRect().right+1'),'Long recording title stays within its player cell instead of overlapping transport')

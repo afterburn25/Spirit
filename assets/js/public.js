@@ -53,9 +53,18 @@
   });
   audio.addEventListener('play', paintPlayback); audio.addEventListener('pause', paintPlayback);
   audio.addEventListener('error', () => { announce('Recording unavailable. Please try another track.', true); paintPlayback(); });
-  audio.addEventListener('loadedmetadata', () => { document.getElementById('player-duration').textContent = time(audio.duration); seek.disabled = !Number.isFinite(audio.duration); });
-  audio.addEventListener('timeupdate', () => { document.getElementById('player-current').textContent = time(audio.currentTime); if (Number.isFinite(audio.duration) && audio.duration > 0) { seek.value = String(Math.round(audio.currentTime / audio.duration * 1000)); seek.setAttribute('aria-valuetext', `${time(audio.currentTime)} of ${time(audio.duration)}`); }
-    previous.disabled = current < 0 || (current === 0 && audio.currentTime <= 3); });
+  const paintTime = () => {
+    const ready = Number.isFinite(audio.duration) && audio.duration > 0;
+    document.getElementById('player-current').textContent = time(audio.currentTime);
+    document.getElementById('player-duration').textContent = time(audio.duration);
+    seek.disabled = !ready;
+    seek.value = ready ? String(Math.round(audio.currentTime / audio.duration * 1000)) : '0';
+    seek.setAttribute('aria-valuetext', ready ? `${time(audio.currentTime)} of ${time(audio.duration)}` : 'Playback time unavailable');
+    previous.disabled = current < 0 || (current === 0 && audio.currentTime <= 3);
+  };
+  // Metadata can arrive before the first throttled timeupdate. Publish accurate
+  // accessible duration immediately, and discard stale values when a source ends.
+  for (const event of ['loadedmetadata', 'durationchange', 'timeupdate', 'emptied']) audio.addEventListener(event, paintTime);
   audio.addEventListener('ended', () => { if (current + 1 < queue.length) play(current + 1); else paintPlayback(); });
   seek.addEventListener('input', () => { if (Number.isFinite(audio.duration)) audio.currentTime = Number(seek.value) * audio.duration / 1000; });
   document.getElementById('player-volume').addEventListener('input', e => { audio.volume = Math.max(0, Math.min(1, Number(e.target.value))); });
