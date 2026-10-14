@@ -1,33 +1,33 @@
 # Changelog
 
-## 0.9.0-dev.8 — code-free, one-page browser installer
+## 0.9.0-dev.8 — one-page A2/cPanel installation (full verification pending)
 
-User-requested removal of the setup-code/claim gate and PRIVATE-SETUP receipt. Checks, URL/database/owner configuration, validation feedback and completion now share one page. Preserve CSRF, secure private writes, prefix/concurrency/interruption recovery, permanent locks and verified cleanup. Completion offers explicit owner sign-in, not another installer step. Native forms work without JavaScript. Passwords are never reflected after correction or success. Add missing required media-extension checks and optional payment/update extension guidance.
+Remove the user-rejected package setup-code/claim gate and PRIVATE-SETUP receipt. Checks, URL/database/owner configuration, validation feedback and completion now share one page. Preserve CSRF, private writes, prefix/concurrency/interruption recovery, permanent locks and verified cleanup. Completion offers owner sign-in, not another setup step. Native form works without JavaScript; secrets are not reflected after correction/success. Required image-extension checks align with cumulative application requirements.
 
-Packaging emits only one cumulative Full ZIP, excludes legacy setup keys and stale manifests, and keeps backup/update recovery keys protected. Expanded installer SQL/HTTP/browser and12 packaging tests; full exact verification pending. Fresh setup must be completed promptly or protected through the hosting panel. No production acceptance or v1.0 release is implied.
+Add optional cPanel API database/user creation for **A2 Hosting only; no20i integration**. Generate a strong DB password, honor reported prefix/limits, grant database-scoped privileges and verify PDO. Panel token is request-only; transport uses validated/pinned TLS destinations, no redirects/proxies and bounded responses/time. Private progress preserves confirmed steps after rejection/migration failures. Uncertain outcomes pause rather than duplicate, adopt, reset passwords or delete unrelated resources. See CPANEL_INSTALLER.md.
+
+Add56 cPanel units, actual loopback TLS/POST tests and guarded dedicated-SQL boundary scenarios, plus same-page cPanel-mode browser validation/non-reflection at1440/390/320px. Expanded installer tests also cover no-JavaScript, cleanup denial/replay and existing-data recovery. Correct a PHP development-server missing-directory expectation without changing production access rules. Packaging emits one cumulative ZIP, excludes legacy keys/stale manifests and passes12 local tests. Exact current full verification and render inspection pending. No actual A2 account acceptance is implied.
 
 ## 0.9.0-dev.7 — responsive media and keyboard quality
 
-Application **7c5582075b4b47c01e721c2c5e30d4f4a593acbb** passed full **38525702729** and focused **38525702713**. Both databases, twelve Chromium workflows and actual Apache HTTPS are included. This documentation-only update changes no tested runtime/assets/schema/tests. See MEDIA_QUALITY_CHECKPOINT.md.
+Application7c5582075b4b47c01e721c2c5e30d4f4a593acbb passed full38525702729 and focused38525702713. Both databases, twelve Chromium workflows and actual Apache HTTPS included. Documentation-only descendant changed no tested runtime/assets/schema/tests. See MEDIA_QUALITY_CHECKPOINT.md.
 
-Added four fixed responsive image candidates, alpha-preserving private derivative cache, original downloads, authorization before cache responses, conservative memory/nonblocking-lock fallback, damaged-cache regeneration and bounded derivative retention. Original media remains unchanged. Fixed intrinsic image stretching and focal-class size selection.
+Four fixed responsive candidates, alpha-safe private cache, original downloads, authorization before cache, memory/nonblocking-lock fallback, damaged-cache regeneration and bounded derivative retention. Original media unchanged. Intrinsic image/focal-class fixes, named gallery dialogs, focus/source cleanup, player queue/pressed/seek state, fixed-player clearance/close focus, server-error focus, phone typography and forced colors. Very narrow player uses two rows. Owner roadmap now reflects cumulative implemented modules and real acceptance gates.
 
-Improved named gallery dialogs, focus/source cleanup, player queue/pressed/seek states, fixed-player clearance and close-focus return, server-error focus, phone typography and forced colors. Very narrow players reflow into two rows; long titles do not overlap controls. Owner roadmap labels now reflect the cumulative implemented modules while retaining real acceptance gates.
-
-44 new pure checks; 442 cumulative pure assertions and 11 packaging tests; real root/subfolder image/alpha/privacy/host-failure checks; new 1440/390/320px browser workflow. Nine new renders inspected from the preceding verified 99-image artifact. Generated fixture 640px delivery was 94.8% smaller than its preserved original; no production bandwidth or field performance claim.
+44 new pure checks;442 cumulative pure assertions and11 packaging tests; root/subfolder alpha/privacy/host failures;1440/390/320px browser workflow. Nine renders inspected from preceding99-image artifact. Generated fixture640px delivery94.8% smaller; no production bandwidth/field-performance claim.
 
 ## 0.9.0-dev.6 — published discovery
 
-Application af43d153 passed 38518823266/38518823277; exact-main 4f6005f7 passed 38521278470. Published metadata/sharing/canonical URLs, indexing controls, public search, sitemap and safe former-published-slug redirects; metadata navigation retains audio. See DISCOVERY_CHECKPOINT.md.
+Applicationaf43d153 passed38518823266/38518823277; exact-main4f6005f7 passed38521278470. Published metadata/sharing/canonical URLs, indexing, public search, sitemap and former-published-slug redirects; navigation retains audio. See DISCOVERY_CHECKPOINT.md.
 
 ## 0.9.0-dev.5 — content history and large-library controls
 
-Application 9546b7c passed 38513423793/38513423736; exact-main 11a5038 passed 38514355067. Search/filter/sort/pagination, revision comparison and append-only private restoration preserve published snapshots/media and later history. See CONTENT_HISTORY_CHECKPOINT.md.
+Application9546b7c passed38513423793/38513423736; exact-main11a5038 passed38514355067. Search/filter/sort/pagination, comparison and append-only private restoration preserve publication/media/later history. See CONTENT_HISTORY_CHECKPOINT.md.
 
 ## 0.9.0-dev.1 through dev.4
 
-Staff permissions/invitations and audit history; encrypted backups/guarded same-instance restore; same-schema browser ZIP upgrades and independent recovery; conservative technical retention. Earlier exact results remain in MAINTENANCE_CHECKPOINT.md, BACKUP_CHECKPOINT.md and Git history.
+Staff permissions/invitations/audit; encrypted backups/guarded same-instance restore; same-schema ZIP upgrades/pinned independent recovery; conservative technical retention. Exact results in MAINTENANCE_CHECKPOINT, BACKUP_CHECKPOINT and Git history.
 
 ## 0.8.0-dev.1 and earlier
 
-Token-only checkout/orders/fulfillment, catalog/accounts, booking/mail/newsletter, public CMS/music/shows and browser installer remain cumulative. Exact-main .8 eb995810 passed 38493945223. Payment SDK/provider boundaries are synthetic in CI. No accepted v1.0 or live deployment is claimed.
+Token-only checkout/orders/fulfillment, catalog/accounts, booking/mail/newsletter, public CMS/music/shows and browser installer remain cumulative. Exact-main.8 eb995810 passed38493945223. Payment SDK/provider boundaries are synthetic in CI. No acceptedv1.0 or live deployment claimed.

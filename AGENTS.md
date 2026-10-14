@@ -34,3 +34,9 @@ Some of these files are being established in the initial implementation. Do not 
 - Do not tag a final 1.0.0 or claim production readiness while payment, hosting, content or acceptance checks remain.
 - Deliver cumulative full installation packages. Never overwrite an already delivered version with different contents.
 - Never commit real passwords, production configuration, API keys, subscriber/customer data, sessions, backups or logs.
+
+## Confirmed hosting and installer update (2026-10-14)
+- A2 Hosting with cPanel only; do not add 20i or infer another project's hosting.
+- No package setup code or PRIVATE-SETUP receipt. One-page setup offers existing DB and optional cPanel API creation.
+- Read docs/CPANEL_INSTALLER.md. Never retain a cPanel token, weaken TLS, adopt unrelated databases/users, reset passwords, or repeat uncertain provider mutations. Preserve private pending state.
+- Real A2 account success is not established by synthetic API or local SQL tests.

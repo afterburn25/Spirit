@@ -13,3 +13,8 @@ body.has-player{padding-bottom:var(--player-height,140px)}
 @media(forced-colors:active){.button,.public-nav .nav-book{border:1px solid ButtonText}.art-placeholder{border:1px solid CanvasText}:focus-visible{outline:3px solid Highlight!important}}
 
 @media(max-width:380px){.persistent-player{grid-template-columns:minmax(0,1fr) 44px}.now-playing{grid-column:1;grid-row:1}.player-controls{grid-column:1/-1;grid-row:2}#player-close{grid-column:2;grid-row:1}.now-playing strong,.now-playing small{max-width:none}.persistent-player button{min-width:44px;min-height:44px}.transport{gap:20px}}
+
+/* Installer authorization is an ordinary checkbox, not a full-width text input. */
+.install .checkbox-label{display:flex;align-items:flex-start;gap:12px;line-height:1.6}
+.install .checkbox-label input[type="checkbox"]{width:20px;height:20px;min-height:20px;flex:0 0 20px;margin:2px 0 0;padding:0;accent-color:var(--gold)}
+@media(max-width:600px){.install input:not([type="checkbox"]),.install select{font-size:16px}}

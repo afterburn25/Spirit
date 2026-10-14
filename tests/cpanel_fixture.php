@@ -45,20 +45,19 @@ try{
     if($mode!=='success'){
         check($error!==null&&!is_file(Paths::runtime().'/config.php'),'Interrupted provisioning cannot claim an installed website');
         check(is_file($journal)&&(fileperms($journal)&0777)===0600,'Generated credentials/state are saved only in a private recovery file');
-        check(!str_contains(file_get_contents($journal),$credentials['token'])&&!str_contains($error->getMessage(),'secret that must'),'Panel token and provider secrets cannot enter state or diagnostics');
-        $before=$calls;$denied=false;
-        try{Installer::install(array_replace($input,['email'=>'other@example.test']),$client());}catch(Throwable $e){$denied=true;}
-        check($denied&&$before===$calls,'Another owner binding cannot take over partial provisioning');
+        check(!str_contains(file_get_contents($journal),$credentials['token'])&&!str_contains($error->getMessage(),'secret that must'),'Panel token and raw provider diagnostics are not retained or reflected');
+        $before=$calls;$mismatch=false;try{Installer::install(array_replace($input,['email'=>'other@example.test']),$client());}catch(Throwable $e){$mismatch=true;}
+        check($mismatch&&$calls===$before,'A retry cannot silently change owner binding or create resources in another account');
         if($mode==='unknown'){
-            $denied=false;try{Installer::install($input,$client());}catch(Throwable $e){$denied=true;}
-            check($denied&&count(array_filter($calls,fn($c)=>$c==='create_database'))===1&&count($ownedUsers)===0,'Lost create acknowledgement pauses instead of recreating or adopting a database');
+            $paused=false;try{Installer::install($input,$client());}catch(Throwable $e){$paused=str_contains($e->getMessage(),'uncertain');}
+            check($paused&&count(array_filter($calls,fn($c)=>$c==='create_database'))===1&&count($ownedUsers)===0,'Lost create acknowledgement pauses instead of recreating or adopting a database');
             check(!is_file(Paths::runtime().'/config.php'),'An uncertain cPanel operation cannot complete the installation');
         }else{
             if($mode==='migration'){file_put_contents($schema,$original);}
             $cleanup=Installer::install($input,$client());
             check(count(array_filter($calls,fn($c)=>$c==='create_database'))===1&&count($passwords)===1,'Retry resumes its confirmed resources without new databases or password changes');
         }
-    }else{check($error===null,'Synthetic cPanel API plus real SQL completes installation');}
+    }else{check($error===null,'Synthetic cPanel API plus real SQL completes installation'.($error!==null?' ['.get_class($error).': '.$error->getMessage().']':''));}
     if($mode!=='unknown'){
         $config=Paths::config();$sql=Spirit\Database::connect();
         check($config!==null&&$config['db']['password']===$passwords[0]&&$config['db']['user']===array_key_first($ownedUsers),'Generated dedicated credentials connect through real PDO');

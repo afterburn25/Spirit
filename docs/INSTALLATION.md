@@ -4,9 +4,9 @@ Use isolated staging first, not the existing live band website. TEST_RESULTS.md 
 
 ## Hosting and fresh installation
 
-PHP 8.2+ with PDO MySQL, OpenSSL, fileinfo and GD; cURL for payment transport and ZIP for browser package upgrades. MySQL/MariaDB; HTTPS; Apache/LiteSpeed honoring supplied access rules. Actual Apache PHP 8.4 HTTPS rules are regression-tested; this does not verify every LiteSpeed/provider configuration. No required SSH/root or host-side Node/Python/Composer build.
+PHP 8.2+ with PDO MySQL, OpenSSL, fileinfo and GD; cURL for cPanel/payment transport and ZIP for browser package upgrades. MySQL/MariaDB; HTTPS; Apache/LiteSpeed honoring supplied access rules. Actual Apache PHP 8.4 HTTPS rules are regression-tested; this does not verify every LiteSpeed/provider configuration. No required SSH/root or host-side Node/Python/Composer build.
 
-Create an empty staging database/user through the hosting panel. Installer probes exercise required CRUD/schema permissions. The application does not create hosting accounts, obtain panel credentials or elevate permissions.
+Confirmed target: **A2 Hosting with cPanel, no20i**. Choose an existing empty database/user, or authorize automatic creation through cPanel on this same form. Automatic mode generates dedicated credentials and database-scoped privileges, then tests the real connection. Follow CPANEL_INSTALLER.md for token creation, reachability, quotas and interrupted-attempt boundaries. The application does not create hosting accounts, retrieve panel credentials or elevate permissions.
 
 A development checkout can run `python3 tools/package.py --output ./dist`. Upload/extract the Full ZIP, including hidden .htaccess files, using the panel file manager. Open `/install/` beneath the intended installation URL. Hosting checks, public URL, database connection and owner details appear immediately in one form. **No setup code, access hash, claim page or separate PRIVATE-SETUP receipt is used.** This user decision supersedes earlier release instructions requiring a setup receipt.
 
@@ -18,7 +18,7 @@ Fill in the form and click **Install website** once. JavaScript shows a busy sta
 
 Runtime is `.spirit-<installation identifier>` beneath a validated account-private base. Process/home and explicit server-side SPIRIT_ACCOUNT_HOME/SPIRIT_PUBLIC_ROOTS configuration identify permitted account/public roots. No web form/header chooses the private destination. Common/current/context public roots are checked, but arbitrary server aliases still require hosting review.
 
-Private directories use 0700 and config 0600, checked before secret bytes. Actual create/write/read/rename/delete probes cover runtime children. No public credential fallback or 0777 is used. PHP cannot override ownership, ACLs or open_basedir; provider configuration may be necessary on incompatible hosts.
+Private directories use0700 and config0600, checked before secret bytes. Actual create/write/read/rename/delete probes cover runtime children. No public credential fallback or0777 is used. PHP cannot override ownership, ACLs or open_basedir; provider configuration may be necessary on incompatible hosts.
 
 Durable setup/prefix ownership and filesystem locks prevent concurrent or destructive reinstall. Interrupted setup resumes with the same database binding instead of silently changing prefixes. Configuration/completion markers precede cleanup. Cleanup targets only the fixed installer and recognized files, refuses symlinks/unknown contents and verifies physical removal. Denied removal leaves the installer permanently locked and offers an owner POST/CSRF cleanup retry. Automated tests cover successful removal, denial and retry after permissions are corrected; no universal host deletion guarantee is made.
 

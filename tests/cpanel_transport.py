@@ -45,7 +45,7 @@ def main():
             try:
                 result=subprocess.run(['php',str(ROOT/'tests/cpanel_transport.php')],input=json.dumps({'port':server.server_port,'ca':str(ca) if mode!='untrusted' else None,'mismatch':mode=='mismatch'}),env=os.environ.copy(),text=True,capture_output=True,check=True,timeout=12)
                 report=json.loads(result.stdout)
-                expect(report['ok']==(mode in ['ok','wrapped']),'Real TLS cPanel transport result: '+mode)
+                expect(report['ok']==(mode in ['ok','wrapped']),'Real TLS cPanel transport result: '+mode+'; safe outcome='+json.dumps(report)+'; received='+str(len(received)))
                 expect('PRIVATE-PROVIDER-ERROR' not in result.stdout and 'Synthetic+Password' not in result.stdout and 'T'*32 not in result.stdout,'Transport never reflects provider secrets')
                 if mode in ['untrusted','mismatch']:expect(not received,'TLS identity rejection precedes token transmission')
                 else:
