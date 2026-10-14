@@ -1,6 +1,6 @@
 # Security controls and remaining acceptance
 
-Cumulative 0.9.0-dev.8; full configured verification passed in run **38560767553**. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior.
+Cumulative 0.9.0-dev.9; see TEST_RESULTS.md for the exact new verification status. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior.
 
 ## Installation, sessions and storage
 
@@ -26,12 +26,16 @@ Encrypted, authenticated, bounded snapshots do not execute uploaded SQL/PHP. Sam
 
 Conservative cleanup is bounded, opt-in where scheduled, and preserves active credentials/tokens, business histories, payment/notification idempotency and recovery archives. It cannot be invoked by an unauthenticated web request.
 
-## Code-free setup and cPanel authorization
+## Code-free manual setup
 
-Fresh setup is intentionally open until completed. CSRF/database access are not hosting-owner authentication. Install promptly or restrict unattended staging with cPanel directory protection; do not reintroduce a package code. All permanent locks, prefix ownership and self-deletion checks remain.
+Fresh setup is intentionally open until completion. CSRF/database access are not proof of hosting ownership. Install promptly or protect unattended staging; do not restore the removed setup-code gate. Private writes, prefix ownership, safe deletion and permanent installation locking remain.
 
-A2/cPanel automatic provisioning uses a request-only token, TLS on port 2083, public IPv4 DNS pinning, no redirects/proxies, bounded time/responses and fixed Mysql operations. No token persists in sessions/config/logs. Generated DB credentials are private with mode 0600 for partial recovery and then application config. No root/WHM/delete/reset/global-grant APIs. Unknown create/grant outcomes pause for inspection rather than duplicate or adopt resources. A token may have broad account powers; revoke it after use. See CPANEL_INSTALLER.md. CI transport tests use loopback and API-boundary tests use a guarded disposable SQL service, not a real A2 account.
+Automatic hosting provisioning is removed. No cPanel API class, token form, privileged SQL administrator or database/user creation path remains. Retired automatic input is rejected without reflecting credentials. A prior unfinished cpanel-provision.php record is detected by existence only: never execute, adopt, delete or reset it. Keep it for manual owner/host review. Already installed configurations remain locked and untouched.
+
+The three former Cpanel file paths contain only an inert declaration and comments, not class definitions or API logic. Their presence preserves dev8's cumulative-update requirements while replacing the retired functionality; this is not a supported automatic setup path.
+
+Separate optional cURL and ZIP notices do not grant capabilities or disable payment/ZIP validation. The installation can finish without either; the relevant feature must still pass its own configuration/runtime checks. Neither a token nor a modified public php.ini can be promised to bypass the provider's extension controls.
 
 ## Verification boundaries
 
-The configured cumulative suites exercise both database engines, browser journeys, loopback TLS transport failures, permission/concurrency/recovery and actual Apache HTTPS access rules. They do not prove arbitrary provider aliases/ACL/open_basedir/OPcache/proxy behavior, real cPanel account/inbox/merchant results, field performance, full accessibility or penetration review, legacy relocation, master-art/content approval or v1.0 acceptance. Never trust forwarded headers indiscriminately, weaken safeguards to pass a test, or label a source-artifact run as application verification. Exceptions/logs must not expose private payloads, tokens, credentials or raw driver diagnostics.
+The configured cumulative suites exercise both database engines, browser journeys, loopback TLS transport failures, permission/concurrency/recovery and actual Apache HTTPS access rules. They do not prove arbitrary provider aliases/ACL/open_basedir/OPcache/proxy behavior, real hosting/inbox/merchant results, field performance, full accessibility or penetration review, legacy relocation, master-art/content approval or v1.0 acceptance. Never trust forwarded headers indiscriminately, weaken safeguards to pass a test, or label a source-artifact run as application verification. Exceptions/logs must not expose private payloads, tokens, credentials or raw driver diagnostics.

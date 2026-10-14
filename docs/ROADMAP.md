@@ -1,10 +1,10 @@
 # Cumulative roadmap
 
-Current **0.9.0-dev.8** includes the user-requested code-free single-page installer with optional **A2/cPanel** database creation. No 20i. Full workflow **38560767553** passed for application **b9d32849e9b556dbc2b6d4f2adb7526703b46562**; see TEST_RESULTS.md. Preserve the approved design, private data, immutable migrations and external ticket sellers.
+Current **0.9.0-dev.9** removes automatic database creation at the user's request. A2/cPanel manual database only; no token, no setup code, no20i. Separate optional cURL/ZIP notices replace the combined check. Application4736764e passed full38567553630 and focused38567553677; see TEST_RESULTS.md for exact evidence, not the version number.
 
 | Target | Scope | Current state |
 |---|---|---|
-| 0.1 | One-page code-free installer, automatic/existing DB, private runtime, owner, self-deletion/lock | Implemented and full matrix verified; actual A2 account acceptance remains. |
+| 0.1 | One-page code-free installer, manual existing DB, private runtime, owner, self-deletion/lock | Manual-only change verified across SQL/HTTP, browser and Apache suites, including actual no-cURL/no-ZIP installation. Actual A2 acceptance remains. |
 | 0.2 | Approved responsive website design | Implemented; production artwork and real-content review remain. |
 | 0.3 | CMS, media, band, press and private revision history | Implemented and tested, including pagination and append-only private restoration. |
 | 0.4 | Music library and persistent audio | Implemented and browser-tested, with keyboard refinements. |
@@ -16,4 +16,4 @@ Current **0.9.0-dev.8** includes the user-requested code-free single-page instal
 | 1.0.0-rc.N | Complete staging and acceptance candidate | Not reached. |
 | 1.0.0 | Complete explicitly accepted release | Not released. |
 
-Use LAUNCH_CHECKLIST.md for real-environment evidence. Packages remain cumulative and immutable. No setup code/receipt is generated. Panel tokens are request-only; generated database credentials remain private and uncertain provisioning pauses safely. Backup/update recovery keys remain separate. Browser updates are same-schema and guarded restoration is same-instance. Tests cannot substitute for approved content/master art, actual provider/host checks or owner acceptance.
+Use LAUNCH_CHECKLIST.md for real-environment evidence. Packages remain cumulative and immutable. No setup code/receipt is generated. No hosting API token or database provisioning exists. Earlier private pending state is preserved for manual review. Backup/update recovery keys remain separate. Browser updates are same-schema and guarded restoration is same-instance. Tests cannot substitute for approved content/master art, actual provider/host checks or owner acceptance.

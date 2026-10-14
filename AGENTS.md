@@ -35,8 +35,10 @@ Some of these files are being established in the initial implementation. Do not 
 - Deliver cumulative full installation packages. Never overwrite an already delivered version with different contents.
 - Never commit real passwords, production configuration, API keys, subscriber/customer data, sessions, backups or logs.
 
-## Confirmed hosting and installer update (2026-10-14)
-- A2 Hosting with cPanel only; do not add 20i or infer another project's hosting.
-- No package setup code or PRIVATE-SETUP receipt. One-page setup offers existing DB and optional cPanel API creation.
-- Read docs/CPANEL_INSTALLER.md. Never retain a cPanel token, weaken TLS, adopt unrelated databases/users, reset passwords, or repeat uncertain provider mutations. Preserve private pending state.
-- Real A2 account success is not established by synthetic API or local SQL tests.
+## Confirmed hosting and installer update (2026-10-14, latest decision)
+- **A2 Hosting with cPanel only. No 20i. Manual database configuration only.** The user cannot obtain a cPanel token and explicitly removed automatic database/user creation. Do not restore hosting API clients, automatic-mode selectors or token fields.
+- No setup code or PRIVATE-SETUP receipt. Keep checks, manual database and owner fields, corrections and completion on one page, with native forms usable without JavaScript.
+- cURL and ZIP are optional for installation and must have separate truthful notices. cURL is needed for payment-server connections; ZIP for browser upgrades. Missing extensions cannot be silently treated as enabled. Hosting changes belong in cPanel or with A2 support, not a token workflow.
+- Preserve private state from earlier unfinished attempts for manual review without executing, adopting, deleting or resetting it. Completed installations retain their original configuration, database/user and media; no reinstall or replacement DB.
+- The three retired Cpanel file paths are inert compatibility files, not API classes. Keep them while older supported update manifests require every previous path; do not weaken cumulative-update checks or restore their old logic.
+- Read docs/CPANEL_INSTALLER.md for manual setup and extension instructions. Actual A2 host/mailbox/merchant acceptance remains separate from automated tests.

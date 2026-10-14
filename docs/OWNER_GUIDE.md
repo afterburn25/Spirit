@@ -1,12 +1,14 @@
-# Owner guide — cumulative 0.9.0-dev.8
+# Owner guide — cumulative 0.9.0-dev.9
 
 Sign in with the owner created during browser installation. No public administrator signup/default password exists. Back up before updates and preserve the private installation secret. See INSTALLATION.md for fresh versus existing installations.
 
 ## Fresh installation on A2 Hosting / cPanel
 
-Use the one-page browser installer for a new deployment only. No package setup code or PRIVATE-SETUP receipt is required. Select an existing database or authorize automatic cPanel database/user creation with the account's server hostname, username and short-lived API token. The installer generates the database password and saves it privately; it does not retain the cPanel token. Enter the token only into the HTTPS installer and revoke it after use. See CPANEL_INSTALLER.md for supported account settings and partial/uncertain outcomes.
+Use the one-page browser installer for a new deployment only. No package setup code, PRIVATE-SETUP receipt or cPanel API token is required. Automatic database creation has been removed. Create an empty database and dedicated user through cPanel Database Wizard or Manage My Databases, assign the user to that database and copy the complete prefixed names and database-user password into the installer. See CPANEL_INSTALLER.md for permissions and precautions.
 
 Checks, database/owner details, corrections and the completion result remain on the same page. The result distinguishes actual installer-folder deletion from a retained, permanently locked directory. Use **Open administration** after completion. Install promptly after uploading or use cPanel Directory Privacy while unattended. An already installed website must follow the upgrade instructions instead; never create a new database to replace its existing data.
+
+PHP cURL and PHP ZIP are reported separately in setup and in owner **Installation health**. Neither blocks manual installation. Payment connections require cURL and browser ZIP upgrades require ZIP. Enable missing extensions for the domain's actual PHP version through cPanel Select PHP Version > Extensions, or ask A2 support; then refresh the check. No API token is involved. The owner health page remains available after the installer is deleted.
 
 ## Content, music and media
 
@@ -44,7 +46,7 @@ Owners can invite content editors/store managers and manage their scoped access 
 
 Backups & safe restore creates/verifies/downloads/imports encrypted snapshots. Save the separate key offline. Same-instance content-only restore preserves operational identities/payments/stock/consent; broader restoration refuses changed protected business state. Keep provider backups too. See BACKUPS.md.
 
-Browser upgrades accepts a trusted newer cumulative same-schema ZIP. Download the separate private recovery receipt before replacement, verify new code in the next request, and use the pinned recovery entrance when bootstrap cannot start. This is not an unattended cross-schema update service. See UPGRADES.md and MAINTENANCE_CHECKPOINT.md.
+Browser upgrades accepts a trusted newer cumulative same-schema ZIP. Download the separate private recovery receipt before replacement, verify new code in the next request, and use the pinned recovery entrance when bootstrap cannot start. This is not an unattended cross-schema update service. The three retired hosting API file paths are inert compatibility files so existing dev8 updates can replace their old contents; they no longer define callable classes. See UPGRADES.md and MAINTENANCE_CHECKPOINT.md.
 
 Retention offers previewed/bounded technical cleanup, preserving business history and recovery files. New hosting schedules require actual panel configuration and verification.
 
