@@ -1,10 +1,14 @@
 # Changelog
 
-## 0.9.0-dev.4 — conservative technical retention (verification pending)
+## 0.9.0-dev.5 — content history and large-library controls (new verification pending)
+
+Add25-row literal-search/visibility/sort pagination, private field-level revision comparison and append-only transactional restore. Preserve published snapshot/date/media visibility and later history. Recheck locked staff capability/session, reject malformed typed fields and damaged source files, and keep older selected media/releases in bounded editors. Record new draft sort order; legacy history does not invent missing order.39 pure checks, root/subfolder large-library/history/role tests and tenth browser suite. No migration changes or production-readiness claim.
+
+## 0.9.0-dev.4 — conservative technical retention (verified in cumulative .9dev4)
 
 Owner-reviewed bounded cleanup of expired technical tokens/limits and order-free bags; clear old accepted/cancelled message bodies while preserving delivery/idempotency metadata. Recognized old private temporary files only, with active/unknown/symlink/recovery data preserved. Optional CLI cleanup remains owner-opt-in and is not a created hosting schedule. Add17 pure filesystem/policy units plus SQL rollback/batch/privacy and ninth responsive browser suite. Prior updater queue still pending at checkpoint creation; no final acceptance claimed.
 
-## 0.9.0-dev.3 — guarded browser code ZIP upgrades (verification pending)
+## 0.9.0-dev.3 — guarded browser code ZIP upgrades (verified in cumulative .9dev4)
 
 Add owner-trusted package staging, bounded ZIP streams, path/type/duplicate/hash/PHP syntax and immutable schema/kernel checks, write probes, private rollback originals and encrypted pre-update data snapshots, durable maintenance journal, separate authenticated new-code confirmation and code-only rollback preserving live DB rows. Independent pinned recovery entrance restores the latest originals even if replaceable bootstrap cannot start. Current automatic code updates are same-schema only; no implicit migration rollback or publisher-signature claim.34 new pure policy checks and real SQL/HTTP/process-interruption/desktop/mobile upgrade tests added. Package builder excludes recovery anchors and private receipts.
 

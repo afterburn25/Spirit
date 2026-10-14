@@ -1,4 +1,10 @@
-# Test evidence — latest verified cumulative checkpoint
+# Test evidence
+
+## Current .9dev5 implementation — verification pending
+
+39 content-history pure checks pass locally. Added SQL/HTTP/root/subfolder restore, publication/media isolation, source corruption, role boundaries, replay/stale input, literal search and1100-record pagination tests. Added tenth browser workflow and six screenshots to be inspected after execution. No changed-code SQL/browser pass is claimed yet. Baseline exact-main2a9497e completed38511337940 successfully.
+
+## Previous verified checkpoint
 
 **0.9.0-dev.4 application5e3c00b278b369154f10d61f5e651cdfb0a75572 passed full Actions38510178934**, including both PHP/database environments, all nine1440px/390px Chromium workflows and actual ApachePHP8.4HTTPS. Focused maintenance38510178953 passed. See MAINTENANCE_CHECKPOINT.md for exact jobs, artifact, assertions and corrected failures.
 

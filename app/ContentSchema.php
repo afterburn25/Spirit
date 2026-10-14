@@ -41,7 +41,10 @@ final class ContentSchema
     {
         $data = [];
         foreach (self::fields($kind) as $key => [$label,$type,$option]) {
-            $value = is_string($input[$key] ?? null) ? trim($input[$key]) : '';
+            $raw=$input[$key]??'';
+            if((str_starts_with($type,'media:')||$type==='release')&&is_int($raw)){$raw=(string)$raw;}
+            if(!is_string($raw)||!preg_match('//u',$raw)){throw new InvalidArgumentException('Invalid '.$label.'.');}
+            $value=trim($raw);
             if (str_contains($value,"\0")) { throw new InvalidArgumentException($label . ' contains an invalid character.'); }
             if (in_array($type,['text','textarea','url','video'],true) && strlen($value) > $option) { throw new InvalidArgumentException($label . ' is too long.'); }
             if ($type === 'select') { $value = $value ?: array_key_first($option); if (!array_key_exists($value,$option)) { throw new InvalidArgumentException('Invalid ' . $label . '.'); } }
@@ -53,7 +56,7 @@ final class ContentSchema
             if ($type === 'duration' && $value !== '' && !preg_match('/^\d{1,3}:[0-5]\d$/D',$value)) { throw new InvalidArgumentException('Duration must look like 3:42.'); }
             if (str_starts_with($type,'media:') || $type === 'release') {
                 if ($value !== '' && !ctype_digit($value)) { throw new InvalidArgumentException('Choose a valid ' . $label . '.'); }
-                $value = (int)$value;
+                $value = $value===''?0:Input::integer([$key=>$value],$key,0,PHP_INT_MAX,0);
             }
             $data[$key] = $value;
         }

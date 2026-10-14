@@ -58,6 +58,7 @@ jobs:
           php tests/storage.php
           php tests/foundation_paths.php
           php tests/content_schema.php
+          php tests/content_history_unit.php
           php tests/communication_unit.php
           php tests/commerce_unit.php
           php tests/payment_unit.php
@@ -72,6 +73,7 @@ jobs:
           python3 tests/http_integration.py
           php tests/foundation_db.php
           python3 tests/content_integration.py
+          python3 tests/content_history_integration.py
           python3 tests/communication_integration.py
           python3 tests/smtp_integration.py
           python3 tests/mail_acceptance.py
@@ -115,6 +117,9 @@ jobs:
       - name: Rendered conservative retention workflow
         if: matrix.php == '8.4'
         run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/cleanup_browser.py'
+      - name: Rendered private content history and draft restoration
+        if: matrix.php == '8.4'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/content_history_browser.py'
       - name: Preserve synthetic browser screenshots
         if: always() && matrix.php == '8.4'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
