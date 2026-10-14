@@ -29,9 +29,9 @@ def eligible(source: Path, destination: Path) -> bool:
         return False
     if any(part in {'.git','__pycache__','vendor','node_modules'} for part in relative.parts):
         return False
-    if source.name.startswith('.env') or 'PRIVATE-SETUP' in source.name.upper() or source.suffix.lower() in PRIVATE_SUFFIXES:
+    if source.name.startswith('.env') or any(marker in source.name.upper() for marker in ('PRIVATE-SETUP','PRIVATE-KEY','PRIVATE-RECOVERY')) or source.suffix.lower() in PRIVATE_SUFFIXES:
         return False
-    if relative.as_posix() == 'install/access.php':
+    if relative.as_posix() in {'install/access.php','admin/upgrades/location.php'}:
         return False
     if relative.parts[0] in {'config','storage','uploads'}:
         return len(relative.parts)==2 and source.name in {'.htaccess','README.md'}

@@ -1,0 +1,3 @@
+<FilesMatch "^(?:RecoveryEngine|location)\.php$">
+Require all denied
+</FilesMatch>

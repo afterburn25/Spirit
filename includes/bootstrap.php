@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+require_once __DIR__ . '/maintenance-entry.php';
 const SPIRIT_ROOT = __DIR__ . '/..';
 spl_autoload_register(static function (string $class): void {
     if (str_starts_with($class, 'Spirit\\')) { $name = substr($class, 7); if (preg_match('/^[A-Za-z][A-Za-z0-9]*$/D', $name)) { $file = SPIRIT_ROOT . '/app/' . $name . '.php'; if (is_file($file)) { require $file; } } }

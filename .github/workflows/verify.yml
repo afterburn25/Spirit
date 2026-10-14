@@ -49,7 +49,7 @@ jobs:
       - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
         with:
           php-version: ${{ matrix.php }}
-          extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl
+          extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl, zip
           coverage: none
       - name: Syntax and permission-aware unit tests
         run: |
@@ -63,6 +63,7 @@ jobs:
           php tests/payment_unit.php
           php tests/staff_unit.php
           php tests/backup_unit.php
+          php tests/upgrade_unit.php
           python3 -m py_compile tools/package.py tests/*.py
           python3 tests/package_test.py
       - name: Database and HTTP integration
@@ -78,6 +79,7 @@ jobs:
           python3 tests/payment_http.py
           python3 tests/staff_integration.py
           python3 tests/backup_integration.py
+          python3 tests/upgrade_integration.py
       - name: Install test-only Chromium
         if: matrix.php == '8.4'
         run: |
@@ -105,6 +107,9 @@ jobs:
       - name: Rendered backup and restore workflows
         if: matrix.php == '8.4'
         run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/backup_browser.py'
+      - name: Rendered ZIP upgrade and independent recovery
+        if: matrix.php == '8.4'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/upgrade_browser.py'
       - name: Preserve synthetic browser screenshots
         if: always() && matrix.php == '8.4'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
