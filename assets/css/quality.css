@@ -5,8 +5,11 @@ html{scroll-padding-bottom:var(--player-height,0px)}
 body.has-player{padding-bottom:var(--player-height,140px)}
 .public-site :is(button,a,input,select,textarea):focus-visible{scroll-margin-block:20px}
 .form-notice[tabindex="-1"]:focus,.notice[tabindex="-1"]:focus{outline:3px solid #f7d88e;outline-offset:4px}
+.now-playing>div{min-width:0;flex:1}
 .persistent-player button:disabled{opacity:.4;cursor:default}
 .persistent-player input[type="range"]{min-height:28px}
 .photo-dialog .dialog-close{min-width:44px;min-height:44px}
 @media(max-width:600px){.public-form input:not([type="checkbox"]),.public-form textarea,.public-form select,.site-search input,.site-search select{font-size:16px}.persistent-player{grid-template-columns:minmax(0,1fr) 154px 36px}.persistent-player button{min-width:32px;min-height:36px}.transport{gap:7px}}
 @media(forced-colors:active){.button,.public-nav .nav-book{border:1px solid ButtonText}.art-placeholder{border:1px solid CanvasText}:focus-visible{outline:3px solid Highlight!important}}
+
+@media(max-width:380px){.persistent-player{grid-template-columns:minmax(0,1fr) 44px}.now-playing{grid-column:1;grid-row:1}.player-controls{grid-column:1/-1;grid-row:2}#player-close{grid-column:2;grid-row:1}.now-playing strong,.now-playing small{max-width:none}.persistent-player button{min-width:44px;min-height:44px}.transport{gap:20px}}

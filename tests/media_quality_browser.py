@@ -8,7 +8,7 @@ import os
 import tempfile
 from pathlib import Path
 from urllib.parse import urlsplit, parse_qs
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect as browser_expect
 from http_integration import build_package, expect, site
 from content_integration import save_content, seed_media_and_music
 from media_quality_integration import seed, fixture
@@ -60,6 +60,11 @@ def main():
                     tab_to(page,'.photo-open');page.keyboard.press('Enter')
                     expect(page.get_by_role('dialog',name='Photograph preview').is_visible(),'Keyboard opens a named photograph dialog')
                     page.keyboard.press('Escape')
+                    # Native close dispatch is asynchronous after Escape. Wait for
+                    # the observable handler effects; do not fake focus or source.
+                    browser_expect(page.locator('#photo-dialog')).not_to_be_visible()
+                    browser_expect(page.locator('.photo-open')).to_be_focused()
+                    browser_expect(page.locator('#dialog-photo:not([src])')).to_have_count(1)
                     expect(page.locator('.photo-open').evaluate('(n)=>n===document.activeElement') and page.locator('#dialog-photo').get_attribute('src') is None,'Closing the dialog restores its opener and releases the original-image source')
                     page.goto(s.base+'music/release.php?slug=fixture-release',wait_until='networkidle')
                     page.locator('.play-track').first.focus();page.keyboard.press('Enter');wait_for_audio(page)
@@ -68,6 +73,9 @@ def main():
                     page.locator('#player-next').focus();page.keyboard.press('Enter');wait_for_audio(page)
                     expect(page.locator('#player-next').is_disabled() and page.locator('#player-previous').is_enabled(),'Transport availability follows real queue boundaries')
                     expect(' of ' in (page.locator('#player-seek').get_attribute('aria-valuetext') or ''),'Seek slider exposes elapsed and total playback time')
+                    expect(page.locator('#player-title').evaluate('(n)=>n.getBoundingClientRect().right<=n.closest(".now-playing").getBoundingClientRect().right+1'),'Long recording title stays within its player cell instead of overlapping transport')
+                    expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),'Active player does not create horizontal overflow')
+                    screenshot(page,f'media-quality-{width}-player')
                     focus=page.locator('.site-footer nav a').last;focus.focus();page.wait_for_timeout(100)
                     expect(focus.evaluate('(node)=>node.getBoundingClientRect().bottom<=document.getElementById("persistent-player").getBoundingClientRect().top+1'),'Keyboard focus is not covered by the fixed audio player')
                     page.locator('#player-close').focus();page.keyboard.press('Enter')
@@ -82,6 +90,7 @@ def main():
                     page.locator('[name="contact_consent"]').check()
                     page.get_by_role('button',name='Send inquiry').click()
                     alert=page.get_by_role('alert');alert.wait_for(state='visible')
+                    browser_expect(alert).to_be_focused()
                     expect(alert.evaluate('(n)=>n===document.activeElement'),'Server validation error receives keyboard focus without reading field values')
                     expect(page.locator('[name="name"]').input_value()=='Keyboard fixture','Validation feedback preserves the submitted non-secret form values')
                     expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),f'{width}px validation form fits without horizontal overflow')
