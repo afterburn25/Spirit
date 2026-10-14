@@ -120,6 +120,10 @@ def native_access(browser,s,name,area):
     page.locator('[name="location"]').fill('Fixture Louisiana venue');page.locator('[name="contact_consent"]').check()
     page.get_by_role('button',name='Send inquiry').click();page.wait_for_url('**/booking/thanks.php')
     expect(page.locator('.reference-number strong').inner_text().startswith('SG-'),'Native booking form saves a real inquiry without claiming delivery or a reservation')
+    # URL completion alone can precede final stylesheet loading after a native POST.
+    page.wait_for_load_state('networkidle')
+    page.keyboard.press('Control+Home')
+    expect(nav.get_by_role('link',name='Book the band',exact=True).evaluate('(n)=>getComputedStyle(n).color')=='rgb(19, 28, 35)','Active gold booking button retains contrasting dark text')
     screenshot(page,f'release-{name}-{area}-390-native-booking');context.close()
 
 
@@ -136,6 +140,7 @@ def checkout(browser,s,name,area):
     values=checkout_values()
     for key in ['email','recipient','line_one','city','postal_code']:page.locator('.checkout-page [name="'+key+'"]').fill(values[key])
     page.locator('[name="region"]').select_option('LA');page.locator('[name="order_consent"]').check()
+    page.evaluate('window.scrollTo(0,0)')
     screenshot(page,f'release-{name}-{area}-390-delivery')
     page.get_by_role('button',name='Review order and total').click();page.wait_for_url('**/shop/order.php?reference=*')
     audit(page,f'{name}/{area}/private-order',390)

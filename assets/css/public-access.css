@@ -21,3 +21,6 @@ html:not(.public-enhanced) .enhanced-tracks{display:none}
   html:not(.public-enhanced) .public-nav{display:flex;position:static;flex:0 0 100%;width:100%;margin:0;padding:12px 0;flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px 20px;border:0;box-shadow:none;background:transparent}
   html:not(.public-enhanced) .public-nav>a{white-space:normal;font-size:12px}
 }
+
+/* Active booking navigation keeps dark text over its gold button. */
+.public-nav>a.nav-book,.public-nav>a.nav-book[aria-current],.public-nav>a.nav-book:hover{color:#131c23}
