@@ -45,6 +45,12 @@ class PackagingTests(unittest.TestCase):
         with zipfile.ZipFile(archive) as bundle:
             self.assertFalse(any('PRIVATE-SETUP' in name for name in bundle.namelist()))
             self.assertFalse(any(name.startswith('custom-output/') for name in bundle.namelist()))
+    def test_recovery_location_and_private_receipts_are_excluded(self):
+        for name in ['admin/upgrades/location.php','docs/update-PRIVATE-RECOVERY.txt','docs/backup-PRIVATE-KEY.txt']:
+            p=self.root/name; p.parent.mkdir(parents=True,exist_ok=True);p.write_text('PRIVATE-TEST-DATA')
+        archive,_=self.build()
+        with zipfile.ZipFile(archive) as bundle:
+            for name in bundle.namelist(): self.assertNotIn(b'PRIVATE-TEST-DATA',bundle.read(name))
     def test_symlink_is_excluded(self):
         archive,_=self.build()
         with zipfile.ZipFile(archive) as bundle: self.assertNotIn('assets/link',bundle.namelist())

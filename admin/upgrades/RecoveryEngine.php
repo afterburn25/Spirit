@@ -37,7 +37,12 @@ final class SpiritRecovery
         // A durable update journal continues to protect requests after a process
         // dies. The normal OS lock alone would disappear with the process.
         $active = self::active();
-        if ($active !== null && !self::controlRequest() && !(PHP_SAPI === 'cli' && defined('SPIRIT_UPGRADE_CONTROL') && SPIRIT_UPGRADE_CONTROL === true)) { self::busy(); }
+        if ($active !== null) {
+            $recovery = realpath((string)($_SERVER['SCRIPT_FILENAME'] ?? '')) === __DIR__ . '/recover.php';
+            $review = ($active['state'] ?? '') === 'awaiting_confirmation' && self::controlRequest();
+            $cliControl = PHP_SAPI === 'cli' && defined('SPIRIT_UPGRADE_CONTROL') && SPIRIT_UPGRADE_CONTROL === true;
+            if (!$recovery && !$review && !$cliControl) { self::busy(); }
+        }
     }
     public static function exclusive(): void
     {
@@ -115,7 +120,7 @@ final class SpiritRecovery
     {
         if (!preg_match('#^(?:[A-Za-z0-9_-]+/)*(?:[A-Za-z0-9_.-]+|\.htaccess)$#D', $path) || str_contains($path, '..') || str_contains($path, '//')) { return false; }
         if (in_array($path, ['includes/maintenance-entry.php', 'admin/upgrades/RecoveryEngine.php', 'admin/upgrades/recover.php', 'admin/upgrades/.htaccess', '.htaccess'], true)) { return false; }
-        if (str_contains(strtolower($path), 'private-setup') || preg_match('/\.(?:zip|key|pem|log|gz|sqlite|bak)$/i', $path)) { return false; }
+        if (preg_match('/private-(?:setup|key|recovery)/i', $path) || preg_match('/\.(?:zip|key|pem|log|gz|sqlite|bak)$/i', $path)) { return false; }
         $dir = explode('/', $path)[0];
         return in_array($path, ['index.php', 'VERSION', 'README.md', 'CHANGELOG.md'], true) || in_array($dir, ['app','admin','includes','views','assets','images','docs','music','shows','band','media','booking','press','shop','account','pages','newsletter','tasks','payments'], true) && !str_ends_with($path, '/location.php');
     }
@@ -148,7 +153,7 @@ final class SpiritRecovery
             $q=$db->prepare('SELECT '.$fields.' FROM information_schema.'.$view.' WHERE TABLE_SCHEMA=? ORDER BY '.$order); $q->execute([$c['name']]);
             $out[$view]=array_values(array_filter($q->fetchAll(), static fn($r)=>str_starts_with($r['TABLE_NAME'],$c['prefix'])));
         }
-        $out['ledger']=$db->query('SELECT version,checksum FROM `'.$c['prefix'].'migrations` ORDER BY version')->fetchAll();
+        $out['ledger']=$db->query('SELECT migration,checksum FROM `'.$c['prefix'].'migrations` ORDER BY migration')->fetchAll();
         return hash('sha256', json_encode($out, JSON_THROW_ON_ERROR));
     }
     public static function rollback(string $id, ?string $key = null): void
@@ -157,6 +162,9 @@ final class SpiritRecovery
         if (($latest['id']??'')!==$id || !in_array($job['state'],['applying','awaiting_confirmation','committed','rollback_pending','rolled_back'],true)) { throw new RuntimeException('Only the latest applied checkpoint can be rolled back.'); }
         if ($key !== null && (!preg_match('/^[a-f0-9]{64}$/D',$key) || !hash_equals($job['recovery_hash'],hash('sha256',$key)))) { throw new RuntimeException('Recovery credentials were not accepted.'); }
         self::exclusive();
+        // A completed rollback consumes the capability. Only a still-present
+        // marker permits resuming cleanup after interrupted recovery.
+        if ($job['state']==='rolled_back' && (self::active()['id']??'')!==$id) { throw new RuntimeException('This checkpoint has already been restored.'); }
         if (!hash_equals($job['schema'],self::schema())) { throw new RuntimeException('Database schema changed after this checkpoint. Automatic code rollback is refused; keep the recovery files and use reviewed hosting-panel recovery.'); }
         // Validate every old byte before replacing anything. An interrupted
         // rollback can safely repeat; it always uses these immutable originals.
@@ -173,7 +181,12 @@ final class SpiritRecovery
         foreach ($changes as $path=>$change) {
             $file=self::target($path,true);
             if ($change['before']===null) { if (is_file($file)&&!@unlink($file)) { throw new RuntimeException('Cannot remove an update-added file; recovery remains locked.'); } }
-            else { self::atomic($file,(string)file_get_contents(self::folder().'/job-'.$id.'/old/'.hash('sha256',$path)),(int)$change['mode']); }
+            else {
+                // A killed rollback resumes by skipping originals already
+                // restored, instead of endlessly rewriting its first files.
+                if (is_file($file) && hash_file('sha256',$file)===$change['before']) { continue; }
+                self::atomic($file,(string)file_get_contents(self::folder().'/job-'.$id.'/old/'.hash('sha256',$path)),(int)$change['mode']);
+            }
         }
         $job['state']='rolled_back'; $job['rolled_back_at']=gmdate('c'); self::save($job);
         if (!@unlink(self::folder().'/active.json')) { throw new RuntimeException('Code restored; maintenance marker still needs cleanup. Retry recovery.'); }

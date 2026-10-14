@@ -37,6 +37,7 @@ final class UpdateManager
             $package=UpdatePackage::stage($source,$folder);$changes=[];
             foreach($package['files'] as $path=>$hash){
                 $target=\SpiritRecovery::target($path);$before=is_file($target)?hash_file('sha256',$target):null;
+                if($before===false||(is_file($target)&&filesize($target)>8388608)){throw new RuntimeException('Existing application file cannot be safely read and backed up.');}
                 if($before===$hash){continue;}
                 $parent=dirname($target);while(!is_dir($parent)&&$parent!==Paths::root()){$parent=dirname($parent);}
                 if(!Filesystem::probe($parent)){throw new RuntimeException('PHP cannot safely replace one of the destination files. Check hosting-panel ownership; no application files were changed.');}

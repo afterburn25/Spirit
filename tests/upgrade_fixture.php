@@ -21,10 +21,16 @@ case 'interrupt':
     foreach($j['changes'] as $path=>$change){if($path!=='includes/bootstrap.php'){SpiritRecovery::atomic(SpiritRecovery::target($path,true),(string)file_get_contents($base.'/new/'.hash('sha256',$path)),0644);break;}}
     // A hard process exit after a partial copy leaves the guard and originals.
     exit(0);
+case 'advance-owner-window':
+    // Test-clock advancement of one exact isolated bucket. Production policy
+    // is unchanged, and separate tests assert enforcement at its real limit.
+    $db=new PDO('mysql:host='.$c['host'].';port='.$c['port'].';dbname='.$c['name'],$c['user'],$c['password'],[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
+    $q=$db->prepare('UPDATE `'.$c['prefix'].'request_limits` SET expires_at=? WHERE bucket=?');
+    $q->execute([time()-1,hash_hmac('sha256','owner-sensitive-confirm:1',$config['secret'])]);break;
 case 'schema-change':case 'schema-revert':
     $db=new PDO('mysql:host='.$c['host'].';port='.$c['port'].';dbname='.$c['name'],$c['user'],$c['password'],[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
     $db->exec('ALTER TABLE `'.$c['prefix'].'settings` '.(($argv[1]==='schema-change')?'ADD fixture_changed INT NULL':'DROP COLUMN fixture_changed'));break;
 case 'schema':$out=['hash'=>SpiritRecovery::schema()];break;
 default:throw new RuntimeException('Unknown isolated update action.');
 }
-echo json_encode($out,JSON_THROW_ON_ERROR);
+echo json_encode((object)$out,JSON_THROW_ON_ERROR);
