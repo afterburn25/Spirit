@@ -1,21 +1,9 @@
-# Project status — 0.7.0-dev.1
+# Project status — 0.8.0-dev.1
 
-Cumulative application source **6a9396f571a3c8658886f84f1b64b754cd6c7fe6** passed the complete Actions workflow **38483296156** on PR #2. Jobs **115590780970** (PHP8.4/MySQL8.4 plus Chromium) and **115590781333** (PHP8.2/MariaDB11.4) passed. This documentation-only descendant changes no application code or tests. Inspect live main and its exact run before resuming.
+New implementation on **work/payments-orders**, based on verified .7 main **9abe656b991f04bc34f77667d871be91440bd09c**. Application .8 is not yet promoted or CI-verified. No accepted v1.0, actual provider transaction or production deployment.
 
-## Implemented and exercised
+Implemented source: separate encrypted sandbox/production configuration with owner reauthentication; explicit shipping/tax/store-policy rules; guest/customer review and integer-cent totals; transactional 15-minute stock holds; durable once-only charge operations and uncertainty handling; custom official Accept.js token form; private receipt/customer order history; raw-body signature-validated durable webhook inbox plus authenticated reporting; missing-receipt recovery; separate fulfillment/tracking; guarded full void/refund operations with no automatic restocking. The installer, data, selected design, external event ticket links and all existing modules remain intact. Migration 005 is additive; 001–004 unchanged.
 
-Owner-managed merchandise categories, draft/published products, approved image references, SKU variants with exact USD minor-unit prices, auditable signed inventory adjustments with replay/conflict protection. Public responsive collection/detail pages and published homepage merchandise; images contained rather than cropped. Store starts closed and contains no fake products.
+Local PHP lint, 58 payment unit checks, JavaScript syntax, Python compilation and packaging tests passed. New SQL/HTTP/concurrency/transport/browser tests are awaiting the exact Actions run. Provider SDK/API behavior is not certified by synthetic transport or Playwright fixtures. Actual cURL TLS tests target loopback only. Read TEST_RESULTS.md and PAYMENTS.md before making a readiness claim.
 
-Browser-owned persistent bag with hashed random cookie identity, CSRF and replay controls, server-side price/stock checks, unavailable-line handling and no private-draft disclosure. Bags do not reserve stock. Checkout, shipping/tax totals and orders remain unavailable pending .8.
-
-Separate customer identities with email-first activation, password choice only after mailbox access, hashed expiring single-use reset/activation links, revocable sessions, owner suspension/restoration and customer-bound revision-safe address management. Address book initially supports United States addresses only. Registration is not newsletter consent. Account mail is queued; hosting-panel schedule or owner processing is required.
-
-Additive migration 004; original migrations 001–003 remain unchanged. Existing installer/private runtime/config/secret, CMS/media, music/player, shows/external ticket links and booking/newsletter functions are preserved.
-
-## Verification
-
-35 new money/address unit checks plus the complete existing regression matrix passed. New SQL/HTTP root/subfolder/additive-upgrade and Chromium desktop/mobile suites passed. Forty synthetic screenshots were downloaded; catalog/account/admin contact sheets and selected full-size forms were visually reviewed. Source artifact was compared with the local draft; runtime code matches apart from a non-functional muted-label CSS typo recorded for later cleanup. No local database/browser run, real provider inbox delivery or payment is claimed.
-
-## Next
-
-Continue .8 sandbox-first Authorize.net, guest checkout, atomic inventory reservations, orders/fulfillment and shipping/tax configuration. Follow with staff delegation, full backup/restore/browser ZIP upgrades, retention, advanced CMS/SEO/accessibility/performance and staging acceptance. High-resolution production artwork and real band/product content still require a proper pass and approval. No accepted v1.0 or live deployment has occurred.
+Limits requiring explicit acceptance or more work: United States delivery with merchant-defined flat shipping and tax rules; no carrier quotes, automatic tax service, discounts or partial fulfillment. Full void/refund only, one reversal operation per order; partial/external unmatched refunds require owner/provider review. No guest receipt-link resend after expiry. Staff delegation, full backups/restoration/browser ZIP upgrades, retention, advanced CMS/search/accessibility/performance and final production artwork remain. Real host permissions, TLS/CSP, provider sandbox, mail delivery and merchant compliance require staging verification.

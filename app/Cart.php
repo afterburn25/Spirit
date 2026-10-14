@@ -50,6 +50,14 @@ final class Cart
             $q=$db->prepare('UPDATE '.Database::table('carts').' SET updated_at=UTC_TIMESTAMP() WHERE id=?');$q->execute([$id]);$db->commit();
         }catch(Throwable $e){if($db->inTransaction()){$db->rollBack();}throw $e;}
     }
+    /** Caller owns a transaction and must keep cart -> order -> variant lock order. */
+    public static function checkoutCart(\PDO $db): int
+    {
+        $id=self::id($db);
+        if(!$id){throw new \RuntimeException('Your bag is empty or expired.');}
+        $q=$db->prepare('SELECT id FROM '.Database::table('carts').' WHERE id=? AND expires_at>UTC_TIMESTAMP() FOR UPDATE');$q->execute([$id]);
+        if(!$q->fetchColumn()){throw new \RuntimeException('Your bag expired. Reload it before checkout.');}return $id;
+    }
     public static function summary(): array
     {
         $db=Database::connect();$id=self::id($db);$items=[];$subtotal=0;$count=0;$problems=false;

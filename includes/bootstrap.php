@@ -20,5 +20,5 @@ if (PHP_SAPI !== 'cli') {
         echo '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Service unavailable</title><h1>Temporarily unavailable</h1><p>Please try again later. Reference: ' . $id . '</p></html>';
     });
     if (!Spirit\Security::secureTransport()) { http_response_code(403); exit('HTTPS is required. Enable HTTPS in your hosting control panel before continuing. Forwarded headers are not automatically trusted.'); }
-    Spirit\Security::startSession();
+    if(!defined('SPIRIT_MACHINE_REQUEST')||SPIRIT_MACHINE_REQUEST!==true){Spirit\Security::startSession();}
 }

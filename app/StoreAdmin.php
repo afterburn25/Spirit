@@ -26,7 +26,7 @@ final class StoreAdmin
                 if($view==='settings'){
                     $options=['enabled'=>post('enabled')==='1','accounts_enabled'=>post('accounts_enabled')==='1','intro'=>Input::text($_POST,'intro',1000,true)];
                     if($options['accounts_enabled']&&!Communications::ready()){throw new RuntimeException('Configure and test email delivery before enabling account registration and recovery.');}
-                    ConfigStore::write('store',array_merge(Catalog::options(),$options),$actor);flash('Store settings saved. Checkout remains disabled in this milestone.');go('admin/shop/settings.php');
+                    ConfigStore::write('store',array_merge(Catalog::options(),$options),$actor);flash('Store settings saved. Payment enablement is managed separately under Orders & payments.');go('admin/shop/settings.php');
                 }
                 if($view==='customers'){
                     $customer=Input::integer($_POST,'customer_id',1,PHP_INT_MAX);$status=Input::choice($_POST,'status',['active','suspended'],'');$db->beginTransaction();

@@ -1,41 +1,37 @@
-# Browser installation — development build 0.6.0-dev.1
+# Browser installation — development build0.8.0-dev.1
 
-Use an isolated staging domain or subfolder, not the existing live band website. Real root/subfolder installations now pass automated MySQL/MariaDB and Chromium tests, but actual shared-host ownership, access rules, aliases and TLS/proxies still need staging acceptance.
+Use an isolated staging domain/subfolder, not the existing live band website. Automated database/browser evidence is recorded in TEST_RESULTS.md; actual shared-host ownership, access rules, aliases, TLS/proxies and provider behavior require separate staging acceptance.
 
 ## Hosting target
 
-PHP 8.2+ with PDO MySQL, OpenSSL, fileinfo and GD; MySQL/MariaDB; HTTPS; Apache/LiteSpeed honoring supplied access rules. No required SSH/root, Python or Node build on the shared server. Other server configurations require explicit equivalent access rules and their own verification.
-
-Create an empty staging database/user through the hosting panel. Required privileges are the SELECT/INSERT/UPDATE/DELETE and schema privileges exercised by CREATE/ALTER/DROP probes and migrations. The application does not provision hosting accounts or retrieve control-panel credentials.
+PHP8.2+ with PDO MySQL, OpenSSL, fileinfo, GD and cURL for payments; MySQL/MariaDB; HTTPS; Apache/LiteSpeed honoring supplied access rules. No required SSH/root, Python, Node or Composer build on the host. Other server configurations need equivalent verified access rules. Create an empty staging database/user through the hosting panel. Schema/CRUD privileges are exercised by installer probes; the app does not provision hosting accounts or obtain panel credentials.
 
 ## Package and browser flow
 
-On a development checkout run `python3 tools/package.py --output ./dist`. Keep the separate PRIVATE setup receipt off the server and out of Git. Upload/extract only the Full ZIP, including hidden .htaccess files, using the hosting file manager. Open `/install/` under the staging URL, enter the receipt's unique setup code, review the checks, and enter the database and initial owner details.
+On a development checkout run `python3 tools/package.py --output ./dist`. Keep the separate PRIVATE setup receipt off the server and out of Git. Upload/extract only the Full ZIP, including hidden .htaccess files, with the hosting file manager. Open `/install/` under the staging URL, enter the receipt's unique setup code, review checks and enter database/initial-owner details.
 
-The package contains the setup-code hash, never the plaintext code. Source checkouts cannot be claimed by the first public visitor. The deployment ZIP excludes tests, build tools, local/runtime data and existing setup receipts. The package manifest records payload hashes; it is not a mandatory user-entered hash step.
+The package contains only the code hash; source checkouts cannot be claimed by the first public visitor. Tests/build tools/local runtime/old receipts are excluded. The manifest records payload hashes, not a mandatory user-entered checksum. Success redirects to owner sign-in. Review Installation health for actual storage/cleanup state.
 
-Successful setup redirects to owner sign-in, not back to an unlocked installer. Sign in and check Admin > Installation health for actual storage and cleanup status.
+## Writable private runtime
 
-## Writing and private runtime
+Runtime is provisioned as `.spirit-<installation identifier>` under a validated account-private base. Per-account PHP hosting is detected from process home or host-provided HOME; atypical hosts may require server-configured SPIRIT_ACCOUNT_HOME/SPIRIT_PUBLIC_ROOTS. No web input or HTTP header chooses a filesystem destination.
 
-Runtime is provisioned under a validated account-private base as `.spirit-<installation identifier>`. Compatible per-account PHP hosting is detected from the process account home or host-provided HOME; an atypical host may need server-configured SPIRIT_ACCOUNT_HOME and SPIRIT_PUBLIC_ROOTS. No web form or HTTP header is trusted as a filesystem location.
+Current/context roots, common public ancestors/children and declared roots are checked. PHP cannot discover arbitrary web aliases; verify domain mappings on staging. Ambiguous/public candidates fail closed. Private directories use0700, config0600 verified before secret bytes; actual create/write/read/rename/delete probes run in runtime/children. Defensive deny rules add another layer. No public credential fallback or0777.
 
-The current document root, common public-directory ancestors/children, context document root and explicit public-root list are checked. PHP cannot discover every arbitrary server alias: verify all domain mappings during staging. Ambiguous or publicly located candidates fail closed. See docs/STORAGE.md for details.
-
-The installer creates private directories with 0700 and writes config with verified 0600 permissions before secret bytes. It performs actual create/write/read/rename/delete operations in runtime and each child. Defensive deny rules are added as another protection layer. It never falls back to a public credential file or chmod 0777.
-
-PHP cannot override provider ownership, ACL or open_basedir restrictions. Panel extraction can help ownership compatibility, but does not guarantee deletion rights. A host that forbids private writable storage requires provider configuration; no misleading success message is acceptable.
+PHP cannot override provider ownership, ACLs or open_basedir. Panel extraction can improve ownership compatibility but cannot guarantee deletion. A provider prohibiting private writable storage needs hosting configuration, not a misleading success state. See STORAGE.md.
 
 ## Completion and self-deletion
 
-A filesystem operation lock prevents concurrent setup. Existing table prefixes are preserved. Recovery metadata supports retries with the same database configuration after an interrupted migration; switching databases/prefixes during recovery is rejected. MySQL DDL is not transactional. The table-ownership sentinel also covers interruption between its CREATE and initial INSERT. Actual host interruption behavior remains a staging review item.
+Filesystem locks prevent concurrent setup. Existing database prefixes are preserved; durable recovery supports retries with the same database configuration after interruption and rejects silent switches. DDL is not transactional; ownership sentinel covers interruption between CREATE and initial INSERT. Actual host crash behavior still requires acceptance.
 
-The installed configuration and completion marker are published before cleanup. Cleanup targets only the application's fixed install directory and known files, refuses symlinks/unknown content, and verifies physical removal. When deletion is denied, the installer returns a locked response and owner administration offers a POST/CSRF-protected cleanup retry.
+Configuration and completion marker precede cleanup. Only the fixed install directory and known files are targeted. Symlinks/unexpected contents are refused. Physical removal is verified separately from permanent locking. If deletion is denied, setup remains locked and the owner receives a CSRF-protected cleanup retry. Tests cover successful removal, denied removal and retry after permission repair, not a guarantee about every host.
 
-Automated tests verified successful physical removal, denied deletion with retained lock, and successful owner retry after permission repair. This does not guarantee that a specific hosting provider permits deletion.
+## Supported updates
 
-## Existing installations and communication setup
+Do not overwrite original dev.1 without reviewing STORAGE.md: private-runtime placement changed. Preserve the old runtime/database; never delete state to bypass conflicts. For supported account-private installations, back up config/encryption secret/database/media, upload reviewed application code and use owner Database updates. Never rerun a fresh installer. Migrations001–004 remain unchanged;005 is additive and must not reset owners, content or customers.
 
-Do not extract this build over dev.1 without reviewing docs/STORAGE.md: nested-document-root runtime placement changed. Preserve the old runtime and database; never erase state to bypass a prefix conflict. For supported account-private foundation installations, preserve all configuration, uploaded media and data when uploading reviewed code; sign in and use Admin > Database updates for the additive schema. The update creates the new tables without reinstalling or resetting content. Do not remove the private installation secret: SMTP credentials and queued message bodies depend on it.
+Full automatic browser ZIP upgrades/restore and automatic legacy-runtime relocation are not complete yet. Preserve the installation encryption secret: SMTP/payment credentials, message bodies and private order data require it. Do not overwrite runtime with a new blank configuration.
 
-After updating, follow COMMUNICATION.md to configure SMTP, verify a real mailbox test and optionally set up the hosting-panel PHP queue schedule. Automated ZIP upgrades, full backup/restore, automatic legacy-runtime relocation and merchandise payments remain later work. TEST_RESULTS.md identifies the exact automated evidence; provider and host acceptance are separate.
+## Communication and payment staging
+
+Follow COMMUNICATION.md to configure/test SMTP and a hosting-panel PHP queue schedule. Follow PAYMENTS.md for separate bounded payment maintenance/reporting, sandbox-only staging, actual SDK/API/signed-webhook verification and explicit merchant shipping/tax/terms. No genuine provider transaction has been verified by this development build. Never enable production based on synthetic tests alone.

@@ -1,33 +1,37 @@
 # Owner guide — current development modules
 
-Sign in with the owner account created by the browser installer. There is no public administrator registration and no default password. Before editing content on an older foundation installation, open **Database updates** and apply the additive schema after taking a hosting-panel backup.
+Sign in with the owner created by browser installation. No public admin registration/default password exists. Back up before updates; existing supported installations use owner Database updates, never destructive reinstall. See INSTALLATION.md.
 
 ## Content workflow
 
-Choose Pages, Music releases, Audio tracks, Shows, Band members, Gallery, Videos or Press downloads. Add the title and structured fields. **Save private draft** does not change the published version. **Preview saved draft** opens an owner-only view with no indexing or caching. **Publish approved content** updates the public snapshot and makes its referenced media available. **Remove from public site** keeps the draft but unpublishes its public page and media references.
+Choose pages, releases, tracks, shows, members, gallery, videos or press downloads. Structured fields preserve the selected design. Save private draft leaves the published snapshot untouched; saved-draft preview is owner-only/no-store/noindex. Publish approved content updates public visibility/media references. Unpublish retains drafts. Stale revisions are rejected rather than overwritten. Revision history is stored; advanced restore/archive controls remain later work.
 
-Another session's edit will cause a conflict rather than silently overwrite data. Reload and reconcile your changes. A revision history is stored; restore/archive controls are not available yet.
+Media library accepts authorized JPEG/PNG/WebP, MP3/OGG/WAV and PDF. Images are decoded/re-encoded; scripts/SVG/archives refused. Unreferenced uploads stay private; published pages/products authorize their selected media. PDFs download. Provide meaningful alternative text and confirm usage rights.
 
-## Media and pages
-
-Upload permitted JPEG/PNG/WebP, MP3/OGG/WAV or PDF files through Media library. Confirm that the band has usage rights. Images are decoded/re-encoded; SVG/scripts/archives are refused. Uploaded media remains private until a published item uses it. PDF documents are delivered as downloads. Only the owner can access otherwise-private media. Supply meaningful image alternative text.
-
-Reserved page URL names: `home`, `band`, `booking`, `press`. Band and press text appears in their corresponding designed sections. Generic pages have their own URL. The home headline composition remains locked; website name/tagline/welcome are controlled under Website settings. Hero artwork can be selected on the home content record.
+Reserved page URLs home/band/booking/press feed their designed sections. Generic pages have separate URLs. Website settings control name/tagline/welcome. The selected home composition remains fixed; home content may select its hero image.
 
 ## Music and shows
 
-Create a release, upload authorized audio, then create tracks attached to that release. Publish both. The public player is user-initiated and remains active during supported internal public-page navigation. External platforms use verified outbound links; uninterrupted playback across unrelated platforms is not promised.
+Create/publish a release and its authorized uploaded tracks. Audio is user-initiated and persists during supported internal public browsing. External platforms use outbound links, not promised cross-platform continuous playback.
 
-For a show, enter full local date/time, named timezone, venue, city and optional address. Paste the venue's HTTPS ticket-seller URL. Scheduled shows with a URL display Get Tickets. Missing links, sold-out, free, postponed or cancelled events have appropriate non-purchasing labels. Past shows archive automatically. Do not use sample concept dates as actual bookings.
+Shows require complete local date/time, timezone, venue/city and optional address. Paste the venue's HTTPS ticket-seller URL. Missing tickets, free/sold-out/postponed/cancelled labels are explicit; past events archive automatically. Do not seed concept examples as real bookings. No native tickets/scanning.
 
 ## Booking and communication
 
-Booking inquiries are saved before email work. Review organizer details, assign active owners, change inquiry status and keep private notes in Booking inquiries. Repeated submissions are deduplicated; stale note edits are refused. Booking contact consent never subscribes an organizer to marketing.
+Inquiries save before email work. Review organizer details, assign owners, manage status and private notes. Stale edits and duplicate submissions are guarded. Inquiry confirmation is not a reservation or marketing enrollment.
 
-Configure TLS SMTP in Email settings and verify an owner test with both the provider and receiving mailbox. Inspect Delivery queue for retries and uncertain acceptance. An uncertain message requires explicit duplicate-risk acknowledgement before retrying. Private settings and message bodies are encrypted; preserve the installation secret in your private config backup.
+Configure TLS SMTP, test with provider/mailbox, inspect retries/uncertain delivery. Verify acceptance before acknowledging duplicate risk on retry. Preserve the encryption secret. Newsletter requires separate consent and confirmation, supports unsubscribe and confirmed-only export. No campaign composer. See COMMUNICATION.md for quiet-site scheduled processing.
 
-Newsletter signup requires separate consent and a confirmation step. Export includes currently confirmed subscribers only. Use explicit unsubscribe to suppress future eligible messages; no marketing campaign composer is included. Read COMMUNICATION.md for quiet-site scheduled processing and the complete owner workflow.
+## Merchandise and customers
 
-## Not operational yet
+Open Merchandise & customers. Add categories/product drafts, uploaded photographs, SKU variants, prices and signed stock adjustments with reasons. Publish approved product snapshots separately from immediate price/stock changes. Catalog starts closed and contains no fake products. Images are contained, not cropped. Customer signup is email-first; customer identity never grants staff access. Addresses are customer-bound and initially US-only. Owner suspension revokes sessions. See COMMERCE.md.
 
-Customer accounts, inventory/orders and payment processing are not active in this checkpoint. The store explicitly states that no payments are collected. Full backup/restore/ZIP-upgrade tooling and delegated staff management remain later milestones.
+## Orders and payments
+
+Orders & payments adds delivery/tax/store terms, protected environment-specific Authorize.net values, private order review, fulfillment/tracking, notification inbox and reporting. Start in sandbox; no actual provider acceptance has yet been established. Save/test credentials only through protected administration, not chat/Git. Final totals are computed before payment and stock holds are transactional.
+
+Payment and fulfillment differ. Do not fulfill unverified/held/uncertain orders. Never blindly retry an uncertain charge/reversal; reconcile the original provider transaction. Full void/refund is bounded to one reversal operation per order and does not automatically restock possibly shipped goods. Partial/external unmatched refunds require review. See PAYMENTS.md for exact operating limits, provider acceptance and separate payment/mail schedules.
+
+## Still unfinished
+
+Delegated staff management, complete automatic backup/restore/browser ZIP upgrades, retention, advanced CMS/SEO/accessibility/performance, final high-resolution artwork and staging acceptance remain. A development version is not the completed accepted1.0 site.

@@ -34,6 +34,7 @@ jobs:
           - 3306:3306
     env:
       SPIRIT_TESTING: '1'
+      SPIRIT_DISABLE_PAYMENT_NETWORK: '1'
       SPIRIT_DB_HOST: 127.0.0.1
       SPIRIT_DB_PORT: '3306'
       SPIRIT_DB_NAME: spirit_ci
@@ -48,7 +49,7 @@ jobs:
       - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
         with:
           php-version: ${{ matrix.php }}
-          extensions: pdo_mysql, openssl, posix, fileinfo, gd
+          extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl
           coverage: none
       - name: Syntax and permission-aware unit tests
         run: |
@@ -59,6 +60,7 @@ jobs:
           php tests/content_schema.php
           php tests/communication_unit.php
           php tests/commerce_unit.php
+          php tests/payment_unit.php
           python3 -m py_compile tools/package.py tests/*.py
           python3 tests/package_test.py
       - name: Database and HTTP integration
@@ -70,6 +72,8 @@ jobs:
           python3 tests/smtp_integration.py
           python3 tests/mail_acceptance.py
           python3 tests/commerce_integration.py
+          python3 tests/payment_integration.py
+          python3 tests/payment_http.py
       - name: Install test-only Chromium
         if: matrix.php == '8.4'
         run: |
@@ -88,6 +92,9 @@ jobs:
       - name: Rendered commerce and customer workflows
         if: matrix.php == '8.4'
         run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/commerce_browser.py'
+      - name: Rendered tokenization and order workflows
+        if: matrix.php == '8.4'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/payment_browser.py'
       - name: Preserve synthetic browser screenshots
         if: always() && matrix.php == '8.4'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

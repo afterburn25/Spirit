@@ -1,25 +1,33 @@
 # Security controls and verification boundaries
 
-Development version 0.6.0-dev.1; no security certification or production deployment is claimed.
+Development0.8.0-dev.1. No certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes local tests, Actions and unverified provider/host acceptance.
 
-## Implemented controls
+## Foundation
 
-Package-specific high-entropy claim code with only its hash deployed; HTTPS enforcement with loopback HTTP exception limited to PHP's development server; strict sessions with HttpOnly/SameSite cookies and secure cookies under HTTPS; CSRF-protected mutations; password hashing and session revocation; prepared SQL; login attempt limits; owner-only administration; escaped text, CSP and no-store admin responses.
+Package-specific random setup code with hash-only deployment; HTTPS with loopback HTTP exception only on PHP development server; strict sessions, HttpOnly/SameSite and Secure cookies under HTTPS; CSRF mutations; hashed passwords/session revocation; prepared SQL; rate limits; role-gated owner administration; escaped text, self-only script CSP and uncached private pages.
 
-Private storage uses a validated account-level base, known/explicit public-root checks and canonical paths rather than trusting the current document root's parent. Filesystem probes cover all runtime children; directory/file modes are checked and secrets are written only after private permissions apply. Unsafe symlinks, unreadable installer directories and unexpected cleanup contents are refused.
+Account-private storage validates known/declared public roots and canonical paths. Actual probes cover runtime children. Permissions are verified before secrets. Symlinks, ambiguous destinations, unreadable installer directories and unknown cleanup content fail closed. Installer operation locks, prefix ownership and independent completion markers prevent destructive reinstall. Physical deletion is separate from permanent setup locking.
 
-Installer operation locks, prefix ownership and independent installation markers prevent concurrent/destructive reinstall. Physical deletion is separate from logical locking. No visitor controls a deletion target.
+Deployment packaging allows known paths only and excludes runtime/customer data, plaintext receipts, scripts/tests/build tools, local configs, symlinks and output folders. The private receipt is exclusively created0600. No default owner password. Never place real secrets in this public repository regardless of packaging exclusions.
 
-Deployment packaging includes known application paths only. Runtime files, customer data, setup receipts, test scripts, build tools, local configs, symlinks and output directories are excluded. The separate receipt is created exclusively with mode 0600; no default owner password exists. Never place secrets anywhere in this public repository even if packaging would omit that path.
+## Content, communication and customer identity
 
-## Verified versus remaining
+Private drafts/media are authorized independently from public snapshots. Uploads are validated and private until published. Settings/message bodies are authenticated-encrypted using the private installation secret. Newsletter tokens are hashed/expiring and consent changes use explicit POST. Booking consent never opts into marketing. Mail accepted by SMTP but lacking a persisted receipt remains uncertain, not automatically resent.
 
-See TEST_RESULTS.md for exact commit/run evidence. Expanded tests cover SQL/HTTP forms, private content/media, subscription consent, encryption, TLS transport failures and desktop/mobile workflows. A successful smoke test does not constitute penetration testing or a complete accessibility/security audit.
+Customer identities are separate from staff users. Email-first activation prevents attacker-preselected passwords; single-use reset/activation links expire and revoke. Password changes and suspension revoke sessions. Address mutations bind customer and revision. Private browser bags use random keyed-hash identities; all prices/availability are server computed. Test fixtures cannot become HTTP behavior.
 
-Remaining deployment reviews: Apache/LiteSpeed rule enforcement, all provider domain aliases, open_basedir/ownership restrictions, production TLS and explicitly trusted reverse proxies, early-DDL crash windows, and migration of existing dev.1 runtime. Never blindly trust X-Forwarded-Proto or accept an arbitrary public storage fallback.
+## Checkout and payment boundary
 
-Content/media authorization, validated uploads, encrypted communication settings/bodies, hashed expiring subscription tokens, CSRF-protected consent changes and durable inquiry/email recovery are implemented. Mail accepted by SMTP but not recorded successfully in the database is uncertain and cannot be automatically resent.
+Sensitive card inputs have no native form names; intended application payment submission contains opaque token fields only. Unexpected fields are rejected before mutation and tokens are not stored/logged. Scoped payable-page CSP admits only the corresponding official SDK/API domains, without unsafe-eval/inline. A custom Accept.js form retains merchant PCI obligations.
 
-Later modules still need their own controls and tests: delegated staff management, commerce, authenticated payment notifications, full backup/restore and ZIP upgrades. Never mark those implemented merely because this foundation has authentication. No raw card storage; a payment-return URL will not be evidence of payment.
+Durable processing precedes irreversible calls; repeated/concurrent requests cannot create another charge operation. Unknown acceptance, lost database receipt or interrupted worker cannot silently free stock or retry payment. Atomic reservations and idempotent release preserve stock. Reporting matches merchant/environment/invoice/amount/type and correlation. Browser return parameters do not prove payment.
 
-Errors must not expose credentials, private data or exception driver messages. Test databases are guarded by name/prefix and disposable; credentials in the CI workflow are deliberately test-only and must never be reused for production.
+Webhooks verify unmodified bytes with the configured key before durable insertion and deduplication. Signed receipt alone is not current payment evidence; reporting follows separately. Receivers are machine requests without browser sessions, but still require HTTPS and signatures. Private order data is encrypted and accessed only by authenticated ownership, originating session or private capability. Private pages are no-store/no-referrer/noindex. Credential/reversal changes require owner reauthentication.
+
+API endpoints are fixed HTTPS, bounded and non-redirecting with certificate/hostname checks. CLI-only synthetic gateway and loopback-TLS seams cannot be chosen through web requests. Actual provider signatures/SDK/API behavior and merchant compliance remain staging acceptance, not established by synthetic fixtures. Read PAYMENTS.md.
+
+## Remaining review
+
+Actual Apache/LiteSpeed rules and arbitrary aliases; provider TLS/ACL/open_basedir/trusted-proxy configuration; early-DDL crash windows; legacy dev.1 runtime migration; actual mailbox/provider transactions; complete backup/restore/ZIP upgrade safety; delegated staff; retention; advanced application security/accessibility/performance. Never blindly trust forwarded headers, public storage fallback, a source-artifact success or another commit's test results.
+
+Exceptions must not expose credentials, private order data, raw gateway messages or driver diagnostics. CI credentials are deliberately disposable and never reusable for production. Runtime test data and temporary CA keys stay outside deployment archives.

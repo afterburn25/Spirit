@@ -1,23 +1,29 @@
 # Changelog
 
-## 0.7.0-dev.1 — verified merchandise and customer checkpoint
+## 0.8.0-dev.1 — checkout/order implementation; new verification pending
 
-Application6a9396f571a3c8658886f84f1b64b754cd6c7fe6 passed full Actions38483296156 in both database environments and all configured desktop/mobile browser suites. Documentation-only follow-up preserves runtime/test bytes. Forty synthetic screenshots downloaded; contact sheets and selected full-size forms reviewed. See TEST_RESULTS.md for exact evidence and limitations.
+Additive005 schema; guest/customer checkout, explicit shipping/tax/store terms, exact server totals, atomic15-minute stock holds and immutable order snapshots. Durable charge/reversal operations precede irreversible requests; uncertain acceptance is never blindly resubmitted. Official Accept.js custom token form with unnamed sensitive inputs, scoped CSP, encrypted environment-separated settings and owner reauthentication. Private receipts/history, signed durable notification inbox plus authenticated reporting, missing receipt recovery, separate fulfillment/tracking and guarded full void/refund support. No automatic refund restock. No real provider transaction or production acceptance claimed.
 
-Additive004 schema; owner categories/products/private drafts and approved public media; SKU integer-cent pricing and auditable idempotent stock changes; responsive collection/detail/homepage merchandise; private persistent bag with server prices/replay/stock checks. Email-first activation/reset, session revocation, owner suspension and customer-bound revision-safe US address book. Customer and staff identities stay separate. Added35 unit checks and full SQL/HTTP/root/subfolder/upgrade/browser regressions. Checkout remains closed; no live payment/order claim.
+Added58 local payment unit checks, real-database concurrency/HTTP/recovery tests, actual loopback cURL TLS tests and desktop/mobile browser tokenization-boundary tests. Full new execution pending. Preserved original migrations001–004, installer/private runtime, selected design and all prior data. See PAYMENTS.md and TEST_RESULTS.md for scope and limits.
+
+## 0.7.0-dev.1 — verified merchandise/customer checkpoint
+
+Application6a9396f571a3c8658886f84f1b64b754cd6c7fe6 passed38483296156; exact-main9abe656b991f04bc34f77667d871be91440bd09c passed38484316285. Both database environments and four configured browser suites passed.40 synthetic renders downloaded; contact sheets and selected full-size forms reviewed.
+
+Additive004; owner categories/products/private drafts and approved public media; integer-cent SKU prices and auditable idempotent stock; responsive collection/detail/homepage merchandise; private persistent server-priced bag; email-first activation/reset, revoked sessions, owner suspension and customer-bound revision-safe US address book. Staff and customer identities separate.35 units plus SQL/HTTP/root/subfolder/upgrade/browser regressions. Checkout remained closed in this historical checkpoint.
 
 ## 0.6.0-dev.1 — 2026-10-13
 
-Applicationdd0db412 passed38479213942 and exact-main docs descendant6b00769fee969570872c88446110429047dc0499 passed38479822564. Recovered real saved code and verified it rather than treating prior unsuccessful writes as landed. Booking submissions/private receipts/consent/deduplication, owner inquiry management, interrupted notification recovery, encrypted TLS SMTP queue, retries/backoff/locks and acceptance uncertainty. Newsletter DOI/expiry/scanner-safe actions/unsubscribe/export/stale-message suppression. No automatic marketing enrollment or native tickets. Corrected CSP-compatible playback tests and phone roadmap overflow. Added27 communication units, ten loopback TLS scenarios, five post-acceptance database fault checks and browser journeys. Real provider/host acceptance remains separate.
+Applicationdd0db412 passed38479213942 and exact-main6b00769fee969570872c88446110429047dc0499 passed38479822564. Recovered actual saved work rather than treating failed writes as landed. Booking/private receipts/consent/deduplication, owner inquiry management, interrupted notification recovery, encrypted TLS mail queue and uncertainty, newsletter DOI/expiry/scanner-safe actions/unsubscribe/export/suppression. Corrected CSP-compatible audio tests and mobile roadmap overflow.27 communication units, ten loopback TLS scenarios, five accepted-mail receipt-failure checks and rendered journeys. Real provider/host acceptance remains separate.
 
 ## 0.5.0-dev.1 — 2026-10-13
 
-Responsive public pages, owner CMS/drafts/previews, protected image/audio/PDF media, band/gallery/press, releases/tracks/persistent audio and shows/archive/external sellers. Installer ownership/prefix/config/legacy-runtime/additive-schema improvements. Reference crops are not final master art. Public test initially failed on CSP polling, corrected in .6.
+Responsive public pages, CMS/drafts/previews, protected image/audio/PDF media, band/gallery/press, releases/tracks/player and shows/external ticket sellers. Installer/prefix/config/legacy-runtime/additive-schema improvements. Reference crops remain lower-resolution, not production master artwork.
 
 ## 0.1.0-dev.2 — 2026-10-13
 
-Account-private runtime, real IO probes, cleanup denial/retry, protected packaging and SQL/HTTP/Chromium foundation. Baselinecb1ce92a passed38456010840 with43 units,26 storage,10 packaging tests and both database environments.
+Account-private runtime, real IO probes, cleanup denial/retry and protected packaging; baselinecb1ce92a passed38456010840 with43 units,26 storage,10 packaging and both database environments.
 
 ## 0.1.0-dev.1 — 2026-10-13
 
-Initial organized installer/admin, private storage, owner login/settings, setup authorization and documentation. Not a production release.
+Initial organized installer/admin, private storage, owner login/settings, setup authorization and continuity documentation. Not a production release.
