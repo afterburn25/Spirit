@@ -38,6 +38,10 @@ def main():
                     expect('example.test' not in json.dumps(data) and str(s.runtime) not in json.dumps(data),'Browser report does not expose owner email or private filesystem location')
                     browser_expect(page.locator('#check-payment_mode')).to_contain_text('live-charge risk')
                     expect(data['check_states']['mail_pending']=='attention' and data['check_states']['external_merchant']=='review','Downloaded report preserves follow-up and acceptance distinctions')
+                    expect(page.locator('.launch-report-stamp').evaluate('(node)=>node.getBoundingClientRect().top - node.parentElement.querySelector("button[type=submit]").getBoundingClientRect().bottom >= 12'),f'{width}px support export focus ring does not overlap its timestamp')
+                    # Keep full-page captures anchored to the top; preserve real
+                    # content, focus styling and the fixed mobile menu position.
+                    page.evaluate('window.scrollTo(0, 0)')
                     screenshot(page,f'launch-{width}-checks')
                     page.goto(s.base+'admin/readiness/',wait_until='networkidle')
                     expect(page.locator('.launch-check').count()==43,'Former preview URL serves the same authenticated dashboard')
