@@ -17,7 +17,16 @@ final class PublicSite
         if($id<1){return '<span class="art-placeholder '.e($class).'" aria-hidden="true"><span>♛</span><b>SG</b></span>';}
         $media=Media::get($id);if(!$media||$media['kind']!=='image'){return '<span class="art-placeholder '.e($class).'" aria-hidden="true">SG</span>';}
         $dimensions=Media::dimensions($media);$size=isset($dimensions['width'],$dimensions['height'])?' width="'.$dimensions['width'].'" height="'.$dimensions['height'].'"':'';
-        return '<img'.$size.' src="'.e(Media::url($id)).'" alt="'.e($media['alt_text']?:$alt).'" class="'.e($class).'" loading="'.($eager?'eager':'lazy').'" decoding="async">';
+        $source=Media::url($id);$responsive='';
+        if(isset($dimensions['width'])&&$dimensions['width']>ImageVariants::WIDTHS[0]){
+            $candidates=[];
+            foreach(ImageVariants::WIDTHS as $width){if($width<$dimensions['width']){$candidates[]=Media::url($id).'&width='.$width.' '.$width.'w';}}
+            $candidates[]=Media::url($id).' '.$dimensions['width'].'w';
+            $sizes=match($class){'hero-art'=>'(max-width: 820px) 100vw, 65vw','page-image','band-image'=>'(max-width: 600px) calc(100vw - 40px), 640px',default=>'(max-width: 600px) calc(100vw - 40px), (max-width: 1100px) 50vw, 640px'};
+            $responsive=' srcset="'.e(implode(', ',$candidates)).'" sizes="'.e($sizes).'"';
+            $source=$dimensions['width']>640?Media::url($id).'&width=640':Media::url($id);
+        }
+        return '<img'.$size.' src="'.e($source).'"'.$responsive.' alt="'.e($media['alt_text']?:$alt).'" class="'.e($class).'" loading="'.($eager?'eager':'lazy').'"'.($eager?' fetchpriority="high"':'').' decoding="async">';
     }
     public static function text(string $text): string {return nl2br(e($text));}
     public static function releaseCard(array $release): void

@@ -61,6 +61,7 @@ jobs:
           php tests/content_schema.php
           php tests/content_history_unit.php
           php tests/discovery_unit.php
+          php tests/media_quality_unit.php
           php tests/communication_unit.php
           php tests/commerce_unit.php
           php tests/payment_unit.php
@@ -77,6 +78,7 @@ jobs:
           python3 tests/content_integration.py
           python3 tests/content_history_integration.py
           python3 tests/discovery_integration.py
+          python3 tests/media_quality_integration.py
           python3 tests/communication_integration.py
           python3 tests/smtp_integration.py
           python3 tests/mail_acceptance.py
@@ -126,6 +128,9 @@ jobs:
       - name: Rendered published discovery and metadata navigation
         if: matrix.php == '8.4'
         run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/discovery_browser.py'
+      - name: Rendered responsive images and keyboard quality
+        if: matrix.php == '8.4'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/media_quality_browser.py'
       - name: Preserve synthetic browser screenshots
         if: always() && matrix.php == '8.4'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

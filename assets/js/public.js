@@ -7,7 +7,12 @@
   const status = document.getElementById('player-status');
   const playToggle = document.getElementById('player-toggle');
   const seek = document.getElementById('player-seek');
-  let queue = [], current = -1, navigation;
+  let queue = [], current = -1, navigation, photoOpener;
+  const previous = document.getElementById('player-previous');
+  const nextTrack = document.getElementById('player-next');
+  const playerInset = () => { document.documentElement.style.setProperty('--player-height', `${player.hidden ? 0 : Math.ceil(player.getBoundingClientRect().height) + 16}px`); };
+  if ('ResizeObserver' in window) new ResizeObserver(playerInset).observe(player);
+  else window.addEventListener('resize', playerInset);
   const time = value => Number.isFinite(value) ? `${Math.floor(value / 60)}:${String(Math.floor(value % 60)).padStart(2, '0')}` : '0:00';
   const announce = (message, error = false) => { status.textContent = message; status.className = error ? 'player-error' : 'visually-hidden'; };
   const menu = open => { nav.classList.toggle('is-open', open); toggle.setAttribute('aria-expanded', String(open)); };
@@ -17,9 +22,13 @@
     const playing = !audio.paused;
     playToggle.textContent = playing ? 'Ⅱ' : '▶';
     playToggle.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+    previous.disabled = current < 0 || (current === 0 && audio.currentTime <= 3);
+    nextTrack.disabled = current < 0 || current + 1 >= queue.length;
+    playerInset();
     document.querySelectorAll('.play-track').forEach(button => {
       const selected = queue[current] && button.dataset.trackId === queue[current].trackId;
       button.classList.toggle('is-playing', Boolean(selected && playing));
+      button.setAttribute('aria-pressed', String(Boolean(selected && playing)));
       button.setAttribute('aria-label', `${selected && playing ? 'Pause' : 'Play'} ${button.dataset.title}`);
     });
   };
@@ -45,16 +54,25 @@
   audio.addEventListener('play', paintPlayback); audio.addEventListener('pause', paintPlayback);
   audio.addEventListener('error', () => { announce('Recording unavailable. Please try another track.', true); paintPlayback(); });
   audio.addEventListener('loadedmetadata', () => { document.getElementById('player-duration').textContent = time(audio.duration); seek.disabled = !Number.isFinite(audio.duration); });
-  audio.addEventListener('timeupdate', () => { document.getElementById('player-current').textContent = time(audio.currentTime); if (Number.isFinite(audio.duration) && audio.duration > 0) seek.value = String(Math.round(audio.currentTime / audio.duration * 1000)); });
+  audio.addEventListener('timeupdate', () => { document.getElementById('player-current').textContent = time(audio.currentTime); if (Number.isFinite(audio.duration) && audio.duration > 0) { seek.value = String(Math.round(audio.currentTime / audio.duration * 1000)); seek.setAttribute('aria-valuetext', `${time(audio.currentTime)} of ${time(audio.duration)}`); }
+    previous.disabled = current < 0 || (current === 0 && audio.currentTime <= 3); });
   audio.addEventListener('ended', () => { if (current + 1 < queue.length) play(current + 1); else paintPlayback(); });
   seek.addEventListener('input', () => { if (Number.isFinite(audio.duration)) audio.currentTime = Number(seek.value) * audio.duration / 1000; });
   document.getElementById('player-volume').addEventListener('input', e => { audio.volume = Math.max(0, Math.min(1, Number(e.target.value))); });
   document.getElementById('player-previous').addEventListener('click', () => { if (audio.currentTime > 3) audio.currentTime = 0; else play(current - 1); });
   document.getElementById('player-next').addEventListener('click', () => play(current + 1));
-  document.getElementById('player-close').addEventListener('click', () => { audio.pause(); audio.removeAttribute('src'); audio.load(); queue = []; current = -1; player.hidden = true; document.body.classList.remove('has-player'); paintPlayback(); });
+  document.getElementById('player-close').addEventListener('click', () => {
+    const selectedId = queue[current]?.trackId;
+    const returnTarget = Array.from(document.querySelectorAll('.play-track')).find(button => button.dataset.trackId === selectedId) || document.getElementById('site-content');
+    audio.pause(); audio.removeAttribute('src'); audio.load(); queue = []; current = -1; player.hidden = true; document.body.classList.remove('has-player'); paintPlayback(); returnTarget.focus({ preventScroll: true }); });
   const dialog = document.getElementById('photo-dialog');
   dialog.querySelector('.dialog-close').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', () => {
+    document.getElementById('dialog-photo').removeAttribute('src');
+    const target = photoOpener?.isConnected ? photoOpener : document.getElementById('site-content');
+    target?.focus({ preventScroll: true }); photoOpener = null;
+  });
   function internal(url) {
     const home = new URL(document.querySelector('.wordmark').href);
     return !url.searchParams.has('sitemap') && url.origin === location.origin && url.pathname.startsWith(home.pathname) && !/\/(admin|install|account|payments)(\/|$)/.test(url.pathname) && !/\/shop\/(cart|checkout|order|pay)\.php$/.test(url.pathname) && !/\/media\/file\.php$/.test(url.pathname);
@@ -63,6 +81,7 @@
     if (navigation) navigation.abort(); navigation = new AbortController();
     const signal = navigation.signal;
     document.getElementById('navigation-status').textContent = 'Loading page.';
+    document.getElementById('site-content').setAttribute('aria-busy', 'true');
     try {
       const response = await fetch(url.href, { credentials: 'same-origin', signal, headers: { 'X-Spirit-Navigation': '1' } });
       const html = await response.text();
@@ -73,7 +92,9 @@
       const resolved = new URL(response.url);
       if (!internal(resolved)) { location.assign(resolved.href); return; }
       // Only same-origin server-rendered, escaped public content enters this shell.
+      if (dialog.open) dialog.close();
       document.getElementById('site-content').replaceWith(next);
+      next.setAttribute('aria-busy', 'false');
       const nextNav = documentNext.getElementById('public-nav'); if (nextNav) nav.innerHTML = nextNav.innerHTML;
       document.title = documentNext.title;
       for (const selector of ['meta[name="description"]', 'meta[name="robots"]', 'link[rel="canonical"]', 'meta[property^="og:"]', 'meta[name^="twitter:"]', 'script#page-structured-data[type="application/ld+json"]']) {
@@ -87,6 +108,7 @@
       if (anchor) anchor.scrollIntoView(); else window.scrollTo(0, 0);
       next.focus({ preventScroll: true });
       document.getElementById('navigation-status').textContent = 'Page loaded.';
+      document.dispatchEvent(new CustomEvent('spirit:navigated', { detail: { root: next } }));
     } catch (error) { if (error.name !== 'AbortError') location.assign(url.href); }
   }
   document.addEventListener('click', e => {
@@ -97,7 +119,7 @@
       play(queue.findIndex(item => item.trackId === track.dataset.trackId)); return;
     }
     const photo = e.target.closest('.photo-open');
-    if (photo) { const img = document.getElementById('dialog-photo'); img.src = photo.dataset.photo; img.alt = photo.dataset.caption; document.getElementById('dialog-caption').textContent = photo.dataset.caption; dialog.showModal(); return; }
+    if (photo) { photoOpener = photo; const img = document.getElementById('dialog-photo'); img.src = photo.dataset.photo; img.alt = photo.dataset.caption; document.getElementById('dialog-caption').textContent = photo.dataset.caption; dialog.showModal(); return; }
     const link = e.target.closest('a[href]');
     if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || link.target || link.hasAttribute('download')) return;
     const url = new URL(link.href, location.href);
@@ -109,5 +131,6 @@
     const url = new URL(form.action); if (!internal(url)) return;
     e.preventDefault(); url.search = new URLSearchParams(new FormData(form)).toString(); navigate(url);
   });
+  paintPlayback();
   window.addEventListener('popstate', () => { const url = new URL(location.href); if (internal(url)) navigate(url, false); else location.reload(); });
 })();

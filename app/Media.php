@@ -25,7 +25,7 @@ final class Media
     {
         if (!preg_match('/^[a-f0-9]{32}\.(?:jpg|png|webp|mp3|ogg|wav|pdf)$/D',$media['storage_name'])) {throw new RuntimeException('Invalid media storage record.');}
         $file=Paths::runtime().'/media/'.$media['storage_name'];
-        if (is_link($file) || !is_file($file)) {throw new RuntimeException('Media file unavailable.');}return $file;
+        if (is_link(dirname($file)) || realpath(dirname($file)) !== dirname($file) || is_link($file) || !is_file($file)) {throw new RuntimeException('Media file unavailable.');}return $file;
     }
     public static function upload(array $file,string $alt,int $actor): int
     {
@@ -46,6 +46,7 @@ final class Media
                 if (!extension_loaded('gd')) {throw new RuntimeException('Enable the PHP GD extension in the hosting panel to safely process images.');}
                 $info=@getimagesize($file['tmp_name']);
                 if (!$info || $info[0]<1 || $info[1]<1 || $info[0]*$info[1]>20000000 || $info[0]>10000 || $info[1]>10000) {throw new InvalidArgumentException('The image is invalid or exceeds the 20-megapixel limit.');}
+                if (!ImageVariants::canDecode($info[0], $info[1])) {throw new InvalidArgumentException('This image needs more processing memory than the host allows. Upload a smaller-resolution copy.');}
                 $image=match($extension){'jpg'=>@imagecreatefromjpeg($file['tmp_name']),'png'=>@imagecreatefrompng($file['tmp_name']),'webp'=>function_exists('imagecreatefromwebp')?@imagecreatefromwebp($file['tmp_name']):false};
                 if (!$image) {throw new InvalidArgumentException('The image could not be decoded.');}
                 imagesavealpha($image,true);
@@ -64,13 +65,17 @@ final class Media
     public static function serve(int $id): never
     {
         $media=self::get($id);$public=$media!==null && (Content::publicMedia($id) || (Database::exists(Database::connect(),Paths::config()['db']['prefix'].'products') && Catalog::publicImage($id)));
-        if (!$public) {$user=Auth::current();if (!$media || !$user || !Permissions::allows($user,'media.manage')) {http_response_code(404);exit('Media unavailable.');}}
-        $file=self::path($media);$size=(int)filesize($file);$etag='"'.$media['checksum'].'"';
-        header('Content-Type: '.$media['mime']);header('X-Content-Type-Options: nosniff');header('Accept-Ranges: bytes');header('ETag: '.$etag);
+        if (!$public) {$user=Auth::current();if (!$media || !$user || !Permissions::allows($user,'media.manage')) {header('Cache-Control: private, no-store');http_response_code(404);exit('Media unavailable.');}}
+        try {$width=ImageVariants::requestWidth($_GET['width']??null);} catch (InvalidArgumentException $e) {http_response_code(400);exit('Unsupported image size.');}
+        if($width>0&&$media['kind']!=='image'){http_response_code(400);exit('Image size is not applicable.');}
+        $resolved=ImageVariants::resolve($media,isset($_GET['download'])?0:$width);
+        $file=$resolved['file'];$size=(int)filesize($file);$etag=$resolved['etag'];
+        header('Content-Type: '.$resolved['mime']);header('X-Content-Type-Options: nosniff');header('Accept-Ranges: bytes');header('ETag: '.$etag);
         header('Cache-Control: '.($public?'public, max-age=0, must-revalidate':'private, no-store'));
         if ($media['kind']==='pdf' || isset($_GET['download'])) {header('Content-Disposition: attachment; filename="spiritual-gorillaz-'.$id.'.'.pathinfo($media['storage_name'],PATHINFO_EXTENSION).'"');}
         if ($public && ($_SERVER['HTTP_IF_NONE_MATCH']??'')===$etag && !isset($_SERVER['HTTP_RANGE'])) {http_response_code(304);exit;}
         $start=0;$end=$size-1;$range=(string)($_SERVER['HTTP_RANGE']??'');
+        if($range!==''&&isset($_SERVER['HTTP_IF_RANGE'])&&$_SERVER['HTTP_IF_RANGE']!==$etag){$range='';}
         if ($range!=='') {
             if (!preg_match('/^bytes=(\d*)-(\d*)$/D',$range,$m) || ($m[1]==='' && $m[2]==='')) {header('Content-Range: bytes */'.$size);http_response_code(416);exit;}
             if ($m[1]==='') {$suffix=(int)$m[2];if ($suffix<1) {header('Content-Range: bytes */'.$size);http_response_code(416);exit;}$start=max(0,$size-$suffix);} else {$start=(int)$m[1];$end=$m[2]===''?$end:min($end,(int)$m[2]);}

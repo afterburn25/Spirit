@@ -8,7 +8,7 @@ if (toggle && sidebar) {
     sidebar.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', String(open));
   });
-  document.addEventListener('keydown', event => { if (event.key === 'Escape') { close(); toggle.focus(); } });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { close(); toggle.focus(); } });
   document.addEventListener('click', event => { if (!sidebar.contains(event.target) && !toggle.contains(event.target)) close(); });
 }
 const install = document.getElementById('install-form');

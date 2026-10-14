@@ -33,14 +33,16 @@ final class TransientCleanup
     {
         if(is_link($runtime)||realpath($runtime)!==$runtime){throw new RuntimeException('Private cleanup location is not canonical.');}
         $items=[];$inspected=0;$deadline=microtime(true)+2;
-        foreach(['backups','media'] as $area){
+        foreach(['backups','media','cache'] as $area){
             $parent=$runtime.'/'.$area;
+            if($area==='cache'&&!file_exists($parent)&&!is_link($parent)){continue;}
             if(is_link($parent)||!is_dir($parent)||realpath($parent)!==$parent){throw new RuntimeException('Private cleanup directory is unavailable.');}
             foreach(new \FilesystemIterator($parent,\FilesystemIterator::SKIP_DOTS) as $entry){
                 if(++$inspected>1500||microtime(true)>$deadline){return $items;}
                 $name=$entry->getFilename();$path=$entry->getPathname();
                 if($entry->isLink()||$entry->getMTime()>=$cutoff){continue;}
-                if($area==='media'&&preg_match('/^\.restore-[a-f0-9]{32}$/D',$name)&&$entry->isFile()){$items[]=self::fileRecord($path);}
+                if($area==='cache'&&ImageVariants::disposableName($name)&&$entry->isFile()){$items[]=self::fileRecord($path);}
+                elseif($area==='media'&&preg_match('/^\.restore-[a-f0-9]{32}$/D',$name)&&$entry->isFile()){$items[]=self::fileRecord($path);}
                 elseif($area==='backups'&&preg_match('/^backup-[a-f0-9]{32}\.json\.[a-f0-9]{12}\.tmp$/D',$name)&&$entry->isFile()){$items[]=self::fileRecord($path);}
                 elseif($area==='backups'&&preg_match('/^stage-[a-f0-9]{32}$/D',$name)&&$entry->isDir()){
                     $children=[];$safe=true;

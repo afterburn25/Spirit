@@ -1,17 +1,15 @@
-# Project status — 0.9.0-dev.6
+# Project status — 0.9.0-dev.7 implementation
 
-Application **af43d1539994daa2b03f0eaaea1b2ec9c51066aa** passed full verification **38518823266** and focused maintenance **38518823277**. Both database environments, eleven Chromium workflows and actual Apache HTTPS passed. This documentation-only descendant changes no application code, assets, schema or tests. Inspect live main before resuming.
+Current work on **work/media-accessibility**, based on verified .9dev6 application af43d153 and documentation/main4f6005f7. Full38518823266 and focused38518823277 passed for the baseline. Current changed-code verification is pending.
 
-## Newly verified
+## New implementation
 
-Published-only optional metadata/share images and canonical URLs; owner indexing control; public search with filters and bounded pagination; XML sitemap index/parts; historical published-slug redirects without private draft disclosure; explicit-public-event structured data without invented prices/ratings. Internal navigation updates metadata while preserving real audio playback. Intrinsic image dimensions and mobile Escape focus are tested.
+Fixed 320/640/960/1440 image candidates, proportional downsampling without upscaling, alpha preservation, private checksum-keyed regenerable cache, original downloads and safe original fallback when GD/memory/cache writes are unavailable. Publication/role checks precede every cache/304 response. Generation uses a nonblocking allocation lock; damaged generated files are rebuilt. Matching If-Range is representation-specific. Retention recognizes only the new fixed derivative/temporary namespace and preserves original media and the generation lock.
 
-Six discovery renders were inspected from the 90-image synthetic artifact **11873262102**. Canonical source artifact **11872848844** was downloaded and its archive digest verified. See docs/DISCOVERY_CHECKPOINT.md and docs/TEST_RESULTS.md.
+Keyboard/media refinements: named gallery dialog, opener focus restoration, release of hidden full-size image sources, live player queue controls/pressed state/readable seek time, focus return after closing, dynamic player clearance, page-loading state and focused server validation feedback. Escape in ordinary admin fields no longer steals focus to a closed menu. Phone form typography and forced-color focus/borders are improved without another design.
 
-## Preserved cumulative scope
+41 new pure checks plus root/subfolder SQL/HTTP alpha/cache/authorization/fallback/retention tests and a twelfth Chromium workflow at1440/390/320px. It measures real fixture image/first-party asset bytes and exercises keyboard navigation, validation feedback and player obstruction. Full current results and render inspection remain pending. Migrations001–006 and pinned access/recovery layer are unchanged.
 
-Browser installer/private runtime/self-removal/permanent lock; selected public website and CMS/history/music/shows/external tickets; booking/email/newsletter; catalog/inventory/cart/customers; token-only checkout/orders/fulfillment; staff permissions; encrypted backups/guarded same-instance restore; same-schema browser ZIP upgrades/pinned recovery; conservative retention. Migrations001–006 and pinned recovery/access layer remain unchanged.
+## Preserved and remaining
 
-## Remaining
-
-Broader responsive-media, keyboard/accessibility and measured performance quality; master artwork and approved real content; actual hosting/merchant/mailbox acceptance; final owner review. Same-schema upgrade and same-instance backup limits remain. No genuine merchant transaction, inbox receipt, complete WCAG conformance or accepted v1.0 is implied by synthetic tests.
+All installer/public/CMS/history/discovery/music/show/booking/mail/newsletter/catalog/customer/payment/staff/backup/update/retention features remain cumulative. Remaining: broader accessibility/performance/security acceptance, real master artwork/content, actual shared-host/merchant/mailbox verification and owner approval. Synthetic fixtures and transfer budgets are not field Core Web Vitals, complete WCAG conformance or a real merchant transaction. No final v1.0 release is claimed.

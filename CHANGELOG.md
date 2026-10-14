@@ -1,12 +1,14 @@
 # Changelog
 
+## 0.9.0-dev.7 — responsive media and keyboard quality (verification pending)
+
+Four fixed responsive image candidates, no upscaling, alpha-safe private derivative cache, per-request authorization, memory/lock/host-denial fallback and original downloads. Representation-specific validators and If-Range; derivative retention preserves originals and lock files. Named keyboard gallery, playback control states/seek text, focus restoration/player clearance, focused server errors and phone/forced-color refinements.41 new pure checks plus real media SQL/HTTP and twelfth1440/390/320px browser budget/keyboard workflow. Full current verification pending; no schema or pinned recovery change.
+
 ## 0.9.0-dev.6 — verified published discovery
 
-Application af43d153 passed full38518823266 and focused38518823277. Both databases, eleven Chromium workflows and actual ApacheHTTPS passed; six discovery renders inspected from90-image artifact. Documentation-only verification record changes no tested code/assets/schema/tests.
+Applicationaf43d153 passed full38518823266 and focused38518823277. Both DBs, eleven Chromium workflows and ApacheHTTPS. Six discovery renders inspected; documented and promoted as4f6005f7. Optional published metadata/share images, canonical URLs, indexing controls, public search, sitemap and old published-slug redirects; actual playback continues during metadata navigation.25 new pure checks plus SQL/HTTP/browser tests. See DISCOVERY_CHECKPOINT.md.
 
-Optional published SEO/share fields, canonical URLs, approved share images, owner indexing controls, public search/filter/pagination, bounded XML sitemap/ETag/HEAD and safe historic published-slug redirects. Explicit-public-event JSON-LD contains supplied facts only. Internal navigation updates metadata while audio continues. Intrinsic dimensions and mobile Escape focus preserved.25 new pure checks plus SQL/HTTP/browser tests. See DISCOVERY_CHECKPOINT.md.
-
-## 0.9.0-dev.5 — verified private history and large-library controls
+## 0.9.0-dev.5 — verified content history and large-library controls
 
 Application9546b7c passed full38513423793 and focused38513423736; exact-main11a5038 passed38514355067. Search/filter/sort/pagination, escaped revision comparison and append-only private restore preserve published snapshots/media and later history.39 pure checks plus large-library/role/replay/browser tests. See CONTENT_HISTORY_CHECKPOINT.md.
 
