@@ -1,25 +1,25 @@
 # Spiritual Gorillaz
 
-Authoritative repository: **afterburn25/Spirit**, branch **main**. Read AGENTS.md, PROJECT_STATUS.md, SESSION_HANDOFF.md and docs/ROADMAP.md before implementation. Preserve the approved navy/black/gold/blue crowned-gorilla design and external venue ticket links.
+Authoritative repository: **afterburn25/Spirit**, **main**. Read AGENTS.md, PROJECT_STATUS.md, SESSION_HANDOFF.md and docs/ROADMAP.md. Preserve the approved navy/black/gold/blue design, real components and external venue ticket links.
 
-## Current cumulative development release
+## 0.9.0-dev.9 — manual database installer
 
-**0.9.0-dev.8 — one-page, code-free installer with optional A2/cPanel database creation.** Hosting is **A2 with cPanel only; no 20i integration**.
+User-confirmed hosting: **A2 with cPanel only, no 20i**. Automatic database/user creation is removed at the user's request. The installer accepts an existing database host, port, full database name, database username/password and table prefix. No cPanel API token, package setup code, claim stage or PRIVATE-SETUP receipt.
 
-No package setup code, access hash, claim stage or PRIVATE-SETUP receipt is generated. Hosting checks, URL/database/owner settings, correction and completion share one browser page. Choose an existing database or authorize automatic creation of a new database, dedicated user and random password. The installer verifies the resulting connection, applies application tables, saves private configuration, creates the owner and attempts verified self-deletion. Permanent locks remain even when removal is denied.
+One page contains hosting checks, manual database/owner details, corrections and completion. It creates the application tables, saves private configuration, creates the owner, locks setup and attempts verified self-deletion. Native forms work without JavaScript. Existing tables and uploads are not reset.
 
-Application **b9d32849e9b556dbc2b6d4f2adb7526703b46562** passed full workflow **38560767553** and focused maintenance **38560767558**. Both database environments, all twelve Chromium workflows and actual Apache HTTPS checks passed. This final documentation-only descendant changes no runtime, assets, database migrations or tests. See docs/TEST_RESULTS.md for exact evidence and limits. Synthetic cPanel tests do not establish acceptance against a real A2 account.
+cURL and ZIP have separate optional notices in setup and owner Installation health. Manual installation can continue without them. Payment-server connections require cURL and browser ZIP upgrades require ZIP. The notice names the missing extension and explains enabling it for the domain's PHP version in cPanel or through A2 support; no API token is involved.
 
-## Installation and upgrades
+## Installation
 
-On a development checkout run `python3 tools/package.py --output ./dist`. Upload/extract the cumulative Full ZIP including hidden access rules, and open `/install/`. No setup receipt is needed. PHP 8.2+, PDO MySQL, OpenSSL, fileinfo and GD are required; cURL supports automatic cPanel/payment connections and ZIP supports browser upgrades. HTTPS and reviewed server access rules are required. The host needs no Node, Python, Composer build, SSH or root.
+Run `python3 tools/package.py --output ./dist` on a development checkout to produce the cumulative Full ZIP. Upload/extract it including hidden access rules and open `/install/`. The host needs PHP 8.2+, PDO MySQL, OpenSSL, fileinfo and GD, HTTPS, private writable storage and the supplied/equivalent access rules. No host-side Node/Python/Composer build, SSH or root.
 
-For automatic setup, enter a short-lived cPanel API token only into the HTTPS installer and revoke it afterward. The token is not stored in sessions, permanent config or recovery records. Generated DB credentials are saved privately. See docs/CPANEL_INSTALLER.md for quotas, local-MySQL/network limits and safe handling of partial or uncertain results.
+Create an empty database and dedicated user through cPanel Database Wizard or Manage My Databases; copy their complete prefixed names and the database-user password to the installer. See docs/CPANEL_INSTALLER.md. Install promptly or protect unattended staging with cPanel Directory Privacy. No setup-code gate remains.
 
-Fresh setup is open until completed: install promptly or use cPanel Directory Privacy while unattended. Existing sites must upgrade, not reinstall or create a replacement database. Preserve the original config, encryption secret, database/media and separate backup/update recovery keys.
+Existing sites must upgrade, not reinstall. Preserve original private config, encryption secret, database/media and separate backup/update recovery keys. Same-schema browser upgrades do not recreate the removed installer. An earlier unfinished automatic attempt is retained for manual owner/host review; the new installer never executes its saved PHP state or contacts a hosting API.
 
-## Preserved functionality and final acceptance
+## Verification and boundaries
 
-The cumulative release retains CMS/history/discovery/media, music/player/shows, booking/email/newsletter, catalog/cart/customers/checkout/orders, staff roles, encrypted backups/guarded restore, same-schema browser ZIP updates/pinned recovery and retention. Migrations 001–006 and pinned access/recovery files are unchanged.
+See docs/TEST_RESULTS.md for exact new run status. The previous dev8 main commit 1cffdccaaab20737b6ddf1f0f62ee306d5c61d51 passed run 38563052511. That does not prove the new changes passed. New tests exercise rejected retired API fields, private legacy-state preservation, separate extension combinations and real SQL/HTTP installation with cURL/ZIP disabled, plus the cumulative browser/Apache suites.
 
-Approved production artwork/content, populated-site quality, actual host/cPanel/mailbox/merchant acceptance and owner review remain. Same-schema updates and same-instance guarded restoration retain their documented limits. No real payment, receiving-mailbox result or accepted v1.0 is implied. Follow docs/LAUNCH_CHECKLIST.md before cutover.
+All public/admin/CMS/music/show/booking/email/store/account/order/staff/backup/update/retention functionality is retained. Immutable migrations 001–006 and pinned recovery/access files are unchanged. Actual A2 hosting, receiving-mailbox and merchant sandbox acceptance, production artwork/content, broader quality review and owner approval remain. No final v1.0 or live-provider result is claimed.

@@ -1,23 +1,21 @@
-# Project status — 0.9.0-dev.8
+# Project status — 0.9.0-dev.9
 
-Application **b9d32849e9b556dbc2b6d4f2adb7526703b46562** passed full workflow **38560767553** and focused maintenance **38560767558**. Both database environments, all twelve Chromium workflows and actual Apache HTTPS checks passed. This final documentation-only descendant changes no runtime, assets, database migrations or tests.
+Current work: manual-only database configuration and clear optional PHP extension checks. Base: verified dev8 main 1cffdccaaab20737b6ddf1f0f62ee306d5c61d51, full run 38563052511. New exact verification is pending; do not promote a failed/untested checkpoint.
 
-## Landed scope
+## User-requested changes
 
-User-confirmed target: **A2 Hosting with cPanel only, no 20i**. No package setup code, claim gate, access hash or PRIVATE-SETUP receipt. One page contains hosting/write checks, URL/database/owner configuration, validation feedback and completion. Native forms remain usable without JavaScript; password/token values are not reflected after correction.
+A2 Hosting/cPanel only. Automatic database/user creation, hosting token fields, mode switching and all three Cpanel runtime classes are removed. No setup code or PRIVATE-SETUP receipt. One-page checks/manual database/owner/correction/completion remain, including no-JavaScript use, private writes, permanent locks and physical deletion verification.
 
-The automatic option reads cPanel naming restrictions and inventories, generates an unused database/dedicated user with a strong random password, grants necessary privileges on that database only, and verifies PDO before migrations. The cPanel token is request-only. HTTPS on port 2083, public IPv4 DNS pinning, peer/hostname verification, no proxy/redirect and bounded responses/time are enforced.
+Retired automatic form submissions are explicitly rejected without reflecting token values. A saved earlier incomplete automatic record blocks setup for manual review; it is not executed, deleted or reused. Completed existing installations keep their original DB/config/media. No hosting API or privileged SQL administrator is used by the installer.
 
-Private mode-0600 progress preserves confirmed operations on rejection or later migration failure. Unknown mutation outcomes pause for inspection rather than duplicate resources, adopt unrelated accounts, reset passwords or delete databases. Completion publishes locked private config before self-deletion; retained installer folders remain permanently locked. Existing-database mode remains available.
+The ambiguous cURL-and-ZIP notice is split into PHP cURL and PHP ZIP. Both remain optional for manual installation, with separate feature limitations and cPanel/support instructions. Owner Installation health now shows the same checks and current PHP version after the installer has been deleted. Its stale claim that maintenance is unavailable is corrected.
 
-All cumulative website/admin/commerce/maintenance functionality is retained. Migrations 001–006 and pinned access/recovery files are unchanged. An existing audio accessibility timing regression was also corrected: native metadata updates elapsed/duration/ARIA immediately rather than waiting for a throttled timeupdate.
+## Verification plan
 
-## Verification
+38 new unit checks cover all four extension availability combinations, manual versus retired fields and removal of API classes. New real SQL/HTTP tests cover manual setup, rejected automatic POSTs, preserved legacy state and domain-root/subfolder installation with actual cURL and ZIP disabled in child PHP. Browser tests preserve one-page/no-code installation at 1440/390/320px and without JavaScript, plus owner health checks. Run every retained feature regression and actual Apache HTTPS suite.
 
-498 pure assertions (including 56 cPanel checks), 12 package tests, real SQL/HTTP workflows on PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4, actual Apache HTTPS access rules and all twelve Chromium suites passed. One-page installation covers 1440 / 390 / 320 px and a no-JavaScript path. Nine loopback TLS cPanel scenarios verify real HTTPS/token/body handling. Eight API-boundary scenarios create actual dedicated SQL users/databases in disposable services; this is not a real A2 account test.
+The removed cPanel transport/provisioning tests correspond only to the deleted feature. Payment transport, TLS checks, upload/upgrade validation, data recovery and authorization tests remain. No immutable migrations or pinned recovery/access files changed.
 
-Eleven installer renders were inspected from artifact 11891257992 at a0f0f380; installer runtime/CSS is unchanged in the subsequent playback fix. Forms, automatic-mode controls and completion were checked across the tested widths and no-JavaScript path. Final canonical-byte/package checks are recorded with the delivered release.
+## Remaining launch gates
 
-## Remaining
-
-Actual A2 API/host account, mailbox, genuine merchant sandbox, approved artwork/content, populated-site quality and final owner acceptance remain. Fresh code-free setup is open until completion; protect unattended staging. Preserve original encryption/config/data/media and unrelated backup/update recovery keys. Same-schema updates and same-instance guarded restoration retain their documented limits. No accepted v1.0 yet. See CPANEL_INSTALLER.md and LAUNCH_CHECKLIST.md.
+Actual A2 permissions/PHP settings, real mailbox and genuine merchant sandbox acceptance, approved production artwork/content, populated-site accessibility/performance/security review and owner acceptance. No accepted v1.0. Backups/restoration and ZIP upgrades retain their documented same-instance/same-schema limits.

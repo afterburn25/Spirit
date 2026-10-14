@@ -46,28 +46,10 @@ def main():
                     expect(page.locator('[name=setup_code]').count()==0, label+': no setup code field')
                     expect(page.locator('[name=db_name]').is_visible() and page.locator('[name=owner_name]').is_visible(), label+': database and owner settings are visible together')
                     screenshot(page,'installer-'+str(width)+('-nojs' if not javascript else '')+'-form')
-                    if javascript:
-                        page.locator('[name=db_mode]').select_option('cpanel')
-                        expect(page.locator('#cpanel-fields').is_visible() and not page.locator('#existing-db-fields').is_visible(),label+': automatic mode exposes cPanel fields on the same page')
-                        expect(page.locator('[name=cpanel_token]').get_attribute('required') is not None and page.locator('[name=db_name]').is_disabled(),label+': only the chosen database method is required')
-                        screenshot(page,'installer-'+str(width)+'-cpanel')
-                        page.locator('[name=site_url]').fill(current.base.rstrip('/'))
-                        page.locator('[name=cpanel_host]').fill('cpanel.example.com')
-                        page.locator('[name=cpanel_user]').fill('spiritci')
-                        page.locator('[name=cpanel_token]').fill('Z'*32)
-                        page.locator('[name=cpanel_consent]').check()
-                        page.locator('[name=owner_name]').fill('Synthetic owner')
-                        page.locator('[name=email]').fill(current.owner)
-                        page.locator('[name=password]').fill(current.password)
-                        page.locator('[name=password_confirm]').fill('Different-password-123')
-                        page.locator('#install-form button[type=submit]').click()
-                        browser_expect(page.locator('.notice.error')).to_contain_text('passwords do not match')
-                        expect(page.url==current.base+'install/' and page.locator('[name=db_mode]').input_value()=='cpanel',label+': automatic mode validation preserves one-page context')
-                        expect(page.locator('[name=cpanel_token]').input_value()=='' and 'Z'*32 not in page.content(),label+': failed validation cannot reflect the cPanel token')
-                        expect(not (current.runtime/'cpanel-provision.php').exists(),label+': invalid owner confirmation cannot contact cPanel or allocate resources')
-                        page.locator('[name=db_mode]').select_option('existing')
-                    else:
-                        expect(page.locator('#cpanel-fields').is_visible() and page.locator('#existing-db-fields').is_visible(),label+': both choices remain readable with server-selected validation')
+                    expect(page.locator('[name=db_mode], [name^=cpanel], #cpanel-fields').count()==0, label+': no automatic mode or hosting token controls')
+                    expect('PHP cURL' in page.content() and 'PHP ZIP' in page.content() and 'cURL and ZIP ·' not in page.content(), label+': optional extension checks are separate')
+                    for field in ['db_host','db_port','db_name','db_user']:
+                        expect(page.locator('[name='+field+']').is_enabled() and page.locator('[name='+field+']').get_attribute('required') is not None, label+': manual field remains enabled and required: '+field)
 
                     for name,value in current.input().items():
                         if name != 'action': page.locator('[name='+name+']').fill(value)
@@ -105,6 +87,9 @@ def main():
                         for route in ['settings.php','account.php','installation.php','roadmap.php']:
                             expect(page.goto(current.base+'admin/'+route).status == 200,label+': '+route+' opens')
                             layout(page,label+' '+route)
+                            if route=='installation.php':
+                                expect(page.locator('#optional-extensions').is_visible(),label+': installed owner can inspect individual extension notices')
+                                screenshot(page,'installer-'+str(width)+'-health')
                     expect(not errors,label+': no uncaught JavaScript errors')
                     context.close()
         finally:

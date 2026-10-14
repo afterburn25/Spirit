@@ -1,29 +1,23 @@
-# Resume here — cumulative one-page A2/cPanel installer
+# Resume here — manual-only one-page installer
 
-Repository **afterburn25/Spirit**, **main** authoritative. Version **0.9.0-dev.8**. Inspect live refs before writing; preserve concurrent changes. Read AGENTS.md, current status, CPANEL_INSTALLER.md and TEST_RESULTS.md. No force pushes, destructive reinstall, fabricated public content, alternative redesign, native ticketing or 20i.
+Repository **afterburn25/Spirit**, **main** authoritative. Current target **0.9.0-dev.9**; branch **work/manual-database-installer**. Inspect live refs before writing. Read AGENTS.md, status and TEST_RESULTS.md. Never force-push or overwrite concurrent changes.
 
-## Verified checkpoint
+## Latest user decisions
 
-Application **b9d32849e9b556dbc2b6d4f2adb7526703b46562** passed full workflow **38560767553** and focused maintenance **38560767558**. Both database environments, all twelve Chromium workflows and actual Apache HTTPS checks passed. This final documentation-only descendant changes no runtime, assets, database migrations or tests.
+The user cannot get a cPanel token and explicitly removed automatic database creation. **A2/cPanel, manual existing database only, no 20i, no hosting API token, no setup code.** Keep all setup fields/checks/corrections/completion on one page. A later pasted cURL/ZIP notice led to splitting optional extension diagnostics; do not hide missing features or reintroduce automatic setup.
 
-No setup code, claim stage or PRIVATE-SETUP receipt. User explicitly requires hosting checks, database/owner configuration, corrections and completion on one page. A2/cPanel automatic creation and existing-DB options are implemented; do not reintroduce activation or confuse unrelated backup/update recovery keys with the removed setup code.
+## Changes
 
-## Preserve
+Remove all three Cpanel runtime classes and the matching five retired test files/workflow calls. The request handler and domain installer reject retired automatic inputs. No provider calls, database/user creation, password resets or privileged grants remain. Preserve an existing unfinished cpanel-provision.php record without executing/deleting/adopting it; owner/A2 support must inspect it before a fresh setup. Normal completed installations and manual pending.php recovery are unchanged.
 
-CpanelClient supports six fixed Mysql calls over verified HTTPS on port 2083, bounded payload/time, public IPv4 DNS pinning, no redirects/proxies and request-only token handling. CpanelProvisioner saves generated credentials/progress privately before mutation under the install lock. Confirmed steps resume; unknown creation/grant results pause, never blindly repeat/adopt/reset/delete. Owner validation/consent precedes resource writes. No application root/WHM/global privilege interface exists.
+cURL and ZIP are individually reported by Installer::optionalChecks in setup and owner Installation health. Both are optional for installation; checkout needs cURL and browser ZIP upgrades need ZIP. Enable extensions for the PHP version actually serving this domain through cPanel Select PHP Version or A2 support. No token is needed. Corrected obsolete maintenance-not-available copy in health.
 
-Cumulative approved public site, CMS/history/discovery/media/music/external-ticket shows, booking/email/newsletter, merchandise/accounts/token-only checkout/orders, staff permissions, encrypted snapshots/guarded restore, same-schema code ZIP upgrades/pinned recovery and retention remain. Keep original private encryption secret, config, media, business data, immutable migrations 001–006 and pinned access/recovery files.
+## Verification
 
-## Evidence and corrected regressions
+Base dev8 main 1cffdccaaab20737b6ddf1f0f62ee306d5c61d51 passed full38563052511. New exact .9 verification is pending. Run 38 manual-installer unit assertions, new SQL/HTTP test (including actual PHP environments with cURL/ZIP disabled), cumulative units/package/browser suites and Apache HTTPS. Browser setup checks remain1440/390/320 and no-JavaScript. Inspect rendered form/completion/health screens. Remove only obsolete cPanel tests, not live payment/upgrade/TLS regressions.
 
-498 pure assertions, 12 packaging tests, both SQL/HTTP environments, nine real loopback cPanel TLS cases, eight simulated-UAPI/real-dedicated-SQL cases, twelve Chromium workflows and Apache HTTPS passed. Installer checks include 1440 / 390 / 320 px and no-JavaScript, actual deletion/retained locks/replay safety, corrections and owner sign-in. Eleven installer screenshots inspected at a0f0f380 / artifact 11891257992; later changed runtime is only public audio timing, not installer layout.
+## Delivery and next work
 
-Corrected incomplete TLS test-response framing without relaxing production transport checks. PHP 8.4 CLI-server missing-file lookup can return the actual public homepage; tests now enforce missing files, no reopened setup, unchanged config/lock hashes and one owner rather than a universal 404. Actual Apache rules remain separately tested. The later narrow-player race required native metadata/time rendering and observable-state browser waits, not fake playback or weaker assertions/CSP.
+Promote only the verified branch, record exact CI evidence and package cumulative Full ZIP with no setup receipt. Preserve migrations001–006, pinned recovery/access files, original encryption/config/data/uploads and unrelated backup/update recovery keys. Existing sites upgrade; do not create a replacement database or reinstall. Fresh setup is open until completion, so protect unattended staging.
 
-## Next work and delivery
-
-Use the cumulative dev8 baseline, not an earlier setup-code package. The packager emits only the versioned Full ZIP; no PRIVATE-SETUP. Existing installations must follow reviewed upgrade paths, not create a new DB. Preserve backup/update recovery keys. Fresh setup is open until completion: install promptly or use cPanel Directory Privacy.
-
-Complete actual A2 token, TLS/port 2083, quota, naming and ACL acceptance on protected staging, then real mailbox and merchant sandbox, approved master artwork/content, broader populated-site accessibility/performance/security review and owner approval. No actual hosting account, mailbox or merchant transaction was used in CI. Do not enable live payments or claim accepted 1.0 without those gates.
-
-Local PHP lacks pdo_mysql/GD/cURL/ZIP; real integration is in Actions. Test-only cPanel SQL administrator is scoped to a disposable test step and never passed to application code. The source artifact is not itself application verification. Keep exact test evidence and all continuity docs current after each session.
+Actual A2 host/manual database and extension acceptance, real mailbox/merchant sandbox, approved master artwork/content, populated-site quality and owner acceptance remain. Do not silently enable production services or label the site1.0. Local runtime lacks required database/image extensions; exact full integration evidence comes from Actions, not local lint.
