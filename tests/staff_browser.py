@@ -56,7 +56,9 @@ def main():
                     for route in ['admin/content/?kind=page','admin/media/','admin/account.php']:
                         response=staff.goto(s.base+route,wait_until='networkidle');expect(response.status==200,'Staff browser opens allowed '+route);rendered(staff,f'{width}px '+route)
                     response=staff.goto(s.base+'admin/staff/',wait_until='networkidle');expect(response.status==403,'Direct browser navigation cannot escalate to owner access')
-                    staff.goto(s.base+'admin/staff/recover.php',wait_until='networkidle');rendered(staff,f'{width}px recovery');screenshot(staff,f'staff-{width}-recovery')
+                    staff.goto(s.base+'admin/staff/recover.php',wait_until='networkidle');rendered(staff,f'{width}px recovery')
+                    expect(not staff.locator('[name="company_website"]').is_visible(),'Spam-trap field is not exposed as a visible recovery input')
+                    screenshot(staff,f'staff-{width}-recovery')
                     expect(errors==[],f'{width}px staff workflows have no uncaught JavaScript errors')
                     staff_context.close();owner_context.close()
                 browser.close()
