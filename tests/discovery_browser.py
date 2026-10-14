@@ -31,6 +31,7 @@ def main():
                     page.get_by_role('heading',name='Approved constellation').get_by_role('link').click();page.wait_for_url('**/pages/?slug=approved-story')
                     expect(page.title().startswith('Approved search title'),'Published custom title follows internal navigation')
                     expect(page.locator('meta[property="og:image"]').count()==1 and page.locator('meta[name="robots"]').get_attribute('content')=='index, follow','Share image/robots are replaced rather than left stale')
+                    expect(page.locator('.page-image').evaluate('(image)=>Math.abs(image.getBoundingClientRect().height/image.getBoundingClientRect().width-1)<.02'),'Intrinsic image dimensions do not flatten a responsive photograph')
                     page.goto(s.base+'music/release.php?slug=fixture-release');page.locator('.play-track').first.click();wait_for_audio(page)
                     page.evaluate('window.metadataAudio = document.getElementById("site-audio")')
                     if width==390:
