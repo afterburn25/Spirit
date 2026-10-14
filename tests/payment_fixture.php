@@ -50,9 +50,17 @@ try{
     case 'interrupt':$q=$db->prepare('UPDATE '.Database::table('orders')." SET updated_at=DATE_SUB(UTC_TIMESTAMP(),INTERVAL 6 MINUTE) WHERE id=?");$q->execute([$id]);break;
     case 'maintenance':$out=OrderMaintenance::run(50);break;
     case 'break-receipt':
-        $constraint=Database::table('fixture_paid_receipt');$db->exec('ALTER TABLE '.Database::table('orders').' ADD CONSTRAINT '.$constraint." CHECK(id<>".$id." OR payment_state<>'paid')");
-        try{Orders::pay($id,['nonce'=>str_repeat('a',64),'data_descriptor'=>'COMMON.ACCEPT.INAPP.PAYMENT','data_value'=>'SYNTHETIC_OPAQUE_TOKEN_NOT_A_CARD_0001'],$transport);}catch(Throwable $e){$out=['error'=>get_class($e)];}
-        finally{$db->exec('ALTER TABLE '.Database::table('orders').' DROP CONSTRAINT '.$constraint);}break;
+        // CHECK expressions cannot reference AUTO_INCREMENT columns. Scope the
+        // disposable fault to the immutable order reference, not its numeric id.
+        $reference=$db->quote(getFixtureOrder($id)['reference']);
+        $constraint=Database::table('fixture_paid_receipt');$db->exec('ALTER TABLE '.Database::table('orders').' ADD CONSTRAINT '.$constraint." CHECK(reference<>".$reference." OR payment_state<>'paid')");
+        try{Orders::pay($id,['nonce'=>str_repeat('a',64),'data_descriptor'=>'COMMON.ACCEPT.INAPP.PAYMENT','data_value'=>'SYNTHETIC_OPAQUE_TOKEN_NOT_A_CARD_0001'],$transport);}
+        catch(Throwable $e){
+            if(!$e instanceof \PDOException||!in_array((int)($e->errorInfo[1]??0),[3819,4025],true)){throw $e;}
+            $out=['error'=>get_class($e),'fault_installed'=>true,'driver_code'=>(int)$e->errorInfo[1]];
+        }
+        finally{$db->exec('ALTER TABLE '.Database::table('orders').' DROP CONSTRAINT '.$constraint);}
+        if(!($out['fault_installed']??false)){throw new RuntimeException('Expected enforced CHECK did not reject the receipt.');}break;
     case 'queue-break':$db->exec('RENAME TABLE '.Database::table('mail_queue').' TO '.Database::table('mail_queue_fixture_offline'));break;
     case 'queue-restore':$db->exec('RENAME TABLE '.Database::table('mail_queue_fixture_offline').' TO '.Database::table('mail_queue'));break;
     case 'prepare':
