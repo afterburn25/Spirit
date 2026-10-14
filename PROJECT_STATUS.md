@@ -1,27 +1,23 @@
-# Project status — 0.9.0-dev.12
+# Project status — 1.0.0-rc.1 preparation
 
-**Verified application:** eefab5ab98b27397a5be48ba311bf9b9ffe869fb, tree7efabaa53a80676f04c841706f436c286fa7ba35. On2026-10-14 the full workflow38632645453, focused maintenance38632645480 and three-engine storefront workflow38632644731 all completed successfully. This final documentation-only descendant changes no runtime, assets, migrations, workflows or tests. Read live main before further changes.
+The user requested continuing to 1.0. Candidate source is in preparation; exact branch verification is pending. Do not promote or claim final 1.0 until recorded evidence supports it. Baseline main **5e39af30e1c9b040fbb1e012046dda9db44b38c6** passed its exact full workflow **38634268315** after the prior response; its earlier tested application/gallery results remain in Git history.
 
-## Completed in this pass
+## Implemented for this candidate
 
-- Product thumbnails now select a complete responsive image with its own source candidates, intrinsic dimensions and alternative text, instead of changing only a fallback URL and leaving the old photograph displayed.
-- Slow or failed images leave the previous photo visible. A delayed earlier response cannot replace the most recent choice. Loading/selection/failure are announced without losing keyboard focus or entered quantity.
-- Portrait main photos remain inside the intended square gallery, and portrait thumbnails no longer overflow their cells or overlap the status text. Complete images are contained, not cropped to disguise the defect.
-- Native approved-position photo links work when JavaScript is disabled. Enhanced selection preserves the existing audio node and product canonical metadata and does not add a Back-history entry per thumbnail.
-- A new populated storefront matrix covers Chromium, Firefox and WebKit at1440px,390px and320px, with native fallback, failed loads, delayed responses, form/history/audio preservation and unpublished-media withdrawal.
+Native mobile navigation and authorized photo links work without JavaScript. Published audio tracks gain native controls with no autoplay or preload; native full-page navigation does not promise persistent audio or unsaved form preservation. Enhanced navigation/dialog/player/gallery behavior remains, including ordinary modified photo-link actions.
 
-The previously interrupted dev11 work was already saved on main21e9bd6f and its exact full run38591939605 passed. Its consolidated Launch checks dashboard and actionable413 upload feedback are included in this cumulative build, alongside all earlier website/admin/store/maintenance features.
+Portrait catalog cards are constrained at both flex-item and grid-track boundaries, with complete contained images. Prices keep their intended emphasis and phone filter/quantity inputs use16px entry text. Image-only release/product links have useful escaped names even without artwork.
 
-## Verification
+Published Pages with privacy/terms/shipping/returns URL names appear in footer policy navigation. Drafts remain private; unpublishing withdraws the endpoint and the next supported navigation refreshes the footer. No legal text, compliance approval or new schema is invented.
 
-575 distinct pure assertions (544 retained +31 gallery) and12 packaging tests passed. Local syntax checking covered213 PHP/inc files, JavaScript and Python. The exact full Actions workflow passed both PHP8.2/MariaDB11.4 and PHP8.4/MySQL8.4, all13 retained Chromium workflows and actual Apache HTTPS access-rule tests. The dedicated gallery run completed212 browser/integration assertions per engine, and fifteen current renders were inspected. See TEST_RESULTS.md for exact jobs, artifacts, test corrections and limits.
+New tests cover public routes, structural names, identifiers, phone control sizes, card geometry, native menu/music/photo/booking, and checkout review/cancellation in Chromium/Firefox/WebKit, at root and subfolder paths. Existing SQL/HTTP,13 Chromium workflows, three-engine product-gallery and recovery suites remain required. Synthetic updater versions now advance from the current source; production forward-only checks are unchanged.
 
-Original configuration/database/media are not modified by photo selection. Six migrations, five pinned recovery/access files and the manual installer bytes remain unchanged. Earlier dev9 and the distinct delivered dev10-preview deployment paths remain compatible. Final package hashes and canonical-source comparisons are recorded with the delivery.
+## Verification state
 
-## Fixed installer and hosting scope
+Local checks:215 PHP/inc syntax files,591 distinct pure assertions (575 retained +16 public-access) and12 packaging tests passed; a Chromium CSS reproduction confirmed the required flex-item minimum fix. Exact Actions candidate runs are pending at this preparation checkpoint. The local container lacks PDO MySQL/GD/cURL/ZIP; no local end-to-end success is claimed.
 
-A2 Hosting with cPanel only. Manual existing database, no20i, no setup code or PRIVATE-SETUP receipt, no cPanel API token, no automatic database/user creation. One-page checks/database/owner/correction/completion, private writes, independent locks and verified self-deletion remain. PHP cURL/ZIP notices remain separate and truthful; the application has not enabled either on the user's server.
+## Scope preserved and final gates
 
-## Still before v1.0
+A2/cPanel one-page manual database installer; no20i/token/setup code/automatic creation. Approved design and external venue ticket sellers. Six migrations, five pinned recovery/access files and installer bytes stay unchanged; original private configuration/encryption secret/data/media and offline recovery keys remain authoritative. Existing sites upgrade rather than reinstall.
 
-Approved production-resolution artwork and genuine band/store content, broader populated-site accessibility/performance/security and catalog/card/native-control review, actual protected A2 staging, receiving-mailbox and genuine merchant sandbox acceptance, recovery/operating-scope review and final owner approval remain. Linux browser-engine tests are not physical-device/native-Safari or audible-speaker certification. No live deployment, real charge, mailbox delivery or hosting change was performed. This is a tested development checkpoint, not accepted v1.0.
+Final1.0 still needs real A2/mailbox/merchant sandbox/recovery acceptance, approved production artwork and genuine content/policies, real-device review and owner approval. No production service or hosting setting was changed. See docs/RELEASE_CANDIDATE.md.

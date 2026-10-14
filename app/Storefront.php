@@ -50,6 +50,6 @@ final class Storefront
     public static function card(array $product): void
     {
         $data=$product['data'];$variants=$product['variants'];$prices=array_map(fn($v)=>(int)$v['price_cents'],$variants);$url=app_url('shop/product.php?slug='.rawurlencode($product['slug']));
-        echo '<article class="merch-card"><a class="merch-art" href="'.e($url).'">'.PublicSite::image((int)($data['image_ids'][0]??0),$data['name']).'</a><p class="eyebrow">OFFICIAL MERCH</p><h2><a href="'.e($url).'">'.e($data['name']).'</a></h2><p class="merch-price">'.($prices?'From '.e(Money::format(min($prices))):'Currently unavailable').'</p><a class="button wide" href="'.e($url).'">Choose options →</a></article>';
+        echo '<article class="merch-card"><a class="merch-art" href="'.e($url).'" aria-label="View product: '.e($data['name']).'">'.PublicSite::image((int)($data['image_ids'][0]??0),$data['name']).'</a><p class="eyebrow">OFFICIAL MERCH</p><h2><a href="'.e($url).'">'.e($data['name']).'</a></h2><p class="merch-price">'.($prices?'From '.e(Money::format(min($prices))):'Currently unavailable').'</p><a class="button wide" href="'.e($url).'">Choose options →</a></article>';
     }
 }

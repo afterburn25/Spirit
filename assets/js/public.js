@@ -17,6 +17,7 @@
   const announce = (message, error = false) => { status.textContent = message; status.className = error ? 'player-error' : 'visually-hidden'; };
   const menu = open => { nav.classList.toggle('is-open', open); toggle.setAttribute('aria-expanded', String(open)); };
   toggle.addEventListener('click', () => menu(toggle.getAttribute('aria-expanded') !== 'true'));
+  document.documentElement.classList.add('public-enhanced');
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { menu(false); toggle.focus(); } });
   const paintPlayback = () => {
     const playing = !audio.paused;
@@ -105,6 +106,9 @@
       document.getElementById('site-content').replaceWith(next);
       next.setAttribute('aria-busy', 'false');
       const nextNav = documentNext.getElementById('public-nav'); if (nextNav) nav.innerHTML = nextNav.innerHTML;
+      // Published policy withdrawal must also update a persistent public shell.
+      const nextFooter = documentNext.querySelector('.site-footer');
+      if (nextFooter) document.querySelector('.site-footer')?.replaceWith(nextFooter);
       document.title = documentNext.title;
       for (const selector of ['meta[name="description"]', 'meta[name="robots"]', 'link[rel="canonical"]', 'meta[property^="og:"]', 'meta[name^="twitter:"]', 'script#page-structured-data[type="application/ld+json"]']) {
         document.querySelectorAll(selector).forEach(node => node.remove());
@@ -128,7 +132,7 @@
       play(queue.findIndex(item => item.trackId === track.dataset.trackId)); return;
     }
     const photo = e.target.closest('.photo-open');
-    if (photo) { photoOpener = photo; const img = document.getElementById('dialog-photo'); img.src = photo.dataset.photo; img.alt = photo.dataset.caption; document.getElementById('dialog-caption').textContent = photo.dataset.caption; dialog.showModal(); return; }
+    if (photo && !e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && typeof dialog.showModal === 'function') { e.preventDefault(); photoOpener = photo; const img = document.getElementById('dialog-photo'); img.src = photo.dataset.photo; img.alt = photo.dataset.caption; document.getElementById('dialog-caption').textContent = photo.dataset.caption; dialog.showModal(); return; }
     const link = e.target.closest('a[href]');
     if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || link.target || link.hasAttribute('download')) return;
     const url = new URL(link.href, location.href);

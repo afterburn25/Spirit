@@ -60,6 +60,8 @@ jobs:
           php tests/foundation_paths.php
           php tests/manual_installer_unit.php
           php tests/launch_unit.php
+          php tests/gallery_unit.php
+          php tests/public_access_unit.php
           php tests/content_schema.php
           php tests/content_history_unit.php
           php tests/discovery_unit.php

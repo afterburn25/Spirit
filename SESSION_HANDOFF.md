@@ -1,31 +1,13 @@
-# Resume here — product-gallery quality, dev12
+# Resume here — 1.0.0-rc.1 preparation
 
-Repository **afterburn25/Spirit**, main authoritative. Current version **0.9.0-dev.12**. Read live refs, AGENTS.md, PROJECT_STATUS.md, docs/TEST_RESULTS.md and docs/STOREFRONT_QUALITY.md before editing. Preserve concurrent changes; never force-push.
+Repository **afterburn25/Spirit**; main authoritative. Inspect live refs, AGENTS.md, PROJECT_STATUS.md, docs/TEST_RESULTS.md and docs/RELEASE_CANDIDATE.md before work. No force pushes or lost concurrent changes.
 
-## Current application checkpoint
+Baseline main **5e39af30e1c9b040fbb1e012046dda9db44b38c6**, tree0677090b90ac8604a356f4176c29788b8f56627a, was reconstructed from its canonical source artifact. Exact-main full38634268315 is now verified successful. Dev11 diagnostics/upload feedback and dev12 gallery corrections remain cumulative.
 
-Application **eefab5ab98b27397a5be48ba311bf9b9ffe869fb**, tree **7efabaa53a80676f04c841706f436c286fa7ba35**. Required full run38632645453, focused38632645480 and three-engine storefront38632644731. Consult TEST_RESULTS.md for the recorded conclusions; a source artifact is not application verification. A later documentation-only descendant must have identical runtime/assets/schema/workflows/tests to this application.
+Candidate adds app/PublicAccess.php for published-policy navigation and noscript audio, native mobile menu/photo fallback, portrait catalog sizing and readable price/filter controls. public.js refreshes policy footer on supported navigation. Do not publish fixture/legal/band content or add unapproved artwork. All591 pure assertions,12 packaging tests and215 syntax checks passed locally; exact candidate Actions verification is pending. Reconcile every failing test before promotion. Test fixtures use a dynamically newer version, not obsolete0.9-dev.99, without weakening the updater.
 
-The earlier interrupted main write succeeded: main21e9bd6f was the verified dev11 baseline, with exact-main full38591939605. Continue cumulatively; do not restart from dev9 or the distinct local dev10 preview. Launch checks/413 upload feedback and all previously delivered features remain.
+Run the complete regression suite and expanded storefront workflow, inspect rendered evidence, update status/test results/roadmap/changelog, verify canonical source tree and all cumulative payload hashes, then deliver an immutable candidate ZIP. Keep source artifact results separate from application verification. Local SQL/GD/cURL/ZIP are missing; use actual Actions evidence for integration. Container paths must be re-established rather than assumed in future sessions.
 
-## What changed and must be preserved
+A2/cPanel only, manual database, one page, no setup code/token/automatic creation/20i. Keep approved cinematic navy/gold/blue design, external venue ticket sellers, six migrations, five pinned recovery/access files and installer bytes unchanged. Preserve configuration/encryption secret/data/media and separate recovery keys. No reinstall of an existing site or automatic production enablement.
 
-app/ProductGallery.php renders approved-array positional links and complete responsive source templates. The photo query selects only a position1–8 in that published product, not an arbitrary media ID. assets/js/commerce.js imports and decodes the complete image, checks the current per-gallery request identity, preserves the previous photograph on failure and prevents stale completion overwrites. It retains keyboard focus, entered quantity, variant controls, canonical metadata and the audio node. Enhanced selection replaces the current history entry rather than filling Back history.
-
-Native target_self links intentionally avoid the generic persistent-navigation handler and work without JavaScript. Native full-page navigation does not promise preservation of unsaved fields or uninterrupted audio. All ordinary product/media publication permissions remain. PublicSite has separate main/thumbnail sizing hints. Grid minimums keep portraits within stable square main and small thumbnail cells without cropping or hiding overflow.
-
-## Verification discipline
-
-575 distinct pure assertions =544 retained +31 gallery checks;12 packaging tests and213 PHP/inc syntax checks. Dedicated storefront tests create actual synthetic catalog/media fixtures and run Chromium/Firefox/WebKit at1440/390/320 plus390 no-JavaScript. Each engine completed212 browser/integration assertions. Full regression retains both SQL engines, all13 Chromium suites and Apache HTTPS. See TEST_RESULTS.md for exact job/artifact identities and whether an additional exact-main rerun has completed.
-
-Do not restore invalid test assumptions. A warm thumbnail may reuse a larger decoded image: measure an unselected cold thumbnail. A cache hit is not a new network request: use a fresh context for delayed-response tests. Observe image readiness synchronously in a page with JavaScript disabled rather than waiting indefinitely for document Promise callbacks. While a response is deliberately held, do not wait for network-idle before releasing it. Tests still require real loaded currentSrc/dimensions, real held responses and unchanged last selection after release.
-
-The CI PulseAudio sink supplies Firefox's media backend only on the disposable runner; never add a host-side audio-service requirement or fake playback state. Linux engine verification is not physical-device/native-Safari or audible-speaker certification. Fifteen storefront screenshots were inspected; no test products belong in a deployment database.
-
-## Fixed user decisions and next work
-
-A2/cPanel manual database only, no20i, no setup code/PRIVATE-SETUP, no hosting token or automatic database/user creation. One-page checks/database/owner/correction/completion, protected private writes, permanent locks and safe self-deletion remain unchanged. Keep six migrations, five pinned access/recovery files, original configuration/encryption secret/data/media and separate backup/update recovery keys. Existing sites upgrade rather than recreate databases or remove locks.
-
-Continue broader populated-site review, including catalog/card photo layouts and native form appearance across browsers, approved high-resolution artwork and genuine band/store content. Complete protected A2/PHP extension/private-root/ACL/cleanup/scheduled-task staging, actual receiving-mailbox and genuine merchant sandbox acceptance when authorized access is available. No test can substitute for those gates or final owner approval of v1.0. Do not silently enable production services.
-
-Before delivering, compare canonical Git source and application bytes, preserve every earlier deployment path, verify manifest hashes and package an immutable Full ZIP with instructions/report. No setup receipt. Container paths from this session must be re-established in future sessions; Git is the source of truth. Local PHP lacks PDO MySQL/GD/cURL/ZIP, so real SQL/HTTP/browser/Apache evidence comes from Actions, not local lint.
+The candidate supports staging acceptance toward final1.0; it is not a false final launch. Actual protected A2, receiving mailbox, genuine merchant sandbox, recovery/operating-scope, master artwork/content/policy and real-device owner approval still require evidence. Read docs/LAUNCH_CHECKLIST.md. Do not treat a green automated run or this version number as those approvals.

@@ -1,19 +1,19 @@
-# Cumulative roadmap — 0.9.0-dev.12
+# Cumulative roadmap — 1.0.0-rc.1 preparation
 
-Current quality pass fixes complete responsive product-photo selection, portrait container geometry, failure/stale-response recovery, keyboard/native fallback and adds Chromium/Firefox/WebKit storefront verification. Consult TEST_RESULTS.md for exact source/run evidence. Version numbers are not project-completion percentages.
+The user requested completion toward1.0. Candidate preparation closes remaining public-access/catalog/policy-navigation gaps and adds broader three-browser root/subfolder testing. Exact candidate results are pending. A staging candidate is distinct from a finally accepted live website.
 
-| Target | Scope | Current state |
+| Target | Scope | State |
 |---|---|---|
-| 0.1 | One-page code-free manual installer, private runtime, owner, self-deletion/lock | Implemented and regression-tested. Actual A2 account acceptance remains. No setup code, token or automatic DB creation. |
-| 0.2 | Approved responsive public design | Implemented. Production master artwork and approved populated-site review remain. |
-| 0.3 | CMS, band/media/press, search and private revision history | Implemented and tested, including publication boundaries and append-only private restoration. |
-| 0.4 | Releases/tracks and persistent local audio | Implemented and browser-tested, including navigation to merchandise in the new engine matrix. |
-| 0.5 | Shows and external venue ticket links | Implemented and tested; no native ticket sales or admission scanning. |
-| 0.6 | Booking, transactional email and newsletter | Implemented and tested. Actual receiving-mailbox/provider acceptance remains. |
-| 0.7 | Catalog, variants, stock, cart and customers | Implemented. Multi-photo selection and portrait gallery layouts corrected and tested across three engines. Initial addresses remain US-only. |
-| 0.8 | Token-only checkout, orders and fulfillment | Application boundaries tested. Genuine merchant sandbox acceptance remains. |
-| 0.9 | Staff, backups, upgrades, retention, discovery and quality | Core modules and passive Launch checks/413 upload feedback implemented. Current gallery quality pass adds to, not replaces, broader populated-site accessibility/performance/security review. |
-| 1.0.0-rc.N | Complete staging and acceptance candidate | Not reached. |
-| 1.0.0 | Complete explicitly accepted release | Not released. |
+|0.1|One-page manual A2 installer, private runtime, owner, deletion/lock|Implemented and previously regression-tested; installer bytes unchanged. Actual A2 acceptance remains.|
+|0.2|Approved responsive design|Implemented; candidate fixes native mobile navigation. Production master-art and actual-content approval remain.|
+|0.3|CMS, band/media/press, search/history|Implemented; native photo access and published-policy footer added.|
+|0.4|Releases/tracks/persistent audio|Implemented; no-JavaScript native audio fallback added without autoplay.|
+|0.5|Shows and external venue ticket links|Implemented; no native ticket sales/scanning.|
+|0.6|Booking/email/newsletter|Implemented; native booking enters expanded review. Actual receiving-mailbox acceptance remains.|
+|0.7|Catalog/variants/stock/cart/customers|Implemented; portrait-card geometry, price emphasis and phone controls corrected. Initial addresses remain US-only.|
+|0.8|Token-only payment/orders/fulfillment|Application boundaries tested in prior checkpoint; new cross-engine review/cancellation checks. Genuine merchant sandbox remains.|
+|0.9|Staff/backups/upgrades/retention/discovery/quality|Implemented; full regression required for candidate changes. Same-schema update and same-instance restore limits remain.|
+|1.0.0-rc.1|Staging candidate and release review|In preparation; exact automated verification pending.|
+|1.0.0|Complete explicitly accepted release|Not released; real host/provider/content/recovery/owner evidence still required.|
 
-Packages are cumulative and immutable. Preserve prior configuration/data/media and recovery keys. Six migrations and five pinned recovery/access files remain unchanged; browser upgrades remain same-schema and guarded restoration same-instance. A2/cPanel only, no20i. Use LAUNCH_CHECKLIST.md for actual host, provider, content and owner acceptance; fixtures and configured settings are not launch approval.
+Preserve earlier payload paths, six migrations, five pinned recovery/access files, installer bytes and all existing private configuration/data/media/recovery keys. No20i/token/setup code/automatic DB. Candidate packages are cumulative and immutable. See RELEASE_CANDIDATE.md, TEST_RESULTS.md and LAUNCH_CHECKLIST.md; version numbers are not completion percentages.

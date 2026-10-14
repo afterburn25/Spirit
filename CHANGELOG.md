@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0-rc.1 — preparation, exact verification pending
+
+Add native mobile navigation, authorized photo links and non-preloading native track controls for visitors without JavaScript; retain enhanced dialogs/player and ordinary modified-link actions. Bound portrait catalog cards, restore product-price emphasis and enlarge mobile filter/quantity text. Give artwork-free image links escaped names. Surface only published privacy/terms/shipping/returns Pages in footer navigation and refresh withdrawal during persistent navigation. Add broader three-engine root/subfolder public/form/review tests. Update synthetic upgrade versions to remain newer than the current source instead of hard-coding a pre-1.0 version; do not alter production updater rules. No installer, schema, pinned recovery or production service changes. Final 1.0 acceptance is still pending.
+
 ## 0.9.0-dev.12 — 2026-10-14 — responsive merchandise gallery
 
 Corrected product-photo selection retaining the previous image's responsive srcset. Selection now changes the complete decoded image with its own dimensions and alternative text. Failed loads preserve the previous photograph; delayed old responses cannot overwrite a later choice. Preserve keyboard focus, entered quantity, variant controls, canonical metadata and the audio node. Native approved-position links work without JavaScript, and enhanced photo selection does not add photo-only Back entries.

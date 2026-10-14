@@ -1,4 +1,12 @@
-# Owner guide — cumulative 0.9.0-dev.11
+# Owner guide — 1.0.0-rc.1
+
+## Public-access additions
+
+In Pages, create and explicitly publish policy content with URL names `privacy`, `terms`, `shipping` or `returns` to show the corresponding footer links. Draft policies remain private; unpublish to withdraw. Supply and approve the actual policy text; the software does not generate legal terms or certify compliance.
+
+Without JavaScript, visitors can use the expanded mobile navigation, open authorized full-size photographs, listen using native audio controls and submit ordinary booking forms. Persistent playback across navigation and secure card tokenization still require JavaScript. No automatic playback or background recording download is added.
+
+## Owner access
 
 Sign in with the owner created during browser installation. No public administrator signup/default password exists. Back up before updates and preserve the private installation secret. See INSTALLATION.md for fresh versus existing installations.
 

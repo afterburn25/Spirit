@@ -13,7 +13,7 @@ jobs:
   gallery:
     name: Storefront / ${{ matrix.browser }}
     runs-on: ubuntu-22.04
-    timeout-minutes: 12
+    timeout-minutes: 18
     strategy:
       fail-fast: false
       matrix:
@@ -65,6 +65,10 @@ jobs:
           php tests/gallery_unit.php
           set -o pipefail
           "$RUNNER_TEMP/spirit-browser/bin/python" tests/gallery_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-gallery.log"
+      - name: Review release pages, native access and checkout without charging
+        run: |
+          set -o pipefail
+          "$RUNNER_TEMP/spirit-browser/bin/python" tests/release_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-release.log"
       - name: Preserve synthetic storefront renders
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -73,5 +77,6 @@ jobs:
           path: |
             ${{ runner.temp }}/spirit-gallery-screens/*.png
             ${{ runner.temp }}/spirit-gallery.log
+            ${{ runner.temp }}/spirit-release.log
           if-no-files-found: ignore
           retention-days: 7

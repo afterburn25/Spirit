@@ -24,9 +24,14 @@ def fixture(s, action, values=None):
     return json.loads(result.stdout or '{}')
 
 
+# A fixture must remain newer as the application moves from dev to RC/final.
+_core=re.match(r'^(\d+)\.(\d+)\.(\d+)',(ROOT/'VERSION').read_text().strip())
+if not _core:raise RuntimeError('Invalid source version for update fixture')
+TEST_UPDATE_VERSION=f'{_core[1]}.{_core[2]}.{int(_core[3])+1}-dev.999'
+
 def package_bytes(archive, mode='good'):
     with zipfile.ZipFile(archive) as z:files={name:z.read(name) for name in z.namelist() if name!='docs/PACKAGE-MANIFEST.json'}
-    version='0.9.0-dev.99';files['VERSION']=(version+'\n').encode()
+    version=TEST_UPDATE_VERSION;files['VERSION']=(version+'\n').encode()
     files['app/UpgradeFixture.php']=b'<?php declare(strict_types=1); namespace Spirit; final class UpgradeFixture {}\n'
     files['docs/UPGRADE-FIXTURE.txt']=b'Isolated test version, not a real release.\n'
     if mode=='broken':files['includes/bootstrap.php']=files['includes/bootstrap.php'].replace(b"const SPIRIT_ROOT",b"throw new RuntimeException('Synthetic failed application startup');\nconst SPIRIT_ROOT")
@@ -91,7 +96,7 @@ def journey(s, archive):
     job,key=recovery_receipt(s);expect((s.root/'VERSION').read_text()==original and job['state']=='staged','Staging does not replace live code')
     action(s,'apply',id=job['id'],saved_receipt='0');expect(fixture(s,'state')['state']=='staged','Installation requires recovery-receipt acknowledgement')
     action(s,'apply',id=job['id'],saved_receipt='1');job=fixture(s,'state')
-    expect(job['state']=='awaiting_confirmation' and (s.root/'VERSION').read_text().strip()=='0.9.0-dev.99','Actual files are replaced and new application opens in verification mode')
+    expect(job['state']=='awaiting_confirmation' and (s.root/'VERSION').read_text().strip()==TEST_UPDATE_VERSION,'Actual files are replaced and new application opens in verification mode')
     expect(job['pre_backup'] is not None,'A real encrypted pre-code-update data snapshot is retained')
     expect(Client(s.base).request('')[0]==503,'Persistent update marker blocks public requests after applying process exits')
     expect(rescue(s,job,'0'*64)[0]==200 and fixture(s,'state')['state']=='awaiting_confirmation','Wrong recovery key cannot restore code')

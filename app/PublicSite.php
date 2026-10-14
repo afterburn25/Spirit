@@ -41,7 +41,7 @@ final class PublicSite
     public static function text(string $text): string {return nl2br(e($text));}
     public static function releaseCard(array $release): void
     {
-        echo '<article class="release-card"><a href="'.e(self::url($release)).'" class="release-art">'.self::image((int)$release['data']['cover_id'],$release['title']).'<span class="art-action" aria-hidden="true">▶</span></a><p class="eyebrow">'.e(strtoupper($release['data']['release_type'])).($release['data']['release_date']?' / '.e(substr($release['data']['release_date'],0,4)):'').'</p><h3><a href="'.e(self::url($release)).'">'.e($release['title']).'</a></h3><a class="text-link" href="'.e(self::url($release)).'">Explore release <span aria-hidden="true">→</span></a></article>';
+        echo '<article class="release-card"><a href="'.e(self::url($release)).'" class="release-art" aria-label="Explore release: '.e($release['title']).'">'.self::image((int)$release['data']['cover_id'],$release['title']).'<span class="art-action" aria-hidden="true">▶</span></a><p class="eyebrow">'.e(strtoupper($release['data']['release_type'])).($release['data']['release_date']?' / '.e(substr($release['data']['release_date'],0,4)):'').'</p><h3><a href="'.e(self::url($release)).'">'.e($release['title']).'</a></h3><a class="text-link" href="'.e(self::url($release)).'">Explore release <span aria-hidden="true">→</span></a></article>';
     }
     public static function ticket(array $event): void
     {
@@ -58,7 +58,7 @@ final class PublicSite
     {
         $tracks=Content::tracks($release['id']);
         if(!$tracks){echo '<div class="empty-state compact"><p>On-site tracks have not been published for this release. Verified streaming links appear alongside the release when available.</p></div>';return;}
-        echo '<ol class="track-list">';foreach($tracks as $index=>$track){$d=$track['data'];echo '<li><button type="button" class="play-track" data-audio="'.e(Media::url((int)$d['audio_id'])).'" data-track-id="'.$track['id'].'" data-title="'.e($track['title']).'" data-release="'.e($release['title']).'" aria-label="Play '.e($track['title']).'"><span class="play-circle" aria-hidden="true">▶</span><span class="track-number">'.($index+1).'.</span><span class="track-title">'.e($track['title']).'</span><span class="track-duration">'.e($d['duration']).'</span></button></li>';}echo '</ol><p class="small muted">Select a track to listen. Playback continues while you browse supported public pages.</p>';
+        echo '<ol class="track-list enhanced-tracks">';foreach($tracks as $index=>$track){$d=$track['data'];echo '<li><button type="button" class="play-track" data-audio="'.e(Media::url((int)$d['audio_id'])).'" data-track-id="'.$track['id'].'" data-title="'.e($track['title']).'" data-release="'.e($release['title']).'" aria-label="Play '.e($track['title']).'"><span class="play-circle" aria-hidden="true">▶</span><span class="track-number">'.($index+1).'.</span><span class="track-title">'.e($track['title']).'</span><span class="track-duration">'.e($d['duration']).'</span></button></li>';}echo '</ol><p class="small muted enhanced-tracks">Select a track to listen. Playback continues while you browse supported public pages.</p>';PublicAccess::nativeTracks($tracks);
     }
     public static function render(string $view,?array $preview=null,array $context=[]): void
     {
