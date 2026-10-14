@@ -1,31 +1,31 @@
 # Changelog
 
-## 0.9.0-dev.6 — search, sharing and published discovery (verification pending)
+## 0.9.0-dev.6 — verified published discovery
 
-Optional published metadata and sharing artwork, configured canonical URLs, Unicode-safe descriptions, owner indexing toggle, public search/pagination, XML sitemap parts and former published-slug redirects. Explicit-public-event JSON-LD uses supplied location/date/status and no invented prices/ratings. Internal navigation replaces stale social/schema/robots tags while audio continues; public images reserve actual dimensions and phone Escape returns focus. No migration or pinned access/recovery files changed.25 new pure checks, root/subfolder SQL/HTTP regressions and eleventh browser workflow added; current full execution pending.
+Application af43d153 passed full38518823266 and focused38518823277. Both databases, eleven Chromium workflows and actual ApacheHTTPS passed; six discovery renders inspected from90-image artifact. Documentation-only verification record changes no tested code/assets/schema/tests.
 
-## 0.9.0-dev.5 — verified content history and large-library controls
+Optional published SEO/share fields, canonical URLs, approved share images, owner indexing controls, public search/filter/pagination, bounded XML sitemap/ETag/HEAD and safe historic published-slug redirects. Explicit-public-event JSON-LD contains supplied facts only. Internal navigation updates metadata while audio continues. Intrinsic dimensions and mobile Escape focus preserved.25 new pure checks plus SQL/HTTP/browser tests. See DISCOVERY_CHECKPOINT.md.
 
-Application 9546b7c passed full Actions **38513423793** and focused maintenance **38513423736**. Both database jobs, ten Chromium suites and actual Apache HTTPS passed. Six new screens inspected from 84-render artifact 11870239075. Canonical source compared with local implementation. This documentation-only update changes no application code, schema, assets or tests. See CONTENT_HISTORY_CHECKPOINT.md.
+## 0.9.0-dev.5 — verified private history and large-library controls
 
-Add 25-row literal-search/visibility/sort pagination, private field-level revision comparison and append-only transactional restore. Preserve published snapshot/date/media visibility and later history. Recheck locked staff capability/session, reject malformed typed fields and damaged source files, and keep older selected media/releases in bounded editors. Record new draft sort order; legacy history does not invent missing order. 39 pure checks plus root/subfolder large-library/history/role and desktop/mobile tests. No migration changes or production-readiness claim.
+Application9546b7c passed full38513423793 and focused38513423736; exact-main11a5038 passed38514355067. Search/filter/sort/pagination, escaped revision comparison and append-only private restore preserve published snapshots/media and later history.39 pure checks plus large-library/role/replay/browser tests. See CONTENT_HISTORY_CHECKPOINT.md.
 
-## 0.9.0-dev.4 — conservative technical retention
+## 0.9.0-dev.4 — conservative retention
 
-Owner-reviewed bounded cleanup of expired technical tokens/limits and order-free bags; clear old accepted/cancelled message bodies while preserving delivery/idempotency metadata. Recognized old private temporary files only, with active/unknown/symlink/recovery data preserved. Optional CLI cleanup remains owner-opt-in and is not a created hosting schedule. 17 pure filesystem/policy units plus SQL rollback/batch/privacy and ninth responsive browser suite. Verified cumulatively in full 38510178934 and exact-main 38511337940.
+Owner-reviewed bounded technical cleanup, expired records and recognized temporary files; preserve active/unknown/recovery/business data and operation metadata.17 pure checks plus SQL/HTTP/browser tests. Exact-main2a9497e passed38511337940.
 
-## 0.9.0-dev.3 — guarded browser code ZIP upgrades
+## 0.9.0-dev.3 — browser code ZIP upgrades
 
-Owner-trusted package staging, bounded ZIP streams, path/type/duplicate/hash/PHP syntax and immutable schema/kernel checks, write probes, private rollback originals and encrypted pre-update data snapshots, durable maintenance journal, separate owner confirmation and code-only rollback preserving live DB rows. Independent pinned recovery restores originals when replaceable bootstrap cannot start. Same-schema only; no automatic SQL rewind or publisher-signature claim. 34 pure checks and real SQL/HTTP/interruption/desktop/mobile tests. Verified cumulatively in .9dev4; see MAINTENANCE_CHECKPOINT.md.
+Same-schema package validation, private rollback originals, encrypted pre-update snapshot, durable journal, new-application verification and pinned independent recovery.34 pure checks plus interruption/HTTP/browser tests. No SQL rewind or publisher-signature claim. See MAINTENANCE_CHECKPOINT.md.
 
-## 0.9.0-dev.2 — encrypted snapshots and guarded restore
+## 0.9.0-dev.2 — encrypted backup/guarded restore
 
-App 7d22bf8 passed 38502208276 on both DB engines and seven browser suites. Four new backup screens inspected. Encrypted DB/config/media snapshots, authenticated verification, separate recovery key, validated import, same-instance/schema guarded restore, pre-restore snapshot, media repair and SQL rollback. 25 stream/schema units. No cross-host disaster recovery claim.
+App7d22bf8 passed38502208276. Encrypted bounded DB/config/media snapshots, separate recovery key, verified import and same-instance/schema guarded restore with media repair and SQL rollback.25 pure checks. See BACKUP_CHECKPOINT.md.
 
-## 0.9.0-dev.1 — staff/access
+## 0.9.0-dev.1 — staff permissions
 
-Owner/content-editor/store-manager capabilities, confirmed invitations/recovery, session/credential race checks, fulfillment-only views and audit history. 38 capability units and staff SQL/browser journeys. Recovery-honeypot layout fixed and tested.
+Owner/editor/store-manager capabilities, confirmed invitations and recovery, session/credential race checks, fulfillment-only views and audit history.38 pure checks plus SQL/browser workflows.
 
 ## 0.8.0-dev.1 and earlier
 
-Exact-main .8 eb995810 passed 38493945223. Catalog/accounts, booking/email/newsletter, public CMS/music/shows and shared-host installer remain cumulative. Payment provider boundaries are synthetic in CI; no genuine merchant transaction is implied. Earlier detailed evidence remains in Git history and TEST_RESULTS.md.
+Exact-main .8eb995810 passed38493945223. Token-only checkout/orders/fulfillment, catalog/accounts, booking/mail/newsletter, public CMS/music/shows and browser installer remain cumulative. SDK/payment-provider boundaries are synthetic in CI. Earlier detailed evidence remains in Git history. No accepted v1.0 or live deployment is claimed.

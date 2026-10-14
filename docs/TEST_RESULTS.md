@@ -1,15 +1,17 @@
 # Test evidence
 
-## Current 0.9.0-dev.6 — full execution pending
+## 0.9.0-dev.6 — full verification passed
 
-25 discovery pure checks plus all existing pure suites and 11 packaging tests pass locally. New SQL/HTTP root/subfolder checks cover published-only metadata/search/sitemap projections, draft and private-data isolation, historic redirect precedence/ambiguity, event schema conditions, owner indexing controls and bounded search pages. An eleventh Chromium suite exercises desktop/mobile search, settings and metadata updates while real audio continues. Current CI and six-render inspection are pending; no changed-code full pass is claimed yet.
+Application **af43d1539994daa2b03f0eaaea1b2ec9c51066aa** passed full **38518823266** and focused maintenance **38518823277**. Both database environments, eleven Chromium workflows and actual Apache HTTPS passed. See DISCOVERY_CHECKPOINT.md for exact source, jobs and artifact evidence. This documentation descendant changes no tested runtime/assets/schema/tests.
 
-## Verified preceding checkpoint
+25 new discovery pure checks; root/subfolder SQL/HTTP privacy, canonical URL, published search, sitemap, historical redirects and event-schema checks; desktop/mobile discovery and metadata navigation while real audio continues. Six new renders inspected from90-PNG artifact11873262102. Source artifact11872848844 downloaded and archive digest verified.
 
-Exact-main **11a50387514f0f744363a660c0ff86f3d79024ff**, .9dev5, passed full **38514355067**. Application **9546b7c298b462d7457c0e911a71bf5fedb5bc81** passed **38513423793** and focused maintenance **38513423736**. Both database engines, ten Chromium suites and actual Apache HTTPS passed. See CONTENT_HISTORY_CHECKPOINT.md for source comparison and six new history renders from its84-image synthetic artifact.
+All earlier pure/package, SQL/HTTP, permission/concurrency, TLS transport, backup/restore, ZIP recovery, retention, content history and browser suites remain in the full matrix. External SDK/gateway boundaries are synthetic, not actual merchant transactions. Test records and artwork are fixtures, never seeded as real client data.
 
-Prior .9dev4 application5e3c00b passed38510178934 and focused38510178953; exact-main2a9497e passed38511337940. See MAINTENANCE_CHECKPOINT.md. Older .8 and backup evidence remains in Git history and BACKUP_CHECKPOINT.md. Never mistake a successful source-artifact job for application verification.
+## Previous checkpoints
 
-Current pure coverage spans foundation/storage/paths/content schema/history/discovery/communication/commerce/payment/staff/backup/upgrade/cleanup. Existing full SQL/HTTP/TLS/role/concurrency/upgrade/backup/recovery tests are retained. External payment and SDK boundaries are synthetic, not actual merchant transactions. Local PHP does not execute the SQL/GD/cURL/ZIP/Chromium environments; those run in Actions.
+Exact-main .9dev5 **11a50387514f0f744363a660c0ff86f3d79024ff** passed38514355067. App9546b7c passed38513423793 and focused38513423736; CONTENT_HISTORY_CHECKPOINT.md records history tests and renders. .9dev4 app5e3c00b passed38510178934 and focused38510178953; exact-main2a9497e passed38511337940. Earlier detailed evidence remains in MAINTENANCE_CHECKPOINT.md, BACKUP_CHECKPOINT.md and Git history.
 
-Not established: actual shared-host aliases/ACL/open_basedir/OPcache/proxy configuration, genuine merchant and inbox delivery, field Core Web Vitals, complete penetration/accessibility conformance, master artwork/real content approval, cross-schema automatic upgrades, cross-host disaster restore or accepted v1.0.
+## Boundaries
+
+No real provider inbox/merchant transaction, arbitrary shared-host aliases/ACL/open_basedir/OPcache/proxy acceptance, full penetration/accessibility conformance, field Core Web Vitals, approved production art/content, cross-schema automatic upgrades, cross-host disaster restore or accepted v1.0 is established. A source artifact is not an application test. Local PHP lacks SQL/GD/cURL/ZIP; the full suites above ran in Actions.

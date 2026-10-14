@@ -1,17 +1,17 @@
-# Project status — 0.9.0-dev.6 implementation
+# Project status — 0.9.0-dev.6
 
-New work on **work/site-quality**; full current verification pending. Baseline exact-main **11a50387514f0f744363a660c0ff86f3d79024ff** passed **38514355067** with both databases, ten Chromium suites and actual Apache HTTPS.
+Application **af43d1539994daa2b03f0eaaea1b2ec9c51066aa** passed full verification **38518823266** and focused maintenance **38518823277**. Both database environments, eleven Chromium workflows and actual Apache HTTPS passed. This documentation-only descendant changes no application code, assets, schema or tests. Inspect live main before resuming.
 
-## Implemented in the current checkpoint
+## Newly verified
 
-Published-only optional SEO/share fields, approved sharing images, canonical configured URLs and Unicode-safe descriptions; owner global indexing control; real public search with filters/20-row pages; bounded XML sitemap index/parts using installation-root URLs; GET/HEAD/ETag handling; unique former-published-slug redirects without draft leaks; explicitly confirmed public-event JSON-LD using supplied venue/location/date/status only. Internal navigation updates all metadata and preserves actual audio playback. Public images carry actual dimensions and phone menu Escape restores focus.
+Published-only optional metadata/share images and canonical URLs; owner indexing control; public search with filters and bounded pagination; XML sitemap index/parts; historical published-slug redirects without private draft disclosure; explicit-public-event structured data without invented prices/ratings. Internal navigation updates metadata while preserving real audio playback. Intrinsic image dimensions and mobile Escape focus are tested.
 
-No SQL migration, pinned access/recovery file or external server configuration is changed. Search exclusion/noindex is not authentication. Old unrelated website URL migration is not automatic. Existing indexing defaults are preserved; staging owners should explicitly disable indexing.
+Six discovery renders were inspected from the 90-image synthetic artifact **11873262102**. Canonical source artifact **11872848844** was downloaded and its archive digest verified. See docs/DISCOVERY_CHECKPOINT.md and docs/TEST_RESULTS.md.
 
-## Verification
+## Preserved cumulative scope
 
-25 new discovery units and all existing pure/package checks passed locally. Root/subfolder SQL/HTTP privacy, redirect, sitemap/category/pagination tests and an eleventh desktop/mobile Chromium workflow are added; exact current CI and render inspection remain pending. Read TEST_RESULTS.md.
+Browser installer/private runtime/self-removal/permanent lock; selected public website and CMS/history/music/shows/external tickets; booking/email/newsletter; catalog/inventory/cart/customers; token-only checkout/orders/fulfillment; staff permissions; encrypted backups/guarded same-instance restore; same-schema browser ZIP upgrades/pinned recovery; conservative retention. Migrations001–006 and pinned recovery/access layer remain unchanged.
 
-## Cumulative and remaining scope
+## Remaining
 
-All original installer, public/CMS/history/music/shows, booking/communication, catalog/customer/payment/order/staff, encrypted backup/restore, same-schema ZIP recovery and retention features are preserved. Still required: broader image/accessibility/performance work, master artwork and genuine approved content, actual merchant/email/host acceptance and final owner review. No real provider payment or accepted v1.0 exists merely because application tests pass.
+Broader responsive-media, keyboard/accessibility and measured performance quality; master artwork and approved real content; actual hosting/merchant/mailbox acceptance; final owner review. Same-schema upgrade and same-instance backup limits remain. No genuine merchant transaction, inbox receipt, complete WCAG conformance or accepted v1.0 is implied by synthetic tests.
