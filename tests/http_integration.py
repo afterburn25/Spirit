@@ -221,7 +221,7 @@ def recovery_journey(s: Site):
     original = schema.read_text()
     schema.write_text(original + '\nINVALID SQL TO SIMULATE AN INTERRUPTED MIGRATION;\n')
     status, body, _, _ = s.client.form('install/', s.input())
-    expect(status == 200 and 'provisioning failed' in body, 'Interrupted migration reports failure without claiming completion')
+    expect(status == 200 and 'Database connection or table setup failed.' in body and 'id="install-form"' in body and 'id="install-complete"' not in body, 'Interrupted migration reports manual setup failure without claiming completion')
     expect((s.runtime/'pending.php').exists() and not (s.runtime/'config.php').exists(), 'Interrupted installation retains recovery state without published config')
     changed = s.input(); changed['db_prefix'] = 'sgci_' + secrets.token_hex(4) + '_'
     expect('different database settings' in s.client.form('install/',changed)[1], 'Retry cannot silently switch databases or prefixes')
