@@ -158,10 +158,16 @@ def failure_and_race(browser,s,ids,dimensions,name):
     context=browser.new_context(viewport={'width':390,'height':900},reduced_motion='reduce',bypass_csp=False)
     page=context.new_page();mode['value']='hold';held.clear()
     page.route('**/media/file.php?*',intercept)
-    page.goto(s.base+'shop/product.php?slug=fixture-shirt',wait_until='networkidle')
-    with page.expect_request(lambda request: urllib.parse.parse_qs(urllib.parse.urlsplit(request.url).query).get('id')==[str(ids[1])] and urllib.parse.parse_qs(urllib.parse.urlsplit(request.url).query).get('width')!=['320']):
-        page.locator('.product-photo').nth(1).click()
+    # A browser may speculatively request the fallback before choosing srcset.
+    # Since this phase intentionally holds that response, network-idle would
+    # wait for our own release. Wait for DOM readiness and a real held request.
+    page.goto(s.base+'shop/product.php?slug=fixture-shirt',wait_until='domcontentloaded')
+    photo(page,ids,0,dimensions)
+    page.locator('.product-photo').nth(1).click()
     browser_expect(page.locator('.product-photo-status')).to_contain_text('Loading photograph 2')
+    deadline=time.monotonic()+5
+    while not held and time.monotonic()<deadline:page.wait_for_timeout(25)
+    expect(bool(held),'A real response is intercepted before choosing the later photograph')
     page.locator('.product-photo').nth(2).click();photo(page,ids,2,dimensions)
     expect(bool(held),'A real earlier image request remains pending for the race test')
     mode['value']='ok'
