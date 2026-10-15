@@ -11,24 +11,26 @@
 | Settings & access | Website settings; Search & sharing; Staff access; Account & security |
 | System & maintenance | Launch checks; Installation health; Backups & safe restore; Browser upgrades; Database updates; Temporary data & retention; Activity history; Release roadmap |
 
-Overview remains a direct link. All previous28 destinations are retained; six existing store/order endpoints gain direct shortcuts. Empty or unauthorized sections are removed on the server before rendering. Financial configuration, customers and access management remain owner-only, even when browser preferences are edited. Menus are not an authorization boundary; endpoint checks remain mandatory.
+Overview remains a direct link. All 28 prior destinations are retained; six existing store/order endpoints gain direct shortcuts, giving 34 owner destinations. Empty or unauthorized sections are removed on the server. Financial configuration, customers and access management remain owner-only even if someone edits browser preferences. Endpoints retain their own permission checks.
 
 ## Remembered state and same-page refresh
 
-Each native details category starts expanded for a first visit. The user can close any category, including the current one. Current page and category stay visually identified. Expand all and Collapse all do not navigate or submit a form.
+Categories start expanded on a first visit. Close or open each independently, including the current category. Its parent remains highlighted while closed. Expand all and Collapse all change only menu layout.
 
-A versioned localStorage entry stores only known category booleans. An opaque HMAC-derived scope separates installations, accounts and roles; it is not an authentication capability. A tab-specific sessionStorage entry contains a bounded sidebar scroll offset and mobile-drawer boolean. No URL, page filter, form data, email or credential is stored. Ordinary browser navigation preserves the actual current path, query and hash on reload; JavaScript never assigns location or changes history to restore a previous page.
+Browser localStorage saves known category booleans under an opaque identifier scoped to the installation, account and role. Tab-specific sessionStorage holds a bounded sidebar scroll offset and mobile-drawer state. No URL, filter, form data, email or credential is saved. Browser refresh retains the actual current page, query and hash; the menu never redirects to Overview or to a remembered destination.
 
-The drawer stays open/closed on same-page refresh. Clicking a page on a phone closes the drawer to show that destination while retaining categories. A new tab has its own drawer/scroll and selected page; same-account group preferences apply. Back/Forward cache restoration reapplies saved menu state without taking over page-scroll restoration.
+The phone drawer retains its open/closed state on refresh. Selecting a destination closes it to expose the new page, without resetting categories. New tabs keep independent pages and drawer/scroll state while using the same account's saved group preferences. Back/Forward cache restoration reapplies preferences without taking over page-scroll restoration. A passive older tab cannot overwrite a newer choice merely by reloading or following a link. Open tab displays are not continuously synchronized, and a new explicit choice may update the saved layout.
 
-Malformed, oversized and unknown preference fields are ignored. Storage exceptions do not disable navigation and show a persistence notice. No cross-device/server synchronization is claimed. No-JavaScript navigation remains visible and operable on phones but cannot use browser-script persistence. Unsaved form values and POST replays are not handled by menu memory.
+Corrupt, oversized and unknown preference data is ignored. Browser storage restrictions show a truthful persistence notice and leave navigation working. Clearing browser site data resets saved layout. There is no cross-device/server synchronization or unsaved-form recovery. Native no-JavaScript links/disclosures remain usable but do not use script-based persistence.
 
 ## Accessibility and design
 
-Native details/summary and link lists follow ordinary disclosure navigation, not desktop-app menu roles. Summary Enter/Space and standard Tab behavior remain native. Approved navy/gold styling includes fixed decorative SVG icons, hover/focus, reduced-motion and forced-colors rules. Phone drawer closed content is inert, open background content is inert, Tab remains within open navigation, and Escape/close return focus to Menu. Public design and installer behavior are unchanged.
+Native details/summary and link lists use ordinary disclosure navigation rather than desktop-application menu roles. Enter/Space and standard Tab behavior remain native. Navy/gold styling includes decorative icons, chevrons, section counts, current-item markers, hover/focus, reduced-motion and forced-colors rules.
 
-Guidance reviewed: WAI disclosure navigation https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/ and MDN localStorage/toggle https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/toggle_event .
+On phones, closed navigation is inert; the background is inert while the drawer is open. Tab stays in the open navigation, Escape/close return focus to Menu, and the backdrop is pointer-only rather than an extra Tab stop. The sidebar scrolls independently. Public pages and installer behavior are unchanged.
 
-## Verification
+## Verified evidence
 
-98 pure model/permission/namespace assertions and new real root/subfolder Chromium/Firefox/WebKit journeys cover reload, exact URL preservation, categories, scroll/drawer state, current store subsection, account/role isolation, corrupt/unavailable storage, native links and database fingerprints. Exact new run results are pending in TEST_RESULTS.md. Offline renders are not database-backed acceptance. Actual A2/provider/content approval gates remain separate.
+Application2947013d passed full38654637873, focused38654637735 and dedicated three-engine38654637749. The navigation suite covers domain root/subfolder at1440/820/390/320 pixels, exact URL refresh, explicit closed current sections, sidebar scroll, phone drawer/focus, new-tab and passive-tab behavior, per-account/role isolation, malformed/unavailable storage, native links and unchanged database fingerprints. Each browser logs251 navigation assertions;98 pure model/permission/scope assertions are included in the cumulative689. See TEST_RESULTS.md for exact jobs, artifacts and limits.
+
+Prior guidance references: WAI disclosure navigation https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/ ; MDN localStorage https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage ; toggle event https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/toggle_event . Automated browser checks are not physical-device or complete accessibility certification.
