@@ -42,8 +42,8 @@ def at_filter(url: str, query: str, number: int) -> bool:
 
 def apply_filter(page: Page, query: str) -> None:
     page.get_by_label('Search title or URL name').fill(query)
-    page.get_by_label('Sort by', exact=True).select_option('title')
-    page.get_by_label('Visibility', exact=True).select_option('all')
+    page.get_by_label('Sort by').select_option('title')
+    page.get_by_label('Visibility').select_option('all')
     page.get_by_role('button', name='Apply filters', exact=True).click()
     page.wait_for_url(lambda url: at_filter(str(url), query, 1), wait_until='domcontentloaded')
 
