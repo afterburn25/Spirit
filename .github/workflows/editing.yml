@@ -66,6 +66,7 @@ jobs:
           php tests/product_edit_form_unit.php
           python3 -m py_compile tests/editor_integration.py tests/editor_browser.py tests/edit_guard_helper.py
           set -o pipefail
+          python3 tests/wait_for_database.py
           python3 tests/editor_integration.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/integration.log"
       - name: Install isolated browser
         run: |
@@ -76,6 +77,7 @@ jobs:
         run: |
           set -o pipefail
           "$RUNNER_TEMP/spirit-editor-browser/bin/python" tests/edit_guard_helper.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/helper.log"
+          "$RUNNER_TEMP/spirit-editor-browser/bin/python" tests/edit_guard_reload_probe.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/reload-probe.log"
           "$RUNNER_TEMP/spirit-editor-browser/bin/python" tests/editor_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/browser.log"
       - name: Preserve exact source and synthetic evidence
         if: always()

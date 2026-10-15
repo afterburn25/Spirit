@@ -49,16 +49,17 @@ def journey(browser,s,engine,width,area,pid,item,image):
         before=snapshot(s)
         cancel_navigation(page,lambda:page.get_by_role('link',name='Back to list').click(no_wait_after=True),'Content navigation')
         expect(page.url==route and page.locator('[name=title]').input_value()=='Unsent page '+str(width),'Cancelling departure preserves current page and entered title')
-        # Use an independently opened dirty editor for the refresh case. A
-        # cancelled navigation followed immediately by the browser-chrome Reload
-        # command has different prompt/command timing in Firefox. Both real
-        # cancellation dialogs must still occur; no engine skips or retries.
+        # Compare native Location.reload on a separately activated editor. The
+        # browser must display and cancel a real unload dialog; no event is faked.
+        # The loopback probe records automation-protocol reload differences.
         refresh_page=context.new_page()
         try:
             refresh_page.goto(route,wait_until='networkidle')
-            refresh_page.locator('[name=title]').fill('Unsent refresh '+str(width))
+            field=refresh_page.locator('[name=title]')
+            field.click();field.press('ControlOrMeta+A');field.press_sequentially('Unsent refresh '+str(width))
+            expect(refresh_page.evaluate('navigator.userActivation?.hasBeenActive ?? true'),'Refresh test uses an actual user gesture')
             dirty(refresh_page,'dirty')
-            cancel_navigation(refresh_page,lambda:refresh_page.reload(timeout=10000),'Editor refresh')
+            cancel_navigation(refresh_page,lambda:refresh_page.evaluate('() => { setTimeout(() => window.location.reload(), 0); }'),'Editor refresh')
             expect(refresh_page.url==route and refresh_page.locator('[name=title]').input_value()=='Unsent refresh '+str(width) and snapshot(s)==before,'Cancelling refresh preserves entered text and changes no stored product, identity or stock state')
         finally:refresh_page.close()
         page.bring_to_front()
