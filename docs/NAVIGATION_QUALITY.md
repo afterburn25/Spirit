@@ -8,7 +8,7 @@ Shared administration checkboxes no longer inherit the46px text-input minimum. N
 
 ## Verification and scope
 
-Local230 PHP/inc syntax,812 existing pure assertions,eight JS checks and12 packaging tests passed. A real Chromium isolated markup exercise passed; exact packaged-site three-engine verification and visual review are pending. The added workflow uses disposable fixtures only and a payment-network kill switch, not the live website or a real merchant.
+Local230 PHP/inc syntax,812 existing pure assertions,eight JS checks and12 packaging tests passed. A real Chromium isolated markup exercise and all six Actions workflows passed for adcafab9; the new Chromium/Firefox/WebKit jobs each report361 passing checks. Actual synthetic renders were reviewed. See TEST_RESULTS.md for exact source, artifacts and scope. The added workflow uses disposable fixtures only and a payment-network kill switch, not the live website or a real merchant.
 
 These are targeted usability corrections. They are not full WCAG certification, assistive-technology or physical-device approval, field performance measurement, production artwork or genuine host/provider acceptance. Keep the approved design, external venue ticket links and manual one-page A2 installer. Existing sites upgrade with backups rather than reinstall. Final1.0 remains subject to genuine content/artwork and external/owner acceptance.
 

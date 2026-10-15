@@ -1,8 +1,8 @@
-# Spiritual Gorillaz — 1.0.0-rc.7 candidate
+# Spiritual Gorillaz — 1.0.0-rc.7
 
 This pass improves the existing public phone menu and native admin checkboxes, without a redesign or new business module. Tab can enter and leave the public disclosure freely; Escape returns focus, outside interaction dismisses it, responsive transitions avoid hidden keyboard focus, and a short-screen menu scrolls above the music player. Shared admin checkbox geometry no longer inherits the text-input height. Existing server-side consent/publication/payment rules are unchanged.
 
-Exact new Actions results are pending. Local 230 PHP/inc syntax checks, 812 existing pure assertions, eight JavaScript checks and 12 packaging tests passed. An isolated Chromium DOM/style check exposed and corrected CSS hiding focus before a media-query event. It is not an end-to-end site test. Read docs/NAVIGATION_QUALITY.md and the current handoff before promotion.
+Tested adcafab92035816571e7951e71d73d6c0a22af89 (tree5d2d70be796b3ae9e293749126f189f2326442d1) passed all six required workflows: full38802392834, focused38802392855, storefront38802392802, branding38802392914, authoring38802392808 and navigation38802393254. Finalization changes documentation only. The three new browser jobs each report361 passing checks, and actual screenshots/source archives were inspected and verified. Local230 syntax/812 existing pure assertions/8 JS/12 packaging checks passed. See docs/TEST_RESULTS.md for precise scope; additional final-main results are recorded separately after observation.
 
 ## Application and deployment contract
 

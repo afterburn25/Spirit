@@ -1,14 +1,12 @@
-# Current candidate
+# Changelog
 
-## 1.0.0-rc.7 — navigation and native-control quality, exact CI pending
+## 1.0.0-rc.7 — verified navigation and native-control quality
 
 Improve the existing public phone menu's keyboard focus, outside dismissal, desktop/phone transitions and bounded scroll above playback. Keep the disclosure non-modal and preserve native no-JavaScript navigation. Correct shared admin checkbox height/alignment without changing checked values, consent or publication. Add root/subfolder three-engine packaged-site regression coverage for real menus, audio and native controls. No new design, business module, database schema, installer or hosting change.
 
-Local230 syntax/812 pure/8 JS/12 packaging checks passed, plus an isolated Chromium DOM/style exercise. Exact new Actions results pending; production artwork/content and real-environment/owner approval remain outstanding.
+Local230 syntax/812 pure/8 JS/12 packaging checks passed, plus an isolated Chromium DOM/style exercise. Tested adcafab92035816571e7951e71d73d6c0a22af89 (tree5d2d70be796b3ae9e293749126f189f2326442d1) passed all six required workflows: full38802392834, focused38802392855, storefront38802392802, branding38802392914, authoring38802392808 and navigation38802393254. Three new browser jobs each report361 passing checks. Source/artifact hashes and actual renders were verified. Finalization changes documentation only; production artwork/content and real-environment/owner approval remain outstanding.
 
 ---
-
-# Changelog
 
 ## 1.0.0-rc.6 — verified authoring safeguards
 
