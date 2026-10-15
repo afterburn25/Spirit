@@ -1,22 +1,23 @@
-# Authoring safeguards — RC6 candidate
+# Authoring safeguards — 1.0.0-rc.6
 
-Page/content, product-description and logo editors now warn about unsaved authored changes. The browser chooses its generic leave/reload confirmation. A local gold-accented message explains that changes have not been saved. Restoring the original field values removes the unnecessary warning. Saving or publishing through the marked form proceeds normally; invalid input and cancelled submission leave the warning active. Opening a saved-preview popup does not save or discard edits.
+Content, product-description and logo editors display a gold-accented unsaved-changes notice. When the browser supports it, leaving or reloading a dirty editor also requests its generic confirmation. Cancel departure to stay with the current input; save explicitly to commit a draft. Reverting ordinary edits to the original values removes the unnecessary warning. A rejected server submission stays marked unsaved even before another edit.
 
-This is **not autosave**. It does not persist drafts in localStorage, sessionStorage, cookies, IndexedDB or the server, and it makes no network calls. Only explicitly marked authoring forms participate; password, token, hidden, file and unmarked operational forms are not inspected. Publication approval is not treated as authored content. Existing server-side authorization, CSRF, revision and publication controls remain authoritative.
+Normal submissions through the marked form proceed without a false departure interruption. Validation or a canceled submission does not permanently bypass warnings. A saved-preview popup shows the last saved draft; it does not autosave or discard your unsent changes.
 
-Product correction fixes a real earlier gap: the editor used to render the stored product after a rejected POST, discarding submitted descriptions/name in the visible form. An explicit allowlist now redisplays authored fields, with ordinary HTML escaping. A stale submission keeps its old revision rather than silently adopting the newest one. Product/category data, stock, prices, customer information and live publication are not changed by redisplay.
+## Product error correction
 
-Without JavaScript, product error correction still preserves fields; departure warnings do not exist. Browser confirmations require user interaction and may be suppressed, particularly on mobile process termination. Save regularly. A restored browser page rechecks its fields; there is no guarantee of recovery after closing a tab, browser crash or operating-system shutdown. Server-rejected responses are marked unsaved, not treated as a saved baseline.
+Previously, a rejected product save could redisplay the older stored product, losing your entered text from the visible form. The editor now preserves allowlisted editable fields for correction with normal HTML escaping. An old conflicting revision remains old, so it cannot silently overwrite another user's later draft. Correcting the form does not change public merchandise, inventory, prices or customer records until the existing authorized action succeeds. This field retention works without JavaScript.
 
-## Scope and verification
+## No autosave or secret storage
 
-This is final content-entry hardening, not a different design or an expansion of payment/hosting scope. The grouped menu, its saved state, one-page manual A2 installer, public site, original player, six migrations and pinned recovery files remain unchanged.
+The warning compares only marked authored controls in memory. It does not save drafts to localStorage, sessionStorage, cookies, IndexedDB or the server and makes no background requests. Hidden, password, file and approval controls are excluded from value inspection; unmarked payment/account/backup/upgrade operational forms do not participate. Existing server authorization, CSRF, revision and publication controls remain authoritative.
 
-Local230 PHP/inc syntax checks,812 pure assertions,8 JavaScript checks,27 isolated Chromium lifecycle checks and12 packaging tests passed. Exact candidate SQL/browser and complete regression workflows are pending. New CI includes root/subfolder, desktop/mobile, real leave/reload dialogs, native no-JavaScript correction, public-draft separation, stale edits and unchanged database checks. Test fixtures never enter production packages.
+Browser confirmations require interaction and can be suppressed. They are not reliable protection against mobile app termination, operating-system shutdown or a crash. Save regularly. Without JavaScript, there is no departure-warning enhancement. Returning to a browser-restored page rechecks input, but this is not a guarantee of recovering a closed tab.
 
-Read-only public-page observations on2026-10-15 found spiritualgorillaz.com serving the redesigned public layout. Its music, band, shows and store still show empty/default content. This does not establish installed version, private-storage/deletion state, mailbox delivery, payments or owner acceptance. No remote forms were submitted and no hosting settings changed.
+## Verified scope
 
-Primary browser references consulted2026-10-15:
-- https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
-- https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event
-- https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event
+Tested bb9d850a passed full38785664074, focused38785664137, storefront38785664089, branding38785664253 and authoring38785664076. Four authoring jobs cover the two PHP/database environments and Chromium/Firefox/WebKit, with actual root/subfolder editors, JS1440/390/320 and native390 correction. Each reports59 SQL/HTTP,105 application-browser PASS lines and27 isolated helper checks. See TEST_RESULTS.md for exact artifacts and the difference between protocol reload diagnostics and native Location.reload assertions. Tests are not a blanket guarantee about every browser toolbar or device.
+
+The approved design, remembered grouped menu, manual one-page A2 installer, original public player, six migrations and pinned recovery files are unchanged. No actual hosting or provider operation or production-content publication occurred. Final artwork, real content and external acceptance remain separate.
+
+Primary browser references retained from implementation review2026-10-15: https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event ; https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event ; https://developer.mozilla.org/en-US/docs/Web/API/Window/pageshow_event .

@@ -1,15 +1,19 @@
 # Changelog
 
-## 1.0.0-rc.6 — authoring safety candidate
+## 1.0.0-rc.6 — verified authoring safeguards
 
-Add opt-in unsaved-change warnings to content, product and logo editors, without autosave, browser draft storage or network calls. Restore clean state when edits are reverted; keep rejected responses unsaved; allow legitimate submissions and saved-preview popups. Browser limitations remain explicit.
+Add opt-in unsaved-change notices and browser-supported departure confirmations to content, product-description and logo editors. No autosave, browser draft storage or background requests. Reverted ordinary edits become clean; rejected server responses remain unsaved. Legitimate saves and saved-preview popups keep native behavior. Browser/mobile/crash limitations remain explicit.
 
-Correct a product editor bug that redisplayed old stored fields after rejected saves. Redisplay only escaped authored fields, preserve the original stale revision and do not mutate publication, inventory or customer records. Native no-JavaScript error correction remains usable. Local230 syntax/812 pure/8 JS/27 isolated helper/12 package checks passed; exact new CI pending.
+Correct the product editor losing entered fields after rejected saves. Redisplay only escaped authored fields and keep the submitted stale revision rather than adopting a newer one. Publication, stock, prices and customer data remain under their existing server rules. Native no-JavaScript correction remains usable.
+
+Tested bb9d850ac4653ce594837a503f7caffd336dc369 passed full38785664074, focused38785664137, storefront38785664089, branding38785664253 and authoring38785664076. Four authoring jobs each report59 SQL/HTTP and105 application-browser PASS lines plus27 helper checks. Fresh local230 PHP/inc syntax,812 pure assertions,8 JS syntax and12 package tests passed. Exact source and artifacts were hashed; selected actual desktop/mobile renders were reviewed. Finalization changes documentation only.
+
+Earlier test-harness failures are documented rather than hidden: native synthetic submit behavior, asynchronous dialog delivery, protocol-reload differences and SQL service startup. Native link/Location.reload cancellation remains required; protocol observations are diagnostic, not universal refresh guarantees. Bounded test-account readiness does not retry failed assertions. No engine or original workflow was removed.
 
 ## Prior cumulative releases
 
-RC5 added owner logo drafts/preview/explicit publication/withdrawal and stale-form protection across backup restore. Verified sourceb16e9780 and final-main1101be37 evidence are preserved in Git at1101be37414701ae3488073e6cddee9348c1cae8.
+RC5 added owner logo drafts/preview/explicit publication/withdrawal and stale-form protection across backup restore. Verified sourceb16e9780 and final-main1101be37 evidence remain in Git at1101be37414701ae3488073e6cddee9348c1cae8.
 
-RC4 hardened native pagination and private-history tests. RC3 connected eight existing Page artwork/copy placements to real-layout previews. RC2 added grouped remembered administration navigation. RC1 added native public access and policy links; earlier releases implemented the complete application, installer, commerce and guarded maintenance foundations. Historical detailed changelogs remain in Git and docs/history; no previous delivered archive is overwritten.
+RC4 hardened native pagination and private-history tests. RC3 connected eight Page artwork/copy placements to actual-layout previews. RC2 added grouped remembered administration navigation. RC1 added native public access and policy links; earlier releases implemented the application, installer, commerce and guarded maintenance foundations. Historical detailed changelogs remain in Git and docs/history; no previous delivered archive is overwritten.
 
-No approved production content is invented or published, and no hosting or provider setting changes here. Final1.0 acceptance remains outstanding.
+No approved production artwork/content is invented or published, and no hosting/provider setting changes here. Final1.0 acceptance remains outstanding.
