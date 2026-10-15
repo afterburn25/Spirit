@@ -13,7 +13,7 @@ from http_integration import Client, build_package, expect, site
 from content_integration import save_content, seed_media_and_music
 from commerce_integration import seed_catalog, product_values, snapshot
 from gallery_browser import upload_image, open_nav
-from payment_integration import configure, checkout_values
+from payment_integration import configure, checkout_values, snapshot as payment_snapshot
 from public_browser import screenshot
 
 
@@ -147,8 +147,37 @@ def checkout(browser,s,name,area):
     expect(page.locator('#card-pay-button').is_disabled(),'An unavailable provider library leaves card submission disabled')
     expect(page.locator('#card-payment input[name]').count()==4,'Only CSRF, nonce and opaque token fields have submission names')
     screenshot(page,f'release-{name}-{area}-390-order')
-    page.get_by_role('button',name='Cancel this checkout and release stock').click()
-    expect(page.locator('#card-payment').count()==0,'Cancellation removes the payment form without submitting a charge')
+    # The cancellation is a native POST/303 to the same receipt URL. A click
+    # can return before its new document is visible; observe both the actual
+    # response and the authoritative state, not an immediate old-DOM count.
+    order_url=page.url
+    reference=urllib.parse.parse_qs(urllib.parse.urlsplit(order_url).query)['reference'][0]
+    before=payment_snapshot(s)
+    matching=[order for order in before['orders'] if order['reference']==reference]
+    expect(len(matching)==1,'The browser receipt identifies exactly one persisted order')
+    original=matching[0];order_id=int(original['id'])
+    expect(original['payment_state']=='awaiting_payment' and original['reservation_state']=='held' and original['transaction_id'] is None,'The cancellation starts with unpaid, actually reserved stock')
+    with page.expect_response(lambda response:response.url==order_url and response.request.method=='POST') as event:
+        page.get_by_role('button',name='Cancel this checkout and release stock').click()
+    expect(event.value.status==303,'Actual cancellation POST redirects after its server transaction')
+    browser_expect(page.locator('.payment-panel').get_by_role('heading',name='Checkout cancelled',exact=True)).to_be_visible()
+    browser_expect(page.locator('#card-payment')).to_have_count(0)
+    expect(page.url==order_url,'Cancellation shows the same private receipt without a payment form')
+    after=payment_snapshot(s)
+    cancelled=next(order for order in after['orders'] if int(order['id'])==order_id)
+    expect(cancelled['payment_state']=='cancelled' and cancelled['reservation_state']=='released' and int(cancelled['revision'])==int(original['revision'])+1,'Cancellation commits one revision and releases the actual reservation')
+    expect(cancelled['transaction_id'] is None and after['payment_operations']==before['payment_operations'],'Cancellation creates no payment operation or transaction identifier')
+    prior_adjustments={int(row['id']) for row in before['inventory_adjustments']}
+    released=[row for row in after['inventory_adjustments'] if int(row['id']) not in prior_adjustments]
+    expected=sorted((int(item['variant_id']),int(item['quantity'])) for item in before['order_items'] if int(item['order_id'])==order_id)
+    expect(expected and sorted((int(row['variant_id']),int(row['quantity_delta'])) for row in released)==expected and all(row['reason']==f'Order #{order_id} release' for row in released),'Exactly the reserved item quantities return to inventory once')
+    screenshot(page,f'release-{name}-{area}-390-cancelled-order')
+    # A fresh GET must retain the result, not issue another cancellation/charge.
+    page.reload(wait_until='domcontentloaded')
+    browser_expect(page.locator('.payment-panel').get_by_role('heading',name='Checkout cancelled',exact=True)).to_be_visible()
+    browser_expect(page.locator('#card-payment')).to_have_count(0)
+    refreshed=payment_snapshot(s)
+    expect(next(order for order in refreshed['orders'] if int(order['id'])==order_id)==cancelled and refreshed['inventory_adjustments']==after['inventory_adjustments'] and refreshed['payment_operations']==after['payment_operations'],'Receipt refresh preserves the cancelled order without releasing stock twice')
     context.close()
 
 
