@@ -1,8 +1,8 @@
 # Changelog
 
-## 1.0.0-rc.5 — owner logo workflow, verification pending
+## 1.0.0-rc.5 — verified owner logo workflow
 
-Add private owner logo drafts, full-homepage preview, explicit publication/withdrawal and contained responsive public header/footer rendering. Refresh branding during enhanced public navigation without replacing the audio node. Enforce owner/session/revision/media-integrity safeguards, and reject pre-restoration forms using the preserved restore audit epoch, including pre-branding snapshots. Correct stale Website settings copy about a holding page and future CMS. No migration, installer, menu-state, pinned recovery or provider changes; no master artwork or real content supplied. Erroneous generated release graphics are excluded and are not feature/test evidence. Local 228 syntax / 781 pure assertions / 12 packaging tests passed; exact CI pending.
+Add private owner logo drafts, full-homepage preview, explicit publication/withdrawal and contained responsive public header/footer rendering. Refresh branding during enhanced public navigation without replacing the audio node. Enforce owner/session/revision/media-integrity safeguards, and reject pre-restoration forms using the preserved restore audit epoch, including pre-branding snapshots. Correct stale Website settings copy about a holding page and future CMS. No migration, installer, menu-state, pinned recovery or provider changes; no master artwork or real content supplied. Erroneous generated release graphics are excluded and are not feature/test evidence. Local228 syntax /781 pure assertions /12 packaging tests passed. Tested b16e9780 passed full38681481396, focused38681481344, storefront38681481322 and logo38681481271; four logo jobs each reported109 SQL/HTTP and179 browser checks. Actual screenshot review led to a checkbox-alignment fix and a new geometry assertion. Finalization changes documentation only.
 
 ## 1.0.0-rc.4 — content-history verification hardening
 

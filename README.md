@@ -1,4 +1,4 @@
-# Spiritual Gorillaz — 1.0.0-rc.5 candidate
+# Spiritual Gorillaz — 1.0.0-rc.5
 
 Repository **afterburn25/Spirit**, main authoritative. Preserve the selected black/deep-navy, gold and blue design. Read AGENTS.md, PROJECT_STATUS.md and SESSION_HANDOFF.md before changes.
 
@@ -6,7 +6,7 @@ Repository **afterburn25/Spirit**, main authoritative. Preserve the selected bla
 
 Website settings now links to a real Site logo editor: private draft, actual-homepage preview, explicit approved publication and withdrawal. The public header and footer display the full contained image with their named home links. A small separate branding script updates the header after existing public navigation; the original player/navigation script is unchanged. No new database migration is needed.
 
-Read docs/BRANDING.md. Current application code is implemented and local checks pass; exact new Actions verification is pending. This is not a final 1.0 release, a new visual design or a generated master-artwork package. The erroneous generated release graphics from this conversation are not screenshots or evidence and are excluded.
+Read docs/BRANDING.md. Tested b16e9780 passed full38681481396, focused38681481344, storefront38681481322 and logo38681481271. Finalization changes documentation only; exact delivery/main evidence is recorded separately. This is not a final 1.0 release, a new visual design or a generated master-artwork package. The erroneous generated release graphics from this conversation are not screenshots or evidence and are excluded.
 
 ## Preserved application and deployment
 

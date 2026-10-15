@@ -1,23 +1,25 @@
-# Continue the RC5 logo workflow
+# Resume here — verified RC5 site logo workflow
 
-Repository **afterburn25/Spirit**, main authoritative. Branch **work/site-branding**, based on main49d5bbbbab146e7833dced698af51458ec625ddc / tree6cf6f3d2b8abbddfb64e98c9c0c2720ada286b05. Inspect live refs before writes, preserve concurrent work and never force-push. Read AGENTS.md, DESIGN_LOCK.md, status and test records.
+Repository **afterburn25/Spirit**, main authoritative. Work was developed on **work/site-branding**, PR18, from RC4 main49d5bbbbab146e7833dced698af51458ec625ddc. Read live refs, AGENTS.md, status, design lock and test records before edits. Preserve concurrent work; never force-push.
 
-## Current implementation
+## Exact source and completed evidence
 
-app/Branding.php provides a versioned settings record with separate draft/published logo IDs. admin/branding offers owner-only editor and real-homepage preview. Save/publish/withdraw recheck the locked owner and session, CSRF, revision and image integrity. Preview is GET/HEAD-only and private/no-store/noindex/no-referrer. Public Media::serve permits only the published branding image in addition to its existing typed references.
+Tested commit **b16e9780c41b2f1ea751361c4cd8c3ae27e51c58**, tree **5802cee7016b918348ec9f0e29f4f99941f6cc8f**. Completed successful workflows: full38681481396, focused38681481344, storefront38681481322, logo38681481271. Documentation-only finalization preserves runtime/tests/workflows/VERSION. Later exact-main runs and final package hashes are recorded separately in PR18 and the delivery report; do not infer them.
 
-Header/footer use contained responsive images and accessible named home links. Header includes an inert logo template; assets/js/branding.js clones its already authorized link on the existing spirit:navigated event without fetching HTML or touching the audio node. Original assets/js/public.js is unchanged. Website settings has a management link and corrected outdated copy. No new migration, upload system or navigation category.
+All four logo jobs passed109 SQL/HTTP and179 browser checks in their downloaded logs. Cover JS1440/390/320 and native390 at root/subfolder (8 contexts/job), two SQL/PHP combinations and all three engines. Twenty-four synthetic screenshots were downloaded and hashed; selected final desktop/mobile renders were reviewed. The earlier bebc6c0b logo run passed, but visual review found inherited checkbox-grid alignment. b16e9780 fixes the row and adds an actual geometry assertion; use the later evidence, not just the first pass.
 
-Forms carry the last backup-restore audit epoch. Backups preserve audit, so a restore cannot revalidate an old form even if the numeric branding revision rolls back. Existing Backups.php and all recovery logic remain byte-identical. New SQL tests exercise both current-logo and pre-branding snapshot restoration.
+Local228 PHP/inc syntax,781 pure assertions,7 JS syntax checks and12 package tests passed. Local PHP lacks PDO MySQL/GD/cURL/ZIP, so actual application integration evidence is Actions-only. Canonical downloaded source reconstructed tree5802cee7. Packaging validation preserved every271 prior payload path, all six migrations, five pinned recovery/access files, installer, original public.js, admin-navigation runtime and Backups.php. Final archives are immutable; re-establish runtime paths before links.
 
-## Verification required
+## Implementation to retain
 
-Local 228 syntax files, 781 pure assertions, seven JavaScript syntax checks, Python compilation and 12 packaging tests passed. Local PHP lacks PDO MySQL/GD/cURL/ZIP. Exact new CI is pending: run Site logo workflow verification plus every unchanged full, focused and three-engine storefront suite. New tests are branding_unit.php, branding_integration.py and branding_browser.py. Do not claim old RC4 results prove new code, skip tests or fabricate acceptance. Inspect actual new renders before packaging.
+app/Branding.php stores separate draft/published logo IDs and revision in one settings record. admin/branding is owner-only. Native save/publish/withdraw enforce CSRF, a locked current owner/session, revision and image integrity. Preview is the real homepage, GET/HEAD-only, no-store/noindex/no-referrer, with related content still public-only. Media::serve authorizes only the published branding image in addition to existing public references.
 
-Three image-generation attempts returned erroneous release graphics instead of master artwork. None is a real screenshot, commit or feature report; none is included in the source or package. Real crowned-gorilla production master artwork is still outstanding. Do not implement or claim the unrelated features shown in those graphics.
+Header/footer preserve ratio and named home links. An inert server-rendered template and assets/js/branding.js update the header on spirit:navigated without fetching HTML or replacing the audio node. Original public.js and backup engine are unchanged. The existing restore audit epoch rejects old forms even when an old snapshot restores a matching numeric revision. Current-logo and pre-branding snapshots were tested. Website settings links to the editor and its obsolete holding-page/future-CMS copy is corrected.
 
-After successful CI, finalize status/roadmap/test records, verify canonical source and all cumulative payload hashes, and deliver a new immutable RC5 Full ZIP. Do not overwrite RC4. Keep all prior paths, six migrations and five pinned access/recovery files.
+Three generated release graphics were erroneous, not screenshots/source/test results. None is in the repository or package. Do not implement or claim their unrelated features. Production crowned-gorilla master artwork still has not been completed in this pass.
 
-## Fixed scope
+## Fixed scope and next work
 
-Preserve the approved navy/gold/blue design, external venue ticket sellers, grouped remembered admin navigation, and manual one-page A2/cPanel installer. No setup code, token, 20i or automatic DB. Existing sites upgrade with backups, never reinstall or replace their original private config/encryption secret/database/media and recovery keys. No host/provider operation or production publication occurs here. Approved master artwork/content/policies, real A2/mailbox/merchant/recovery/device checks and final owner acceptance remain.
+Preserve approved navy/gold/blue design, external venue ticket sellers, grouped remembered navigation and manual one-page A2/cPanel installer. No setup code/token/20i/automatic DB. Existing sites upgrade with backups, never reinstall or replace original private config/encryption secret/data/media/recovery receipts. Same-schema updates and same-instance restoration limits remain.
+
+Next substantive work is approved production artwork and genuine band/store content/policies, followed by real A2/mailbox/merchant/recovery/device and owner acceptance. The new controls do not mean an approved logo or master artwork was supplied. No real service was configured, no site deployed and no final1.0 acceptance is claimed.
