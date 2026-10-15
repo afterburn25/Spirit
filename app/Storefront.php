@@ -19,14 +19,17 @@ final class Storefront
     }
     public static function render(string $view,array $context=[]): void
     {
-        self::boot();$settings=Settings::all();$isPreview=false;$active='shop';$record=null;$canonical=null;
+        self::boot();$settings=Settings::all();$isPreview=isset($context['page_preview']);
+        if($isPreview){Auth::requirePermission('content.manage');if($view!=='catalog'||($context['page_preview']['kind']??'')!=='page'||($context['page_preview']['slug']??'')!=='merch'){throw new InvalidArgumentException('Invalid section preview.');}header('X-Robots-Tag: noindex, nofollow');header('Referrer-Policy: no-referrer');}
+        $pageContent=$view==='catalog'?($context['page_preview']??Content::bySlug('page','merch')):null;$metaRecord=$pageContent;
+        $active='shop';$record=null;$canonical=null;
         $titles=['catalog'=>'Official merchandise','product'=>'Merchandise','cart'=>'Your bag','login'=>'Customer sign in','register'=>'Create your account','forgot'=>'Reset your password','complete'=>'Secure your account','account'=>'Your account','addresses'=>'Saved addresses','password'=>'Account security'];
         if(!isset($titles[$view])){throw new RuntimeException('Unknown store view.');}
         $title=$titles[$view];$description=$settings['welcome'];$store=Catalog::options();$error=$context['error']??null;$customer=$context['customer']??null;
         if($view==='product'){$record=Catalog::bySlug(is_string($_GET['slug']??null)?$_GET['slug']:'');if(!$record){http_response_code(404);$title='Product unavailable';}else{$title=$record['data']['name'];}}
         if(!in_array($view,['catalog','product'],true)){header('X-Robots-Tag: noindex, nofollow');header('Referrer-Policy: no-referrer');}
-        if($store['enabled']&&$view==='product'&&$record){$canonical=Metadata::absolute(app_url('shop/product.php?slug='.rawurlencode($record['slug'])));$description=$record['data']['description'];$record['kind']='product';}
-        elseif($store['enabled']&&$view==='catalog'&&!isset($_GET['q'])&&!isset($_GET['category'])){$page=Input::integer($_GET,'page',1,1000000,1);$canonical=Metadata::absolute(app_url('shop/'.($page>1?'?page='.$page:'')));}
+        if(!$isPreview&&$store['enabled']&&$view==='product'&&$record){$canonical=Metadata::absolute(app_url('shop/product.php?slug='.rawurlencode($record['slug'])));$description=$record['data']['description'];$record['kind']='product';}
+        elseif(!$isPreview&&$store['enabled']&&$view==='catalog'&&!isset($_GET['q'])&&!isset($_GET['category'])){$page=Input::integer($_GET,'page',1,1000000,1);$canonical=Metadata::absolute(app_url('shop/'.($page>1?'?page='.$page:'')));}
         require Paths::root().'/views/public/header.php';
         require Paths::root().'/views/public/'.(in_array($view,['catalog','product','cart'],true)?'store.php':'customer.php');
         require Paths::root().'/views/public/footer.php';

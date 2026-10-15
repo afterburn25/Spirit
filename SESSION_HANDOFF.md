@@ -1,31 +1,23 @@
-# Resume here — verified RC2 grouped administration navigation
+# Resume here — RC3 managed section Pages
 
-Repository **afterburn25/Spirit**, **main** authoritative. Current cumulative version **1.0.0-rc.2**. Read live refs, AGENTS.md, PROJECT_STATUS.md, docs/ADMIN_NAVIGATION.md and docs/TEST_RESULTS.md before changing anything. Preserve concurrent changes; never force-push.
+Repository **afterburn25/Spirit**, main authoritative. Branch **work/section-content**, based on main7321f23435936087fbc24e099d612a92b38189d8 / treeabbd55daf6dd8e29f7b3cc5d1aa3638a0e49d4bd. Inspect live refs and AGENTS/status/design/test documents before writes. No force push or lost concurrent work.
 
-## Exact checkpoint
+## Current implementation
 
-Application **2947013dff9942691cf9c27b128f20cc50da7e77**, tree **47c47421c80675db8ad1479ef4a70a58ed2a8679**, passed full **38654637873**, focused **38654637735**, and three-engine storefront/release/navigation **38654637749**. Tested PR15 merge reference: 71100a594e773c05ffa752beca756f122ecc18cc. The final documentation-only descendant leaves runtime/assets/schema/workflows/tests unchanged; check later exact-main runs directly.
+SectionPages defines eight fixed existing Page placements, exact draft/published lookup, safe fallback copy/focus and honest pixel-width guidance. Existing Pages list/editor gain placement cards and image inspection; no schema/content-kind/nav category added. PublicSite maps section Page aliases and previews into actual layouts; Storefront admits internal merch Page previews only after content.manage authorization. Related releases/events/members/products remain public-only. PublicSearch/sitemap routes honor mapped pages without duplicate sitemap entries.
 
-The interrupted prior turn had already committed the menu and its passive-tab fix. This session recovered that actual saved source, verified completed jobs, inspected current rendered evidence, reran local checks and finalized delivery documentation. Do not rebuild from dev12 or treat saved RC1/RC2 work as lost. RC1 application e881a9a7 had passed its own full/storefront/focused runs before RC2.
+Saved draft preview is GET/HEAD-only and no-store/noindex/no-referrer. Booking preview disables submission and does not consume pending public feedback. Existing revision/media/publication controls govern saving, history restoration, publication and withdrawal. Opening placement links does not create records. Conflicting draft/published mappings must be reviewed, never auto-merged. Defaults remain until approved Page content is published.
 
-## Navigation contract
+## Verification and next actions
 
-AdminNavigation supplies six server-permission-filtered categories and 34 owner destinations. Overview stays direct; six store/order shortcuts have precise active keys. This is display structure, not authorization. Native details/summary and normal links remain available without JavaScript. Only admin pages load admin-navigation.css/js. Public design and original app.js/manual installer logic remain intact.
+Local223 PHP/inc syntax,747 pure assertions (689 retained +58) and12 packaging tests passed. Exact candidate full/focused/three-engine Actions verification is pending. Both SQL environments, all13 original Chromium workflows, existing gallery/release/admin-navigation journeys and Apache HTTPS remain required. New section SQL/HTTP and3engine editor/preview/layout tests must actually execute. Resolve failures without weakening assertions or permission checks; inspect the resulting real screenshots. Preserve canonical Git tree and delivery-manifest comparisons.
 
-Category booleans use a versioned localStorage entry under an installation/account/role-scoped opaque HMAC identifier. Tab-specific sessionStorage holds bounded sidebar scroll and mobile drawer state. No URL, search/filter values, form contents or credentials are stored. Native page refresh preserves the actual URL; never restore an old destination with location/history manipulation. Explicitly closing a current category must not be undone by refresh.
+Baseline exact-main full38662019528 passed RC2; not proof for RC3 bytes. Local PHP lacks PDO MySQL/GD/cURL/ZIP; real SQL/browser/Apache evidence comes from Actions. Canonical local source was recovered from Spirit-source-7321f234.zip and reconstructed to the exact Git tree; do not assume container files survive future sessions.
 
-Only actual changed groups are flushed on link/pagehide. A passive old tab must not write stale full preferences over another tab's newer selection. Retain the real two-page regression at every tested width. Open tabs do not continuously synchronize their display; a later explicit change can become the saved preference. New tabs keep their own chosen URL and drawer/scroll. Selecting a phone page closes its drawer but keeps category choices.
+After green verification, update all status/test/roadmap/changelog/owner guidance, retain exact evidence and package an immutable cumulative RC3 Full ZIP. No setup receipt; no fabricated live-host, mailbox or merchant acceptance. Pixel guidance is not production master artwork or copyright approval.
 
-Keep the pointer backdrop out of Tab order, keyboard focus inside an open drawer, Escape/close returning to Menu, background/closed-drawer inert behavior and native no-JavaScript access. Storage failure must be reported without disabling navigation. No cross-device persistence, unsaved-form recovery or role bypass.
+## Fixed scope
 
-## Verification and delivery
+Keep selected navy/black/gold/blue/crowned-gorilla design, external venue ticket sellers, RC2 collapsible categories and saved state. A2/cPanel manual one-page database setup only: no20i, token, setup code or automatic database/user creation. Preserve installer bytes, six migrations, five pinned recovery/access files, all prior deployment paths, original private configuration/encryption secret/database/media and separate recovery keys. Existing installations upgrade, never reinstall. Same-schema upgrade/same-instance restoration limits remain.
 
-Local 219 syntax checks, 689 pure assertions and 12 packaging tests passed. New 98 navigation model assertions plus real root/subfolder Chromium/Firefox/WebKit journeys at 1440/820/390/320 cover URL/state persistence, permissions, scroll/drawer, corrupt/unavailable storage, native operation and unchanged database fingerprints. Each engine logs 251 navigation, 212 gallery and 1,491 public-release PASS assertions. Retain all prior full/maintenance/provider/recovery suites and CSP.
-
-Source artifact11936053498 hash6e506fafce63e26ad48afe77f9133c8d9c5f61447742b77f56e7cfdc553f9f44 reconstructs the exact application tree. Browser artifacts11936074135/11936620823/11936805709 were verified by hash; fifteen current root navigation renders were reviewed. The release report records final canonical source and package comparisons. Do not assume container paths survive; re-establish exact files before linking.
-
-## Fixed scope and next steps
-
-A2/cPanel manual one-page installer, no20i, setup code/PRIVATE-SETUP, token or automatic database/user creation. Preserve earlier payload paths, six migrations, five pinned recovery/access files, private configuration/encryption secret/database/media and separate recovery keys. Existing sites upgrade rather than reinstall. Missing ZIP remains a hosting extension requirement, not something this menu changes.
-
-Actual protected A2 operation, receiving mailbox, genuine merchant sandbox, recovery/operating-scope, production artwork/real content/policies, populated real-device quality and owner acceptance remain. No live hosting/payment mode change or accepted final1.0 is implied. Continue from this cumulative RC2 candidate without reintroducing removed installer features, another redesign, native ticketing or fictitious public content.
+Actual A2/mailbox/genuine merchant sandbox/recovery, approved master artwork/real content/policies, real-device review and final owner acceptance remain. Continue working without calling the staging candidate accepted final1.0.

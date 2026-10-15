@@ -1,0 +1,9 @@
+<?php declare(strict_types=1); $placement=Spirit\SectionPages::definition((string)($values['slug']??'')); ?>
+<?php if($placement): ?>
+<section class="panel artwork-inspection" aria-labelledby="artwork-inspection-title"><p class="eyebrow">DESIGNED SECTION / <?=e($placement[0])?></p><h2 id="artwork-inspection-title">Prepare the final artwork.</h2><p><?=e($placement[4])?></p><p>Feature images use this section's saved Page record. Save before previewing; public visitors keep seeing the last published version.</p>
+<?php $selected=(string)($values['image_id']??''); $media=ctype_digit($selected)&&((int)$selected)>0?Spirit\Media::get((int)$selected):null; ?>
+<?php if($media&&$media['kind']==='image'): ?>
+<div class="artwork-inspection-grid"><img class="artwork-inspection-image" src="<?=e(Spirit\Media::url((int)$media['id']))?>" alt="<?=e($media['alt_text']?:'Selected section artwork')?>"><div><p><strong><?=e($media['original_name'])?></strong></p><p><?=e(Spirit\SectionPages::resolution(Spirit\Media::dimensions($media),(int)$placement[3]))?></p><p class="small muted">Alternative text: <?=e($media['alt_text']?:'Not supplied; the page title is used where the image is informative.')?></p></div></div>
+<?php else: ?><div class="notice info">No feature image selected. The existing section presentation remains; the small concept crops used by Home, Music and Band are reference artwork, not finished production masters.</div><?php endif; ?>
+<p class="small muted">Suggested source width: <?=number_format($placement[3])?> pixels or more. This is guidance, not a publication block or a claim that the image is approved. Check the full saved-draft preview on desktop and phone.</p><a class="text-link" href="<?=e(app_url('admin/media/'))?>" target="_blank" rel="noopener">Open Media library ↗</a></section>
+<?php endif; ?>

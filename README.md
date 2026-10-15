@@ -1,29 +1,21 @@
-# Spiritual Gorillaz — 1.0.0-rc.2
+# Spiritual Gorillaz — 1.0.0-rc.3 preparation
 
-Source of truth: **afterburn25/Spirit**, **main**. Read AGENTS.md, PROJECT_STATUS.md, SESSION_HANDOFF.md and docs/ROADMAP.md before changes. Preserve the approved navy/black/gold/blue design, real components and external venue ticket links.
+Authoritative repository: **afterburn25/Spirit**, **main**. Read AGENTS.md, PROJECT_STATUS.md, SESSION_HANDOFF.md and docs/ROADMAP.md. Preserve the selected cinematic navy/black/gold/blue design and the grouped administration menu.
 
-## Grouped administration navigation
+## Managed section artwork and copy
 
-The owner sidebar now organizes 34 destinations into six collapsible categories: Website content; Music & shows; Bookings & communication; Store & orders; Settings & access; System & maintenance. Overview remains a direct link. Each category has a decorative icon, count, chevron, hover/focus treatment and current-section styling. All existing destinations remain; six existing store/order endpoints now have direct shortcuts.
+Eight placement cards under **Website content > Pages & homepage** connect existing Page records to Home, Music, Shows, Band, Media, Booking, Press and Merchandise. Upload approved artwork, save a private Page draft, preview the real section layout, and explicitly publish. Related releases, events, members and products remain separately managed and public-only in previews. No new schema, content kind, fake inventory or new design is added.
 
-Categories start expanded on a first visit. Expand all, Collapse all and individual choices are remembered in this browser separately for each installation/account/role. A deliberately closed current category stays closed and highlighted. Sidebar scroll and mobile drawer state are tab-specific. Refresh keeps the actual current page, query and hash: the menu never stores a destination URL or redirects back to Overview. Selecting a phone destination closes the drawer while retaining the groups.
+The editor reports actual image dimensions and suggested source widths, without claiming that pixel count establishes detail, rights or approval. It does not generate or upscale production artwork. The current reference artwork remains until approved replacements are supplied. Booking forms are disabled in private previews. See docs/SECTION_PAGES.md.
 
-Only permitted links are rendered for each staff role, and endpoints retain their server authorization. Native disclosures and links remain usable without JavaScript. Unavailable browser storage does not disable navigation; a notice explains when the layout cannot be saved. Unsaved forms and cross-device preferences are not part of menu persistence. See docs/ADMIN_NAVIGATION.md.
+## Verification state
 
-## Cumulative release candidate
+Local223 PHP/inc syntax checks,747 distinct pure assertions (689 retained +58 section checks) and12 packaging tests passed. The new exact Actions verification is pending. The previous RC2 main7321f234 passed exact full38662019528; that is not proof for changed RC3 code. All existing SQL, browser, authorization, payment, maintenance and Apache suites remain required.
 
-This package also includes the RC1 native public menu/photo/audio fallbacks, published-policy footer, catalog/price/mobile-control refinements and broader three-engine release review. All earlier CMS/media/music/shows, booking/email/newsletter, store/cart/accounts/orders, staff, backups, same-schema upgrades, retention and passive Launch checks remain.
+## Preserved installation and operation
 
-Application **2947013dff9942691cf9c27b128f20cc50da7e77** passed full **38654637873**, focused maintenance **38654637735** and three-engine storefront/release/navigation **38654637749**. Local verification independently passed 219 PHP/inc syntax checks, 689 distinct pure assertions and 12 packaging tests. This documentation-only descendant changes no tested runtime, assets, schema, workflows or tests. See docs/TEST_RESULTS.md for exact evidence and remaining boundaries.
+**A2 Hosting with cPanel only; one-page manual database setup; no20i, setup code, PRIVATE-SETUP receipt, hosting token or automatic database/user creation.** Keep actual private-write checks, permanent installation locks and safe self-deletion. Missing PHP cURL or ZIP remains a host-side extension configuration issue. The new editor does not modify hosting or enable services.
 
-## Manual one-page A2 installation
+Build a development checkout with `python3 tools/package.py --output ./dist`; deploy only the cumulative Full ZIP including hidden access rules. No host-side Python/Node/Composer build, SSH or root is required. Install promptly or protect unattended setup. Existing sites upgrade, never reinstall; preserve private configuration, original encryption secret, database, media and separate recovery keys. See docs/INSTALLATION.md and docs/UPGRADES.md.
 
-**A2 Hosting with cPanel only. No 20i, setup code, PRIVATE-SETUP receipt, cPanel API token or automatic database/user creation.** Prepare a database and dedicated user in cPanel and enter their complete names and database-user password on the one-page installer. Private write probes, permanent locks and safe self-deletion remain. PHP cannot bypass provider ownership/ACL restrictions.
-
-PHP 8.2+, PDO MySQL, OpenSSL, fileinfo, GD, HTTPS and private writable runtime are required. cURL and ZIP are separate optional installation checks: payment connections need cURL and browser ZIP upgrades need ZIP. Enable missing extensions for the domain's PHP environment through the host, not through the application.
-
-Build with `python3 tools/package.py --output ./dist` on a development checkout. Upload/extract the cumulative Full ZIP including hidden access rules. No host-side Python, Node, Composer build, SSH or root is required. Install promptly or protect unattended setup. Existing sites **upgrade rather than reinstall**. Preserve original private configuration, encryption secret, database, uploads and separate backup/update recovery keys. Read docs/INSTALLATION.md and docs/UPGRADES.md first.
-
-## Final release boundary
-
-RC2 is a staging candidate, not accepted final 1.0. Actual A2 hosting/PHP settings, receiving-mailbox delivery, genuine merchant sandbox and recovery acceptance, approved production artwork and real content/policies, populated-device review and final owner approval remain. No live site, hosting setting or production payment mode was changed. The current reference artwork is not a set of final high-resolution masters.
+All previous public/admin/store/maintenance features and remembered menu state remain. Six migrations and five pinned recovery/access files are unchanged. Actual A2/mailbox/genuine merchant sandbox/recovery, approved production content/artwork/policies and final owner acceptance remain. **No accepted final1.0 is claimed.**

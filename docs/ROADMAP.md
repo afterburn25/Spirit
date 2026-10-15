@@ -1,20 +1,20 @@
-# Cumulative roadmap — 1.0.0-rc.2
+# Cumulative roadmap — 1.0.0-rc.3 preparation
 
-RC2 includes the requested grouped, remembered administration navigation and all RC1 public-access improvements. Application2947013d passed full38654637873, focused38654637735 and three-engine storefront/release/navigation38654637749. Exact evidence is in TEST_RESULTS.md. Version numbers are not completion percentages.
+Current work closes a remaining content-management gap: all eight main sections can use approved Page artwork/copy and show saved drafts in the actual layouts. Exact new Actions verification is pending; no final1.0 acceptance is implied.
 
-| Target | Scope | Current state |
-|---|---|---|
-|0.1|One-page manual A2 installer, private runtime, owner, deletion/lock|Implemented and regression-tested. No token/setup code/automatic database creation. Actual A2 acceptance remains.|
-|0.2|Approved responsive design|Implemented, including native mobile navigation and catalog/image fixes. Approved production master artwork/content remains.|
-|0.3|CMS, band/media/press, search/history|Implemented; native photo access, published-policy footer and private revision restoration included.|
-|0.4|Releases/tracks/persistent audio|Implemented; native no-JavaScript audio fallback without autoplay included.|
-|0.5|Shows and external venue ticket links|Implemented; no native ticket sales or scanning.|
-|0.6|Booking/email/newsletter|Implemented and tested. Actual receiving-mailbox acceptance remains.|
-|0.7|Catalog/variants/stock/cart/customers|Implemented and tested; initial addresses remain US-only.|
-|0.8|Token-only payment/orders/fulfillment|Application and synthetic provider boundaries tested. Genuine merchant sandbox acceptance remains.|
-|0.9|Staff/backups/upgrades/retention/discovery/quality|Implemented with guarded same-instance restore and same-schema upgrade limits. Broader real-site quality acceptance remains.|
-|1.0.0-rc.1|Public native access, policy links, catalog polish, wider release review|Included cumulatively; exact RC1 application e881a9a7 and current RC2 tests passed.|
-|1.0.0-rc.2|Polished grouped administration and remembered menu/page state|Implemented and verified in three engines at root/subfolder paths; six categories,34 owner destinations, independent category/scroll/drawer state and unchanged current URLs.|
-|1.0.0|Complete explicitly accepted release|Not released. Actual host/provider/recovery/content/policy/owner evidence remains.|
+| Milestone | State |
+|---|---|
+|0.1 installer/owner/private runtime|Implemented, RC2 verified; manual one-page A2 installer bytes unchanged.|
+|0.2 approved visual design|Implemented; RC3 connects remaining intro/artwork placements. Approved production masters still needed.|
+|0.3 content/media/band/press/history|Implemented; RC3 adds exact placement directory, dimensions and actual-layout private preview.|
+|0.4 music/player|Implemented; published-only releases/tracks and native fallback retained.|
+|0.5 shows|Implemented; external venue ticket seller, no internal tickets.|
+|0.6 booking/email/newsletter|Implemented; private booking previews now inactive. Actual inbox acceptance remains.|
+|0.7 store/accounts|Implemented; merch introduction uses existing Page while catalog/accounts remain separate.|
+|0.8 checkout/orders|Implemented with automated provider boundaries; genuine merchant sandbox acceptance remains.|
+|0.9 staff/backup/upgrades/retention/quality|Implemented; same-instance/same-schema limitations unchanged.|
+|1.0.0-rc.2|Verified and merged: grouped administration navigation/state persistence.|
+|1.0.0-rc.3|Managed section Page artwork/copy and actual-layout previews, exact verification pending.|
+|1.0.0|Not released: real host/provider/recovery/content/device/owner acceptance remains.|
 
-All earlier payload paths, six migrations, five pinned recovery/access files, original private configuration/encryption secret/database/media and offline recovery keys must remain protected. Existing sites upgrade rather than reinstall. Candidate packages are cumulative and immutable. Read ADMIN_NAVIGATION.md, RELEASE_CANDIDATE.md and LAUNCH_CHECKLIST.md for operating details and remaining acceptance.
+Preserve approved design, remembered categories, one-page manual A2 installation, no20i/token/setup code/automatic DB. Keep all prior deployment paths, six migrations, five pinned access/recovery files and original private config/encryption secret/data/media/recovery keys. Existing sites upgrade rather than reinstall. See SECTION_PAGES.md and LAUNCH_CHECKLIST.md.

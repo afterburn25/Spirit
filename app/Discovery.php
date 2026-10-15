@@ -39,7 +39,7 @@ final class Discovery
     }
     public static function sitemapRows(int $page): array
     {
-        $source=self::source();$filter="NOT (kind='page' AND slug IN ('home','band','press'))";$db=Database::connect();
+        $source=self::source();$filter="NOT (kind='page' AND slug IN ('home','music','shows','band','media','booking','press','merch'))";$db=Database::connect();
         $total=(int)$db->query('SELECT COUNT(*) FROM ('.$source.') approved WHERE '.$filter)->fetchColumn();$pages=max(1,(int)ceil($total/1000));
         if($page<1||$page>$pages){throw new InvalidArgumentException('Sitemap page not found.');}
         $rows=$db->query('SELECT * FROM ('.$source.') approved WHERE '.$filter.' ORDER BY kind,id LIMIT 1000 OFFSET '.(($page-1)*1000))->fetchAll();
@@ -60,8 +60,8 @@ final class Discovery
         }else{
             $items=[];
             if($part==='static'){
-                foreach([''=>'home','music/'=>null,'shows/'=>null,'band/'=>'band','media/'=>null,'press/'=>'press'] as $path=>$slug){$item=$slug?Content::bySlug('page',$slug):null;if(($item['data']['seo_visibility']??'include')!=='exclude'){$items[]=['url'=>app_url($path),'modified'=>null];}}
-                if(Catalog::options()['enabled']){$items[]=['url'=>app_url('shop/'),'modified'=>null];}
+                foreach([''=>'home','music/'=>'music','shows/'=>'shows','band/'=>'band','media/'=>'media','press/'=>'press'] as $path=>$slug){$item=$slug?Content::bySlug('page',$slug):null;if(($item['data']['seo_visibility']??'include')!=='exclude'){$items[]=['url'=>app_url($path),'modified'=>null];}}
+                if(Catalog::options()['enabled']&&((Content::bySlug('page','merch')['data']['seo_visibility']??'include')!=='exclude')){$items[]=['url'=>app_url('shop/'),'modified'=>null];}
             }else{try{$items=self::sitemapRows($page)['items'];}catch(InvalidArgumentException $e){http_response_code(404);exit('Sitemap page unavailable.');}}
             $xml=$prefix.'<urlset'.$ns.'>';foreach($items as $item){$xml.='<url><loc>'.self::xml(Metadata::absolute($item['url'])).'</loc>';if($item['modified']){$xml.='<lastmod>'.self::xml(str_replace(' ','T',$item['modified']).'Z').'</lastmod>';}$xml.='</url>';}$xml.='</urlset>';
         }

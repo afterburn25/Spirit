@@ -9,7 +9,7 @@ final class PublicSite
     public static function url(array $item): string
     {
         $slug=rawurlencode($item['slug']);
-        $path=match($item['kind']) {'release'=>'music/release.php?slug='.$slug,'event'=>'shows/event.php?slug='.$slug,'member'=>'band/member.php?slug='.$slug,'page'=>match($item['slug']){'home'=>'','band'=>'band/','booking'=>'booking/','press'=>'press/',default=>'pages/?slug='.$slug},default=>'media/'};
+        $path=match($item['kind']) {'release'=>'music/release.php?slug='.$slug,'event'=>'shows/event.php?slug='.$slug,'member'=>'band/member.php?slug='.$slug,'page'=>(SectionPages::definition($item['slug'])[1]??'pages/?slug='.$slug),default=>'media/'};
         return app_url($path);
     }
     public static function imageSizes(string $class): string
@@ -17,6 +17,7 @@ final class PublicSite
         $classes=preg_split('/\s+/',trim($class))?:[];
         if(in_array('product-thumb-image',$classes,true)){return '72px';}
         if(in_array('product-main-image',$classes,true)){return '(max-width: 600px) calc(100vw - 42px), (max-width: 760px) calc(100vw - 82px), (max-width: 1000px) 680px, (max-width: 1440px) 52vw, 680px';}
+        if(in_array('section-feature',$classes,true)){return '(max-width: 600px) calc(100vw - 42px), (max-width: 820px) calc(100vw - 80px), 640px';}
         if(in_array('hero-art',$classes,true)){return '(max-width: 820px) 100vw, 65vw';}
         if(in_array('page-image',$classes,true)||in_array('event-image',$classes,true)){return '(max-width: 600px) calc(100vw - 40px), (max-width: 900px) calc(100vw - 80px), 820px';}
         if(in_array('band-image',$classes,true)){return '(max-width: 600px) calc(100vw - 40px), 640px';}
@@ -68,10 +69,16 @@ final class PublicSite
         $slug=is_string($_GET['slug']??null)?$_GET['slug']:'';
         $details=['release'=>'release','event'=>'event','member'=>'member','page'=>'page'];
         if(isset($details[$view])&&!$record){$record=Content::bySlug($details[$view],$slug);if(!$record){$previous=Discovery::former($details[$view],$slug);if($previous&&in_array($_SERVER['REQUEST_METHOD']??'GET',['GET','HEAD'],true)){header('Cache-Control: no-cache');header('Location: '.self::url($previous),true,301);return;}http_response_code(404);$view='not-found';}}
-        if(in_array($view,['home','band','booking','press'],true)){$pageContent=$preview??Content::bySlug('page',$view);}
+        // A saved section Page previews in its real layout, with only that
+        // Page draft substituted. Related releases/products/events stay public-only.
+        if($view==='page'&&$record&&$record['kind']==='page'&&($section=SectionPages::definition($record['slug']))){
+            if($section[2]==='catalog'){Storefront::render('catalog',$isPreview?['page_preview'=>$record]:[]);return;}
+            $view=$section[2];$pageContent=$record;$record=null;
+        }
+        if(($sectionSlug=SectionPages::slugForView($view))!==null){$pageContent??=$preview??Content::bySlug('page',$sectionSlug);}
         $titles=['home'=>'Music with a higher purpose','music'=>'Our music','shows'=>'Upcoming shows','band'=>'The band','media'=>'Watch & explore','booking'=>'Book the band','booking-thanks'=>'Inquiry received','newsletter'=>'Band updates','press'=>'Electronic press kit','shop'=>'Official merchandise','search'=>'Search the website','not-found'=>'Page not found'];
         $title=$record?$record['title']:($titles[$view]??'Spiritual Gorillaz');$active=match($view){'release'=>'music','event'=>'shows','member','page'=>'band','booking-thanks'=>'booking',default=>$view};
-        $description=$record?Metadata::text((string)($record['data']['description']??$record['data']['body']??$record['data']['bio']??$record['title']),180):Metadata::text($settings['welcome'],180);
+        $description=$record?Metadata::text((string)($record['data']['description']??$record['data']['body']??$record['data']['bio']??$record['title']),180):Metadata::text(SectionPages::text($pageContent,'body',$settings['welcome']),180);
         $private=$isPreview||in_array($view,['booking','booking-thanks','newsletter','search'],true);
         header('Cache-Control: '.($private?'private, no-store':'no-cache'));if($isPreview){header('X-Robots-Tag: noindex, nofollow');}
         $canonical=null;if(!$private&&$view!=='not-found'){$path=$record?self::url($record):app_url($view==='home'?'':($view==='music'?'music/':$view.'/'));$base=Paths::basePath();$canonical=rtrim(Paths::config()['site_url'],'/').substr($path,strlen($base));}

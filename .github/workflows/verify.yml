@@ -63,6 +63,7 @@ jobs:
           php tests/gallery_unit.php
           php tests/public_access_unit.php
           php tests/admin_navigation_unit.php
+          php tests/section_pages_unit.php
           php tests/content_schema.php
           php tests/content_history_unit.php
           php tests/discovery_unit.php
@@ -81,6 +82,7 @@ jobs:
           python3 tests/http_integration.py
           php tests/foundation_db.php
           python3 tests/content_integration.py
+          python3 tests/section_pages_integration.py
           python3 tests/content_history_integration.py
           python3 tests/discovery_integration.py
           python3 tests/media_quality_integration.py
