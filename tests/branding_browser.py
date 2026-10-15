@@ -16,6 +16,9 @@ from branding_integration import mutate, logo_present
 def fits(page, label):
     expect(page.locator('h1').count()==1,label+': one primary heading')
     expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),label+': no horizontal overflow')
+    if page.locator('#branding-editor').count():
+        aligned=page.locator('#branding-editor .checkbox-label').evaluate("n=>{const i=n.querySelector('input').getBoundingClientRect(),s=n.querySelector('span').getBoundingClientRect();return getComputedStyle(n).display==='flex'&&i.width===16&&i.height===16&&i.top>=s.top&&i.top<=s.top+8&&i.right+5<=s.left;}")
+        expect(aligned,label+': approval checkbox aligns with the first text line at a readable size')
 
 
 def loaded_logo(page, id, shape):

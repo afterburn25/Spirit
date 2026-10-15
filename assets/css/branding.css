@@ -8,4 +8,4 @@
 @media(max-width:820px){.wordmark .site-logo{max-height:60px}}
 @media(max-width:600px){.branding-comparison{grid-template-columns:minmax(0,1fr);gap:16px}.branding-swatch{min-height:120px}}
 @media(forced-colors:active){.branding-swatch{background:Canvas;color:CanvasText;border-color:CanvasText}}
-#branding-editor .checkbox-label{align-items:flex-start;line-height:1.6}#branding-editor .checkbox-label input{width:auto;flex:0 0 auto;margin-top:4px}
+#branding-editor .checkbox-label{display:flex;gap:10px;align-items:flex-start;line-height:1.55;font-size:.9rem}#branding-editor .checkbox-label input{width:16px;height:16px;min-height:0;flex:0 0 16px;padding:0;margin:3px 0 0;accent-color:var(--gold,#e9c778)}
