@@ -1,21 +1,23 @@
-# Project status — 1.0.0-rc.3 preparation
+# Project status — 1.0.0-rc.3
 
-Preparing managed section artwork/copy and actual-layout private previews from existing Page records. Current branch target: **work/section-content**. Exact Actions verification pending. Baseline main7321f23435936087fbc24e099d612a92b38189d8 passed exact full38662019528.
+Application **28536a6102047fb89dd9cd6b04b5be3eed85e619**, tree **5989bf3f21c3e9b74c3db18d75c3c026b0402055**. Full workflow38667039903, focused38667039834 and three-engine38667039771; see TEST_RESULTS.md for exact conclusions and retry evidence. Final documentation-only changes leave application bytes unchanged. Inspect live main before new writes.
 
-## Implemented
+## Completed
 
-Eight placement cards under Pages & homepage find existing records by exact draft/published URL name, without the general listing's1000-row ceiling. New preparation opens an unsaved prefilled editor. Conflicting records are shown for review rather than merged. No GET publishes or creates content.
+Eight placement cards under **Pages & homepage** reopen existing Page records or prepare an unsaved new one. Exact draft/published URL lookup reaches records beyond the general listing's1000-row ceiling. Conflicting records are disclosed for review, never silently merged. Merely opening preparation/editor/preview pages does not publish content.
 
-Home/Music/Shows/Band/Media/Booking/Press/Merchandise use the corresponding published Page artwork and text in their approved layouts. The Page alias opens the same actual section. Private preview substitutes only its Page draft; related content remains published-only. Booking preview disables the form without consuming public feedback. Preview accepts GET/HEAD only, keeps staff authorization and private response/media rules.
+Home, Music, Shows, Band, Media, Booking, Press and Merchandise accept approved Page artwork and introductions inside the existing designs. Saved-draft previews show the actual section layout while related content remains published-only. Existing generic Page aliases resolve to the corresponding section; standalone custom/policy pages remain supported. Booking preview forms are disabled and do not consume public feedback. Preview requests are GET/HEAD-only with existing staff authorization and no-store/noindex/no-referrer protections.
 
-Image inspector shows actual dimensions, alternative text and source-width guidance. Adequate pixel width is not approval or a quality guarantee; a small image is warned about, not silently upscaled. Defaults remain when no replacement is published. Static/dynamic sitemap handling avoids duplicated designed Page routes and honors publication/exclusion.
+The artwork inspector shows actual pixel dimensions, alternative text and source-width guidance. It warns about undersized reference images without upscaling or claiming rights/quality approval. Private changes, history restoration, publication and withdrawal retain existing CMS/media controls. Unpublishing removes anonymous access to otherwise-private original/derivative files. Sitemap mapping avoids duplicated section URLs and follows saved visibility decisions.
 
-## Verification
+## Evidence
 
-Local223 syntax checks,747 distinct pure assertions and12 packaging tests passed. New SQL/HTTP tests cover each placement's private save, actual preview, publish, alias, replacement draft, history restore, unpublish, private media, conflicting records, large libraries and role boundaries. Three-engine browser tests cover actual editor/preview/public layouts at1440/390/320, root/subfolder and native preview fallback. Exact new full/focused/storefront results remain pending; retained suites are mandatory.
+223 PHP/inc syntax checks, 747 distinct pure assertions (689 retained +58 section checks), six JavaScript syntax checks, 40 Python compilation checks and 12 packaging tests passed locally. Local PHP is8.4.24 and lacks PDO MySQL/GD/cURL/ZIP; no local SQL/browser success is implied.
 
-## Preserved and pending
+Actual three-engine artifacts show137 section assertions per engine, alongside212 gallery,1491 release-review and251 navigation assertions. Section journeys cover actual editor/popup/public layouts at1440/390/320, root/subfolder and native no-JavaScript preview. Selected editor/public renders were visually reviewed;36 section screenshots are retained. These patterned images and texts are test fixtures, not production band artwork or inventory.
 
-No changes to RC2 grouped-nav behavior, one-page manual A2 installer, six migrations, five pinned recovery/access files, payment mode or hosting settings. Keep all earlier payload paths and private configuration/encryption secret/data/media/recovery keys. No20i/token/setup code/automatic database. Existing sites upgrade, never reinstall.
+## Unchanged scope and remaining work
 
-Approved production masters and genuine band/store content, actual A2/mailbox/genuine merchant sandbox/recovery, populated real-device quality and final owner approval remain. This implements the editing/preview path; it does not claim new production artwork or final1.0 acceptance. See docs/SECTION_PAGES.md.
+RC2 collapsible categories and browser-local state, one-page manual A2 installer, six migrations and five pinned recovery/access files remain unchanged. Every earlier RC2 deployment path is retained. No20i/token/setup code/automatic DB; no production service or host setting change. Existing installations upgrade rather than reinstall or replace their databases.
+
+This completes the content placement/preview tooling, **not the production master artwork itself**. Approved genuine band/store content and policies, protected A2 staging/extension/cleanup/recovery checks, real mailbox delivery, genuine merchant sandbox, populated real-device quality and final owner approval remain. Same-schema updates and same-instance guarded restoration retain their documented limits.

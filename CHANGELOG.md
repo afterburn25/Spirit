@@ -1,10 +1,10 @@
 # Changelog
 
-## 1.0.0-rc.3 — preparation, verification pending
+## 1.0.0-rc.3 — managed section content and previews
 
 Connect eight existing Page placements to approved section artwork/introductions. Add exact existing-record lookup, safe unsaved preparation, conflict disclosure and real image-dimension guidance. Saved drafts preview in the actual Home/Music/Shows/Band/Media/Booking/Press/Merch layouts while related content remains public-only. Disable booking preview forms; reject preview POSTs. Honor mapped section routes and sitemap exclusion without duplicate static/dynamic URLs.
 
-No new schema, content kind, administration category, generated production artwork, seed data or hosting/payment operation. Existing private revision/media/publication controls, remembered menu state and manual one-page installer remain. Local223 syntax/747 pure/12 packaging checks passed; complete new Actions verification pending. Final1.0 remains subject to actual host/provider/content/recovery/owner acceptance.
+No new schema, content kind, administration category, generated production artwork, seed data or hosting/payment operation. Existing private revision/media/publication controls, remembered menu state and manual one-page installer remain. Local223 syntax/747 pure/12 packaging checks passed; full38667039903, focused38667039834 and three-engine38667039771 are recorded with exact completion/retry details in TEST_RESULTS.md. Final1.0 remains subject to actual host/provider/content/recovery/owner acceptance.
 
 ## 1.0.0-rc.2 — verified grouped administration navigation
 

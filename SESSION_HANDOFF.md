@@ -1,23 +1,27 @@
 # Resume here — RC3 managed section Pages
 
-Repository **afterburn25/Spirit**, main authoritative. Branch **work/section-content**, based on main7321f23435936087fbc24e099d612a92b38189d8 / treeabbd55daf6dd8e29f7b3cc5d1aa3638a0e49d4bd. Inspect live refs and AGENTS/status/design/test documents before writes. No force push or lost concurrent work.
+Repository **afterburn25/Spirit**, **main** authoritative. Inspect live refs, AGENTS.md, PROJECT_STATUS.md, SECTION_PAGES.md and TEST_RESULTS.md before edits. Preserve concurrent work; never force-push.
 
-## Current implementation
+## Exact checkpoint and continuity
 
-SectionPages defines eight fixed existing Page placements, exact draft/published lookup, safe fallback copy/focus and honest pixel-width guidance. Existing Pages list/editor gain placement cards and image inspection; no schema/content-kind/nav category added. PublicSite maps section Page aliases and previews into actual layouts; Storefront admits internal merch Page previews only after content.manage authorization. Related releases/events/members/products remain public-only. PublicSearch/sitemap routes honor mapped pages without duplicate sitemap entries.
+Application **28536a6102047fb89dd9cd6b04b5be3eed85e619**, tree **5989bf3f21c3e9b74c3db18d75c3c026b0402055**, based on RC2 main7321f234. Its source artifact11941841098 has SHA-25662ab2255ff124e57bcb56d92e92868f147aa8eebce6be4ef6fb3203a234e8677 and reconstructs that exact Git tree. The interrupted session saved the implementation; this continuation recovered it, reconciled verification, inspected renders, reran local checks and finalized documentation/delivery. Do not rebuild from dev12 or discard saved RC1/RC2/RC3 work.
 
-Saved draft preview is GET/HEAD-only and no-store/noindex/no-referrer. Booking preview disables submission and does not consume pending public feedback. Existing revision/media/publication controls govern saving, history restoration, publication and withdrawal. Opening placement links does not create records. Conflicting draft/published mappings must be reviewed, never auto-merged. Defaults remain until approved Page content is published.
+Full workflow38667039903, focused38667039834 and three-engine38667039771. Read TEST_RESULTS.md for final conclusions and full-workflow retry. Earlier summary responses and retrieved job logs disagreed; the first reported failure was not silently relabeled successful. Require the new completed attempt rather than attributing a nonexistent code fix or skipping tests. A final documentation-only descendant leaves runtime/assets/schema/workflows/tests identical; verify its comparison. Later main reruns are separate evidence.
 
-## Verification and next actions
+## Implementation to retain
 
-Local223 PHP/inc syntax,747 pure assertions (689 retained +58) and12 packaging tests passed. Exact candidate full/focused/three-engine Actions verification is pending. Both SQL environments, all13 original Chromium workflows, existing gallery/release/admin-navigation journeys and Apache HTTPS remain required. New section SQL/HTTP and3engine editor/preview/layout tests must actually execute. Resolve failures without weakening assertions or permission checks; inspect the resulting real screenshots. Preserve canonical Git tree and delivery-manifest comparisons.
+SectionPages defines eight fixed existing Page placements, exact draft/published lookup, safe copy/focus defaults and honest pixel guidance. Pages list/editor gain placement cards and image inspection; no new content kind, schema or nav category. PublicSite maps section Page aliases/previews to real layouts. Storefront restricts internal merch Page previews to content.manage staff; a closed store is not enabled. Related records remain published-only.
 
-Baseline exact-main full38662019528 passed RC2; not proof for RC3 bytes. Local PHP lacks PDO MySQL/GD/cURL/ZIP; real SQL/browser/Apache evidence comes from Actions. Canonical local source was recovered from Spirit-source-7321f234.zip and reconstructed to the exact Git tree; do not assume container files survive future sessions.
+Saved previews are GET/HEAD-only, private/no-store/noindex/no-referrer. Booking previews disable inquiry submission and leave stored public feedback intact. Existing revision/publication/media checks govern explicit publish, history restore and withdrawal. Preparation GETs do not create records. Conflicting draft/published mappings are exposed, never auto-merged. Default presentation remains until approved content is published. Search/sitemap mapping follows canonical section routes without duplicating them.
 
-After green verification, update all status/test/roadmap/changelog/owner guidance, retain exact evidence and package an immutable cumulative RC3 Full ZIP. No setup receipt; no fabricated live-host, mailbox or merchant acceptance. Pixel guidance is not production master artwork or copyright approval.
+## Tests and source integrity
 
-## Fixed scope
+Local223 PHP/inc checks,747 pure assertions and12 package tests passed;6 JS syntax and40 Python compilation checks also passed. Runtime here is PHP8.4.24 without PDO MySQL/GD/cURL/ZIP; actual end-to-end evidence comes from Actions. Three-engine artifacts11941991844/11942726143/11942146852 were independently hashed. Each logs137 new section,212 gallery,1491 public-release and251 admin-navigation assertions. Selected actual renders were reviewed. Fixtures never enter deployment databases.
 
-Keep selected navy/black/gold/blue/crowned-gorilla design, external venue ticket sellers, RC2 collapsible categories and saved state. A2/cPanel manual one-page database setup only: no20i, token, setup code or automatic database/user creation. Preserve installer bytes, six migrations, five pinned recovery/access files, all prior deployment paths, original private configuration/encryption secret/database/media and separate recovery keys. Existing installations upgrade, never reinstall. Same-schema upgrade/same-instance restoration limits remain.
+RC2 delivery comparison preserved every264 prior manifest payload paths, all6 migration files, all5 pinned access/recovery files and the installer/grouped-menu runtime bytes. Final package/manifest/canonical hashes belong in the delivery report. Container paths may not survive: re-establish them before links. Deliver immutable cumulative RC3 Full ZIP, instructions/report and optional test-screen bundle, not a replacement database or setup receipt.
 
-Actual A2/mailbox/genuine merchant sandbox/recovery, approved master artwork/real content/policies, real-device review and final owner acceptance remain. Continue working without calling the staging candidate accepted final1.0.
+## Fixed scope and next work
+
+Selected navy/black/gold/blue/crowned-gorilla design; external venue ticket sellers; RC2 collapsible stateful navigation. A2/cPanel manual one-page database installer only, no20i/token/setup code/automatic DB. Keep original private config/encryption secret/data/media and separate recovery keys. No unapproved live deployment or payment enablement. Same-schema updates and same-instance restoration are not universal migration/disaster recovery.
+
+Next substantive work is production-resolution master artwork and genuine approved band/store content/policies, followed by populated-site and real A2/mailbox/merchant/recovery/device acceptance. The new editing/preview workflow does not mean artwork has been generated or approved. Do not invent members, performances, inventory or provider test results, and do not call this accepted final1.0.
