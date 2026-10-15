@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Compare real reload entry points on a loopback fixture, not fake unload events.
+"""Compare real reload entry points on loopback fixtures, not fake unload events.
 
 The required application suite independently tests its real authenticated editor.
-The protocol reload observation is diagnostic only. Native Location.reload must
-show the real dialog when dirty, cancel it, and reload cleanly when not dirty.
+Protocol reload is diagnostic only. Native Location.reload must display a real
+cancelable dialog for dirty input; an independent reverted form must reload cleanly.
 """
 from __future__ import annotations
 import json
@@ -39,7 +39,7 @@ def main():
     server = ThreadingHTTPServer(('127.0.0.1', 0), Handler)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
-    rows = []
+    url = f'http://127.0.0.1:{server.server_port}/'
     try:
         with sync_playwright() as p:
             options = {'executable_path': '/usr/bin/chromium'} if os.environ.get('SPIRIT_LOCAL_CHROMIUM') == '1' and name == 'chromium' else {}
@@ -48,7 +48,6 @@ def main():
                 for method in ('protocol', 'location'):
                     context = browser.new_context()
                     page = context.new_page()
-                    url = f'http://127.0.0.1:{server.server_port}/'
                     page.goto(url, wait_until='load')
                     field = page.get_by_label('Title')
                     field.click()
@@ -74,26 +73,36 @@ def main():
                         assert result.value.type == 'beforeunload' and seen == ['beforeunload']
                         be(field).to_have_value('Saved changed')
                         be(page.locator('form')).to_have_attribute('data-edit-guard-state', 'dirty')
-                    rows.append({'engine': name, 'method': method, 'activated': active,
-                                 'dialogs': list(seen), 'automation_error': error,
-                                 'retained_input': field.input_value() == 'Saved changed'})
-                    if method == 'location':
-                        field.fill('Saved')
-                        be(page.locator('form')).to_have_attribute('data-edit-guard-state', 'clean')
-                        seen.clear()
-                        with page.expect_navigation(wait_until='load'):
-                            page.evaluate('() => { setTimeout(() => window.location.reload(), 0); }')
-                        assert seen == [] and page.url == url
-                        be(page.locator('form')).to_have_attribute('data-edit-guard-state', 'clean')
-                        print('PASS Real Location.reload cancels dirty departure and reloads cleanly without a prompt.', flush=True)
+                    print(json.dumps({'engine': name, 'method': method, 'activated': active,
+                                      'dialogs': list(seen), 'automation_error': error,
+                                      'retained_input': field.input_value() == 'Saved changed'}, sort_keys=True), flush=True)
                     context.close()
+                # Keep the clean negative control independent of earlier native
+                # dialog cancellation. No failed case is retried or skipped.
+                context = browser.new_context()
+                page = context.new_page()
+                page.goto(url, wait_until='load')
+                field = page.get_by_label('Title')
+                field.click()
+                field.press('End')
+                field.press_sequentially(' changed')
+                be(page.locator('form')).to_have_attribute('data-edit-guard-state', 'dirty')
+                field.fill('Saved')
+                be(page.locator('form')).to_have_attribute('data-edit-guard-state', 'clean')
+                seen = []
+                page.on('dialog', lambda d: (seen.append(d.type), d.dismiss()))
+                with page.expect_navigation(wait_until='load'):
+                    page.evaluate('() => { setTimeout(() => window.location.reload(), 0); }')
+                assert seen == [] and page.url == url
+                be(page.locator('form')).to_have_attribute('data-edit-guard-state', 'clean')
+                print('PASS Independent reverted form actually reloads without a dialog.', flush=True)
+                context.close()
             finally:
                 browser.close()
     finally:
         server.shutdown()
         server.server_close()
         thread.join()
-    print(json.dumps(rows, sort_keys=True), flush=True)
 
 
 if __name__ == '__main__':
