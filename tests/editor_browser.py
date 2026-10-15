@@ -49,8 +49,19 @@ def journey(browser,s,engine,width,area,pid,item,image):
         before=snapshot(s)
         cancel_navigation(page,lambda:page.get_by_role('link',name='Back to list').click(no_wait_after=True),'Content navigation')
         expect(page.url==route and page.locator('[name=title]').input_value()=='Unsent page '+str(width),'Cancelling departure preserves current page and entered title')
-        cancel_navigation(page,lambda:page.reload(timeout=10000),'Editor refresh')
-        expect(page.url==route and snapshot(s)==before,'Cancelling refresh changes no stored product, identity or stock state')
+        # Use an independently opened dirty editor for the refresh case. A
+        # cancelled navigation followed immediately by the browser-chrome Reload
+        # command has different prompt/command timing in Firefox. Both real
+        # cancellation dialogs must still occur; no engine skips or retries.
+        refresh_page=context.new_page()
+        try:
+            refresh_page.goto(route,wait_until='networkidle')
+            refresh_page.locator('[name=title]').fill('Unsent refresh '+str(width))
+            dirty(refresh_page,'dirty')
+            cancel_navigation(refresh_page,lambda:refresh_page.reload(timeout=10000),'Editor refresh')
+            expect(refresh_page.url==route and refresh_page.locator('[name=title]').input_value()=='Unsent refresh '+str(width) and snapshot(s)==before,'Cancelling refresh preserves entered text and changes no stored product, identity or stock state')
+        finally:refresh_page.close()
+        page.bring_to_front()
         # A saved-preview popup does not unload or autosave the dirty editor.
         with page.expect_popup() as event:page.get_by_role('link',name='Preview saved draft').click()
         preview=event.value;preview.wait_for_load_state('domcontentloaded')
