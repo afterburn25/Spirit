@@ -65,7 +65,7 @@ final class PublicSite
     {
         if(!Paths::installed()){go('install/');}
         if(!Migrations::ready()) {http_response_code(503);View::start('Website update in progress');echo '<section class="panel"><h1>Website update in progress.</h1><p>The owner can finish the additive database update in administration. Existing website data has been preserved.</p><a class="button" href="'.e(app_url('admin/updates.php')).'">Owner administration</a></section>';View::end();return;}
-        $settings=Settings::all();$record=$preview;$pageContent=null;$isPreview=$preview!==null;
+        $settings=Settings::all();$record=$preview;$pageContent=null;$isPreview=$preview!==null||Branding::inPreview();
         $slug=is_string($_GET['slug']??null)?$_GET['slug']:'';
         $details=['release'=>'release','event'=>'event','member'=>'member','page'=>'page'];
         if(isset($details[$view])&&!$record){$record=Content::bySlug($details[$view],$slug);if(!$record){$previous=Discovery::former($details[$view],$slug);if($previous&&in_array($_SERVER['REQUEST_METHOD']??'GET',['GET','HEAD'],true)){header('Cache-Control: no-cache');header('Location: '.self::url($previous),true,301);return;}http_response_code(404);$view='not-found';}}

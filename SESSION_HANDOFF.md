@@ -1,22 +1,23 @@
-# Session handoff — RC4 verification continuation
+# Continue the RC5 logo workflow
 
-Repository afterburn25/Spirit; main is authoritative. Read AGENTS.md and the fixed design/hosting decisions before writes. Inspect live refs and preserve concurrent work; never force push.
+Repository **afterburn25/Spirit**, main authoritative. Branch **work/site-branding**, based on main49d5bbbbab146e7833dced698af51458ec625ddc / tree6cf6f3d2b8abbddfb64e98c9c0c2720ada286b05. Inspect live refs before writes, preserve concurrent work and never force-push. Read AGENTS.md, DESIGN_LOCK.md, status and test records.
 
-## Source and evidence
+## Current implementation
 
-Baseline RC3 main: `cfa72c002c5cb3c292ea274176d1a5281bd968f8`, tree `c13699b9d7efde164fc39ef438aa080eb9fba9c6`.
-RC4 branch: `work/rc4-history-verification`, PR17.
-Tested head: `5373be7884b3b9e6d10dd9d051d0ffdf9dd4e021`, tree `5ffb3a8b2ff1b70c3894ad38c276a2c30e94dab1`.
-Required completed successful workflows: full 38675061084; focused 38675061064; three-engine 38675061080. Finalization edits documentation only. Inspect any later exact-main verification before starting the next change.
+app/Branding.php provides a versioned settings record with separate draft/published logo IDs. admin/branding offers owner-only editor and real-homepage preview. Save/publish/withdraw recheck the locked owner and session, CSRF, revision and image integrity. Preview is GET/HEAD-only and private/no-store/noindex/no-referrer. Public Media::serve permits only the published branding image in addition to its existing typed references.
 
-RC3 exact-main full 38672702303 failed its content-history pagination test. Do not call the earlier parent retry a correction. Replace immediate page-wide counts with scoped, awaited exact data; no genuine assertion was dropped. The first RC4 commit b82f7939 was superseded: local Chromium preflight caught exact wrapped-label matching for selects, corrected in 5373be78. This was a new test locator correction, not a production defect. Current three-engine history logs show all 12 contexts and 443 reported passing checks each. See TEST_RESULTS.md and HISTORY_VERIFICATION.md, including the nonfatal older WebKit gallery runner diagnostic.
+Header/footer use contained responsive images and accessible named home links. Header includes an inert logo template; assets/js/branding.js clones its already authorized link on the existing spirit:navigated event without fetching HTML or touching the audio node. Original assets/js/public.js is unchanged. Website settings has a management link and corrected outdated copy. No new migration, upload system or navigation category.
 
-## Preservation
+Forms carry the last backup-restore audit epoch. Backups preserve audit, so a restore cannot revalidate an old form even if the numeric branding revision rolls back. Existing Backups.php and all recovery logic remain byte-identical. New SQL tests exercise both current-logo and pre-branding snapshot restoration.
 
-No runtime PHP/CSS/JavaScript, approved design, administration category/state, installer, migration, recovery kernel or provider change. VERSION is 1.0.0-rc.4; all old deployment paths retained. Deliver a cumulative new Full ZIP without overwriting RC3. Verify every manifest entry against exact canonical source, and record source, workflow IDs, archive SHA-256 and path preservation in the accompanying report. Tests/workflows are source-only, not deployed.
+## Verification required
 
-A2/cPanel manual one-page installer only. No setup code, token, 20i or automatic database provisioning. Keep original private config/encryption secret/data/media and recovery receipts. Existing installations upgrade, never reinstall or create a replacement DB. Same-schema updater and same-instance guarded restoration limits remain.
+Local 228 syntax files, 781 pure assertions, seven JavaScript syntax checks, Python compilation and 12 packaging tests passed. Local PHP lacks PDO MySQL/GD/cURL/ZIP. Exact new CI is pending: run Site logo workflow verification plus every unchanged full, focused and three-engine storefront suite. New tests are branding_unit.php, branding_integration.py and branding_browser.py. Do not claim old RC4 results prove new code, skip tests or fabricate acceptance. Inspect actual new renders before packaging.
 
-## Next work
+Three image-generation attempts returned erroneous release graphics instead of master artwork. None is a real screenshot, commit or feature report; none is included in the source or package. Real crowned-gorilla production master artwork is still outstanding. Do not implement or claim the unrelated features shown in those graphics.
 
-This pass makes verification more reliable; it does not supply the final artwork/content. Continue with approved production master artwork and genuine band/store content when actually available, retaining the design lock and publishing controls. Do not invent identities, releases, products, dates, policies or acceptance evidence. Actual protected A2/extension/cleanup/recovery, receiving-mailbox and genuine merchant sandbox checks require the real authorized environment. Physical-device and owner approval remain. Final 1.0 must not be tagged while these acceptance items remain.
+After successful CI, finalize status/roadmap/test records, verify canonical source and all cumulative payload hashes, and deliver a new immutable RC5 Full ZIP. Do not overwrite RC4. Keep all prior paths, six migrations and five pinned access/recovery files.
+
+## Fixed scope
+
+Preserve the approved navy/gold/blue design, external venue ticket sellers, grouped remembered admin navigation, and manual one-page A2/cPanel installer. No setup code, token, 20i or automatic DB. Existing sites upgrade with backups, never reinstall or replace their original private config/encryption secret/database/media and recovery keys. No host/provider operation or production publication occurs here. Approved master artwork/content/policies, real A2/mailbox/merchant/recovery/device checks and final owner acceptance remain.

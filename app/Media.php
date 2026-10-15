@@ -64,7 +64,7 @@ final class Media
     }
     public static function serve(int $id): never
     {
-        $media=self::get($id);$public=$media!==null && (Content::publicMedia($id) || (Database::exists(Database::connect(),Paths::config()['db']['prefix'].'products') && Catalog::publicImage($id)));
+        $media=self::get($id);$public=$media!==null && (($media['kind']==='image' && Branding::publicImage($id)) || Content::publicMedia($id) || (Database::exists(Database::connect(),Paths::config()['db']['prefix'].'products') && Catalog::publicImage($id)));
         if (!$public) {$user=Auth::current();if (!$media || !$user || !Permissions::allows($user,'media.manage')) {header('Cache-Control: private, no-store');http_response_code(404);exit('Media unavailable.');}}
         try {$width=ImageVariants::requestWidth($_GET['width']??null);} catch (InvalidArgumentException $e) {http_response_code(400);exit('Unsupported image size.');}
         if($width>0&&$media['kind']!=='image'){http_response_code(400);exit('Image size is not applicable.');}

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0-rc.5 — owner logo workflow, verification pending
+
+Add private owner logo drafts, full-homepage preview, explicit publication/withdrawal and contained responsive public header/footer rendering. Refresh branding during enhanced public navigation without replacing the audio node. Enforce owner/session/revision/media-integrity safeguards, and reject pre-restoration forms using the preserved restore audit epoch, including pre-branding snapshots. Correct stale Website settings copy about a holding page and future CMS. No migration, installer, menu-state, pinned recovery or provider changes; no master artwork or real content supplied. Erroneous generated release graphics are excluded and are not feature/test evidence. Local 228 syntax / 781 pure assertions / 12 packaging tests passed; exact CI pending.
+
 ## 1.0.0-rc.4 — content-history verification hardening
 
 Replace immediate page-wide pagination counts with expected-destination waits and exact scoped record/title/total assertions. Retain 25 records on the first page, six on the last and all eleven revision-comparison fields. Add three mandatory next/previous cycles, reload and empty results, and two actual private restorations with published snapshot/timestamp/page and media-access invariants. Cover root/subfolder, 1440/390/320px and native JavaScript-disabled forms in Chromium, Firefox and WebKit. Preserve synthetic history logs/screens in the existing three-engine workflow.

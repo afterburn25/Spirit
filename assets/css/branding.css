@@ -1,0 +1,11 @@
+/* Contained logo presentation: preserve the approved image's ratio and alpha. */
+.brand-logo-wrap{display:flex;align-items:center;justify-content:flex-start;width:100%;min-width:0;min-height:40px}
+.brand-logo-wrap>.site-logo{display:block;max-width:100%;max-height:76px;width:auto;height:auto;object-fit:contain}
+.wordmark:has(.site-logo){transform:none;text-shadow:none}
+.branding-comparison{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-bottom:24px}
+.branding-card{min-width:0}.branding-swatch{display:flex;align-items:center;justify-content:center;min-height:150px;padding:24px;background:#050c14;border:1px solid #34495f;border-radius:12px;color:#e9c778;overflow-wrap:anywhere;text-align:center}
+.branding-swatch .brand-logo-wrap{width:240px;max-width:100%;justify-content:center}.branding-swatch .site-logo{max-height:110px}
+@media(max-width:820px){.wordmark .site-logo{max-height:60px}}
+@media(max-width:600px){.branding-comparison{grid-template-columns:minmax(0,1fr);gap:16px}.branding-swatch{min-height:120px}}
+@media(forced-colors:active){.branding-swatch{background:Canvas;color:CanvasText;border-color:CanvasText}}
+#branding-editor .checkbox-label{align-items:flex-start;line-height:1.6}#branding-editor .checkbox-label input{width:auto;flex:0 0 auto;margin-top:4px}

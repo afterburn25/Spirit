@@ -1,19 +1,13 @@
-# Project status — 1.0.0-rc.4
+# Project status — RC5 site logo candidate
 
-## Completed in this continuation
+Based on verified RC4 main `49d5bbbbab146e7833dced698af51458ec625ddc`; current work is `work/site-branding`. Exact new Actions verification is pending, so RC5 has not been promoted to main.
 
-Content-history browser verification was hardened after RC3 exact-main workflow 38672702303 failed at pagination. The previous parent retry was not a proven fix. RC4 waits for the expected URL and exact scoped results, retaining the 25/6 record and eleven-field requirements. It adds three mandatory next/previous cycles, reload/empty-search checks and two actual private restores per journey, with unchanged published JSON/timestamp, anonymous page and old/new media permissions.
+Implemented: owner logo draft, actual-homepage private preview, explicit public-use approval, publication and withdrawal; contained responsive header/footer images; named home links; a separate navigation-event branding module that leaves the original persistent player/navigation code untouched. Website settings copy no longer incorrectly calls the site a holding page or its existing CMS a future feature.
 
-Chromium, Firefox and WebKit each passed the new journey at 1440/390/320px in root and subfolder installations, with JavaScript enabled and disabled: 12 contexts and 443 reported passing checks per engine. All retained gallery/release/navigation/section suites also passed. Seventy-two synthetic history screenshots are in the inspected evidence archives; selected desktop/mobile/no-JavaScript screens were visually reviewed.
+The versioned settings record separates draft and published image IDs. Current owner role/session and revisions are checked under a transaction; wrong-type/missing/damaged images and stale submissions are rejected. Only the published image gains public media authorization. Forms also record the last restore audit epoch, preventing an old snapshot from making a pre-restore form valid again. The backup engine is unchanged.
 
-## Verified source
+Local 228 PHP/inc syntax checks, 781 pure assertions (747 retained +34 new), seven JavaScript checks and 12 package tests passed. New SQL/HTTP and real three-engine browser checks must pass alongside all unchanged full/focused/storefront suites. The new dedicated workflow covers both SQL/PHP combinations and Chromium, Firefox and WebKit.
 
-Commit `5373be7884b3b9e6d10dd9d051d0ffdf9dd4e021`, tree `5ffb3a8b2ff1b70c3894ad38c276a2c30e94dab1` passed full 38675061084, focused 38675061064 and three-engine 38675061080. Full verification includes PHP 8.2/MariaDB 11.4, PHP 8.4/MySQL 8.4, all thirteen retained Chromium workflow steps and Apache HTTPS. Local 223 PHP/inc syntax checks, 747 pure assertions, six JavaScript syntax checks and twelve packaging tests passed. Local PHP lacks PDO MySQL/GD/cURL/ZIP; no local SQL success is claimed.
+No production master artwork was generated successfully. The erroneous generated release graphics are excluded and prove no features, commits or tests. No installer, grouped-menu state, schema, pinned recovery, payment mode or real provider changes. All earlier deployment paths must be preserved in the final cumulative package.
 
-The final documentation commit leaves tested runtime, tests and workflows unchanged. Subsequent exact-main runs are additional evidence and must be read live rather than inferred from a version number. Details, archive hashes and a nonfatal WebKit gallery runner warning are recorded in docs/TEST_RESULTS.md.
-
-## Unchanged and outstanding
-
-This is test hardening, not a new user-facing site feature. RC3 page/artwork tooling, approved design, remembered administration navigation and manual one-page A2 installer remain. All earlier deployment paths, six migrations, five pinned access/recovery files and runtime code are preserved. No 20i/token/setup code/automatic database creation, fake production content, hosting alteration or real provider operation.
-
-Production master artwork, genuine content/policies, actual A2/mailbox/merchant/recovery acceptance, physical-device quality and final owner approval remain. Existing installations upgrade with backups; do not reinstall or replace their database/private encryption secret. Same-schema code upgrades and same-instance guarded data recovery retain their documented limits. Final 1.0 is not released.
+Remaining: approved master artwork and real content/policies; actual A2/private-storage/extension/cleanup/recovery, receiving mailbox, genuine merchant sandbox, populated physical-device review and final owner approval. Final 1.0 is not released. Read docs/BRANDING.md and docs/LAUNCH_CHECKLIST.md.
