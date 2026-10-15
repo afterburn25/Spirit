@@ -1,0 +1,85 @@
+name: Public navigation and native controls
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: public-navigation-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  navigation:
+    name: Navigation / PHP ${{ matrix.php }} / ${{ matrix.database }} / ${{ matrix.browser }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '8.4'
+            database: 'mysql:8.4'
+            browser: chromium
+          - php: '8.4'
+            database: 'mariadb:11.4'
+            browser: firefox
+          - php: '8.4'
+            database: 'mariadb:11.4'
+            browser: webkit
+    services:
+      database:
+        image: ${{ matrix.database }}
+        env:
+          MYSQL_ROOT_PASSWORD: ephemeral-ci-root-not-production
+          MYSQL_DATABASE: spirit_ci
+          MYSQL_USER: spirit_ci
+          MYSQL_PASSWORD: ephemeral-ci-user-not-production
+        ports:
+          - 3306:3306
+    env:
+      SPIRIT_TESTING: '1'
+      SPIRIT_DISABLE_PAYMENT_NETWORK: '1'
+      SPIRIT_DB_HOST: 127.0.0.1
+      SPIRIT_DB_PORT: '3306'
+      SPIRIT_DB_NAME: spirit_ci
+      SPIRIT_DB_USER: spirit_ci
+      SPIRIT_DB_PASSWORD: ephemeral-ci-user-not-production
+      SPIRIT_BROWSER: ${{ matrix.browser }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl, zip
+          coverage: none
+      - name: Record exact source and wait for disposable SQL
+        run: |
+          mkdir -p "$RUNNER_TEMP/spirit-navigation"
+          echo "SPIRIT_SCREENSHOT_DIR=$RUNNER_TEMP/spirit-navigation" >> "$GITHUB_ENV"
+          git archive --format=zip --output="$RUNNER_TEMP/spirit-navigation/Spirit-source.zip" HEAD
+          python3 -m py_compile tests/public_navigation_browser.py
+          python3 tests/wait_for_database.py
+      - name: Prepare isolated browser and audio device
+        run: |
+          python3 -m venv "$RUNNER_TEMP/spirit-nav-browser"
+          "$RUNNER_TEMP/spirit-nav-browser/bin/pip" install playwright==1.57.0
+          "$RUNNER_TEMP/spirit-nav-browser/bin/python" -m playwright install --with-deps "$SPIRIT_BROWSER"
+          sudo apt-get install -y --no-install-recommends pulseaudio pulseaudio-utils
+          pulseaudio --start --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=spirit_nav_audio
+          pactl set-default-sink spirit_nav_audio
+      - name: Verify actual menus, playback and native controls
+        run: |
+          set -o pipefail
+          "$RUNNER_TEMP/spirit-nav-browser/bin/python" tests/public_navigation_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-navigation/browser.log"
+      - name: Retain exact source and synthetic evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spirit-navigation-${{ matrix.php }}-${{ matrix.browser }}-${{ github.sha }}
+          path: ${{ runner.temp }}/spirit-navigation/
+          if-no-files-found: error
+          retention-days: 7

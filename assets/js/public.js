@@ -15,10 +15,64 @@
   else window.addEventListener('resize', playerInset);
   const time = value => Number.isFinite(value) ? `${Math.floor(value / 60)}:${String(Math.floor(value % 60)).padStart(2, '0')}` : '0:00';
   const announce = (message, error = false) => { status.textContent = message; status.className = error ? 'player-error' : 'visually-hidden'; };
-  const menu = open => { nav.classList.toggle('is-open', open); toggle.setAttribute('aria-expanded', String(open)); };
-  toggle.addEventListener('click', () => menu(toggle.getAttribute('aria-expanded') !== 'true'));
+  // This is ordinary disclosure navigation, not a modal or ARIA application
+  // menu. Tab may leave freely; Escape returns to the controlling button.
+  const mobileNavigation = window.matchMedia('(max-width: 820px)');
+  let navigationFocus = null;
+  const menuIsOpen = () => mobileNavigation.matches && nav.classList.contains('is-open');
+  const fitMenu = () => {
+    if (!menuIsOpen()) { nav.style.removeProperty('--menu-max-height'); return; }
+    const viewport = window.visualViewport;
+    let bottom = Math.min(window.innerHeight, viewport ? viewport.offsetTop + viewport.height : window.innerHeight) - 16;
+    if (!player.hidden) bottom = Math.min(bottom, player.getBoundingClientRect().top - 12);
+    nav.style.setProperty('--menu-max-height', `${Math.max(88, Math.floor(bottom - nav.getBoundingClientRect().top))}px`);
+  };
+  const menu = (open, returnFocus = false) => {
+    const show = Boolean(open && mobileNavigation.matches);
+    nav.classList.toggle('is-open', show);
+    toggle.setAttribute('aria-expanded', String(show));
+    if (show) nav.scrollTop = 0;
+    fitMenu();
+    if (returnFocus && mobileNavigation.matches) toggle.focus({ preventScroll: true });
+  };
+  toggle.addEventListener('click', () => menu(!menuIsOpen()));
+  toggle.addEventListener('keydown', event => {
+    if (!mobileNavigation.matches || !['ArrowDown', 'ArrowUp'].includes(event.key)) return;
+    event.preventDefault(); menu(true);
+    const links = nav.querySelectorAll('a[href]');
+    (event.key === 'ArrowDown' ? links[0] : links[links.length - 1])?.focus();
+  });
   document.documentElement.classList.add('public-enhanced');
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { menu(false); toggle.focus(); } });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menuIsOpen()) {
+      event.preventDefault(); menu(false, true);
+    }
+  });
+  document.addEventListener('focusin', event => {
+    navigationFocus = nav.contains(event.target) || toggle.contains(event.target) ? event.target : null;
+    if (menuIsOpen() && !nav.contains(event.target) && !toggle.contains(event.target)) menu(false);
+  });
+  document.addEventListener('click', event => {
+    if (menuIsOpen() && !nav.contains(event.target) && !toggle.contains(event.target)) {
+      // A click on non-focusable background must not leave focus hidden in nav.
+      menu(false, nav.contains(document.activeElement));
+    }
+  });
+  document.addEventListener('focusout', event => {
+    // Explicit blur of a visible control is not a request to restore its focus.
+    if (event.target === navigationFocus && !event.relatedTarget && event.target.getClientRects().length) navigationFocus = null;
+  });
+  mobileNavigation.addEventListener('change', () => {
+    // CSS may hide a focused link/button before this event reaches JavaScript.
+    const active = document.activeElement === document.body ? navigationFocus : document.activeElement;
+    const wasInNav = nav.contains(active), wasToggle = toggle.contains(active);
+    menu(false);
+    if (mobileNavigation.matches && wasInNav) toggle.focus({ preventScroll: true });
+    else if (!mobileNavigation.matches && wasToggle) (nav.querySelector('a[aria-current]') || nav.querySelector('a[href]'))?.focus({ preventScroll: true });
+  });
+  window.addEventListener('resize', fitMenu);
+  window.visualViewport?.addEventListener('resize', fitMenu);
+  if ('ResizeObserver' in window) new ResizeObserver(fitMenu).observe(player);
   const paintPlayback = () => {
     const playing = !audio.paused;
     playToggle.textContent = playing ? 'Ⅱ' : '▶';
