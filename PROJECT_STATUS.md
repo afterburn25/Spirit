@@ -1,15 +1,21 @@
-# Project status — 1.0.0-rc.7
+# Project status — RC7 software / launch content review 01
 
-## Completed
+## Current focus
 
-Public phone navigation now supports non-modal Tab entry/exit, Escape focus return, optional arrow-key entry, outside dismissal and desktop/phone focus recovery. Short-screen menus scroll above the active music player. Shared native admin checkbox geometry no longer inherits oversized text-input dimensions. Form names/defaults, consent/publication/payment rules and the remembered administration menu remain unchanged.
+Continue the six final completion milestones rather than adding optional features. Application VERSION remains **1.0.0-rc.7**. The delivered RC7 Full ZIP is unchanged and must not be rebuilt and reissued under the same name with different bytes. This source checkpoint changes editorial material and documentation only.
 
-Tested adcafab92035816571e7951e71d73d6c0a22af89 (tree5d2d70be796b3ae9e293749126f189f2326442d1) passed all six required workflows: full38802392834, focused38802392855, storefront38802392802, branding38802392914, authoring38802392808 and navigation38802393254.
+Milestone 1 is **in progress, not complete**. Eight proposed Page introductions and search/share descriptions are prepared in `design/launch-review-01/PAGE-COPY.md`. An artwork placement brief follows the locked design and existing image-width guidance. These are new writing proposals, not quotations or approved band facts. No text was imported or published to the site.
 
-Finalization changes documentation only; all tested runtime, VERSION, tests and workflows are retained. The new three-engine jobs each report361 passing checks using real root/subfolder installations. Twelve synthetic screenshots and three logs were downloaded with verified digests; selected desktop/mobile product controls and the short-screen menu were visually inspected. Local230 PHP/inc syntax,812 existing pure assertions,eight JS checks and12 packaging tests passed. Full-site integration runs in Actions; local PHP lacks the required SQL/image/ZIP extensions.
+A separate conversation review packet contains four 20-second, 720p performance excerpts and four unretouched full-frame stills with JPEG/WebP variants, recovered from earlier user media. Their band identity, recording titles and publication approval are NOT established. Private recordings, email bodies, provider links and access IDs are excluded from this repository. The excerpts are not complete recordings, verified band footage or production logo/hero masters.
 
-No PHP business logic, HTML forms, installer, schema, access rules, pinned recovery or administration-navigation runtime changed. All282 earlier RC6 payload paths remain; the final package report records exact hashes and any additional main-run outcomes.
+## Checks performed for this content pass
 
-## Remaining acceptance
+All eight draft entries pass the existing RC7 ContentSchema and SectionPages placement validation, without a database call. Four review MP4s fully decode and have H.264/AAC streams, 1280x720 dimensions, 20-second duration and fast-start layout. The offline review document has four local players, eight copy cards, valid local links and no scripts/forms/remote embeds. Browser file navigation was blocked by the environment; no rendered-browser or browser-playback result is claimed for that document.
 
-Approved production artwork, genuine band/store content and policies, actual A2/mailbox/merchant/recovery, populated physical-device review and owner approval remain. This quality pass does not replace those substantive tasks or claim a final1.0 launch. No live site or provider setting was changed. Existing sites upgrade with backups, not reinstall. Keep manual one-page A2/cPanel setup with no setup code/token/20i/automatic database and preserve original private config/encryption secret/data/media/recovery receipts.
+No application, installer, schema, test suite, workflow, payment logic or administration state changed. No new application acceptance run is claimed. Prior RC7 evidence remains in TEST_RESULTS.md and PR20; software baseline is 5f721a3ab785690b99e966d6ca976e810c2431ee.
+
+## Next approval and remaining work
+
+Confirm whether the four remastered parts are the Spiritual Gorillaz material intended for the site. Then confirm titles, credits and permission before using them in public band content. Review the proposed page prose. Finished logo/hero artwork, genuine biographies, shows, merchandise and policies remain outstanding.
+
+Milestones 2–6 remain open: actual A2 installation/private storage/extensions/cleanup/recovery; real mailbox and scheduled processing; genuine Authorize.net sandbox; populated physical-device quality; final owner acceptance and release. Nothing was deployed or enabled. Keep the one-page manual A2/cPanel installer, no setup code/token/20i/automatic database, the approved design and external venue ticket sellers. Existing sites upgrade with backups rather than reinstall.
