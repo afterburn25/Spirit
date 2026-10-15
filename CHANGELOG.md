@@ -1,27 +1,15 @@
 # Changelog
 
-## 1.0.0-rc.5 — verified owner logo workflow
+## 1.0.0-rc.6 — authoring safety candidate
 
-Add private owner logo drafts, full-homepage preview, explicit publication/withdrawal and contained responsive public header/footer rendering. Refresh branding during enhanced public navigation without replacing the audio node. Enforce owner/session/revision/media-integrity safeguards, and reject pre-restoration forms using the preserved restore audit epoch, including pre-branding snapshots. Correct stale Website settings copy about a holding page and future CMS. No migration, installer, menu-state, pinned recovery or provider changes; no master artwork or real content supplied. Erroneous generated release graphics are excluded and are not feature/test evidence. Local228 syntax /781 pure assertions /12 packaging tests passed. Tested b16e9780 passed full38681481396, focused38681481344, storefront38681481322 and logo38681481271; four logo jobs each reported109 SQL/HTTP and179 browser checks. Actual screenshot review led to a checkbox-alignment fix and a new geometry assertion. Finalization changes documentation only.
+Add opt-in unsaved-change warnings to content, product and logo editors, without autosave, browser draft storage or network calls. Restore clean state when edits are reverted; keep rejected responses unsaved; allow legitimate submissions and saved-preview popups. Browser limitations remain explicit.
 
-## 1.0.0-rc.4 — content-history verification hardening
+Correct a product editor bug that redisplayed old stored fields after rejected saves. Redisplay only escaped authored fields, preserve the original stale revision and do not mutate publication, inventory or customer records. Native no-JavaScript error correction remains usable. Local230 syntax/812 pure/8 JS/27 isolated helper/12 package checks passed; exact new CI pending.
 
-Replace immediate page-wide pagination counts with expected-destination waits and exact scoped record/title/total assertions. Retain 25 records on the first page, six on the last and all eleven revision-comparison fields. Add three mandatory next/previous cycles, reload and empty results, and two actual private restorations with published snapshot/timestamp/page and media-access invariants. Cover root/subfolder, 1440/390/320px and native JavaScript-disabled forms in Chromium, Firefox and WebKit. Preserve synthetic history logs/screens in the existing three-engine workflow.
+## Prior cumulative releases
 
-5373be78 passed full38675061084, focused38675061064 and three-engine38675061080. All thirteen retained Chromium steps and both SQL environments passed; each dedicated history run reported443 passing checks. Document the prior RC3 exact-main failure and the new wrapped-select locator correction rather than claiming a product fix or retrying until green. No runtime/layout/installer/navigation/schema/recovery/provider change; no new customer-facing feature. Production art/content and external acceptance remain.
+RC5 added owner logo drafts/preview/explicit publication/withdrawal and stale-form protection across backup restore. Verified sourceb16e9780 and final-main1101be37 evidence are preserved in Git at1101be37414701ae3488073e6cddee9348c1cae8.
 
-## 1.0.0-rc.3 — managed section content and previews
+RC4 hardened native pagination and private-history tests. RC3 connected eight existing Page artwork/copy placements to real-layout previews. RC2 added grouped remembered administration navigation. RC1 added native public access and policy links; earlier releases implemented the complete application, installer, commerce and guarded maintenance foundations. Historical detailed changelogs remain in Git and docs/history; no previous delivered archive is overwritten.
 
-Connect eight existing Page placements to approved section artwork/introductions. Add exact existing-record lookup, safe unsaved preparation, conflict disclosure and real image-dimension guidance. Saved drafts preview in actual Home/Music/Shows/Band/Media/Booking/Press/Merch layouts while related content remains public-only. Disable booking preview forms; reject preview POSTs. Honor mapped routes and sitemap exclusion without duplicate static/dynamic URLs.
-
-No new schema, content kind, administration category, generated production artwork, seed data or hosting/payment operation. Existing private revision/media/publication controls, remembered menu and manual one-page installer remained. The parent full retry and later exact-main failure are distinguished in RC4 test records.
-
-## 1.0.0-rc.2 — verified grouped administration navigation
-
-Six server-permission-filtered categories organize34 owner destinations. Category choices persist by installation/account/role; bounded scroll and drawer state are tab-specific. Refresh preserves the current path/query/hash without remembered-URL redirects. Native links/disclosures, keyboard drawer controls, storage failure feedback and passive-tab conflict prevention are retained.
-
-Application2947013d passed full38654637873, focused38654637735 and three-engine38654637749. Documentation descendant7321f234 was merged; exact-main full38662019528 also passed.219 PHP syntax checks,689 distinct pure assertions and12 package tests;251 navigation assertions per engine in addition to gallery/release coverage. Actual hosting/provider/master-art/owner acceptance remained outstanding.
-
-## Earlier releases
-
-Full historical notes and evidence are preserved in Git. RC1 added native public access and policy navigation; dev12 fixed responsive product photos; dev11 consolidated passive launch diagnostics/upload-limit feedback; dev9 restored manual-only installation. All remain cumulative. No delivered archive is overwritten or reissued with different bytes.
+No approved production content is invented or published, and no hosting or provider setting changes here. Final1.0 acceptance remains outstanding.

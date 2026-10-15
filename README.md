@@ -1,19 +1,19 @@
-# Spiritual Gorillaz — 1.0.0-rc.5
+# Spiritual Gorillaz — 1.0.0-rc.6 candidate
 
-Repository **afterburn25/Spirit**, main authoritative. Preserve the selected black/deep-navy, gold and blue design. Read AGENTS.md, PROJECT_STATUS.md and SESSION_HANDOFF.md before changes.
+Source of truth: **afterburn25/Spirit**, **main**. Preserve the approved navy/black/gold/blue design, external venue ticket links, and remembered collapsible administration menu. Read AGENTS.md, PROJECT_STATUS.md and SESSION_HANDOFF.md before changes.
 
-## New: owner-managed site logo
+## Authoring safeguards
 
-Website settings now links to a real Site logo editor: private draft, actual-homepage preview, explicit approved publication and withdrawal. The public header and footer display the full contained image with their named home links. A small separate branding script updates the header after existing public navigation; the original player/navigation script is unchanged. No new database migration is needed.
+Content, product-description and logo editors now warn about unsaved changes before supported browser navigation or refresh. The warning is not autosave: draft contents are not stored in the browser or sent anywhere. Product errors also retain submitted editable fields for correction, rather than replacing them with older saved values. Stale submissions keep their original revision so they cannot silently overwrite a newer draft.
 
-Read docs/BRANDING.md. Tested b16e9780 passed full38681481396, focused38681481344, storefront38681481322 and logo38681481271. Finalization changes documentation only; exact delivery/main evidence is recorded separately. This is not a final 1.0 release, a new visual design or a generated master-artwork package. The erroneous generated release graphics from this conversation are not screenshots or evidence and are excluded.
+Exact candidate CI is pending. Local230 PHP/inc syntax files,812 pure assertions,8 JavaScript syntax checks,27 isolated Chromium lifecycle checks and12 packaging tests passed. See docs/EDITING_SAFETY.md and TEST_RESULTS.md. Earlier RC5 verification is not proof for changed runtime.
 
 ## Preserved application and deployment
 
-All RC4 public/content/media/music/shows/booking/newsletter/store/accounts/orders/staff/backup/upgrade/diagnostic features and the remembered collapsible menu remain. Show tickets continue to the venue's external seller. No production content or service setting is changed by this source update.
+All prior content/media/music/shows/booking/newsletter/store/accounts/orders/staff/branding/backup/upgrade/diagnostic features remain. No master artwork or real content is invented or published by this update. No runtime changes to payment logic, storage, recovery, public navigation/player or the approved public design.
 
-A2/cPanel only: one manual browser installation page with existing database and owner details; no setup code, hosting token, 20i or automatic database/user creation. PHP cURL/ZIP remain separate optional-installation notices. Private write probes, permanent locks and safe installer cleanup remain. PHP cannot bypass hosting ownership controls.
+A2/cPanel only: one manual browser installation page with existing database and owner details; no setup code, hosting token,20i or automatic database/user creation. Private write probes, permanent locks and safe installer cleanup remain. Missing PHP cURL/ZIP still needs the actual host's configuration. PHP cannot bypass hosting ownership controls.
 
-Existing sites upgrade with backups, never reinstall or create replacement databases. Preserve original private configuration/encryption secret, database, media and offline recovery receipts. Same-schema browser upgrade and guarded same-instance restoration limits remain. Build the cumulative package with `python3 tools/package.py --output ./dist`; the host requires no Python, Node, Composer build, SSH or root. Read docs/INSTALLATION.md and docs/UPGRADES.md.
+Existing sites upgrade with backups, never reinstall or create a replacement database. Preserve original private config/encryption secret/database/media and offline recovery receipts. Same-schema upgrade and same-instance restoration limits remain. Build the cumulative package using `python3 tools/package.py --output ./dist`; no host-side Python/Node/Composer build, SSH or root is required. Read docs/INSTALLATION.md and docs/UPGRADES.md.
 
-Production master artwork and genuine content/policies, actual A2/mailbox/merchant/recovery/device testing and owner approval remain before final 1.0.
+Approved production artwork/content/policies, actual A2/mailbox/merchant/recovery/device testing and owner approval remain before final1.0. Browser warnings cannot guarantee recovery after mobile app termination, tab closure or a crash.

@@ -1,0 +1,5 @@
+/* Local authoring feedback; no menu, fixed overlays or public layout changes. */
+.edit-guard-notice{grid-column:1/-1;width:100%;box-sizing:border-box;margin:0 0 8px;padding:14px 18px;border:1px solid #9b793c;border-left:4px solid #e6bc65;border-radius:8px;background:#17202a;color:#f5deaf;font-size:.95rem;line-height:1.55;overflow-wrap:anywhere}
+.edit-guard-notice[hidden]{display:none}
+@media(max-width:600px){.edit-guard-notice{padding:12px 14px}}
+@media(forced-colors:active){.edit-guard-notice{background:Canvas;color:CanvasText;border-color:CanvasText}}

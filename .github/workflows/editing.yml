@@ -1,0 +1,87 @@
+name: Authoring safety verification
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: editing-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  editing:
+    name: Editors / PHP ${{ matrix.php }} / ${{ matrix.browser }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '8.2'
+            database: 'mariadb:11.4'
+            browser: chromium
+          - php: '8.4'
+            database: 'mysql:8.4'
+            browser: chromium
+          - php: '8.4'
+            database: 'mariadb:11.4'
+            browser: firefox
+          - php: '8.4'
+            database: 'mariadb:11.4'
+            browser: webkit
+    services:
+      database:
+        image: ${{ matrix.database }}
+        env:
+          MYSQL_ROOT_PASSWORD: ephemeral-ci-root-not-production
+          MYSQL_DATABASE: spirit_ci
+          MYSQL_USER: spirit_ci
+          MYSQL_PASSWORD: ephemeral-ci-user-not-production
+        ports:
+          - 3306:3306
+    env:
+      SPIRIT_TESTING: '1'
+      SPIRIT_DISABLE_PAYMENT_NETWORK: '1'
+      SPIRIT_DB_HOST: 127.0.0.1
+      SPIRIT_DB_PORT: '3306'
+      SPIRIT_DB_NAME: spirit_ci
+      SPIRIT_DB_USER: spirit_ci
+      SPIRIT_DB_PASSWORD: ephemeral-ci-user-not-production
+      SPIRIT_BROWSER: ${{ matrix.browser }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl, zip
+          coverage: none
+      - name: Verify submitted-field correction without database mutation
+        run: |
+          mkdir -p "$RUNNER_TEMP/spirit-editors"
+          echo "SPIRIT_SCREENSHOT_DIR=$RUNNER_TEMP/spirit-editors" >> "$GITHUB_ENV"
+          git archive --format=zip --output="$RUNNER_TEMP/spirit-editors/Spirit-source.zip" HEAD
+          php tests/product_edit_form_unit.php
+          python3 -m py_compile tests/editor_integration.py tests/editor_browser.py tests/edit_guard_helper.py
+          set -o pipefail
+          python3 tests/editor_integration.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/integration.log"
+      - name: Install isolated browser
+        run: |
+          python3 -m venv "$RUNNER_TEMP/spirit-editor-browser"
+          "$RUNNER_TEMP/spirit-editor-browser/bin/pip" install playwright==1.57.0
+          "$RUNNER_TEMP/spirit-editor-browser/bin/python" -m playwright install --with-deps "$SPIRIT_BROWSER"
+      - name: Check warning lifecycle and actual editor workflows
+        run: |
+          set -o pipefail
+          "$RUNNER_TEMP/spirit-editor-browser/bin/python" tests/edit_guard_helper.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/helper.log"
+          "$RUNNER_TEMP/spirit-editor-browser/bin/python" tests/editor_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/browser.log"
+      - name: Preserve exact source and synthetic evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spirit-editors-${{ matrix.php }}-${{ matrix.browser }}-${{ github.sha }}
+          path: ${{ runner.temp }}/spirit-editors/
+          if-no-files-found: error
+          retention-days: 7

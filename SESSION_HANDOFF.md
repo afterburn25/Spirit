@@ -1,25 +1,13 @@
-# Resume here — verified RC5 site logo workflow
+# RC6 authoring safeguards — work in progress
 
-Repository **afterburn25/Spirit**, main authoritative. Work was developed on **work/site-branding**, PR18, from RC4 main49d5bbbbab146e7833dced698af51458ec625ddc. Read live refs, AGENTS.md, status, design lock and test records before edits. Preserve concurrent work; never force-push.
+Source of truth: afterburn25/Spirit main. Base1101be37414701ae3488073e6cddee9348c1cae8, treec30bef92ff8f4718b15f72185e8b165c3fe3439e. Candidate branch work/editor-safety. Inspect live refs before writing; no force pushes or concurrent overwrites.
 
-## Exact source and completed evidence
+New: opt-in unsaved-change warnings on content, product and logo authoring forms. No autosave, storage or network calls. Approval/hidden/password/file inputs and sensitive operational forms are excluded. Browser controls the leave dialog and may suppress it; no guarantee on mobile app termination. Defaults versus live fields distinguish restored browser edits, and rejected server responses remain dirty. Native reset timing was reproduced locally and handled after its default action; cancelled submissions cannot permanently suppress warnings.
 
-Tested commit **b16e9780c41b2f1ea751361c4cd8c3ae27e51c58**, tree **5802cee7016b918348ec9f0e29f4f99941f6cc8f**. Completed successful workflows: full38681481396, focused38681481344, storefront38681481322, logo38681481271. Documentation-only finalization preserves runtime/tests/workflows/VERSION. Later exact-main runs and final package hashes are recorded separately in PR18 and the delivery report; do not infer them.
+Also fix the product editor losing authored fields after a rejected save. ProductEditForm projects only editable names/descriptions/selection/slug/revision back into escaped controls. Stale errors retain the old revision, avoiding silent adoption of a newer draft. Server write rules remain unchanged. Native forms retain correction without JavaScript.
 
-All four logo jobs passed109 SQL/HTTP and179 browser checks in their downloaded logs. Cover JS1440/390/320 and native390 at root/subfolder (8 contexts/job), two SQL/PHP combinations and all three engines. Twenty-four synthetic screenshots were downloaded and hashed; selected final desktop/mobile renders were reviewed. The earlier bebc6c0b logo run passed, but visual review found inherited checkbox-grid alignment. b16e9780 fixes the row and adds an actual geometry assertion; use the later evidence, not just the first pass.
+Local230 PHP/inc syntax,812 pure assertions,8 JavaScript checks,27 isolated Chromium checks and12 packaging tests passed. Exact candidate SQL/browser/Apache verification is pending. Preserve every prior suite. New editing.yml covers PHP8.2/MariaDB, PHP8.4/MySQL and Chromium/Firefox/WebKit. Complete runs, inspect real renders, record honest results, compare canonical source and preserve every prior payload path before promotion. Local PHP has no PDO MySQL/GD/cURL/ZIP, so do not claim local application integration.
 
-Local228 PHP/inc syntax,781 pure assertions,7 JS syntax checks and12 package tests passed. Local PHP lacks PDO MySQL/GD/cURL/ZIP, so actual application integration evidence is Actions-only. Canonical downloaded source reconstructed tree5802cee7. Packaging validation preserved every271 prior payload path, all six migrations, five pinned recovery/access files, installer, original public.js, admin-navigation runtime and Backups.php. Final archives are immutable; re-establish runtime paths before links.
+The actual public domain now renders the redesign, but music/band/shows/store remain unpopulated. This was a limited read-only web observation, not authenticated acceptance or deployment performed by us. Do not invent content or infer PHP/private-storage/mailbox/payment success from it.
 
-## Implementation to retain
-
-app/Branding.php stores separate draft/published logo IDs and revision in one settings record. admin/branding is owner-only. Native save/publish/withdraw enforce CSRF, a locked current owner/session, revision and image integrity. Preview is the real homepage, GET/HEAD-only, no-store/noindex/no-referrer, with related content still public-only. Media::serve authorizes only the published branding image in addition to existing public references.
-
-Header/footer preserve ratio and named home links. An inert server-rendered template and assets/js/branding.js update the header on spirit:navigated without fetching HTML or replacing the audio node. Original public.js and backup engine are unchanged. The existing restore audit epoch rejects old forms even when an old snapshot restores a matching numeric revision. Current-logo and pre-branding snapshots were tested. Website settings links to the editor and its obsolete holding-page/future-CMS copy is corrected.
-
-Three generated release graphics were erroneous, not screenshots/source/test results. None is in the repository or package. Do not implement or claim their unrelated features. Production crowned-gorilla master artwork still has not been completed in this pass.
-
-## Fixed scope and next work
-
-Preserve approved navy/gold/blue design, external venue ticket sellers, grouped remembered navigation and manual one-page A2/cPanel installer. No setup code/token/20i/automatic DB. Existing sites upgrade with backups, never reinstall or replace original private config/encryption secret/data/media/recovery receipts. Same-schema updates and same-instance restoration limits remain.
-
-Next substantive work is approved production artwork and genuine band/store content/policies, followed by real A2/mailbox/merchant/recovery/device and owner acceptance. The new controls do not mean an approved logo or master artwork was supplied. No real service was configured, no site deployed and no final1.0 acceptance is claimed.
+Fixed scope remains approved navy/gold/blue design, external venue ticket sellers, remembered collapsible menu, manual one-page A2/cPanel setup and no20i/token/setup code/automatic DB. Six migrations and pinned recovery/access files remain unchanged. Existing sites upgrade with backups; never reinstall or replace original config/encryption secret/data/media/recovery keys. Approved master art/real content and real environment/device/owner approval remain before final1.0.
