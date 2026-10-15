@@ -1,0 +1,9 @@
+# RC4 content-history verification continuation
+
+Baseline: main cfa72c002c5cb3c292ea274176d1a5281bd968f8. Its exact-main full workflow38672702303 failed at the content-history pagination browser check after successful SQL/HTTP and earlier browser steps. The earlier retry on its parent is not a proven correction. Do not silently relabel the old failure or rerun until green without investigating it.
+
+The replacement test scopes assertions to the real Content results region, waits for the expected filter/page URL and verifies exact sorted record titles and totals. The fixture still has31 matching records:25 on page1 and6 on page2. All11 revision fields remain required. Each journey performs three mandatory next/previous round trips, reload and empty-search checks. It retains the revision2 restoration and also restores revision1, checking the database's new private revision, unchanged public snapshot, unchanged anonymous rendered page and old/new media permissions. Root/subfolder,1440/390/320px and native JavaScript-disabled forms are covered. The existing Chromium/Firefox/WebKit workflow now runs the same suite and retains its synthetic log/screens. There is no retry-on-failure, skipped old assertion or production permission/CSP change.
+
+Local223 PHP/inc syntax checks,747 pure assertions and12 package tests passed. Local PHP8.4.24 lacks PDO MySQL/GD/cURL/ZIP. Exact new SQL/browser/Apache execution is PENDING; update this record with actual results before main promotion. Runtime/layout/installer/navigation/schema/recovery/provider bytes are unchanged, apart from VERSION identifying the new immutable candidate. No host module was enabled, real message sent or provider transaction executed.
+
+This is testing hardening, not a newly implemented customer-facing feature. Genuine production artwork/content/policies and actual A2/mailbox/merchant/recovery/device/owner acceptance remain before final1.0.

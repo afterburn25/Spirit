@@ -77,6 +77,10 @@ jobs:
         run: |
           set -o pipefail
           "$RUNNER_TEMP/spirit-browser/bin/python" tests/section_pages_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-sections.log"
+      - name: Verify native pagination and private-history restoration
+        run: |
+          set -o pipefail
+          "$RUNNER_TEMP/spirit-browser/bin/python" tests/content_history_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-history.log"
       - name: Preserve synthetic storefront renders
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -88,5 +92,6 @@ jobs:
             ${{ runner.temp }}/spirit-release.log
             ${{ runner.temp }}/spirit-sections.log
             ${{ runner.temp }}/spirit-navigation.log
+            ${{ runner.temp }}/spirit-history.log
           if-no-files-found: ignore
           retention-days: 7

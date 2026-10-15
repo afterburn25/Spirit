@@ -1,7 +1,7 @@
 name: Source checkpoint artifact
 on:
   push:
-    branches: [main, 'work/booking-email-recovery', 'work/catalog-accounts', 'work/payments-orders', 'work/staff-access', 'work/backups-restore', 'work/browser-upgrades', 'work/retention-quality', 'work/content-history', 'work/site-quality', 'work/media-accessibility', 'work/single-page-installer', 'work/manual-database-installer', 'work/launch-diagnostics', 'work/storefront-quality', 'work/release-candidate', 'work/section-content']
+    branches: [main, 'work/booking-email-recovery', 'work/catalog-accounts', 'work/payments-orders', 'work/staff-access', 'work/backups-restore', 'work/browser-upgrades', 'work/retention-quality', 'work/content-history', 'work/site-quality', 'work/media-accessibility', 'work/single-page-installer', 'work/manual-database-installer', 'work/launch-diagnostics', 'work/storefront-quality', 'work/release-candidate', 'work/section-content', 'work/rc4-history-verification']
   workflow_dispatch:
 permissions:
   contents: read
