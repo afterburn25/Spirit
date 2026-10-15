@@ -1,23 +1,25 @@
-# Spiritual Gorillaz — 1.0.0-rc.3
+# Spiritual Gorillaz — 1.0.0-rc.4
 
-Authoritative repository: **afterburn25/Spirit**, **main**. Read AGENTS.md, PROJECT_STATUS.md, SESSION_HANDOFF.md and docs/ROADMAP.md. Preserve the approved cinematic navy/black/gold/blue design and the grouped administration menu.
+Cumulative PHP/MySQL website and owner administration for shared A2/cPanel hosting. `main` is authoritative. This is a staging release candidate, not an accepted final 1.0 or a live deployment.
 
-## Managed section artwork and introductions
+## This continuation
 
-**Website content > Pages & homepage** now offers eight placement cards for Home, Music, Shows, Band, Media, Booking, Press and Merchandise. They reuse existing Page records. Upload approved artwork, save a private Page draft, preview the actual designed section, then explicitly publish. Related releases, events, members and products remain independently managed and published-only in those previews.
+RC4 hardens content-history browser verification after the exact RC3 main workflow failed its pagination check. Tests now wait for the correct destination and assert the exact records in the Content results region. The original 25-row first page, six remaining records and eleven comparison fields remain mandatory. Three next/previous round trips, reload, empty search and private restoration are checked with unchanged public snapshots and media permissions.
 
-The image inspector reports actual dimensions, alternative text and suggested source width. It does not manufacture detail, certify usage permission or generate/upscale production artwork. Reference assets remain until approved replacements are published. Booking forms are disabled in saved-draft previews. See docs/SECTION_PAGES.md.
+The same suite runs in Chromium, Firefox and WebKit, at 1440/390/320px, root/subfolder, with and without JavaScript. Each engine completed 443 reported passing history checks. Full workflow 38675061084, focused 38675061064 and three-engine 38675061080 passed for application/test commit `5373be7884b3b9e6d10dd9d051d0ffdf9dd4e021`, tree `5ffb3a8b2ff1b70c3894ad38c276a2c30e94dab1`. Final documentation-only changes do not alter those tested bytes. See docs/TEST_RESULTS.md for evidence and limitations.
 
-## Verification
+**No customer-facing feature, production artwork, runtime PHP/CSS/JavaScript, installer, menu, database migration or recovery kernel changes in this pass.** VERSION advances to identify an immutable cumulative candidate. The prior RC3 archive is not overwritten.
 
-Application **28536a6102047fb89dd9cd6b04b5be3eed85e619** is the tested runtime. Full workflow **38667039903**, focused maintenance **38667039834** and three-engine workflow **38667039771** are recorded in docs/TEST_RESULTS.md, including the full-workflow retry and original reporting discrepancy. The final documentation-only descendant does not change runtime/assets/schema/workflows/tests.
+## Retained website
 
-Local verification passed 223 PHP/inc syntax checks, 747 distinct pure assertions and 12 packaging tests. New section SQL/HTTP checks cover all eight placements; Chromium, Firefox and WebKit exercise real editor, preview and publication paths at 1440/390/320 pixels in root and subfolder installations. Existing gallery, release, navigation, payment, backup/recovery and permission regressions remain. See exact completion results before promoting this source.
+The approved black/deep-navy, gold and blue design; eight managed section introductions/artwork with actual-layout saved-draft previews; pages, band, media and press; published music with persistent playback/native fallback; shows with external venue ticket links; booking/newsletter/email queue; merchandise, customer accounts and sandbox-first Authorize.net orders; scoped staff access; protected backup, same-schema browser upgrade/recovery, maintenance and diagnostics. The grouped administration menu keeps browser-local preferences. Real production content must be supplied and explicitly published, never invented from examples.
 
-## Installation and preservation
+## Install or upgrade
 
-**A2 Hosting with cPanel only; one-page manual database setup; no20i, setup code, PRIVATE-SETUP receipt, hosting token or automatic database/user creation.** Private-write probes, independent installation locks and safe self-deletion remain. Missing PHP cURL or ZIP is a hosting configuration issue; this build does not enable server modules or production services.
+Read docs/INSTALLATION.md, docs/CPANEL_INSTALLER.md and docs/UPGRADES.md. Fresh installation uses one manual A2/cPanel browser form with existing database and owner details, no setup code, API token, 20i or automatic database creation. cURL and ZIP have separate optional-installation notices. PHP cannot override hosting ownership/ACL restrictions. Completed setup remains permanently locked even when physical installer cleanup is denied.
 
-Build a development checkout using `python3 tools/package.py --output ./dist`. Upload/extract only the cumulative Full ZIP, including hidden access rules. No host-side Node/Python/Composer build, SSH or root is required. Install promptly or protect unattended setup. Existing sites **upgrade, never reinstall**; preserve the original private configuration, encryption secret, database, media and separate recovery keys. Read docs/INSTALLATION.md and docs/UPGRADES.md first.
+Existing installations upgrade rather than reinstall or create a replacement database. Preserve original private configuration, encryption secret, database, uploaded media and offline backup/update recovery receipts. Back up first and use protected staging. No real hosting setting, mailbox or payment service was changed here.
 
-All prior public/admin/store/maintenance features and remembered navigation remain. All prior RC2 deployment paths, six migrations, five pinned recovery/access files and installer/navigation runtime bytes are preserved. Actual A2, real receiving-mailbox, genuine merchant sandbox/recovery, approved production artwork/content/policies and final owner acceptance remain. **This is a staging candidate, not accepted final1.0.**
+## Remaining acceptance
+
+Approved master artwork, genuine band/store content and policies; actual A2 private storage/extensions/cleanup/recovery; receiving-mailbox delivery; genuine merchant sandbox; populated physical-device/accessibility/performance review and owner approval. Automated tests do not replace these checks. See PROJECT_STATUS.md, SESSION_HANDOFF.md, docs/ROADMAP.md and docs/LAUNCH_CHECKLIST.md.

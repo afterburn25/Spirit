@@ -1,23 +1,19 @@
-# Project status — 1.0.0-rc.3
+# Project status — 1.0.0-rc.4
 
-Application **28536a6102047fb89dd9cd6b04b5be3eed85e619**, tree **5989bf3f21c3e9b74c3db18d75c3c026b0402055**. Full workflow38667039903, focused38667039834 and three-engine38667039771; see TEST_RESULTS.md for exact conclusions and retry evidence. Final documentation-only changes leave application bytes unchanged. Inspect live main before new writes.
+## Completed in this continuation
 
-## Completed
+Content-history browser verification was hardened after RC3 exact-main workflow 38672702303 failed at pagination. The previous parent retry was not a proven fix. RC4 waits for the expected URL and exact scoped results, retaining the 25/6 record and eleven-field requirements. It adds three mandatory next/previous cycles, reload/empty-search checks and two actual private restores per journey, with unchanged published JSON/timestamp, anonymous page and old/new media permissions.
 
-Eight placement cards under **Pages & homepage** reopen existing Page records or prepare an unsaved new one. Exact draft/published URL lookup reaches records beyond the general listing's1000-row ceiling. Conflicting records are disclosed for review, never silently merged. Merely opening preparation/editor/preview pages does not publish content.
+Chromium, Firefox and WebKit each passed the new journey at 1440/390/320px in root and subfolder installations, with JavaScript enabled and disabled: 12 contexts and 443 reported passing checks per engine. All retained gallery/release/navigation/section suites also passed. Seventy-two synthetic history screenshots are in the inspected evidence archives; selected desktop/mobile/no-JavaScript screens were visually reviewed.
 
-Home, Music, Shows, Band, Media, Booking, Press and Merchandise accept approved Page artwork and introductions inside the existing designs. Saved-draft previews show the actual section layout while related content remains published-only. Existing generic Page aliases resolve to the corresponding section; standalone custom/policy pages remain supported. Booking preview forms are disabled and do not consume public feedback. Preview requests are GET/HEAD-only with existing staff authorization and no-store/noindex/no-referrer protections.
+## Verified source
 
-The artwork inspector shows actual pixel dimensions, alternative text and source-width guidance. It warns about undersized reference images without upscaling or claiming rights/quality approval. Private changes, history restoration, publication and withdrawal retain existing CMS/media controls. Unpublishing removes anonymous access to otherwise-private original/derivative files. Sitemap mapping avoids duplicated section URLs and follows saved visibility decisions.
+Commit `5373be7884b3b9e6d10dd9d051d0ffdf9dd4e021`, tree `5ffb3a8b2ff1b70c3894ad38c276a2c30e94dab1` passed full 38675061084, focused 38675061064 and three-engine 38675061080. Full verification includes PHP 8.2/MariaDB 11.4, PHP 8.4/MySQL 8.4, all thirteen retained Chromium workflow steps and Apache HTTPS. Local 223 PHP/inc syntax checks, 747 pure assertions, six JavaScript syntax checks and twelve packaging tests passed. Local PHP lacks PDO MySQL/GD/cURL/ZIP; no local SQL success is claimed.
 
-## Evidence
+The final documentation commit leaves tested runtime, tests and workflows unchanged. Subsequent exact-main runs are additional evidence and must be read live rather than inferred from a version number. Details, archive hashes and a nonfatal WebKit gallery runner warning are recorded in docs/TEST_RESULTS.md.
 
-223 PHP/inc syntax checks, 747 distinct pure assertions (689 retained +58 section checks), six JavaScript syntax checks, 40 Python compilation checks and 12 packaging tests passed locally. Local PHP is8.4.24 and lacks PDO MySQL/GD/cURL/ZIP; no local SQL/browser success is implied.
+## Unchanged and outstanding
 
-Actual three-engine artifacts show137 section assertions per engine, alongside212 gallery,1491 release-review and251 navigation assertions. Section journeys cover actual editor/popup/public layouts at1440/390/320, root/subfolder and native no-JavaScript preview. Selected editor/public renders were visually reviewed;36 section screenshots are retained. These patterned images and texts are test fixtures, not production band artwork or inventory.
+This is test hardening, not a new user-facing site feature. RC3 page/artwork tooling, approved design, remembered administration navigation and manual one-page A2 installer remain. All earlier deployment paths, six migrations, five pinned access/recovery files and runtime code are preserved. No 20i/token/setup code/automatic database creation, fake production content, hosting alteration or real provider operation.
 
-## Unchanged scope and remaining work
-
-RC2 collapsible categories and browser-local state, one-page manual A2 installer, six migrations and five pinned recovery/access files remain unchanged. Every earlier RC2 deployment path is retained. No20i/token/setup code/automatic DB; no production service or host setting change. Existing installations upgrade rather than reinstall or replace their databases.
-
-This completes the content placement/preview tooling, **not the production master artwork itself**. Approved genuine band/store content and policies, protected A2 staging/extension/cleanup/recovery checks, real mailbox delivery, genuine merchant sandbox, populated real-device quality and final owner approval remain. Same-schema updates and same-instance guarded restoration retain their documented limits.
+Production master artwork, genuine content/policies, actual A2/mailbox/merchant/recovery acceptance, physical-device quality and final owner approval remain. Existing installations upgrade with backups; do not reinstall or replace their database/private encryption secret. Same-schema code upgrades and same-instance guarded data recovery retain their documented limits. Final 1.0 is not released.

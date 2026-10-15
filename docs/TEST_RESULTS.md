@@ -1,48 +1,43 @@
-# Verification — 1.0.0-rc.3
+# RC4 verification evidence
 
-## Exact application and execution
+## Source identity
 
-Application **28536a6102047fb89dd9cd6b04b5be3eed85e619**, tree **5989bf3f21c3e9b74c3db18d75c3c026b0402055**. The final follow-up changes documentation only; runtime, assets, schema, workflows and tests remain identical. Source-artifact success is not application verification.
+Tested application/tests/workflows: `5373be7884b3b9e6d10dd9d051d0ffdf9dd4e021`, tree `5ffb3a8b2ff1b70c3894ad38c276a2c30e94dab1`. Baseline RC3 main cfa72c00/tree c13699b9. Final documentation-only changes preserve runtime, VERSION, tests and workflows. Read subsequent exact-main runs separately; this record reports completed evidence for the tested commit, not a prediction of future execution.
 
-Full workflow **38667039903**, retry attempt2: **completed/success**.
-Focused maintenance **38667039834**: completed/success.
-Three-engine storefront/release/navigation/section workflow **38667039771**: completed/success.
+The source artifact for parent b82f7939 was downloaded and its Git tree reconstructed as8771f0b49ed4546843131de0931aa1fa2ca7420e. Applying only the two-line wrapped-select locator correction reproduces exact5373be78 tree5ffb3a8b2ff1b70c3894ad38c276a2c30e94dab1. No unseen source substitutions.
 
-| Coverage | Job | Result |
+## Completed GitHub Actions
+
+|Workflow|Run|Conclusion|
 |---|---|---|
-| PHP8.2 / MariaDB11.4 cumulative SQL/HTTP, retry |116216142837|PASS|
-| PHP8.4 / MySQL8.4 SQL/HTTP and13 Chromium workflows, retry |116216140290|PASS|
-| Actual Apache PHP8.4 HTTPS, retry |116216141943|PASS|
-| Chromium gallery/release/navigation/section Pages |116201249911|PASS|
-| Firefox gallery/release/navigation/section Pages |116201249513|PASS|
-| WebKit gallery/release/navigation/section Pages |116201249783|PASS|
+|Website and installer verification|38675061084|Success|
+|Focused maintenance diagnostics|38675061064|Success|
+|Populated storefront browser verification|38675061080|Success|
 
-The first full-run status was reported failed while retrieved decoded job logs showed successful later steps. Those responses were inconsistent, and the original failure cause was not established. The failed-job retry was explicitly requested on the unchanged source. Do not describe this as a proven product fix, silently turn a failed attempt into a pass, or drop any failed test. The accepted evidence is the completed retry above. The source and three-engine logs were inspected separately.
+Full jobs: PHP8.2/MariaDB11.4 job116226672373; PHP8.4/MySQL8.4 job116226672345; actual Apache HTTPS job116226672036, all completed successfully. Both SQL/HTTP paths and all thirteen retained Chromium workflow steps passed. MariaDB full-workflow browser steps remain intentionally skipped by their existing PHP8.4 condition; dedicated three-engine jobs separately execute against MariaDB.
 
-## Local checks and real integration boundaries
+Three-engine jobs: Firefox116226743791, WebKit116226744001, Chromium116226744043. Each retained gallery212, release-review1491, navigation251 and section137 reported passing checks. Each new history log reports443 passing checks across twelve real packaged-site contexts: root/subfolder x1440/390/320 xJavaScript on/off. It verifies exact25/6 rows and titles, filter/page destinations, three mandatory next/previous cycles, reload/empty results, all eleven revision fields, revision2 and revision1 restoration, append-only private history, unchanged published snapshot/timestamp/page and old/new media access. These are synthetic fixtures, not real band content or provider transactions.
 
-Local **223 PHP/inc syntax checks,747 distinct pure assertions and12 packaging tests passed**, with6 JavaScript syntax checks and40 Python compilation checks. Pure checks ran as an unprivileged account. PHP here is8.4.24 and has no PDO MySQL/GD/cURL/ZIP; local lint/pure checks are not a substitute for real SQL, image or browser testing. The new58 section assertions are included once in747, not multiplied by environments.
+## Downloaded evidence
 
-The full workflow retains both database environments, actual no-cURL/no-ZIP manual installation, all existing authorization, private storage, prefix/recovery, communication, payment, staff, backup, update and retention tests, plus13 Chromium journeys and actual Apache HTTPS access rules. No CSP, endpoint permission, payment-network protection, update or recovery validation was removed or relaxed.
+The three downloaded artifact ZIP SHA-256 values match GitHub metadata:
 
-Section SQL/HTTP tests use real saved Page/media records through existing forms. They cover eight unsaved preparation links without database mutation, exact lookup beyond1100 library records, conflicting draft/published slugs, private previews, escaped copy, rejected POSTs, original/derivative authorization, explicit publication, private replacements, history restoration, withdrawal, normal content-editor/store-manager boundaries and sitemap exclusion. A preview never adopts arbitrary media or publishes other content. Existing business data is not replaced by an installation package.
+- Chromium11945897546: `6575d4a00068c739657b4b05ef1cf7741685ff870ba6ce01c4aef12d1c2b72cf`
+- Firefox11946436060: `8ab6d96932d02db06c8eabd2ae8033ddb284c8690df3dfd710117b33bc77b041`
+- WebKit11945492866: `533e141f92f928c990988bf2dbf357c9ef9b422303bde29bc81e18614a6d3e1b`
 
-## Three-engine and visual evidence
+Each archive contains five suite logs and66 synthetic screenshots;24 history screenshots per engine,72 overall. Actual history logs were read and selected desktop/mobile/native-form renders visually inspected. WebKit's older gallery suite logged a nonfatal Playwright `Target closed` task diagnostic during its race/failure exercise, then completed212 passing checks and the job succeeded. This warning was not silently classified as a new history failure or omitted from evidence. No blanket claim of warning-free runners is made.
 
-Each engine's preserved logs records **137 section assertions**, in addition to212 gallery,1491 release-review and251 navigation assertions. These are execution counts, not a claim of that many unique scenarios. The new section journeys run at1440/390/320 pixels on root and subfolder installations. They exercise the actual Page editor, image inspector, saved-draft popup, publication, portrait and landscape rendering, disabled booking preview and native no-JavaScript access. All use synthetic patterned images and text, never production band identities or inventory.
+## Local execution
 
-| Artifact | Engine | SHA-256 |
-|---|---|---|
-|11941991844|Chromium|0e7fa10f6f9f098489731bb77db258b5d1e50d7687d68ab63cec00dd7db53b28|
-|11942726143|Firefox|06387dbfb7c1b0ef45f5c015b7041304897c95de96107bf9e65361d1bfb79ad8|
-|11942146852|WebKit|aa72e6745c063427bb07a7853fdf152707c23f75d838e1c5c6d2c6bb75a54a96|
+PHP8.4.24:223 PHP/inc syntax checks,747 distinct pure assertions, six JavaScript syntax checks, Python compilation and12 packaging tests passed. Permission-aware PHP checks ran as a non-root user. Local PHP lacks PDO MySQL/GD/cURL/ZIP, so actual SQL/full application browser verification is Actions-only.
 
-All three downloaded archive digests and final successful log lines were verified.36 section screenshots are retained. Selected desktop editor/directory and narrow public-section/editor renders were visually reviewed; contact sheets crop only the review view, and the original full-page screenshots remain unchanged. Not every cumulative screenshot was newly visually inspected. A nonfatal Playwright response-cleanup warning in the earlier gallery log is not being represented as a zero-warning run; its process and assertions completed successfully.
+An isolated local Chromium helper preflight added unrelated table/status elements and delayed result insertion, confirming scoped, auto-waiting exact-count/title assertions and negative controls. This is a test-helper check, not a substitute database/application run. It caught the first RC4 test's exact wrapped-label select locator: labels include option text, so the two selectors were corrected to unique label prefixes while retaining exact selected values and URL/data checks. Superseded b82f7939 runs are not the final evidence.
 
-## Source and package integrity
+## Earlier failure and scope
 
-Source artifact11941841098, SHA-25662ab2255ff124e57bcb56d92e92868f147aa8eebce6be4ef6fb3203a234e8677, reconstructs the exact application Git tree. Comparison against the previously delivered RC2 ZIP preserved all264 prior manifest paths. Six migrations, five pinned recovery/access files, all manual-installer paths and grouped-navigation runtime remain byte-identical. The final report records canonical source, manifest and immutable delivery hashes. Deployment ZIPs exclude executable tests/build tools, real runtime data, private receipts and setup codes.
+RC3 exact-main full38672702303 failed at its immediate page-wide content-history row count. Earlier parent full38667039903 passed on retry; that did not prove a fix. RC4 scopes and awaits actual results without dropping the original25/6/11 requirements, skipping suites or retrying failures until green. The old failure's full timing mechanism was not independently reconstructed; describe this as verification hardening, not an established production-pagination code fix.
 
-## Outstanding acceptance
+No runtime PHP/CSS/JavaScript, installer, menu, migration, recovery kernel or provider code changed. VERSION and release documentation identify a cumulative immutable candidate. All prior270 RC3 manifest paths are retained; final package bytes/hashes are independently checked and recorded in the accompanying release report. Tests/workflows do not enter the deployment ZIP.
 
-These tests do not establish actual A2 PHP ZIP/cURL settings, private-root mappings/ACL/OPcache/proxy behavior, installer cleanup or recovery on the user's account; receiving-mailbox delivery; genuine merchant tokenization/reporting/settlement/reversal; production master artwork/approved content/policies; physical-device accessibility/performance/security review; or final owner approval. No hosting setting, real charge or production service was changed. Same-schema upgrades and same-instance guarded restore retain their documented limits. This is not accepted final1.0.
+Genuine production artwork/content/policies, real A2/mailbox/merchant/recovery, physical devices, comprehensive accessibility/security review and final owner acceptance remain. Nothing was deployed to the user's host and no live provider operation was executed. Final1.0 remains unaccepted.

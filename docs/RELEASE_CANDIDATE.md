@@ -1,17 +1,17 @@
-# 1.0.0-rc.3 — managed section content candidate
+# 1.0.0-rc.4 — cumulative verification-hardening candidate
 
-RC3 includes the complete prior website and administration, RC1 public-access refinements and RC2 grouped/persistent navigation. It adds the editing/preview workflow described in SECTION_PAGES.md. Exact application verification is recorded in TEST_RESULTS.md. This package is for staging; it is not permission to replace the live band site or enable production payments.
+RC4 preserves the complete RC3 website, its eight section-artwork/introduction placements, actual-layout private previews, RC2 grouped/persistent administration navigation and all earlier modules. This pass changes browser-test reliability and coverage, source workflow evidence, release documentation and VERSION. It does not add a visible website feature, replace the approved design or supply production artwork.
 
-## New in RC3
+## Verified continuation
 
-Eight main sections reuse existing Page records for introductions and feature artwork. Placement cards reopen saved records, prepare an unsaved new Page, or disclose conflicting draft/published mappings. Image inspection shows actual dimensions and advisory source width, not an approval certificate. Save privately, preview the real section, then explicitly publish. Related content remains separately managed and published-only; booking preview submission is disabled.
+The exact RC3 main run failed at a pagination browser check. RC4 waits for native form/navigation destinations and validates only the intended content-results region, exact titles and totals. Original25/6 pagination and eleven-field comparison checks remain. Repeated next/previous navigation, refresh, empty results, two private restorations and unchanged public snapshots/media permissions now run on Chromium/Firefox/WebKit at1440/390/320px, root/subfolder, JavaScript on/off.
 
-No new database schema, content kind, administration category or design alternative. Generic Pages/policies remain. Publication, history restoration and media withdrawal use existing controls. Reference-resolution artwork has not been converted into production masters by this change.
+Tested5373be78 passed full38675061084, focused38675061064 and three-engine38675061080. Final documentation-only changes leave these tested bytes unchanged. See TEST_RESULTS.md for exact source, downloaded evidence, a nonfatal runner warning and limitations. Additional exact-main results are reported separately after completion, not assumed from these runs.
 
 ## Retained deployment contract
 
-One-page manual A2/cPanel installer, no setup code/PRIVATE-SETUP, no API token, no20i or automatic database creation. Missing PHP ZIP/cURL still needs the domain's hosting configuration. Existing sites upgrade rather than reinstall. All prior payload paths, six immutable migrations, five pinned access/recovery files and unchanged installer/navigation runtime are preserved. Keep original private configuration/encryption secret/database/media and offline backup/update recovery keys.
+One-page manual A2/cPanel installer, no setup code/PRIVATE-SETUP, no API token, no20i or automatic database creation. Missing PHP ZIP/cURL still needs the domain's hosting configuration. Existing sites upgrade rather than reinstall. All earlier payload paths, six immutable migrations, five pinned access/recovery files and runtime installer/navigation are preserved. Keep original private configuration/encryption secret/database/media and offline backup/update recovery keys. A cumulative Full ZIP is not authorization to replace a live site or enable production payments.
 
 ## Final1.0 acceptance
 
-Approve real master artwork, band/store content and policies; perform protected A2 installation/private-storage/permissions/cleanup/extension and recovery exercises; verify actual receiving-mailbox and genuine merchant sandbox outcomes; review populated pages on real devices and record owner approval. Automated browser/SQL/access results are not complete accessibility certification, a penetration audit, physical-device testing or actual provider acceptance. Same-schema updates and same-instance guarded restoration retain their stated limits.
+Approve real master artwork, band/store content and policies; perform protected A2 installation/private-storage/permissions/cleanup/extension and recovery exercises; verify actual receiving-mailbox and genuine merchant sandbox outcomes; review populated pages on physical devices and record owner approval. Automated results are not complete accessibility certification, a penetration audit or actual provider acceptance. Same-schema updates and same-instance guarded restoration retain their stated limits.
