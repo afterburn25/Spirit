@@ -19,12 +19,16 @@ def cancel_navigation(page,action,label):
         seen.append(dialog.type);dialog.dismiss()
     page.on('dialog',on_dialog)
     try:
-        try:action()
-        except BrowserError as error:
-            # Native cancellation may surface ERR_ABORTED/NS_BINDING_ABORTED.
-            # Requiring the real dialog below prevents hiding unrelated failure.
-            if not seen:raise
-        expect(seen==['beforeunload'],label+': browser actually displayed a before-unload dialog')
+        # A no-wait click may return before the dialog event is delivered, most
+        # noticeably in WebKit. Await the actual event rather than inspecting an
+        # immediate Python list. The dialog itself is still required to occur.
+        with page.expect_event('dialog',timeout=10000) as event:
+            try:action()
+            except BrowserError:
+                # Native cancellation may surface ERR_ABORTED/NS_BINDING_ABORTED.
+                # The real dialog requirement prevents hiding unrelated failure.
+                if not seen:raise
+        expect(event.value.type=='beforeunload' and seen==['beforeunload'],label+': browser actually displayed a before-unload dialog')
     finally:page.remove_listener('dialog',on_dialog)
 
 def login(page,s):

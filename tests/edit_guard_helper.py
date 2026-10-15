@@ -50,8 +50,19 @@ def main():
         page.locator('[name=title]').fill('New title')
         page.evaluate("document.querySelector('form').addEventListener('submit',e=>e.preventDefault(),{once:true})")
         page.get_by_role('button',name='Save',exact=True).click();state('dirty');blocked(True)
-        page.evaluate("document.querySelector('form').dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}))")
-        state('submitting');blocked(False)
+        # Firefox performs native default submission even for this dispatched
+        # event. Observe the exempt state synchronously, then cancel deliberately
+        # to keep the isolated DOM fixture on the page. Real saves run separately.
+        probe=page.evaluate("""() => {
+          const f=document.querySelector('form');let result;
+          f.addEventListener('submit',e=>{
+            const leave=new Event('beforeunload',{cancelable:true});window.dispatchEvent(leave);
+            result={state:f.dataset.editGuardState,blocked:leave.defaultPrevented};
+            e.preventDefault();
+          },{once:true});
+          f.dispatchEvent(new Event('submit',{bubbles:true,cancelable:true}));return result;
+        }""")
+        assert probe=={'state':'submitting','blocked':False},probe;n+=2
         page.evaluate("window.dispatchEvent(new Event('pageshow'))")
         state('dirty');blocked(True)
         page.get_by_role('button',name='Reset',exact=True).click();state('clean');blocked(False)
