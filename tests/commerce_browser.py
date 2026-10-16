@@ -41,6 +41,8 @@ def main():
                             expect(page.locator('#public-nav a').filter(has_text='Merch').count()==1,f'{width}px enabled-store account shell keeps Merch available')
                             expect(page.locator('.shop-tools').get_by_role('link',name='Merchandise',exact=True).count()==1,f'{width}px enabled-store customer navigation keeps Merchandise')
                             expect(page.locator('.shop-tools').get_by_role('link',name='Your bag',exact=True).count()==1,f'{width}px enabled-store customer navigation keeps Your bag')
+                            expect('Guest checkout remains available' in page.locator('.account-shell').inner_text(),f'{width}px enabled-store login keeps checkout guidance')
+                            expect('Your details. Your collection.' in page.locator('.account-shell').inner_text(),f'{width}px enabled-store account subtitle keeps collection wording')
                         screenshot(page,f'commerce-{width}-'+route.split('?')[0].strip('/').replace('/','-').replace('.php',''))
                     page.goto(s.base+'shop/product.php?slug=fixture-shirt')
                     page.locator('[name="quantity"]').fill('2');page.get_by_role('button',name='Add to bag').click();page.wait_for_url('**/shop/cart.php')
