@@ -26,11 +26,11 @@ def journey(s):
     for route in ['admin/launch/','admin/readiness/']:
         expect(Client(s.base).request(route)[3].endswith('/admin/login.php'),'Anonymous preview/canonical URL cannot expose diagnostics')
         status,body,headers,_=s.client.request(route)
-        expect(status==200 and body.count('class="launch-check"')==43,'Canonical and preview URL render one consolidated 43-check dashboard')
+        expect(status==200 and body.count('class="launch-check"')==45,'Canonical and preview URL render one consolidated 45-check dashboard')
         expect('live-charge risk' in body and '1 published product(s)' in body,'Production selection warns and product count excludes hidden categories/private drafts')
         expect('EXTRA-PRIVATE' not in body and 'private-contact@example.test' not in body,'Raw message, error and contact values are absent from rendered checks')
         status,text,headers,_=s.client.form(route,{'action':'export'});data=json.loads(text);results.append(data['check_states'])
-        expect(status==200 and data['format']=='spirit-support-v1' and len(data['check_states'])==43,'Both URLs use the same bounded support-report model')
+        expect(status==200 and data['format']=='spirit-support-v1' and len(data['check_states'])==45,'Both URLs use the same bounded support-report model')
         expect(data['check_states']['payment_mode']=='attention' and data['check_states']['mail_pending']=='attention' and data['check_states']['payment_pending']=='attention','Follow-up detects uncertain operations without processing them')
         expect(all(data['check_states']['external_'+k]=='review' for k in ['host','mailbox','merchant','recovery','artwork','quality']),'External acceptance cannot turn green from configured or production settings')
         expect('EXTRA-' not in text and '@example.test' not in text and str(s.runtime) not in text,'Support export omits fixture secrets, personal details, paths and content')
