@@ -37,4 +37,4 @@ The current content blockers in `FINAL-CONTENT-MAP.md` are genuine missing input
 
 Do not repeat this broad Gmail/Drive/public-source search in a later session unless the user says new files or links were added.
 
-No private access URLs, credentials, full email bodies or media bytes are committed here. Application software remains RC7; no site content was published.
+No private access URLs, credentials, full email bodies or media bytes are committed here. Application software remains RC8; no site content was published.
