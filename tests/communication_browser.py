@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rendered inquiry submission and owner communication screens at two widths."""
+"""Rendered inquiry submission and owner communication screens across launch widths."""
 from __future__ import annotations
 import os
 import tempfile
@@ -24,7 +24,7 @@ def main():
             current.claim(); current.client.form('install/', current.input())
             with sync_playwright() as engine:
                 browser = engine.chromium.launch()
-                for width, height in [(1440, 1000), (390, 844)]:
+                for width, height in [(1440, 1000), (390, 844), (360, 800)]:
                     context = browser.new_context(viewport={'width': width, 'height': height}, reduced_motion='reduce', bypass_csp=False)
                     page = context.new_page(); errors = []
                     page.on('pageerror', lambda error: errors.append(str(error)))
@@ -59,7 +59,7 @@ def main():
                     expect(errors == [], f'{width}px communication browser journey has no uncaught JavaScript errors')
                     context.close()
                 browser.close()
-    print('Communication browser submission and owner screens passed at 1440px and 390px.', flush=True)
+    print('Communication browser submission and owner screens passed at 1440px, 390px and 360px.', flush=True)
 
 
 if __name__ == '__main__':
