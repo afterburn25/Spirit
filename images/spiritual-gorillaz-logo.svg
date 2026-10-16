@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 420" role="img" aria-labelledby="title desc">
+  <title id="title">Spiritual Gorillaz</title>
+  <desc id="desc">Gold crowned Spiritual Gorillaz wordmark on a transparent background.</desc>
+  <g fill="#dfb65e">
+    <path d="M160 48l70 64 92-112 92 112 70-64-34 170H194z"/>
+    <rect x="208" y="232" width="228" height="24" rx="12"/>
+  </g>
+  <g fill="#f7d88e">
+    <circle cx="160" cy="48" r="11"/>
+    <circle cx="322" cy="0" r="11"/>
+    <circle cx="484" cy="48" r="11"/>
+  </g>
+  <text x="545" y="185" fill="#dfb65e" font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif"
+        font-size="112" font-style="italic" font-weight="900" letter-spacing="3">SPIRITUAL</text>
+  <text x="545" y="310" fill="#f7d88e" font-family="Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif"
+        font-size="126" font-style="italic" font-weight="900" letter-spacing="2">GORILLAZ</text>
+  <path d="M540 338h850" stroke="#dfb65e" stroke-width="8" opacity=".72"/>
+</svg>
