@@ -76,6 +76,11 @@ def main():
                             expect(page.locator('.member-card-factual').count() == 3, f'Chromium {width}px shows the three confirmed lineup cards when member profiles are unpublished')
                             expect(page.locator('.member-card-factual a').count() == 0, f'Chromium {width}px factual lineup does not link to unpublished member pages')
                             expect('Chad Lindsey' in page.locator('.member-grid').inner_text() and 'Ron Green' in page.locator('.member-grid').inner_text() and 'Charlie Savell' in page.locator('.member-grid').inner_text(), f'Chromium {width}px factual lineup names are present')
+                        if route == '':
+                            hero=page.locator('.fallback-hero')
+                            expect(hero.count()==1, f'Chromium {width}px uses the bundled fallback only when no CMS hero is published')
+                            geometry=hero.evaluate('(n)=>{const r=n.getBoundingClientRect();return {w:r.width,h:r.height,fit:getComputedStyle(n).objectFit};}')
+                            expect(geometry['fit']=='contain' and geometry['w'] <= (421 if width>820 else 341 if width>600 else 301), f'Chromium {width}px fallback hero stays contained instead of being upscaled/cropped')
                         if route in ['', 'booking/']:
                             screenshot(page, f'public-{width}-' + ('booking' if route else 'home'))
                     if width == 1440:
