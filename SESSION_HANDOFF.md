@@ -29,7 +29,7 @@ Chad Lindsey — guitar, keyboards and vocals. Ron Green — harmonica. Charlie 
 
 ## Runtime presentation now landed
 
-Approved factual launch copy is wired into the public templates as safe fallback content for Home, Music, Shows, Band, Media, Booking, Press and Merch. Default public metadata now uses the approved launch titles/descriptions when no CMS Page SEO/content override exists.
+Approved factual launch copy is wired into the public runtime as safe fallback content for Home, Music, Shows, Band, Media, Booking, Press and Merch. The dedicated Booking template and Storefront catalog renderer were explicitly aligned as well. Default public metadata now uses the approved launch titles/descriptions when no CMS Page SEO/content override exists.
 
 This is not fake publication: real releases, events, videos, galleries, portraits, press downloads and products still require genuine published records. CMS content continues to override the fallback copy.
 
