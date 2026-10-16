@@ -45,6 +45,7 @@ def run_mail_task(s):
     )
     expect(result.returncode==0,'Actual scheduled mail CLI task completes in the disposable environment')
     payload=json.loads(result.stdout)
+    expect({'sent','failed','uncertain','cancelled','waiting'}.issubset(payload),'Mail task preserves its original top-level result contract')
     expect(payload.get('heartbeat') is True,'Successful mail task reports heartbeat persistence')
     path=s.runtime/'cache/task-mail.json'
     expect(path.is_file() and (path.stat().st_mode & 0o077)==0,'Mail heartbeat is stored only in protected private runtime cache')
