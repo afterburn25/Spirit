@@ -1,4 +1,4 @@
-# Final 1.0 roadmap — RC7 software complete
+# Final 1.0 roadmap — RC8 software complete
 
 Feature development is complete. Remaining work is verification, external acceptance and owner-approved publication.
 
