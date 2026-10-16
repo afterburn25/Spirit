@@ -79,12 +79,13 @@ def main():
                         if route in ['', 'booking/']:
                             screenshot(page, f'public-{width}-' + ('booking' if route else 'home'))
                     if width == 1440:
-                        save_content(current, 'member', 'Chad Lindsey', {'role': 'Guitar, keyboards and vocals', 'bio': 'Published fixture profile.'}, slug='chad-lindsey')
+                        chad_id=save_content(current, 'member', 'Chad Lindsey', {'role': 'Guitar, keyboards and vocals', 'bio': 'Published fixture profile.'}, slug='chad-lindsey')
                         page.goto(current.base + 'band/', wait_until='networkidle')
                         expect(page.locator('.member-card:not(.member-card-factual) a').filter(has_text='Chad Lindsey').count() == 1, 'Published confirmed member keeps a linked profile card')
                         expect(page.locator('.member-card-factual').count() == 2, 'Only missing confirmed members use factual fallback cards during partial publishing')
                         names=page.locator('.member-grid').inner_text()
                         expect('Chad Lindsey' in names and 'Ron Green' in names and 'Charlie Savell' in names, 'Partial publishing preserves all three confirmed lineup names')
+                        save_content(current, 'member', 'Chad Lindsey', {'role': 'Guitar, keyboards and vocals', 'bio': 'Published fixture profile.'}, action='unpublish', item_id=chad_id, slug='chad-lindsey')
                     page.goto(current.base, wait_until='networkidle')
                     if width <= 390:
                         page.locator('.nav-toggle').click()
