@@ -63,12 +63,20 @@ final class LaunchChecks
         $services=[
             ['smtp','Transactional email','admin/communication/',static fn()=>[Communications::ready()?'review':'attention',Communications::ready()?'SMTP is configured and enabled. Receiving-mailbox delivery has not been verified by these checks.':'SMTP is disabled or required settings are missing. Verify a real owner test before relying on booking notices, account emails or receipts.']],
             ['newsletter','Mailing-list signup','admin/communication/',static fn()=>['review',Communications::newsletterReady()?'Signup is enabled. Complete a real confirmation and unsubscribe through the receiving mailbox.':'Signup is not currently available. This can be intentional; enable it only after email delivery works.']],
-            ['store','Merchandise storefront','admin/shop/settings.php',static fn()=>['review',Catalog::options()['enabled']?'The storefront is enabled. Verify actual approved products, stock and fulfillment before launch.':'The storefront is closed. Keep it closed until real products and checkout acceptance are ready.']],
+            ['store','Merchandise storefront','admin/shop/settings.php',static function(): array {
+                $enabled=Catalog::options()['enabled'];
+                return [$enabled?'review':'observed',$enabled?'The storefront is enabled. Verify actual approved products, stock and fulfillment before launch.':'The storefront is intentionally closed. This is a safe launch state; complete merchandise and checkout acceptance before enabling it.'];
+            }],
             ['payments','Checkout configuration','admin/orders/payments.php',static function(): array {
-                $o=PaymentSettings::all();$mode=PaymentSettings::mode($o['environment']);$available=PaymentSettings::available();
+                $store=Catalog::options()['enabled'];$o=PaymentSettings::all();$mode=PaymentSettings::mode($o['environment']);$available=PaymentSettings::available();
+                if(!$store&&!$o['enabled']){return ['observed','Commerce is dormant: the storefront and payments are both disabled. Genuine sandbox/provider acceptance is required before enabling checkout.'];}
                 return [$o['enabled']&&!$available?'attention':'review',ucfirst($mode).' is selected. '.($available?'Local checkout prerequisites are present. No tokenization, transaction, refund or provider notification was tested by this screen.':'Checkout is unavailable or disabled. Keep payments off until all prerequisites and genuine sandbox checks are complete.')];
             }],
-            ['policy','Delivery and store policy','admin/orders/policy.php',static fn()=>[DeliveryPolicy::options()['configured']?'review':'attention',DeliveryPolicy::options()['configured']?'Shipping/tax/policy settings are present. The owner must review destinations, actual rates, terms and operational scope.':'Delivery and store policy are not configured. Do not enable checkout before reviewing them.']],
+            ['policy','Delivery and store policy','admin/orders/policy.php',static function(): array {
+                $store=Catalog::options()['enabled'];$configured=DeliveryPolicy::options()['configured'];
+                if(!$store&&!$configured){return ['observed','Commerce is dormant and no delivery policy is active. Configure and review shipping, tax and store terms before enabling the storefront.'];}
+                return [$configured?'review':'attention',$configured?'Shipping/tax/policy settings are present. The owner must review destinations, actual rates, terms and operational scope.':'Delivery and store policy are not configured. Do not enable checkout before reviewing them.'];
+            }],
             ['indexing','Search-engine indexing','admin/discovery.php',static fn()=>['review',Metadata::options()['indexing']?'Indexing is allowed. For staging, review whether indexing should be disabled; noindex is not access control.':'Indexing is disabled. Review this setting deliberately before public launch; it does not protect private staging.']],
         ];
         foreach($services as [$id,$title,$path,$read]) {
