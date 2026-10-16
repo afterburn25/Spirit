@@ -72,6 +72,10 @@ def main():
                         expect(page.locator('h1').count() == 1 and page.locator('h1').is_visible(), f'Chromium {width}px has a visible primary heading')
                         expect(page.evaluate('document.documentElement.scrollWidth <= window.innerWidth + 1'), f'Chromium {width}px has no horizontal page overflow')
                         decoded_images(page, f'Chromium {width}px {route or "home"}')
+                        if route == 'band/':
+                            expect(page.locator('.member-card-factual').count() == 3, f'Chromium {width}px shows the three confirmed lineup cards when member profiles are unpublished')
+                            expect(page.locator('.member-card-factual a').count() == 0, f'Chromium {width}px factual lineup does not link to unpublished member pages')
+                            expect('Chad Lindsey' in page.locator('.member-grid').inner_text() and 'Ron Green' in page.locator('.member-grid').inner_text() and 'Charlie Savell' in page.locator('.member-grid').inner_text(), f'Chromium {width}px factual lineup names are present')
                         if route in ['', 'booking/']:
                             screenshot(page, f'public-{width}-' + ('booking' if route else 'home'))
                     page.goto(current.base, wait_until='networkidle')
