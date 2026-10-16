@@ -1,6 +1,6 @@
 # Spiritual Gorillaz — final launch content map
 
-Application software remains **1.0.0-rc.7**. This file consolidates launch content that is already confirmed or prepared, and separates it from the facts/assets that are still genuinely missing. It is a placement worksheet for the existing CMS, not an automatic importer and not a new release.
+Application software is **1.0.0-rc.8**. This file consolidates launch content that is already confirmed or prepared, and separates it from the facts/assets that are still genuinely missing. It is a placement worksheet for the existing CMS, not an automatic importer and not a new release.
 
 ## Confirmed facts — do not ask again
 
