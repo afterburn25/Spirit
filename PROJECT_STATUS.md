@@ -4,7 +4,9 @@ The application remains **1.0.0-rc.7**. Optional features are frozen. Current wo
 
 ## Ready content
 
-The final content map and placement checklist consolidate the confirmed roster, factual Band/Press/member copy, prepared Band & Booking Sheet, general launch page copy and selected Candidate 3 / Part 3 working entry. These are ready for owner review and CMS placement through existing tools; Git preparation is not publication.
+The final content map and placement checklist consolidate the confirmed roster, factual Band/Press/member copy, prepared Band & Booking Sheet, general launch page copy and selected Candidate 3 / Part 3 working entry.
+
+The approved Home, Music, Shows, Band, Media, Booking, Press and Merch wording is now also wired into the public runtime as safe fallback copy when the matching CMS Page field is empty. Public default SEO titles/descriptions now align with the final launch content map. Published CMS records still override these fallbacks.
 
 ## Asset-source sweep and production specs
 
@@ -18,4 +20,4 @@ Approved hero/logo master; labelled member portraits if used; actual Part 3 YouT
 
 Paid sandbox/provider match and other unseen final-review evidence remain pending in the consolidated acceptance pass. No result is inferred.
 
-Software baseline, installer, VERSION, tests/workflows, schema, payment code and immutable RC7 package are unchanged. No live content was published or service changed.
+The application remains RC7. Runtime presentation changed only to use approved factual fallback copy and launch metadata; no schema, installer, payment code, CMS record publication, deployment or immutable RC7 package changed. Genuine dynamic records such as releases, shows, videos, portraits and merchandise remain empty unless actually published.
