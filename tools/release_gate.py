@@ -27,6 +27,7 @@ REQUIRED = [
     "CHANGELOG.md",
     "docs/LAUNCH_CHECKLIST.md",
     "docs/acceptance/CONSOLIDATED-FINAL-PASS.md",
+    "images/spiritual-gorillaz-logo.svg",
     "install/index.php",
     "admin/launch/index.php",
     "admin/upgrades/RecoveryEngine.php",
@@ -88,6 +89,12 @@ def main() -> int:
 
     status = (ROOT / "PROJECT_STATUS.md").read_text(encoding="utf-8")
     unresolved = blockers(status)
+
+    bundled_logo = (ROOT / "images/spiritual-gorillaz-logo.svg").read_text(encoding="utf-8")
+    lowered_logo = bundled_logo.lower()
+    for forbidden in ["<script", "<foreignobject", "onload=", "onclick=", "javascript:"]:
+        if forbidden in lowered_logo:
+            fail("Bundled fallback logo contains active SVG content.")
     if version == "1.0.0" and unresolved:
         fail("Final 1.0.0 is blocked by PROJECT_STATUS Remaining blockers.")
 
