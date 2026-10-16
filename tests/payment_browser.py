@@ -71,7 +71,7 @@ def main():
             s.claim();s.client.form('install/',s.input());s.login();pid,vid,image=seed_catalog(s);adjust(s,pid,vid,20);configure(s)
             with sync_playwright() as engine:
                 browser=engine.chromium.launch()
-                for width,height in [(1440,1000),(390,844)]:
+                for width,height in [(1440,1000),(390,844),(360,800)]:
                     context=browser.new_context(viewport={'width':width,'height':height},reduced_motion='reduce',bypass_csp=False)
                     # Replace only the external test SDK at its official URL. Never
                     # add a production SDK override endpoint or weaken application CSP.
@@ -116,7 +116,7 @@ def main():
                         rendered(page,route);screenshot(page,f'payment-{width}-'+route.split('?')[0].strip('/').replace('/','-').replace('.php',''))
                     expect(errors==[],f'{width}px checkout has no uncaught JavaScript errors');context.close()
                 browser.close()
-    print('Rendered order/tokenization boundaries passed at 1440px and 390px; actual provider acceptance not tested.',flush=True)
+    print('Rendered order/tokenization boundaries passed at 1440px, 390px and 360px; actual provider acceptance not tested.',flush=True)
 
 if __name__=='__main__':
     main()
