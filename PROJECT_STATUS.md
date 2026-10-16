@@ -6,11 +6,11 @@ The application remains **1.0.0-rc.7**. Optional features are frozen. Current wo
 
 The final content map and placement checklist consolidate the confirmed roster, factual Band/Press/member copy, prepared Band & Booking Sheet, general launch page copy and selected Candidate 3 / Part 3 working entry. These are ready for owner review and CMS placement through existing tools; Git preparation is not publication.
 
-## Asset-source sweep
+## Asset-source sweep and production specs
 
-Connected Gmail/Drive and public-source search was completed before asking for resends. It recovered three previously shared MOV labels but found no approved YouTube/Vimeo destination for Part 3, no safely labelled member portraits and no production hero/logo master. The three source MOV files are roughly 4 GB each and exceed the connector's 256 MB download limit, so no audio/video fingerprint comparison to Part 3 could be performed. Their song labels remain unmapped to Part 3.
+The source sweep found no approved YouTube/Vimeo destination for Part 3, no safely labelled member portraits and no production hero/logo master. The existing source MOV files remain too large for connected raw download/fingerprint comparison, so their labels stay unmapped to Part 3.
 
-The remaining missing inputs are therefore genuine blockers rather than undiscovered connected files. See `design/final-launch-content/SOURCE-ASSET-SEARCH.md`.
+`design/final-launch-content/PRODUCTION-ASSET-SPECS.md` now defines exact final delivery requirements for hero artwork, logo, labelled 4:5 member portraits, retained Part 3 poster/playback metadata, shows and merchandise. This removes ambiguity without creating replacement mockups.
 
 ## Remaining blockers
 
