@@ -1,0 +1,24 @@
+name: Software release gate
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: release-gate-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  gate:
+    name: Source and package release contract
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Validate finalizable software package
+        run: |
+          python3 -m py_compile tools/package.py tools/release_gate.py
+          python3 tools/release_gate.py
