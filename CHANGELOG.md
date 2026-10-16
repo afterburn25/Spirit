@@ -1,5 +1,11 @@
 # Changelog
 
+## Newsletter flow confirmed — scheduled processing next; software remains RC7
+
+Record **“yes they all work continue”** as the user's acceptance of the requested newsletter signup/confirmation/welcome/unsubscribe sequence. Preserve earlier installation/report, owner-email and booking checks without repeating them. No address, token, headers, inbox placement or timing is invented. See `docs/acceptance/OWNER-CHECKPOINT-04.md`.
+
+Next inspect the existing cPanel mail job before changing schedules, resolve actual CLI/document-root paths, and distinguish scheduled execution from interactive sending and empty batches. Reread tasks/mail.php and current official cPanel guidance. Five Markdown files only: no worker run, job, configuration, subscription, queue, message, content publication, runtime/VERSION/test/workflow or prior archive changed by the assistant. Remaining acceptance and final release stay open.
+
 ## Booking inquiry and both emails confirmed — newsletter next; software remains RC7
 
 Record **“yes all that works”** as the user's confirmation of the three requested booking-test outcomes: saved inquiry, band-notification receipt and organizer-acknowledgement receipt. Complete that basic check while retaining earlier accepted installation/report and owner-email results. Do not repeat them without a new specific problem. No reference, recipient address, message header or timing is invented. See `docs/acceptance/OWNER-CHECKPOINT-03.md`.
