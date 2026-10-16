@@ -1,6 +1,6 @@
-# Spiritual Gorillaz — 1.0.0-rc.8
+# Spiritual Gorillaz — 1.0.0-rc.9
 
-Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design. The RC8 application implementation is complete; the remaining path to 1.0.0 is final CI, real-host/external acceptance and explicit owner approval.
+Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design. The RC9 application implementation is complete; the remaining path to 1.0.0 is final CI, real-host/external acceptance and explicit owner approval.
 
 ## Current software state
 
