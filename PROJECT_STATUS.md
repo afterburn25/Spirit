@@ -20,4 +20,4 @@ Approved hero/logo master; labelled member portraits if used; actual Part 3 YouT
 
 Paid sandbox/provider match and other unseen final-review evidence remain pending in the consolidated acceptance pass. No result is inferred.
 
-The application remains RC7. Runtime presentation changed only to use approved factual fallback copy and launch metadata; no schema, installer, payment code, CMS record publication, deployment or immutable RC7 package changed. Genuine dynamic records such as releases, shows, videos, portraits and merchandise remain empty unless actually published.
+The application remains RC7. Runtime presentation now also includes responsive polish for the confirmed three-member Band layout, narrow-screen commerce/order layouts, extra-small section headings and footer tap targets. No schema, installer, payment code, CMS record publication, deployment or immutable RC7 package changed. Genuine dynamic records such as releases, shows, videos, portraits and merchandise remain empty unless actually published.
