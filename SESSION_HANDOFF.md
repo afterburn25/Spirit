@@ -1,4 +1,4 @@
-# Resume — final content placement active; production asset specs ready
+# Resume — approved launch copy wired into runtime; final acceptance active
 
 Repository **afterburn25/Spirit**, main authoritative. Application and delivered installer remain **1.0.0-rc.7**. Do not create RC8 for editorial/asset placement or overwrite the immutable RC7 package.
 
@@ -27,9 +27,13 @@ Do not generate synthetic member portraits. Do not use rejected full-page mockup
 
 Chad Lindsey — guitar, keyboards and vocals. Ron Green — harmonica. Charlie Savell — drums. Candidate 3 / Part 3 remains selected. Preserve black/deep-navy, gold and blue crowned-gorilla design and external venue ticket sellers.
 
-## Ready content
+## Runtime presentation now landed
 
-Factual Band/member/Press copy, general Home/Music/Shows/Media/Booking/Merch copy, Band & Booking Sheet PDF reference and neutral Part 3 metadata are prepared. Git worksheets are not CMS publication.
+Approved factual launch copy is wired into the public templates as safe fallback content for Home, Music, Shows, Band, Media, Booking, Press and Merch. Default public metadata now uses the approved launch titles/descriptions when no CMS Page SEO/content override exists.
+
+This is not fake publication: real releases, events, videos, galleries, portraits, press downloads and products still require genuine published records. CMS content continues to override the fallback copy.
+
+The Band & Booking Sheet PDF reference and neutral Part 3 metadata remain prepared but are not automatically published.
 
 Empty optional sections are acceptable until real data exists.
 
@@ -37,4 +41,4 @@ Empty optional sections are acceptable until real data exists.
 
 Accepted user-reported installation/email/booking/newsletter/customer/cancellation checks remain closed. Mail cron presence is confirmed, not exact execution. Paid sandbox/provider match remains unconfirmed. Protected recovery, final payment/service review, populated-device review and explicit owner approval remain grouped in the consolidated final pass.
 
-No runtime, VERSION, tests/workflows, schema, installer, payment code, deployment or immutable archive changed in this asset-specification pass.
+Latest runtime commits update public fallback copy and default metadata only. VERSION remains 1.0.0-rc.7. No schema, installer, payment code, deployment or immutable RC7 archive changed.
