@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0-rc.9 — dormant-store customer navigation fix
+
+RC9 fixes one real post-RC8 runtime inconsistency discovered during live acceptance: customer account pages were hard-coded to present themselves as shop pages and always advertised Merchandise / Your bag even when the storefront was disabled.
+
+Changes:
+- customer/account views no longer force the global navigation into the shop-active state;
+- customer-local Merchandise and Your bag links render only while the storefront is enabled;
+- customer sign-in/account access remains available with a dormant storefront;
+- browser coverage now enforces both closed-store and enabled-store customer-navigation behavior.
+
+RC8 remains frozen as the all-green historical candidate. RC9 is a genuine new release candidate because this changes public runtime behavior.
+
+
 ## 1.0.0-rc.8 — software-complete candidate
 
 RC8 is a genuine new release candidate because runtime and verification behavior changed after the immutable RC7 delivery. It includes final launch-copy fallbacks, confirmed-lineup reconciliation, the scalable bundled logo, contained fallback hero, dormant-store navigation/diagnostics, checkout validation hardening, scheduled-worker heartbeat evidence, expanded 360 px/cross-browser coverage, and the deterministic software release gate.
