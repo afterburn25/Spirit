@@ -41,4 +41,4 @@ Empty optional sections are acceptable until real data exists.
 
 Accepted user-reported installation/email/booking/newsletter/customer/cancellation checks remain closed. Mail cron presence is confirmed, not exact execution. Paid sandbox/provider match remains unconfirmed. Protected recovery, final payment/service review, populated-device review and explicit owner approval remain grouped in the consolidated final pass.
 
-Latest runtime commits update public fallback copy and default metadata only. VERSION remains 1.0.0-rc.7. No schema, installer, payment code, deployment or immutable RC7 archive changed.
+Latest runtime commits update approved fallback copy/default metadata plus responsive polish for the confirmed three-member Band layout, narrow-screen commerce/order views and extra-small public-shell behavior. VERSION remains 1.0.0-rc.7. No schema, installer, payment code, deployment or immutable RC7 archive changed.
