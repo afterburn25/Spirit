@@ -1,5 +1,12 @@
 # Changelog
 
+## Final launch runtime copy alignment — application remains RC7
+
+Wire the approved launch wording into the public runtime as safe fallbacks for Home, Music, Shows, Band, Media, Booking, Press and Merch when matching CMS content is empty. Align default public SEO titles/descriptions with the final content map while preserving CMS overrides.
+
+No fabricated releases, shows, videos, portraits or merchandise were added. No CMS records were published. VERSION remains 1.0.0-rc.7; schema, installer, payment code and the immutable RC7 delivery are unchanged.
+
+
 ## Final launch content consolidation — application remains RC7
 
 Consolidate confirmed roster, factual Band/member/Press text, prepared Band & Booking PDF references, general launch page copy and selected Candidate 3 / Part 3 working metadata into `design/final-launch-content/`. Add an explicit placement checklist for the existing CMS and a single list of genuinely missing launch inputs. No importer, seed data, fake shows/products/biographies or direct-MP4 feature is added.
