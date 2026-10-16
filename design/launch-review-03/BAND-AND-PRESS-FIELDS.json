@@ -1,0 +1,74 @@
+{
+  "purpose": "Manual text-entry worksheet; not an executable importer or CMS export.",
+  "software_version": "1.0.0-rc.7",
+  "fact_source": "User-confirmed current lineup recorded at a03ce5db5bb6cec23c5b5213824d165c2fa97a15/design/launch-review-01/CONFIRMED-LINEUP.md",
+  "publication_state": "Prepared locally only. No CMS record or public page has been changed.",
+  "instructions": "Update matching existing records; preserve their IDs, revisions, current media, unrelated text and publication state. Copy approved text_fields only. Do not submit this document as JSON to the website. Review new PDF design and text before public release.",
+  "records": [
+    {
+      "kind": "page",
+      "suggested_title": "The Band",
+      "suggested_slug": "band",
+      "text_fields": {
+        "subtitle": "The people behind the sound.",
+        "body": "Spiritual Gorillaz brings together Chad Lindsey on guitar, keyboards and vocals, Ron Green on harmonica, and Charlie Savell on drums.",
+        "seo_title": "Meet Spiritual Gorillaz | The Band",
+        "seo_description": "Meet Chad Lindsey on guitar, keyboards and vocals, Ron Green on harmonica, and Charlie Savell on drums."
+      }
+    },
+    {
+      "kind": "member",
+      "suggested_title": "Chad Lindsey",
+      "suggested_slug": "chad-lindsey",
+      "text_fields": {
+        "role": "Guitar, keyboards and vocals",
+        "bio": "Chad Lindsey plays guitar and keyboards and provides vocals for Spiritual Gorillaz.",
+        "seo_title": "Chad Lindsey | Spiritual Gorillaz",
+        "seo_description": "Chad Lindsey plays guitar and keyboards and provides vocals for Spiritual Gorillaz."
+      }
+    },
+    {
+      "kind": "member",
+      "suggested_title": "Ron Green",
+      "suggested_slug": "ron-green",
+      "text_fields": {
+        "role": "Harmonica",
+        "bio": "Ron Green plays harmonica for Spiritual Gorillaz.",
+        "seo_title": "Ron Green | Spiritual Gorillaz",
+        "seo_description": "Ron Green plays harmonica for Spiritual Gorillaz."
+      }
+    },
+    {
+      "kind": "member",
+      "suggested_title": "Charlie Savell",
+      "suggested_slug": "charlie-savell",
+      "text_fields": {
+        "role": "Drums",
+        "bio": "Charlie Savell plays drums for Spiritual Gorillaz.",
+        "seo_title": "Charlie Savell | Spiritual Gorillaz",
+        "seo_description": "Charlie Savell plays drums for Spiritual Gorillaz."
+      }
+    },
+    {
+      "kind": "page",
+      "suggested_title": "Press Kit",
+      "suggested_slug": "press",
+      "text_fields": {
+        "subtitle": "Band information and booking inquiries.",
+        "body": "Spiritual Gorillaz brings together Chad Lindsey on guitar, keyboards and vocals, Ron Green on harmonica, and Charlie Savell on drums.",
+        "seo_title": "Spiritual Gorillaz | Band and Booking Information",
+        "seo_description": "Confirmed Spiritual Gorillaz lineup and the website route for event inquiries."
+      }
+    },
+    {
+      "kind": "press",
+      "suggested_title": "Spiritual Gorillaz — Band & Booking Sheet",
+      "suggested_slug": "spiritual-gorillaz-band-booking-sheet",
+      "text_fields": {
+        "description": "One-page band and booking sheet featuring the confirmed lineup and website booking route."
+      },
+      "local_asset": "Spiritual-Gorillaz-Band-and-Booking-Sheet.pdf",
+      "requires_existing_workflow": "Upload the reviewed PDF through Media library, then select its real file_id before publication."
+    }
+  ]
+}
