@@ -1,5 +1,11 @@
 # Changelog
 
+## Checkout continuation — unpaid cancellation procedure prepared; software remains RC7
+
+The user said **“continue”** after the sandbox-purchase instructions. No payment success is inferred. Keep the original paid purchase/provider match/receipt/history/stock checks pending and prepare the independent no-payment cancellation test from actual CheckoutPage, checkout template and Orders code.
+
+Require an already isolated Sandbox checkout, one unit reserved by Review order and total, cancellation before Pay and expiry, unchanged order reference, cancelled/nonpayable receipt and exactly one stock release across refresh. No account, order, stock, payment, settings, queue or live host operation was performed. This is an unexecuted procedure, not another passed owner checkpoint; see `docs/acceptance/UNPAID-CHECKOUT-CHECK.md`. Prior accepted checks, software/runtime/VERSION/tests/workflows and immutable deliveries remain unchanged.
+
 ## Customer-account sequence passed — genuine sandbox checkout next; software remains RC7
 
 Record **“yes all this passed”** as the user's acceptance of registration, activation-email receipt, password creation, sign-in/out, reset-email receipt, new-password sign-in and old-password rejection. Do not repeat those checks or infer passwords, token links, headers, a specific cron execution or final approval. Preserve checkpoints01–05. See `docs/acceptance/OWNER-CHECKPOINT-06.md`.
@@ -28,7 +34,7 @@ Next verify existing newsletter signup, explicit confirmation, welcome and unsub
 
 Record **“yes it does”** as the user's confirmation that the requested owner test email arrived. Complete that basic delivery check without inferring inbox/spam placement, headers, universal deliverability or other message workflows. Preserve the earlier accepted installation/report checkpoint. Next verify one marked booking inquiry and its two notifications; newsletter/scheduled delivery remain open. See `docs/acceptance/OWNER-CHECKPOINT-02.md`.
 
-Documentation only. No email sent, queue processed, settings changed, job created, website content published, runtime/VERSION/tests/workflows changed or prior archive rebuilt by the assistant. No new automated test or final-launch acceptance claimed.
+Documentation only. No email sent, queue processed, settings changed, job created, content published, runtime/VERSION/tests/workflows changed or prior archive rebuilt by the assistant. No new automated test or final-launch acceptance claimed.
 
 ## User installation checkpoint — email verification next; software remains RC7
 
