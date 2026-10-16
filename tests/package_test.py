@@ -71,6 +71,12 @@ class PackagingTests(unittest.TestCase):
         with zipfile.ZipFile(archive) as bundle:
             manifest=json.loads(bundle.read('docs/PACKAGE-MANIFEST.json'))
             for name,digest in manifest['files'].items(): self.assertEqual(hashlib.sha256(bundle.read(name)).hexdigest(),digest)
+    def test_repeated_builds_are_byte_reproducible(self):
+        first=self.build()
+        second_dir=self.root/'second-output'
+        second=packager.package(second_dir)
+        self.assertEqual(first.read_bytes(),second.read_bytes())
+
     def test_existing_version_is_not_overwritten(self):
         archive=self.build(); old=archive.read_bytes()
         with self.assertRaises(FileExistsError): self.build()
