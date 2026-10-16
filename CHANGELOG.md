@@ -7,8 +7,10 @@ RC9 fixes one real post-RC8 runtime inconsistency discovered during live accepta
 Changes:
 - customer/account views no longer force the global navigation into the shop-active state;
 - customer-local Merchandise and Your bag links render only while the storefront is enabled;
+- closed-store account pages use non-commerce wording and no longer advertise guest checkout;
+- unavailable registration/recovery routes return to sign-in instead of sending visitors to a closed merchandise catalog;
 - customer sign-in/account access remains available with a dormant storefront;
-- browser coverage now enforces both closed-store and enabled-store customer-navigation behavior.
+- browser coverage now enforces both closed-store and enabled-store customer-navigation and copy behavior.
 
 RC8 remains frozen as the all-green historical candidate. RC9 is a genuine new release candidate because this changes public runtime behavior.
 
