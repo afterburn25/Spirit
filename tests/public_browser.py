@@ -60,7 +60,7 @@ def main():
             save_content(current, 'event', 'Browser Fixture Show', {'starts_at': '2099-11-08T20:00', 'venue': 'Fixture Venue', 'city': 'Fixture City', 'timezone': 'America/Chicago', 'ticket_url': 'https://tickets.example.test/fixture'}, slug='browser-fixture')
             with sync_playwright() as engine:
                 browser = engine.chromium.launch()
-                for width, height in [(1440, 1000), (390, 844)]:
+                for width, height in [(1440, 1000), (390, 844), (360, 800)]:
                     context = browser.new_context(viewport={'width': width, 'height': height}, reduced_motion='reduce', bypass_csp=False)
                     page = context.new_page(); errors = []
                     page.on('pageerror', lambda error: errors.append(str(error)))
@@ -75,7 +75,7 @@ def main():
                         if route in ['', 'booking/']:
                             screenshot(page, f'public-{width}-' + ('booking' if route else 'home'))
                     page.goto(current.base, wait_until='networkidle')
-                    if width == 390:
+                    if width <= 390:
                         page.locator('.nav-toggle').click()
                         expect(page.locator('#public-nav').is_visible(), 'Phone navigation opens')
                         page.locator('#public-nav a').filter(has_text='Music').first.click()
