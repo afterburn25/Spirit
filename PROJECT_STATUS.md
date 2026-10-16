@@ -6,7 +6,7 @@ The application remains **1.0.0-rc.7**. Optional features are frozen. Current wo
 
 The final content map and placement checklist consolidate the confirmed roster, factual Band/Press/member copy, prepared Band & Booking Sheet, general launch page copy and selected Candidate 3 / Part 3 working entry.
 
-The approved Home, Music, Shows, Band, Media, Booking, Press and Merch wording is now also wired into the public runtime as safe fallback copy when the matching CMS Page field is empty. Public default SEO titles/descriptions now align with the final launch content map. Published CMS records still override these fallbacks.
+The approved Home, Music, Shows, Band, Media, Booking, Press and Merch wording is now wired into the actual public runtime as safe fallback copy when the matching CMS Page field is empty. The dedicated Booking template and the real Storefront catalog path have also been aligned, so they no longer fall back to older generic wording. Public default SEO titles/descriptions now align with the final launch content map. Published CMS records still override these fallbacks.
 
 ## Asset-source sweep and production specs
 
