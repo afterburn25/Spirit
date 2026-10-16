@@ -190,7 +190,7 @@ def normal_journey(s: Site, blocked_cleanup: bool):
     status, _, _, _ = s.client.form('admin/settings.php', {'site_name':'Integration Band','tagline':'Verified setting','welcome':'<script>alert(1)</script>'})
     expect(status == 200, 'Owner saves website settings')
     body = s.client.request('')[1]
-    expect('Integration Band' in body and '&lt;script&gt;' in body and '<script>alert(1)' not in body, 'Saved public content persists and is escaped')
+    expect('Integration Band' in body and '<script>alert(1)' not in body and '&lt;script&gt;' not in body, 'Saved site identity persists while arbitrary legacy welcome HTML is not rendered over approved launch copy')
     s.database('editor')
     expect(s.client.request('admin/settings.php')[0] == 403, 'Non-owner role cannot access owner settings')
     s.database('owner')
