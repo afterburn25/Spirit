@@ -105,7 +105,7 @@ def main():
                     page.locator('.play-track').first.click(); wait_for_audio(page)
                     page.evaluate('window.fixtureAudioNode = document.getElementById("site-audio")')
                     expect(page.locator('#persistent-player').is_visible(), 'Selecting a track opens the functioning audio player')
-                    if width == 390:
+                    if width <= 390:
                         page.locator('.nav-toggle').click()
                     page.locator('#public-nav a').filter(has_text='Shows').first.click()
                     page.wait_for_url('**/shows/')
