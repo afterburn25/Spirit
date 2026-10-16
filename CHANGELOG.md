@@ -1,5 +1,11 @@
 # Changelog
 
+## Booking inquiry and both emails confirmed — newsletter next; software remains RC7
+
+Record **“yes all that works”** as the user's confirmation of the three requested booking-test outcomes: saved inquiry, band-notification receipt and organizer-acknowledgement receipt. Complete that basic check while retaining earlier accepted installation/report and owner-email results. Do not repeat them without a new specific problem. No reference, recipient address, message header or timing is invented. See `docs/acceptance/OWNER-CHECKPOINT-03.md`.
+
+Next verify existing newsletter signup, explicit confirmation, welcome and unsubscribe with an operator-controlled test address; quiet-site scheduled delivery remains separate. Read current newsletter source for labels and transitions. Five Markdown files only: no assistant message send, subscription change, queue processing, setting/job change, content publication, runtime/VERSION/test/workflow or archive modification. Other acceptance gates and final release remain open.
+
 ## Owner test email received — booking verification next; software remains RC7
 
 Record **“yes it does”** as the user's confirmation that the requested owner test email arrived. Complete that basic delivery check without inferring inbox/spam placement, headers, universal deliverability or other message workflows. Preserve the earlier accepted installation/report checkpoint. Next verify one marked booking inquiry and its two notifications; newsletter/scheduled delivery remain open. See `docs/acceptance/OWNER-CHECKPOINT-02.md`.
