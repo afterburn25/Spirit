@@ -1,5 +1,11 @@
 # Changelog
 
+## Customer-account sequence passed — genuine sandbox checkout next; software remains RC7
+
+Record **“yes all this passed”** as the user's acceptance of registration, activation-email receipt, password creation, sign-in/out, reset-email receipt, new-password sign-in and old-password rejection. Do not repeat those checks or infer passwords, token links, headers, a specific cron execution or final approval. Preserve checkpoints01–05. See `docs/acceptance/OWNER-CHECKPOINT-06.md`.
+
+Prepare one isolated Authorize.net sandbox purchase with matching provider transaction, website receipt/history and one stock deduction. Read current order controls and official testing guidance; distinguish saved website Sandbox mode from the separate sandbox merchant interface's internal Test Mode. No actual merchant test has run. Five Markdown files only: no account/password/mail/queue, payment/stock/job/settings operation, runtime/VERSION/test/workflow change, live publication, deployment or archive rebuild. Other acceptance milestones remain open.
+
 ## Existing mail job confirmed — customer-account checks next; software remains RC7
 
 Record **“yes next”** against the question about a listed `tasks/mail.php` cron job. Accept job presence without inferring cadence, paths, output or successful execution. Move past repeat setup questions while retaining quiet-site execution as a separate evidence item. Preserve all prior accepted installation/email/booking/newsletter checks. See `docs/acceptance/OWNER-CHECKPOINT-05.md`.
