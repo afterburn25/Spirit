@@ -36,6 +36,21 @@ def snapshot(s):
     return fixture(s,'snapshot')
 
 
+def run_payment_task(s):
+    env={**s.env,'SPIRIT_DISABLE_PAYMENT_NETWORK':'1'}
+    result=subprocess.run(
+        ['php',str(s.root/'tasks/payments.php'),'--document-root='+str(s.docroot)],
+        env=env,text=True,capture_output=True,timeout=35
+    )
+    expect(result.returncode==0,'Actual scheduled payment CLI task completes without provider networking')
+    payload=json.loads(result.stdout)
+    expect(payload.get('heartbeat') is True,'Successful payment maintenance reports heartbeat persistence')
+    path=s.runtime/'cache/task-payments.json'
+    expect(path.is_file() and (path.stat().st_mode & 0o077)==0,'Payment heartbeat is stored only in protected private runtime cache')
+    stamp=json.loads(path.read_text())
+    expect(isinstance(stamp.get('ran_at'),str) and stamp['ran_at'].endswith('Z'),'Payment heartbeat contains only a UTC completion timestamp')
+
+
 def order(s, oid):
     return next(o for o in snapshot(s)['orders'] if int(o['id'])==oid)
 
@@ -280,6 +295,7 @@ def main():
                     expect(Client(s.base).request(route)[3].endswith('/admin/login.php'),'Anonymous order administration denied: '+route)
                 expect(Client(s.base).request('payments/sandbox.php')[0]==405 and Client(s.base).request('tasks/payments.php')[0]==404,'Webhook is POST-only and maintenance is CLI-only')
                 money_and_privacy(s,pid,vid);failure_and_recovery(s,vid);reversals(s,vid);reservation_race(s,pid,vid);customer_orders(s,pid,vid)
+                run_payment_task(s)
                 s.database('editor');expect(s.client.request('admin/orders/')[0]==403,'Editor cannot inherit payment or customer order privileges');s.database('owner')
         with site(base/'upgrade',archive,code,'band') as s:upgrade(s)
     print('Payment SQL/HTTP, concurrency, privacy and recovery checks passed with a synthetic gateway boundary; no provider transaction executed.',flush=True)
