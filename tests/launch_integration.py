@@ -66,6 +66,8 @@ def journey(s):
     expect(Client(s.base).request('admin/launch/')[3].endswith('/admin/login.php'),'Anonymous visitors cannot access launch checks')
     expect(s.client.request('admin/launch/',{'action':'export','csrf':'bad'})[0]==403,'Export enforces existing CSRF protection')
     expect(s.client.form('admin/launch/',{'action':'enable_live_payments'})[0]==400,'Diagnostic endpoint cannot become a settings or live-enablement action')
+    dormant=report(s)
+    expect(dormant['check_states']['store']=='observed' and dormant['check_states']['payments']=='observed' and dormant['check_states']['policy']=='observed','Closed commerce is reported as a safe dormant launch state, not a false blocker')
     for role in ['content_editor','store_manager']:
         fixture(s,'role',{'role':role})
         expect(s.client.request('admin/launch/')[0]==403 and s.client.request('admin/launch/',{'action':'export'})[0]==403,role+' cannot see or export owner diagnostics')
@@ -78,7 +80,7 @@ def journey(s):
     result=report(s);serialized=json.dumps(result)
     for forbidden in ['PRIVATE-CONFIG-SENTINEL','PRIVATE-PAGE-SENTINEL','PRIVATE-TEXT-SENTINEL','private-host.example.test','private-sender@example.test',s.env['SPIRIT_DB_PASSWORD'],s.env['SPIRIT_DB_NAME'],s.prefix,str(s.runtime),s.owner]:
         expect(forbidden not in serialized,'Support report omits private configuration, identities, paths and content')
-    expect(result['check_states']['smtp']=='review' and result['check_states']['payments']=='review','Configured SMTP and checkout remain review-required rather than provider-verified')
+    expect(result['check_states']['smtp']=='review' and result['check_states']['store']=='review' and result['check_states']['payments']=='review' and result['check_states']['policy']=='review','Configured SMTP and enabled commerce remain review-required rather than provider-verified')
     expect(result['limits']['post_max_bytes']==32768 and result['limits']['upload_max_bytes']==16384,'Report reads the actual child PHP limits')
     expect(fixture(s,'fingerprint')==before,'Refreshing/exporting diagnostics leaves every database table unchanged')
     for route,field,action in [('admin/media/','file','upload'),('admin/backups/','backup','import'),('admin/upgrades/','package','stage')]:
