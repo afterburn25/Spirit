@@ -38,6 +38,20 @@ def state(s):
     return fixture(s, 'snapshot')
 
 
+def run_mail_task(s):
+    result=subprocess.run(
+        ['php',str(s.root/'tasks/mail.php'),'--document-root='+str(s.docroot)],
+        env=s.env,text=True,capture_output=True,timeout=30
+    )
+    expect(result.returncode==0,'Actual scheduled mail CLI task completes in the disposable environment')
+    payload=json.loads(result.stdout)
+    expect(payload.get('heartbeat') is True,'Successful mail task reports heartbeat persistence')
+    path=s.runtime/'cache/task-mail.json'
+    expect(path.is_file() and (path.stat().st_mode & 0o077)==0,'Mail heartbeat is stored only in protected private runtime cache')
+    stamp=json.loads(path.read_text())
+    expect(isinstance(stamp.get('ran_at'),str) and stamp['ran_at'].endswith('Z'),'Mail heartbeat contains only a UTC completion timestamp')
+
+
 def public_booking(s):
     visitor = Client(s.base); values = booking_input(visitor)
     expect(visitor.request('booking/', {**values, 'csrf': 'wrong'})[0] == 403, 'Booking rejects invalid CSRF')
@@ -189,7 +203,7 @@ def main():
         for folder in ['', 'spirit']:
             with site(base / ('nested' if folder else 'root'), archive, code, folder) as current:
                 current.claim(); current.client.form('install/', current.input()); current.login()
-                public_booking(current); delivery_queue(current); subscription(current)
+                public_booking(current); delivery_queue(current); subscription(current); run_mail_task(current)
         with site(base / 'upgrade', archive, code, 'band') as current:
             upgrade(current)
     print('Communication SQL/HTTP, recovery and consent checks passed.', flush=True)
