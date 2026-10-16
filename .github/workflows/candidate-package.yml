@@ -1,0 +1,39 @@
+name: Candidate installation package
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: candidate-package-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  package:
+    name: Validate and build cumulative candidate
+    runs-on: ubuntu-22.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Validate software release contract
+        run: |
+          python3 -m py_compile tools/package.py tools/release_gate.py
+          python3 tools/release_gate.py
+      - name: Build immutable versioned full ZIP
+        run: |
+          mkdir -p "$RUNNER_TEMP/spirit-package"
+          python3 tools/package.py --output "$RUNNER_TEMP/spirit-package"
+          cd "$RUNNER_TEMP/spirit-package"
+          sha256sum Spiritual-Gorillaz-*-Full.zip > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+      - name: Upload candidate package
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spiritual-Gorillaz-${{ github.sha }}-candidate
+          path: |
+            ${{ runner.temp }}/spirit-package/Spiritual-Gorillaz-*-Full.zip
+            ${{ runner.temp }}/spirit-package/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14
