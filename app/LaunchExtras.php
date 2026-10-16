@@ -45,14 +45,16 @@ final class LaunchExtras
             return [$complete?'review':'attention',$complete?'All four sandbox fields are populated. Secrets were not decrypted; actual tokenization, transactions and notifications remain unverified.':'One or more sandbox credential fields are missing. Do not enable production to bypass genuine sandbox acceptance.'];
         });
         $add('payment_mode','services','Production payment warning','admin/orders/payments.php',static function():array{
-            $o=PaymentSettings::all();$mode=PaymentSettings::mode($o['environment']);if(!is_bool($o['enabled'])){throw new RuntimeException('Invalid payment enablement.');}
+            $store=Catalog::options()['enabled'];$o=PaymentSettings::all();$mode=PaymentSettings::mode($o['environment']);if(!is_bool($o['enabled'])){throw new RuntimeException('Invalid payment enablement.');}
+            if(!$store&&!$o['enabled']){return ['observed','Commerce is dormant and payment enablement is off. No provider operation was attempted.'];}
             return [$mode==='production'&&$o['enabled']?'attention':'review',$mode==='production'&&$o['enabled']?'Production is selected and enabled: live-charge risk. This is not owner launch approval and this report changes no settings.':ucfirst($mode).' is selected and payment enablement is '.($o['enabled']?'on':'off').'. No provider operation was attempted.'];
         });
         $add('catalog_count','content','Published merchandise','admin/shop/',static function():array{
             $sql='SELECT COUNT(*) FROM '.Database::table('products').' p WHERE p.published_json IS NOT NULL AND '
                 ."(CAST(JSON_UNQUOTE(JSON_EXTRACT(p.published_json,'$.category_id')) AS UNSIGNED)=0 OR EXISTS (SELECT 1 FROM "
                 .Database::table('shop_categories')." c WHERE c.id=CAST(JSON_UNQUOTE(JSON_EXTRACT(p.published_json,'$.category_id')) AS UNSIGNED) AND c.active=1))";
-            $count=(int)Database::connect()->query($sql)->fetchColumn();
+            $count=(int)Database::connect()->query($sql)->fetchColumn();$enabled=Catalog::options()['enabled'];
+            if(!$enabled&&$count===0){return ['observed','The storefront is closed with no published merchandise. This is a safe dormant launch state.'];}
             return ['review',$count.' published product(s) with a visible category. Drafts are excluded; store enablement, variants, stock, rights and fulfillment require separate review.'];
         });
         foreach(['mail_pending'=>['Unfinished email jobs','mail_queue',"status IN ('queued','retry','failed','uncertain','sending')",'admin/mail/','An empty queue does not prove inbox delivery.'], 'payment_pending'=>['Unresolved payment operations','payment_operations',"state IN ('processing','uncertain')",'admin/orders/','Do not blindly repeat a charge or release its stock.']] as $id=>[$title,$table,$condition,$path,$note]){
