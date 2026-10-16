@@ -1,6 +1,6 @@
-# Project status — RC7 software complete / final acceptance
+# Project status — RC8 software complete / final acceptance
 
-The application remains **1.0.0-rc.7**. The planned application scope is implemented. Optional features remain frozen. Current work is no longer feature development; it is final verification, real-world acceptance and owner approval.
+The application remains **1.0.0-rc.8**. The planned application scope is implemented. Optional features remain frozen. Current work is no longer feature development; it is final verification, real-world acceptance and owner approval.
 
 ## Software implementation status
 
