@@ -28,7 +28,7 @@ def main():
             _,password=signup(s)
             with sync_playwright() as engine:
                 browser=engine.chromium.launch()
-                for width,height in [(1440,1000),(390,844)]:
+                for width,height in [(1440,1000),(390,844),(360,800)]:
                     context=browser.new_context(viewport={'width':width,'height':height},reduced_motion='reduce',bypass_csp=False)
                     page=context.new_page();errors=[];page.on('pageerror',lambda error:errors.append(str(error)))
                     for route in ['shop/','shop/product.php?slug=fixture-shirt','account/login.php','account/register.php','account/forgot.php']:
@@ -49,7 +49,7 @@ def main():
                         screenshot(page,f'commerce-{width}-'+route.split('?')[0].strip('/').replace('/','-').replace('.php',''))
                     expect(errors==[],f'{width}px commerce has no uncaught JavaScript errors');context.close()
                 browser.close()
-    print('Commerce browser journeys passed at 1440px and 390px.',flush=True)
+    print('Commerce browser journeys passed at 1440px, 390px and 360px.',flush=True)
 
 if __name__=='__main__':
     main()
