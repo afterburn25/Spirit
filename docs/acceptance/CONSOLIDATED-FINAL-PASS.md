@@ -1,4 +1,4 @@
-# Consolidated final launch pass — RC7
+# Consolidated final launch pass — RC8
 
 ## Latest user confirmation and workflow decision
 
@@ -38,6 +38,6 @@ Do not rerun accepted basic flows merely to fill a new worksheet. Perform only a
 
 ## Workstream C — explicit final approval and immutable release
 
-After reviewed content is actually placed and remaining applicable acceptance is complete, present the final site and outstanding limitations together for owner acceptance. Then package/tag 1.0.0 against verified source under the existing release rules. Do not mark final approval from this request to move on. The delivered RC7 ZIP remains immutable; a documentation checkpoint is not a replacement installer.
+After reviewed content is actually placed and remaining applicable acceptance is complete, present the final site and outstanding limitations together for owner acceptance. Then package/tag 1.0.0 against verified source under the existing release rules. Do not mark final approval from this request to move on. The delivered RC7 ZIP remains immutable. RC8 is the current candidate because genuine runtime/test changes landed after RC7; never overwrite the historical RC7 archive.
 
-Application VERSION remains 1.0.0-rc.7. No runtime, tests/workflows, schema, installer, payment code, saved navigation or existing archive changed in this pass. Preserve manual one-page A2/cPanel installation with no setup code/token/20i/automatic database; approved navy/gold/blue design, external venue ticket links and original private config/encryption secret/data/media/recovery materials remain fixed.
+Application VERSION is 1.0.0-rc.8. No runtime, tests/workflows, schema, installer, payment code, saved navigation or existing archive changed in this pass. Preserve manual one-page A2/cPanel installation with no setup code/token/20i/automatic database; approved navy/gold/blue design, external venue ticket links and original private config/encryption secret/data/media/recovery materials remain fixed.
