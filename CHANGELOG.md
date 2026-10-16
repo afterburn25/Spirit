@@ -2,7 +2,7 @@
 
 ## Final checkout validation alignment — application remains RC7
 
-Align the public checkout form with existing server-side billing-address validation. When “billing address matches shipping” is cleared, separate billing fields are immediately marked required and the billing disclosure opens; billing city/state/ZIP now expose appropriate browser autocomplete hints. No gateway request, charge logic, schema, installer or payment credentials changed.
+Align the public checkout form with existing server-side billing-address validation. When “billing address matches shipping” is cleared, separate billing fields are immediately marked required and the billing disclosure opens; billing city/state/ZIP now expose appropriate browser autocomplete hints. No gateway request, charge logic, schema, installer or payment credentials changed. Browser regression coverage now verifies separate-billing required fields and the return to shipping-matches behavior.
 
 
 ## Final launch runtime copy alignment — application remains RC7
