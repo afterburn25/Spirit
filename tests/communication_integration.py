@@ -49,7 +49,7 @@ def run_mail_task(s):
     path=s.runtime/'cache/task-mail.json'
     expect(path.is_file() and (path.stat().st_mode & 0o077)==0,'Mail heartbeat is stored only in protected private runtime cache')
     stamp=json.loads(path.read_text())
-    expect(isinstance(stamp.get('ran_at'),str) and stamp['ran_at'].endswith('Z'),'Mail heartbeat contains only a UTC completion timestamp')
+    expect(isinstance(stamp.get('ran_at'),str) and (stamp['ran_at'].endswith('Z') or stamp['ran_at'].endswith('+00:00')),'Mail heartbeat contains only a UTC completion timestamp')
 
 
 def public_booking(s):
