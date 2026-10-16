@@ -84,7 +84,8 @@ def journey(s):
     mutate(s,'publish',two)
     expect(anon.request(f'media/file.php?id={one}')[0]==404 and anon.request(f'media/file.php?id={one}&width=320')[0]==404,'Replaced otherwise-unreferenced logo and cached derivatives are withdrawn')
     mutate(s,'withdraw')
-    expect('class="site-logo"' not in anon.request('')[1] and logo_present(s.client.request(PREVIEW)[1],two),'Withdrawal returns to text wordmark without deleting the private draft')
+    withdrawn_body=anon.request('')[1]
+    expect('class="site-logo"' not in withdrawn_body and withdrawn_body.count('class="bundled-site-logo"')==2 and logo_present(s.client.request(PREVIEW)[1],two),'Withdrawal restores the bundled scalable fallback without deleting the private draft')
     expect(anon.request(f'media/file.php?id={two}')[0]==404,'Withdrawn otherwise-private logo is no longer public')
     # A different explicit publication continues to authorize a shared image.
     page=save_content(s,'page','Synthetic logo reference',{'body':'Test only','image_id':str(two)},slug='logo-reference')
@@ -98,7 +99,8 @@ def journey(s):
     expect('Site data was restored' in mutate(s,'save',two,expected=old_logo_revision,restore_epoch=old_logo_epoch)[1],'A pre-restore form cannot overwrite recovered branding')
     old_epoch=epoch(s)
     restored=backup_action(s,'restore',id=legacy_backup,scope='content',confirm_restore='RESTORE')
-    expect('Restore committed' in restored[1] and epoch(s)>old_epoch and 'class="site-logo"' not in anon.request('')[1],'A pre-branding backup returns to text without resurrecting stale forms')
+    restored_body=anon.request('')[1]
+    expect('Restore committed' in restored[1] and epoch(s)>old_epoch and 'class="site-logo"' not in restored_body and restored_body.count('class="bundled-site-logo"')==2,'A pre-branding backup returns to the bundled fallback without resurrecting stale forms')
     history_fixture(s,'media-break',{'media_id':one});before=fixture(s,'fingerprint')
     expect('undamaged image' in mutate(s,'publish',one)[1] and fixture(s,'fingerprint')==before,'Damaged image cannot be published and does not destroy the saved draft')
     for role in ['content_editor','store_manager']:
@@ -107,7 +109,8 @@ def journey(s):
         expect(s.client.request(PATH,{'action':'publish','logo_id':str(two)})[0]==403,'Role boundary applies before a direct POST')
     fixture(s,'role',{'role':'owner'})
     mutate(s,'publish','')
-    expect('class="site-logo"' not in anon.request('')[1],'Explicit empty selection uses native text wordmark')
+    empty_body=anon.request('')[1]
+    expect('class="site-logo"' not in empty_body and empty_body.count('class="bundled-site-logo"')==2,'Explicit empty selection uses the bundled scalable fallback')
 
 
 def main():
