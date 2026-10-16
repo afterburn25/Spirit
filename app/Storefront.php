@@ -22,7 +22,8 @@ final class Storefront
         self::boot();$settings=Settings::all();$isPreview=isset($context['page_preview']);
         if($isPreview){Auth::requirePermission('content.manage');if($view!=='catalog'||($context['page_preview']['kind']??'')!=='page'||($context['page_preview']['slug']??'')!=='merch'){throw new InvalidArgumentException('Invalid section preview.');}header('X-Robots-Tag: noindex, nofollow');header('Referrer-Policy: no-referrer');}
         $pageContent=$view==='catalog'?($context['page_preview']??Content::bySlug('page','merch')):null;$metaRecord=$pageContent;
-        $active='shop';$record=null;$canonical=null;
+        $storeViews=['catalog','product','cart'];
+        $active=in_array($view,$storeViews,true)?'shop':'account';$record=null;$canonical=null;
         $titles=['catalog'=>'Official merchandise','product'=>'Merchandise','cart'=>'Your bag','login'=>'Customer sign in','register'=>'Create your account','forgot'=>'Reset your password','complete'=>'Secure your account','account'=>'Your account','addresses'=>'Saved addresses','password'=>'Account security'];
         if(!isset($titles[$view])){throw new RuntimeException('Unknown store view.');}
         $title=$titles[$view];$description=$view==='catalog'?'Explore approved Spiritual Gorillaz merchandise, product photographs, available options and care information.':$settings['welcome'];$store=Catalog::options();$error=$context['error']??null;$customer=$context['customer']??null;
