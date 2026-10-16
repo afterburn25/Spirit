@@ -1,5 +1,11 @@
 # Changelog
 
+## Owner test email received — booking verification next; software remains RC7
+
+Record **“yes it does”** as the user's confirmation that the requested owner test email arrived. Complete that basic delivery check without inferring inbox/spam placement, headers, universal deliverability or other message workflows. Preserve the earlier accepted installation/report checkpoint. Next verify one marked booking inquiry and its two notifications; newsletter/scheduled delivery remain open. See `docs/acceptance/OWNER-CHECKPOINT-02.md`.
+
+Documentation only. No email sent, queue processed, settings changed, job created, website content published, runtime/VERSION/tests/workflows changed or prior archive rebuilt by the assistant. No new automated test or final-launch acceptance claimed.
+
 ## User installation checkpoint — email verification next; software remains RC7
 
 Record the user's **“yes all that works lets move on”** after the latest RC7 installation/upgrade/report instructions. Normal installation/upgrade/admin and Launch checks/report workflows are user-confirmed working. Stop requiring the same report or repeated setup before continuing. Separate user-reported normal operation from unobserved restore/rollback, real email, merchant and final acceptance.
