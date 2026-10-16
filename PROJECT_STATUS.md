@@ -1,21 +1,25 @@
-# Project status — RC7 software / launch source review 02
+# Project status — RC7 software / current lineup confirmed
 
-## Latest continuation
+## Latest user confirmation
 
-Limited read-only web retrieval returned the redesigned homepage, Music, Band, Shows, Booking and Shop. Their text still shows unpopulated band/music/show content and a collection not yet open. Booking displays a form and contact address, but no form was submitted and mailbox delivery remains unverified. Media, Press, Search and Account could not be read through the tool; cache misses are not proof of broken routes. Local browser navigation was blocked by administrator policy and local HTTP failed DNS resolution. No restriction was bypassed and no live-browser/mobile/performance or hosting acceptance is claimed.
+The user confirmed the complete roster asked about after Source Review 02: **Chad Lindsey — guitar, keyboards and vocals; Ron Green — harmonica; Charlie Savell — drums.** These names and roles are now confirmed user-supplied facts, not demo-only leads. Do not repeat the same roster question. `design/launch-review-01/CONFIRMED-LINEUP.md` contains the confirmation, minimal member entries and a factual band-page introduction.
 
-An older search-index result for the same site is explicitly a demo and must not be imported as genuine live content. Relevant band-originated sharing notes supplied one musician/role credit and three recording labels. A private conversation worksheet now has one minimal musician-credit draft, two unconfirmed-name leads and three incomplete video-review records. All four draft records pass existing field and slug validation; videos without actual provider URLs fail publication validation. No database was accessed. Source notes do not establish the complete current lineup, title/credits of Part 3, or publication approval. Private source details and access links stay out of Git.
+Only the names and stated roles are confirmed. Longer biographies, individually identified portraits, recording-specific credits and other content approvals remain open. No live member record was created and no page was published. This confirmation does not validate unrelated names, sample shows or merchandise from the old demo.
 
-Read `design/launch-review-01/PUBLIC-CONTENT-REVIEW-02.md`. The next useful content decision is confirmation of the current roster. Issue #21 remains open; recent generated page mockups remain rejected and unapplied. No new image-generation attempt was made.
+## Previous work retained
 
-## Selected recording remains unchanged
+The limited public text/source review is preserved in `design/launch-review-01/PUBLIC-CONTENT-REVIEW-02.md`. Its roster uncertainty is historical and superseded by the confirmation above; its other retrieval limitations remain. Six pages were read previously, four tool cache misses were not classified as broken routes, and local browser/DNS restrictions were not bypassed. No new public-site, mobile, performance, hosting or provider check occurred in this confirmation pass.
 
-Candidate 3 / Part 3 is still selected. Its full 180.600-second segment, byte-identical 1080p copy, smaller 720p viewing copy and selected poster variants were prepared previously; see `design/launch-review-01/PART-3-PUBLICATION-PREP.md` for exact hashes and verification. No media file was modified in this continuation. The neutral title remains Performance — Part 3 until its exact metadata is confirmed. None of the three separate source-recording labels has been assigned to it. Actual approved YouTube/Vimeo playback URL is still needed by the existing video editor.
+Candidate 3 / Part 3 remains selected. Its full 180.600-second segment, preserved 1080p copy, smaller 720p copy and matching poster variants are unchanged; exact prior preparation is in PART-3-PUBLICATION-PREP.md. Its neutral working title remains Performance — Part 3 until exact recording metadata is established. No separate source-recording label has been matched to it. The existing video editor still needs an actual approved YouTube/Vimeo URL.
 
 ## Remaining completion milestones
 
-Milestone 1 is in progress, not complete. Eight page-copy proposals remain unapproved. Final logo/hero artwork, current-member biographies and portraits, chosen recordings/press, genuine shows/merchandise and policies remain. Milestones 2–6 stay open: actual A2/private storage/extensions/cleanup/recovery, receiving mailbox and scheduled work, genuine merchant sandbox, populated physical devices and owner acceptance.
+The roster-confirmation subtask is complete; Milestone 1 as a whole is not. Member biographies and portrait assignments, final logo/hero artwork, remaining approved prose, selected recordings/press, genuine shows/merchandise and policies remain. Eight earlier Page-copy proposals are not approved by confirming the roster. Issue #21 remains open; rejected generated mockups are not website assets.
 
-Application and last delivered installer remain **1.0.0-rc.7**, software baseline 5f721a3ab785690b99e966d6ca976e810c2431ee. No runtime, VERSION, schema, tests, workflows, installer, payment rules, administration state or prior delivery archive changed. This is content/source preparation, not a new software release or full regression run. Prior application evidence remains in TEST_RESULTS.md and PR20.
+Milestones 2–6 remain open: actual A2/private storage/extensions/cleanup/recovery, receiving-mailbox and scheduled work, genuine merchant sandbox, populated physical devices and final owner acceptance.
 
-Preserve the approved design, external venue ticket sellers, remembered collapsible navigation and manual one-page A2/cPanel installer. No setup code/token/20i/automatic database creation. Existing sites upgrade with backups and keep their original private configuration/encryption secret/database/media/recovery materials. Nothing was deployed or enabled; final 1.0 is not released.
+## Software and deployment
+
+Application and last delivered installer remain **1.0.0-rc.7**, software baseline 5f721a3ab785690b99e966d6ca976e810c2431ee. This update changes five Markdown records only. No runtime, VERSION, schema, tests, workflows, installer, payment rules, remembered navigation or existing archive is changed. No new regression or live acceptance result is claimed.
+
+Preserve the approved design, external venue ticket sellers and manual one-page A2/cPanel installer. No setup code/token/20i/automatic database. Existing sites upgrade with backups and retain original private config/encryption secret/database/media/recovery materials. Nothing was deployed or enabled; final 1.0 is not released.

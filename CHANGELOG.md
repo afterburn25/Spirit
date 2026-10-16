@@ -1,12 +1,18 @@
 # Changelog
 
+## User-confirmed lineup — application remains RC7
+
+Record the user's explicit confirmation of the current roster: Chad Lindsey on guitar, keyboards and vocals; Ron Green on harmonica; Charlie Savell on drums. Supersede earlier demo-only/uncertain roster labels for these facts and prepare minimal member entries plus a factual band introduction. Preserve the exact confirmation in `design/launch-review-01/CONFIRMED-LINEUP.md`; do not ask the same roster question again. No face identification, extended biography, recording title/credit or unrelated content approval is inferred.
+
+Five Markdown files only. No website database or public page changes, new software version, package rebuild, runtime changes or test claims. Selected Part3 and its assets remain unchanged. Roster confirmation closes that subtask, not the whole content milestone or final release.
+
 ## Unreleased source and public-content review 02 — application remains RC7
 
 Retrieve six public pages and distinguish their empty/default content from a stale indexed demo. Four tool cache misses remain unverified, not reported as origin404/500 failures. Local DNS/browser restrictions prevented programmatic live-browser checks; no bypass or new live acceptance result is claimed.
 
 Organize a band-supplied musician/role credit and three recording labels in a private conversation worksheet, keeping demo-only names unconfirmed and all recordings unmapped to selected Part3. Validate four private draft records with current ContentSchema/slug rules and reject the three missing-URL publication attempts without database access. No private notes, names, recording labels or access links are added to this public source record. Issue21 remains open; no new image attempt or acceptance of wrong mockups.
 
-No runtime, VERSION, tests, workflows, schema, installer, payment rule, remembered menu or existing archive change. No website form submission, content publication, email send, external video upload or deployment. This review does not close the launch milestones.
+No runtime, VERSION, tests, workflows, schema, installer, payment rule, remembered menu or existing archive change. No website form submission, content publication, email send, external video upload or deployment. This review does not close the launch milestones. The roster uncertainty described in this historical entry is superseded by the later direct user confirmation above.
 
 ## Selected Part 3 media preparation — application remains 1.0.0-rc.7
 
