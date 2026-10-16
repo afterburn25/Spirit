@@ -1,13 +1,23 @@
-# Project status — RC7 / cancellation accepted; final work consolidated
+# Project status — RC7 / final content placement active
 
-The user replied **“yes can we move on please”** to the unpaid-checkout stock-restoration/refresh question. That check is now passed according to the user. Earlier installation/report, owner-email, booking/two-email, newsletter and customer-account confirmations remain accepted. Existing mail-job presence is also confirmed. Do not repeat these basic checks without a new specific defect.
+The application remains **1.0.0-rc.7**. Optional features remain frozen. The user said **“lets do this”** after reviewing what remains before final 1.0, so current work is the consolidated content/presentation pass, not another serial acceptance loop or arbitrary release candidate.
 
-## Active work
+## Consolidated content package
 
-Move beyond one-question-per-test prompting. The consolidated execution plan is `docs/acceptance/CONSOLIDATED-FINAL-PASS.md`: finish public content/presentation, collect remaining applicable acceptance in one grouped review, then seek explicit final approval and produce the immutable 1.0.0 release. This workflow change is not approval of untested payments, recovery or unpublished content.
+`design/final-launch-content/FINAL-CONTENT-MAP.md` now consolidates the confirmed roster, factual Band/Press/member copy, general page copy, selected Part 3 working entry, truthful-empty-section rules and the exact remaining input blockers. `PLACEMENT-CHECKLIST.md` maps that material to the existing administration workflow.
 
-Current content preparation is retained: confirmed Chad Lindsey (guitar/keyboards/vocals), Ron Green (harmonica), Charlie Savell (drums); Band/Press/member text and an actual Band & Booking Sheet PDF under design/launch-review-03; selected Part 3 full-video and poster preparation. Actual CMS placement, final art/labelled portraits, provider links and remaining genuine content/policies are still outstanding. Existing draft proposals have not all been approved, and no publication occurred here.
+This does **not** mean the text is already saved in the site database. No connected administration session was available in this work pass. Content preparation and Git documentation are distinct from CMS placement/publication. Existing IDs, revisions and approved media must be preserved when the material is entered.
 
-The paid Authorize.net sandbox purchase remains unconfirmed separately from unpaid cancellation. Provider matching/notification/reversal and order-mail acceptance, actual scheduled execution, protected recovery and populated-device review remain in the consolidated final pass. No secret, exact cron run or unseen success is inferred from the latest reply.
+The live homepage was re-read in this pass and still shows the redesigned layout with no published releases and no confirmed dates. That observation supports prioritizing actual content placement rather than more software features. Other direct route retrievals were unavailable through the web tool and were not classified as site failures.
 
-Software and last delivered installer remain **1.0.0-rc.7**, baseline 5f721a3ab785690b99e966d6ca976e810c2431ee. This update records acceptance and reorganizes the final work only. No runtime, VERSION, test/workflow, schema, installer, payment, stock, content, deployment or prior archive changed. Do not rebuild RC7 with different bytes. Preserve the approved design, external venue sellers, remembered administration menu, manual A2/cPanel setup and original private data/recovery materials. Final 1.0.0 is not yet released.
+## Confirmed facts and decisions
+
+Chad Lindsey — guitar, keyboards and vocals; Ron Green — harmonica; Charlie Savell — drums. Candidate 3 / Part 3 remains selected. Do not ask again. Do not identify people from appearance, assign unrelated recording labels to Part 3, invent merchandise/shows/biographies or reuse rejected generated mockups.
+
+## Remaining real blockers
+
+Production logo/hero artwork, labelled portraits if wanted, actual Part 3 YouTube/Vimeo URL/title, genuine shows if any, and real merchandise/policies if the store is intended to open. These should be requested together, not one-by-one. Truthfully empty Shows/Music/Merch states are preferable to fake content.
+
+Operational final-review items remain grouped in `docs/acceptance/CONSOLIDATED-FINAL-PASS.md`; the paid sandbox purchase is still not recorded as passed. No unseen result is inferred.
+
+Software baseline, installer, VERSION, tests/workflows, schema, payment code and immutable RC7 package are unchanged. No live publication or provider operation occurred in this content consolidation.
