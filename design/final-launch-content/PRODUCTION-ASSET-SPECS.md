@@ -1,6 +1,6 @@
 # Production asset specifications — final launch
 
-These specifications convert the remaining visual blockers into exact deliverables for the existing RC7 layouts. They do **not** authorize another redesign, synthetic member portraits or reuse of rejected full-page mockups.
+These specifications convert the remaining visual blockers into exact deliverables for the existing RC8 layouts. They do **not** authorize another redesign, synthetic member portraits or reuse of rejected full-page mockups.
 
 ## 1. Home hero artwork
 
