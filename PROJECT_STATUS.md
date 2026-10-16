@@ -1,23 +1,55 @@
-# Project status — RC7 / final content pass
+# Project status — RC7 software complete / final acceptance
 
-The application remains **1.0.0-rc.7**. Optional features are frozen. Current work is finishing genuine content/presentation and the grouped final acceptance review.
+The application remains **1.0.0-rc.7**. The planned application scope is implemented. Optional features remain frozen. Current work is no longer feature development; it is final verification, real-world acceptance and owner approval.
 
-## Ready content
+## Software implementation status
 
-The final content map and placement checklist consolidate the confirmed roster, factual Band/Press/member copy, prepared Band & Booking Sheet, general launch page copy and selected Candidate 3 / Part 3 working entry.
+**Implementation scope: complete.**
 
-The approved Home, Music, Shows, Band, Media, Booking, Press and Merch wording is now wired into the actual public runtime as safe fallback copy when the matching CMS Page field is empty. The dedicated Booking template and the real Storefront catalog path have also been aligned, so they no longer fall back to older generic wording. Public default SEO titles/descriptions now align with the final launch content map. Published CMS records still override these fallbacks.
+The public site, owner administration, content/media/music/shows/press, booking/email/newsletter, customer accounts, merchandise/orders/payments, branding, backups, guarded upgrades/recovery, diagnostics and shared-host installer are implemented.
 
-## Asset-source sweep and production specs
+Recent finalization work also landed:
+- approved launch copy as safe runtime fallbacks for Home, Music, Shows, Band, Media, Booking, Press and Merch;
+- confirmed three-member Band fallbacks for Chad Lindsey, Ron Green and Charlie Savell, including partial-profile publishing without duplicates or fake portraits;
+- scalable bundled crown/wordmark SVG fallback while preserving owner-managed logo publication;
+- contained fallback hero presentation so the small concept image is not stretched/cropped as a fake production master;
+- responsive hardening at 360 px, 390 px and desktop widths;
+- cross-browser 360 px checkout/review/cancellation coverage in Chromium, Firefox and WebKit;
+- browser/server billing-address validation alignment;
+- closed-store navigation that hides Merch/Bag when commerce is intentionally dormant;
+- launch diagnostics that distinguish dormant commerce from activation blockers;
+- private successful-run heartbeats for the real mail and payment CLI workers;
+- deterministic software release gate that validates source/package integrity and refuses final 1.0.0 while true blockers remain.
 
-The source sweep found no approved YouTube/Vimeo destination for Part 3, no safely labelled member portraits and no production hero/logo master. The existing source MOV files remain too large for connected raw download/fingerprint comparison, so their labels stay unmapped to Part 3.
+The latest GitHub Actions matrix must still finish on the current head before final release status can be recorded as green.
 
-`design/final-launch-content/PRODUCTION-ASSET-SPECS.md` now defines exact final delivery requirements for hero artwork, logo, labelled 4:5 member portraits, retained Part 3 poster/playback metadata, shows and merchandise. This removes ambiguity without creating replacement mockups.
+## Launch-safe content behavior
+
+The confirmed roster and factual Band/Press copy are available without requiring invented content. Published CMS records still override fallbacks.
+
+Truthfully empty optional sections are supported:
+- Shows may remain empty until a genuine event exists.
+- Part 3 may remain unpublished until its real YouTube/Vimeo URL and exact public metadata are confirmed.
+- Member portraits may remain unset; factual non-clickable fallback cards are used for unpublished profiles.
+- Merchandise may remain closed. When closed, Merch/Bag are not advertised globally and merchant credentials/provider acceptance are treated as feature-activation requirements rather than core-site blockers.
+- Longer biographies are optional.
+
+The prepared Band & Booking Sheet PDF exists at `design/launch-review-03/Spiritual-Gorillaz-Band-and-Booking-Sheet.pdf`; it is prepared content, not automatically published.
+
+## Visual baseline
+
+A scalable bundled fallback logo now exists at `images/spiritual-gorillaz-logo.svg` and is used only when no owner-published logo is active. The owner branding workflow still overrides it normally.
+
+The built-in gorilla hero remains a small concept asset, but the runtime now presents it as contained identity artwork instead of upscaling it as a full-bleed photograph. A higher-resolution owner-approved hero can still replace it through the existing page-artwork workflow without a software release.
 
 ## Remaining blockers
 
-Approved hero/logo master; labelled member portraits if used; actual Part 3 YouTube/Vimeo URL and final title/credits; genuine shows if any; genuine merchandise/policies if store opens; optional longer biographies.
+These are acceptance/deployment blockers, not missing application features:
 
-Paid sandbox/provider match and other unseen final-review evidence remain pending in the consolidated acceptance pass. No result is inferred.
+1. Latest CI/workflow matrix must pass on the final RC7 source head.
+2. Explicit owner review/approval of the final site and chosen launch content/visual baseline.
+3. Actual A2 staging/production observations that source tests cannot fabricate, including real-host performance and any required recovery drill/worker heartbeat evidence.
+4. Genuine merchant sandbox acceptance **only if the storefront/payment feature will be enabled at launch**. If commerce stays closed, this is deferred until activation.
+5. Any optional real content the owner chooses to launch with (shows, Part 3 provider metadata, portraits, merchandise) must be genuine and approved before publication.
 
-The application remains RC7. Runtime presentation now also includes responsive polish for the confirmed three-member Band layout, narrow-screen commerce/order layouts, extra-small section headings and footer tap targets. Checkout now keeps browser-side separate-billing validation aligned with the server: unchecking “billing matches shipping” marks the billing address fields required immediately and exposes the billing section, with proper billing autocomplete hints. A Playwright regression now verifies both the separate-billing required state and the return-to-shipping-matches state. Public, commerce/customer, checkout/payment, and booking/communication browser suites now include a true 360px viewport alongside 390px and desktop coverage, enforcing the extra-small launch layouts in CI. The dedicated release-candidate storefront workflow now also runs the full checkout/review/cancellation path at 360px across Chromium, Firefox and WebKit. No schema, installer, gateway charge logic, CMS record publication, deployment or immutable RC7 package changed. Genuine dynamic records such as releases, shows, videos, portraits and merchandise remain empty unless actually published.
+No paid provider result, deployment, CMS publication or owner approval is inferred from repository work.

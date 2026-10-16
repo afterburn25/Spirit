@@ -1,25 +1,32 @@
 # Changelog
 
+## RC7 software-completion pass — application remains RC7
+
+Complete the remaining code-side launch work without inventing external evidence or optional content.
+
+- Wire approved launch copy into runtime fallbacks and metadata.
+- Preserve the confirmed Chad Lindsey / Ron Green / Charlie Savell lineup even when member profiles are partially or fully unpublished.
+- Add a scalable bundled crown/wordmark fallback while preserving owner-managed logo publication.
+- Present the small bundled hero as contained artwork instead of upscaling/cropping it like a production photograph.
+- Harden public/store/checkout/booking layouts at 360 px and extend cross-browser checkout/cancellation review to Chromium, Firefox and WebKit.
+- Align separate-billing browser validation with server validation.
+- Hide Merch/Bag globally while the storefront is intentionally closed.
+- Distinguish dormant commerce from real activation blockers in Launch Checks.
+- Record timestamp-only successful-run heartbeats for the actual mail/payment CLI workers in protected private runtime cache and expose freshness in diagnostics.
+- Add direct integration coverage for the real task scripts.
+- Add `tools/release_gate.py` plus a fast GitHub workflow; the gate validates required source/package files, package manifest hashes, private/development exclusions, responsive coverage and final-version blockers.
+- Keep payments/provider calls, schema, installer contract, external-ticket model and immutable RC7 archive unchanged.
+
+No genuine provider acceptance, deployment, CMS publication or owner approval is inferred.
+
 ## Final checkout validation alignment — application remains RC7
 
-Align the public checkout form with existing server-side billing-address validation. When “billing address matches shipping” is cleared, separate billing fields are immediately marked required and the billing disclosure opens; billing city/state/ZIP now expose appropriate browser autocomplete hints. No gateway request, charge logic, schema, installer or payment credentials changed. Browser regression coverage now verifies separate-billing required fields and the return to shipping-matches behavior. Public, commerce/customer, payment/checkout, and booking/communication browser suites now enforce a 360px viewport in addition to 390px and desktop coverage.
-
+Align the public checkout form with existing server-side billing-address validation. When “billing address matches shipping” is cleared, separate billing fields are immediately marked required and the billing disclosure opens; billing city/state/ZIP expose appropriate browser autocomplete hints.
 
 ## Final launch runtime copy alignment — application remains RC7
 
-Wire the approved launch wording into the public runtime as safe fallbacks for Home, Music, Shows, Band, Media, Booking, Press and Merch when matching CMS content is empty. Align default public SEO titles/descriptions with the final content map while preserving CMS overrides.
-
-No fabricated releases, shows, videos, portraits or merchandise were added. No CMS records were published. VERSION remains 1.0.0-rc.7; schema, installer, payment code and the immutable RC7 delivery are unchanged.
-
-
-## Final launch content consolidation — application remains RC7
-
-Consolidate confirmed roster, factual Band/member/Press text, prepared Band & Booking PDF references, general launch page copy and selected Candidate 3 / Part 3 working metadata into `design/final-launch-content/`. Add an explicit placement checklist for the existing CMS and a single list of genuinely missing launch inputs. No importer, seed data, fake shows/products/biographies or direct-MP4 feature is added.
-
-The live homepage was reread and still shows the redesigned layout with no published releases and no confirmed dates. No direct CMS edit or publication occurred; Git preparation is not website state. Keep the paid sandbox purchase and other unseen final-review evidence pending rather than inferring success.
-
-Documentation/content worksheet changes only. Runtime, VERSION, tests/workflows, schema, installer, payment code, saved navigation and the immutable RC7 delivery remain unchanged.
+Wire approved launch wording into public fallbacks for Home, Music, Shows, Band, Media, Booking, Press and Merch while preserving CMS overrides and truthful empty states.
 
 ## Previous history
 
-Earlier detailed checkpoints and release history remain in `docs/history/`, `docs/acceptance/`, TEST_RESULTS.md and PR20.
+Earlier detailed checkpoints and release history remain in `docs/history/`, `docs/acceptance/` and prior commits.

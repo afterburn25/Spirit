@@ -1,16 +1,24 @@
-# Final 1.0 roadmap — RC7 consolidated finish
+# Final 1.0 roadmap — RC7 software complete
 
-Optional features remain frozen. Current priority is real content placement and the final grouped acceptance review.
+Feature development is complete. Remaining work is verification, external acceptance and owner-approved publication.
 
 | Milestone | Current status | Remaining work |
 |---|---|---|
-|1. Production presentation and genuine content|**Active.** Confirmed roster, Band/Press/member copy, Band & Booking PDF, selected Part 3 assets and consolidated page copy are prepared.|Place reviewed content through existing CMS; finish approved logo/hero and labelled portraits; add actual Part 3 provider URL/title; add genuine shows/merchandise/policies only if they exist for launch.|
-|2. A2 installation, maintenance and recovery|Normal installation/upgrade/admin/report access user-confirmed.|Protected backup/restore/rollback and any specific unresolved safeguard in final grouped review.|
-|3. Email and scheduled processing|Owner test, booking/both emails, newsletter and customer activation/reset user-confirmed; mail cron presence confirmed.|Actual scheduled execution and remaining order/fulfillment/reversal mail where applicable, grouped in final review.|
-|4. Authorize.net sandbox|Unpaid cancellation/stock restoration user-confirmed. Paid purchase remains unconfirmed.|Paid provider transaction/order/receipt/history/stock match plus applicable notification/reporting/reversal/error-path evidence. No live charges.|
-|5. Populated-site quality|Software targeted tests retained; actual content is not yet fully placed.|After content placement, review real pages on desktop/phone, keyboard/player/forms/checkout, important old URLs and performance; fix launch blockers.|
-|6. Owner acceptance and final 1.0.0|Not reached.|Review completed site/known limits together; explicit approval; verified immutable final source/package/handoff and backed-up deliberate deployment.|
+|1. Core website and administration|**Complete.** Public site, CMS/admin, media/music/shows/press, booking/newsletter, accounts, commerce/orders, branding and responsive design are implemented.|Fix only defects found by final CI/acceptance.|
+|2. Production-safe fallback presentation|**Complete.** Approved copy fallbacks, confirmed lineup cards, scalable bundled logo, contained hero fallback, truthful empty states and dormant-store shell behavior are implemented.|Owner may replace fallback hero/logo or add real portraits/content through existing workflows; not a software dependency.|
+|3. A2 installation, maintenance and recovery|**Implemented and extensively automated-tested; normal operation previously owner-confirmed.** Browser installer, backups, guarded update/rollback and independent recovery are present.|Real staging/host drill evidence and owner acceptance where required.|
+|4. Email and scheduled processing|**Implemented.** Owner/booking/newsletter/customer mail flows previously owner-confirmed. Real mail worker now records a protected successful-run heartbeat exposed in Launch Checks.|Observe actual scheduled execution on the target host if required for final acceptance.|
+|5. Commerce and Authorize.net|**Software complete; activation-gated.** Token-only browser payment boundary, orders, inventory holds/releases, cancellation, reporting/recovery paths and payment worker heartbeat are implemented/tested with synthetic provider boundaries.|If store remains closed: none for core launch. If enabling commerce: genuine sandbox/provider acceptance, real products/policy and owner approval.|
+|6. Responsive/browser/accessibility quality|**Implemented.** 360/390/desktop coverage across public/store/checkout/booking, plus 320 stress checks and Chromium/Firefox/WebKit release review.|Real-host performance and final populated-content review after owner-selected assets/content.|
+|7. Release integrity|**Implemented.** Deterministic software release gate validates required source, package contents, manifest hashes, private-file exclusions and final-version blocker rules.|Latest CI must pass on final head.|
+|8. Owner acceptance and 1.0.0|**Pending external approval.**|Review remaining real-world observations and optional launch content; explicit owner approval; then bump/package/tag immutable 1.0.0.|
 
-Content source of truth for this pass is `design/final-launch-content/FINAL-CONTENT-MAP.md`. Use `PLACEMENT-CHECKLIST.md` for existing admin entry. Truthfully empty optional sections are acceptable; do not add invented content to satisfy a checklist.
+## Launch profile
 
-No software release or same-version replacement archive is created by content preparation.
+A content-first 1.0 launch does **not** require invented material. Shows, portraits, Part 3 and merchandise may stay unpublished/closed until genuine data exists.
+
+Commerce is an activation-gated feature. When storefront and payments are disabled, launch diagnostics treat the missing merchant credentials/provider acceptance/product catalog as dormant rather than broken. Enabling commerce restores the strict sandbox/policy/product/worker checks.
+
+Final content source: `design/final-launch-content/FINAL-CONTENT-MAP.md`.
+Production asset guidance: `design/final-launch-content/PRODUCTION-ASSET-SPECS.md`.
+Final acceptance scope: `docs/acceptance/CONSOLIDATED-FINAL-PASS.md`.

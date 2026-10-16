@@ -1,44 +1,64 @@
-# Resume — approved launch copy wired into runtime; final acceptance active
+# Resume — RC7 software complete; final acceptance only
 
-Repository **afterburn25/Spirit**, main authoritative. Application and delivered installer remain **1.0.0-rc.7**. Do not create RC8 for editorial/asset placement or overwrite the immutable RC7 package.
+Repository **afterburn25/Spirit**, `main` authoritative. Application and delivered installer remain **1.0.0-rc.7**. Do not create RC8 for editorial placement, optional assets or acceptance paperwork. Do not overwrite the immutable RC7 delivery.
 
-## Start here
+## Current state
 
-Read:
-- `design/final-launch-content/FINAL-CONTENT-MAP.md`
-- `design/final-launch-content/PLACEMENT-CHECKLIST.md`
-- `design/final-launch-content/SOURCE-ASSET-SEARCH.md`
-- `design/final-launch-content/PRODUCTION-ASSET-SPECS.md`
-- `docs/acceptance/CONSOLIDATED-FINAL-PASS.md`
+The planned application implementation is complete. Continue only with:
+- failures found by current CI;
+- final real-world acceptance;
+- genuine content/assets supplied or explicitly approved by the owner;
+- final 1.0.0 packaging/tagging after acceptance.
 
-The broad source sweep is complete. It found no approved Part 3 provider URL, safely labelled launch portraits or production hero/logo master. Do not repeat that search unless the user says new assets were added.
-
-## Exact remaining visual deliverables
-
-Production asset specifications are now explicit:
-- hero master: crowned gorilla on right, dark negative space left, no embedded UI/text; preferred >=2000x1400;
-- logo: SVG preferred or transparent >=2000 px raster fallback;
-- member portraits: explicitly labelled, 4:5, preferred 1600x2000;
-- Part 3: existing 1920x1080 poster is retained; only real YouTube/Vimeo URL and exact title/credits are missing.
-
-Do not generate synthetic member portraits. Do not use rejected full-page mockups. Do not replace the fallback hero file blindly; use the page artwork/focal workflow and preview before publication.
+Do not reopen finished modules or redesign the site.
 
 ## Fixed decisions
 
-Chad Lindsey — guitar, keyboards and vocals. Ron Green — harmonica. Charlie Savell — drums. Candidate 3 / Part 3 remains selected. Preserve black/deep-navy, gold and blue crowned-gorilla design and external venue ticket sellers.
+- Chad Lindsey — guitar, keyboards and vocals.
+- Ron Green — harmonica.
+- Charlie Savell — drums.
+- Candidate 3 / Part 3 remains selected.
+- Preserve the black/deep-navy, gold and blue crowned-gorilla design.
+- Show tickets continue to each venue's configured external seller.
+- No native ticketing.
+- No synthetic member portraits.
+- No fake shows, products, rates, testimonials or recording metadata.
 
-## Runtime presentation now landed
+## Runtime finalization now landed
 
-Approved factual launch copy is wired into the public runtime as safe fallback content for Home, Music, Shows, Band, Media, Booking, Press and Merch. The dedicated Booking template and Storefront catalog renderer were explicitly aligned as well. Default public metadata now uses the approved launch titles/descriptions when no CMS Page SEO/content override exists.
+- Approved factual launch copy is wired into public fallbacks and default metadata.
+- Band page always preserves the confirmed three-member lineup. Published profiles keep their real links/media; only missing confirmed members receive factual fallback cards.
+- Bundled scalable logo fallback: `images/spiritual-gorillaz-logo.svg`. Owner-published branding still overrides it.
+- Small built-in hero is rendered as contained artwork, not stretched into a fake production master. Real CMS hero artwork still uses the normal cinematic treatment.
+- Closed commerce is intentionally dormant: global Merch/Bag links disappear while disabled; customer accounts remain reachable.
+- Launch diagnostics treat dormant store/payment/account/key/policy/product states as safe rather than false blockers.
+- Mail/payment CLI workers write protected timestamp-only heartbeats in private runtime cache after successful runs.
+- Launch Checks surface worker heartbeat freshness without claiming inbox/provider acceptance.
+- Checkout separate-billing browser validation matches server rules.
+- 360 px / 390 px / desktop browser coverage spans public, commerce/customer, payment/checkout and booking/communication flows.
+- Release-candidate storefront checkout/cancellation runs at 390/360 px across Chromium, Firefox and WebKit.
+- `tools/release_gate.py` validates package/source integrity and is enforced by `.github/workflows/release-gate.yml` and the main verification workflow.
 
-This is not fake publication: real releases, events, videos, galleries, portraits, press downloads and products still require genuine published records. CMS content continues to override the fallback copy.
+## Optional launch content
 
-The Band & Booking Sheet PDF reference and neutral Part 3 metadata remain prepared but are not automatically published.
+The site can launch truthfully without fabricating missing optional material:
+- no confirmed show -> Shows remains empty;
+- no real merchandise -> storefront remains closed and hidden from global store navigation;
+- no labelled portraits -> factual member fallback cards remain;
+- no Part 3 provider URL/title -> Part 3 remains unpublished;
+- no longer biography -> use factual one-line member copy.
 
-Empty optional sections are acceptable until real data exists.
+Prepared Band & Booking Sheet:
+`design/launch-review-03/Spiritual-Gorillaz-Band-and-Booking-Sheet.pdf`
 
-## Acceptance boundary
+Preparation in Git is not CMS publication.
 
-Accepted user-reported installation/email/booking/newsletter/customer/cancellation checks remain closed. Mail cron presence is confirmed, not exact execution. Paid sandbox/provider match remains unconfirmed. Protected recovery, final payment/service review, populated-device review and explicit owner approval remain grouped in the consolidated final pass.
+## Final blockers
 
-Latest runtime commits update approved fallback copy/default metadata plus responsive polish for the confirmed three-member Band layout, narrow-screen commerce/order views and extra-small public-shell behavior. Checkout billing UX is also hardened: separate billing fields become browser-required when the “matches shipping” box is cleared, matching existing server validation and improving address autocomplete semantics. `tests/payment_browser.py` now exercises that toggle in both directions so the mismatch cannot silently regress. `tests/public_browser.py`, `tests/commerce_browser.py`, `tests/payment_browser.py`, and `tests/communication_browser.py` now run at 360px, 390px and desktop widths so the extra-small public, store, checkout and booking layouts are enforced rather than visually assumed. `tests/release_browser.py` additionally runs the checkout/review/cancellation flow at 390px and 360px across Chromium, Firefox and WebKit. VERSION remains 1.0.0-rc.7. No schema, installer, gateway charge logic, deployment or immutable RC7 archive changed.
+1. Observe the latest CI matrix on the final source head and fix only genuine failures.
+2. Obtain explicit owner acceptance of the final site/launch choices.
+3. Record actual A2/real-host observations still required by the launch checklist (including scheduled worker evidence/recovery drill/performance where applicable).
+4. If commerce will be enabled, complete genuine Authorize.net sandbox/provider acceptance before enabling it.
+5. Publish only owner-approved real content/assets.
+
+Do not tag **1.0.0** until these are satisfied. The release gate intentionally refuses a final version while PROJECT_STATUS still declares blockers.

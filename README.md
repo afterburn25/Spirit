@@ -1,13 +1,50 @@
 # Spiritual Gorillaz — 1.0.0-rc.7
 
-This pass improves the existing public phone menu and native admin checkboxes, without a redesign or new business module. Tab can enter and leave the public disclosure freely; Escape returns focus, outside interaction dismisses it, responsive transitions avoid hidden keyboard focus, and a short-screen menu scrolls above the music player. Shared admin checkbox geometry no longer inherits the text-input height. Existing server-side consent/publication/payment rules are unchanged.
+Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design. The RC7 application implementation is complete; the remaining path to 1.0.0 is final CI, real-host/external acceptance and explicit owner approval.
 
-Tested adcafab92035816571e7951e71d73d6c0a22af89 (tree5d2d70be796b3ae9e293749126f189f2326442d1) passed all six required workflows: full38802392834, focused38802392855, storefront38802392802, branding38802392914, authoring38802392808 and navigation38802393254. Finalization changes documentation only. The three new browser jobs each report361 passing checks, and actual screenshots/source archives were inspected and verified. Local230 syntax/812 existing pure assertions/8 JS/12 packaging checks passed. See docs/TEST_RESULTS.md for precise scope; additional final-main results are recorded separately after observation.
+## Current software state
 
-## Application and deployment contract
+Implemented:
+- public Home, Music, Shows, Band, Media, Press, Booking, newsletter and search;
+- persistent local-audio player and native no-JavaScript audio access;
+- owner CMS/media/branding, staff permissions and private draft/preview workflows;
+- booking, transactional email, newsletter and customer-account flows;
+- merchandise/catalog/cart/checkout/orders with Authorize.net tokenization boundaries;
+- inventory reservation/release, payment reconciliation/reversal safeguards and private order history;
+- manual A2/cPanel one-page installer;
+- encrypted backup/import/restore, guarded cumulative browser upgrades and independent same-schema code rollback;
+- owner launch diagnostics, support report, scheduled-worker heartbeat evidence and conservative cleanup;
+- deterministic package/release gate.
 
-Cumulative public band website, content/media/music/shows/press, booking/email/newsletter, merchandise/accounts/orders, owner branding, staff permissions and guarded maintenance. Source of truth is afterburn25/Spirit main. Keep the selected navy/black/gold/blue design and external venue ticket sellers. Private drafts require explicit publication; examples are never real band content.
+Recent launch-hardening includes approved copy fallbacks, a confirmed three-member Band fallback, a scalable bundled logo, contained fallback hero presentation, closed-store navigation, dormant-commerce diagnostics and 360 px browser coverage.
 
-A2/cPanel manual one-page installer only: no setup code, hosting token,20i or automatic database/user creation. Existing sites upgrade with backups, never reinstall or create replacement databases. Preserve original private config/encryption secret/database/media/recovery receipts. PHP cURL and ZIP notices describe real host requirements and are not bypassed. Same-schema upgrades and same-instance guarded restoration retain their limits. Build with `python3 tools/package.py --output ./dist`; deploy the cumulative Full ZIP including hidden access rules. The hosting server requires no Python/Node build, SSH or root.
+## Launch behavior
 
-Approved production artwork/content/policies and actual host/mailbox/merchant/recovery/device/owner acceptance remain before final1.0. No live hosting or provider operation is performed by this source change. Read AGENTS.md, SESSION_HANDOFF.md, docs/INSTALLATION.md, docs/UPGRADES.md and docs/LAUNCH_CHECKLIST.md. Historical results are retained in Git, not represented as proof for a new candidate.
+Missing optional real-world content is never fabricated. Shows may be empty, Part 3 may remain unpublished, portraits may remain unset and the storefront may stay closed. When commerce is closed, Merch/Bag are not advertised globally and merchant sandbox acceptance is deferred until feature activation.
+
+The owner may replace the bundled logo/hero through the existing Branding/Page artwork workflows without a software release.
+
+## Deployment contract
+
+A2/cPanel manual database setup only. No hosting token, no 20i integration, no setup code and no automatic database/user creation.
+
+Build the cumulative package with:
+
+`python3 tools/package.py --output ./dist`
+
+Validate the source/package contract with:
+
+`python3 tools/release_gate.py`
+
+The package excludes tests, development tools, runtime/private state, credentials, sessions, backups and recovery receipts. Existing installations upgrade through backups/guarded updates; never reinstall or replace the existing database/configuration to apply an update.
+
+## Final 1.0 boundary
+
+Do not tag final **1.0.0** until:
+- current CI is green on the final source head;
+- required A2/real-host acceptance is recorded;
+- genuine merchant sandbox acceptance is complete if commerce will be enabled;
+- chosen launch content/assets are owner-approved;
+- the owner explicitly accepts the final site.
+
+See `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/LAUNCH_CHECKLIST.md` and `docs/acceptance/CONSOLIDATED-FINAL-PASS.md`.
