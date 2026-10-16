@@ -129,7 +129,8 @@ def native_access(browser,s,name,area):
 
 def checkout(browser,s,name,area,width):
     # Exercise all entry controls, review and cancellation; never charge anything.
-    configure(s)
+    if not payment_snapshot(s)['payments']['enabled']:
+        configure(s)
     context=browser.new_context(viewport={'width':width,'height':900},reduced_motion='reduce',bypass_csp=False)
     context.route('https://jstest.authorize.net/v1/Accept.js',lambda route:route.abort())
     page=context.new_page();page.goto(s.base+'shop/product.php?slug=fixture-shirt')
