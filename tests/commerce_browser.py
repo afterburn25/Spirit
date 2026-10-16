@@ -34,6 +34,9 @@ def main():
                     for route in ['shop/','shop/product.php?slug=fixture-shirt','account/login.php','account/register.php','account/forgot.php']:
                         response=page.goto(s.base+route,wait_until='networkidle')
                         expect(response.status==200,f'{width}px renders '+route);rendered(page,route)
+                        if route=='shop/':
+                            expect(page.locator('#public-nav').get_by_role('link',name='Merch',exact=True).count()==1,f'{width}px enabled store remains visible in global navigation')
+                            expect(page.get_by_role('navigation',name='Footer').get_by_role('link',name='Your bag',exact=True).count()==1,f'{width}px enabled store exposes the bag link')
                         screenshot(page,f'commerce-{width}-'+route.split('?')[0].strip('/').replace('/','-').replace('.php',''))
                     page.goto(s.base+'shop/product.php?slug=fixture-shirt')
                     page.locator('[name="quantity"]').fill('2');page.get_by_role('button',name='Add to bag').click();page.wait_for_url('**/shop/cart.php')
