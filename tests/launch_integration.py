@@ -68,7 +68,7 @@ def journey(s):
     expect(s.client.form('admin/launch/',{'action':'enable_live_payments'})[0]==400,'Diagnostic endpoint cannot become a settings or live-enablement action')
     dormant=report(s)
     expect(dormant['check_states']['store']=='observed' and dormant['check_states']['payments']=='observed' and dormant['check_states']['policy']=='observed','Closed commerce is reported as a safe dormant launch state, not a false blocker')
-    expect(dormant['check_states']['accounts']=='observed' and dormant['check_states']['sandbox_keys']=='observed' and dormant['check_states']['payment_mode']=='observed' and dormant['check_states']['catalog_count']=='observed','Dormant commerce extras do not create false launch warnings')
+    expect(dormant['check_states']['accounts']=='observed' and dormant['check_states']['sandbox_keys']=='observed' and dormant['check_states']['payment_mode']=='observed' and dormant['check_states']['catalog_count']=='observed' and dormant['check_states']['external_merchant']=='observed','Dormant commerce extras do not create false launch warnings')
     expect(dormant['check_states']['mail_worker']=='review' and dormant['check_states']['payment_worker']=='observed','Fresh install distinguishes missing mail execution evidence from intentionally dormant payment maintenance')
     for role in ['content_editor','store_manager']:
         fixture(s,'role',{'role':role})
