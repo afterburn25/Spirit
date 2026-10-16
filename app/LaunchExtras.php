@@ -7,7 +7,7 @@ use Throwable;
 /** Additional passive checks consolidated from the separately delivered dev10 preview. */
 final class LaunchExtras
 {
-    public const IDS=['private_config','upload_headroom','public_contact','accounts','sandbox_keys','payment_mode','catalog_count','mail_pending','payment_pending','external_host','external_mailbox','external_merchant','external_recovery','external_artwork','external_quality'];
+    public const IDS=['private_config','upload_headroom','public_contact','accounts','sandbox_keys','payment_mode','catalog_count','mail_pending','payment_pending','mail_worker','payment_worker','external_host','external_mailbox','external_merchant','external_recovery','external_artwork','external_quality'];
 
     public static function headroom(array $limits): array
     {
@@ -36,11 +36,12 @@ final class LaunchExtras
         });
         $add('accounts','services','Customer registration','admin/shop/settings.php',static function():array{
             $enabled=Catalog::options()['accounts_enabled'];if(!is_bool($enabled)){throw new RuntimeException('Invalid account setting.');}
-            return ['review',$enabled?'Customer registration is enabled. Store availability and a working receiving-mailbox journey must also be checked.':'Customer registration is disabled. This can be intentional; this screen does not enable it.'];
+            return [$enabled?'review':'observed',$enabled?'Customer registration is enabled. Store availability and a working receiving-mailbox journey must also be checked.':'Customer registration is disabled. This is a safe dormant state and this screen does not enable it.'];
         });
         $add('sandbox_keys','services','Sandbox credential fields','admin/orders/payments.php',static function():array{
-            $o=PaymentSettings::environment('sandbox');$complete=true;
+            $store=Catalog::options()['enabled'];$payments=PaymentSettings::all()['enabled'];$o=PaymentSettings::environment('sandbox');$complete=true;
             foreach(['login_id','transaction_key','signature_key','client_key'] as $key){if(!is_string($o[$key])){throw new RuntimeException('Invalid payment setting.');}if($o[$key]===''){$complete=false;}}
+            if(!$store&&!$payments&&!$complete){return ['observed','Commerce is dormant. Sandbox credentials are not required until the storefront/payment feature is activated.'];}
             return [$complete?'review':'attention',$complete?'All four sandbox fields are populated. Secrets were not decrypted; actual tokenization, transactions and notifications remain unverified.':'One or more sandbox credential fields are missing. Do not enable production to bypass genuine sandbox acceptance.'];
         });
         $add('payment_mode','services','Production payment warning','admin/orders/payments.php',static function():array{
@@ -60,6 +61,20 @@ final class LaunchExtras
                 return [$count>0?'attention':'observed',$count.' unresolved record(s). '.$note.' This report never processes the queue.'];
             });
         }
+        $add('mail_worker','operations','Mail worker heartbeat','admin/mail/',static function():array{
+            $heartbeat=TaskHeartbeat::read('mail');
+            if(!$heartbeat){return ['review','No successful mail-worker heartbeat has been recorded yet. A configured cron entry alone is not execution evidence.'];}
+            $recent=$heartbeat['age_seconds']<=86400;
+            return [$recent?'observed':'attention',$recent?'The mail worker completed successfully within the last 24 hours. Inbox delivery remains a separate acceptance check.':'The last successful mail-worker heartbeat is older than 24 hours. Review the scheduled task and mail queue.'];
+        });
+        $add('payment_worker','operations','Payment maintenance heartbeat','admin/orders/',static function():array{
+            $store=Catalog::options()['enabled'];$payments=PaymentSettings::all()['enabled'];
+            if(!$store&&!$payments){return ['observed','Commerce is dormant, so a payment-maintenance heartbeat is not required for launch.'];}
+            $heartbeat=TaskHeartbeat::read('payments');
+            if(!$heartbeat){return ['review','Commerce is active but no successful payment-maintenance heartbeat has been recorded yet. Verify the scheduled task before relying on unattended reconciliation.'];}
+            $recent=$heartbeat['age_seconds']<=86400;
+            return [$recent?'observed':'attention',$recent?'Payment maintenance completed successfully within the last 24 hours. This does not prove a provider transaction or notification.':'The last successful payment-maintenance heartbeat is older than 24 hours. Review scheduled payment maintenance and unresolved operations.'];
+        });
         foreach([
             'host'=>['A2 staging acceptance','Review domain aliases, PHP settings, private storage, HTTPS, installer cleanup, uploads and actual scheduled tasks.','admin/installation.php'],
             'mailbox'=>['Receiving-mailbox acceptance','Receive real booking, customer, staff and newsletter messages. Exercise confirmation, expiry and unsubscribe. SMTP acknowledgement is not inbox evidence.','admin/communication/'],
