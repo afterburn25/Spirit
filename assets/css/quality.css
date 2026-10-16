@@ -58,3 +58,11 @@ body.has-player{padding-bottom:var(--player-height,140px)}
   .site-footer nav a{min-height:44px;display:inline-flex;align-items:center}
 }
 
+/* Confirmed-lineup fallback cards use the real names/roles without inventing
+   portraits or linking to unpublished member-detail routes. */
+.member-card-factual{display:flex;flex-direction:column}
+.member-card-factual>div{padding:20px}
+.member-card-factual small{display:block;margin-top:10px;color:var(--muted);font-size:10px;letter-spacing:.04em}
+@media(max-width:600px){.member-card-factual>div{padding:14px}}
+@media(max-width:430px){.member-card-factual>div{padding:18px}}
+
