@@ -37,6 +37,10 @@ def main():
                         if route=='shop/':
                             expect(page.locator('#public-nav a').filter(has_text='Merch').count()==1,f'{width}px enabled store remains present in global navigation markup')
                             expect(page.get_by_role('navigation',name='Footer').get_by_role('link',name='Your bag',exact=True).count()==1,f'{width}px enabled store exposes the bag link')
+                        if route=='account/login.php':
+                            expect(page.locator('#public-nav a').filter(has_text='Merch').count()==1,f'{width}px enabled-store account shell keeps Merch available')
+                            expect(page.locator('.shop-tools').get_by_role('link',name='Merchandise',exact=True).count()==1,f'{width}px enabled-store customer navigation keeps Merchandise')
+                            expect(page.locator('.shop-tools').get_by_role('link',name='Your bag',exact=True).count()==1,f'{width}px enabled-store customer navigation keeps Your bag')
                         screenshot(page,f'commerce-{width}-'+route.split('?')[0].strip('/').replace('/','-').replace('.php',''))
                     page.goto(s.base+'shop/product.php?slug=fixture-shirt')
                     page.locator('[name="quantity"]').fill('2');page.get_by_role('button',name='Add to bag').click();page.wait_for_url('**/shop/cart.php')
