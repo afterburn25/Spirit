@@ -84,7 +84,14 @@ final class LaunchExtras
             'recovery'=>['Backup and recovery drill','Keep separate offline keys and independent backups. Exercise a supported same-instance restore and same-schema upgrade recovery on staging.','admin/backups/'],
             'artwork'=>['Approved production artwork and content','Approve master artwork, genuine band information, media usage rights, shows and real merchandise. Reference crops are not final masters.','admin/content/?kind=page'],
             'quality'=>['Populated-site review and owner approval','Review real pages on phones, keyboard/zoom/accessibility, security, performance, policies and cutover. No final release acceptance is inferred.','admin/roadmap.php'],
-        ] as $id=>[$title,$detail,$path]){$add('external_'.$id,'acceptance',$title,$path,static fn()=>['review',$detail],false);}
+        ] as $id=>[$title,$detail,$path]){
+            if($id==='merchant'){
+                $add('external_'.$id,'acceptance',$title,$path,static function()use($detail):array{
+                    $store=Catalog::options()['enabled'];$payments=PaymentSettings::all()['enabled'];
+                    return (!$store&&!$payments)?['observed','Commerce is dormant, so merchant acceptance is deferred until storefront/payment activation.']:['review',$detail];
+                },false);
+            }else{$add('external_'.$id,'acceptance',$title,$path,static fn()=>['review',$detail],false);}
+        }
         return $rows;
     }
 }
