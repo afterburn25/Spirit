@@ -1,6 +1,30 @@
 'use strict';
+
+const syncBillingAddress = root => {
+  const same = root.querySelector('input[name="billing_same"]');
+  if (!(same instanceof HTMLInputElement)) return;
+  const form = same.form;
+  if (!form) return;
+  const details = same.closest('form')?.querySelector('details.size-guide');
+  const fields = ['billing_line','billing_city','billing_region','billing_zip']
+    .map(name => form.elements.namedItem(name))
+    .filter(field => field instanceof HTMLInputElement || field instanceof HTMLSelectElement);
+  const separate = !same.checked;
+  fields.forEach(field => {
+    field.required = separate;
+    field.setAttribute('aria-required', String(separate));
+  });
+  if (separate && details instanceof HTMLDetailsElement) details.open = true;
+};
+syncBillingAddress(document);
+document.addEventListener('spirit:navigated', event => syncBillingAddress(event.detail.root));
+
 // Delegated listeners also work after persistent-player public navigation.
 document.addEventListener('change', event => {
+  if (event.target.matches('input[name="billing_same"]')) {
+    syncBillingAddress(event.target.form || document);
+    return;
+  }
   if (!event.target.matches('#product-variant')) return;
   const option = event.target.selectedOptions[0];
   const price = document.getElementById('variant-price');
