@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0-rc.8 — software-complete candidate
+
+RC8 is a genuine new release candidate because runtime and verification behavior changed after the immutable RC7 delivery. It includes final launch-copy fallbacks, confirmed-lineup reconciliation, the scalable bundled logo, contained fallback hero, dormant-store navigation/diagnostics, checkout validation hardening, scheduled-worker heartbeat evidence, expanded 360 px/cross-browser coverage, and the deterministic software release gate.
+
+RC7 remains immutable and historical. Do not replace or relabel an RC7 archive with RC8 bytes. No provider acceptance, deployment, CMS publication, or owner approval is inferred by this version bump.
+
+
 ## RC7 software-completion pass — application remains RC7
 
 Complete the remaining code-side launch work without inventing external evidence or optional content.
