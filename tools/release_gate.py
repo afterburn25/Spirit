@@ -49,8 +49,6 @@ FORBIDDEN_PACKAGE_PARTS = (
     "PRIVATE-SETUP",
     "PRIVATE-KEY",
     "PRIVATE-RECOVERY",
-    "/SESSIONS/",
-    "/BACKUPS/",
 )
 VERSION_RE = re.compile(r"^\d+\.\d+\.\d+(?:-[A-Za-z0-9]+(?:[.-][A-Za-z0-9]+)*)?$")
 
