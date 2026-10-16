@@ -1,22 +1,22 @@
 # Remaining completion milestones — software baseline 1.0.0-rc.7
 
-Optional features are frozen. Finish actual presentation/content and acceptance instead of producing arbitrary release candidates.
+Optional features remain frozen. Complete the real presentation and existing acceptance steps, not arbitrary additional releases.
 
-## Newly prepared content
+## Latest checkpoint
 
-Current roster remains user-confirmed: Chad Lindsey — guitar, keyboards and vocals; Ron Green — harmonica; Charlie Savell — drums. No repeat confirmation is required. A real one-page Band & Booking PDF, Band/Press prose, three minimal member profiles and a press-download field set now exist in `design/launch-review-03/`. Document rendering, reproducibility and six private field sets were checked locally. Nothing is uploaded or entered into the CMS; owner review and actual placement still remain.
+After receiving RC7 and its installation/upgrade/report instructions, the user said **“yes all that works lets move on”**. Normal installation, upgrade, administration and Launch checks/report access are **user-confirmed working**. Do not keep requiring the same support-report upload to proceed. See `docs/acceptance/OWNER-CHECKPOINT-01.md`; this does not infer a completed recovery drill or email/payment acceptance.
 
-| Final milestone | Current state | Evidence needed to close |
+| Final milestone | Current state | Remaining evidence |
 |---|---|---|
-|1. Production presentation and genuine content|In progress. Names/roles confirmed, factual copy and an actual press-sheet PDF prepared. Selected Part3 files/poster retained. Extended biographies, identified portraits, final logo/hero, provider links and other approved content remain.|Reviewed material actually placed in the site: current profiles/photos, logo/hero masters, recordings/press, genuine shows/merchandise and policies.|
-|2. A2 installation, maintenance and recovery|Awaiting actual authorized staging verification; document preparation is not a hosting test.|Manual install, PHP modules, private storage/permissions, lock/physical cleanup, uploads, backup and supported restore/upgrade/rollback verified on A2.|
-|3. Real email and scheduled processing|Awaiting actual mailbox/provider and quiet-site job evidence.|Required notifications/account/newsletter/order mail arrives, links work and documented cPanel tasks execute.|
-|4. Genuine Authorize.net sandbox|Awaiting actual merchant verification.|Genuine sandbox results, notifications, duplicate/interruption/held/decline handling, stock/totals and supported reversals agree with provider records; live charges need separate authorization.|
-|5. Final populated-site quality|Earlier limited public text review only; no new live browser or workflow evidence.|Approved populated pages reviewed on real devices; keyboard/player/forms/checkout/old URLs/performance checked, blockers fixed and final code regression-tested.|
-|6. Owner acceptance and final1.0.0|Not reached.|Preceding milestones evidenced, owner approval recorded, final immutable source/package/handoff and backed-up deployment plan prepared.|
+|1. Production presentation and genuine content|In progress. Current roster confirmed; Band/Press copy and actual one-page PDF prepared. Selected Part3 files/poster retained.|Reviewed content actually placed; logo/hero masters, biographies/labelled portraits, provider links, genuine shows/merchandise and policies completed.|
+|2. A2 installation, maintenance and recovery|Normal installation/upgrade/admin/report workflow accepted on the user's report. Move past repeated setup questions.|Protected backup/restore/rollback exercise and any specifically outstanding host safeguards are separate; no individual extension/permission result is invented.|
+|3. Real email and scheduled processing|**Next active verification milestone.** Existing owner-test button and worker verified in source; no actual delivery result yet.|Owner test received, one authorized booking notification/acknowledgement, newsletter confirmation/unsubscribe and quiet-site cPanel mail processing observed.|
+|4. Genuine Authorize.net sandbox|Awaiting actual merchant verification.|Sandbox outcomes, signed notifications, interruptions/duplicates, held/declined states, inventory/totals and supported reversals agree with provider records. No live charges without separate authorization.|
+|5. Final populated-site quality|Content preparation and earlier limited text checks only.|Real populated devices, keyboard/player/forms/checkout, important old URLs and performance reviewed; blockers fixed and final code regression-tested.|
+|6. Owner acceptance and final1.0.0|Not reached.|Prior milestones accepted at their correct scope, final owner approval, immutable release/package/handoff and backed-up deployment plan.|
 
-The application foundations and RC2–RC7 enhancements remain implemented. Delivered software evidence remains at5f721a3ab785690b99e966d6ca976e810c2431ee and TEST_RESULTS.md/PR20. No runtime, version, test, workflow or existing delivery archive changed. The new PDF is not a software release or a complete EPK.
+The application foundations and RC2–RC7 enhancements remain implemented. Source and delivered RC7 archive are unchanged by this documentation update. Prior application evidence remains in TEST_RESULTS.md and PR20.
 
-CONFIRMED-LINEUP.md supersedes historical roster uncertainty. SELECTION.md and PART-3-PUBLICATION-PREP.md preserve the chosen video. Demo inventory/events and rejected mockups remain unapproved. No faces identified, imaginary histories or placeholder playback links. Keep private source details out of Git and preparation packages out of public_html.
+Do not repeat confirmation of Chad Lindsey (guitar/keyboards/vocals), Ron Green (harmonica), Charlie Savell (drums), or Candidate3 selection. See CONFIRMED-LINEUP.md, PART-3-PUBLICATION-PREP.md and `design/launch-review-03/README.md` for prepared assets and their limits. A test fixture, rejected mockup or local worksheet is not published content.
 
-Preserve locked design, external ticket sellers, remembered admin state and manual A2/cPanel setup with no setup code/token/20i/automatic DB. Existing sites upgrade with backups, never reinstall or replace original data/recovery materials.
+Keep the locked design, external venue ticket links, remembered menu and manual one-page A2 setup. No setup code/token/20i/automatic database. Existing sites upgrade with backups and keep original private configuration/data/media/recovery materials.
