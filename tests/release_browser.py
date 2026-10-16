@@ -127,26 +127,26 @@ def native_access(browser,s,name,area):
     screenshot(page,f'release-{name}-{area}-390-native-booking');context.close()
 
 
-def checkout(browser,s,name,area):
+def checkout(browser,s,name,area,width):
     # Exercise all entry controls, review and cancellation; never charge anything.
     configure(s)
-    context=browser.new_context(viewport={'width':390,'height':900},reduced_motion='reduce',bypass_csp=False)
+    context=browser.new_context(viewport={'width':width,'height':900},reduced_motion='reduce',bypass_csp=False)
     context.route('https://jstest.authorize.net/v1/Accept.js',lambda route:route.abort())
     page=context.new_page();page.goto(s.base+'shop/product.php?slug=fixture-shirt')
     page.get_by_role('button',name='Add to bag').click();page.wait_for_url('**/shop/cart.php')
-    audit(page,f'{name}/{area}/filled-cart',390)
+    audit(page,f'{name}/{area}/{width}/filled-cart',width)
     page.get_by_role('link',name='Continue to checkout').click();page.wait_for_url('**/shop/checkout.php')
-    audit(page,f'{name}/{area}/delivery-form',390)
+    audit(page,f'{name}/{area}/{width}/delivery-form',width)
     values=checkout_values()
     for key in ['email','recipient','line_one','city','postal_code']:page.locator('.checkout-page [name="'+key+'"]').fill(values[key])
     page.locator('[name="region"]').select_option('LA');page.locator('[name="order_consent"]').check()
     page.evaluate('window.scrollTo(0,0)')
-    screenshot(page,f'release-{name}-{area}-390-delivery')
+    screenshot(page,f'release-{name}-{area}-{width}-delivery')
     page.get_by_role('button',name='Review order and total').click();page.wait_for_url('**/shop/order.php?reference=*')
-    audit(page,f'{name}/{area}/private-order',390)
+    audit(page,f'{name}/{area}/{width}/private-order',width)
     expect(page.locator('#card-pay-button').is_disabled(),'An unavailable provider library leaves card submission disabled')
     expect(page.locator('#card-payment input[name]').count()==4,'Only CSRF, nonce and opaque token fields have submission names')
-    screenshot(page,f'release-{name}-{area}-390-order')
+    screenshot(page,f'release-{name}-{area}-{width}-order')
     # The cancellation is a native POST/303 to the same receipt URL. A click
     # can return before its new document is visible; observe both the actual
     # response and the authoritative state, not an immediate old-DOM count.
@@ -171,7 +171,7 @@ def checkout(browser,s,name,area):
     released=[row for row in after['inventory_adjustments'] if int(row['id']) not in prior_adjustments]
     expected=sorted((int(item['variant_id']),int(item['quantity'])) for item in before['order_items'] if int(item['order_id'])==order_id)
     expect(expected and sorted((int(row['variant_id']),int(row['quantity_delta'])) for row in released)==expected and all(row['reason']==f'Order #{order_id} release' for row in released),'Exactly the reserved item quantities return to inventory once')
-    screenshot(page,f'release-{name}-{area}-390-cancelled-order')
+    screenshot(page,f'release-{name}-{area}-{width}-cancelled-order')
     # A fresh GET must retain the result, not issue another cancellation/charge.
     page.reload(wait_until='domcontentloaded')
     browser_expect(page.locator('.payment-panel').get_by_role('heading',name='Checkout cancelled',exact=True)).to_be_visible()
@@ -218,7 +218,7 @@ def main():
                         for width in [1440,390,320]:browsing(browser,s,width,name,area)
                         expect(snapshot(s)==before,'Reading the release review pages does not mutate catalog, stock, identities or audit history')
                         native_access(browser,s,name,area)
-                        checkout(browser,s,name,area)
+                        for checkout_width in [390,360]:checkout(browser,s,name,area,checkout_width)
                         withdrawn_policy(browser,s,privacy,name)
             finally:browser.close()
     print('Release candidate public, native and checkout review passed for '+name+'.',flush=True)
