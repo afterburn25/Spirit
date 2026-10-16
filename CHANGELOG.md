@@ -1,5 +1,11 @@
 # Changelog
 
+## Existing mail job confirmed — customer-account checks next; software remains RC7
+
+Record **“yes next”** against the question about a listed `tasks/mail.php` cron job. Accept job presence without inferring cadence, paths, output or successful execution. Move past repeat setup questions while retaining quiet-site execution as a separate evidence item. Preserve all prior accepted installation/email/booking/newsletter checks. See `docs/acceptance/OWNER-CHECKPOINT-05.md`.
+
+Prepare the existing customer activation/sign-in/reset sequence from current templates/controllers. Use an operator-controlled address in a separate private browser session, keep owner credentials private, and distinguish queued account-mail delivery from proof of cron execution. Five Markdown files only: no customer/password/email/queue/job/settings action, runtime/VERSION/test/workflow change, release or archive rebuild by the assistant. Final acceptance remains open.
+
 ## Newsletter flow confirmed — scheduled processing next; software remains RC7
 
 Record **“yes they all work continue”** as the user's acceptance of the requested newsletter signup/confirmation/welcome/unsubscribe sequence. Preserve earlier installation/report, owner-email and booking checks without repeating them. No address, token, headers, inbox placement or timing is invented. See `docs/acceptance/OWNER-CHECKPOINT-04.md`.

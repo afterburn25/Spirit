@@ -1,23 +1,23 @@
-# Project status — RC7 / newsletter flow confirmed
+# Project status — RC7 / mail job present; customer accounts next
 
 ## Latest user feedback
 
-After the newsletter signup/confirmation/welcome/unsubscribe instructions, the user replied **“yes they all work continue”**. The requested basic newsletter flow is now **user-confirmed working**. Do not repeat it without a new specific problem. No subscriber address, token, message headers, delivery timing or inbox/spam placement was supplied or independently inspected. See `docs/acceptance/OWNER-CHECKPOINT-04.md`.
+Asked whether this installation's `tasks/mail.php` job was already listed in cPanel, the user replied **“yes next”**. Job existence is now **user-confirmed**; no duplicate job or repeat setup question is needed. Scheduled execution and due-message processing are not established by that answer. No command, output, timing, exit status or host path was supplied or independently inspected. See `docs/acceptance/OWNER-CHECKPOINT-05.md`.
 
-Previously accepted outcomes remain: saved booking inquiry plus band and organizer emails (checkpoint 03), owner test-email receipt (checkpoint 02), and normal installation/upgrade/admin/Launch checks/report access (checkpoint 01). Do not reopen those loops. Individual PHP/permission values, protected recovery and final release acceptance were not inferred.
+Previously accepted outcomes remain: newsletter signup/confirmation/welcome/unsubscribe (checkpoint 04), saved booking inquiry plus band and organizer emails (checkpoint 03), owner test-email receipt (checkpoint 02), and normal installation/upgrade/admin/Launch checks/report access (checkpoint 01). Do not reopen those loops. Individual PHP/permission values, protected recovery and final release acceptance were not inferred.
 
 ## Next active work
 
-Quiet-site scheduled email processing. First inspect cPanel Current Cron Jobs for this installation's existing `tasks/mail.php` job; do not duplicate or replace it. Resolve the actual PHP CLI/task/document-root paths before any setup command. Scheduled execution and queued-message delivery must be distinguished from interactive form/manual processing and an empty batch. Keep working SMTP settings unchanged. Review due queued mail before enabling any job; never blindly resend an uncertain message. Remaining account/order email is separate. No cron setup or worker execution has been observed by the assistant.
+Customer registration, activation-email receipt, password creation, customer sign-in, reset-email receipt and sign-in after reset. Use a separate private browser session and a controlled test address, not the owner credentials or an unrelated person's account. Current customer templates/controllers were inspected for exact labels and behavior; no account operation was performed. Leave working SMTP and the existing cron job unchanged. Let queued account emails reach the mailbox without manual batch processing during the wait; retain actual scheduled execution as its own evidence item. No order or charge is part of this check.
 
 ## Prepared content preserved
 
 The lineup is user-confirmed: **Chad Lindsey — guitar, keyboards and vocals; Ron Green — harmonica; Charlie Savell — drums.** Do not repeat the roster question. Factual short entries and the Band & Booking Sheet PDF, reproducible source and six text-field sets remain in `design/launch-review-03/`. Its README preserves prior document/field checks and exact hashes. The document remains prepared for review and placement, not a complete EPK or a file already uploaded to the website.
 
-**Candidate 3 / Part 3** remains selected with its prepared full videos and matching poster unchanged. Its actual approved YouTube/Vimeo URL and recording-specific title/credits remain open. No faces are identified, biographies invented or unrelated page copy approved by the newsletter confirmation. Logo/hero artwork, labelled portraits, genuine shows/products/policies and content placement remain under Milestone 1. Rejected mockups in Issue 21 remain unapplied.
+**Candidate 3 / Part 3** remains selected with its prepared full videos and matching poster unchanged. Its actual approved YouTube/Vimeo URL and recording-specific title/credits remain open. No faces are identified, biographies invented or unrelated page copy approved by the cron confirmation. Logo/hero artwork, labelled portraits, genuine shows/products/policies and content placement remain under Milestone 1. Rejected mockups in Issue 21 remain unapplied.
 
 ## Release boundary
 
-Application and delivered installer remain **1.0.0-rc.7**, verified software baseline 5f721a3ab785690b99e966d6ca976e810c2431ee. This is an acceptance/handoff documentation update only: no runtime, VERSION, test, workflow, schema, installer, payment, navigation state or prior archive changes. Owner-reported newsletter success is not a new automated test run or confirmation of all communication workflows. No website form, email, subscriber, queue, SMTP setting or cPanel job was changed by the assistant.
+Application and delivered installer remain **1.0.0-rc.7**, verified software baseline 5f721a3ab785690b99e966d6ca976e810c2431ee. This is an acceptance/handoff documentation update only: no runtime, VERSION, test, workflow, schema, installer, payment, navigation state or prior archive changes. User-reported job presence is not a new execution test or confirmation of all communication workflows. No website account, password, email, queue, SMTP setting or cPanel job was changed by the assistant.
 
 Preserve the approved design, external venue ticket sellers, remembered administration menu and manual one-page A2/cPanel installation. No setup code, token,20i or automatic database. Existing sites upgrade with backups and preserve original private configuration/encryption secret/database/media/recovery receipts. Final1.0 is not released.
