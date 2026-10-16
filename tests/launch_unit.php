@@ -23,7 +23,7 @@ foreach([[2097152,8388608,'review'],[2097152,2097152,'attention'],[2097152,10485
     verify(\Spirit\LaunchExtras::headroom(['upload_max_bytes'=>$upload,'post_max_bytes'=>$post])[0]===$state,'Upload headroom distinguishes missing limits, whole forms and post zero');
 }
 verify(str_contains(\Spirit\LaunchExtras::headroom(['upload_max_bytes'=>2048,'post_max_bytes'=>0])[1],'multipart'),'Unlimited post directive is contextualized for multipart requests');
-verify(count(\Spirit\LaunchExtras::IDS)===15&&count(array_unique(\Spirit\LaunchExtras::IDS))===15,'Consolidated observations have fifteen unique fixed identifiers');
+verify(count(\Spirit\LaunchExtras::IDS)===17&&count(array_unique(\Spirit\LaunchExtras::IDS))===17,'Consolidated observations have seventeen unique fixed identifiers');
 foreach(\Spirit\LaunchExtras::IDS as $id){
     $r=LaunchChecks::supportReport(['checks'=>[['id'=>$id,'state'=>'review','detail'=>'EXTRA-PRIVATE-TEXT','path'=>'https://private.invalid']]]);
     verify(($r['check_states'][$id]??null)==='review'&&!str_contains(json_encode($r),'EXTRA-PRIVATE-TEXT')&&!str_contains(json_encode($r),'private.invalid'),'New report ID is allowed without its raw details: '.$id);
