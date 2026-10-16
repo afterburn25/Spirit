@@ -123,7 +123,11 @@ def main() -> int:
                 fail(f"Unresolved implementation marker in {path.relative_to(ROOT)}.")
 
     with tempfile.TemporaryDirectory(prefix="spirit-release-gate-") as tmp:
-        archive = packager.package(Path(tmp))
+        base=Path(tmp)
+        archive = packager.package(base/"first")
+        second = packager.package(base/"second")
+        if archive.read_bytes()!=second.read_bytes():
+            fail("Repeated package builds are not byte-reproducible.")
         with zipfile.ZipFile(archive) as bundle:
             names = bundle.namelist()
             if "docs/PACKAGE-MANIFEST.json" not in names:
