@@ -55,14 +55,22 @@ def package(destination: Path) -> Path:
         with archive.open('xb') as handle:
             created_archive = True
             with zipfile.ZipFile(handle,'w',compression=zipfile.ZIP_DEFLATED) as output:
+                def write_entry(name: str, body: bytes) -> None:
+                    info=zipfile.ZipInfo(name,date_time=(1980,1,1,0,0,0))
+                    info.compress_type=zipfile.ZIP_DEFLATED
+                    info.create_system=3
+                    info.external_attr=0o100644 << 16
+                    output.writestr(info,body)
+
                 for source in sorted(ROOT.rglob('*')):
                     if not eligible(source,destination):
                         continue
                     name = source.relative_to(ROOT).as_posix()
                     body = source.read_bytes()
-                    output.writestr(name,body)
+                    write_entry(name,body)
                     manifest[name]=hashlib.sha256(body).hexdigest()
-                output.writestr('docs/PACKAGE-MANIFEST.json',json.dumps({'version':version,'files':manifest},indent=2))
+                manifest_body=json.dumps({'version':version,'files':manifest},indent=2).encode()
+                write_entry('docs/PACKAGE-MANIFEST.json',manifest_body)
             handle.flush(); os.fsync(handle.fileno())
     except BaseException:
         if created_archive:
