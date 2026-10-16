@@ -34,7 +34,21 @@ def prepare_in_browser(s,page):
     page.get_by_role('link',name='Continue to checkout').click();page.wait_for_url('**/shop/checkout.php')
     for name,value in {'email':'browser-guest@example.test','recipient':'Synthetic Guest','line_one':'123 Fixture Street','city':'Lafayette','postal_code':'70501'}.items():
         page.locator('.checkout-page [name="'+name+'"]').fill(value)
-    page.locator('[name="region"]').select_option('LA');page.locator('[name="order_consent"]').check()
+    page.locator('[name="region"]').select_option('LA')
+    same=page.locator('[name="billing_same"]')
+    same.uncheck()
+    for name in ['billing_line','billing_city','billing_region','billing_zip']:
+        field=page.locator(f'[name="{name}"]')
+        expect(field.get_attribute('required') is not None,f'{name} becomes browser-required when billing differs')
+    expect(page.locator('details.size-guide').first.is_open(),'Separate billing disclosure opens when billing differs')
+    page.locator('[name="billing_line"]').fill('456 Billing Avenue')
+    page.locator('[name="billing_city"]').fill('Lafayette')
+    page.locator('[name="billing_region"]').select_option('LA')
+    page.locator('[name="billing_zip"]').fill('70501')
+    same.check()
+    for name in ['billing_line','billing_city','billing_region','billing_zip']:
+        expect(page.locator(f'[name="{name}"]').get_attribute('required') is None,f'{name} is not required when billing matches shipping')
+    page.locator('[name="order_consent"]').check()
     rendered(page,'Filled checkout form')
     page.get_by_role('button',name='Review order and total').click();page.wait_for_url('**/shop/order.php?reference=*')
     reference=urllib.parse.parse_qs(urllib.parse.urlparse(page.url).query)['reference'][0]
