@@ -25,7 +25,7 @@ final class Storefront
         $active='shop';$record=null;$canonical=null;
         $titles=['catalog'=>'Official merchandise','product'=>'Merchandise','cart'=>'Your bag','login'=>'Customer sign in','register'=>'Create your account','forgot'=>'Reset your password','complete'=>'Secure your account','account'=>'Your account','addresses'=>'Saved addresses','password'=>'Account security'];
         if(!isset($titles[$view])){throw new RuntimeException('Unknown store view.');}
-        $title=$titles[$view];$description=$settings['welcome'];$store=Catalog::options();$error=$context['error']??null;$customer=$context['customer']??null;
+        $title=$titles[$view];$description=$view==='catalog'?'Explore approved Spiritual Gorillaz merchandise, product photographs, available options and care information.':$settings['welcome'];$store=Catalog::options();$error=$context['error']??null;$customer=$context['customer']??null;
         if($view==='product'){$record=Catalog::bySlug(is_string($_GET['slug']??null)?$_GET['slug']:'');if(!$record){http_response_code(404);$title='Product unavailable';}else{$title=$record['data']['name'];}}
         if(!in_array($view,['catalog','product'],true)){header('X-Robots-Tag: noindex, nofollow');header('Referrer-Policy: no-referrer');}
         if(!$isPreview&&$store['enabled']&&$view==='product'&&$record){$canonical=Metadata::absolute(app_url('shop/product.php?slug='.rawurlencode($record['slug'])));$description=$record['data']['description'];$record['kind']='product';}
