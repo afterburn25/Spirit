@@ -40,7 +40,7 @@ def prepare_in_browser(s,page):
     for name in ['billing_line','billing_city','billing_region','billing_zip']:
         field=page.locator(f'[name="{name}"]')
         expect(field.get_attribute('required') is not None,f'{name} becomes browser-required when billing differs')
-    expect(page.locator('details.size-guide').first.is_open(),'Separate billing disclosure opens when billing differs')
+    expect(page.locator('details.size-guide').first.get_attribute('open') is not None,'Separate billing disclosure opens when billing differs')
     page.locator('[name="billing_line"]').fill('456 Billing Avenue')
     page.locator('[name="billing_city"]').fill('Lafayette')
     page.locator('[name="billing_region"]').select_option('LA')
