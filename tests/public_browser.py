@@ -77,6 +77,8 @@ def main():
                             expect(page.locator('.member-card-factual a').count() == 0, f'Chromium {width}px factual lineup does not link to unpublished member pages')
                             expect('Chad Lindsey' in page.locator('.member-grid').inner_text() and 'Ron Green' in page.locator('.member-grid').inner_text() and 'Charlie Savell' in page.locator('.member-grid').inner_text(), f'Chromium {width}px factual lineup names are present')
                         if route == '':
+                            expect(page.locator('#public-nav').get_by_role('link',name='Merch',exact=True).count()==0, f'Chromium {width}px closed store is not advertised in global navigation')
+                            expect(page.get_by_role('navigation',name='Footer').get_by_role('link',name='Your bag',exact=True).count()==0, f'Chromium {width}px closed store does not advertise an empty bag')
                             hero=page.locator('.fallback-hero')
                             expect(hero.count()==1, f'Chromium {width}px uses the bundled fallback only when no CMS hero is published')
                             geometry=hero.evaluate('(n)=>{const r=n.getBoundingClientRect();return {w:r.width,h:r.height,fit:getComputedStyle(n).objectFit};}')
