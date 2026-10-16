@@ -111,6 +111,14 @@ final class Branding
         return '<span class="crown" aria-hidden="true">♛</span><span>'.e($name).'</span>';
     }
 
+    /** Bundled scalable fallback mirrors the existing crown + wordmark identity. */
+    public static function bundledMark(bool $footer = false): string
+    {
+        $file=Paths::root().'/images/spiritual-gorillaz-logo.svg';
+        if(!is_file($file)||is_link($file)){return '';}
+        return '<span class="bundled-brand-wrap"><img class="bundled-site-logo" src="'.e(app_url('images/spiritual-gorillaz-logo.svg')).'" width="1400" height="360" alt="" loading="'.($footer?'lazy':'eager').'" decoding="async"></span>';
+    }
+
     /** Original ratio and transparency are retained; no arbitrary image URL. */
     public static function image(int $id, bool $footer = false): string
     {
@@ -132,6 +140,7 @@ final class Branding
             $state = self::state(); $image = self::image($state[self::$preview ? 'draft_logo_id' : 'published_logo_id'], $footer);
             if ($image !== '') { return $image; }
         } catch (Throwable $e) { /* Keep the site's name available without exposing a storage error. */ }
-        return self::textMark((string)$settings['site_name']);
+        $bundled=self::bundledMark($footer);
+        return $bundled!==''?$bundled:self::textMark((string)$settings['site_name']);
     }
 }
