@@ -1,5 +1,10 @@
 # Changelog
 
+## Final checkout validation alignment — application remains RC7
+
+Align the public checkout form with existing server-side billing-address validation. When “billing address matches shipping” is cleared, separate billing fields are immediately marked required and the billing disclosure opens; billing city/state/ZIP now expose appropriate browser autocomplete hints. No gateway request, charge logic, schema, installer or payment credentials changed.
+
+
 ## Final launch runtime copy alignment — application remains RC7
 
 Wire the approved launch wording into the public runtime as safe fallbacks for Home, Music, Shows, Band, Media, Booking, Press and Merch when matching CMS content is empty. Align default public SEO titles/descriptions with the final content map while preserving CMS overrides.
