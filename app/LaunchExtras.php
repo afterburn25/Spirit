@@ -32,7 +32,7 @@ final class LaunchExtras
         $add('upload_headroom','hosting','Whole-request upload headroom','admin/media/',static fn()=>self::headroom(HostingLimits::current()),false);
         $add('public_contact','services','Public contact address','admin/communication/',static function():array{
             $value=Communications::options()['public_email'];if(!is_string($value)){throw new RuntimeException('Invalid contact setting.');}
-            return [$value!==''?'review':'attention',$value!==''?'A public contact address is configured. Its value is omitted and its delivery is not verified.':'No public contact address is configured. The saved booking form is a separate contact option.'];
+            return [$value!==''?'review':'observed',$value!==''?'A public contact address is configured. Its value is omitted and its delivery is not verified.':'No separate public contact address is configured. The working booking form remains the public contact route.'];
         });
         $add('accounts','services','Customer registration','admin/shop/settings.php',static function():array{
             $enabled=Catalog::options()['accounts_enabled'];if(!is_bool($enabled)){throw new RuntimeException('Invalid account setting.');}
