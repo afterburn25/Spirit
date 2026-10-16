@@ -30,6 +30,10 @@ case 'schema_restore':
     $q=$db->prepare('UPDATE '.Database::table('migrations').' SET checksum=? WHERE migration=?');foreach(Migrations::files() as $file){$q->execute([hash_file('sha256',$file),basename($file)]);}break;
 case 'service_offline':$db->exec('RENAME TABLE '.Database::table('service_settings').' TO '.Database::table('service_settings_offline'));break;
 case 'service_restore':$db->exec('RENAME TABLE '.Database::table('service_settings_offline').' TO '.Database::table('service_settings'));break;
+case 'heartbeats':
+    \Spirit\TaskHeartbeat::record('mail');
+    \Spirit\TaskHeartbeat::record('payments');
+    break;
 case 'extras':
     $o=ConfigStore::read('payments');$o['environment']='production';$o['enabled']=true;ConfigStore::write('payments',$o,1);
     $o=ConfigStore::read('communication');$o['public_email']='private-contact@example.test';ConfigStore::write('communication',$o,1);
