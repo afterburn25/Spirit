@@ -14,3 +14,14 @@
 .product-photo:focus-visible{outline:3px solid #f4dc9c;outline-offset:4px}
 .product-photo-status{min-height:3em;overflow-wrap:anywhere}
 @media(forced-colors:active){.product-photo[aria-current="true"]{border-color:Highlight}.product-photo:focus-visible{outline-color:Highlight}}
+
+/* Concept fidelity: official merch */
+.merch-heading{min-height:300px;align-items:center;border-bottom:1px solid rgba(231,182,79,.18)}
+.merch-heading:before{content:"";position:absolute;right:-6%;top:-20%;width:52%;height:145%;background:radial-gradient(ellipse at 40% 50%,rgba(9,87,143,.32),transparent 46%),linear-gradient(140deg,transparent 28%,rgba(255,191,73,.06) 58%,transparent 76%);pointer-events:none}
+.merch-heading>*{position:relative;z-index:1}.merch-heading h1{text-transform:uppercase;line-height:.96}.shop-tools{align-self:flex-end}
+.shop-tools a{font-size:10px;text-transform:uppercase;letter-spacing:.12em;border-bottom-color:#3a556a}.shop-tools a:hover{color:#f5cf75;border-color:#f0bd4f}
+.merch-content{padding-top:44px}.shop-filter{padding:18px;border:1px solid #294558;background:#07131d}.shop-filter label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#cbd5dc}
+.merch-grid{gap:18px}.merch-card{padding:14px;background:linear-gradient(180deg,#0b1822,#061019);border-color:#29465a;box-shadow:0 16px 40px rgba(0,0,0,.18)}
+.merch-card:hover{border-color:#9c793d;transform:translateY(-2px)}.merch-art{background:radial-gradient(circle at 50% 20%,#23313a,#101417 68%);border:1px solid #3b4650;margin-bottom:15px}
+.merch-card h2{font-size:1.05rem;margin-bottom:6px}.merch-price{font-size:1rem;color:#f0d08a}.merch-card .button{min-height:42px}
+.product-main{background:radial-gradient(circle at 50% 25%,#28343b,#11171a 70%);border-color:#43515a}.product-details{background:linear-gradient(180deg,#091721,#051019);border-color:#334c60}
