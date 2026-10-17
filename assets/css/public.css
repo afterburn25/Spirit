@@ -107,3 +107,33 @@
   .concept-home .hero-art{object-position:52% center}
   .concept-home:before{background:linear-gradient(90deg,#02070cf5 0,#02070cdb 48%,rgba(2,7,12,.28) 78%,transparent)}
 }
+
+
+/* === ADOBE NATIVE PRODUCTION HEROES === */
+.concept-home{min-height:700px;isolation:isolate;overflow:hidden}
+.concept-home .hero-artwork{inset:0;width:100%;right:auto;overflow:hidden}
+.concept-home .hero-art{width:100%;height:100%;object-fit:cover;object-position:center;filter:none;transform:none}
+.concept-home .hero-artwork:before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 72% 22%,rgba(29,125,196,.13),transparent 34%)}
+.concept-home .hero-artwork:after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(2,7,12,.78) 0,rgba(2,7,12,.43) 31%,rgba(2,7,12,.08) 53%,transparent 70%),linear-gradient(0deg,rgba(2,7,12,.55) 0,transparent 27%,transparent 88%,rgba(2,7,12,.36) 100%)}
+.concept-home:before{background:none}
+.concept-home .hero-copy,.concept-home .hero-bottom{position:relative;z-index:3}
+.concept-home .hero-copy{max-width:600px}
+
+.concept-music{position:relative;overflow:hidden;min-height:390px}
+.concept-music>div{position:relative;z-index:2;max-width:50%}
+.concept-music .music-art{position:absolute;right:0;top:0;width:61%;height:100%;object-fit:cover;object-position:center;filter:brightness(.92) contrast(1.04) saturate(1.02);mask-image:linear-gradient(90deg,transparent 0,black 25%,black 100%)}
+.concept-music:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 82% 50%,rgba(185,123,35,.09),transparent 42%)}
+
+@media(max-width:820px){
+  .concept-home{min-height:680px}
+  .concept-home .hero-artwork{width:145%;left:auto;right:-54%}
+  .concept-home .hero-art{object-position:54% center}
+  .concept-home .hero-artwork:after{background:linear-gradient(90deg,#02070cf2 0,#02070ccf 43%,rgba(2,7,12,.25) 76%,transparent),linear-gradient(0deg,#02070c 0,transparent 43%)}
+  .concept-music>div{max-width:72%}
+  .concept-music .music-art{width:91%;right:-38%;opacity:.76}
+}
+@media(max-width:600px){
+  .concept-home .hero-artwork{width:170%;right:-76%}
+  .concept-music{min-height:340px}
+  .concept-music .music-art{width:112%;right:-58%;opacity:.65}
+}
