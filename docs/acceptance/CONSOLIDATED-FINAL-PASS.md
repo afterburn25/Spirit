@@ -1,4 +1,4 @@
-# Consolidated final launch pass — RC8
+# Consolidated final launch pass — RC10
 
 ## Latest user confirmation and workflow decision
 
@@ -38,6 +38,6 @@ Do not rerun accepted basic flows merely to fill a new worksheet. Perform only a
 
 ## Workstream C — explicit final approval and immutable release
 
-After reviewed content is actually placed and remaining applicable acceptance is complete, present the final site and outstanding limitations together for owner acceptance. Then package/tag 1.0.0 against verified source under the existing release rules. Do not mark final approval from this request to move on. The delivered RC7 ZIP remains immutable. RC8 is the current candidate because genuine runtime/test changes landed after RC7; never overwrite the historical RC7 archive.
+After reviewed content is actually placed and remaining applicable acceptance is complete, present the final site and outstanding limitations together for owner acceptance. Then package/tag 1.0.0 against verified source under the existing release rules. Do not mark final approval from this request to move on. The delivered RC7 ZIP remains immutable. RC8 and RC9 remain immutable historical candidates. RC10 is the current verified candidate because genuine runtime/test changes landed after those releases; never overwrite historical candidate archives.
 
-Application VERSION is 1.0.0-rc.8. No runtime, tests/workflows, schema, installer, payment code, saved navigation or existing archive changed in this pass. Preserve manual one-page A2/cPanel installation with no setup code/token/20i/automatic database; approved navy/gold/blue design, external venue ticket links and original private config/encryption secret/data/media/recovery materials remain fixed.
+Application VERSION is 1.0.0-rc.10. RC10 is fully green on commit `2a833986f5a39d2f8de99f41bd8640b0642648e8`. This documentation pass is isolated on the final-prep branch and does not alter the verified RC10 runtime package. Preserve manual one-page A2/cPanel installation with no setup code/token/20i/automatic database; approved navy/gold/blue design, external venue ticket links and original private config/encryption secret/data/media/recovery materials remain fixed.
