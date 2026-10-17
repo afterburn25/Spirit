@@ -8,6 +8,14 @@
   const currentToggle = () => document.querySelector('.nav-search-toggle');
   const isOpen = () => !panel.hidden;
 
+  function closeMobileNavigation() {
+    const nav = document.getElementById('public-nav');
+    const toggle = document.querySelector('.nav-toggle');
+    nav?.classList.remove('is-open');
+    nav?.style.removeProperty('--menu-max-height');
+    toggle?.setAttribute('aria-expanded', 'false');
+  }
+
   function setOpen(open, returnFocus = false) {
     const show = Boolean(open);
     panel.hidden = !show;
@@ -17,6 +25,7 @@
       button.setAttribute('aria-label', show ? 'Close site search' : 'Open site search');
     });
     if (show) {
+      closeMobileNavigation();
       requestAnimationFrame(() => {
         input.focus({ preventScroll: true });
         input.select();
