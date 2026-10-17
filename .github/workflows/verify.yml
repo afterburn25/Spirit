@@ -51,6 +51,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl, zip
+          ini-values: upload_max_filesize=32M, post_max_size=40M
           coverage: none
       - name: Syntax and permission-aware unit tests
         run: |
