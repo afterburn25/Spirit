@@ -1,0 +1,28 @@
+name: Tune dedicated page masters
+on:
+  push:
+    branches:
+      - work/concept-exact-rebuild
+    paths:
+      - .github/workflows/tune-dedicated-page-masters.yml
+permissions:
+  contents: write
+jobs:
+  tune:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: work/concept-exact-rebuild
+          persist-credentials: true
+      - name: Apply crop and stacking polish
+        run: python3 tools/tune_dedicated_page_masters.py
+      - name: Commit polished page masters
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/tune-dedicated-page-masters.yml tools/tune_dedicated_page_masters.py
+          git add assets/css/section-pages.css docs/CONCEPT_REBUILD_STATUS.md
+          git commit -m "style: polish dedicated page artwork crops and stacking"
+          git push origin HEAD:work/concept-exact-rebuild
