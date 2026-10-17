@@ -14,3 +14,11 @@
 .product-photo:focus-visible{outline:3px solid #f4dc9c;outline-offset:4px}
 .product-photo-status{min-height:3em;overflow-wrap:anywhere}
 @media(forced-colors:active){.product-photo[aria-current="true"]{border-color:Highlight}.product-photo:focus-visible{outline-color:Highlight}}
+
+
+/* Approved concept merch density */
+.concept-merch-heading .shop-tools{margin:14px 0 0;gap:16px}.merch-content{padding-top:30px}.shop-filter{padding:14px;background:#07131c;border:1px solid #29495d;margin-top:0}
+.merch-grid{gap:14px}.merch-card{padding:12px;background:#07131c;border-color:#2b4a5e}.merch-card:hover{border-color:#a97b32;transform:translateY(-2px)}
+.merch-art{background:radial-gradient(circle at 50% 20%,#333a3c,#171b1d 68%);border:1px solid #3a454c;margin-bottom:12px}
+.merch-card h2{font-size:1rem;margin-bottom:5px}.merch-price{font-size:1rem}.merch-card .button{min-height:40px;width:100%}
+@media(max-width:900px){.merch-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:600px){.merch-grid{grid-template-columns:1fr}}
