@@ -1,4 +1,4 @@
-name: Import Adobe music hero
+name: Apply Adobe production heroes
 on:
   push:
     branches: [work/concept-exact-rebuild]
@@ -7,29 +7,88 @@ on:
 permissions:
   contents: write
 jobs:
-  import:
+  integrate:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           ref: work/concept-exact-rebuild
           persist-credentials: true
-      - name: Download full-resolution Adobe music artwork
-        env:
-          ADOBE_DOWNLOAD_URL: https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:724e812b-297c-4b32-a7a5-1be0475af926
+      - name: Wire native-resolution Home and Music artwork into the real site
         run: |
           set -euo pipefail
-          mkdir -p images
-          curl --fail --location --retry 4 --retry-all-errors \
-            --output images/spiritual-gorillaz-music-hero.png \
-            "$ADOBE_DOWNLOAD_URL"
-          test "$(stat -c%s images/spiritual-gorillaz-music-hero.png)" -gt 100000
-          file images/spiritual-gorillaz-music-hero.png
-      - name: Commit production artwork
+          test -s images/spiritual-gorillaz-home-hero.png
+          test -s images/spiritual-gorillaz-music-hero.png
+          python3 - <<'PY'
+          from pathlib import Path
+          import struct
+
+          def png_dimensions(path: str) -> tuple[int, int]:
+              data = Path(path).read_bytes()
+              if data[:8] != b'\x89PNG\r\n\x1a\n':
+                  raise RuntimeError(f'{path} is not a PNG')
+              return struct.unpack('>II', data[16:24])
+
+          home_w, home_h = png_dimensions('images/spiritual-gorillaz-home-hero.png')
+          music_w, music_h = png_dimensions('images/spiritual-gorillaz-music-hero.png')
+
+          sections_path = Path('views/public/sections.php')
+          sections = sections_path.read_text(encoding='utf-8')
+          old_home = 'width="1600" height="900" src="<?=e(app_url(\'images/home-concept.svg\'))?>"'
+          new_home = f'width="{home_w}" height="{home_h}" src="<?=e(app_url(\'images/spiritual-gorillaz-home-hero.png\'))?>"'
+          old_music = 'width="331" height="156" src="<?=e(app_url(\'images/gorilla-music.webp\'))?>"'
+          new_music = f'width="{music_w}" height="{music_h}" src="<?=e(app_url(\'images/spiritual-gorillaz-music-hero.png\'))?>"'
+          if old_home not in sections:
+              raise RuntimeError('Home fallback target was not found')
+          if old_music not in sections:
+              raise RuntimeError('Music fallback target was not found')
+          sections = sections.replace(old_home, new_home, 1).replace(old_music, new_music, 1)
+          sections_path.write_text(sections, encoding='utf-8')
+
+          css_path = Path('assets/css/public.css')
+          css = css_path.read_text(encoding='utf-8')
+          marker = '/* === ADOBE NATIVE PRODUCTION HEROES === */'
+          if marker in css:
+              raise RuntimeError('Adobe hero override already exists')
+          css += r'''
+
+          /* === ADOBE NATIVE PRODUCTION HEROES === */
+          .concept-home{min-height:700px;isolation:isolate;overflow:hidden}
+          .concept-home .hero-artwork{inset:0;width:100%;right:auto;overflow:hidden}
+          .concept-home .hero-art{width:100%;height:100%;object-fit:cover;object-position:center;filter:none;transform:none}
+          .concept-home .hero-artwork:before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse at 72% 22%,rgba(29,125,196,.13),transparent 34%)}
+          .concept-home .hero-artwork:after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(2,7,12,.78) 0,rgba(2,7,12,.43) 31%,rgba(2,7,12,.08) 53%,transparent 70%),linear-gradient(0deg,rgba(2,7,12,.55) 0,transparent 27%,transparent 88%,rgba(2,7,12,.36) 100%)}
+          .concept-home:before{background:none}
+          .concept-home .hero-copy,.concept-home .hero-bottom{position:relative;z-index:3}
+          .concept-home .hero-copy{max-width:600px}
+
+          .concept-music{position:relative;overflow:hidden;min-height:390px}
+          .concept-music>div{position:relative;z-index:2;max-width:50%}
+          .concept-music .music-art{position:absolute;right:0;top:0;width:61%;height:100%;object-fit:cover;object-position:center;filter:brightness(.92) contrast(1.04) saturate(1.02);mask-image:linear-gradient(90deg,transparent 0,black 25%,black 100%)}
+          .concept-music:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 82% 50%,rgba(185,123,35,.09),transparent 42%)}
+
+          @media(max-width:820px){
+            .concept-home{min-height:680px}
+            .concept-home .hero-artwork{width:145%;left:auto;right:-54%}
+            .concept-home .hero-art{object-position:54% center}
+            .concept-home .hero-artwork:after{background:linear-gradient(90deg,#02070cf2 0,#02070ccf 43%,rgba(2,7,12,.25) 76%,transparent),linear-gradient(0deg,#02070c 0,transparent 43%)}
+            .concept-music>div{max-width:72%}
+            .concept-music .music-art{width:91%;right:-38%;opacity:.76}
+          }
+          @media(max-width:600px){
+            .concept-home .hero-artwork{width:170%;right:-76%}
+            .concept-music{min-height:340px}
+            .concept-music .music-art{width:112%;right:-58%;opacity:.65}
+          }
+          '''
+          css_path.write_text(css, encoding='utf-8')
+          print(f'Home: {home_w}x{home_h}; Music: {music_w}x{music_h}')
+          PY
+      - name: Commit integrated production artwork
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add images/spiritual-gorillaz-music-hero.png
-          git commit -m "art: add full-resolution Adobe music hero"
+          git add views/public/sections.php assets/css/public.css
+          git commit -m "ui: integrate native-resolution Home and Music artwork"
           git push origin HEAD:work/concept-exact-rebuild
