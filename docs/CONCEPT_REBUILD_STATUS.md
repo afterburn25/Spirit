@@ -18,6 +18,7 @@ The approved Spiritual Gorillaz concept moodboard remains the literal visual sou
 - Phone title sizing keeps `MUSIC`, `WITH A HIGHER`, and `PURPOSE` as three deliberate lines
 - Automated visual tests reject title overflow on every reviewed public page
 - Dedicated page crops, stacking, lighting, and mobile artwork visibility have been tuned from actual rendered screenshots
+- Upgrade integration now runs with an isolated 64 MiB PHP upload fixture so the production-size artwork package is tested rather than rejected by PHP's 2 MiB development default
 
 ## Remaining visual work
 
