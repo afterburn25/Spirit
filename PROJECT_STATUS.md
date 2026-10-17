@@ -21,7 +21,7 @@ Recent finalization work also landed:
 - private successful-run heartbeats for the real mail and payment CLI workers;
 - deterministic software release gate that validates source/package integrity and refuses final 1.0.0 while true blockers remain.
 
-The latest GitHub Actions matrix must still finish on the current head before final release status can be recorded as green.
+The complete GitHub Actions matrix is green on verified RC10 source commit `2a833986f5a39d2f8de99f41bd8640b0642648e8`.
 
 ## Launch-safe content behavior
 
@@ -46,9 +46,9 @@ The built-in gorilla hero remains a small concept asset, but the runtime now pre
 
 These are acceptance/deployment blockers, not missing application features:
 
-1. Latest CI/workflow matrix must pass on the final RC10 source head.
+1. Deploy verified RC10 to production and confirm the Search page uses the closed-store RC10 wording/filter behavior.
 2. Explicit owner review/approval of the final site and chosen launch content/visual baseline.
-3. Actual A2 staging/production observations that source tests cannot fabricate, including real-host performance and any required recovery drill/worker heartbeat evidence.
+3. Record remaining applicable A2 production evidence that source tests cannot fabricate: real-host performance plus the recovery/rollback and scheduled-worker heartbeat checks that are still considered launch requirements.
 4. Genuine merchant sandbox acceptance **only if the storefront/payment feature will be enabled at launch**. If commerce stays closed, this is deferred until activation.
 5. Any optional real content the owner chooses to launch with (shows, Part 3 provider metadata, portraits, merchandise) must be genuine and approved before publication.
 
