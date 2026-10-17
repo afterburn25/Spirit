@@ -9,14 +9,14 @@ from playwright.sync_api import sync_playwright
 from http_integration import build_package, expect, site
 from staff_browser import signin, rendered
 from public_browser import screenshot
-from upgrade_integration import package_bytes, fixture
+from upgrade_integration import UPGRADE_TEST_PHP_INI, package_bytes, fixture
 
 
 def main():
     if os.geteuid()==0 or os.environ.get('SPIRIT_TESTING')!='1':raise RuntimeError('Non-root isolated environment required.')
     with tempfile.TemporaryDirectory(prefix='spirit-upgrade-browser-') as directory:
         base=Path(directory);archive,code=build_package(base/'packages');new=base/'generated-test-update.zip';new.write_bytes(package_bytes(archive))
-        with site(base/'website',archive,code,'band') as s:
+        with site(base/'website',archive,code,'band',php_ini=UPGRADE_TEST_PHP_INI) as s:
             s.claim();s.client.form('install/',s.input())
             with sync_playwright() as engine:
                 browser=engine.chromium.launch()
@@ -25,7 +25,7 @@ def main():
                     signin(s,page,s.owner,s.password);page.goto(s.base+'admin/upgrades/',wait_until='networkidle')
                     stage=page.locator('form').filter(has=page.locator('input[name="action"][value="stage"]'))
                     stage.locator('[name="package"]').set_input_files(new);stage.locator('[name="owner_password"]').fill(s.password);stage.locator('[name="trust_package"]').check();stage.get_by_role('button',name='Validate and stage package').click();page.wait_for_load_state('networkidle')
-                    job=fixture(s,'state');expect(job['state']=='staged','Browser upload produces actual staged checkpoint')
+                    job=fixture(s,'state');expect(job.get('state')=='staged','Browser upload produces actual staged checkpoint; '+page.locator('main').inner_text()[-1200:])
                     rendered(page,f'{width}px staged code upgrade');screenshot(page,f'upgrade-{width}-staged')
                     form=page.locator('form.upgrade-actions');form.locator('[name="owner_password"]').fill(s.password)
                     with page.expect_download() as event:form.get_by_role('button',name='Download private recovery receipt').click()
