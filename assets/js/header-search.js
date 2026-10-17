@@ -41,12 +41,20 @@
   }
 
   document.addEventListener('click', event => {
+    const close = event.target.closest('.site-search-close');
+    if (close) {
+      event.preventDefault();
+      setOpen(false, true);
+      return;
+    }
+
     const button = event.target.closest('.nav-search-toggle');
     if (button) {
       event.preventDefault();
       setOpen(!isOpen(), false);
       return;
     }
+
     if (isOpen() && !panel.contains(event.target)) setOpen(false, false);
   });
 
@@ -66,5 +74,6 @@
   });
 
   panel.querySelector('form')?.addEventListener('submit', () => setOpen(false, false));
+  panel.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setOpen(false, false)));
   document.addEventListener('spirit:navigated', () => setOpen(false, false));
 })();
