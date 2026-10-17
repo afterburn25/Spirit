@@ -1,0 +1,45 @@
+/* Final Home-page reference polish layered after the concept header/hero system. */
+.concept-home h1{
+  max-width:590px;
+  white-space:normal;
+}
+.concept-home h1 br{display:block}
+.concept-home .button-row .button.outline:before{
+  content:"▣";
+  display:inline-block;
+  color:#f5f1e8;
+  font-size:13px;
+  line-height:1;
+}
+.concept-home:after{
+  content:"PEACE\A MUSIC\A UNITY";
+  white-space:pre;
+  position:absolute;
+  right:clamp(36px,5.3vw,84px);
+  top:39%;
+  z-index:4;
+  transform:rotate(-5deg);
+  color:#43a7e6;
+  font:italic 900 clamp(34px,3.3vw,54px)/.9 Impact,'Arial Narrow Bold',sans-serif;
+  text-transform:uppercase;
+  text-align:center;
+  letter-spacing:.015em;
+  text-shadow:0 5px 18px rgba(0,0,0,.85);
+  opacity:.92;
+  pointer-events:none;
+}
+@media(max-width:1320px){
+  .concept-home h1{max-width:530px}
+}
+@media(max-width:1060px) and (min-width:821px){
+  .concept-home h1{max-width:460px}
+  .concept-home:after{right:24px;font-size:34px}
+}
+@media(max-width:820px){
+  .concept-home h1{max-width:390px}
+  .concept-home:after{right:22px;top:43%;font-size:30px;opacity:.72}
+}
+@media(max-width:600px){
+  .concept-home h1{max-width:320px}
+  .concept-home:after{display:none}
+}
