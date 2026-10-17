@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 700" role="img" aria-labelledby="t d">
+<title id="t">Concert stage lighting</title><desc id="d">Abstract blue concert stage with musician silhouettes and audience lights.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#06101a"/><stop offset=".55" stop-color="#0b2740"/><stop offset="1" stop-color="#02070c"/></linearGradient>
+<radialGradient id="spot"><stop stop-color="#6cc8ff" stop-opacity=".9"/><stop offset=".22" stop-color="#2386c8" stop-opacity=".55"/><stop offset="1" stop-color="#0a3f69" stop-opacity="0"/></radialGradient>
+</defs>
+<rect width="1400" height="700" fill="url(#bg)"/>
+<ellipse cx="970" cy="100" rx="330" ry="260" fill="url(#spot)"/><ellipse cx="1180" cy="70" rx="250" ry="220" fill="url(#spot)" opacity=".7"/>
+<g stroke="#57b8f5" stroke-width="10" opacity=".36"><path d="M780 0l130 470"/><path d="M1010 0l-20 470"/><path d="M1260 0l-160 470"/></g>
+<g fill="#03070b">
+<path d="M810 560c30-140 90-250 170-245 65 4 93 93 108 245z"/>
+<circle cx="961" cy="287" r="38"/><rect x="945" y="315" width="35" height="170" rx="15"/>
+<path d="M975 355l190-105 15 24-187 122z"/><circle cx="1180" cy="260" r="24"/>
+<path d="M1120 560c10-112 43-190 98-190 53 0 86 78 96 190z"/><circle cx="1218" cy="344" r="31"/>
+</g>
+<g fill="#0b1117"><path d="M0 700V610q48-80 96 0 48-95 96 0 48-70 96 0 48-110 96 0 48-85 96 0 48-100 96 0 48-72 96 0 48-96 96 0 48-80 96 0 48-108 96 0 48-82 96 0 48-94 96 0 48-76 96 0 48-95 96 0v90z"/></g>
+</svg>
