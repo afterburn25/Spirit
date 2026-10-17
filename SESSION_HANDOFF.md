@@ -1,6 +1,6 @@
-# Resume — RC9 software complete; final acceptance only
+# Resume — RC10 software complete; final acceptance only
 
-Repository **afterburn25/Spirit**, `main` authoritative. Current source candidate is **1.0.0-rc.9** because genuine runtime and verification changes landed after the immutable RC7 delivery. Do not overwrite RC7. Do not create RC10 for editorial placement, optional assets or acceptance paperwork.
+Repository **afterburn25/Spirit**, `main` authoritative. Current source candidate is **1.0.0-rc.10** because genuine runtime and verification changes landed after the immutable RC7 delivery. Do not overwrite RC7. Do not create RC11 for editorial placement, optional assets or acceptance paperwork.
 
 ## Current state
 
