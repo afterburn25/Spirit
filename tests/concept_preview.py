@@ -65,6 +65,39 @@ def main() -> None:
                             raise AssertionError(f'{name} returned an invalid response at {width}px')
                         if page.evaluate('document.documentElement.scrollWidth > window.innerWidth + 1'):
                             raise AssertionError(f'{name} overflows horizontally at {width}px')
+                        if name == 'home':
+                            metrics = page.locator('.concept-home h1').evaluate("""
+                                node => {
+                                    const box = node.getBoundingClientRect();
+                                    const segments = [];
+                                    for (const child of node.childNodes) {
+                                        if (child.nodeType === 3 && child.textContent.trim()) {
+                                            const range = document.createRange();
+                                            range.selectNodeContents(child);
+                                            segments.push([...range.getClientRects()].map(rect => ({left: rect.left, right: rect.right})));
+                                        } else if (child.nodeType === 1 && child.tagName !== 'BR') {
+                                            const range = document.createRange();
+                                            range.selectNodeContents(child);
+                                            segments.push([...range.getClientRects()].map(rect => ({left: rect.left, right: rect.right})));
+                                        }
+                                    }
+                                    return {
+                                        left: box.left,
+                                        right: box.right,
+                                        clientWidth: node.clientWidth,
+                                        scrollWidth: node.scrollWidth,
+                                        segments,
+                                    };
+                                }
+                            """)
+                            invalid_segments = [
+                                segment for segment in metrics['segments']
+                                if len(segment) != 1
+                                or segment[0]['left'] < metrics['left'] - 1
+                                or segment[0]['right'] > metrics['right'] + 1
+                            ]
+                            if metrics['scrollWidth'] > metrics['clientWidth'] + 1 or len(metrics['segments']) != 3 or invalid_segments:
+                                raise AssertionError(f'Home title leaves its copy container at {width}px: {metrics}')
                         page.screenshot(
                             path=str(output / f'concept-{width}-{name}.png'),
                             full_page=True,

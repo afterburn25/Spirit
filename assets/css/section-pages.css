@@ -89,3 +89,31 @@
   .page-hero h1{font-size:clamp(29px,7.6vw,36px)}
   .concept-booking h1,.concept-merch-heading h1{font-size:clamp(30px,7.7vw,37px)}
 }
+
+
+/* === STRICT HOME TITLE BOUNDARY === */
+/* The title has its own safe column; the intro and buttons may use the wider copy column. */
+.concept-home h1{
+  width:min(100%,430px);
+  max-width:430px;
+  min-width:0;
+  font-size:clamp(40px,3.75vw,50px);
+  line-height:.98;
+  letter-spacing:-.04em;
+  text-wrap:initial;
+  overflow-wrap:normal;
+  word-break:normal;
+}
+.concept-home h1 em{font-size:1.05em}
+@media(max-width:1100px){
+  .concept-home h1{width:min(100%,380px);max-width:380px;font-size:42px}
+}
+@media(max-width:820px){
+  .concept-home h1{width:min(100%,250px);max-width:250px;font-size:32px;line-height:1}
+}
+@media(max-width:600px){
+  .concept-home h1{width:min(100%,205px);max-width:205px;font-size:29px;line-height:1;letter-spacing:-.045em}
+}
+@media(max-width:420px){
+  .concept-home h1{width:min(100%,195px);max-width:195px;font-size:28px}
+}
