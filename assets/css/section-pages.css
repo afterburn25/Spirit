@@ -115,5 +115,8 @@
   .concept-home h1{width:min(100%,205px);max-width:205px;font-size:29px;line-height:1;letter-spacing:-.045em}
 }
 @media(max-width:420px){
-  .concept-home h1{width:min(100%,195px);max-width:195px;font-size:28px}
+  .concept-home h1{width:min(100%,195px);max-width:195px;font-size:25px;letter-spacing:-.05em}
+}
+@media(max-width:360px){
+  .concept-home h1{width:min(100%,182px);max-width:182px;font-size:23px}
 }
