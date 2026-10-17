@@ -1,6 +1,6 @@
-# Project status — RC9 software complete / final acceptance
+# Project status — RC10 software complete / final acceptance
 
-The application remains **1.0.0-rc.9**. The planned application scope is implemented. Optional features remain frozen. Current work is no longer feature development; it is final verification, real-world acceptance and owner approval.
+The application remains **1.0.0-rc.10**. The planned application scope is implemented. Optional features remain frozen. Current work is no longer feature development; it is final verification, real-world acceptance and owner approval.
 
 ## Software implementation status
 
@@ -46,7 +46,7 @@ The built-in gorilla hero remains a small concept asset, but the runtime now pre
 
 These are acceptance/deployment blockers, not missing application features:
 
-1. Latest CI/workflow matrix must pass on the final RC9 source head.
+1. Latest CI/workflow matrix must pass on the final RC10 source head.
 2. Explicit owner review/approval of the final site and chosen launch content/visual baseline.
 3. Actual A2 staging/production observations that source tests cannot fabricate, including real-host performance and any required recovery drill/worker heartbeat evidence.
 4. Genuine merchant sandbox acceptance **only if the storefront/payment feature will be enabled at launch**. If commerce stays closed, this is deferred until activation.
