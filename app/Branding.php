@@ -116,7 +116,7 @@ final class Branding
     {
         $file=Paths::root().'/images/spiritual-gorillaz-logo.svg';
         if(!is_file($file)||is_link($file)){return '';}
-        return '<span class="bundled-brand-wrap"><img class="bundled-site-logo" src="'.e(app_url('images/spiritual-gorillaz-logo.svg')).'" width="1200" height="420" alt="" loading="'.($footer?'lazy':'eager').'" decoding="async"></span>';
+        return '<span class="bundled-brand-wrap"><img class="bundled-site-logo" src="'.e(app_url('images/spiritual-gorillaz-logo.svg')).'" width="900" height="560" alt="" loading="'.($footer?'lazy':'eager').'" decoding="async"></span>';
     }
 
     /** Original ratio and transparency are retained; no arbitrary image URL. */
@@ -129,7 +129,7 @@ final class Branding
             $size = Media::dimensions($media);
             if (!$size) { return ''; }
             $width = $size['width']; $height = $size['height']; $url = Media::url($id);
-            $responsive = $width > 320 ? ' srcset="'.e($url.'&width=320').' 320w, '.e($width > 640 ? $url.'&width=640' : $url).' '.min(640, $width).'w" sizes="(max-width: 820px) 142px, 174px"' : '';
+            $responsive = $width > 320 ? ' srcset="'.e($url.'&width=320').' 320w, '.e($width > 640 ? $url.'&width=640' : $url).' '.min(640, $width).'w" sizes="(max-width: 820px) 174px, 220px"' : '';
             return '<span class="brand-logo-wrap"><img class="site-logo" src="'.e($width > 320 ? $url.'&width=320' : $url).'"'.$responsive.' width="'.$width.'" height="'.$height.'" alt="" loading="'.($footer ? 'lazy' : 'eager').'" decoding="async"></span>';
         } catch (Throwable $e) { return ''; }
     }
