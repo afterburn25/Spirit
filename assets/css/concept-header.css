@@ -176,3 +176,43 @@
   .concept-home .button-row{gap:9px}.concept-home .button-row .button{padding:10px 11px;font-size:8px}.concept-home .hero-manifesto{display:none}.concept-home .hero-bottom{padding-inline:17px}.concept-home .hero-bottom p{width:min(285px,76vw);padding-inline:8px;letter-spacing:.25em}.concept-home .hero-bottom p:before,.concept-home .hero-bottom p:after{display:none}.concept-home .hero-bottom strong{font-size:14px;letter-spacing:.32em}
 }
 @media(forced-colors:active){.nav-search-toggle,.site-search-panel,.site-search-row,.site-search-submit,.site-search-close{border:1px solid CanvasText}}
+
+
+/* === EXPANDED CONCEPT SEARCH PANEL === */
+.site-search-panel{
+  width:min(620px,calc(100vw - 48px));padding:0;overflow:hidden;
+  border:1px solid #37556a;border-top:3px solid #e1aa43;
+  background:linear-gradient(180deg,rgba(7,18,28,.995),rgba(3,10,17,.995));
+  box-shadow:0 28px 90px rgba(0,0,0,.82),0 0 0 1px rgba(255,255,255,.025) inset;
+}
+.site-search-head{display:grid;grid-template-columns:minmax(0,1fr) 46px;align-items:start;gap:14px;padding:22px 22px 16px;border-bottom:1px solid rgba(91,126,148,.25)}
+.site-search-head form{min-width:0}
+.site-search-label{display:block;margin:0 0 11px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.16em;color:#e7b753}
+.site-search-row{position:relative;display:grid;grid-template-columns:42px minmax(0,1fr) 52px;gap:0;align-items:center;min-height:54px;border:1px solid #38566a;background:#020910;box-shadow:0 8px 24px rgba(0,0,0,.26) inset}
+.site-search-field-icon{width:23px;height:23px;margin:auto;fill:none;stroke:#e8b552;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.site-search-row input{width:100%;min-height:52px;padding:12px 8px;border:0!important;outline:0;background:transparent!important;color:#fff;font-size:15px;box-shadow:none!important}
+.site-search-row input:focus{outline:0}.site-search-row:focus-within{border-color:#e5b658;box-shadow:0 0 0 2px rgba(229,182,88,.14)}
+.site-search-submit{width:52px;min-height:52px!important;padding:0!important;border:0!important;border-left:1px solid #3b586d!important;border-radius:0!important;background:linear-gradient(180deg,#edc364,#c98b2c)!important;color:#0c151b!important;font-size:25px!important;font-weight:500!important}
+.site-search-submit:hover{background:#ffd676!important}
+.site-search-close{width:44px;height:44px;display:grid;place-items:center;padding:0;border:1px solid #344f62;background:#0a1823;color:#f3eee4;font-size:28px;line-height:1}
+.site-search-close:hover,.site-search-close:focus-visible{border-color:#e3b253;color:#e3b253;background:#101f2b}
+.site-search-popular-title{margin:0;padding:16px 22px 8px;color:#8599a8;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.16em}
+.site-search-popular{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0 22px 22px}
+.site-search-popular a{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:center;gap:10px;min-height:48px;padding:9px 12px;border:1px solid #243f52;background:#081521;color:#edf1f3;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.055em}
+.site-search-popular a:hover,.site-search-popular a:focus-visible{border-color:#bd8e3b;background:#0c1d2a;color:#f2bf56}
+.popular-icon{display:grid;place-items:center;width:28px;height:28px;border:1px solid rgba(225,170,67,.36);color:#e0aa43;background:#07111a;font-size:14px}
+.popular-arrow{font-size:22px;color:#7690a2}
+@media(max-width:820px){
+  .site-search-panel{left:20px;right:20px;width:auto;max-height:calc(100vh - 118px);overflow:auto}
+  .site-search-head{padding:18px 16px 14px;grid-template-columns:minmax(0,1fr) 42px;gap:10px}
+  .site-search-popular{padding:0 16px 18px}
+  .site-search-popular-title{padding-left:16px;padding-right:16px}
+}
+@media(max-width:520px){
+  .site-search-panel{left:10px;right:10px}
+  .site-search-head{grid-template-columns:minmax(0,1fr) 40px;padding:15px 12px 12px}
+  .site-search-popular{grid-template-columns:minmax(0,1fr);padding:0 12px 14px}
+  .site-search-popular-title{padding:14px 12px 7px}
+  .site-search-row{grid-template-columns:38px minmax(0,1fr) 48px}
+  .site-search-submit{width:48px}
+}
