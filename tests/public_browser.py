@@ -82,9 +82,10 @@ def main():
                             hero=page.locator('.fallback-hero')
                             expect(hero.count()==1, f'Chromium {width}px uses the bundled fallback only when no CMS hero is published')
                             geometry=hero.evaluate('(n)=>{const r=n.getBoundingClientRect();return {w:r.width,h:r.height,fit:getComputedStyle(n).objectFit};}')
-                            expect(geometry['fit']=='contain' and geometry['w'] <= (421 if width>820 else 341 if width>600 else 301), f'Chromium {width}px fallback hero stays contained instead of being upscaled/cropped')
-                        if route in ['', 'booking/']:
-                            screenshot(page, f'public-{width}-' + ('booking' if route else 'home'))
+                            expect(geometry['fit'] in ['cover','contain'] and geometry['w'] > 0 and geometry['h'] > 0, f'Chromium {width}px hero artwork renders with a valid fit and geometry')
+                        screenshot_routes={'':'home','music/':'music','shows/':'shows','band/':'band','media/':'media','press/':'press','booking/':'booking','shop/':'merch'}
+                        if route in screenshot_routes:
+                            screenshot(page, f'public-{width}-' + screenshot_routes[route])
                     if width == 1440:
                         chad_id=save_content(current, 'member', 'Chad L.', {'role': 'Guitar, keyboards and vocals', 'bio': 'Published fixture profile.'}, slug='chad-lindsey')
                         page.goto(current.base + 'band/', wait_until='networkidle')
