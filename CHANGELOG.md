@@ -1,5 +1,27 @@
 # Changelog
 
+## 1.0.0 — final release
+
+Promote the fully verified RC10 software line to final 1.0.0 after explicit owner instruction to proceed to final release.
+
+Final release includes:
+- complete public site and owner administration;
+- approved launch-copy fallbacks and metadata;
+- confirmed Chad Lindsey / Ron Green / Charlie Savell factual lineup fallback;
+- external venue ticket-link model;
+- persistent audio, media, booking, newsletter and search;
+- customer accounts;
+- optional dormant merchandise/order/payment subsystem;
+- closed-store navigation, account and Search behavior;
+- browser installer, cumulative upgrades and independent same-schema recovery;
+- encrypted backups, diagnostics and worker-heartbeat support;
+- deterministic packaging/release gate;
+- 360 px/390 px desktop/mobile and Chromium/Firefox/WebKit verification.
+
+The RC10 verification baseline was fully green on `2a833986f5a39d2f8de99f41bd8640b0642648e8`.
+
+Commerce remains disabled at final release. Genuine Authorize.net sandbox/provider acceptance is deferred until commerce activation. No unobserved provider result, cron execution, recovery drill or host-performance measurement is claimed by the version promotion.
+
 ## 1.0.0-rc.10 — dormant-store search cleanup
 
 RC10 fixes the final closed-store public inconsistency found during live acceptance: the Search page still advertised merchandise and exposed a Merchandise filter even while the storefront was disabled.
@@ -23,44 +45,13 @@ Changes:
 - closed-store account pages use non-commerce wording and no longer advertise guest checkout;
 - unavailable registration/recovery routes return to sign-in instead of sending visitors to a closed merchandise catalog;
 - customer sign-in/account access remains available with a dormant storefront;
-- browser coverage now enforces both closed-store and enabled-store customer-navigation and copy behavior.
+- browser coverage enforces both closed-store and enabled-store customer-navigation and copy behavior.
 
-RC8 remains frozen as the all-green historical candidate. RC9 is a genuine new release candidate because this changes public runtime behavior.
-
+RC8 remains frozen as the all-green historical candidate.
 
 ## 1.0.0-rc.8 — software-complete candidate
 
-RC8 is a genuine new release candidate because runtime and verification behavior changed after the immutable RC7 delivery. It includes final launch-copy fallbacks, confirmed-lineup reconciliation, the scalable bundled logo, contained fallback hero, dormant-store navigation/diagnostics, checkout validation hardening, scheduled-worker heartbeat evidence, expanded 360 px/cross-browser coverage, and the deterministic software release gate.
-
-RC7 remains immutable and historical. Do not replace or relabel an RC7 archive with RC8 bytes. No provider acceptance, deployment, CMS publication, or owner approval is inferred by this version bump.
-
-
-## RC7 software-completion pass — application remains RC7
-
-Complete the remaining code-side launch work without inventing external evidence or optional content.
-
-- Wire approved launch copy into runtime fallbacks and metadata.
-- Preserve the confirmed Chad Lindsey / Ron Green / Charlie Savell lineup even when member profiles are partially or fully unpublished.
-- Add a scalable bundled crown/wordmark fallback while preserving owner-managed logo publication.
-- Present the small bundled hero as contained artwork instead of upscaling/cropping it like a production photograph.
-- Harden public/store/checkout/booking layouts at 360 px and extend cross-browser checkout/cancellation review to Chromium, Firefox and WebKit.
-- Align separate-billing browser validation with server validation.
-- Hide Merch/Bag globally while the storefront is intentionally closed.
-- Distinguish dormant commerce from real activation blockers in Launch Checks.
-- Record timestamp-only successful-run heartbeats for the actual mail/payment CLI workers in protected private runtime cache and expose freshness in diagnostics.
-- Add direct integration coverage for the real task scripts.
-- Add `tools/release_gate.py` plus a fast GitHub workflow; the gate validates required source/package files, package manifest hashes, private/development exclusions, responsive coverage and final-version blockers.
-- Keep payments/provider calls, schema, installer contract, external-ticket model and immutable RC7 archive unchanged.
-
-No genuine provider acceptance, deployment, CMS publication or owner approval is inferred.
-
-## Final checkout validation alignment — application remains RC7
-
-Align the public checkout form with existing server-side billing-address validation. When “billing address matches shipping” is cleared, separate billing fields are immediately marked required and the billing disclosure opens; billing city/state/ZIP expose appropriate browser autocomplete hints.
-
-## Final launch runtime copy alignment — application remains RC7
-
-Wire approved launch wording into public fallbacks for Home, Music, Shows, Band, Media, Booking, Press and Merch while preserving CMS overrides and truthful empty states.
+RC8 added final launch-copy fallbacks, confirmed-lineup reconciliation, the scalable bundled logo, contained fallback hero, dormant-store navigation/diagnostics, checkout validation hardening, scheduled-worker heartbeat evidence, expanded 360 px/cross-browser coverage and the deterministic software release gate.
 
 ## Previous history
 

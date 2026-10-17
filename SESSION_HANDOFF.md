@@ -1,64 +1,45 @@
-# Resume — RC10 software complete; final acceptance only
+# Resume — 1.0.0 final
 
-Repository **afterburn25/Spirit**, `main` authoritative. Current source candidate is **1.0.0-rc.10** because genuine runtime and verification changes landed after the immutable RC7 delivery. Do not overwrite RC7. Do not create RC11 for editorial placement, optional assets or acceptance paperwork.
+Repository **afterburn25/Spirit**. Final release source is prepared from the fully verified RC10 line.
 
-## Current state
+## Final state
 
-The planned application implementation is complete. Continue only with:
-- failures found by current CI;
-- final real-world acceptance;
-- genuine content/assets supplied or explicitly approved by the owner;
-- final 1.0.0 packaging/tagging after acceptance.
-
-Do not reopen finished modules or redesign the site.
+- Application version: **1.0.0**
+- RC10 verification baseline: `2a833986f5a39d2f8de99f41bd8640b0642648e8`
+- Owner instructed the project to proceed to final release.
+- RC7, RC8, RC9 and RC10 remain immutable historical candidates.
+- Do not reopen completed modules or redesign the site unless a genuine post-release defect is found.
 
 ## Fixed decisions
 
 - Chad Lindsey — guitar, keyboards and vocals.
 - Ron Green — harmonica.
 - Charlie Savell — drums.
-- Candidate 3 / Part 3 remains selected.
+- Candidate 3 / Part 3 remains selected but unpublished until genuine provider URL/title/credits are approved.
 - Preserve the black/deep-navy, gold and blue crowned-gorilla design.
 - Show tickets continue to each venue's configured external seller.
 - No native ticketing.
 - No synthetic member portraits.
 - No fake shows, products, rates, testimonials or recording metadata.
 
-## Runtime finalization now landed
+## Final runtime behavior
 
 - Approved factual launch copy is wired into public fallbacks and default metadata.
-- Band page always preserves the confirmed three-member lineup. Published profiles keep their real links/media; only missing confirmed members receive factual fallback cards.
-- Bundled scalable logo fallback: `images/spiritual-gorillaz-logo.svg`. Owner-published branding still overrides it.
-- Small built-in hero is rendered as contained artwork, not stretched into a fake production master. Real CMS hero artwork still uses the normal cinematic treatment.
-- Closed commerce is intentionally dormant: global Merch/Bag links disappear while disabled; customer accounts remain reachable.
-- Launch diagnostics treat dormant store/payment/account/key/policy/product states as safe rather than false blockers.
-- Mail/payment CLI workers write protected timestamp-only heartbeats in private runtime cache after successful runs.
-- Launch Checks surface worker heartbeat freshness without claiming inbox/provider acceptance.
-- Checkout separate-billing browser validation matches server rules.
+- Band preserves the confirmed three-member lineup.
+- Bundled scalable logo fallback is available while owner-published branding still overrides it.
+- Small built-in hero is contained rather than falsely upscaled.
+- Closed commerce hides global Merch/Bag links, store-specific customer navigation and merchandise Search affordances.
+- Customer accounts remain reachable while commerce is dormant.
+- Launch diagnostics distinguish dormant commerce from activation blockers.
+- Mail/payment CLI workers support protected successful-run heartbeats.
+- Checkout validation matches server rules.
 - 360 px / 390 px / desktop browser coverage spans public, commerce/customer, payment/checkout and booking/communication flows.
-- Release-candidate storefront checkout/cancellation runs at 390/360 px across Chromium, Firefox and WebKit.
-- `tools/release_gate.py` validates package/source integrity and is enforced by `.github/workflows/release-gate.yml` and the main verification workflow.
+- Deterministic release packaging and the software release gate remain mandatory.
 
-## Optional launch content
+## Operational follow-ups
 
-The site can launch truthfully without fabricating missing optional material:
-- no confirmed show -> Shows remains empty;
-- no real merchandise -> storefront remains closed and hidden from global store navigation;
-- no labelled portraits -> factual member fallback cards remain;
-- no Part 3 provider URL/title -> Part 3 remains unpublished;
-- no longer biography -> use factual one-line member copy.
+No unresolved software blockers remain for 1.0.0.
 
-Prepared Band & Booking Sheet:
-`design/launch-review-03/Spiritual-Gorillaz-Band-and-Booking-Sheet.pdf`
+Do not claim unobserved provider/host evidence. After final deployment, observe Launch Checks, worker heartbeat freshness, recovery behavior and production performance as operational follow-up. If commerce is later enabled, genuine Authorize.net sandbox/provider acceptance is required before activation.
 
-Preparation in Git is not CMS publication.
-
-## Final blockers
-
-1. Observe the latest CI matrix on the final source head and fix only genuine failures.
-2. Obtain explicit owner acceptance of the final site/launch choices.
-3. Record actual A2/real-host observations still required by the launch checklist (including scheduled worker evidence/recovery drill/performance where applicable).
-4. If commerce will be enabled, complete genuine Authorize.net sandbox/provider acceptance before enabling it.
-5. Publish only owner-approved real content/assets.
-
-Do not tag **1.0.0** until these are satisfied. The release gate intentionally refuses a final version while PROJECT_STATUS still declares blockers.
+Only publish genuine owner-approved optional content/assets.
