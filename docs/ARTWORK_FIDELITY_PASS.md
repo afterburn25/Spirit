@@ -62,3 +62,12 @@ Before any production artwork is published:
 6. Preserve the existing owner CMS/branding workflows and all 1.0 functionality.
 
 The current `images/gorilla-hero.webp` and `images/gorilla-music.webp` remain reference/fallback assets until reviewed masters are ready.
+
+
+## Logo selection
+
+Owner selection: **Option 1**.
+
+Use the primary bundled SVG at `images/spiritual-gorillaz-logo.svg` as the locked fallback logo for this fidelity pass. Do not switch to the alternate SVG unless the owner explicitly changes this decision.
+
+The existing owner-managed branding workflow still overrides the bundled fallback when an approved logo is published.
