@@ -75,7 +75,8 @@ def main():
                         if route == 'band/':
                             expect(page.locator('.member-card-factual').count() == 3, f'Chromium {width}px shows the three confirmed lineup cards when member profiles are unpublished')
                             expect(page.locator('.member-card-factual a').count() == 0, f'Chromium {width}px factual lineup does not link to unpublished member pages')
-                            expect('Chad Lindsey' in page.locator('.member-grid').inner_text() and 'Ron Green' in page.locator('.member-grid').inner_text() and 'Charlie Savell' in page.locator('.member-grid').inner_text(), f'Chromium {width}px factual lineup names are present')
+                            lineup_text=page.locator('.member-grid').inner_text().casefold()
+                            expect(all(name.casefold() in lineup_text for name in ('Chad Lindsey','Ron Green','Charlie Savell')), f'Chromium {width}px factual lineup names are present')
                         if route == '':
                             expect(page.locator('#public-nav a').filter(has_text='Merch').count()==0, f'Chromium {width}px closed store is absent from global navigation markup')
                             expect(page.get_by_role('navigation',name='Footer').get_by_role('link',name='Your bag',exact=True).count()==0, f'Chromium {width}px closed store does not advertise an empty bag')
