@@ -116,7 +116,7 @@ final class Branding
     {
         $file=Paths::root().'/images/spiritual-gorillaz-logo.svg';
         if(!is_file($file)||is_link($file)){return '';}
-        return '<span class="bundled-brand-wrap"><img class="bundled-site-logo" src="'.e(app_url('images/spiritual-gorillaz-logo.svg')).'" width="1400" height="360" alt="" loading="'.($footer?'lazy':'eager').'" decoding="async"></span>';
+        return '<span class="bundled-brand-wrap"><img class="bundled-site-logo" src="'.e(app_url('images/spiritual-gorillaz-logo.svg')).'" width="1200" height="420" alt="" loading="'.($footer?'lazy':'eager').'" decoding="async"></span>';
     }
 
     /** Original ratio and transparency are retained; no arbitrary image URL. */
