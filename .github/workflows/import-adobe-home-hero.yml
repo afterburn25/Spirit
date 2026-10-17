@@ -1,4 +1,4 @@
-name: Import Adobe home hero
+name: Import Adobe music hero
 on:
   push:
     branches: [work/concept-exact-rebuild]
@@ -14,22 +14,22 @@ jobs:
         with:
           ref: work/concept-exact-rebuild
           persist-credentials: true
-      - name: Download full-resolution Adobe production artwork
+      - name: Download full-resolution Adobe music artwork
         env:
-          ADOBE_DOWNLOAD_URL: https://at.adobe.com/fWbeBvVImniboTnY
+          ADOBE_DOWNLOAD_URL: https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:724e812b-297c-4b32-a7a5-1be0475af926
         run: |
           set -euo pipefail
           mkdir -p images
           curl --fail --location --retry 4 --retry-all-errors \
-            --output images/spiritual-gorillaz-home-hero.png \
+            --output images/spiritual-gorillaz-music-hero.png \
             "$ADOBE_DOWNLOAD_URL"
-          test "$(stat -c%s images/spiritual-gorillaz-home-hero.png)" -gt 100000
-          file images/spiritual-gorillaz-home-hero.png
+          test "$(stat -c%s images/spiritual-gorillaz-music-hero.png)" -gt 100000
+          file images/spiritual-gorillaz-music-hero.png
       - name: Commit production artwork
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add images/spiritual-gorillaz-home-hero.png
-          git commit -m "art: add full-resolution Adobe home hero"
+          git add images/spiritual-gorillaz-music-hero.png
+          git commit -m "art: add full-resolution Adobe music hero"
           git push origin HEAD:work/concept-exact-rebuild
