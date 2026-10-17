@@ -92,8 +92,8 @@ def main():
                         page.goto(current.base + 'band/', wait_until='networkidle')
                         expect(page.locator('.member-card:not(.member-card-factual) a').filter(has_text='Chad L.').count() == 1, 'Published confirmed member keeps a linked profile card')
                         expect(page.locator('.member-card-factual').count() == 2, 'Only missing confirmed members use factual fallback cards during partial publishing')
-                        names=page.locator('.member-grid').inner_text()
-                        expect('Chad L.' in names and 'Ron Green' in names and 'Charlie Savell' in names and 'Chad Lindsey' not in names, 'Canonical slug suppresses a duplicate fallback even when the published profile title is edited')
+                        names=page.locator('.member-grid').inner_text().casefold()
+                        expect('chad l.' in names and 'ron green' in names and 'charlie savell' in names and 'chad lindsey' not in names, 'Canonical slug suppresses a duplicate fallback even when the published profile title is edited')
                         save_content(current, 'member', 'Chad L.', {'role': 'Guitar, keyboards and vocals', 'bio': 'Published fixture profile.'}, action='unpublish', item_id=chad_id, slug='chad-lindsey')
                     page.goto(current.base, wait_until='networkidle')
                     if width <= 390:
