@@ -1,0 +1,47 @@
+name: Tune mobile Home title
+on:
+  push:
+    branches: [work/concept-exact-rebuild]
+    paths:
+      - .github/workflows/tune-mobile-home-title.yml
+permissions:
+  contents: write
+jobs:
+  tune:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: work/concept-exact-rebuild
+          persist-credentials: true
+      - name: Keep the three title lines intact on phones
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('assets/css/section-pages.css')
+          css = path.read_text(encoding='utf-8')
+          old = """@media(max-width:420px){
+  .concept-home h1{width:min(100%,195px);max-width:195px;font-size:28px}
+}
+"""
+          new = """@media(max-width:420px){
+  .concept-home h1{width:min(100%,195px);max-width:195px;font-size:25px;letter-spacing:-.05em}
+}
+@media(max-width:360px){
+  .concept-home h1{width:min(100%,182px);max-width:182px;font-size:23px}
+}
+"""
+          if old not in css:
+              raise RuntimeError('Mobile title rule not found')
+          path.write_text(css.replace(old, new, 1), encoding='utf-8')
+          PY
+      - name: Commit mobile title correction and remove this one-time workflow
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/tune-mobile-home-title.yml
+          git add assets/css/section-pages.css
+          git commit -m "fix: keep Home title on three lines on phones"
+          git push origin HEAD:work/concept-exact-rebuild
