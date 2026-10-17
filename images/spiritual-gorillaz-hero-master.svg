@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 1400" role="img" aria-labelledby="t d">
+<title id="t">Spiritual Gorillaz crowned gorilla hero</title>
+<desc id="d">Cinematic crowned gorilla in blue stage light with dark negative space for homepage copy.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#02070d"/><stop offset=".52" stop-color="#07131f"/><stop offset="1" stop-color="#0a2740"/>
+  </linearGradient>
+  <radialGradient id="blue" cx=".72" cy=".35" r=".52">
+    <stop offset="0" stop-color="#2f9be0" stop-opacity=".58"/><stop offset=".42" stop-color="#0f5d95" stop-opacity=".26"/><stop offset="1" stop-color="#08233a" stop-opacity="0"/>
+  </radialGradient>
+  <linearGradient id="fur" x1=".15" y1=".1" x2=".85" y2=".95">
+    <stop offset="0" stop-color="#2a3e4d"/><stop offset=".35" stop-color="#0f1a22"/><stop offset=".72" stop-color="#05090d"/><stop offset="1" stop-color="#172837"/>
+  </linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#ffe28b"/><stop offset=".5" stop-color="#e4b14b"/><stop offset="1" stop-color="#955f17"/>
+  </linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="14"/></filter>
+  <filter id="shadow"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#000" flood-opacity=".72"/></filter>
+</defs>
+<rect width="2000" height="1400" fill="url(#bg)"/>
+<rect width="2000" height="1400" fill="url(#blue)"/>
+<g opacity=".2" stroke="#59b9f4" stroke-width="16">
+  <path d="M1260 0l-120 720"/><path d="M1530 0l-260 780"/><path d="M1790 0l-390 820"/>
+</g>
+<g opacity=".18" fill="#1f79b5" filter="url(#glow)">
+  <ellipse cx="1420" cy="350" rx="420" ry="330"/><ellipse cx="1670" cy="650" rx="360" ry="440"/>
+</g>
+
+<!-- Crown -->
+<g transform="translate(1220 130)" filter="url(#shadow)">
+  <path d="M0 210L95 292L210 90L322 290L432 88L545 294L640 210L602 430H42Z" fill="url(#gold)" stroke="#6e4310" stroke-width="24" stroke-linejoin="round"/>
+  <circle cx="95" cy="292" r="24" fill="#ffd982"/><circle cx="210" cy="90" r="28" fill="#ffd982"/><circle cx="322" cy="290" r="24" fill="#d7a53e"/><circle cx="432" cy="88" r="28" fill="#ffd982"/><circle cx="545" cy="294" r="24" fill="#ffd982"/>
+  <path d="M82 450H565" stroke="#f2c75c" stroke-width="32" stroke-linecap="round"/>
+</g>
+
+<!-- Gorilla head -->
+<g transform="translate(1030 390)" filter="url(#shadow)">
+  <path d="M415 35C220 35 90 172 54 360c-46 239 48 566 192 733 93 108 204 155 340 155 144 0 265-60 359-183 127-166 195-458 142-689C1044 189 866 35 674 35Z" fill="url(#fur)" stroke="#0a0f14" stroke-width="28"/>
+  <path d="M126 352C46 318-10 360 7 474c12 84 60 140 141 151" fill="#0b1218" stroke="#1e3343" stroke-width="20"/>
+  <path d="M1010 352c82-34 138 8 121 122-13 84-62 140-143 151" fill="#0b1218" stroke="#1e3343" stroke-width="20"/>
+  <path d="M256 330c94-102 248-132 342-36M694 295c100-58 236-24 298 68" fill="none" stroke="#405d71" stroke-width="30" stroke-linecap="round"/>
+  <path d="M270 446c94-78 203-77 284-15-104 9-191 22-284 15Zm440-4c85-60 191-58 276 21-90 4-183-4-276-21Z" fill="#05080b"/>
+  <ellipse cx="422" cy="440" rx="32" ry="18" fill="#d06b2e"/><ellipse cx="825" cy="449" rx="32" ry="18" fill="#d06b2e"/>
+  <ellipse cx="423" cy="441" rx="12" ry="9" fill="#ffd38d"/><ellipse cx="824" cy="449" rx="12" ry="9" fill="#ffd38d"/>
+  <path d="M414 540c72-66 244-68 321 0 54 49 64 151 20 223-55 91-286 95-362 3-59-72-39-169 21-226Z" fill="#101920" stroke="#263947" stroke-width="18"/>
+  <ellipse cx="515" cy="623" rx="54" ry="38" fill="#020507"/><ellipse cx="676" cy="623" rx="54" ry="38" fill="#020507"/>
+  <path d="M443 805c91 58 228 58 319 0-38 111-101 162-161 162-66 0-125-52-158-162Z" fill="#070b0f" stroke="#1d2b35" stroke-width="16"/>
+  <path d="M330 965c160 73 379 79 552 7M288 1048c181 79 436 84 632 5" fill="none" stroke="#243947" stroke-width="22" opacity=".7"/>
+  <path d="M181 560c-72 177-74 388 26 574M1010 570c76 181 77 374-15 552" fill="none" stroke="#244b67" stroke-width="28" opacity=".52"/>
+</g>
+
+<!-- Crowd silhouettes -->
+<g fill="#020609">
+  <path d="M0 1400v-195c42-120 104-106 139 8 42-150 116-164 168 7 44-114 107-119 151 11 49-145 128-139 168 3 42-126 115-132 160 4 56-171 137-161 185 2 43-126 111-133 157 1 48-153 126-144 170 4 48-131 116-137 159 0 50-168 135-161 182 3 43-125 115-133 158 1 49-151 127-143 171 3 45-128 113-136 158 1 54-164 135-155 185 4 44-130 111-134 154-3v205z"/>
+</g>
+
+<!-- Left readability veil -->
+<rect x="0" y="0" width="1160" height="1400" fill="url(#bg)" opacity=".72"/>
+<rect x="0" y="0" width="1380" height="1400" fill="url(#blue)" opacity=".08"/>
+</svg>
