@@ -84,6 +84,7 @@ def main():
                             expect(hero.count()==1, f'Chromium {width}px uses the bundled fallback only when no CMS hero is published')
                             geometry=hero.evaluate('(n)=>{const r=n.getBoundingClientRect();return {w:r.width,h:r.height,fit:getComputedStyle(n).objectFit};}')
                             expect(geometry['fit'] in ['cover','contain'] and geometry['w'] > 0 and geometry['h'] > 0, f'Chromium {width}px hero artwork renders with a valid fit and geometry')
+                            expect(r'\n\n' not in page.locator('.purpose-section .prose').inner_text(), f'Chromium {width}px home fallback renders paragraph breaks instead of escape text')
                         screenshot_routes={'':'home','music/':'music','shows/':'shows','band/':'band','media/':'media','press/':'press','booking/':'booking','shop/':'merch'}
                         if route in screenshot_routes:
                             screenshot(page, f'public-{width}-' + screenshot_routes[route])
