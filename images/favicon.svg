@@ -1,1 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#071522"/><path d="M12 18l9 8 11-16 11 16 9-8-5 22H17z" fill="#e2b354"/><path d="M17 46h30" stroke="#e2b354" stroke-width="5"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Spiritual Gorillaz">
+<rect width="64" height="64" rx="12" fill="#03080e"/>
+<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe18a"/><stop offset=".55" stop-color="#e8b64d"/><stop offset="1" stop-color="#9f6718"/></linearGradient></defs>
+<path d="M8 16l10 8 14-18 14 18 10-8-5 24H13z" fill="url(#g)" stroke="#75480e" stroke-width="2"/>
+<path d="M17 45h30" stroke="#f0c35e" stroke-width="5" stroke-linecap="round"/>
+<text x="32" y="59" text-anchor="middle" font-family="Impact,Arial Narrow,sans-serif" font-size="12" font-style="italic" font-weight="900" fill="#f0c35e">SG</text>
+</svg>
