@@ -1,18 +1,22 @@
-# Spiritual Gorillaz — 1.0.1
+# Spiritual Gorillaz — 1.0.2
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design.
 
-## 1.0.1 concept rebuild update
+## 1.0.2 concept-header refinement
 
-Version 1.0.1 is the first supported in-place upgrade after the installed 1.0.0 release. It carries the approved Spiritual Gorillaz concept rebuild into the real application rather than handing an unusable same-version replacement to an existing 1.0.0 site.
+Version 1.0.2 continues the approved-concept rebuild with the header and Home hero geometry shown in the owner-approved reference panels.
 
 The update includes:
-- native-resolution Home, Music, Shows, Band, Booking and Merch artwork;
-- the approved black/deep-navy, electric-blue stage-light and gold visual direction;
-- strict title containment at desktop, tablet and mobile widths;
-- real HTML/CSS/PHP navigation, headings, buttons, forms, music controls and cards kept separate from artwork;
-- cache-busted bundled CSS, JavaScript, logos and artwork so a completed upgrade cannot continue showing the old browser-cached presentation;
+- a larger stacked crown-and-wordmark logo that is closer to the approved reference identity;
+- a substantially larger, centered desktop navigation system;
+- a larger Search control with an accessible expandable search box;
+- a full-width cinematic Home hero instead of a visibly split text/image presentation;
+- a left-side content container layered over the full hero artwork;
+- preserved strict title containment at desktop, tablet, 390 px and 360 px widths;
+- release-version cache busting for bundled CSS, JavaScript, logos and artwork;
 - preserved CMS, content, media, booking, commerce, customer, backup and recovery data.
+
+Version 1.0.2 is a cumulative in-place upgrade and includes all 1.0.1 native-resolution artwork and layout work.
 
 ## Implemented application
 
@@ -47,11 +51,11 @@ Validate the source/package contract with:
 
 The package excludes tests, development tools, runtime/private state, credentials, sessions, backups and recovery receipts. Existing installations upgrade through **System & maintenance → Browser upgrades**; never reinstall or replace the existing database/configuration to apply an update.
 
-An existing 1.0.0 installation must receive the 1.0.1 cumulative Full ZIP. The upgrade validator intentionally refuses same-version replacements and downgrades.
+An existing 1.0.0 or 1.0.1 installation must receive the cumulative `Spiritual-Gorillaz-1.0.2-Full.zip`. The upgrade validator intentionally refuses same-version replacements and downgrades.
 
 ## Release boundary
 
-Version 1.0.1 changes the installed application code and bundled visual assets while preserving owner data and the guarded recovery workflow. Commerce remains intentionally disabled unless the owner activates it after genuine provider acceptance.
+Version 1.0.2 changes the bundled logo, public header, Search disclosure and Home hero layout while preserving owner data and the guarded recovery workflow. Commerce remains intentionally disabled unless the owner activates it after genuine provider acceptance.
 
 Items not directly re-observed—such as a particular recent cron execution, a fresh production rollback drill, or host-specific performance measurements—are operational follow-ups and are not claimed as passed.
 
