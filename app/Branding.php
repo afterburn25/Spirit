@@ -114,9 +114,9 @@ final class Branding
     /** Bundled scalable fallback mirrors the existing crown + wordmark identity. */
     public static function bundledMark(bool $footer = false): string
     {
-        $file=Paths::root().'/images/spiritual-gorillaz-logo.svg';
+        $file=Paths::root().'/images/spiritual-gorillaz-logo.png';
         if(!is_file($file)||is_link($file)){return '';}
-        return '<span class="bundled-brand-wrap"><img class="bundled-site-logo" src="'.e(app_url('images/spiritual-gorillaz-logo.svg')).'" width="1200" height="420" alt="" loading="'.($footer?'lazy':'eager').'" decoding="async"></span>';
+        return '<span class="bundled-brand-wrap"><img class="bundled-site-logo" src="'.e(app_url('images/spiritual-gorillaz-logo.png')).'" width="1536" height="1024" alt="" loading="'.($footer?'lazy':'eager').'" decoding="async"></span>';
     }
 
     /** Original ratio and transparency are retained; no arbitrary image URL. */
