@@ -11,7 +11,7 @@
 <ellipse cx="1070" cy="120" rx="480" ry="360" fill="url(#blue)"/>
 <ellipse cx="1430" cy="380" rx="360" ry="420" fill="url(#blue)" opacity=".7"/>
 <g mask="url(#m)">
-  <image x="535" y="-20" width="1080" height="860" href="data:image/webp;base64,UklGRqAkAABXRUJQVlA4IJQkAAAQoACdASr4ABUBPqlInUsmJCKnqjcsMPAV
+  <image x="650" y="10" width="900" height="825" href="data:image/webp;base64,UklGRqAkAABXRUJQVlA4IJQkAAAQoACdASr4ABUBPqlInUsmJCKnqjcsMPAV
 CWVtyDASXdzlnTV+aTU33/XyubFZHlM+bIbDJwfHN2J5pfc7IwzGeemopiz2
 34A93DxBPLbwT/yvqAeTR/y+Wn7L9gkzqL3wccaXRaWox9No7bR93EnJ0fKc
 0T+rFAsVrplLqDiZp/kf0Pyq7Kj7YbK09yOkYsg58ezo4avm9E68TMDI43wP
@@ -220,7 +220,7 @@ Mhxb8tuc1begoptDFihCc0dt8aNzXwgJkcbIjK6iEmg9gC594lkEwoyXqHSD
 hRfk8CcckZ8C2xIITvbJZp89cp3ooS2ukmcfvX4Day3xgEHHFuoBDM7vFMl7
 aJD9EEMbAFwwNEbqNuht1WtvJQR9sW3Mqe1TNB9Jj42uSoBbWyRpkNQyGOHO
 tY1COokMG+UZ+b6XQ388WGyHpvlIAAAA
-" preserveAspectRatio="xMidYMid slice"/>
+" preserveAspectRatio="xMidYMin meet"/>
 </g>
 <g stroke="#66c8ff" stroke-width="13" opacity=".14">
   <path d="M830 0l180 680"/><path d="M1090 0l-60 690"/><path d="M1450 0l-260 700"/>
