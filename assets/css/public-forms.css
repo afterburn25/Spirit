@@ -3,3 +3,14 @@
 .search-section{max-width:1180px;margin-inline:auto;padding:60px 28px}.site-search{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) auto;gap:20px;align-items:end;margin:32px 0}.site-search label{display:grid;gap:10px;min-width:0}.site-search input,.site-search select{width:100%;min-width:0}.search-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}.search-results article{padding:26px;background:#091725;border:1px solid #2b4051;min-width:0}.search-results h2,.search-results p{overflow-wrap:anywhere}.search-results h2{font-size:1.7rem}.search-pagination{display:flex;gap:20px;justify-content:space-between;margin-block:30px}@media(max-width:700px){.site-search,.search-results{grid-template-columns:minmax(0,1fr)}.search-section{padding:38px 20px}.search-pagination{flex-wrap:wrap}}
 /* Intrinsic attributes reserve ratio; responsive non-cropped images keep it. */
 img{height:auto}
+
+
+/* Approved concept booking form */
+.concept-booking .booking-types{margin:20px 0 24px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 18px}
+.concept-booking .booking-types p{margin:5px 0;font-size:12px}.concept-booking .booking-types span{color:#e6ad3f;margin-right:8px}
+.concept-booking .booking-form-panel{padding:22px 24px;background:#07131d;border:1px solid #345267}
+.concept-booking .booking-form-panel:before{content:"BOOK THE BAND";display:block;padding-bottom:11px;margin-bottom:16px;border-bottom:1px solid rgba(226,173,67,.22);font-size:10px;font-weight:800;letter-spacing:.16em;color:#e7bf65}
+.concept-booking .public-form{gap:12px}.concept-booking .public-form label{font-size:10px;text-transform:uppercase;letter-spacing:.06em}
+.concept-booking .public-form input:not([type=checkbox]),.concept-booking .public-form textarea,.concept-booking .public-form select{min-height:40px;padding:9px 11px;background:#04101a;border-color:#29485c}
+.concept-booking .public-form textarea{min-height:96px}.concept-booking .public-form .button.wide{min-height:46px;background:linear-gradient(180deg,#efbf4f,#cf9127)}
+@media(max-width:600px){.concept-booking .booking-types{grid-template-columns:1fr}.concept-booking .booking-form-panel{padding:18px}}
