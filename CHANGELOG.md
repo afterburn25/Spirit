@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.2 — concept header, logo and full-width hero
+
+Version 1.0.2 brings the public header and Home hero closer to the approved reference panels.
+
+Changes:
+- replace the narrow fallback wordmark with a larger stacked crown-and-wordmark SVG;
+- enlarge and center the primary desktop navigation;
+- enlarge the Book the band and Search controls;
+- replace the Search link with an accessible expandable search box that supports Escape, outside-click dismissal and the `/` keyboard shortcut;
+- stretch the Home artwork across the complete hero instead of presenting a visible left/right split;
+- place the real HTML headline, copy and actions inside a controlled left-side content container over the artwork;
+- retain desktop, tablet, 390 px and 360 px title containment;
+- preserve the 1.0.1 native-resolution page artwork and cache-busted static assets.
+
 ## 1.0.1 — approved-concept in-place upgrade
 
 Version 1.0.1 is the supported upgrade for existing 1.0.0 installations. The prior concept-rebuild handoff incorrectly remained numbered 1.0.0, which the guarded browser upgrader intentionally refuses as a same-version replacement. This release corrects that deployment defect.
