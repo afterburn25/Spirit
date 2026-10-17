@@ -10,18 +10,16 @@ The approved Spiritual Gorillaz concept moodboard remains the literal visual sou
 - Responsive Home and Music layouts use the new production assets
 - Existing CMS artwork overrides remain preserved
 - Legacy low-resolution concept crops have been removed from public fallbacks
-- Shows, Band, Booking and Merch now use sharp native artwork treatments while their dedicated masters are reconstructed
+- Dedicated native-resolution Shows, Band, Booking and Merch artwork masters are integrated
 - Actual installed-site screenshots are rendered at desktop and mobile sizes for every review package
 - Home title now has a dedicated safe-width column at desktop, tablet and phone sizes
 - Phone title sizing was reduced so `MUSIC`, `WITH A HIGHER`, and `PURPOSE` remain three deliberate lines
 - Automated visual tests reject any build where a Home title line wraps unexpectedly or leaves its container
 
-## Remaining dedicated artwork reconstruction
+## Remaining visual work
 
-- Shows hero master
-- Band hero atmosphere without fabricated member portraits
-- Booking road-case / stage master
-- Merch stage master
+- Final crop and contrast tuning after screenshot review
+- Real member portraits and product photography when supplied by the owner
 
 ## Release rule
 

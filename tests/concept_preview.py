@@ -98,6 +98,16 @@ def main() -> None:
                             ]
                             if metrics['scrollWidth'] > metrics['clientWidth'] + 1 or len(metrics['segments']) != 3 or invalid_segments:
                                 raise AssertionError(f'Home title leaves its copy container at {width}px: {metrics}')
+                        if name != 'home':
+                            selector = '.concept-booking h1' if name == 'booking' else ('.concept-merch-heading h1' if name == 'merch' else '.page-hero h1')
+                            for title in page.locator(selector).all():
+                                bounds = title.evaluate('''node => {
+                                    const box = node.getBoundingClientRect();
+                                    const parent = node.parentElement.getBoundingClientRect();
+                                    return {left: box.left, right: box.right, parentLeft: parent.left, parentRight: parent.right, scrollWidth: node.scrollWidth, clientWidth: node.clientWidth};
+                                }''')
+                                if bounds['left'] < bounds['parentLeft'] - 1 or bounds['right'] > bounds['parentRight'] + 1 or bounds['scrollWidth'] > bounds['clientWidth'] + 1:
+                                    raise AssertionError(f'{name} title leaves its container at {width}px: {bounds}')
                         page.screenshot(
                             path=str(output / f'concept-{width}-{name}.png'),
                             full_page=True,
