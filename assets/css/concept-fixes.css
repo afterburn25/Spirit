@@ -1,0 +1,4 @@
+/* Final review fixes loaded after the approved concept production layer. */
+@media (max-width: 820px) {
+  .concept-home .scroll-cue { display: none; }
+}
