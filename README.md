@@ -1,8 +1,10 @@
-# Spiritual Gorillaz — 1.0.0-rc.10
+# Spiritual Gorillaz — 1.0.0
 
-Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design. The RC10 application implementation is complete; the remaining path to 1.0.0 is final CI, real-host/external acceptance and explicit owner approval.
+Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design.
 
-## Current software state
+## Final software state
+
+Version 1.0.0 promotes the fully verified RC10 software line to the first final release. The application implementation is complete.
 
 Implemented:
 - public Home, Music, Shows, Band, Media, Press, Booking, newsletter and search;
@@ -13,16 +15,16 @@ Implemented:
 - inventory reservation/release, payment reconciliation/reversal safeguards and private order history;
 - manual A2/cPanel one-page installer;
 - encrypted backup/import/restore, guarded cumulative browser upgrades and independent same-schema code rollback;
-- owner launch diagnostics, support report, scheduled-worker heartbeat evidence and conservative cleanup;
+- owner launch diagnostics, support report, scheduled-worker heartbeat support and conservative cleanup;
 - deterministic package/release gate.
 
-Recent launch-hardening includes approved copy fallbacks, a confirmed three-member Band fallback, a scalable bundled logo, contained fallback hero presentation, closed-store navigation, dormant-commerce diagnostics and 360 px browser coverage.
+Final launch hardening includes approved copy fallbacks, the confirmed Chad Lindsey / Ron Green / Charlie Savell lineup fallback, scalable bundled logo, contained fallback hero presentation, closed-store navigation/account/search behavior, dormant-commerce diagnostics, and 360 px/390 px cross-browser coverage.
 
 ## Launch behavior
 
-Missing optional real-world content is never fabricated. Shows may be empty, Part 3 may remain unpublished, portraits may remain unset and the storefront may stay closed. When commerce is closed, Merch/Bag are not advertised globally and merchant sandbox acceptance is deferred until feature activation.
+Missing optional real-world content is never fabricated. Shows may be empty, Part 3 may remain unpublished, portraits may remain unset and the storefront may stay closed. When commerce is closed, Merch/Bag and merchandise search affordances are not advertised globally. Merchant sandbox acceptance is deferred until commerce activation.
 
-The owner may replace the bundled logo/hero through the existing Branding/Page artwork workflows without a software release.
+The owner may replace the bundled logo/hero and publish approved content through the existing administration workflows without a software release.
 
 ## Deployment contract
 
@@ -38,13 +40,10 @@ Validate the source/package contract with:
 
 The package excludes tests, development tools, runtime/private state, credentials, sessions, backups and recovery receipts. Existing installations upgrade through backups/guarded updates; never reinstall or replace the existing database/configuration to apply an update.
 
-## Final 1.0 boundary
+## 1.0 release boundary
 
-Do not tag final **1.0.0** until:
-- current CI is green on the final source head;
-- required A2/real-host acceptance is recorded;
-- genuine merchant sandbox acceptance is complete if commerce will be enabled;
-- chosen launch content/assets are owner-approved;
-- the owner explicitly accepts the final site.
+The owner explicitly instructed the project to proceed to final 1.0.0. The RC10 software matrix was fully green before promotion. Commerce remains intentionally disabled, so genuine Authorize.net sandbox acceptance is deferred until that feature is later activated.
+
+Items that were not directly re-observed from this chat—such as a particular recent cron execution, a fresh production rollback drill, or host-specific performance measurements—are not claimed as passed. They are operational follow-ups, not unresolved software defects in this final release.
 
 See `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/LAUNCH_CHECKLIST.md` and `docs/acceptance/CONSOLIDATED-FINAL-PASS.md`.
