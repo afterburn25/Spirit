@@ -1,0 +1,38 @@
+name: Apply final Home concept composition
+on:
+  push:
+    branches: [work/concept-exact-rebuild]
+    paths:
+      - .github/workflows/apply-final-home-concept.yml
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: work/concept-exact-rebuild
+          persist-credentials: true
+      - name: Add protected title lines and the Peace Music Unity statement
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('views/public/sections.php')
+          text = path.read_text(encoding='utf-8')
+          old = '''<section class="home-hero concept-home"><div class="hero-artwork" aria-hidden="true"><?php if(!empty($homeData['image_id'])):?><?=PublicSite::image((int)$homeData['image_id'],'','hero-art focal-'.SectionPages::focal($pageContent),true)?><?php else:?><img class="hero-art fallback-hero" width="2288" height="1824" src="<?=e(app_url('images/spiritual-gorillaz-home-hero.png'))?>" alt="" fetchpriority="high"><?php endif;?></div><div class="hero-copy"><p class="eyebrow hero-kicker">SPIRITUAL GORILLAZ</p><h1>MUSIC<br>WITH A HIGHER<br><em>PURPOSE</em></h1><p class="hero-intro"><?=e(SectionPages::text($pageContent,'subtitle','Real People. Real Music. A Stronger Tomorrow.'))?></p><div class="button-row"><a class="button" href="<?=e(app_url('music/'))?>"><span aria-hidden="true">▶</span> Listen to the music</a><a class="button outline" href="<?=e(app_url($videos?'media/':'band/'))?>"><?=$videos?'Watch a performance':'Meet the band'?></a></div></div><div class="hero-bottom"><p>MORE THAN A BAND.<br><strong>A MOVEMENT.</strong></p><a href="#latest" class="scroll-cue">SCROLL <span aria-hidden="true">↓</span></a></div></section>'''
+          new = '''<section class="home-hero concept-home"><div class="hero-artwork" aria-hidden="true"><?php if(!empty($homeData['image_id'])):?><?=PublicSite::image((int)$homeData['image_id'],'','hero-art focal-'.SectionPages::focal($pageContent),true)?><?php else:?><img class="hero-art fallback-hero" width="2288" height="1824" src="<?=e(app_url('images/spiritual-gorillaz-home-hero.png'))?>" alt="" fetchpriority="high"><?php endif;?></div><div class="hero-copy"><p class="eyebrow hero-kicker">SPIRITUAL GORILLAZ</p><h1><span>MUSIC</span><span>WITH A HIGHER</span><em>PURPOSE</em></h1><p class="hero-intro"><?=e(SectionPages::text($pageContent,'subtitle','Real People. Real Music. A Stronger Tomorrow.'))?></p><div class="button-row"><a class="button" href="<?=e(app_url('music/'))?>"><span aria-hidden="true">▶</span> Listen to the music</a><a class="button outline" href="<?=e(app_url($videos?'media/':'band/'))?>"><span aria-hidden="true">▣</span> <?=$videos?'Watch a performance':'Meet the band'?></a></div></div><p class="hero-manifesto" aria-label="Peace. Music. Unity."><span>Peace</span><span>Music</span><span>Unity</span></p><div class="hero-bottom"><p>MORE THAN A BAND.<br><strong>A MOVEMENT.</strong></p><a href="#latest" class="scroll-cue">SCROLL <span aria-hidden="true">↓</span></a></div></section>'''
+          if old not in text:
+              raise RuntimeError('Expected Home hero markup was not found')
+          path.write_text(text.replace(old, new, 1), encoding='utf-8')
+          PY
+      - name: Commit Home concept composition
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add views/public/sections.php
+          git commit -m "ui: finish the approved Home hero composition"
+          git push origin HEAD:work/concept-exact-rebuild
