@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 520" role="img" aria-labelledby="t d">
+<title id="t">Blue and gold stage atmosphere</title><desc id="d">Abstract blue stage lights with a gold spotlight over a dark crowd.</desc>
+<defs><linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#071522"/><stop offset=".7" stop-color="#06111a"/><stop offset="1" stop-color="#02070b"/></linearGradient><radialGradient id="blue"><stop stop-color="#67c9ff" stop-opacity=".75"/><stop offset="1" stop-color="#14679f" stop-opacity="0"/></radialGradient><radialGradient id="gold"><stop stop-color="#ffd27a" stop-opacity=".85"/><stop offset="1" stop-color="#b36e18" stop-opacity="0"/></radialGradient></defs>
+<rect width="1400" height="520" fill="url(#b)"/><ellipse cx="240" cy="70" rx="340" ry="260" fill="url(#blue)"/><ellipse cx="650" cy="40" rx="330" ry="240" fill="url(#blue)" opacity=".65"/><ellipse cx="1130" cy="45" rx="300" ry="240" fill="url(#gold)"/>
+<g stroke="#62c4ff" stroke-width="8" opacity=".25"><path d="M90 0l250 420"/><path d="M550 0l-120 420"/><path d="M770 0l120 420"/></g>
+<path d="M0 520V440q44-76 88 0 44-90 88 0 44-65 88 0 44-90 88 0 44-72 88 0 44-100 88 0 44-75 88 0 44-95 88 0 44-70 88 0 44-98 88 0 44-75 88 0 44-90 88 0 44-72 88 0 44-90 88 0 44-65 88 0 44-90 88 0v80z" fill="#03080d"/>
+</svg>
