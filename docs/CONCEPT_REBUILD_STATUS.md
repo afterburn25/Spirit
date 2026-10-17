@@ -14,15 +14,18 @@ The approved Spiritual Gorillaz concept moodboard remains the literal visual sou
 - Existing CMS artwork overrides remain preserved
 - Legacy low-resolution concept crops have been removed from public fallbacks
 - Actual installed-site screenshots are rendered at desktop and mobile sizes for every review package
+- Home hero now spans the full stage while copy remains in a protected left-side container
+- Header now uses the larger brush-style gold wordmark, centered oversized navigation, prominent Book the Band CTA and larger search control from the approved reference
+- Search control opens a keyboard-accessible dropdown search form with Popular Searches shortcuts
 - Home title has a dedicated safe-width column at desktop, tablet and phone sizes
 - Phone title sizing keeps `MUSIC`, `WITH A HIGHER`, and `PURPOSE` as three deliberate lines
 - Automated visual tests reject title overflow on every reviewed public page
 - Dedicated page crops, stacking, lighting, and mobile artwork visibility have been tuned from actual rendered screenshots
-- Upgrade integration now runs with an isolated 64 MiB PHP upload fixture so the production-size artwork package is tested rather than rejected by PHP's 2 MiB development default
+- Upgrade integration runs with an isolated 64 MiB PHP upload fixture so the production-size artwork package is tested rather than rejected by PHP's 2 MiB development default
 
 ## Remaining visual work
 
-- Final owner review of this dedicated-artwork checkpoint
+- Final owner review of this header, search and full-width Home checkpoint
 - Real member portraits and product photography when supplied by the owner
 
 ## Release rule
