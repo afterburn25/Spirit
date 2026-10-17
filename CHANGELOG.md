@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.0.0-rc.10 — dormant-store search cleanup
+
+RC10 fixes the final closed-store public inconsistency found during live acceptance: the Search page still advertised merchandise and exposed a Merchandise filter even while the storefront was disabled.
+
+Changes:
+- hide the Merchandise search filter while the storefront is disabled;
+- use non-commerce Search introduction/empty-state copy while the storefront is disabled;
+- preserve merchandise search when the storefront is enabled;
+- add closed-store browser coverage for Search copy/filter behavior.
+
+RC9 remains frozen as the verified historical candidate.
+
+
 ## 1.0.0-rc.9 — dormant-store customer navigation fix
 
 RC9 fixes one real post-RC8 runtime inconsistency discovered during live acceptance: customer account pages were hard-coded to present themselves as shop pages and always advertised Merchandise / Your bag even when the storefront was disabled.
