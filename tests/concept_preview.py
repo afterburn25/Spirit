@@ -98,6 +98,16 @@ def main() -> None:
                             ]
                             if metrics['scrollWidth'] > metrics['clientWidth'] + 1 or len(metrics['segments']) != 3 or invalid_segments:
                                 raise AssertionError(f'Home title leaves its copy container at {width}px: {metrics}')
+                            hero = page.locator('.concept-home')
+                            art = page.locator('.concept-home .hero-artwork')
+                            hero_bounds = hero.bounding_box()
+                            art_bounds = art.bounding_box()
+                            if not hero_bounds or not art_bounds or abs(hero_bounds['width'] - art_bounds['width']) > 2:
+                                raise AssertionError(f'Home artwork does not span the hero at {width}px: hero={hero_bounds}, art={art_bounds}')
+                            if width == 1440:
+                                logo_width = page.locator('.site-header .bundled-site-logo,.site-header .site-logo').first.bounding_box()
+                                if not logo_width or logo_width['width'] < 145:
+                                    raise AssertionError(f'Header logo is still too small: {logo_width}')
                         if name != 'home':
                             selector = '.concept-booking h1' if name == 'booking' else ('.concept-merch-heading h1' if name == 'merch' else '.page-hero h1')
                             for title in page.locator(selector).all():
@@ -112,6 +122,26 @@ def main() -> None:
                             path=str(output / f'concept-{width}-{name}.png'),
                             full_page=True,
                         )
+
+                    page.goto(current.base, wait_until='networkidle')
+                    if width <= 820:
+                        page.locator('.nav-toggle').click()
+                    search_toggle = page.locator('.nav-search-toggle')
+                    search_toggle.click()
+                    panel = page.locator('#site-search-panel')
+                    if not panel.is_visible():
+                        raise AssertionError(f'Search panel did not open at {width}px')
+                    if search_toggle.get_attribute('aria-expanded') != 'true':
+                        raise AssertionError(f'Search control did not expose expanded state at {width}px')
+                    if page.evaluate('document.activeElement !== document.getElementById("site-search-input")'):
+                        raise AssertionError(f'Search input did not receive focus at {width}px')
+                    panel_bounds = panel.bounding_box()
+                    if not panel_bounds or panel_bounds['x'] < -1 or panel_bounds['x'] + panel_bounds['width'] > width + 1:
+                        raise AssertionError(f'Search panel leaves the viewport at {width}px: {panel_bounds}')
+                    page.screenshot(path=str(output / f'concept-{width}-search-open.png'), full_page=True)
+                    page.keyboard.press('Escape')
+                    if panel.is_visible():
+                        raise AssertionError(f'Search panel did not close with Escape at {width}px')
                     context.close()
                 browser.close()
 
