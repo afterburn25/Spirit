@@ -20,7 +20,7 @@ The approved Spiritual Gorillaz concept moodboard remains the literal visual sou
 
 ## Remaining visual work
 
-- Final crop, lighting and contrast tuning after screenshot review
+- Dedicated page crops, stacking, lighting and mobile visibility tuned after screenshot review
 - Real member portraits and product photography when supplied by the owner
 
 ## Release rule
