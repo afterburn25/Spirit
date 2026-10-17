@@ -55,10 +55,11 @@ Preparation in Git is not CMS publication.
 
 ## Final blockers
 
-1. Observe the latest CI matrix on the final source head and fix only genuine failures.
-2. Obtain explicit owner acceptance of the final site/launch choices.
-3. Record actual A2/real-host observations still required by the launch checklist (including scheduled worker evidence/recovery drill/performance where applicable).
-4. If commerce will be enabled, complete genuine Authorize.net sandbox/provider acceptance before enabling it.
-5. Publish only owner-approved real content/assets.
+1. RC10 CI is fully green on verified source commit `2a833986f5a39d2f8de99f41bd8640b0642648e8`; do not reopen software work unless a genuine new defect appears.
+2. Deploy verified RC10 to production and confirm the Search page closed-store behavior.
+3. Obtain explicit owner acceptance of the final site/launch choices.
+4. Record remaining applicable A2/real-host observations still required by the launch checklist (scheduled worker evidence, recovery drill and performance where applicable).
+5. If commerce will be enabled, complete genuine Authorize.net sandbox/provider acceptance before enabling it.
+6. Publish only owner-approved real content/assets.
 
 Do not tag **1.0.0** until these are satisfied. The release gate intentionally refuses a final version while PROJECT_STATUS still declares blockers.
