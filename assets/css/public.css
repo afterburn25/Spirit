@@ -67,3 +67,30 @@
 .concept-shows-art{position:absolute;right:0;top:0;width:60%;height:100%;object-fit:cover;object-position:58% 50%;z-index:0;filter:brightness(.76) contrast(1.08) saturate(1.1);mask-image:linear-gradient(90deg,transparent 0,black 24%,black 100%)}
 @media(max-width:820px){.concept-shows>div:first-child{max-width:72%}.concept-shows-art{width:88%;right:-28%;opacity:.72}}
 @media(max-width:600px){.concept-shows>div:first-child{max-width:84%}.concept-shows-art{width:118%;right:-55%;opacity:.56}}
+
+/* Home fidelity correction: restore the bright crown, blue-stage energy and audience band from the approved panel. */
+.concept-home .hero-art{filter:saturate(1.28) contrast(1.12) brightness(1.12);object-position:54% 18%;transform:scale(1.08)}
+.concept-home .hero-artwork:before{background:
+  radial-gradient(ellipse at 58% 8%,rgba(70,174,255,.30),transparent 28%),
+  radial-gradient(ellipse at 82% 26%,rgba(23,116,183,.30),transparent 31%),
+  radial-gradient(ellipse at 70% 74%,rgba(2,102,177,.28),transparent 35%)}
+.concept-home .hero-artwork:after{background:
+  linear-gradient(90deg,#02070c 0%,rgba(2,7,12,.88) 11%,rgba(2,7,12,.35) 32%,transparent 57%),
+  linear-gradient(0deg,#02070c 0%,rgba(2,7,12,.08) 16%,transparent 31%,transparent 90%,#02070c 100%)}
+.concept-home:after{content:"";position:absolute;left:0;right:0;bottom:0;height:31%;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(circle at 4% 77%,#02060a 0 18px,transparent 19px),
+    radial-gradient(circle at 10% 68%,#03080d 0 23px,transparent 24px),
+    radial-gradient(circle at 17% 82%,#010509 0 24px,transparent 25px),
+    radial-gradient(circle at 25% 69%,#02060a 0 20px,transparent 21px),
+    radial-gradient(circle at 34% 80%,#010509 0 25px,transparent 26px),
+    radial-gradient(circle at 44% 66%,#02060a 0 22px,transparent 23px),
+    radial-gradient(circle at 53% 80%,#010509 0 26px,transparent 27px),
+    radial-gradient(circle at 62% 68%,#02060a 0 22px,transparent 23px),
+    radial-gradient(circle at 72% 82%,#010509 0 28px,transparent 29px),
+    radial-gradient(circle at 83% 67%,#02060a 0 23px,transparent 24px),
+    radial-gradient(circle at 93% 80%,#010509 0 28px,transparent 29px),
+    linear-gradient(0deg,#010407 0 45%,transparent 80%);
+  opacity:.98}
+.concept-home .hero-copy,.concept-home .hero-bottom{z-index:3}
+@media(max-width:820px){.concept-home .hero-art{filter:saturate(1.2) contrast(1.1) brightness(1.05);object-position:52% 16%}.concept-home:after{height:27%;opacity:.9}}
