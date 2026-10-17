@@ -53,13 +53,25 @@ $primaryLinks=[
         </span>
     </nav>
     <div class="site-search-panel" id="site-search-panel" hidden>
-        <form action="<?=e(app_url('pages/search.php'))?>" method="get" role="search">
-            <label for="site-search-input">Search Spiritual Gorillaz</label>
-            <div class="site-search-row">
-                <input id="site-search-input" name="q" type="search" maxlength="120" autocomplete="off" placeholder="Search music, shows, media and more">
-                <button type="submit">Search</button>
-            </div>
-        </form>
+        <div class="site-search-head">
+            <form action="<?=e(app_url('pages/search.php'))?>" method="get" role="search">
+                <label class="site-search-label" for="site-search-input">Search Spiritual Gorillaz</label>
+                <div class="site-search-row">
+                    <svg class="site-search-field-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.75"></circle><path d="m15.7 15.7 5 5"></path></svg>
+                    <input id="site-search-input" name="q" type="search" maxlength="120" autocomplete="off" placeholder="Search Spiritual Gorillaz...">
+                    <button class="site-search-submit" type="submit" aria-label="Submit search"><span aria-hidden="true">→</span></button>
+                </div>
+            </form>
+            <button type="button" class="site-search-close" aria-label="Close site search"><span aria-hidden="true">×</span></button>
+        </div>
+        <p class="site-search-popular-title">Popular searches</p>
+        <nav class="site-search-popular" aria-label="Popular searches">
+            <a href="<?=e(app_url('music/'))?>"><span class="popular-icon" aria-hidden="true">♫</span><span>Music</span><span class="popular-arrow" aria-hidden="true">›</span></a>
+            <a href="<?=e(app_url('shows/'))?>"><span class="popular-icon" aria-hidden="true">◇</span><span>Shows</span><span class="popular-arrow" aria-hidden="true">›</span></a>
+            <a href="<?=e(app_url('band/'))?>"><span class="popular-icon" aria-hidden="true">♙</span><span>The Band</span><span class="popular-arrow" aria-hidden="true">›</span></a>
+            <?php if($storeEnabled||$active==='shop'):?><a href="<?=e(app_url('shop/'))?>"><span class="popular-icon" aria-hidden="true">♛</span><span>Merch</span><span class="popular-arrow" aria-hidden="true">›</span></a><?php endif;?>
+            <a href="<?=e(app_url('booking/'))?>"><span class="popular-icon" aria-hidden="true">▣</span><span>Book the Band</span><span class="popular-arrow" aria-hidden="true">›</span></a>
+        </nav>
     </div>
 </header>
 <main id="site-content" tabindex="-1" data-page="<?=e($active)?>">
