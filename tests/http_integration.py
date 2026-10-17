@@ -56,7 +56,7 @@ class Client:
         return self.request(path, {**data, 'csrf': token.group(1)})
 
 class Site:
-    def __init__(self, area: Path, archive: Path, code: None, subfolder: str):
+    def __init__(self, area: Path, archive: Path, code: None, subfolder: str, php_ini: dict[str, str] | None = None):
         self.home = area
         self.docroot = area / 'public_html'
         self.root = self.docroot / subfolder if subfolder else self.docroot
@@ -70,7 +70,11 @@ class Site:
             port = sock.getsockname()[1]
         self.base = f'http://127.0.0.1:{port}/' + (subfolder + '/' if subfolder else '')
         self.log = (area / 'php.log').open('w+')
-        self.process = subprocess.Popen(['php','-d','display_errors=0','-S',f'127.0.0.1:{port}','-t',str(self.docroot)], cwd=self.root, env=self.env, stdout=self.log, stderr=self.log)
+        php_command = ['php', '-d', 'display_errors=0']
+        for key, value in (php_ini or {}).items():
+            php_command.extend(['-d', f'{key}={value}'])
+        php_command.extend(['-S', f'127.0.0.1:{port}', '-t', str(self.docroot)])
+        self.process = subprocess.Popen(php_command, cwd=self.root, env=self.env, stdout=self.log, stderr=self.log)
         self.client = Client(self.base)
         self.runtime = area / ('.spirit-' + hashlib.sha256(str(self.root.resolve()).encode()).hexdigest()[:20])
         self.password = secrets.token_urlsafe(24)
@@ -117,8 +121,8 @@ class Site:
         self.database('cleanup')
 
 @contextlib.contextmanager
-def site(area: Path, archive: Path, code: None, subfolder: str = ''):
-    instance = Site(area, archive, code, subfolder)
+def site(area: Path, archive: Path, code: None, subfolder: str = '', php_ini: dict[str, str] | None = None):
+    instance = Site(area, archive, code, subfolder, php_ini)
     try:
         yield instance
     finally:

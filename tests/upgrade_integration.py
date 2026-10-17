@@ -28,6 +28,7 @@ def fixture(s, action, values=None):
 _core=re.match(r'^(\d+)\.(\d+)\.(\d+)',(ROOT/'VERSION').read_text().strip())
 if not _core:raise RuntimeError('Invalid source version for update fixture')
 TEST_UPDATE_VERSION=f'{_core[1]}.{_core[2]}.{int(_core[3])+1}-dev.999'
+UPGRADE_TEST_PHP_INI={'upload_max_filesize':'64M','post_max_size':'72M'}
 
 def package_bytes(archive, mode='good'):
     with zipfile.ZipFile(archive) as z:files={name:z.read(name) for name in z.namelist() if name!='docs/PACKAGE-MANIFEST.json'}
@@ -140,12 +141,12 @@ def main():
     with tempfile.TemporaryDirectory(prefix='spirit-upgrades-') as directory:
         base=Path(directory);archive,code=build_package(base/'packages')
         for subfolder in ['', 'band']:
-            with site(base/('root' if not subfolder else 'nested'),archive,code,subfolder) as s:
+            with site(base/('root' if not subfolder else 'nested'),archive,code,subfolder,php_ini=UPGRADE_TEST_PHP_INI) as s:
                 s.claim();s.client.form('install/',s.input());s.login();journey(s,archive)
-        with site(base/'faults',archive,code,'band') as s:
+        with site(base/'faults',archive,code,'band',php_ini=UPGRADE_TEST_PHP_INI) as s:
             s.claim();s.client.form('install/',s.input());s.login();failure_recovery(s,archive)
         # Use a separate installation for the real sensitive-action quota.
-        with site(base/'rate-limit',archive,code,'band') as s:
+        with site(base/'rate-limit',archive,code,'band',php_ini=UPGRADE_TEST_PHP_INI) as s:
             s.claim();s.client.form('install/',s.input());s.login()
             body=package_bytes(archive)
             for _ in range(12):upload(s,body,trust='0')
