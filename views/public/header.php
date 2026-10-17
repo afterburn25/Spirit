@@ -31,6 +31,7 @@ $primaryLinks=[
 <link rel="stylesheet" href="<?=e(app_url('assets/css/branding.css'))?>">
 <script defer src="<?=e(app_url('assets/js/branding.js'))?>"></script>
 <link rel="stylesheet" href="<?=e(app_url('assets/css/concept-header.css'))?>">
+<link rel="stylesheet" href="<?=e(app_url('assets/css/home-reference-polish.css'))?>">
 <script defer src="<?=e(app_url('assets/js/header-search.js'))?>"></script>
 </head>
 <body class="public-site">
