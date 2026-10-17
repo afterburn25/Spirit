@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-labelledby="t d">
+<title id="t">Spiritual Gorillaz band atmosphere</title>
+<desc id="d">A crowned gorilla silhouette behind blue stage light and concert haze.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#02070c"/><stop offset=".55" stop-color="#071a2a"/><stop offset="1" stop-color="#02070c"/></linearGradient>
+  <radialGradient id="blue"><stop stop-color="#56bdf8" stop-opacity=".65"/><stop offset="1" stop-color="#0a4875" stop-opacity="0"/></radialGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#ffe08a"/><stop offset=".55" stop-color="#dca744"/><stop offset="1" stop-color="#8b5715"/></linearGradient>
+</defs>
+<rect width="1400" height="760" fill="url(#bg)"/>
+<ellipse cx="1000" cy="160" rx="390" ry="330" fill="url(#blue)"/>
+<g opacity=".92" transform="translate(785 118)">
+  <path d="M80 115l72 46 88-128 88 128 72-46-30 170H110z" fill="url(#gold)" stroke="#5d370d" stroke-width="10"/>
+  <ellipse cx="240" cy="360" rx="205" ry="225" fill="#071018"/>
+  <ellipse cx="240" cy="345" rx="145" ry="168" fill="#0d1a24"/>
+  <path d="M136 312q104-83 208 0l-27 148q-77 58-154 0z" fill="#111f29"/>
+  <ellipse cx="184" cy="342" rx="28" ry="17" fill="#c87528"/><ellipse cx="296" cy="342" rx="28" ry="17" fill="#c87528"/>
+  <path d="M196 412q44 32 88 0" stroke="#71808a" stroke-width="10" fill="none" stroke-linecap="round"/>
+</g>
+<g stroke="#4fb4ef" stroke-width="8" opacity=".22"><path d="M820 0l160 600"/><path d="M1070 0l-70 600"/><path d="M1320 0l-190 600"/></g>
+<path d="M0 760V660q55-88 110 0 55-104 110 0 55-78 110 0 55-110 110 0 55-80 110 0 55-96 110 0 55-85 110 0 55-105 110 0 55-78 110 0 55-96 110 0 55-82 110 0 55-108 110 0 55-80 110 0v100z" fill="#03080d"/>
+</svg>
