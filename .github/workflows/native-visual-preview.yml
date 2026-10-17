@@ -2,8 +2,6 @@ name: Native visual preview
 on:
   push:
     branches: [work/concept-exact-rebuild]
-    paths:
-      - .github/workflows/native-visual-preview.yml
   workflow_dispatch:
 permissions:
   contents: read
@@ -55,8 +53,8 @@ jobs:
           python3 -m venv "$RUNNER_TEMP/spirit-browser"
           "$RUNNER_TEMP/spirit-browser/bin/pip" install playwright==1.57.0
           "$RUNNER_TEMP/spirit-browser/bin/python" -m playwright install --with-deps chromium
-      - name: Render actual public build
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/public_browser.py'
+      - name: Render actual concept review build
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/concept_preview.py'
       - name: Upload ZIP and screenshots
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
