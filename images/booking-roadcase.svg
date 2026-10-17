@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 900" role="img" aria-labelledby="t d">
+<title id="t">Band road cases</title><desc id="d">Dark touring road cases lit by blue and gold stage light.</desc>
+<defs><linearGradient id="b" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#02070c"/><stop offset=".55" stop-color="#0a2135"/><stop offset="1" stop-color="#05080b"/></linearGradient><radialGradient id="l"><stop stop-color="#65c7ff" stop-opacity=".6"/><stop offset="1" stop-color="#174e78" stop-opacity="0"/></radialGradient></defs>
+<rect width="1000" height="900" fill="url(#b)"/><ellipse cx="220" cy="180" rx="360" ry="320" fill="url(#l)"/>
+<g transform="translate(85 250)" stroke="#7d8790" stroke-width="8">
+<rect x="0" y="80" width="420" height="390" rx="12" fill="#151a1e"/><rect x="45" y="0" width="420" height="390" rx="12" fill="#1a2025"/>
+<path d="M45 75h420M45 320h420M125 0v390M390 0v390" stroke="#59636b"/><path d="M0 155h420M0 400h420M80 80v390M345 80v390" stroke="#4f5960"/>
+<rect x="205" y="160" width="110" height="72" fill="#080d11" stroke="#b88c37"/><path d="M232 181l27 22 27-22-11 43h-32z" fill="#d9ad4b" stroke="none"/>
+</g>
+<circle cx="790" cy="165" r="32" fill="#efb84b"/><circle cx="790" cy="165" r="95" fill="#efb84b" opacity=".08"/>
+</svg>
