@@ -1,6 +1,6 @@
-# Project status — 1.0.1 concept rebuild upgrade
+# Project status — 1.0.2 concept header refinement
 
-The application is **1.0.1**. This is the supported in-place visual upgrade for the installed 1.0.0 release.
+The application is **1.0.2**. This cumulative in-place upgrade includes the 1.0.1 native-resolution concept rebuild and the latest approved header/Home refinements.
 
 ## Software implementation status
 
@@ -8,15 +8,15 @@ The application is **1.0.1**. This is the supported in-place visual upgrade for 
 
 The public site, owner administration, content/media/music/shows/press, booking/email/newsletter, customer accounts, merchandise/orders/payments, branding, backups, guarded upgrades/recovery, diagnostics and shared-host installer are implemented.
 
-The 1.0.1 update adds:
-- native-resolution Home, Music, Shows, Band, Booking and Merch artwork aligned to the approved concept;
-- strict title containment at 1440 px, tablet widths, 390 px and 360 px;
-- release-version cache busting for bundled CSS, JavaScript, logo and image assets;
-- a genuinely newer cumulative package that an installed 1.0.0 site can stage and install;
-- preserved database content, settings, media, bookings, customers, orders, backups and private configuration;
-- full browser-upgrade/recovery verification.
-
-The complete verification matrix for the concept-rebuild branch covers PHP 8.4/MySQL, PHP 8.2/MariaDB, Apache HTTPS access rules, desktop/mobile public rendering, booking, commerce, customer accounts, staff permissions, backup/restore and ZIP upgrade/recovery.
+The 1.0.2 update adds:
+- a larger concept-style stacked crown-and-wordmark logo;
+- a substantially larger, centered desktop navigation;
+- a larger Book the band action and Search icon;
+- an accessible expandable search box;
+- a continuous full-width Home hero with the real content container layered on the left;
+- responsive header, search and hero behavior at desktop, tablet, 390 px and 360 px;
+- release-version cache busting for all bundled CSS, JavaScript, logo and image assets;
+- preserved database content, settings, media, bookings, customers, orders, backups and private configuration.
 
 ## Launch-safe content behavior
 
@@ -31,9 +31,9 @@ Truthfully empty optional sections are supported:
 
 ## Deployment decision
 
-Existing A2/cPanel installations must use **System & maintenance → Browser upgrades** and upload the cumulative `Spiritual-Gorillaz-1.0.1-Full.zip`. Do not rerun the installer, replace the database, or use the obsolete same-version 1.0.0 concept package.
+Existing A2/cPanel installations must use **System & maintenance → Browser upgrades** and upload the cumulative `Spiritual-Gorillaz-1.0.2-Full.zip`. Do not rerun the installer or replace the database/configuration.
 
-The upgrade remains cumulative and uses the existing staging, private recovery receipt, install, verification and rollback workflow.
+The upgrade uses the existing staging, private recovery receipt, install, verification and rollback workflow.
 
 ## Remaining blockers
 
@@ -41,8 +41,8 @@ None.
 
 ## Operational follow-ups
 
-- After applying 1.0.1, confirm the administration version reads 1.0.1.
-- Open the public site in a normal tab; versioned asset URLs force the new CSS and artwork to load without relying on a hard refresh.
+- After applying 1.0.2, confirm the administration version reads 1.0.2.
+- Review the larger logo, centered navigation, full-width Home hero and expandable Search control on desktop and phone.
 - Review Launch Checks after deployment and address any real warning that appears.
 - Observe scheduled-worker heartbeat freshness during normal operation.
 - Complete genuine Authorize.net sandbox/provider acceptance before enabling commerce.
