@@ -1,6 +1,6 @@
-# Project status — 1.0.0 final
+# Project status — 1.0.1 concept rebuild upgrade
 
-The application is **1.0.0**. The planned application scope is complete and the owner explicitly instructed the project to proceed to final release.
+The application is **1.0.1**. This is the supported in-place visual upgrade for the installed 1.0.0 release.
 
 ## Software implementation status
 
@@ -8,39 +8,32 @@ The application is **1.0.0**. The planned application scope is complete and the 
 
 The public site, owner administration, content/media/music/shows/press, booking/email/newsletter, customer accounts, merchandise/orders/payments, branding, backups, guarded upgrades/recovery, diagnostics and shared-host installer are implemented.
 
-Final launch-hardening includes:
-- approved launch copy as safe runtime fallbacks for Home, Music, Shows, Band, Media, Booking, Press and Merch;
-- confirmed three-member Band fallbacks for Chad Lindsey, Ron Green and Charlie Savell, including partial-profile publishing without duplicates or fake portraits;
-- scalable bundled crown/wordmark SVG fallback while preserving owner-managed logo publication;
-- contained fallback hero presentation;
-- responsive hardening at 360 px, 390 px and desktop widths;
-- cross-browser checkout/review/cancellation coverage in Chromium, Firefox and WebKit;
-- browser/server billing-address validation alignment;
-- closed-store navigation, customer-account and Search behavior;
-- launch diagnostics that distinguish dormant commerce from activation blockers;
-- private successful-run heartbeat support for the real mail/payment CLI workers;
-- deterministic software release gate.
+The 1.0.1 update adds:
+- native-resolution Home, Music, Shows, Band, Booking and Merch artwork aligned to the approved concept;
+- strict title containment at 1440 px, tablet widths, 390 px and 360 px;
+- release-version cache busting for bundled CSS, JavaScript, logo and image assets;
+- a genuinely newer cumulative package that an installed 1.0.0 site can stage and install;
+- preserved database content, settings, media, bookings, customers, orders, backups and private configuration;
+- full browser-upgrade/recovery verification.
 
-The complete RC10 GitHub Actions matrix was green on source commit `2a833986f5a39d2f8de99f41bd8640b0642648e8` before final promotion.
+The complete verification matrix for the concept-rebuild branch covers PHP 8.4/MySQL, PHP 8.2/MariaDB, Apache HTTPS access rules, desktop/mobile public rendering, booking, commerce, customer accounts, staff permissions, backup/restore and ZIP upgrade/recovery.
 
 ## Launch-safe content behavior
 
-The confirmed roster and factual Band/Press copy are available without requiring invented content. Published CMS records still override fallbacks.
+The confirmed roster and factual Band/Press copy are available without requiring invented content. Published CMS records may still supply owner-approved copy and media.
 
 Truthfully empty optional sections are supported:
 - Shows may remain empty until a genuine event exists.
 - Part 3 may remain unpublished until its real YouTube/Vimeo URL and exact public metadata are confirmed.
 - Member portraits may remain unset; factual non-clickable fallback cards are used for unpublished profiles.
-- Merchandise may remain closed. When closed, Merch/Bag and merchandise search affordances are hidden; merchant credentials/provider acceptance are feature-activation requirements rather than core-site blockers.
+- Merchandise may remain closed. When closed, Merch/Bag and merchandise search affordances are hidden.
 - Longer biographies are optional.
 
-## Final release decision
+## Deployment decision
 
-The owner explicitly instructed the project to continue through final 1.0.0. Commerce is intentionally disabled, so Authorize.net sandbox/provider acceptance is deferred until commerce activation.
+Existing A2/cPanel installations must use **System & maintenance → Browser upgrades** and upload the cumulative `Spiritual-Gorillaz-1.0.1-Full.zip`. Do not rerun the installer, replace the database, or use the obsolete same-version 1.0.0 concept package.
 
-Previously recorded owner acceptance covers installation/upgrade/admin operation, owner email receipt, booking notifications/acknowledgement, newsletter confirmation/unsubscribe, customer-account activation/recovery and unpaid checkout stock restoration. Those owner-reported checks remain historical evidence; they are not re-characterized as assistant-inspected results.
-
-Host-specific observations that have not been directly re-observed in this chat—such as a particular recent cron heartbeat, a fresh recovery drill or current production performance measurements—remain recommended operational follow-ups. They are not claimed as passed.
+The upgrade remains cumulative and uses the existing staging, private recovery receipt, install, verification and rollback workflow.
 
 ## Remaining blockers
 
@@ -48,10 +41,9 @@ None.
 
 ## Operational follow-ups
 
-- After deploying the final package, confirm the Search page shows the closed-store 1.0 behavior.
+- After applying 1.0.1, confirm the administration version reads 1.0.1.
+- Open the public site in a normal tab; versioned asset URLs force the new CSS and artwork to load without relying on a hard refresh.
 - Review Launch Checks after deployment and address any real warning that appears.
 - Observe scheduled-worker heartbeat freshness during normal operation.
-- Exercise the supported recovery path during a suitable maintenance/staging window.
-- Record real-host phone/desktop performance measurements when desired.
 - Complete genuine Authorize.net sandbox/provider acceptance before enabling commerce.
 - Publish only genuine owner-approved optional shows, Part 3 metadata, portraits or merchandise.
