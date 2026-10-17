@@ -14,77 +14,23 @@ jobs:
         with:
           ref: work/approved-concept-native
           fetch-depth: 0
-      - name: Apply review and compatibility fixes
+      - name: Add accessible name to featured release artwork
         run: |
           python3 - <<'PY'
           from pathlib import Path
-
-          header=Path('views/public/header.php')
-          text=header.read_text()
-          old='<a class="nav-search" href="<?=e(app_url(\'pages/search.php\'))?>" aria-label="Search the Spiritual Gorillaz site"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg></a>'
-          new='<form class="nav-search-form" method="get" action="<?=e(app_url(\'pages/search.php\'))?>"><button class="nav-search" type="submit" aria-label="Search the Spiritual Gorillaz site"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg></button></form>'
-          if old not in text:
-              raise SystemExit('Header search target not found')
-          header.write_text(text.replace(old,new))
-
           sections=Path('views/public/sections.php')
           text=sections.read_text()
           old='<div class="featured-release"><a class="featured-release-art" href="<?=e(PublicSite::url($featured))?>">'
           new='<div class="featured-release"><a class="featured-release-art" href="<?=e(PublicSite::url($featured))?>" aria-label="View <?=e($featured[\'title\'])?> release">'
           if old not in text:
+              if 'class="featured-release-art"' in text and 'aria-label="View <?=e($featured' in text:
+                  raise SystemExit(0)
               raise SystemExit('Featured release target not found')
           sections.write_text(text.replace(old,new,1))
-
-          Path('assets/css/concept-fixes.css').write_text('''/* Final review fixes loaded after the approved concept production layer. */
-
-/* Preserve intrinsic ratio for both the wide bundled logo and tall owner-uploaded logos. */
-.wordmark .bundled-site-logo,
-.wordmark .site-logo {
-  width: auto !important;
-  height: auto !important;
-  max-width: 168px !important;
-  max-height: 76px !important;
-  object-fit: contain;
-}
-
-/* Search remains a native form control without becoming an extra navigation link. */
-.nav-search-form {
-  margin: 0;
-  display: grid;
-  place-items: center;
-}
-.nav-search {
-  appearance: none;
-  -webkit-appearance: none;
-  color: inherit;
-  background: transparent;
-  font: inherit;
-  cursor: pointer;
-}
-
-@media (max-width: 1100px) {
-  .wordmark .bundled-site-logo,
-  .wordmark .site-logo {
-    max-width: 148px !important;
-    max-height: 70px !important;
-  }
-}
-
-@media (max-width: 820px) {
-  .wordmark .bundled-site-logo,
-  .wordmark .site-logo {
-    max-width: 132px !important;
-    max-height: 64px !important;
-  }
-  .nav-search-form { width: 100%; }
-  .nav-search { width: 100%; justify-content: flex-start; }
-  .concept-home .scroll-cue { display: none; }
-}
-''')
           PY
           rm -f .github/workflows/apply-final-concept-fixes.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Fix final concept accessibility and compatibility checks"
+          git commit -m "Add accessible name to featured release artwork"
           git push origin HEAD:work/approved-concept-native
