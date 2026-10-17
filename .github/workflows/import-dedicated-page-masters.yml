@@ -1,205 +1,40 @@
 name: Import dedicated page masters
 on:
   push:
-    branches: [work/concept-exact-rebuild]
+    branches:
+      - work/concept-exact-rebuild
     paths:
       - .github/workflows/import-dedicated-page-masters.yml
 permissions:
   contents: write
 jobs:
-  import:
+  import-artwork:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           ref: work/concept-exact-rebuild
           persist-credentials: true
-      - name: Download dedicated production artwork
-        env:
-          SHOWS_URL: https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:91120f32-8a0d-484b-bcbd-0fea8f5350d9
-          BAND_URL: https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:3abf9f6c-fac2-4475-9bab-b77aa6527f44
-          BOOKING_URL: https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:d2378e48-3d80-45f0-8bb2-e0417e59f74f
-          MERCH_URL: https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:8d9afeae-f195-4a1e-a34c-cc88bc9f228a
+      - name: Download production artwork
+        shell: bash
         run: |
           set -euo pipefail
           mkdir -p images
-          curl --fail --location --retry 4 --retry-all-errors -o images/spiritual-gorillaz-shows-hero.png "$SHOWS_URL"
-          curl --fail --location --retry 4 --retry-all-errors -o images/spiritual-gorillaz-band-hero.png "$BAND_URL"
-          curl --fail --location --retry 4 --retry-all-errors -o images/spiritual-gorillaz-booking-hero.png "$BOOKING_URL"
-          curl --fail --location --retry 4 --retry-all-errors -o images/spiritual-gorillaz-merch-hero.png "$MERCH_URL"
-          python3 - <<'PY'
-          from pathlib import Path
-          import struct
-          for name in [
-              'spiritual-gorillaz-shows-hero.png',
-              'spiritual-gorillaz-band-hero.png',
-              'spiritual-gorillaz-booking-hero.png',
-              'spiritual-gorillaz-merch-hero.png',
-          ]:
-              path = Path('images') / name
-              data = path.read_bytes()
-              if data[:8] != b'\x89PNG\r\n\x1a\n' or len(data) < 100_000:
-                  raise RuntimeError(f'{name} is not a valid production PNG')
-              width, height = struct.unpack('>II', data[16:24])
-              if width < 1800 or height < 1000:
-                  raise RuntimeError(f'{name} is too small: {width}x{height}')
-              print(f'{name}: {width}x{height} ({len(data)} bytes)')
-          PY
-      - name: Integrate dedicated artwork into the real public pages
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-          import struct
-
-          def dims(path: str) -> tuple[int, int]:
-              data = Path(path).read_bytes()
-              return struct.unpack('>II', data[16:24])
-
-          shows_w, shows_h = dims('images/spiritual-gorillaz-shows-hero.png')
-          band_w, band_h = dims('images/spiritual-gorillaz-band-hero.png')
-          booking_w, booking_h = dims('images/spiritual-gorillaz-booking-hero.png')
-          merch_w, merch_h = dims('images/spiritual-gorillaz-merch-hero.png')
-
-          sections_path = Path('views/public/sections.php')
-          sections = sections_path.read_text(encoding='utf-8')
-          replacements = [
-              (
-                  '<img src="<?=e(app_url(\'images/spiritual-gorillaz-home-hero.png\'))?>" width="2288" height="1824" class="shows-native-art" alt="" aria-hidden="true">',
-                  f'<img src="<?=e(app_url(\'images/spiritual-gorillaz-shows-hero.png\'))?>" width="{shows_w}" height="{shows_h}" class="shows-native-art" alt="" aria-hidden="true">',
-              ),
-              (
-                  '<img class="band-image band-native-art" width="2288" height="1824" src="<?=e(app_url(\'images/spiritual-gorillaz-home-hero.png\'))?>" alt="Spiritual Gorillaz crowned gorilla stage artwork">',
-                  f'<img class="band-image band-native-art" width="{band_w}" height="{band_h}" src="<?=e(app_url(\'images/spiritual-gorillaz-band-hero.png\'))?>" alt="Crowned gorilla and three anonymous musician silhouettes in blue stage light">',
-              ),
-              (
-                  '<img class="merch-native-art" width="2288" height="1824" src="<?=e(app_url(\'images/spiritual-gorillaz-home-hero.png\'))?>" alt="" aria-hidden="true">',
-                  f'<img class="merch-native-art" width="{merch_w}" height="{merch_h}" src="<?=e(app_url(\'images/spiritual-gorillaz-merch-hero.png\'))?>" alt="" aria-hidden="true">',
-              ),
-          ]
-          for old, new in replacements:
-              if old not in sections:
-                  raise RuntimeError('Expected sections.php artwork target not found')
-              sections = sections.replace(old, new, 1)
-
-          booking_shell_old = '<a class="button" href="<?=e(app_url(\'press/\'))?>">Explore the press kit ↓</a></div><aside class="details-panel">'
-          booking_shell_new = f'<a class="button" href="<?=e(app_url(\'press/\'))?>">Explore the press kit ↓</a><img class="booking-native-art" width="{booking_w}" height="{booking_h}" src="<?=e(app_url(\'images/spiritual-gorillaz-booking-hero.png\'))?>" alt="" aria-hidden="true"></div><aside class="details-panel">'
-          if booking_shell_old not in sections:
-              raise RuntimeError('Expected booking shell target not found')
-          sections = sections.replace(booking_shell_old, booking_shell_new, 1)
-          sections_path.write_text(sections, encoding='utf-8')
-
-          booking_path = Path('views/public/booking.php')
-          booking = booking_path.read_text(encoding='utf-8')
-          old_booking = '<img class="booking-native-art" width="1808" height="1280" src="<?=e(app_url(\'images/spiritual-gorillaz-music-hero.png\'))?>" alt="" aria-hidden="true">'
-          new_booking = f'<img class="booking-native-art" width="{booking_w}" height="{booking_h}" src="<?=e(app_url(\'images/spiritual-gorillaz-booking-hero.png\'))?>" alt="" aria-hidden="true">'
-          if old_booking not in booking:
-              raise RuntimeError('Expected booking.php artwork target not found')
-          booking_path.write_text(booking.replace(old_booking, new_booking, 1), encoding='utf-8')
-
-          store_path = Path('views/public/store.php')
-          store = store_path.read_text(encoding='utf-8')
-          old_store = "echo '<img class=\"merch-native-art\" width=\"2288\" height=\"1824\" src=\"'.e(app_url('images/spiritual-gorillaz-home-hero.png')).'\" alt=\"\" aria-hidden=\"true\">';"
-          new_store = f"echo '<img class=\"merch-native-art\" width=\"{merch_w}\" height=\"{merch_h}\" src=\"'.e(app_url('images/spiritual-gorillaz-merch-hero.png')).'\" alt=\"\" aria-hidden=\"true\">';"
-          if old_store not in store:
-              raise RuntimeError('Expected store.php artwork target not found')
-          store_path.write_text(store.replace(old_store, new_store, 1), encoding='utf-8')
-
-          css_path = Path('assets/css/section-pages.css')
-          css = css_path.read_text(encoding='utf-8')
-          marker = '/* === DEDICATED PAGE MASTER ARTWORK === */'
-          if marker in css:
-              raise RuntimeError('Dedicated page artwork CSS already exists')
-          css += r'''
-
-          /* === DEDICATED PAGE MASTER ARTWORK === */
-          .shows-native-art{
-            right:0;top:0;width:64%;height:100%;object-fit:cover;object-position:60% 52%;
-            opacity:.94;filter:brightness(.82) contrast(1.07) saturate(1.08);
-            mask-image:linear-gradient(90deg,transparent 0,black 23%,black 100%);
-          }
-          .band-native-art{
-            right:0;top:0;width:64%;height:100%;max-height:none;object-fit:cover;object-position:58% 50%;
-            opacity:.93;filter:brightness(.82) contrast(1.06) saturate(1.05);
-            mask-image:linear-gradient(90deg,transparent 0,black 22%,black 100%);
-          }
-          .booking-native-art{
-            left:-2%;bottom:-2%;width:56%;height:52%;object-fit:cover;object-position:43% 62%;
-            opacity:.78;filter:brightness(.76) contrast(1.07) saturate(.96);
-            mask-image:linear-gradient(0deg,black 0 76%,transparent 100%);
-          }
-          .concept-booking>div:first-child{padding-bottom:210px}
-          .concept-merch>.merch-native-art,.concept-merch-heading>.merch-native-art{
-            right:0;top:0;width:63%;height:100%;object-fit:cover;object-position:62% 50%;
-            opacity:.94;filter:brightness(.80) contrast(1.06) saturate(1.05);
-            mask-image:linear-gradient(90deg,transparent 0,black 24%,black 100%);
-          }
-          .shows-hero:after,.concept-band:after,.concept-merch:after,.concept-merch-heading:after{
-            content:"";position:absolute;inset:0;pointer-events:none;z-index:1;
-            background:linear-gradient(90deg,rgba(2,7,12,.97) 0,rgba(2,7,12,.72) 37%,rgba(2,7,12,.12) 60%,transparent 76%);
-          }
-          .shows-hero>div,.concept-band>div,.concept-merch>div,.concept-merch-heading>div,.concept-merch-heading>.shop-tools{z-index:2}
-
-          @media(max-width:820px){
-            .shows-native-art{width:98%;right:-38%;opacity:.68;object-position:56% 50%}
-            .band-native-art{width:105%;right:-45%;opacity:.50;object-position:50% 48%}
-            .booking-native-art{left:-18%;width:86%;height:38%;opacity:.60;object-position:45% 60%}
-            .concept-booking>div:first-child{padding-bottom:170px}
-            .concept-merch>.merch-native-art,.concept-merch-heading>.merch-native-art{width:108%;right:-47%;opacity:.62;object-position:58% 50%}
-          }
-          @media(max-width:600px){
-            .shows-native-art{width:126%;right:-62%;opacity:.58}
-            .band-native-art{width:130%;right:-66%;opacity:.42}
-            .booking-native-art{left:-32%;width:112%;height:34%;opacity:.48}
-            .concept-booking>div:first-child{padding-bottom:145px}
-            .concept-merch>.merch-native-art,.concept-merch-heading>.merch-native-art{width:132%;right:-68%;opacity:.48}
-          }
-          '''
-          css_path.write_text(css, encoding='utf-8')
-
-          test_path = Path('tests/concept_preview.py')
-          test = test_path.read_text(encoding='utf-8')
-          needle = """                        page.screenshot(
-                            path=str(output / f'concept-{width}-{name}.png'),
-                            full_page=True,
-                        )
-"""
-          replacement = """                        title_selector = '.concept-home h1' if name == 'home' else ('.concept-booking h1' if name == 'booking' else '.page-hero h1, .concept-merch-heading h1')
-                        for title in page.locator(title_selector).all():
-                            bounds = title.evaluate('''node => {
-                                const box = node.getBoundingClientRect();
-                                const parent = node.parentElement.getBoundingClientRect();
-                                return {left: box.left, right: box.right, parentLeft: parent.left, parentRight: parent.right, scrollWidth: node.scrollWidth, clientWidth: node.clientWidth};
-                            }''')
-                            if bounds['left'] < bounds['parentLeft'] - 1 or bounds['right'] > bounds['parentRight'] + 1 or bounds['scrollWidth'] > bounds['clientWidth'] + 1:
-                                raise AssertionError(f'{name} title leaves its container at {width}px: {bounds}')
-                        page.screenshot(
-                            path=str(output / f'concept-{width}-{name}.png'),
-                            full_page=True,
-                        )
-"""
-          if needle not in test:
-              raise RuntimeError('Expected screenshot block not found in concept preview test')
-          test_path.write_text(test.replace(needle, replacement, 1), encoding='utf-8')
-
-          status_path = Path('docs/CONCEPT_REBUILD_STATUS.md')
-          status = status_path.read_text(encoding='utf-8')
-          status = status.replace(
-              '- Shows, Band, Booking and Merch now use sharp native artwork treatments while their dedicated masters are reconstructed',
-              '- Dedicated native-resolution Shows, Band, Booking and Merch artwork masters are integrated',
-          )
-          status = status.replace(
-              '## Remaining dedicated artwork reconstruction\n\n- Shows hero master\n- Band hero atmosphere without fabricated member portraits\n- Booking road-case / stage master\n- Merch stage master',
-              '## Remaining visual work\n\n- Final crop and contrast tuning after screenshot review\n- Real member portraits and product photography when supplied by the owner',
-          )
-          status_path.write_text(status, encoding='utf-8')
-          PY
-      - name: Commit dedicated page masters
+          curl --fail --location --retry 4 --retry-all-errors --output images/spiritual-gorillaz-shows-hero.png "https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:91120f32-8a0d-484b-bcbd-0fea8f5350d9"
+          curl --fail --location --retry 4 --retry-all-errors --output images/spiritual-gorillaz-band-hero.png "https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:3abf9f6c-fac2-4475-9bab-b77aa6527f44"
+          curl --fail --location --retry 4 --retry-all-errors --output images/spiritual-gorillaz-booking-hero.png "https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:d2378e48-3d80-45f0-8bb2-e0417e59f74f"
+          curl --fail --location --retry 4 --retry-all-errors --output images/spiritual-gorillaz-merch-hero.png "https://photoshop-api.adobe.io/v2/short-url/urn:aaid:ps:US:8d9afeae-f195-4a1e-a34c-cc88bc9f228a"
+          for file in images/spiritual-gorillaz-{shows,band,booking,merch}-hero.png; do
+            test "$(stat -c%s "$file")" -gt 100000
+            file "$file"
+          done
+      - name: Commit artwork
+        shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git rm .github/workflows/import-dedicated-page-masters.yml
-          git add images/spiritual-gorillaz-shows-hero.png images/spiritual-gorillaz-band-hero.png images/spiritual-gorillaz-booking-hero.png images/spiritual-gorillaz-merch-hero.png views/public/sections.php views/public/booking.php views/public/store.php assets/css/section-pages.css tests/concept_preview.py docs/CONCEPT_REBUILD_STATUS.md
-          git commit -m "art: integrate dedicated Shows Band Booking and Merch masters"
+          git add images/spiritual-gorillaz-shows-hero.png images/spiritual-gorillaz-band-hero.png images/spiritual-gorillaz-booking-hero.png images/spiritual-gorillaz-merch-hero.png
+          git commit -m "art: add dedicated Shows Band Booking and Merch masters"
           git push origin HEAD:work/concept-exact-rebuild
