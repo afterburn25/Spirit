@@ -17,10 +17,11 @@ The approved Spiritual Gorillaz concept moodboard remains the literal visual sou
 - Home title has a dedicated safe-width column at desktop, tablet and phone sizes
 - Phone title sizing keeps `MUSIC`, `WITH A HIGHER`, and `PURPOSE` as three deliberate lines
 - Automated visual tests reject title overflow on every reviewed public page
+- Dedicated page crops, stacking, lighting, and mobile artwork visibility have been tuned from actual rendered screenshots
 
 ## Remaining visual work
 
-- Dedicated page crops, stacking, lighting and mobile visibility tuned after screenshot review
+- Final owner review of this dedicated-artwork checkpoint
 - Real member portraits and product photography when supplied by the owner
 
 ## Release rule
