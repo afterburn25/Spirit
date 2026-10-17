@@ -1,0 +1,72 @@
+name: Concept rebuild preview bundle
+on:
+  push:
+    branches: [work/concept-exact-rebuild]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: concept-preview-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      database:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: ephemeral-preview-root
+          MYSQL_DATABASE: spirit_ci
+          MYSQL_USER: spirit_ci
+          MYSQL_PASSWORD: ephemeral-preview-user
+        ports:
+          - 3306:3306
+    env:
+      SPIRIT_TESTING: '1'
+      SPIRIT_DISABLE_PAYMENT_NETWORK: '1'
+      SPIRIT_DB_HOST: 127.0.0.1
+      SPIRIT_DB_PORT: '3306'
+      SPIRIT_DB_NAME: spirit_ci
+      SPIRIT_DB_USER: spirit_ci
+      SPIRIT_DB_PASSWORD: ephemeral-preview-user
+      SPIRIT_SCREENSHOT_DIR: ${{ runner.temp }}/spirit-screenshots
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
+        with:
+          php-version: '8.4'
+          extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl, zip
+          coverage: none
+      - name: Validate and build installation ZIP
+        run: |
+          python3 -m py_compile tools/package.py tools/release_gate.py tests/*.py
+          python3 tools/release_gate.py
+          mkdir -p "$RUNNER_TEMP/spirit-package"
+          python3 tools/package.py --output "$RUNNER_TEMP/spirit-package"
+          cd "$RUNNER_TEMP/spirit-package"
+          sha256sum Spiritual-Gorillaz-*-Full.zip > SHA256SUMS.txt
+      - name: Install Chromium for rendered build screenshots
+        run: |
+          python3 -m venv "$RUNNER_TEMP/spirit-browser"
+          "$RUNNER_TEMP/spirit-browser/bin/pip" install playwright==1.57.0
+          "$RUNNER_TEMP/spirit-browser/bin/python" -m playwright install --with-deps chromium
+      - name: Render real public build
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/public_browser.py'
+      - name: Render real booking build
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/communication_browser.py'
+      - name: Render real merch build
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/commerce_browser.py'
+      - name: Upload ZIP and screenshots together
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spiritual-Gorillaz-concept-rebuild-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/spirit-package/Spiritual-Gorillaz-*-Full.zip
+            ${{ runner.temp }}/spirit-package/SHA256SUMS.txt
+            ${{ runner.temp }}/spirit-screenshots/*.png
+          if-no-files-found: warn
+          retention-days: 14
