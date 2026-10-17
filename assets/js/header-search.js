@@ -16,6 +16,11 @@
     toggle?.setAttribute('aria-expanded', 'false');
   }
 
+  function focusSearchInput() {
+    input.focus({ preventScroll: true });
+    input.select();
+  }
+
   function setOpen(open, returnFocus = false) {
     const show = Boolean(open);
     panel.hidden = !show;
@@ -26,9 +31,9 @@
     });
     if (show) {
       closeMobileNavigation();
+      focusSearchInput();
       requestAnimationFrame(() => {
-        input.focus({ preventScroll: true });
-        input.select();
+        if (document.activeElement !== input) focusSearchInput();
       });
     } else if (returnFocus) {
       currentToggle()?.focus({ preventScroll: true });
