@@ -1,12 +1,21 @@
-# Spiritual Gorillaz — 1.0.0
+# Spiritual Gorillaz — 1.0.1
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design.
 
-## Final software state
+## 1.0.1 concept rebuild update
 
-Version 1.0.0 promotes the fully verified RC10 software line to the first final release. The application implementation is complete.
+Version 1.0.1 is the first supported in-place upgrade after the installed 1.0.0 release. It carries the approved Spiritual Gorillaz concept rebuild into the real application rather than handing an unusable same-version replacement to an existing 1.0.0 site.
 
-Implemented:
+The update includes:
+- native-resolution Home, Music, Shows, Band, Booking and Merch artwork;
+- the approved black/deep-navy, electric-blue stage-light and gold visual direction;
+- strict title containment at desktop, tablet and mobile widths;
+- real HTML/CSS/PHP navigation, headings, buttons, forms, music controls and cards kept separate from artwork;
+- cache-busted bundled CSS, JavaScript, logos and artwork so a completed upgrade cannot continue showing the old browser-cached presentation;
+- preserved CMS, content, media, booking, commerce, customer, backup and recovery data.
+
+## Implemented application
+
 - public Home, Music, Shows, Band, Media, Press, Booking, newsletter and search;
 - persistent local-audio player and native no-JavaScript audio access;
 - owner CMS/media/branding, staff permissions and private draft/preview workflows;
@@ -18,13 +27,11 @@ Implemented:
 - owner launch diagnostics, support report, scheduled-worker heartbeat support and conservative cleanup;
 - deterministic package/release gate.
 
-Final launch hardening includes approved copy fallbacks, the confirmed Chad Lindsey / Ron Green / Charlie Savell lineup fallback, scalable bundled logo, contained fallback hero presentation, closed-store navigation/account/search behavior, dormant-commerce diagnostics, and 360 px/390 px cross-browser coverage.
-
 ## Launch behavior
 
 Missing optional real-world content is never fabricated. Shows may be empty, Part 3 may remain unpublished, portraits may remain unset and the storefront may stay closed. When commerce is closed, Merch/Bag and merchandise search affordances are not advertised globally. Merchant sandbox acceptance is deferred until commerce activation.
 
-The owner may replace the bundled logo/hero and publish approved content through the existing administration workflows without a software release.
+The owner may replace bundled artwork and publish approved content through the existing administration workflows without a software release.
 
 ## Deployment contract
 
@@ -38,12 +45,14 @@ Validate the source/package contract with:
 
 `python3 tools/release_gate.py`
 
-The package excludes tests, development tools, runtime/private state, credentials, sessions, backups and recovery receipts. Existing installations upgrade through backups/guarded updates; never reinstall or replace the existing database/configuration to apply an update.
+The package excludes tests, development tools, runtime/private state, credentials, sessions, backups and recovery receipts. Existing installations upgrade through **System & maintenance → Browser upgrades**; never reinstall or replace the existing database/configuration to apply an update.
 
-## 1.0 release boundary
+An existing 1.0.0 installation must receive the 1.0.1 cumulative Full ZIP. The upgrade validator intentionally refuses same-version replacements and downgrades.
 
-The owner explicitly instructed the project to proceed to final 1.0.0. The RC10 software matrix was fully green before promotion. Commerce remains intentionally disabled, so genuine Authorize.net sandbox acceptance is deferred until that feature is later activated.
+## Release boundary
 
-Items that were not directly re-observed from this chat—such as a particular recent cron execution, a fresh production rollback drill, or host-specific performance measurements—are not claimed as passed. They are operational follow-ups, not unresolved software defects in this final release.
+Version 1.0.1 changes the installed application code and bundled visual assets while preserving owner data and the guarded recovery workflow. Commerce remains intentionally disabled unless the owner activates it after genuine provider acceptance.
+
+Items not directly re-observed—such as a particular recent cron execution, a fresh production rollback drill, or host-specific performance measurements—are operational follow-ups and are not claimed as passed.
 
 See `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/LAUNCH_CHECKLIST.md` and `docs/acceptance/CONSOLIDATED-FINAL-PASS.md`.
