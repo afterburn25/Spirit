@@ -13,7 +13,8 @@ The approved Spiritual Gorillaz concept moodboard remains the literal visual sou
 - Shows, Band, Booking and Merch now use sharp native artwork treatments while their dedicated masters are reconstructed
 - Actual installed-site screenshots are rendered at desktop and mobile sizes for every review package
 - Home title now has a dedicated safe-width column at desktop, tablet and phone sizes
-- Automated visual tests reject any build where one of the three Home title lines leaves its container
+- Phone title sizing was reduced so `MUSIC`, `WITH A HIGHER`, and `PURPOSE` remain three deliberate lines
+- Automated visual tests reject any build where a Home title line wraps unexpectedly or leaves its container
 
 ## Remaining dedicated artwork reconstruction
 
