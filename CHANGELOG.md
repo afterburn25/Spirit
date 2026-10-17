@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.1 — approved-concept in-place upgrade
+
+Version 1.0.1 is the supported upgrade for existing 1.0.0 installations. The prior concept-rebuild handoff incorrectly remained numbered 1.0.0, which the guarded browser upgrader intentionally refuses as a same-version replacement. This release corrects that deployment defect.
+
+Changes:
+- bump the cumulative application package to 1.0.1 so an installed 1.0.0 site can actually stage and apply it;
+- ship the native-resolution Home, Music, Shows, Band, Booking and Merch artwork from the approved concept-rebuild branch;
+- preserve strict title containment on desktop, tablet and mobile;
+- add release-version query strings to bundled `assets/` and `images/` URLs so browsers fetch the new CSS, JavaScript, logo and artwork immediately after upgrade;
+- preserve existing database content, media, settings, bookings, customers, orders, backups and private configuration;
+- retain guarded staging, recovery receipt, post-install confirmation and same-schema rollback.
+
+Verification covers the cumulative candidate package, native visual preview, PHP 8.4/MySQL, PHP 8.2/MariaDB, Apache access rules, public/admin browser workflows and ZIP upgrade/recovery.
+
 ## 1.0.0 — final release
 
 Promote the fully verified RC10 software line to final 1.0.0 after explicit owner instruction to proceed to final release.
@@ -33,7 +47,6 @@ Changes:
 - add closed-store browser coverage for Search copy/filter behavior.
 
 RC9 remains frozen as the verified historical candidate.
-
 
 ## 1.0.0-rc.9 — dormant-store customer navigation fix
 
