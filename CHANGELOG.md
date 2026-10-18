@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.13 — contained continuous-image heroes
+
+- keep the centered, shortened hero windows introduced in 1.0.12;
+- replace the split text-column / image-column appearance with one continuous artwork field across the entire contained window;
+- extend the reviewed native hero masters deterministically with dark navy atmosphere on the left and preserve the complete focal subject on the right;
+- place real HTML headings, copy and controls over the naturally dark portion of the same artwork;
+- use one soft readability fade instead of a separate text panel, hard seam, blurred duplicate or stretched low-resolution image;
+- apply the continuous-image treatment to Home, Music, Shows, Band, Media, Press, Booking and Merch;
+- add deterministic wide WebP generation to the package and release workflows;
+- preserve the full-width sticky navigation, visible dropdown Search, animated Concept 2 branding, dimensional Home title, CMS overrides and mobile copy-first/artwork-second layout.
+
 ## 1.0.12 — centered, shortened hero containers
 
 - stop treating page heroes as full-viewport sections;
