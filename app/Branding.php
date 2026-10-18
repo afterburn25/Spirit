@@ -126,7 +126,7 @@ final class Branding
         }
 
         $source = $staticReady ? '<source media="(prefers-reduced-motion: reduce)" srcset="'.$staticUrl.'">' : '';
-        return '<span class="bundled-brand-wrap bundled-brand-animated"><picture class="bundled-brand-picture">'.$source.'<img class="bundled-site-logo bundled-site-logo-animated" src="'.e(app_url('images/spiritual-gorillaz-logo.png')).'" width="600" height="600" alt="" loading="eager" fetchpriority="high" decoding="async"></picture></span>';
+        return '<span class="bundled-brand-wrap bundled-brand-animated"><picture class="bundled-brand-picture">'.$source.'<img class="bundled-site-logo" src="'.e(app_url('images/spiritual-gorillaz-logo.png')).'" width="600" height="600" alt="" loading="eager" fetchpriority="high" decoding="async"></picture></span>';
     }
 
     /** Original ratio and transparency are retained; no arbitrary image URL. */
