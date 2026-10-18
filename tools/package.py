@@ -28,88 +28,62 @@ HERO_SOURCE_FILES = (
     'spiritual-gorillaz-merch-hero.png',
 )
 HERO_GENERATED_FILES = (
-    'spiritual-gorillaz-hero-extended.webp',
-    'spiritual-gorillaz-hero-kneeling-wide.webp',
-    'spiritual-gorillaz-hero-band-member-fallback.webp',
-    'spiritual-gorillaz-hero-booking-fallback.webp',
-    'spiritual-gorillaz-disc-original.webp',
-    'spiritual-gorillaz-guitar-original.webp',
-    'spiritual-gorillaz-bass-original.webp',
-    'spiritual-gorillaz-shirt-extended.webp',
+    'spiritual-gorillaz-home-hero-wide.webp',
+    'spiritual-gorillaz-music-hero-wide.webp',
+    'spiritual-gorillaz-shows-hero-wide.webp',
+    'spiritual-gorillaz-band-hero-wide.webp',
+    'spiritual-gorillaz-merch-hero-wide.webp',
+    'spiritual-gorillaz-booking-hero-wide.webp',
 )
 
 
-def hero_output_directory_writable() -> bool:
-    """Probe the actual hero output directory without trusting mode bits.
+def generate_hero_assets(output_dir: Path) -> dict[str, Path]:
+    """Generate deterministic WebP masters in writable staging, never source.
 
-    CI may mount the reviewed source tree read-only while still allowing the ZIP
-    destination to be written. os.access() is unreliable for privileged users,
-    so perform a real create/remove probe in images/ and fail closed on errors.
-    """
-    images = ROOT / 'images'
-    probe: Path | None = None
-    try:
-        with tempfile.NamedTemporaryFile(
-            dir=images,
-            prefix='.spirit-hero-write-',
-            delete=False,
-        ) as handle:
-            probe = Path(handle.name)
-        probe.unlink()
-        return True
-    except OSError:
-        if probe is not None:
-            try:
-                probe.unlink(missing_ok=True)
-            except OSError:
-                pass
-        return False
+    Release/candidate workflows install Pillow and include fresh wide WebP files.
+    Lean CI jobs that intentionally omit Pillow package the reviewed PNG fallbacks.
+    Developer builds outside CI fail clearly when the required dependency is absent.
 
-
-def generate_hero_assets() -> None:
-    """Create deterministic wide WebP hero masters before collecting payload files.
-
-    Release/candidate workflows install Pillow and therefore always regenerate the
-    production WebP masters. Other CI jobs exercise packaging as a dependency of
-    unrelated browser and maintenance tests; when those lean jobs intentionally do
-    not install Pillow, they package the reviewed PNG fallbacks instead of failing.
-    A normal developer-initiated package outside CI still fails with a clear
-    dependency message if Pillow is unavailable.
-
-    The isolated packaging unit tests replace ROOT with a minimal synthetic tree
-    that contains neither production artwork nor development tools. In that test
-    tree there is nothing to generate, so packaging proceeds normally.
-
-    A read-only reviewed checkout may still be packaged when every generated hero
-    master is already present. Generation remains mandatory in writable release
-    checkouts, and a read-only tree with missing masters is rejected explicitly.
+    Staging outside ROOT keeps packaging valid when the checkout is mounted read-only
+    and prevents generated artifacts from silently dirtying a developer's worktree.
+    Only the six expected files are accepted into the deployment archive.
     """
     generator = ROOT / 'tools' / 'generate_extended_heroes.py'
     has_production_hero_source = any((ROOT / 'images' / name).is_file() for name in HERO_SOURCE_FILES)
     if not generator.is_file():
         if not has_production_hero_source:
-            return
+            return {}
         raise FileNotFoundError('Missing deterministic hero generator.')
 
     if importlib.util.find_spec('PIL') is None:
         if os.environ.get('CI', '').lower() in {'1', 'true', 'yes'}:
-            return
+            return {}
         raise RuntimeError('Pillow 12.3.0 is required to generate the production hero masters.')
 
-    missing = [name for name in HERO_GENERATED_FILES if not (ROOT / 'images' / name).is_file()]
-    if not hero_output_directory_writable():
-        if missing:
-            raise RuntimeError(
-                'The source artwork directory is read-only and generated hero masters are missing: '
-                + ', '.join(missing)
-            )
-        return
-
+    output_dir.mkdir(parents=True, exist_ok=True)
     try:
-        subprocess.run([sys.executable, str(generator)], cwd=ROOT, check=True, capture_output=True, text=True)
+        subprocess.run(
+            [sys.executable, str(generator), '--output', str(output_dir)],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
     except subprocess.CalledProcessError as error:
         detail = (error.stderr or error.stdout or str(error)).strip()
         raise RuntimeError(f'Hero asset generation failed: {detail}') from error
+
+    generated: dict[str, Path] = {}
+    missing: list[str] = []
+    for name in HERO_GENERATED_FILES:
+        path = output_dir / name
+        if not path.is_file():
+            missing.append(name)
+            continue
+        generated[f'images/extended/{name}'] = path
+    if missing:
+        raise RuntimeError('Hero asset generation did not create: ' + ', '.join(missing))
+    return generated
 
 
 def eligible(source: Path, destination: Path) -> bool:
@@ -142,7 +116,6 @@ def package(destination: Path) -> Path:
         raise ValueError('Invalid application version.')
     if destination == ROOT or (destination.is_relative_to(ROOT) and destination.relative_to(ROOT).parts[0] in DIRECTORIES):
         raise ValueError('Choose an output directory outside deployable source folders.')
-    generate_hero_assets()
     destination.mkdir(parents=True, exist_ok=True)
     archive = destination/f'Spiritual-Gorillaz-{version}-Full.zip'
     if archive.exists():
@@ -150,26 +123,34 @@ def package(destination: Path) -> Path:
     manifest = {}
     created_archive = False
     try:
-        with archive.open('xb') as handle:
-            created_archive = True
-            with zipfile.ZipFile(handle,'w',compression=zipfile.ZIP_DEFLATED) as output:
-                def write_entry(name: str, body: bytes) -> None:
-                    info=zipfile.ZipInfo(name,date_time=(1980,1,1,0,0,0))
-                    info.compress_type=zipfile.ZIP_DEFLATED
-                    info.create_system=3
-                    info.external_attr=0o100644 << 16
-                    output.writestr(info,body)
+        with tempfile.TemporaryDirectory(prefix='spirit-package-heroes-') as staging:
+            generated = generate_hero_assets(Path(staging))
+            with archive.open('xb') as handle:
+                created_archive = True
+                with zipfile.ZipFile(handle,'w',compression=zipfile.ZIP_DEFLATED) as output:
+                    def write_entry(name: str, body: bytes) -> None:
+                        info=zipfile.ZipInfo(name,date_time=(1980,1,1,0,0,0))
+                        info.compress_type=zipfile.ZIP_DEFLATED
+                        info.create_system=3
+                        info.external_attr=0o100644 << 16
+                        output.writestr(info,body)
 
-                for source in sorted(ROOT.rglob('*')):
-                    if not eligible(source,destination):
-                        continue
-                    name = source.relative_to(ROOT).as_posix()
-                    body = source.read_bytes()
-                    write_entry(name,body)
-                    manifest[name]=hashlib.sha256(body).hexdigest()
-                manifest_body=json.dumps({'version':version,'files':manifest},indent=2).encode()
-                write_entry('docs/PACKAGE-MANIFEST.json',manifest_body)
-            handle.flush(); os.fsync(handle.fileno())
+                    for source in sorted(ROOT.rglob('*')):
+                        if not eligible(source,destination):
+                            continue
+                        name = source.relative_to(ROOT).as_posix()
+                        if name in generated:
+                            continue
+                        body = source.read_bytes()
+                        write_entry(name,body)
+                        manifest[name]=hashlib.sha256(body).hexdigest()
+                    for name,path in sorted(generated.items()):
+                        body=path.read_bytes()
+                        write_entry(name,body)
+                        manifest[name]=hashlib.sha256(body).hexdigest()
+                    manifest_body=json.dumps({'version':version,'files':manifest},indent=2).encode()
+                    write_entry('docs/PACKAGE-MANIFEST.json',manifest_body)
+                handle.flush(); os.fsync(handle.fileno())
     except BaseException:
         if created_archive:
             archive.unlink(missing_ok=True)
