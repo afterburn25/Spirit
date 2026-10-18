@@ -1,69 +1,83 @@
-/* 1.0.13 generated-asset selection.
-   Packaged builds may define deterministic wide WebP masters through the
-   --sg-wide-* custom properties. Source checkouts and CI renders fall back to
-   the reviewed native PNGs. The fallback must live inside var(); an undefined
-   custom property otherwise invalidates the whole background declaration. */
+/* Spiritual Gorillaz 1.0.13 — resilient extended-hero selection.
+
+   A packaged build may contain deterministic wide WebP atmosphere masters. The
+   original native PNG remains visible as the sharp foreground subject, aligned
+   to the right at contain scale. When the generated WebP is present it fills
+   the complete window behind that subject; when it is absent, the native image
+   still renders correctly instead of leaving a blank hero. */
 @media (min-width:821px) {
   .concept-home:has(.fallback-hero) {
-    background-image: var(--sg-wide-home, url('../../images/spiritual-gorillaz-home-hero.png')) !important;
+    background-image: var(--sg-wide-home) !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .concept-music:has(> .music-art) {
-    background-image: var(--sg-wide-music, url('../../images/spiritual-gorillaz-music-hero.png')) !important;
+    background-image: var(--sg-wide-music) !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .concept-shows:has(> .shows-stage-art) {
-    background-image: var(--sg-wide-shows, url('../../images/spiritual-gorillaz-shows-hero.png')) !important;
+    background-image: var(--sg-wide-shows) !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .concept-band:has(> .concept-band-art) {
-    background-image: var(--sg-wide-band, url('../../images/spiritual-gorillaz-band-hero.png')) !important;
+    background-image: var(--sg-wide-band) !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .concept-merch:has(> .merch-stage-art),
   .concept-merch-heading:has(> .merch-concept-art) {
-    background-image: var(--sg-wide-merch, url('../../images/spiritual-gorillaz-merch-hero.png')) !important;
+    background-image: var(--sg-wide-merch) !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .booking-layout.concept-booking:has(.booking-fallback-art) {
-    background-image: var(--sg-wide-booking, url('../../images/spiritual-gorillaz-booking-hero.png')) !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-  }
-  main[data-page="media"] .page-hero {
-    background-image: var(--sg-wide-shows, url('../../images/spiritual-gorillaz-shows-hero.png')) !important;
-    background-size: cover !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-  }
-  main[data-page="press"] .page-hero {
-    background-image: var(--sg-wide-band, url('../../images/spiritual-gorillaz-band-hero.png')) !important;
+    background-image: var(--sg-wide-booking) !important;
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
 
-  /* The selected master is the entire contained hero window; hide only bundled
-     fallback elements. CMS-published artwork remains visible and unchanged. */
+  /* Keep the reviewed source art as a crisp, non-cropped foreground. The wide
+     package master and this source use the same right-side geometry, so they
+     align without producing a doubled subject. */
   .concept-home .fallback-hero,
   .concept-music > .music-art,
   .concept-shows > .shows-stage-art,
   .concept-band > .concept-band-art,
   .concept-merch > .merch-stage-art,
   .concept-merch-heading > .merch-concept-art,
-  .booking-layout.concept-booking .booking-fallback-art {
-    opacity: 0 !important;
+  .booking-layout.concept-booking .booking-fallback-art,
+  .booking-layout.concept-booking .booking-concept-art {
+    opacity: 1 !important;
     pointer-events: none !important;
+    object-fit: contain !important;
+    object-position: right center !important;
+    background: transparent !important;
+  }
+
+  /* Media and Press do not have a bundled foreground <img>. Use the wide asset
+     as the top layer and the native master as an honest fallback underneath. */
+  main[data-page="media"] .page-hero {
+    background-image:
+      var(--sg-wide-shows),
+      url('../../images/spiritual-gorillaz-shows-hero.png') !important;
+    background-size: cover, contain !important;
+    background-position: center, right center !important;
+    background-repeat: no-repeat !important;
+  }
+  main[data-page="press"] .page-hero {
+    background-image:
+      var(--sg-wide-band),
+      url('../../images/spiritual-gorillaz-band-hero.png') !important;
+    background-size: cover, contain !important;
+    background-position: center, right center !important;
+    background-repeat: no-repeat !important;
   }
 }
