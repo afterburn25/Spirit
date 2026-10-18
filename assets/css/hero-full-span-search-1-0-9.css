@@ -1,0 +1,105 @@
+/* Spiritual Gorillaz 1.0.9 — full-span hero geometry and visible Search control.
+   Desktop hero canvases follow the native 16:9 artwork ratio so the sharp image
+   reaches both viewport edges without cropping or being enlarged beyond its
+   intended composition. */
+
+/* Keep the centered nav while reserving a real right-side column for Search. */
+.site-header,
+.site-header:has(.bundled-brand-animated) {
+  grid-template-columns: minmax(176px, 1fr) auto minmax(176px, 1fr) !important;
+}
+.header-search {
+  display: grid !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-width: 46px;
+  z-index: 4;
+}
+.nav-search {
+  display: grid !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  place-items: center !important;
+  color: #f7f1e7 !important;
+}
+.nav-search svg {
+  display: block !important;
+  width: 22px !important;
+  height: 22px !important;
+  overflow: visible !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.9 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+  opacity: 1 !important;
+  pointer-events: none;
+}
+
+/* At production desktop widths the hero is a true 16:9 viewport-wide canvas.
+   The native 1672×941 master therefore fills the entire width with contain,
+   keeping every right-side detail visible rather than leaving a black strip. */
+@media (min-width: 1181px) {
+  .page-hero {
+    width: 100vw !important;
+    min-height: clamp(720px, 56.25vw, 1080px) !important;
+    height: clamp(720px, 56.25vw, 1080px) !important;
+    max-height: 1080px !important;
+  }
+  .page-hero > .concept-page-art,
+  .page-hero > .music-art,
+  .page-hero > .band-image,
+  .page-hero > .section-artwork {
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  .page-hero > .concept-page-art,
+  .page-hero > .music-art,
+  .page-hero > .band-image,
+  .page-hero > .section-artwork .section-feature {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: right center !important;
+  }
+
+  .merch-heading.concept-merch-heading,
+  .page-hero.concept-merch {
+    width: 100vw !important;
+    min-height: clamp(720px, 56.25vw, 1080px) !important;
+    height: clamp(720px, 56.25vw, 1080px) !important;
+    max-height: 1080px !important;
+  }
+  .merch-concept-art,
+  .concept-merch > .merch-stage-art,
+  .concept-merch-heading > .section-artwork,
+  .concept-merch-heading > .section-artwork img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: right center !important;
+  }
+}
+
+/* Intermediate desktop/tablet keeps enough height for copy without reverting
+   to crop/cover behavior. */
+@media (min-width: 821px) and (max-width: 1180px) {
+  .page-hero,
+  .merch-heading.concept-merch-heading,
+  .page-hero.concept-merch {
+    min-height: 660px !important;
+    height: 660px !important;
+  }
+  .header-search { min-width: 43px; }
+  .nav-search { width: 43px !important; height: 43px !important; min-height: 43px !important; }
+}
+
+@media (max-width: 820px) {
+  .header-search {
+    display: grid !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  .nav-search svg { width: 21px !important; height: 21px !important; }
+}
