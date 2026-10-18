@@ -1,6 +1,11 @@
-# Spiritual Gorillaz — 1.0.5
+# Spiritual Gorillaz — 1.0.6
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design.
+
+## 1.0.6 navigation and hero regression correction
+
+Version 1.0.6 corrects presentation regressions found in 1.0.5: the desktop navigation is restored to a larger centered layout, the complete navigation strip remains sticky while scrolling, Search opens as an accessible dropdown, interior hero artwork no longer uses destructive full-bleed zooming, and the Home headline receives a deeper metallic dimensional treatment.
+
 
 ## 1.0.5 animated identity update
 
