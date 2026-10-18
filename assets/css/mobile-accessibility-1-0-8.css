@@ -1,0 +1,22 @@
+/* Spiritual Gorillaz 1.0.8 — phone input and bounded-menu accessibility fixes. */
+@media (max-width: 820px) {
+  /* Leave enough room above the persistent player and force a genuinely scrollable
+     menu on short phones, while public.js continues to calculate the live limit. */
+  .site-header .public-nav {
+    max-height: max(180px, calc(var(--menu-max-height, calc(100vh - 112px)) - 56px)) !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain;
+    scroll-padding-block: 14px;
+    padding-bottom: 20px !important;
+  }
+
+  /* Prevent iOS/phone zoom and keep all real booking/search controls readable. */
+  .concept-booking .public-form input:not([type="checkbox"]),
+  .concept-booking .public-form select,
+  .concept-booking .public-form textarea,
+  .header-search-fields input,
+  .header-search-fields select {
+    font-size: 16px !important;
+    line-height: 1.35 !important;
+  }
+}
