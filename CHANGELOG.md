@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.6 — navigation and hero regression correction
+
+- restore a larger, truly centered desktop navigation layout;
+- make the entire navigation strip sticky during page scrolling;
+- replace Search page navigation on magnifier click with an accessible dropdown search panel;
+- keep full Search results behavior after the dropdown form is submitted;
+- reduce destructive hero zoom/cropping and preserve the native wide artwork on desktop and mobile;
+- add layered metallic depth to “Music With a Higher Purpose”;
+- preserve all 1.0.5 CMS, installer, booking, player, commerce and animated-branding behavior.
+
 ## 1.0.5 — approved animated identity
 
 The owner-selected Concept 2 crown-and-shield wordmark is now the bundled public identity.
