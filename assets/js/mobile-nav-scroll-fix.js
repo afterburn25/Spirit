@@ -9,6 +9,8 @@
     if (!phone.matches || !['ArrowDown', 'ArrowUp'].includes(event.key)) return;
     const focused = nav.contains(document.activeElement) ? document.activeElement :
       (event.key === 'ArrowUp' ? nav.querySelector('a:last-of-type') : nav.querySelector('a:first-of-type'));
+    if (event.key === 'ArrowUp') nav.scrollTop = nav.scrollHeight;
+    else nav.scrollTop = 0;
     focused?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   });
 })();
