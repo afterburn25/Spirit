@@ -44,8 +44,7 @@
   };
 
   /* Moving the nav to the end of <body> changes the browser's natural tab
-     sequence. Preserve the expected disclosure behavior: once Menu is open,
-     Tab from its controlling button enters the first navigation link. */
+     sequence. Preserve the disclosure's logical order around its Menu button. */
   toggle.addEventListener("keydown", event => {
     if (!phone.matches || event.key !== "Tab" || event.shiftKey || !nav.classList.contains("is-open")) return;
     const first = nav.querySelector("a[href]");
@@ -53,6 +52,14 @@
     event.preventDefault();
     first.focus({ preventScroll: true });
     first.scrollIntoView({ block: "nearest", inline: "nearest" });
+  });
+
+  nav.addEventListener("keydown", event => {
+    if (!phone.matches || event.key !== "Tab" || !event.shiftKey || !nav.classList.contains("is-open")) return;
+    const first = nav.querySelector("a[href]");
+    if (event.target !== first) return;
+    event.preventDefault();
+    toggle.focus({ preventScroll: true });
   });
 
   toggle.addEventListener("click", () => requestAnimationFrame(syncBounds));
