@@ -9,6 +9,13 @@
   const originalNextSibling = nav.nextSibling;
   const phone = window.matchMedia("(max-width: 820px)");
 
+  const syncOpenState = () => {
+    document.body.classList.toggle(
+      "mobile-nav-open",
+      phone.matches && nav.classList.contains("mobile-nav-portal") && nav.classList.contains("is-open"),
+    );
+  };
+
   /* The disclosure is rendered as a body-level portal on phones so the sticky
      header can never sit on top of its links. The header height is responsive
      (logo, Search and browser text sizing can all change it), therefore the
@@ -16,10 +23,12 @@
   const syncBounds = () => {
     if (!phone.matches || !nav.classList.contains("mobile-nav-portal")) {
       nav.style.removeProperty("--mobile-nav-top");
+      syncOpenState();
       return;
     }
-    const bottom = Math.ceil(Math.max(0, header.getBoundingClientRect().bottom + 8));
+    const bottom = Math.ceil(Math.max(112, header.getBoundingClientRect().bottom + 8));
     nav.style.setProperty("--mobile-nav-top", `${bottom}px`);
+    syncOpenState();
   };
 
   const ensurePhonePortal = () => {
@@ -42,7 +51,7 @@
     nav.style.removeProperty("--menu-max-height");
     nav.style.removeProperty("height");
     nav.style.removeProperty("max-height");
-    document.body.classList.remove("has-mobile-nav-portal");
+    document.body.classList.remove("has-mobile-nav-portal", "mobile-nav-open");
     if (nav.parentNode !== originalParent) {
       if (originalNextSibling?.parentNode === originalParent) originalParent.insertBefore(nav, originalNextSibling);
       else originalParent.append(nav);
@@ -96,6 +105,10 @@
   window.visualViewport?.addEventListener("resize", syncBounds);
   window.visualViewport?.addEventListener("scroll", syncBounds);
   document.addEventListener("spirit:navigated", syncBounds);
+  new MutationObserver(syncOpenState).observe(nav, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
   if ("ResizeObserver" in window) new ResizeObserver(syncBounds).observe(header);
 
   place();
