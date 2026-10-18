@@ -8,12 +8,15 @@ Original image SHA-256: `4e76c31eadeb7720701c7d8bd94f484824eb5eb9dd4ba0447939391
 
 The approved composite is the visual-direction reference, **not a pixel-for-pixel boxed layout**. The production site must preserve its black/deep-navy, gold, blue-stage-light and crowned-gorilla identity while applying all of the following owner-requested changes:
 
-- Every primary hero spans the available viewport from left edge to right edge.
+- Every primary **hero canvas** spans the available viewport from left edge to right edge.
+- The **source artwork itself must not be stretched to the viewport**. Center each production master and cap it at native width.
+- On screens wider than the native master, extend both sides with a seamless matching dark/navy atmosphere.
 - The complete right-side source artwork remains visible at a zoomed-out scale; do not crop the crown, face, headphones, performers, equipment or other critical subject matter merely to fill a short banner.
-- Extend unused canvas with a seamless matching dark/navy atmosphere. Do not use a blurred duplicate, stretched copy, enlarged low-resolution layer or obvious split panel behind the sharp artwork.
-- Keep dark negative space on the left for real HTML headings, text and controls.
+- Do not use a blurred duplicate, stretched copy, enlarged low-resolution layer or obvious split panel behind the sharp artwork.
+- Keep real HTML headings, body copy and controls inside the artwork's left negative-space region. They must not sit outside the centered image or resemble a separate rectangular box overlapping it.
+- A very light outer-edge feather may blend a centered native master into the extension on wider screens; it must not obscure important subject detail.
 - Home retains the dimensional `MUSIC WITH A HIGHER PURPOSE` treatment.
-- Public navigation remains large, centered and sticky, and Search opens its dropdown rather than navigating away.
+- Public navigation remains large, centered and sticky, and Search remains visible and opens its dropdown rather than navigating away.
 - On mobile, place the copy first and the complete native artwork beneath it. Do not hide the modification by switching back to a cropped background image.
 - Apply the same rule consistently to Home, Music, Shows, Band, Media, Press, Booking and Merch.
 
