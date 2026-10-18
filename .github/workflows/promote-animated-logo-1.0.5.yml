@@ -1,0 +1,70 @@
+name: Promote animated identity 1.0.5
+on:
+  push:
+    branches: [work/approved-concept-native]
+permissions:
+  contents: write
+jobs:
+  promote:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: work/approved-concept-native
+          fetch-depth: 0
+      - name: Record 1.0.5 animated identity release
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          Path('VERSION').write_text('1.0.5\n')
+
+          readme = Path('README.md')
+          text = readme.read_text()
+          text = text.replace('# Spiritual Gorillaz — 1.0.0', '# Spiritual Gorillaz — 1.0.5', 1)
+          old = '## Final software state\n\nVersion 1.0.0 promotes the fully verified RC10 software line to the first final release. The application implementation is complete.'
+          new = '''## 1.0.5 animated identity update
+
+Version 1.0.5 keeps the verified final application foundation and adds the owner-selected Concept 2 transparent animated identity. The public header uses the APNG logo, the footer and reduced-motion preference use its matching static PNG, and owner-published Media-library branding continues to override the bundled mark without cropping or stretching.'''
+          if old not in text:
+              raise SystemExit('README release summary target not found')
+          readme.write_text(text.replace(old, new, 1))
+
+          changelog = Path('CHANGELOG.md')
+          text = changelog.read_text()
+          marker = '# Changelog\n\n'
+          entry = '''## 1.0.5 — approved animated identity\n\nThe owner-selected Concept 2 crown-and-shield wordmark is now the bundled public identity.\n\nChanges:\n- add the transparent APNG logo to the real public header;\n- add a matching transparent static PNG for the footer, reduced-motion visitors and fallback behavior;\n- preserve the published Media-library logo override and original image proportions;\n- resize the header responsively without displacing navigation, booking or Search controls;\n- retain the approved native-resolution Home, Music, Shows, Band, Booking and Merch design;\n- extend the cumulative package with the new identity assets and styling.\n\nThe update changes branding presentation only; the verified PHP/CMS, player, booking, commerce, installer, upgrade and recovery behavior remains intact.\n\n'''
+          if marker not in text:
+              raise SystemExit('CHANGELOG heading not found')
+          if '## 1.0.5 — approved animated identity' not in text:
+              text = text.replace(marker, marker + entry, 1)
+          changelog.write_text(text)
+
+          status = Path('PROJECT_STATUS.md')
+          text = status.read_text()
+          text = text.replace('# Project status — 1.0.0 final', '# Project status — 1.0.5 animated identity update', 1)
+          text = text.replace('The application is **1.0.0**. The planned application scope is complete and the owner explicitly instructed the project to proceed to final release.', 'The application is **1.0.5**. The complete final software foundation is retained, with the owner-selected transparent animated Concept 2 identity added to the approved native-resolution public design.', 1)
+          text = text.replace('- scalable bundled crown/wordmark SVG fallback while preserving owner-managed logo publication;', '- transparent animated crown-and-shield APNG in the header, matching static/reduced-motion fallback, and preserved owner-managed logo publication;', 1)
+          text = text.replace('## Final release decision\n\nThe owner explicitly instructed the project to continue through final 1.0.0. Commerce is intentionally disabled, so Authorize.net sandbox/provider acceptance is deferred until commerce activation.', '## Release lineage\n\nVersion 1.0.5 is a visual identity update on the verified final 1.0.0 application foundation. Commerce remains intentionally disabled, so Authorize.net sandbox/provider acceptance is deferred until commerce activation.', 1)
+          status.write_text(text)
+
+          handoff = Path('SESSION_HANDOFF.md')
+          text = handoff.read_text()
+          text = text.replace('# Resume — 1.0.0 final', '# Resume — 1.0.5 animated identity update', 1)
+          text = text.replace('Repository **afterburn25/Spirit**. Final release source is prepared from the fully verified RC10 line.', 'Repository **afterburn25/Spirit**. Version 1.0.5 retains the verified final software line and adds the approved transparent animated Concept 2 identity.', 1)
+          text = text.replace('- Application version: **1.0.0**', '- Application version: **1.0.5**', 1)
+          text = text.replace('- Bundled scalable logo fallback is available while owner-published branding still overrides it.', '- The bundled header uses the transparent animated Concept 2 logo; the footer and reduced-motion preference use its matching static PNG; owner-published branding still overrides both.', 1)
+          text = text.replace('No unresolved software blockers remain for 1.0.0.', 'No unresolved software blockers remain for 1.0.5. The branch stays in draft review until the owner approves the rendered identity in context.', 1)
+          handoff.write_text(text)
+          PY
+          python3 tools/release_gate.py
+      - name: Commit versioned identity update
+        run: |
+          rm -f .github/workflows/promote-animated-logo-1.0.5.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Release 1.0.5 approved animated identity"
+          git push origin HEAD:work/approved-concept-native
