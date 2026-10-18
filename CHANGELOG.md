@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.12 — centered, shortened hero containers
+
+- stop treating page heroes as full-viewport sections;
+- center Home, Music, Shows, Band, Media, Press and Merch at the same 1320-pixel maximum width as the page sections below;
+- reduce interior hero height to a compact editorial range instead of a near-full-screen canvas;
+- use a strict text-left / artwork-right grid so copy never overlaps image focal areas;
+- integrate the two columns with a narrow seam fade rather than a second panel or broad overlay;
+- keep the right-side subject visible while trimming only unused dark source space where necessary;
+- constrain Booking to the same centered page container;
+- preserve sticky centered navigation, visible dropdown Search, animated branding, dimensional Home title and mobile copy-first artwork stacking.
+
 ## 1.0.11 — hero copy-safe-zone correction
 
 - narrow the desktop hero copy column so it ends before the primary right-side subject;
