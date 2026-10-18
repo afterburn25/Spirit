@@ -1,27 +1,28 @@
-# Resume — 1.0.8 full-width hero review
+# Resume — 1.0.9 full-span hero and Search review
 
-Repository **afterburn25/Spirit**. Version 1.0.8 retains the verified final software line and applies the owner-approved full-width atmospheric hero treatment across all major public pages.
+Repository **afterburn25/Spirit**. Version 1.0.9 retains the verified final software line and corrects the remaining Music/full-span hero geometry plus the missing Search control.
 
 ## Current state
 
-- Application version: **1.0.8**
-- Working branch: `work/1.0.8-fullwidth-heroes`
-- Draft pull request: **#31**
+- Application version: **1.0.9**
+- Working branch: `work/1.0.9-full-span-search`
+- Draft pull request: **#32**
 - RC10 verification baseline: `2a833986f5a39d2f8de99f41bd8640b0642648e8`
-- Do not merge into `main` until the owner approves the 1.0.8 screenshots.
-- Do not return to boxed, narrow or separately contained interior hero artwork.
+- Do not merge into `main` until the owner approves the 1.0.9 screenshots.
+- Do not return to boxed, narrow, short-banner or separately contained interior hero artwork.
 
 ## Locked visual decisions
 
 - Preserve the black/deep-navy, blue stage-light and metallic-gold identity.
 - The complete header strip remains sticky while scrolling.
 - Desktop navigation stays larger and truly centered.
-- The magnifying glass opens a dropdown Search panel; it does not immediately navigate away.
+- The magnifying glass is always visible and opens a dropdown Search panel; it does not immediately navigate away.
 - “Music With a Higher Purpose” retains its dimensional metallic treatment.
-- Home, Music, Shows, Band, Media, Press, Booking and Merch heroes span the viewport from left to right.
-- A full-width atmospheric extension may fill the canvas, but the sharp native-resolution subject artwork must remain zoomed out and completely visible on the right.
+- Production desktop Music and coordinated heroes use a true 16:9 viewport-wide canvas so the native artwork reaches both edges.
+- The complete right-side source artwork remains zoomed out and visible; do not crop the crown, face, headphones, performers or equipment.
 - Never enlarge a low-resolution crop to fake detail.
-- Mobile stacks the complete native artwork beneath the copy instead of cropping it.
+- Dark atmospheric space on the left remains available for real HTML copy and controls.
+- Mobile keeps both Menu and Search inside the header viewport, places copy first, and stacks the complete native artwork beneath it.
 - Real headings, buttons, forms and navigation remain HTML/CSS, not baked into artwork.
 
 ## Fixed content decisions
@@ -49,8 +50,8 @@ Repository **afterburn25/Spirit**. Version 1.0.8 retains the verified final soft
 The owner expects every completed build to include:
 - cumulative full installation ZIP;
 - SHA-256 checksum;
-- desktop and mobile screenshots for every major page;
-- review board;
+- desktop and mobile screenshots;
+- Search-open screenshot when Search behavior changes;
 - no merge to `main` before approval.
 
 Do not claim unobserved provider or host evidence. After deployment, observe Launch Checks, worker heartbeat freshness, recovery behavior and production performance as operational follow-up. Genuine Authorize.net sandbox/provider acceptance is required before commerce activation.
