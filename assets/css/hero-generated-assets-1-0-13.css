@@ -3,50 +3,68 @@
    A packaged build may contain deterministic wide WebP atmosphere masters. The
    original native PNG remains visible as the sharp foreground subject, aligned
    to the right at contain scale. When the generated WebP is present it fills
-   the complete window behind that subject; when it is absent, the native image
-   still renders correctly instead of leaving a blank hero. */
+   the complete window behind that subject; when it is absent, CSS atmosphere
+   and the native image still render a complete hero instead of a blank panel. */
 @media (min-width:821px) {
   .concept-home:has(.fallback-hero) {
-    background-image: var(--sg-wide-home) !important;
-    background-size: cover !important;
+    background-image:
+      var(--sg-wide-home),
+      radial-gradient(ellipse at 72% 42%, rgba(22, 91, 151, .24), transparent 48%),
+      linear-gradient(90deg, #02070c 0%, #061725 58%, #02070c 100%) !important;
+    background-size: cover, 100% 100%, 100% 100% !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .concept-music:has(> .music-art) {
-    background-image: var(--sg-wide-music) !important;
-    background-size: cover !important;
+    background-image:
+      var(--sg-wide-music),
+      radial-gradient(ellipse at 75% 43%, rgba(35, 90, 137, .22), transparent 47%),
+      linear-gradient(90deg, #02070c 0%, #061522 58%, #02070c 100%) !important;
+    background-size: cover, 100% 100%, 100% 100% !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .concept-shows:has(> .shows-stage-art) {
-    background-image: var(--sg-wide-shows) !important;
-    background-size: cover !important;
+    background-image:
+      var(--sg-wide-shows),
+      radial-gradient(ellipse at 75% 44%, rgba(16, 88, 151, .24), transparent 49%),
+      linear-gradient(90deg, #02070c 0%, #051522 58%, #02070c 100%) !important;
+    background-size: cover, 100% 100%, 100% 100% !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .concept-band:has(> .concept-band-art) {
-    background-image: var(--sg-wide-band) !important;
-    background-size: cover !important;
+    background-image:
+      var(--sg-wide-band),
+      radial-gradient(ellipse at 75% 43%, rgba(22, 83, 137, .22), transparent 48%),
+      linear-gradient(90deg, #02070c 0%, #051421 58%, #02070c 100%) !important;
+    background-size: cover, 100% 100%, 100% 100% !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .concept-merch:has(> .merch-stage-art),
   .concept-merch-heading:has(> .merch-concept-art) {
-    background-image: var(--sg-wide-merch) !important;
-    background-size: cover !important;
+    background-image:
+      var(--sg-wide-merch),
+      radial-gradient(ellipse at 75% 43%, rgba(30, 83, 126, .21), transparent 48%),
+      linear-gradient(90deg, #02070c 0%, #061522 58%, #02070c 100%) !important;
+    background-size: cover, 100% 100%, 100% 100% !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .booking-layout.concept-booking:has(.booking-fallback-art) {
-    background-image: var(--sg-wide-booking) !important;
-    background-size: cover !important;
+    background-image:
+      var(--sg-wide-booking),
+      radial-gradient(ellipse at 75% 43%, rgba(82, 62, 38, .20), transparent 48%),
+      linear-gradient(90deg, #02070c 0%, #101016 58%, #02070c 100%) !important;
+    background-size: cover, 100% 100%, 100% 100% !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
   }
 
   /* Keep the reviewed source art as a crisp, non-cropped foreground. The wide
-     package master and this source use the same right-side geometry, so they
-     align without producing a doubled subject. */
+     package master and this source use the same right-side geometry. A gentle
+     left-edge mask prevents a visible rectangular seam in source-only renders. */
   .concept-home .fallback-hero,
   .concept-music > .music-art,
   .concept-shows > .shows-stage-art,
@@ -60,6 +78,13 @@
     object-fit: contain !important;
     object-position: right center !important;
     background: transparent !important;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.08) 28%, #000 56%) !important;
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.08) 28%, #000 56%) !important;
+  }
+
+  .concept-home .fallback-hero {
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.10) 16%, #000 46%) !important;
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.10) 16%, #000 46%) !important;
   }
 
   /* Media and Press do not have a bundled foreground <img>. Use the wide asset
@@ -67,17 +92,21 @@
   main[data-page="media"] .page-hero {
     background-image:
       var(--sg-wide-shows),
-      url('../../images/spiritual-gorillaz-shows-hero.png') !important;
-    background-size: cover, contain !important;
-    background-position: center, right center !important;
+      linear-gradient(90deg, rgba(2,7,12,.98), rgba(2,7,12,.54) 42%, transparent 62%),
+      url('../../images/spiritual-gorillaz-shows-hero.png'),
+      linear-gradient(90deg, #02070c, #061522 62%, #02070c) !important;
+    background-size: cover, 100% 100%, contain, 100% 100% !important;
+    background-position: center, center, right center, center !important;
     background-repeat: no-repeat !important;
   }
   main[data-page="press"] .page-hero {
     background-image:
       var(--sg-wide-band),
-      url('../../images/spiritual-gorillaz-band-hero.png') !important;
-    background-size: cover, contain !important;
-    background-position: center, right center !important;
+      linear-gradient(90deg, rgba(2,7,12,.98), rgba(2,7,12,.54) 42%, transparent 62%),
+      url('../../images/spiritual-gorillaz-band-hero.png'),
+      linear-gradient(90deg, #02070c, #061522 62%, #02070c) !important;
+    background-size: cover, 100% 100%, contain, 100% 100% !important;
+    background-position: center, center, right center, center !important;
     background-repeat: no-repeat !important;
   }
 }
