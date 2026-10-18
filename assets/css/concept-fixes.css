@@ -10,11 +10,12 @@
   object-fit: contain;
 }
 
-/* Search remains a native form control without becoming an extra navigation link. */
-.nav-search-form {
+/* Search remains a native form control and sits beside, not inside, the mobile disclosure. */
+.header-search-form {
   margin: 0;
   display: grid;
   place-items: center;
+  flex: 0 0 auto;
 }
 .nav-search {
   appearance: none;
@@ -39,8 +40,7 @@
     max-width: 132px !important;
     max-height: 64px !important;
   }
-  .nav-search-form { width: 100%; }
-  .nav-search { width: 100%; justify-content: flex-start; }
+  .header-search-form { display: none; }
   .concept-home .scroll-cue { display: none; }
 }
 
