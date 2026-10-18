@@ -1,0 +1,55 @@
+/* Spiritual Gorillaz 1.0.13 — final runtime interaction/accessibility fixes.
+   Loaded last so older visual layers cannot block the mobile navigation or
+   shrink phone entry controls below the browser-safe 16px threshold. */
+
+@media (max-width: 820px) {
+  /* The sticky header is a visual container, not a click shield. Let pointer
+     events pass through the header box itself, then explicitly re-enable every
+     real interactive child. This keeps the open disclosure links clickable. */
+  .site-header {
+    pointer-events: none !important;
+    overflow: visible !important;
+  }
+
+  .site-header > .wordmark,
+  .site-header > .nav-toggle,
+  .site-header > .public-nav,
+  .site-header > .header-search,
+  .site-header .public-nav > a,
+  .site-header .header-search-panel,
+  .site-header .header-search-panel * {
+    pointer-events: auto !important;
+  }
+
+  .site-header .public-nav {
+    z-index: 2200 !important;
+  }
+
+  .site-header .public-nav.is-open {
+    display: flex !important;
+    pointer-events: auto !important;
+    z-index: 2200 !important;
+  }
+
+  .site-header .public-nav.is-open > a {
+    position: relative;
+    z-index: 2201;
+    pointer-events: auto !important;
+  }
+
+  .site-header::before,
+  .site-header::after {
+    pointer-events: none !important;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Prevent iOS/Android form zoom and satisfy the public phone-control audit. */
+  .public-site input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),
+  .public-site select,
+  .public-site textarea,
+  .header-search-fields input,
+  .header-search-fields select {
+    font-size: 16px !important;
+  }
+}
