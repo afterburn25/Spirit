@@ -55,11 +55,25 @@
   });
 
   nav.addEventListener("keydown", event => {
-    if (!phone.matches || event.key !== "Tab" || !event.shiftKey || !nav.classList.contains("is-open")) return;
-    const first = nav.querySelector("a[href]");
-    if (event.target !== first) return;
-    event.preventDefault();
-    toggle.focus({ preventScroll: true });
+    if (!phone.matches || event.key !== "Tab" || !nav.classList.contains("is-open")) return;
+    const links = Array.from(nav.querySelectorAll("a[href]"));
+    const first = links[0];
+    const last = links[links.length - 1];
+
+    if (event.shiftKey && event.target === first) {
+      event.preventDefault();
+      toggle.focus({ preventScroll: true });
+      return;
+    }
+
+    if (!event.shiftKey && event.target === last) {
+      event.preventDefault();
+      const search = document.querySelector(".nav-search");
+      const destination = search instanceof HTMLElement && search.getClientRects().length
+        ? search
+        : document.getElementById("site-content");
+      destination?.focus({ preventScroll: true });
+    }
   });
 
   toggle.addEventListener("click", () => requestAnimationFrame(syncBounds));
