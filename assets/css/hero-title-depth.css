@@ -1,0 +1,33 @@
+/* Spiritual Gorillaz 1.0.6 — metallic dimensional Home title. */
+.concept-home h1 {
+  width: max-content;
+  max-width: 100%;
+  margin: 0 0 20px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 900;
+  line-height: .88;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+  color: #f7f0df;
+  background: linear-gradient(180deg, #fffdf7 0%, #f4ead5 42%, #c5b79d 68%, #fff5df 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: .7px rgba(255,255,255,.42);
+  paint-order: stroke fill;
+  text-shadow: 0 1px 0 #aaa08c, 0 2px 0 #746b5d, 0 4px 0 #332f29, 0 7px 0 rgba(0,0,0,.42), 0 13px 28px rgba(0,0,0,.92), 0 0 28px rgba(95,169,224,.12);
+  filter: drop-shadow(0 4px 2px rgba(0,0,0,.52));
+}
+.concept-home h1 em {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 1.13em;
+  letter-spacing: -.025em;
+  background: linear-gradient(180deg, #fff0a6 0%, #ffd56e 28%, #d89d32 63%, #fff0a0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px #6b4313;
+  text-shadow: 0 1px 0 #ffd77c, 0 2px 0 #b8791e, 0 4px 0 #6d4514, 0 7px 0 rgba(0,0,0,.46), 0 14px 30px rgba(0,0,0,.94), 0 0 30px rgba(224,166,57,.24);
+}
+@media(max-width:600px){.concept-home h1{font-size:39px!important;line-height:.91}}
