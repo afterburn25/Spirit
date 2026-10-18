@@ -2,21 +2,37 @@
 (() => {
   const nav = document.getElementById("public-nav");
   const header = document.querySelector(".site-header");
-  if (!nav || !header) return;
+  const toggle = document.querySelector(".nav-toggle");
+  if (!nav || !header || !toggle) return;
 
   const originalParent = nav.parentNode;
   const originalNextSibling = nav.nextSibling;
   const phone = window.matchMedia("(max-width: 820px)");
+
+  /* The disclosure is rendered as a body-level portal on phones so the sticky
+     header can never sit on top of its links. The header height is responsive
+     (logo, Search and browser text sizing can all change it), therefore the
+     portal top must be measured rather than hard-coded. */
+  const syncBounds = () => {
+    if (!phone.matches || !nav.classList.contains("mobile-nav-portal")) {
+      nav.style.removeProperty("--mobile-nav-top");
+      return;
+    }
+    const bottom = Math.ceil(Math.max(0, header.getBoundingClientRect().bottom + 2));
+    nav.style.setProperty("--mobile-nav-top", `${bottom}px`);
+  };
 
   const place = () => {
     if (phone.matches) {
       if (nav.parentNode !== document.body) document.body.append(nav);
       nav.classList.add("mobile-nav-portal");
       document.body.classList.add("has-mobile-nav-portal");
+      requestAnimationFrame(syncBounds);
       return;
     }
 
     nav.classList.remove("mobile-nav-portal", "is-open");
+    nav.style.removeProperty("--mobile-nav-top");
     nav.style.removeProperty("--menu-max-height");
     nav.style.removeProperty("height");
     nav.style.removeProperty("max-height");
@@ -26,6 +42,26 @@
       else originalParent.append(nav);
     }
   };
+
+  /* Moving the nav to the end of <body> changes the browser's natural tab
+     sequence. Preserve the expected disclosure behavior: once Menu is open,
+     Tab from its controlling button enters the first navigation link. */
+  toggle.addEventListener("keydown", event => {
+    if (!phone.matches || event.key !== "Tab" || event.shiftKey || !nav.classList.contains("is-open")) return;
+    const first = nav.querySelector("a[href]");
+    if (!first) return;
+    event.preventDefault();
+    first.focus({ preventScroll: true });
+    first.scrollIntoView({ block: "nearest", inline: "nearest" });
+  });
+
+  toggle.addEventListener("click", () => requestAnimationFrame(syncBounds));
+  window.addEventListener("resize", syncBounds);
+  window.addEventListener("scroll", syncBounds, { passive: true });
+  window.visualViewport?.addEventListener("resize", syncBounds);
+  window.visualViewport?.addEventListener("scroll", syncBounds);
+  document.addEventListener("spirit:navigated", syncBounds);
+  if ("ResizeObserver" in window) new ResizeObserver(syncBounds).observe(header);
 
   place();
   phone.addEventListener("change", place);
