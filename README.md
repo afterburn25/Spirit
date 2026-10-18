@@ -1,6 +1,10 @@
-# Spiritual Gorillaz — 1.0.7
+# Spiritual Gorillaz — 1.0.8
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design.
+
+## 1.0.8 full-width atmospheric hero system
+
+Version 1.0.8 implements the approved full-width treatment across Home, Music, Shows, Band, Media, Press, Booking and Merch. Each desktop hero composites the native-resolution source artwork over a full-viewport atmospheric extension layer, covering the screen from edge to edge while preserving the complete right-side subject at a zoomed-out scale. The subject artwork is not enlarged to manufacture detail, so it remains sharp. Mobile keeps the full original artwork visible beneath the copy instead of destructively cropping it.
 
 ## 1.0.7 complete interior-hero framing correction
 
