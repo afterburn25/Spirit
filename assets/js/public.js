@@ -178,6 +178,24 @@
       document.dispatchEvent(new CustomEvent('spirit:navigated', { detail: { root: next } }));
     } catch (error) { if (error.name !== 'AbortError') location.assign(url.href); }
   }
+
+  /* Route header-navigation clicks at the navigation element itself. This is
+     deliberately earlier than the document-level progressive-navigation handler:
+     WebKit can retarget a click while a sticky disclosure closes, which used to
+     leave the link visually activated without beginning navigation. Keeping the
+     event inside the nav guarantees one persistent-shell navigation and preserves
+     the active audio element. */
+  nav.addEventListener('click', event => {
+    const link = event.target.closest('a[href]');
+    if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target || link.hasAttribute('download')) return;
+    const url = new URL(link.href, location.href);
+    if (!internal(url) || (url.pathname === location.pathname && url.search === location.search && url.hash)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    menu(false);
+    navigate(url);
+  });
+
   document.addEventListener('click', e => {
     const track = e.target.closest('.play-track');
     if (track) {
@@ -188,7 +206,7 @@
     const photo = e.target.closest('.photo-open');
     if (photo && !e.defaultPrevented && e.button === 0 && !e.metaKey && !e.ctrlKey && !e.shiftKey && !e.altKey && typeof dialog.showModal === 'function') { e.preventDefault(); photoOpener = photo; const img = document.getElementById('dialog-photo'); img.src = photo.dataset.photo; img.alt = photo.dataset.caption; document.getElementById('dialog-caption').textContent = photo.dataset.caption; dialog.showModal(); return; }
     const link = e.target.closest('a[href]');
-    if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || link.target || link.hasAttribute('download')) return;
+    if (!link || nav.contains(link) || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || link.target || link.hasAttribute('download')) return;
     const url = new URL(link.href, location.href);
     if (!internal(url) || (url.pathname === location.pathname && url.search === location.search && url.hash)) return;
     e.preventDefault(); navigate(url);
