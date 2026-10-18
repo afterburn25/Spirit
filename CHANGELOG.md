@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.9 — full-span hero and Search correction
+
+- change production desktop hero geometry to a true 16:9 viewport-wide canvas;
+- make the Music artwork reach both screen edges without cropping or leaving an unintended left strip;
+- apply the same full-span geometry to Shows, Band and Merch at production desktop widths;
+- preserve the complete right-side subject through `object-fit: contain` and right-center positioning;
+- keep the approved dark atmospheric left side available for real HTML copy;
+- explicitly reserve and render the right-side Search control in the sticky header;
+- retain the dropdown Search interaction, centered navigation, dimensional Home title, animated logo and mobile complete-art stacking.
+
 ## 1.0.8 — full-width atmospheric hero system
 
 - replace boxed/contained interior heroes with edge-to-edge viewport heroes;
