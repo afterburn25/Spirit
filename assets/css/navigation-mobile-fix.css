@@ -36,4 +36,6 @@
   .site-header .public-nav.is-open { display: flex !important; }
   .site-header .public-nav > a { width: 100%; }
   .site-header .public-nav .nav-book { margin-top: 6px; }
+  .music-hero::before,
+  .merch-heading::before { display: none !important; }
 }
