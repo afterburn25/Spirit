@@ -1,0 +1,10 @@
+/* Spiritual Gorillaz 1.0.6 — preserve full native hero compositions. */
+.page-hero > .concept-page-art,
+.page-hero > .music-art,
+.page-hero > .band-image,
+.merch-concept-art,
+.concept-merch .merch-stage-art {
+  object-fit: contain !important;
+  object-position: right center !important;
+  background: #02070c !important;
+}
