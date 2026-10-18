@@ -1,0 +1,42 @@
+/* Public navigation fallback when JavaScript is unavailable.
+   The mobile disclosure button is useful only with script, so expose the full
+   navigation in normal document flow for keyboard and touch users instead. */
+
+@media (max-width: 820px) {
+  .site-header {
+    pointer-events: auto !important;
+    position: relative !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    overflow: visible !important;
+  }
+
+  .site-header .nav-toggle {
+    display: none !important;
+  }
+
+  .site-header .public-nav {
+    display: flex !important;
+    position: static !important;
+    flex: 1 0 100% !important;
+    order: 3 !important;
+    width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 12px !important;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: auto !important;
+  }
+
+  .site-header .public-nav > a {
+    pointer-events: auto !important;
+  }
+
+  .site-header .header-search {
+    order: 2 !important;
+  }
+}
