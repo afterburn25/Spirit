@@ -1,6 +1,10 @@
-# Spiritual Gorillaz — 1.0.10
+# Spiritual Gorillaz — 1.0.11
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design.
+
+## 1.0.11 hero copy-safe zone
+
+Version 1.0.11 corrects the remaining overlap between hero copy and the visual focal areas. The full-width atmospheric canvas and centered native-resolution artwork remain unchanged, but desktop headings and supporting copy now use a narrower left-side safe zone. A continuous dark-to-transparent gradient separates the copy from faces, performers, equipment, crowd focal points and bright image edges without creating a visible panel or box. Booking receives the same treatment, while mobile remains copy-first with the complete artwork beneath it.
 
 ## 1.0.10 centered native-art hero stage
 
@@ -8,11 +12,11 @@ Version 1.0.10 corrects the visual problem introduced by stretching the source a
 
 ## 1.0.9 full-span hero and Search correction
 
-Version 1.0.9 corrected the desktop Music/full-width geometry issue and guaranteed that the Search control remained visible in the real sticky header. It is retained as part of the cumulative 1.0.10 build, but its viewport-stretched image sizing is superseded by the centered native-art stage.
+Version 1.0.9 corrected the desktop Music/full-width geometry issue and guaranteed that the Search control remained visible in the real sticky header. It is retained as part of the cumulative build, but its viewport-stretched image sizing is superseded by the centered native-art stage.
 
 ## 1.0.8 full-width atmospheric hero system
 
-Version 1.0.8 introduced the approved full-width treatment across Home, Music, Shows, Band, Media, Press, Booking and Merch. Version 1.0.10 keeps the full-width canvas while correcting how the native art itself is framed.
+Version 1.0.8 introduced the approved full-width treatment across Home, Music, Shows, Band, Media, Press, Booking and Merch. Later releases keep the full-width canvas while correcting how the native art and copy are framed.
 
 ## 1.0.7 complete interior-hero framing correction
 
@@ -42,7 +46,7 @@ Implemented:
 
 Missing optional real-world content is never fabricated. Shows may be empty, Part 3 may remain unpublished, portraits may remain unset and the storefront may stay closed. When commerce is closed, Merch/Bag and merchandise search affordances are not advertised globally. Merchant sandbox acceptance is deferred until commerce activation.
 
-The owner may replace bundled hero artwork or branding through the existing administration workflows. Published CMS artwork continues to inherit the same centered, non-destructive framing rules.
+The owner may replace bundled hero artwork or branding through the existing administration workflows. Published CMS artwork continues to inherit the same centered, non-destructive framing and copy-safe-zone rules.
 
 ## Deployment contract
 
