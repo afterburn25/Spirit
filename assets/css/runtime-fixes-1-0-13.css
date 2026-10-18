@@ -2,20 +2,26 @@
    Loaded last so older visual layers cannot block mobile navigation or shrink
    phone entry controls below the browser-safe 16px threshold. */
 
+/* Preserve the confirmed member names exactly as written. Some earlier visual
+   layers uppercased card headings; Playwright's innerText reflects that visual
+   transformation, which also made the names less natural on the real page. */
+.member-grid h3,
+.band-member-grid h3 {
+  text-transform: none !important;
+}
+
 @media (max-width: 820px) {
   .site-shell {
     position: relative !important;
     overflow-x: clip !important;
     overflow-y: visible !important;
-    isolation: isolate;
+    isolation: auto !important;
   }
 
-  /* Keep the mobile disclosure in normal document flow. Earlier absolute-menu
-     layers extended the links outside the header's painted box, allowing the
-     header itself to win pointer hit-testing. The header background is therefore
-     deliberately click-through while every real control is explicitly restored.
-     This also prevents browser hit testing from choosing the sticky header box
-     instead of a visible navigation descendant. */
+  /* No-JavaScript is the safe default: the complete navigation is visible in
+     normal document flow and the disclosure button is hidden. A tiny same-origin
+     capability script adds html.js before styles are evaluated; only then does
+     the hamburger disclosure become active. */
   .site-header,
   .site-header:has(.bundled-brand-animated) {
     display: flex !important;
@@ -24,10 +30,10 @@
     gap: 8px !important;
     height: auto !important;
     min-height: 82px !important;
-    pointer-events: none !important;
+    pointer-events: auto !important;
     position: sticky !important;
     top: 0;
-    z-index: 3000 !important;
+    z-index: 5000 !important;
     overflow: visible !important;
     isolation: isolate;
   }
@@ -41,12 +47,14 @@
   .site-header > .nav-toggle {
     order: 1;
     margin-left: auto !important;
+    display: none !important;
     pointer-events: auto !important;
   }
 
   .site-header > .header-search {
     order: 2;
     pointer-events: auto !important;
+    z-index: 5200 !important;
   }
 
   .site-header > .public-nav {
@@ -55,22 +63,37 @@
     order: 3;
     flex: 1 0 100% !important;
     width: 100% !important;
+    max-height: none !important;
     margin: 0 !important;
-    z-index: 3100 !important;
-    pointer-events: auto !important;
-    isolation: isolate;
-  }
-
-  .site-header > .public-nav.is-open {
     display: flex !important;
     visibility: visible !important;
     opacity: 1 !important;
+    overflow-y: visible !important;
     pointer-events: auto !important;
+    z-index: 5100 !important;
+    isolation: isolate;
   }
 
   .site-header .public-nav > a {
     position: relative !important;
     z-index: 1;
+    pointer-events: auto !important;
+  }
+
+  html.js .site-header > .nav-toggle {
+    display: flex !important;
+  }
+
+  html.js .site-header > .public-nav {
+    display: none !important;
+    max-height: var(--menu-max-height, calc(100vh - 112px)) !important;
+    overflow-y: auto !important;
+  }
+
+  html.js .site-header > .public-nav.is-open {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     pointer-events: auto !important;
   }
 
