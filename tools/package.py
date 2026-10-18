@@ -11,6 +11,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 import zipfile
 from pathlib import Path
 
@@ -26,6 +27,43 @@ HERO_SOURCE_FILES = (
     'spiritual-gorillaz-booking-hero.png',
     'spiritual-gorillaz-merch-hero.png',
 )
+HERO_GENERATED_FILES = (
+    'spiritual-gorillaz-hero-extended.webp',
+    'spiritual-gorillaz-hero-kneeling-wide.webp',
+    'spiritual-gorillaz-hero-band-member-fallback.webp',
+    'spiritual-gorillaz-hero-booking-fallback.webp',
+    'spiritual-gorillaz-disc-original.webp',
+    'spiritual-gorillaz-guitar-original.webp',
+    'spiritual-gorillaz-bass-original.webp',
+    'spiritual-gorillaz-shirt-extended.webp',
+)
+
+
+def hero_output_directory_writable() -> bool:
+    """Probe the actual hero output directory without trusting mode bits.
+
+    CI may mount the reviewed source tree read-only while still allowing the ZIP
+    destination to be written. os.access() is unreliable for privileged users,
+    so perform a real create/remove probe in images/ and fail closed on errors.
+    """
+    images = ROOT / 'images'
+    probe: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            dir=images,
+            prefix='.spirit-hero-write-',
+            delete=False,
+        ) as handle:
+            probe = Path(handle.name)
+        probe.unlink()
+        return True
+    except OSError:
+        if probe is not None:
+            try:
+                probe.unlink(missing_ok=True)
+            except OSError:
+                pass
+        return False
 
 
 def generate_hero_assets() -> None:
@@ -41,6 +79,10 @@ def generate_hero_assets() -> None:
     The isolated packaging unit tests replace ROOT with a minimal synthetic tree
     that contains neither production artwork nor development tools. In that test
     tree there is nothing to generate, so packaging proceeds normally.
+
+    A read-only reviewed checkout may still be packaged when every generated hero
+    master is already present. Generation remains mandatory in writable release
+    checkouts, and a read-only tree with missing masters is rejected explicitly.
     """
     generator = ROOT / 'tools' / 'generate_extended_heroes.py'
     has_production_hero_source = any((ROOT / 'images' / name).is_file() for name in HERO_SOURCE_FILES)
@@ -53,6 +95,15 @@ def generate_hero_assets() -> None:
         if os.environ.get('CI', '').lower() in {'1', 'true', 'yes'}:
             return
         raise RuntimeError('Pillow 12.3.0 is required to generate the production hero masters.')
+
+    missing = [name for name in HERO_GENERATED_FILES if not (ROOT / 'images' / name).is_file()]
+    if not hero_output_directory_writable():
+        if missing:
+            raise RuntimeError(
+                'The source artwork directory is read-only and generated hero masters are missing: '
+                + ', '.join(missing)
+            )
+        return
 
     try:
         subprocess.run([sys.executable, str(generator)], cwd=ROOT, check=True, capture_output=True, text=True)
