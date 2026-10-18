@@ -1,0 +1,239 @@
+/* Spiritual Gorillaz 1.0.13 — contained hero window with one continuous image field.
+
+   This keeps the 1.0.12 centered/shortened dimensions, but removes the split
+   text-column / image-column treatment. The sharp native artwork and matching
+   atmosphere now cover the entire hero window, including the area behind the
+   real HTML copy. Copy overlays only the naturally dark left side; the complete
+   right-side subject remains zoomed out and visible. */
+
+@media (min-width: 821px) {
+  main > .home-hero.concept-home,
+  main > .page-hero,
+  main > .merch-heading.concept-merch-heading,
+  main > .page-hero.concept-merch {
+    position: relative !important;
+    display: flex !important;
+    grid-template-columns: none !important;
+    grid-template-rows: none !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    isolation: isolate !important;
+    overflow: hidden !important;
+    background:
+      radial-gradient(ellipse at 74% 42%, rgba(24, 99, 163, .19), transparent 44%),
+      radial-gradient(ellipse at 46% 48%, rgba(151, 93, 33, .06), transparent 38%),
+      linear-gradient(105deg, #01060b 0%, #03101b 58%, #02070c 100%) !important;
+  }
+
+  /* Artwork is one full-window layer—not a separate right-hand box. */
+  .concept-home .hero-artwork,
+  .concept-home .hero-artwork:has(.fallback-hero),
+  .page-hero > .concept-page-art,
+  .page-hero > .music-art,
+  .page-hero > .band-image,
+  .page-hero > .section-artwork,
+  .merch-concept-art,
+  .concept-merch > .merch-stage-art,
+  .concept-merch-heading > .section-artwork {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: none !important;
+    overflow: hidden !important;
+    opacity: 1 !important;
+    z-index: 1 !important;
+    background: transparent !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    filter: none !important;
+  }
+
+  .concept-home .hero-artwork .hero-art,
+  .concept-home .hero-artwork .fallback-hero,
+  .concept-home .hero-art,
+  .page-hero > .concept-page-art,
+  .page-hero > .music-art,
+  .page-hero > .band-image,
+  .page-hero > .section-artwork .section-feature,
+  .merch-concept-art,
+  .concept-merch > .merch-stage-art,
+  .concept-merch-heading > .section-artwork img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: right center !important;
+    transform: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    background: transparent !important;
+  }
+
+  /* A single soft readability fade crosses the SAME image field. There is no
+     vertical divider, independent text panel, border, or hard seam. */
+  .concept-home .hero-artwork::before,
+  .page-hero::before,
+  .concept-merch-heading::before,
+  .page-hero.concept-merch::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  .concept-home .hero-artwork::after,
+  .page-hero::after,
+  .concept-merch-heading::after,
+  .page-hero.concept-merch::after {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+    background:
+      linear-gradient(90deg,
+        rgba(1, 5, 9, .98) 0%,
+        rgba(1, 5, 9, .94) 20%,
+        rgba(1, 6, 11, .76) 34%,
+        rgba(1, 6, 11, .40) 48%,
+        rgba(1, 6, 11, .12) 59%,
+        transparent 69%),
+      linear-gradient(0deg,
+        rgba(1, 4, 8, .27) 0%,
+        transparent 31%,
+        transparent 85%,
+        rgba(1, 4, 8, .11) 100%) !important;
+  }
+
+  /* Real copy sits over the dark left side of the same continuous window. */
+  .concept-home .hero-copy,
+  .page-hero > div:first-child,
+  .concept-merch-heading > div:first-child,
+  .page-hero.concept-merch > div:first-child {
+    position: relative !important;
+    z-index: 4 !important;
+    align-self: center !important;
+    width: min(500px, 39%) !important;
+    max-width: 500px !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 46px 20px 46px 48px !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  .concept-home .hero-copy {
+    width: min(540px, 41%) !important;
+    max-width: 540px !important;
+    padding-block: 58px 132px !important;
+  }
+
+  .page-hero .section-introduction,
+  .page-hero .prose,
+  .page-hero p:not(.eyebrow):not(.gold-subtitle) {
+    max-width: 445px !important;
+  }
+
+  .concept-home .hero-bottom {
+    position: absolute !important;
+    left: 48px !important;
+    right: 48px !important;
+    bottom: 24px !important;
+    width: auto !important;
+    z-index: 5 !important;
+  }
+
+  .concept-merch-heading .shop-tools {
+    position: absolute !important;
+    left: 48px !important;
+    bottom: 24px !important;
+    z-index: 5 !important;
+  }
+
+  /* Media and Press use the same continuous contained window even though their
+     production master is a CSS background rather than a direct <img>. */
+  main[data-page="media"] .page-hero,
+  main[data-page="press"] .page-hero {
+    background-image:
+      linear-gradient(90deg,
+        rgba(1, 5, 9, .98) 0%,
+        rgba(1, 5, 9, .93) 20%,
+        rgba(1, 6, 11, .73) 35%,
+        rgba(1, 6, 11, .34) 49%,
+        transparent 69%),
+      var(--sg-native-hero),
+      radial-gradient(ellipse at 74% 42%, rgba(24, 99, 163, .19), transparent 44%),
+      linear-gradient(105deg, #01060b 0%, #03101b 58%, #02070c 100%) !important;
+    background-size: 100% 100%, contain, 100% 100%, 100% 100% !important;
+    background-position: center, right center, center, center !important;
+    background-repeat: no-repeat !important;
+  }
+
+  main[data-page="media"] .page-hero::after,
+  main[data-page="press"] .page-hero::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  /* Booking keeps its functional form card, but the artwork/atmosphere now
+     runs through the entire centered booking window behind the left copy. */
+  .booking-layout.concept-booking {
+    position: relative !important;
+    isolation: isolate !important;
+    overflow: hidden !important;
+    background:
+      linear-gradient(90deg,
+        rgba(1, 5, 9, .98) 0%,
+        rgba(1, 5, 9, .91) 29%,
+        rgba(1, 6, 11, .54) 49%,
+        rgba(1, 6, 11, .18) 66%,
+        rgba(1, 5, 9, .34) 100%),
+      var(--sg-native-hero) right center / contain no-repeat,
+      linear-gradient(105deg, #01060b, #03101b 68%, #02070c) !important;
+  }
+
+  .booking-layout.concept-booking::before {
+    content: none !important;
+    display: none !important;
+  }
+
+  .booking-layout.concept-booking::after {
+    content: "" !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+    background: linear-gradient(0deg, rgba(1, 4, 8, .29), transparent 42%) !important;
+  }
+
+  .booking-layout.concept-booking > div:first-child,
+  .booking-layout.concept-booking .booking-form-panel {
+    position: relative !important;
+    z-index: 4 !important;
+  }
+}
+
+@media (min-width: 821px) and (max-width: 1180px) {
+  .concept-home .hero-copy,
+  .page-hero > div:first-child,
+  .concept-merch-heading > div:first-child,
+  .page-hero.concept-merch > div:first-child {
+    width: min(455px, 42%) !important;
+    padding-left: 34px !important;
+    padding-right: 15px !important;
+  }
+
+  .concept-home .hero-copy {
+    width: min(490px, 44%) !important;
+  }
+}
+
+/* 1.0.12 mobile already has the correct contained copy-first/artwork-second
+   card. Keep that behavior unchanged. */
