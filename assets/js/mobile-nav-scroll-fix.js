@@ -7,10 +7,8 @@
 
   toggle.addEventListener('keydown', event => {
     if (!phone.matches || !['ArrowDown', 'ArrowUp'].includes(event.key)) return;
-    requestAnimationFrame(() => {
-      const focused = nav.contains(document.activeElement) ? document.activeElement :
-        (event.key === 'ArrowUp' ? nav.querySelector('a:last-of-type') : nav.querySelector('a:first-of-type'));
-      focused?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
-    });
+    const focused = nav.contains(document.activeElement) ? document.activeElement :
+      (event.key === 'ArrowUp' ? nav.querySelector('a:last-of-type') : nav.querySelector('a:first-of-type'));
+    focused?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   });
 })();
