@@ -4,9 +4,9 @@
    links, changing URLs, or weakening the native no-JavaScript fallback. */
 
 @media (max-width: 820px) {
-  html.js .public-nav.mobile-nav-portal {
+  html.js body > .public-nav.mobile-nav-portal {
     position: fixed !important;
-    top: 90px !important;
+    top: var(--mobile-nav-top, 90px) !important;
     left: 12px !important;
     right: 12px !important;
     bottom: auto !important;
@@ -14,7 +14,7 @@
     max-width: none !important;
     min-width: 0 !important;
     height: auto;
-    max-height: var(--menu-max-height, calc(100dvh - 118px)) !important;
+    max-height: var(--menu-max-height, calc(100dvh - var(--mobile-nav-top, 90px) - 28px)) !important;
     margin: 0 !important;
     padding: 12px !important;
     display: none !important;
@@ -27,19 +27,20 @@
     visibility: visible !important;
     opacity: 1 !important;
     pointer-events: auto !important;
-    z-index: 12000 !important;
+    z-index: 2147483000 !important;
     isolation: isolate;
+    transform: translateZ(0);
     background: rgba(3, 14, 22, .995) !important;
     border: 1px solid #365b72 !important;
     box-shadow: 0 24px 60px rgba(0, 0, 0, .76) !important;
     -webkit-overflow-scrolling: touch;
   }
 
-  html.js .public-nav.mobile-nav-portal.is-open {
+  html.js body > .public-nav.mobile-nav-portal.is-open {
     display: flex !important;
   }
 
-  html.js .public-nav.mobile-nav-portal > a {
+  html.js body > .public-nav.mobile-nav-portal > a {
     position: relative !important;
     display: flex !important;
     align-items: center !important;
@@ -51,7 +52,7 @@
     z-index: 1;
   }
 
-  html.js .public-nav.mobile-nav-portal .nav-book {
+  html.js body > .public-nav.mobile-nav-portal .nav-book {
     margin-top: 6px !important;
   }
 }
