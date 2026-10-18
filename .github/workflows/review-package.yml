@@ -1,0 +1,35 @@
+name: Review package artifact
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: review-package-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  package:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install deterministic image dependency
+        run: python3 -m pip install --disable-pip-version-check Pillow==12.3.0
+      - name: Build cumulative deployment and checksum
+        run: |
+          mkdir -p "$RUNNER_TEMP/spirit-release"
+          python3 tools/package.py --output "$RUNNER_TEMP/spirit-release"
+          cd "$RUNNER_TEMP/spirit-release"
+          sha256sum Spiritual-Gorillaz-*-Full.zip > Spiritual-Gorillaz-SHA256SUMS.txt
+      - name: Upload review package
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spiritual-Gorillaz-review-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/spirit-release/Spiritual-Gorillaz-*-Full.zip
+            ${{ runner.temp }}/spirit-release/Spiritual-Gorillaz-SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
