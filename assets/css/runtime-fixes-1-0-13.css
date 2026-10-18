@@ -12,12 +12,10 @@
 
   /* Keep the mobile disclosure in normal document flow. Earlier absolute-menu
      layers extended the links outside the header's painted box, allowing the
-     header itself to win pointer hit-testing in Chromium and Firefox. A wrapped
-     header row gives Menu and Search their own controls while the open nav
-     becomes a full-width, bounded, scrollable second row. The explicit auto
-     height also overrides the animated-logo layer's fixed 82px phone header;
-     without it the links painted outside the header box and its background won
-     hit testing over those visible descendants. */
+     header itself to win pointer hit-testing. The header background is therefore
+     deliberately click-through while every real control is explicitly restored.
+     This also prevents browser hit testing from choosing the sticky header box
+     instead of a visible navigation descendant. */
   .site-header,
   .site-header:has(.bundled-brand-animated) {
     display: flex !important;
@@ -26,7 +24,7 @@
     gap: 8px !important;
     height: auto !important;
     min-height: 82px !important;
-    pointer-events: auto !important;
+    pointer-events: none !important;
     position: sticky !important;
     top: 0;
     z-index: 3000 !important;
@@ -37,26 +35,30 @@
   .site-header > .wordmark {
     order: 0;
     min-width: 0;
+    pointer-events: auto !important;
   }
 
   .site-header > .nav-toggle {
     order: 1;
     margin-left: auto !important;
+    pointer-events: auto !important;
   }
 
   .site-header > .header-search {
     order: 2;
+    pointer-events: auto !important;
   }
 
   .site-header > .public-nav {
-    position: static !important;
+    position: relative !important;
     inset: auto !important;
     order: 3;
     flex: 1 0 100% !important;
     width: 100% !important;
     margin: 0 !important;
-    z-index: auto !important;
+    z-index: 3100 !important;
     pointer-events: auto !important;
+    isolation: isolate;
   }
 
   .site-header > .public-nav.is-open {
@@ -66,7 +68,12 @@
     pointer-events: auto !important;
   }
 
-  .site-header .public-nav > a,
+  .site-header .public-nav > a {
+    position: relative !important;
+    z-index: 1;
+    pointer-events: auto !important;
+  }
+
   .site-header .header-search-panel,
   .site-header .header-search-panel * {
     pointer-events: auto !important;
