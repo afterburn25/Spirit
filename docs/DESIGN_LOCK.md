@@ -13,7 +13,9 @@ The approved composite is the visual-direction reference, **not a pixel-for-pixe
 - On screens wider than the native master, extend both sides with a seamless matching dark/navy atmosphere.
 - The complete right-side source artwork remains visible at a zoomed-out scale; do not crop the crown, face, headphones, performers, equipment or other critical subject matter merely to fill a short banner.
 - Do not use a blurred duplicate, stretched copy, enlarged low-resolution layer or obvious split panel behind the sharp artwork.
-- Keep real HTML headings, body copy and controls inside the artwork's left negative-space region. They must not sit outside the centered image or resemble a separate rectangular box overlapping it.
+- Keep real HTML headings, body copy and controls inside the artwork's left negative-space region.
+- The desktop copy column must stop before the primary subject or illuminated focal edge. Use a continuous dark-to-transparent safe-zone fade behind the copy so it does not visually collide with faces, performers, equipment or crowd focal points.
+- The safe-zone fade must not appear as a rectangular panel, bordered card, box shadow or separate overlapping container.
 - A very light outer-edge feather may blend a centered native master into the extension on wider screens; it must not obscure important subject detail.
 - Home retains the dimensional `MUSIC WITH A HIGHER PURPOSE` treatment.
 - Public navigation remains large, centered and sticky, and Search remains visible and opens its dropdown rather than navigating away.
