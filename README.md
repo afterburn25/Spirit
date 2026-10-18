@@ -1,6 +1,10 @@
-# Spiritual Gorillaz — 1.0.8
+# Spiritual Gorillaz — 1.0.9
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design.
+
+## 1.0.9 full-span hero and Search correction
+
+Version 1.0.9 corrects the remaining desktop Music/full-width geometry issue and guarantees that the Search control is visible in the real sticky header. At production desktop widths, the primary page heroes use a true 16:9 viewport-wide canvas, matching the native 1672×941 artwork ratio so the sharp image reaches both edges without cropping or leaving a dead strip. The full right-side subject remains visible through `object-fit: contain`; the left remains intentional dark atmosphere for real HTML copy. The magnifying-glass button is explicitly rendered in the reserved right header column and continues to open the existing dropdown Search panel.
 
 ## 1.0.8 full-width atmospheric hero system
 
