@@ -40,11 +40,14 @@
     display: flex !important;
   }
 
-  /* While the disclosure is open the sticky header remains visible but is not
-     allowed to win hit testing over a portalled link. Closing the disclosure
-     immediately restores Menu, Search and logo interactions. */
-  html.js body.mobile-nav-open .site-header,
-  html.js body.mobile-nav-open .site-header * {
+  /* The portal lives outside .site-shell. While it is open, make the entire
+     underlying shell transparent to pointer hit-testing. This removes the last
+     browser-specific case where a transformed/sticky shell stacking context
+     could intercept an otherwise visible navigation link. The document-level
+     outside-click listener still receives clicks that fall through to <body>.
+     Closing the disclosure immediately restores every normal site control. */
+  html.js body.mobile-nav-open > .site-shell,
+  html.js body.mobile-nav-open > .site-shell * {
     pointer-events: none !important;
   }
 
