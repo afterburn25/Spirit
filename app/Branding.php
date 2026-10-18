@@ -111,12 +111,22 @@ final class Branding
         return '<span class="crown" aria-hidden="true">♛</span><span>'.e($name).'</span>';
     }
 
-    /** Bundled scalable fallback mirrors the existing crown + wordmark identity. */
+    /** Bundled animated fallback uses the approved transparent crown-and-wordmark mark. */
     public static function bundledMark(bool $footer = false): string
     {
-        $file=Paths::root().'/images/spiritual-gorillaz-logo.png';
-        if(!is_file($file)||is_link($file)){return '';}
-        return '<span class="bundled-brand-wrap"><img class="bundled-site-logo" src="'.e(app_url('images/spiritual-gorillaz-logo.png')).'" width="1536" height="1024" alt="" loading="'.($footer?'lazy':'eager').'" decoding="async"></span>';
+        $animated = Paths::root().'/images/spiritual-gorillaz-logo.png';
+        $static = Paths::root().'/images/spiritual-gorillaz-logo-static.png';
+        $animatedReady = is_file($animated) && !is_link($animated);
+        $staticReady = is_file($static) && !is_link($static);
+        if (!$animatedReady && !$staticReady) { return ''; }
+
+        $staticUrl = e(app_url('images/spiritual-gorillaz-logo-static.png'));
+        if ($footer || !$animatedReady) {
+            return '<span class="bundled-brand-wrap bundled-brand-static"><img class="bundled-site-logo" src="'.$staticUrl.'" width="600" height="600" alt="" loading="'.($footer ? 'lazy' : 'eager').'" decoding="async"></span>';
+        }
+
+        $source = $staticReady ? '<source media="(prefers-reduced-motion: reduce)" srcset="'.$staticUrl.'">' : '';
+        return '<span class="bundled-brand-wrap bundled-brand-animated"><picture class="bundled-brand-picture">'.$source.'<img class="bundled-site-logo bundled-site-logo-animated" src="'.e(app_url('images/spiritual-gorillaz-logo.png')).'" width="600" height="600" alt="" loading="eager" fetchpriority="high" decoding="async"></picture></span>';
     }
 
     /** Original ratio and transparency are retained; no arbitrary image URL. */

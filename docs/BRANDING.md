@@ -25,3 +25,7 @@ The earlier generated release infographics are not screenshots, code changes or 
 ## Verification
 
 Tested b16e9780 passed full 38681481396, focused 38681481344, storefront 38681481322 and logo 38681481271. Each of four logo jobs reports 109 SQL/HTTP and 179 browser checks, including snapshot restoration, media visibility and continued playback. See TEST_RESULTS.md for precise environments, artifact hashes and limitations. Final 1.0 requires actual host/provider/content/device/owner acceptance.
+
+## Bundled animated identity
+
+When no owner-published Media-library logo is active, the site uses the approved Concept 2 transparent crown-and-shield logo. The header loads the transparent APNG, while the footer and visitors using `prefers-reduced-motion: reduce` receive the matching static PNG. Owner-published logos still override the bundled identity without cropping or stretching.
