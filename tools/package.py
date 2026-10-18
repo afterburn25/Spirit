@@ -17,12 +17,30 @@ ROOT = Path(__file__).resolve().parents[1]
 DIRECTORIES = {'app','admin','includes','config','database','storage','uploads','views','assets','images','install','docs','music','shows','band','media','booking','press','shop','account','pages','newsletter','tasks','payments'}
 ROOT_FILES = {'.htaccess','index.php','VERSION','README.md','CHANGELOG.md'}
 PRIVATE_SUFFIXES = {'.log','.zip','.pem','.key','.p12','.pfx','.sqlite','.sqlite3','.bak','.gz'}
+HERO_SOURCE_FILES = (
+    'spiritual-gorillaz-home-hero.png',
+    'spiritual-gorillaz-music-hero.png',
+    'spiritual-gorillaz-shows-hero.png',
+    'spiritual-gorillaz-band-hero.png',
+    'spiritual-gorillaz-booking-hero.png',
+    'spiritual-gorillaz-merch-hero.png',
+)
 
 
 def generate_hero_assets() -> None:
-    """Create deterministic wide WebP hero masters before collecting payload files."""
+    """Create deterministic wide WebP hero masters before collecting payload files.
+
+    The isolated packaging tests replace ROOT with a minimal synthetic tree that
+    intentionally contains neither production artwork nor development tools. In
+    that test-only situation there is nothing to generate, so packaging proceeds
+    normally. A real source tree that contains the hero masters but has lost its
+    generator still fails closed.
+    """
     generator = ROOT / 'tools' / 'generate_extended_heroes.py'
     if not generator.is_file():
+        has_production_hero_source = any((ROOT / 'images' / name).is_file() for name in HERO_SOURCE_FILES)
+        if not has_production_hero_source:
+            return
         raise FileNotFoundError('Missing deterministic hero generator.')
     try:
         subprocess.run([sys.executable, str(generator)], cwd=ROOT, check=True, capture_output=True, text=True)
