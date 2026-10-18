@@ -14,13 +14,18 @@
      layers extended the links outside the header's painted box, allowing the
      header itself to win pointer hit-testing in Chromium and Firefox. A wrapped
      header row gives Menu and Search their own controls while the open nav
-     becomes a full-width, bounded, scrollable second row. */
+     becomes a full-width, bounded, scrollable second row. The explicit auto
+     height also overrides the animated-logo layer's fixed 82px phone header;
+     without it the links painted outside the header box and its background won
+     hit testing over those visible descendants. */
   .site-header,
   .site-header:has(.bundled-brand-animated) {
     display: flex !important;
     flex-wrap: wrap !important;
     align-items: center !important;
     gap: 8px !important;
+    height: auto !important;
+    min-height: 82px !important;
     pointer-events: auto !important;
     position: sticky !important;
     top: 0;
