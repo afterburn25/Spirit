@@ -4,32 +4,32 @@ The user selected the FIRST cinematic Spiritual Gorillaz composite, reuploaded a
 
 Original image SHA-256: `4e76c31eadeb7720701c7d8bd94f484824eb5eb9dd4ba04479393914efad033e`. Original dimensions: 1214 × 1295. The original PNG is a conversation attachment, not a tracked repository file.
 
-## Required modification to the concept
+## Required production modification — current and authoritative
 
-The approved composite is the visual-direction reference, **not a pixel-for-pixel boxed layout**. The production site must preserve its black/deep-navy, gold, blue-stage-light and crowned-gorilla identity while applying all of the following owner-requested changes:
+The approved composite is the visual-direction reference, not a pixel-for-pixel screenshot. The production site must preserve its black/deep-navy, gold, blue-stage-light and crowned-gorilla identity while following these owner-requested layout rules:
 
-- Every primary **hero canvas** spans the available viewport from left edge to right edge.
-- The **source artwork itself must not be stretched to the viewport**. Center each production master and cap it at native width.
-- On screens wider than the native master, extend both sides with a seamless matching dark/navy atmosphere.
-- The complete right-side source artwork remains visible at a zoomed-out scale; do not crop the crown, face, headphones, performers, equipment or other critical subject matter merely to fill a short banner.
-- Do not use a blurred duplicate, stretched copy, enlarged low-resolution layer or obvious split panel behind the sharp artwork.
-- Keep real HTML headings, body copy and controls inside the artwork's left negative-space region.
-- The desktop copy column must stop before the primary subject or illuminated focal edge. Use a continuous dark-to-transparent safe-zone fade behind the copy so it does not visually collide with faces, performers, equipment or crowd focal points.
-- The safe-zone fade must not appear as a rectangular panel, bordered card, box shadow or separate overlapping container.
-- A very light outer-edge feather may blend a centered native master into the extension on wider screens; it must not obscure important subject detail.
+- The **navigation/header strip remains full width and sticky**.
+- The **hero sections themselves are not full screen**.
+- Home, Music, Shows, Band, Media, Press and Merch heroes must be centered and use the same `1320px` maximum width as the normal `.section` containers below them.
+- Interior heroes must be shortened to a compact editorial height, approximately 430–500 pixels on desktop; Home may be slightly taller while remaining inside the same centered container.
+- Use a strict two-column composition: real HTML copy in the left column and artwork in the right column.
+- Do not solve overlap by shifting the entire composition sideways. Copy and artwork must not occupy the same focal area.
+- Use only a narrow, seamless fade at the column join. Do not create a broad overlay, blurred duplicate, stretched source, oversized low-resolution layer or obvious second panel.
+- Keep the right-side focal subject visible. Trimming unused dark source space is acceptable; cropping the crown, face, headphones, performers or equipment is not.
+- Booking must use the same centered page-container width.
 - Home retains the dimensional `MUSIC WITH A HIGHER PURPOSE` treatment.
-- Public navigation remains large, centered and sticky, and Search remains visible and opens its dropdown rather than navigating away.
-- On mobile, place the copy first and the complete native artwork beneath it. Do not hide the modification by switching back to a cropped background image.
-- Apply the same rule consistently to Home, Music, Shows, Band, Media, Press, Booking and Merch.
+- Public navigation remains large and centered; Search remains visible and opens its dropdown rather than navigating away.
+- On mobile, use a contained card: copy first and the complete artwork beneath it.
+- Apply this rule consistently to all major public pages.
 
-A build that resembles the moodboard but ignores these modifications is not accepted.
+The earlier full-screen hero interpretation is superseded by this section.
 
 ## Tracked reference and assets
 
 - `design/approved-reference-thumbnail.webp`: a derived 300-pixel-wide thumbnail of the selected composite. It preserves the overall reference, not its small text detail. It does NOT have the original PNG hash.
 - `images/gorilla-hero.webp`: isolated crown/gorilla/blue-light artwork crop from the chosen homepage panel, trimmed to avoid interface fragments.
 - `images/gorilla-music.webp`: isolated headphone-wearing gorilla artwork crop from the chosen music-page panel.
-- `images/spiritual-gorillaz-*-hero.png`: reviewed production-resolution page masters used as sharp native artwork; CSS may extend their surrounding atmosphere but must not fabricate image detail by enlargement or blur.
+- `images/spiritual-gorillaz-*-hero.png`: reviewed production-resolution page masters used as sharp native artwork; CSS must not fabricate image detail by enlargement or blur.
 
 These assets remain separate artwork under real HTML/CSS, never a flattened full website screenshot with hit targets.
 
