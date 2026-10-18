@@ -6,7 +6,7 @@
 @media (max-width: 820px) {
   html.js body > .public-nav.mobile-nav-portal {
     position: fixed !important;
-    top: var(--mobile-nav-top, 90px) !important;
+    top: var(--mobile-nav-top, 112px) !important;
     left: 12px !important;
     right: 12px !important;
     bottom: auto !important;
@@ -14,7 +14,7 @@
     max-width: none !important;
     min-width: 0 !important;
     height: auto;
-    max-height: var(--menu-max-height, calc(100dvh - var(--mobile-nav-top, 90px) - 28px)) !important;
+    max-height: var(--menu-max-height, calc(100dvh - var(--mobile-nav-top, 112px) - 28px)) !important;
     margin: 0 !important;
     padding: 12px !important;
     display: none !important;
@@ -27,7 +27,7 @@
     visibility: visible !important;
     opacity: 1 !important;
     pointer-events: auto !important;
-    z-index: 2147483000 !important;
+    z-index: 2147483647 !important;
     isolation: isolate;
     transform: translateZ(0);
     background: rgba(3, 14, 22, .995) !important;
@@ -38,6 +38,19 @@
 
   html.js body > .public-nav.mobile-nav-portal.is-open {
     display: flex !important;
+  }
+
+  /* While the disclosure is open the sticky header remains visible but is not
+     allowed to win hit testing over a portalled link. Closing the disclosure
+     immediately restores Menu, Search and logo interactions. */
+  html.js body.mobile-nav-open .site-header,
+  html.js body.mobile-nav-open .site-header * {
+    pointer-events: none !important;
+  }
+
+  html.js body.mobile-nav-open > .public-nav.mobile-nav-portal,
+  html.js body.mobile-nav-open > .public-nav.mobile-nav-portal * {
+    pointer-events: auto !important;
   }
 
   html.js body > .public-nav.mobile-nav-portal > a {
