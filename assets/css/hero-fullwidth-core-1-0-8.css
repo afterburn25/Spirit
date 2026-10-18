@@ -28,7 +28,7 @@ main>.home-hero,main>.page-hero,main>.concept-booking,main>.concept-merch-headin
   position:relative!important;
   min-height:clamp(680px,56.28vw,900px)!important;
   padding:0 var(--sg-gutter)!important;
-  display:flex!important;align-items:center!important;justify-content:flex-start!important;
+  display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;
   overflow:hidden!important;isolation:isolate!important;
   background:
     radial-gradient(ellipse at 53% 40%,rgba(18,74,116,.25) 0,rgba(5,28,47,.12) 32%,transparent 61%),
