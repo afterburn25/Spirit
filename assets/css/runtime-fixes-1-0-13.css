@@ -21,7 +21,9 @@
   /* No-JavaScript is the safe default: the complete navigation is visible in
      normal document flow and the disclosure button is hidden. A tiny same-origin
      capability script adds html.js before styles are evaluated; only then does
-     the hamburger disclosure become active. */
+     the hamburger disclosure become active. The header's empty box must not
+     become an invisible click shield, so pointer input passes through it and is
+     re-enabled only on the actual logo, controls, menu and Search panel. */
   .site-header,
   .site-header:has(.bundled-brand-animated) {
     display: flex !important;
@@ -30,7 +32,7 @@
     gap: 8px !important;
     height: auto !important;
     min-height: 82px !important;
-    pointer-events: auto !important;
+    pointer-events: none !important;
     position: sticky !important;
     top: 0;
     z-index: 5000 !important;
