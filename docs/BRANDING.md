@@ -1,31 +1,43 @@
-# Site logo — 1.0.0-rc.5
+# Site logo — 1.0.5
+
+## Bundled Concept 2 identity
+
+Version 1.0.5 uses the owner-selected Concept 2 crown-and-shield wordmark as the bundled public identity whenever no owner-published Media-library logo is active.
+
+- The public header loads the transparent animated PNG (`images/spiritual-gorillaz-logo.png`).
+- The footer uses the matching transparent static PNG (`images/spiritual-gorillaz-logo-static.png`).
+- Visitors using `prefers-reduced-motion: reduce` receive the static PNG instead of the APNG.
+- The animation changes only the metallic light, blue-jewel glow and small sparkles; the logo silhouette and transparent background remain fixed.
+- Responsive sizing preserves the full crown, lettering and ornamental frame without cropping or stretching.
+- The header retains centered navigation, the gold booking action and Search alongside the larger square identity.
+
+## Owner-managed logo workflow
 
 Open **Settings & access > Website settings > Manage site logo**. Upload approved artwork in the existing Media library, select its image, choose **Save private logo draft**, then **Preview saved logo**. The preview is the actual homepage with the saved logo in its header and footer; published page content stays unchanged.
 
-Check the public-use approval box and choose **Publish approved logo** to display it publicly. **Withdraw published logo** restores the existing text wordmark and preserves the saved draft. Publishing an empty selection explicitly returns to the text mark. No image is published merely by uploading, selecting or previewing it.
+Check the public-use approval box and choose **Publish approved logo** to display it publicly. **Withdraw published logo** restores the bundled Concept 2 identity while preserving the saved draft. No image is published merely by uploading, selecting or previewing it.
 
-## Presentation
+An owner-published logo always overrides both bundled Concept 2 assets. The whole uploaded image remains contained without arbitrary cropping or stretching, and the existing upload pipeline preserves PNG/WebP transparency.
 
-The whole image is contained without cropping or stretching. The existing upload pipeline preserves PNG/WebP transparency. Header and footer home links keep the configured website name as their accessible label; compact responsive image variants are used where appropriate. Native pages work without JavaScript. Enhanced navigation updates the logo without replacing the persistent audio node. The administration sidebar logo and favicon are not changed by this feature.
+## Accessibility and runtime behavior
+
+Header and footer home links retain the configured website name as their accessible label. The static reduced-motion alternative is selected through the native `<picture>` element without JavaScript. Enhanced navigation can replace owner-managed logo markup without replacing the persistent audio node.
+
+The APNG and static files are decorative within a named home link, so their image `alt` values remain empty. If either bundled file is unavailable, the branding renderer falls back safely to the remaining bundled asset or the configured text mark.
 
 ## Privacy and safe updates
 
-The editor and saved-logo preview require an active owner. Preview is GET/HEAD-only, no-store, noindex and no-referrer. Save/publish/withdraw require CSRF and recheck the current locked owner/session, saved revision and image integrity. Missing, wrong-type or damaged media and stale forms are rejected before changing saved state.
+The editor and saved-logo preview require an active owner. Preview is GET/HEAD-only, no-store, noindex and no-referrer. Save, publish and withdraw require CSRF protection and recheck the current locked owner/session, saved revision and image integrity. Missing, wrong-type or damaged media and stale forms are rejected before changing saved state.
 
-Draft and published selections live in one versioned settings record. Only the published selection is added to public media authorization. A withdrawn logo still used by another published page or product remains public through that separate reference; otherwise its original and derivatives are withdrawn. Media-library staff permissions remain unchanged.
+Draft and published selections live in one versioned settings record. Only the published selection is added to public media authorization. Existing encrypted snapshots include that record and original media; restoration safeguards and the supported backup/recovery model remain unchanged.
 
-Existing encrypted snapshots include the settings record and original media. Each form also carries the most recent preserved backup-restore audit marker. Restoration rejects old forms even when the numeric revision matches recovered data. Restoring a snapshot from before this feature returns to the text wordmark. The backup engine and its same-instance safeguards remain unchanged; no migration or second upload system is introduced.
+## Package contents
 
-## What this release does not supply
+The cumulative 1.0.5 package includes:
 
-This feature does not create or approve a production logo, replace the selected visual design, or change hosting/payment settings. It also corrects outdated Website settings copy about a holding page and future content tools.
+- `images/spiritual-gorillaz-logo.png` — website-ready transparent APNG;
+- `images/spiritual-gorillaz-logo-static.png` — matching transparent static fallback;
+- `assets/css/animated-logo.css` — responsive header/footer integration;
+- the existing owner-managed branding editor, preview, publishing and withdrawal workflow.
 
-The earlier generated release infographics are not screenshots, code changes or verification reports. They are excluded from the repository and package. RC5 does not add their unrelated recurring shows, bulk inventory actions, a new page builder, editable email templates or other pictured features. Approved crowned-gorilla master artwork and actual band content remain outstanding.
-
-## Verification
-
-Tested b16e9780 passed full 38681481396, focused 38681481344, storefront 38681481322 and logo 38681481271. Each of four logo jobs reports 109 SQL/HTTP and 179 browser checks, including snapshot restoration, media visibility and continued playback. See TEST_RESULTS.md for precise environments, artifact hashes and limitations. Final 1.0 requires actual host/provider/content/device/owner acceptance.
-
-## Bundled animated identity
-
-When no owner-published Media-library logo is active, the site uses the approved Concept 2 transparent crown-and-shield logo. The header loads the transparent APNG, while the footer and visitors using `prefers-reduced-motion: reduce` receive the matching static PNG. Owner-published logos still override the bundled identity without cropping or stretching.
+The full-resolution promotional APNG is not shipped in the website package because it is substantially larger and is intended for video overlays or print/promotion work rather than page delivery.
