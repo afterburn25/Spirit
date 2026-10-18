@@ -5,6 +5,7 @@ Run on a development machine; the host requires neither Python nor SSH.
 from __future__ import annotations
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 import re
@@ -30,18 +31,29 @@ HERO_SOURCE_FILES = (
 def generate_hero_assets() -> None:
     """Create deterministic wide WebP hero masters before collecting payload files.
 
-    The isolated packaging tests replace ROOT with a minimal synthetic tree that
-    intentionally contains neither production artwork nor development tools. In
-    that test-only situation there is nothing to generate, so packaging proceeds
-    normally. A real source tree that contains the hero masters but has lost its
-    generator still fails closed.
+    Release/candidate workflows install Pillow and therefore always regenerate the
+    production WebP masters. Other CI jobs exercise packaging as a dependency of
+    unrelated browser and maintenance tests; when those lean jobs intentionally do
+    not install Pillow, they package the reviewed PNG fallbacks instead of failing.
+    A normal developer-initiated package outside CI still fails with a clear
+    dependency message if Pillow is unavailable.
+
+    The isolated packaging unit tests replace ROOT with a minimal synthetic tree
+    that contains neither production artwork nor development tools. In that test
+    tree there is nothing to generate, so packaging proceeds normally.
     """
     generator = ROOT / 'tools' / 'generate_extended_heroes.py'
+    has_production_hero_source = any((ROOT / 'images' / name).is_file() for name in HERO_SOURCE_FILES)
     if not generator.is_file():
-        has_production_hero_source = any((ROOT / 'images' / name).is_file() for name in HERO_SOURCE_FILES)
         if not has_production_hero_source:
             return
         raise FileNotFoundError('Missing deterministic hero generator.')
+
+    if importlib.util.find_spec('PIL') is None:
+        if os.environ.get('CI', '').lower() in {'1', 'true', 'yes'}:
+            return
+        raise RuntimeError('Pillow 12.3.0 is required to generate the production hero masters.')
+
     try:
         subprocess.run([sys.executable, str(generator)], cwd=ROOT, check=True, capture_output=True, text=True)
     except subprocess.CalledProcessError as error:
