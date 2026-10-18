@@ -28,12 +28,14 @@ class PackagingTests(unittest.TestCase):
         packager.ROOT=self.old_root; self.temp.cleanup()
     def build(self):
         return packager.package(self.output)
-    def seed_reviewed_hero_outputs(self, missing: str | None = None):
-        generator=self.root/'tools/generate_extended_heroes.py';generator.parent.mkdir(parents=True,exist_ok=True);generator.write_text('raise SystemExit("generator must not run")')
+    def seed_hero_generator(self):
+        generator=self.root/'tools/generate_extended_heroes.py';generator.parent.mkdir(parents=True,exist_ok=True);generator.write_text('raise SystemExit("test substitutes this generator")')
         source=self.root/'images/spiritual-gorillaz-home-hero.png';source.parent.mkdir(parents=True,exist_ok=True);source.write_bytes(b'PNG')
+    @staticmethod
+    def fake_hero_run(command, **_kwargs):
+        output=Path(command[command.index('--output')+1]);output.mkdir(parents=True,exist_ok=True)
         for name in packager.HERO_GENERATED_FILES:
-            if name==missing: continue
-            (self.root/'images'/name).write_bytes(b'WEBP-'+name.encode())
+            (output/name).write_bytes(b'WEBP-'+name.encode())
     def test_keeps_deployment_files(self):
         archive=self.build()
         with zipfile.ZipFile(archive) as bundle:
@@ -83,18 +85,24 @@ class PackagingTests(unittest.TestCase):
         second_dir=self.root/'second-output'
         second=packager.package(second_dir)
         self.assertEqual(first.read_bytes(),second.read_bytes())
-    def test_read_only_source_uses_complete_reviewed_hero_outputs(self):
-        self.seed_reviewed_hero_outputs()
-        with mock.patch.object(packager.importlib.util,'find_spec',return_value=object()), mock.patch.object(packager,'hero_output_directory_writable',return_value=False), mock.patch.object(packager.subprocess,'run') as runner:
-            packager.generate_hero_assets()
-        runner.assert_not_called()
-    def test_read_only_source_rejects_missing_generated_hero(self):
-        missing=packager.HERO_GENERATED_FILES[-1]
-        self.seed_reviewed_hero_outputs(missing)
-        with mock.patch.object(packager.importlib.util,'find_spec',return_value=object()), mock.patch.object(packager,'hero_output_directory_writable',return_value=False), mock.patch.object(packager.subprocess,'run') as runner:
+    def test_generated_heroes_are_staged_without_dirtying_source(self):
+        self.seed_hero_generator()
+        with mock.patch.object(packager.importlib.util,'find_spec',return_value=object()), mock.patch.object(packager.subprocess,'run',side_effect=self.fake_hero_run):
+            archive=self.build()
+        self.assertFalse((self.root/'images/extended').exists())
+        with zipfile.ZipFile(archive) as bundle:
+            for name in packager.HERO_GENERATED_FILES:
+                self.assertIn('images/extended/'+name,bundle.namelist())
+    def test_incomplete_staged_hero_set_is_rejected(self):
+        self.seed_hero_generator();missing=packager.HERO_GENERATED_FILES[-1]
+        def incomplete(command, **_kwargs):
+            output=Path(command[command.index('--output')+1]);output.mkdir(parents=True,exist_ok=True)
+            for name in packager.HERO_GENERATED_FILES[:-1]:
+                (output/name).write_bytes(b'WEBP-'+name.encode())
+        with mock.patch.object(packager.importlib.util,'find_spec',return_value=object()), mock.patch.object(packager.subprocess,'run',side_effect=incomplete):
             with self.assertRaisesRegex(RuntimeError,re.escape(missing)):
-                packager.generate_hero_assets()
-        runner.assert_not_called()
+                self.build()
+        self.assertFalse(any(self.output.glob('Spiritual-Gorillaz-*.zip')))
 
     def test_existing_version_is_not_overwritten(self):
         archive=self.build(); old=archive.read_bytes()
