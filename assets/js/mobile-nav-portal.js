@@ -18,15 +18,21 @@
       nav.style.removeProperty("--mobile-nav-top");
       return;
     }
-    const bottom = Math.ceil(Math.max(0, header.getBoundingClientRect().bottom + 2));
+    const bottom = Math.ceil(Math.max(0, header.getBoundingClientRect().bottom + 8));
     nav.style.setProperty("--mobile-nav-top", `${bottom}px`);
+  };
+
+  const ensurePhonePortal = () => {
+    if (!phone.matches) return;
+    if (nav.parentNode !== document.body) document.body.append(nav);
+    nav.classList.add("mobile-nav-portal");
+    document.body.classList.add("has-mobile-nav-portal");
+    syncBounds();
   };
 
   const place = () => {
     if (phone.matches) {
-      if (nav.parentNode !== document.body) document.body.append(nav);
-      nav.classList.add("mobile-nav-portal");
-      document.body.classList.add("has-mobile-nav-portal");
+      ensurePhonePortal();
       requestAnimationFrame(syncBounds);
       return;
     }
@@ -76,7 +82,15 @@
     }
   });
 
-  toggle.addEventListener("click", () => requestAnimationFrame(syncBounds));
+  /* A matchMedia change can be delivered after an immediate scripted click.
+     Re-establish the body portal synchronously before the disclosure opens so
+     no sticky-header descendant can intercept the first navigation click. */
+  toggle.addEventListener("pointerdown", ensurePhonePortal, true);
+  toggle.addEventListener("click", () => {
+    ensurePhonePortal();
+    requestAnimationFrame(syncBounds);
+  }, true);
+
   window.addEventListener("resize", syncBounds);
   window.addEventListener("scroll", syncBounds, { passive: true });
   window.visualViewport?.addEventListener("resize", syncBounds);
