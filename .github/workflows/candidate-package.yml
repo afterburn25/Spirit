@@ -1,7 +1,7 @@
 name: Candidate installation package
 on:
   push:
-    branches: [main, work/approved-concept-native]
+    branches: [main, work/approved-concept-native, work/1.0.13-contained-overlay-heroes]
   workflow_dispatch:
 permissions:
   contents: read
@@ -12,14 +12,16 @@ jobs:
   package:
     name: Validate and build cumulative candidate
     runs-on: ubuntu-22.04
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
+      - name: Install deterministic image build dependency
+        run: python3 -m pip install --disable-pip-version-check Pillow==12.3.0
       - name: Validate software release contract
         run: |
-          python3 -m py_compile tools/package.py tools/release_gate.py
+          python3 -m py_compile tools/package.py tools/release_gate.py tools/generate_extended_heroes.py
           python3 tools/release_gate.py
       - name: Build immutable versioned full ZIP
         run: |
