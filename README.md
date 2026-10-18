@@ -1,11 +1,14 @@
-# Spiritual Gorillaz — 1.0.6
+# Spiritual Gorillaz — 1.0.7
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design.
+
+## 1.0.7 complete interior-hero framing correction
+
+Version 1.0.7 corrects the remaining interior-page hero framing problem found during review of 1.0.6. Music, Shows, Band and Merch now display the complete native artwork at a deliberately reduced scale with breathing room instead of presenting the subject as zoomed or clipped. Desktop heroes retain the approved side-by-side editorial composition; mobile stacks the full uncropped 16:9 artwork below the copy. Booking's 4:3 equipment scene is also preserved without cropping.
 
 ## 1.0.6 navigation and hero regression correction
 
 Version 1.0.6 corrects presentation regressions found in 1.0.5: the desktop navigation is restored to a larger centered layout, the complete navigation strip remains sticky while scrolling, Search opens as an accessible dropdown, interior hero artwork no longer uses destructive full-bleed zooming, and the Home headline receives a deeper metallic dimensional treatment.
-
 
 ## 1.0.5 animated identity update
 
