@@ -13,12 +13,14 @@ jobs:
   gate:
     name: Source and package release contract
     runs-on: ubuntu-22.04
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
+      - name: Install deterministic image build dependency
+        run: python3 -m pip install --disable-pip-version-check Pillow==12.3.0
       - name: Validate finalizable software package
         run: |
-          python3 -m py_compile tools/package.py tools/release_gate.py
+          python3 -m py_compile tools/package.py tools/release_gate.py tools/generate_extended_heroes.py
           python3 tools/release_gate.py
