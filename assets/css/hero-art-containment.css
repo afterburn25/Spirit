@@ -1,10 +1,197 @@
-/* Spiritual Gorillaz 1.0.6 — preserve full native hero compositions. */
-.page-hero > .concept-page-art,
-.page-hero > .music-art,
-.page-hero > .band-image,
-.merch-concept-art,
-.concept-merch .merch-stage-art {
-  object-fit: contain !important;
-  object-position: right center !important;
-  background: #02070c !important;
+/* Spiritual Gorillaz 1.0.7 — non-destructive interior hero framing.
+   The complete native artwork stays visible at a reduced scale with deliberate breathing room. */
+
+@media (min-width: 821px) {
+  .page-hero {
+    min-height: 470px !important;
+    padding: 52px 40px !important;
+    overflow: hidden;
+  }
+  .page-hero > div:first-child {
+    width: min(600px, 44%) !important;
+    max-width: 600px !important;
+    position: relative;
+    z-index: 3;
+  }
+  .page-hero > .section-artwork,
+  .page-hero > .concept-page-art,
+  .page-hero > .music-art,
+  .page-hero > .band-image {
+    position: absolute !important;
+    top: 50% !important;
+    right: clamp(22px, 2.4vw, 42px) !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: min(60%, 790px) !important;
+    height: calc(100% - 64px) !important;
+    max-width: 790px !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: translateY(-50%) !important;
+    transform-origin: right center !important;
+    overflow: hidden;
+    background: #02070c !important;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.42) 10%, #000 22%) !important;
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.42) 10%, #000 22%) !important;
+  }
+  .page-hero > .section-artwork { display: grid !important; place-items: center !important; }
+  .page-hero > .section-artwork .section-feature,
+  .page-hero > .concept-page-art,
+  .page-hero > .music-art,
+  .page-hero > .band-image {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    transform: none !important;
+    filter: none !important;
+    background: #02070c !important;
+  }
+  .concept-music > .music-art,
+  .concept-shows > .concept-page-art,
+  .concept-band > .band-image { aspect-ratio: 1672 / 941; }
+  .page-hero::after {
+    background: linear-gradient(90deg, rgba(1,5,8,.97) 0%, rgba(1,5,8,.88) 28%, rgba(1,5,8,.38) 44%, rgba(1,5,8,.05) 61%, transparent 74%), linear-gradient(0deg, rgba(1,5,8,.20) 0%, transparent 36%, rgba(1,5,8,.10) 100%) !important;
+  }
+  .merch-heading.concept-merch-heading {
+    min-height: 450px !important;
+    padding: 52px 40px !important;
+    overflow: hidden;
+  }
+  .concept-merch-heading > div:first-child {
+    width: min(580px, 43%) !important;
+    max-width: 580px !important;
+    position: relative;
+    z-index: 3;
+  }
+  .merch-concept-art,
+  .concept-merch .merch-stage-art,
+  .concept-merch-heading > .section-artwork {
+    position: absolute !important;
+    top: 50% !important;
+    right: clamp(22px, 2.4vw, 42px) !important;
+    bottom: auto !important;
+    left: auto !important;
+    width: min(61%, 805px) !important;
+    height: calc(100% - 64px) !important;
+    max-width: 805px !important;
+    max-height: none !important;
+    margin: 0 !important;
+    transform: translateY(-50%) !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    background: #02070c !important;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.42) 10%, #000 22%) !important;
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.42) 10%, #000 22%) !important;
+    filter: none !important;
+  }
+  .concept-merch-heading > .section-artwork { display: grid !important; place-items: center !important; }
+  .concept-merch-heading > .section-artwork img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+  .booking-fallback-art,
+  .booking-concept-art {
+    width: min(82%, 570px) !important;
+    height: auto !important;
+    aspect-ratio: 4 / 3;
+    object-fit: contain !important;
+    object-position: center bottom !important;
+    transform: none !important;
+    background: #02070c !important;
+  }
+}
+
+@media (max-width: 820px) {
+  .page-hero {
+    min-height: 0 !important;
+    padding: 38px 20px 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    overflow: hidden;
+  }
+  .page-hero > div:first-child {
+    width: 100% !important;
+    max-width: none !important;
+    padding-bottom: 24px;
+  }
+  .page-hero > .section-artwork,
+  .page-hero > .concept-page-art,
+  .page-hero > .music-art,
+  .page-hero > .band-image {
+    position: relative !important;
+    inset: auto !important;
+    width: calc(100% + 40px) !important;
+    height: auto !important;
+    max-width: none !important;
+    max-height: none !important;
+    aspect-ratio: 1672 / 941 !important;
+    margin: 0 -20px !important;
+    padding: 0 !important;
+    transform: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    background: #02070c !important;
+    overflow: hidden;
+  }
+  .page-hero > .section-artwork .section-feature,
+  .page-hero > .concept-page-art,
+  .page-hero > .music-art,
+  .page-hero > .band-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .page-hero::after { display: none !important; }
+  .merch-heading.concept-merch-heading {
+    min-height: 0 !important;
+    padding: 38px 20px 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .concept-merch-heading > div:first-child { width: 100% !important; max-width: none !important; }
+  .merch-concept-art,
+  .concept-merch .merch-stage-art,
+  .concept-merch-heading > .section-artwork {
+    position: relative !important;
+    inset: auto !important;
+    order: 2;
+    width: calc(100% + 40px) !important;
+    height: auto !important;
+    max-width: none !important;
+    aspect-ratio: 1672 / 941 !important;
+    margin: 22px -20px 0 !important;
+    transform: none !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+    background: #02070c !important;
+    filter: none !important;
+  }
+  .concept-merch-heading > .section-artwork img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+  .booking-fallback-art,
+  .booking-concept-art {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 3 !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    transform: none !important;
+  }
 }
