@@ -71,6 +71,21 @@ def atmosphere(name: str, width: int, height: int) -> Image.Image:
     return canvas
 
 
+def save_webp_compat(image: Image.Image, output: Path) -> None:
+    """Save deterministically across the Pillow versions used by CI and hosting checks.
+
+    Pillow 12 accepts the WebP ``exact`` option, while the intentionally older
+    Debian Pillow package in the read-only Apache verification image may not.
+    The fallback keeps the same quality/method settings and remains reproducible
+    within that environment without attempting to write anywhere under source.
+    """
+    options = {"quality": 90, "method": 6}
+    try:
+        image.save(output, "WEBP", exact=True, **options)
+    except TypeError:
+        image.save(output, "WEBP", **options)
+
+
 def build(name: str, spec: tuple[int, int, str, str, float], output_dir: Path) -> Path:
     tw, th, src_name, out_name, fade_fraction = spec
     source = Image.open(ROOT / "images" / src_name).convert("RGBA")
@@ -97,7 +112,7 @@ def build(name: str, spec: tuple[int, int, str, str, float], output_dir: Path) -
 
     output_dir.mkdir(parents=True, exist_ok=True)
     output = output_dir / out_name
-    canvas.save(output, "WEBP", quality=90, method=6, exact=True)
+    save_webp_compat(canvas, output)
     return output
 
 
