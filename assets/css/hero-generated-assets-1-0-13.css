@@ -1,59 +1,61 @@
 /* 1.0.13 generated-asset selection.
-   Packaged builds include deterministic wide WebP masters. Source checkouts
-   fall back to the reviewed native PNGs until the package generator runs. */
+   Packaged builds may define deterministic wide WebP masters through the
+   --sg-wide-* custom properties. Source checkouts and CI renders fall back to
+   the reviewed native PNGs. The fallback must live inside var(); an undefined
+   custom property otherwise invalidates the whole background declaration. */
 @media (min-width:821px) {
   .concept-home:has(.fallback-hero) {
-    background-image: var(--sg-wide-home), url('../../images/spiritual-gorillaz-home-hero.png') !important;
-    background-size: cover, cover !important;
-    background-position: center, center !important;
+    background-image: var(--sg-wide-home, url('../../images/spiritual-gorillaz-home-hero.png')) !important;
+    background-size: cover !important;
+    background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .concept-music:has(> .music-art) {
-    background-image: var(--sg-wide-music), url('../../images/spiritual-gorillaz-music-hero.png') !important;
-    background-size: cover, cover !important;
-    background-position: center, center !important;
+    background-image: var(--sg-wide-music, url('../../images/spiritual-gorillaz-music-hero.png')) !important;
+    background-size: cover !important;
+    background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .concept-shows:has(> .shows-stage-art) {
-    background-image: var(--sg-wide-shows), url('../../images/spiritual-gorillaz-shows-hero.png') !important;
-    background-size: cover, cover !important;
-    background-position: center, center !important;
+    background-image: var(--sg-wide-shows, url('../../images/spiritual-gorillaz-shows-hero.png')) !important;
+    background-size: cover !important;
+    background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .concept-band:has(> .concept-band-art) {
-    background-image: var(--sg-wide-band), url('../../images/spiritual-gorillaz-band-hero.png') !important;
-    background-size: cover, cover !important;
-    background-position: center, center !important;
+    background-image: var(--sg-wide-band, url('../../images/spiritual-gorillaz-band-hero.png')) !important;
+    background-size: cover !important;
+    background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .concept-merch:has(> .merch-stage-art),
   .concept-merch-heading:has(> .merch-concept-art) {
-    background-image: var(--sg-wide-merch), url('../../images/spiritual-gorillaz-merch-hero.png') !important;
-    background-size: cover, cover !important;
-    background-position: center, center !important;
+    background-image: var(--sg-wide-merch, url('../../images/spiritual-gorillaz-merch-hero.png')) !important;
+    background-size: cover !important;
+    background-position: center !important;
     background-repeat: no-repeat !important;
   }
   .booking-layout.concept-booking:has(.booking-fallback-art) {
-    background-image: var(--sg-wide-booking), url('../../images/spiritual-gorillaz-booking-hero.png') !important;
-    background-size: cover, cover !important;
-    background-position: center, center !important;
+    background-image: var(--sg-wide-booking, url('../../images/spiritual-gorillaz-booking-hero.png')) !important;
+    background-size: cover !important;
+    background-position: center !important;
     background-repeat: no-repeat !important;
   }
   main[data-page="media"] .page-hero {
-    background-image: var(--sg-wide-shows), url('../../images/spiritual-gorillaz-shows-hero.png') !important;
-    background-size: cover, cover !important;
-    background-position: center, center !important;
+    background-image: var(--sg-wide-shows, url('../../images/spiritual-gorillaz-shows-hero.png')) !important;
+    background-size: cover !important;
+    background-position: center !important;
     background-repeat: no-repeat !important;
   }
   main[data-page="press"] .page-hero {
-    background-image: var(--sg-wide-band), url('../../images/spiritual-gorillaz-band-hero.png') !important;
-    background-size: cover, cover !important;
-    background-position: center, center !important;
+    background-image: var(--sg-wide-band, url('../../images/spiritual-gorillaz-band-hero.png')) !important;
+    background-size: cover !important;
+    background-position: center !important;
     background-repeat: no-repeat !important;
   }
 
-  /* The wide master is now the window artwork; hide only bundled fallback
-     elements. CMS-published artwork remains visible and unchanged. */
+  /* The selected master is the entire contained hero window; hide only bundled
+     fallback elements. CMS-published artwork remains visible and unchanged. */
   .concept-home .fallback-hero,
   .concept-music > .music-art,
   .concept-shows > .shows-stage-art,
