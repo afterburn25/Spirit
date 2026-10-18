@@ -8,6 +8,8 @@ import hashlib
 import json
 import os
 import re
+import subprocess
+import sys
 import zipfile
 from pathlib import Path
 
@@ -15,6 +17,19 @@ ROOT = Path(__file__).resolve().parents[1]
 DIRECTORIES = {'app','admin','includes','config','database','storage','uploads','views','assets','images','install','docs','music','shows','band','media','booking','press','shop','account','pages','newsletter','tasks','payments'}
 ROOT_FILES = {'.htaccess','index.php','VERSION','README.md','CHANGELOG.md'}
 PRIVATE_SUFFIXES = {'.log','.zip','.pem','.key','.p12','.pfx','.sqlite','.sqlite3','.bak','.gz'}
+
+
+def generate_hero_assets() -> None:
+    """Create deterministic wide WebP hero masters before collecting payload files."""
+    generator = ROOT / 'tools' / 'generate_extended_heroes.py'
+    if not generator.is_file():
+        raise FileNotFoundError('Missing deterministic hero generator.')
+    try:
+        subprocess.run([sys.executable, str(generator)], cwd=ROOT, check=True, capture_output=True, text=True)
+    except subprocess.CalledProcessError as error:
+        detail = (error.stderr or error.stdout or str(error)).strip()
+        raise RuntimeError(f'Hero asset generation failed: {detail}') from error
+
 
 def eligible(source: Path, destination: Path) -> bool:
     relative = source.relative_to(ROOT)
@@ -38,6 +53,7 @@ def eligible(source: Path, destination: Path) -> bool:
         return False
     return True
 
+
 def package(destination: Path) -> Path:
     destination = destination.resolve()
     version = (ROOT/'VERSION').read_text().strip()
@@ -45,6 +61,7 @@ def package(destination: Path) -> Path:
         raise ValueError('Invalid application version.')
     if destination == ROOT or (destination.is_relative_to(ROOT) and destination.relative_to(ROOT).parts[0] in DIRECTORIES):
         raise ValueError('Choose an output directory outside deployable source folders.')
+    generate_hero_assets()
     destination.mkdir(parents=True, exist_ok=True)
     archive = destination/f'Spiritual-Gorillaz-{version}-Full.zip'
     if archive.exists():
@@ -78,12 +95,13 @@ def package(destination: Path) -> Path:
         raise
     return archive
 
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output',type=Path,default=ROOT/'dist')
     args=parser.parse_args()
     try:
         archive=package(args.output)
-    except (OSError,ValueError) as error:
+    except (OSError,ValueError,RuntimeError) as error:
         parser.exit(1,f'Packaging failed: {error}\n')
     print(f'ZIP: {archive}\nNo setup code or private setup receipt is required.')
