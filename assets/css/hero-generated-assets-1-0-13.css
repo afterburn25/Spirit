@@ -2,9 +2,9 @@
 
    A packaged build may contain deterministic wide WebP atmosphere masters. The
    original native PNG remains visible as the sharp foreground subject, aligned
-   to the right at contain scale. When the generated WebP is present it fills
-   the complete window behind that subject; when it is absent, CSS atmosphere
-   and the native image still render a complete hero instead of a blank panel. */
+   to the right at its own aspect ratio. When the generated WebP is present it
+   fills the complete window behind that subject; when it is absent, CSS
+   atmosphere and the native image still render a complete hero. */
 @media (min-width:821px) {
   .concept-home:has(.fallback-hero) {
     background-image:
@@ -62,29 +62,53 @@
     background-repeat: no-repeat !important;
   }
 
-  /* Keep the reviewed source art as a crisp, non-cropped foreground. The wide
-     package master and this source use the same right-side geometry. A gentle
-     left-edge mask prevents a visible rectangular seam in source-only renders. */
+  /* Give each native 16:9 master its own correctly proportioned box. The
+     computed object-fit remains cover, but because the box matches the source
+     ratio no source pixels are cropped. This preserves the full crown/face and
+     satisfies the existing production-frame browser contract. */
   .concept-home .fallback-hero,
   .concept-music > .music-art,
   .concept-shows > .shows-stage-art,
   .concept-band > .concept-band-art,
   .concept-merch > .merch-stage-art,
-  .concept-merch-heading > .merch-concept-art,
-  .booking-layout.concept-booking .booking-fallback-art,
-  .booking-layout.concept-booking .booking-concept-art {
+  .concept-merch-heading > .merch-concept-art {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: auto !important;
+    width: auto !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    aspect-ratio: 1672 / 941 !important;
     opacity: 1 !important;
     pointer-events: none !important;
-    object-fit: contain !important;
-    object-position: right center !important;
+    object-fit: cover !important;
+    object-position: center !important;
     background: transparent !important;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.08) 28%, #000 56%) !important;
-    mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.08) 28%, #000 56%) !important;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.08) 4%, #000 36%) !important;
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.08) 4%, #000 36%) !important;
   }
 
   .concept-home .fallback-hero {
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.10) 16%, #000 46%) !important;
-    mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.10) 16%, #000 46%) !important;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.10) 3%, #000 33%) !important;
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.10) 3%, #000 33%) !important;
+  }
+
+  /* Booking's reviewed source is 4:3 and lives inside a full-window figure. */
+  .booking-layout.concept-booking .booking-fallback-art {
+    opacity: 1 !important;
+    pointer-events: none !important;
+    background: transparent !important;
+  }
+  .booking-layout.concept-booking .booking-concept-art {
+    opacity: 1 !important;
+    object-fit: contain !important;
+    object-position: right center !important;
+    background: transparent !important;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.08) 25%, #000 55%) !important;
+    mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,.08) 25%, #000 55%) !important;
   }
 
   /* Media and Press do not have a bundled foreground <img>. Use the wide asset
