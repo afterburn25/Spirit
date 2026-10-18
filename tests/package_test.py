@@ -8,6 +8,7 @@ import tempfile
 import unittest
 import zipfile
 from pathlib import Path
+from unittest import mock
 
 SPEC=importlib.util.spec_from_file_location('spirit_packager',Path(__file__).resolve().parents[1]/'tools/package.py')
 packager=importlib.util.module_from_spec(SPEC)
@@ -27,6 +28,12 @@ class PackagingTests(unittest.TestCase):
         packager.ROOT=self.old_root; self.temp.cleanup()
     def build(self):
         return packager.package(self.output)
+    def seed_reviewed_hero_outputs(self, missing: str | None = None):
+        generator=self.root/'tools/generate_extended_heroes.py';generator.parent.mkdir(parents=True,exist_ok=True);generator.write_text('raise SystemExit("generator must not run")')
+        source=self.root/'images/spiritual-gorillaz-home-hero.png';source.parent.mkdir(parents=True,exist_ok=True);source.write_bytes(b'PNG')
+        for name in packager.HERO_GENERATED_FILES:
+            if name==missing: continue
+            (self.root/'images'/name).write_bytes(b'WEBP-'+name.encode())
     def test_keeps_deployment_files(self):
         archive=self.build()
         with zipfile.ZipFile(archive) as bundle:
@@ -76,6 +83,18 @@ class PackagingTests(unittest.TestCase):
         second_dir=self.root/'second-output'
         second=packager.package(second_dir)
         self.assertEqual(first.read_bytes(),second.read_bytes())
+    def test_read_only_source_uses_complete_reviewed_hero_outputs(self):
+        self.seed_reviewed_hero_outputs()
+        with mock.patch.object(packager.importlib.util,'find_spec',return_value=object()), mock.patch.object(packager,'hero_output_directory_writable',return_value=False), mock.patch.object(packager.subprocess,'run') as runner:
+            packager.generate_hero_assets()
+        runner.assert_not_called()
+    def test_read_only_source_rejects_missing_generated_hero(self):
+        missing=packager.HERO_GENERATED_FILES[-1]
+        self.seed_reviewed_hero_outputs(missing)
+        with mock.patch.object(packager.importlib.util,'find_spec',return_value=object()), mock.patch.object(packager,'hero_output_directory_writable',return_value=False), mock.patch.object(packager.subprocess,'run') as runner:
+            with self.assertRaisesRegex(RuntimeError,re.escape(missing)):
+                packager.generate_hero_assets()
+        runner.assert_not_called()
 
     def test_existing_version_is_not_overwritten(self):
         archive=self.build(); old=archive.read_bytes()
