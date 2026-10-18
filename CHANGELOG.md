@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.0.7 — complete interior-hero framing correction
+
+- reduce the displayed artwork scale on Music, Shows, Band and Merch so subjects no longer appear zoomed;
+- keep each complete native 16:9 hero master visible with deliberate breathing room;
+- remove destructive edge-to-edge cover behavior and reset inherited image transforms and filters;
+- preserve the editorial text-left / artwork-right composition on desktop;
+- stack the complete uncropped artwork beneath the copy on mobile;
+- preserve the complete 4:3 Booking equipment scene;
+- retain the 1.0.6 sticky centered navigation, dropdown Search and dimensional Home title.
+
 ## 1.0.6 — navigation and hero regression correction
 
 - restore a larger, truly centered desktop navigation layout;
@@ -57,7 +67,6 @@ Changes:
 - add closed-store browser coverage for Search copy/filter behavior.
 
 RC9 remains frozen as the verified historical candidate.
-
 
 ## 1.0.0-rc.9 — dormant-store customer navigation fix
 
