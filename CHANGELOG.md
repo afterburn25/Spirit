@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.8 — full-width atmospheric hero system
+
+- replace boxed/contained interior heroes with edge-to-edge viewport heroes;
+- add a full-viewport atmospheric extension layer for Home, Music, Shows, Band, Media, Press, Booking and Merch;
+- keep the complete right-side subjects visible at a zoomed-out scale;
+- extend the atmospheric background in CSS while keeping the native subject artwork at its original resolution;
+- preserve sharp native image detail and the approved dark navy / blue / gold presentation;
+- keep real HTML headings, copy, buttons, forms and navigation separate from the artwork;
+- stack the full original artwork beneath the copy on mobile;
+- retain sticky centered navigation, dropdown Search, dimensional Home title, CMS overrides and all existing application behavior.
+
 ## 1.0.7 — complete interior-hero framing correction
 
 - reduce the displayed artwork scale on Music, Shows, Band and Merch so subjects no longer appear zoomed;
