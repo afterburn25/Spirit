@@ -1,6 +1,6 @@
-# Project status — 1.0.0 final
+# Project status — 1.0.5 animated identity update
 
-The application is **1.0.0**. The planned application scope is complete and the owner explicitly instructed the project to proceed to final release.
+The application is **1.0.5**. The complete final software foundation is retained, with the owner-selected transparent animated Concept 2 identity added to the approved native-resolution public design.
 
 ## Software implementation status
 
@@ -11,7 +11,7 @@ The public site, owner administration, content/media/music/shows/press, booking/
 Final launch-hardening includes:
 - approved launch copy as safe runtime fallbacks for Home, Music, Shows, Band, Media, Booking, Press and Merch;
 - confirmed three-member Band fallbacks for Chad Lindsey, Ron Green and Charlie Savell, including partial-profile publishing without duplicates or fake portraits;
-- scalable bundled crown/wordmark SVG fallback while preserving owner-managed logo publication;
+- transparent animated crown-and-shield APNG in the header, matching static/reduced-motion fallback, and preserved owner-managed logo publication;
 - contained fallback hero presentation;
 - responsive hardening at 360 px, 390 px and desktop widths;
 - cross-browser checkout/review/cancellation coverage in Chromium, Firefox and WebKit;
@@ -34,9 +34,9 @@ Truthfully empty optional sections are supported:
 - Merchandise may remain closed. When closed, Merch/Bag and merchandise search affordances are hidden; merchant credentials/provider acceptance are feature-activation requirements rather than core-site blockers.
 - Longer biographies are optional.
 
-## Final release decision
+## Release lineage
 
-The owner explicitly instructed the project to continue through final 1.0.0. Commerce is intentionally disabled, so Authorize.net sandbox/provider acceptance is deferred until commerce activation.
+Version 1.0.5 is a visual identity update on the verified final 1.0.0 application foundation. Commerce remains intentionally disabled, so Authorize.net sandbox/provider acceptance is deferred until commerce activation.
 
 Previously recorded owner acceptance covers installation/upgrade/admin operation, owner email receipt, booking notifications/acknowledgement, newsletter confirmation/unsubscribe, customer-account activation/recovery and unpaid checkout stock restoration. Those owner-reported checks remain historical evidence; they are not re-characterized as assistant-inspected results.
 

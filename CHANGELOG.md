@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.5 — approved animated identity
+
+The owner-selected Concept 2 crown-and-shield wordmark is now the bundled public identity.
+
+Changes:
+- add the transparent APNG logo to the real public header;
+- add a matching transparent static PNG for the footer, reduced-motion visitors and fallback behavior;
+- preserve the published Media-library logo override and original image proportions;
+- resize the header responsively without displacing navigation, booking or Search controls;
+- retain the approved native-resolution Home, Music, Shows, Band, Booking and Merch design;
+- extend the cumulative package with the new identity assets and styling.
+
+The update changes branding presentation only; the verified PHP/CMS, player, booking, commerce, installer, upgrade and recovery behavior remains intact.
+
 ## 1.0.0 — final release
 
 Promote the fully verified RC10 software line to final 1.0.0 after explicit owner instruction to proceed to final release.

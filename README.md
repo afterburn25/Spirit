@@ -1,10 +1,10 @@
-# Spiritual Gorillaz — 1.0.0
+# Spiritual Gorillaz — 1.0.5
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design.
 
-## Final software state
+## 1.0.5 animated identity update
 
-Version 1.0.0 promotes the fully verified RC10 software line to the first final release. The application implementation is complete.
+Version 1.0.5 keeps the verified final application foundation and adds the owner-selected Concept 2 transparent animated identity. The public header uses the APNG logo, the footer and reduced-motion preference use its matching static PNG, and owner-published Media-library branding continues to override the bundled mark without cropping or stretching.
 
 Implemented:
 - public Home, Music, Shows, Band, Media, Press, Booking, newsletter and search;

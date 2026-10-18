@@ -1,10 +1,10 @@
-# Resume — 1.0.0 final
+# Resume — 1.0.5 animated identity update
 
-Repository **afterburn25/Spirit**. Final release source is prepared from the fully verified RC10 line.
+Repository **afterburn25/Spirit**. Version 1.0.5 retains the verified final software line and adds the approved transparent animated Concept 2 identity.
 
 ## Final state
 
-- Application version: **1.0.0**
+- Application version: **1.0.5**
 - RC10 verification baseline: `2a833986f5a39d2f8de99f41bd8640b0642648e8`
 - Owner instructed the project to proceed to final release.
 - RC7, RC8, RC9 and RC10 remain immutable historical candidates.
@@ -26,7 +26,7 @@ Repository **afterburn25/Spirit**. Final release source is prepared from the ful
 
 - Approved factual launch copy is wired into public fallbacks and default metadata.
 - Band preserves the confirmed three-member lineup.
-- Bundled scalable logo fallback is available while owner-published branding still overrides it.
+- The bundled header uses the transparent animated Concept 2 logo; the footer and reduced-motion preference use its matching static PNG; owner-published branding still overrides both.
 - Small built-in hero is contained rather than falsely upscaled.
 - Closed commerce hides global Merch/Bag links, store-specific customer navigation and merchandise Search affordances.
 - Customer accounts remain reachable while commerce is dormant.
@@ -38,7 +38,7 @@ Repository **afterburn25/Spirit**. Final release source is prepared from the ful
 
 ## Operational follow-ups
 
-No unresolved software blockers remain for 1.0.0.
+No unresolved software blockers remain for 1.0.5. The branch stays in draft review until the owner approves the rendered identity in context.
 
 Do not claim unobserved provider/host evidence. After final deployment, observe Launch Checks, worker heartbeat freshness, recovery behavior and production performance as operational follow-up. If commerce is later enabled, genuine Authorize.net sandbox/provider acceptance is required before activation.
 
