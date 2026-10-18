@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.0.10 — centered native-art hero stage
+
+- keep every hero canvas full width while stopping the source artwork itself from stretching across the viewport;
+- center each 1672×941 production master and cap it at native width;
+- extend wider displays with matching black/deep-navy atmosphere on both sides;
+- move page headings, copy and controls inside the artwork's left negative-space area;
+- remove the visual effect of a separate text box overlapping or sitting outside the image;
+- softly feather only the outer image edges into the extension on screens wider than the native master;
+- apply the same centered-stage treatment to Home, Music, Shows, Band, Media, Press, Merch and Booking;
+- retain the visible Search icon, dropdown Search behavior, sticky centered navigation, dimensional Home title and uncropped mobile art stacking.
+
 ## 1.0.9 — full-span hero and Search correction
 
 - change production desktop hero geometry to a true 16:9 viewport-wide canvas;
