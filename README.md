@@ -1,24 +1,18 @@
-# Spiritual Gorillaz — 1.1.0-rc.7
+# Spiritual Gorillaz — 1.1.0-rc.8
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, metallic-gold and blue-stage-light identity.
 
-## 1.1.0-rc.7 — subtle drifting stage smoke
+## 1.1.0-rc.8 — visible motion and a compact, editable footer
 
-A restrained blue-gray smoke layer drifts slowly above the fixed concert-stage background and behind the public content. The stage image itself stays stationary. Soft, translucent wisps add atmosphere without moving the page or covering the readable panels, logo, navigation or controls.
+The approved transparent sculpted-gold crowned gorilla and horizontal wordmark now use the full-resolution PNG with a recurring metallic light sweep and gentle depth movement in the public header, footer, admin sidebar, login and installer. Reduced motion keeps the same artwork still. A separate explicit branding-source setting makes the approved identity the default after this requested correction, while retaining every previous custom-logo selection, draft and media record. The owner can deliberately publish custom artwork or choose **Use animated 3D logo** to return to the approved mark.
 
-The effect uses CSS and requires no new image, video download, JavaScript or scroll listener. Reduced-motion preferences, print and forced-colors displays omit the moving decoration. Administration, login and installation keep their separate static backgrounds. The approved logo, 25% transparent navigation background, screen-wide footer and borderless transparent outer shell from rc.6 remain.
+Smoke is brighter and travels farther across the fixed stage background. Its natural CSS timing starts in motion and alternates smoothly; the stage itself remains stationary. The decoration stays behind readable content and ignores pointer input. Reduced motion, print and forced colors omit it.
 
-This is a new cumulative candidate; the immutable rc.6 package remains unchanged. Installed rc.1 through rc.6 use normal guarded same-schema Browser upgrades when their checks pass. No database migration or reinstall is required. See `docs/STAGE_BACKGROUND.md` and current `docs/TEST_RESULTS.md` for the animation and observed verification.
+The full-width footer has a 25% transparent background, compact content-driven spacing and responsive link wrapping. Both footer tagline occurrences are removed. Owners edit **Footer copyright** under **Settings & access → Website settings**. Blank retains the automatic current-year/site-name line. The separate line beneath it always reads **Website designed & developed by Cajun Web Pro LLC**, with the company name linked to https://cajunwebpro.com/. It has no admin edit or hide control.
 
-## Retained rc.6 — approved logo throughout, full-width footer and seamless shell
+This cumulative candidate retains the earlier analytics, Overview snapshots, search/navigation, favicon, fixed stage, contained heroes and content panels. Original image files, JavaScript, all eight migrations, private state and the pinned recovery layer remain unchanged. Installed rc.1 through rc.7 use normal guarded same-schema Browser upgrades when their checks pass; no migration or reinstall is needed.
 
-The approved horizontal sculpted-gold crowned gorilla and two-line wordmark now appear in the public header and footer, administration sidebar, staff login and installer. The earlier animated-logo kit had not been integrated into rc.5; this candidate corrects that omission with the actual approved transparent files. The header and staff identity use a steady six-second gold shimmer, with a static image for reduced-motion preferences. The footer uses the matching static artwork. Published owner-uploaded logos keep their existing public override and private draft/preview workflow.
-
-The navigation background is 25% transparent (75% opaque); the logo, links and buttons remain fully opaque. The new horizontal header logo uses available space in its existing grid track while retaining its left anchor. The footer background and top rule now reach both screen edges, with its inner content aligned as before. The transparent main shell has no border, shadow, outline or rounded edge. Individual dark content panels remain readable over the fixed stage.
-
-The complete transparent crowned-gorilla favicon is fitted to the full available canvas, preserving its proportions, crown and chin. New asset filenames and versioned links avoid reusing the old active icon URLs. The earlier icons already had little padding; this is a modest framing improvement, not a promise to enlarge the browser's icon controls. See `docs/FAVICONS.md` for measured native-size results.
-
-See `docs/BRANDING.md`, `docs/STAGE_BACKGROUND.md` and `docs/TEST_RESULTS.md` for implementation and observed verification. This cumulative candidate retains all analytics, navigation, media, background and contained-hero work. Installed rc.1 through rc.6 use the existing guarded same-schema Browser upgrades path when its checks pass; no migration or reinstall is required.
+See docs/BRANDING.md, docs/FOOTER.md, docs/STAGE_BACKGROUND.md and current docs/TEST_RESULTS.md for the implementation and observed verification. Already delivered versions remain immutable; historical results are retained under docs/history/.
 
 ## Retained rc.5 — fixed concert-stage background and readable panels
 
@@ -26,7 +20,7 @@ The user-selected blue-lit concert stage stays fixed behind the public website w
 
 The sticky header's background and lower rule reach both screen edges. The decorative image cannot intercept clicks or keyboard interaction and needs no scroll JavaScript. Phone framing favors the drum kit and stage equipment on the right. Print and forced-colors modes omit the decorative image. Administration and the installer retain their separate dark surfaces.
 
-The unchanged native 1672 × 941px source supplies a 243,104-byte WebP. This is generated music-themed decoration, not a photograph of a real performance. Historical rc.5 and rc.6 results are archived under `docs/history/` and are distinct from current rc.7 checks.
+The unchanged native 1672 × 941px source supplies a 243,104-byte WebP. This is generated music-themed decoration, not a photograph of a real performance. Historical rc.5 and rc.6 results are archived under `docs/history/` and are distinct from current rc.8 checks.
 
 ## Retained rc.3 — accurate page drilldowns and search attribution
 
@@ -48,7 +42,7 @@ Public navigation now has one controller and reproducible CSS/JavaScript bundles
 
 This is a cumulative review candidate on `work/1.1.0-analytics-and-navigation`, based on the latest 1.0.13 work. Screenshot approval and real-host acceptance remain separate from automated verification. Exact observed results are in `docs/TEST_RESULTS.md`.
 
-**Updating an installed website:** installed `1.1.0-rc.1` through `1.1.0-rc.6` sites already have the unchanged analytics schema, so the normal guarded same-schema **Browser upgrades** path applies when its checks pass. Updating a `1.0.x` site adds migrations `007.sql` and `008.sql`; the browser updater deliberately refuses that schema transition. For `1.0.x`, preserve the existing private configuration, owner, database and uploads, deploy the cumulative code through the hosting panel and apply **Database updates** with the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
+**Updating an installed website:** installed `1.1.0-rc.1` through `1.1.0-rc.7` sites already have the unchanged analytics schema, so the normal guarded same-schema **Browser upgrades** path applies when its checks pass. Updating a `1.0.x` site adds migrations `007.sql` and `008.sql`; the browser updater deliberately refuses that schema transition. For `1.0.x`, preserve the existing private configuration, owner, database and uploads, deploy the cumulative code through the hosting panel and apply **Database updates** with the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
 
 ## Preserved contained continuous-image heroes
 

@@ -34,6 +34,12 @@ Upload authorized JPEG/PNG/WebP, MP3/OGG/WAV and PDFs; scripts/SVG/archives are 
 
 Reserved page URL names home/band/booking/press feed the designed sections; other pages have individual URLs. Website settings controls name/tagline/welcome. Publish a release and its authorized tracks for the user-initiated persistent player. External streaming platforms use verified outbound links.
 
+## Logo and footer — 1.1.0-rc.8
+
+Open **Settings & access → Website settings** for the **Footer copyright** field. Enter the complete line as plain text, or leave it blank to follow the current year and website name automatically. Save website settings to publish it. The fixed linked Cajun Web Pro LLC developer credit appears directly below copyright and has no edit/hide control. See FOOTER.md.
+
+**Manage site logo** shows the current public source. The approved animated 3D crowned-gorilla logo is the corrected default. Earlier uploaded logos and saved drafts remain retained. Choose **Use animated 3D logo** to return to it while keeping those images. To use custom artwork, save and preview a private draft, then explicitly approve and publish it. Publishing a custom image changes the public header and footer; staff/setup retain the approved bundled identity. Reduced-motion preferences stop decorative logo/smoke movement. See BRANDING.md.
+
 ## Search, sharing and responsive media
 
 Search & sharing controls site indexing and canonical sharing defaults. Published content can supply approved search/share descriptions and images. Public search, sitemap parts and former-published-slug redirects use published records only; noindex is not access control. See DISCOVERY.md.

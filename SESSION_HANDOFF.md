@@ -1,35 +1,37 @@
-# Resume — 1.1.0-rc.7 subtle drifting stage smoke
+# Resume — 1.1.0-rc.8 visible motion and compact footer
 
-Repository **afterburn25/Spirit**. Continue from **`work/1.1.0-analytics-and-navigation`**, [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). Baseline published rc.6 is `03470a4b6400ebfbd2d16a1d899c899ee07e2d48`, tree `a444a001dddfbcd655a0a91ab81c44301227689a`; inspected live main is `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`. Do not merge before owner approval.
+Repository: afterburn25/Spirit. Continue on work/1.1.0-analytics-and-navigation, [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). Baseline published rc.7 is 8eb75d7e8073a72bdc4b1fd8ca432408711ee3ea, tree 0f3531236f3f46da56198472244645c095c8012d. Main inspected before writes: 6ef03a24ea87fdbfb0d053f7b54b4c16fce42098. Do not merge or deploy live without owner approval.
 
-## Current user request
+## Latest user requirements
 
-Add a subtle drifting-smoke animation over the selected concert-stage background. The stage remains fixed; a separate translucent blue-gray CSS layer moves slowly behind the public content. Preserve readable panels, stationary page geometry, logo/control opacity, and the current navbar's 25% background transparency. No flashing, scroll-driven movement, new video/image download or JavaScript is needed.
+Correct the apparently old/nonanimated logo, use the approved 3D crowned gorilla, make the background smoke visibly drift, remove the footer Music. People. Purpose. tagline, minimize footer height while fitting all links, make the footer background 25% transparent, add owner copyright editing in the right admin area, and render a fixed linked Cajun Web Pro LLC developer credit below copyright.
 
-Omit moving smoke for reduced motion, print and forced colors, and keep it outside admin/login/setup. It must not receive pointer input or create overflow. Actual motion previews must come from the installed site; do not generate page mockups or present accelerated test phases as natural real-time playback.
+## Runtime decisions
 
-## Retained approved presentation
+- Use the unchanged 2172 × 724 approved PNG and matching alpha mask. Public/header/footer/admin/login/setup share a 3.8-second metallic light sweep and four-second alternating depth movement. Reduced motion, print and forced colors stop it. The old animated WebP stays packaged but inactive.
+- The image recovered from the final transparency prompt matches kit dimensions/byte count. No later different approved image was established. Do not claim a newly recovered different master or a production database observation.
+- Keep the original three-integer site_branding_v1 record. A separate site_branding_source_v1 is absent=bundled, or explicitly bundled/custom. The requested corrected default preserves old IDs/uploads without GET writes. Use animated 3D logo preserves both IDs; deliberate custom Publish activates custom; legacy Withdraw still clears only the published ID. Active-source media authorization, revision/restore/CSRF/owner transaction checks remain.
+- Smoke is one fixed pointer-transparent CSS layer over the fixed stage: six brighter wisps, 18 seconds each direction, -4-second native start delay, 12% overscan and wider travel. No extra image/video/JavaScript. Omit for reduced motion, print and forced colors; exclude admin/setup.
+- Footer has full-width rgba(2,7,12,.75) backplate, 168 × 56px logo, 10px vertical padding, wrapping links and no height floor. Phone links retain 44px targets. Both footer taglines are removed; preserve the tagline elsewhere.
+- Copyright is optional plain text, max 240 UTF-8 bytes, under Settings & access → Website settings. Blank follows current UTC year/site name. Missing old POST fields preserve it. Validate before writing and escape output.
+- The fixed line beneath is Website designed & developed by Cajun Web Pro LLC, with the company name linked to https://cajunwebpro.com/. It has no admin edit/hide control. Do not claim server-source owners cannot edit a template.
 
-Keep the exact transparent sculpted-gold crowned-gorilla horizontal logo from the approved kit across public header/footer, admin sidebar and staff login/setup. The navbar/staff animation is the approved steady shimmer with a static reduced-motion fallback. Owner-published media remains the public override; never rewrite settings to force the default.
+Runtime changes are limited to VERSION; app/Branding.php; admin/branding/index.php; views/admin/branding.php; app/Settings.php; admin/settings.php; views/public/footer.php; assets/css/admin-branding.css; assets/css/site-source.css; assets/css/site.css. Shared staff CSS mirrors public motion. Current public bundle: 129735/130000 bytes. Preserve the budget.
 
-The header logo keeps its left anchor. The footer surface reaches both screen edges. The transparent main shell has no border/shadow/outline/rounded edge. Individual dark content panels and contained page heroes remain. The complete crowned-head favicon uses full proportional framing and fresh `images/icons/crowned-gorilla-full-fit/` paths; do not crop the crown or claim a larger browser icon slot.
+## Verification and delivery
 
-Do not add root `favicon.ico`: the pinned recovery root-file allowlist excludes it. Preserve all prior paths and frozen recovery files.
+Use one frozen candidate for actual root and /band installed checks. Cover natural page-entry logo/smoke motion, same-aspect mask/image geometry, compact footer at desktop/phone widths, maximum copyright/all optional links, admin save/reload, role/CSRF guards, private drafts, explicit source switching, public media authorization and supported restore.
 
-## Implementation and verification
+Record genuine screenshots, natural-speed MP4s, hashes and fixture labels. No animation.currentTime seeking or accelerated playback in user-facing previews. Pixel changes alone are insufficient visual acceptance. Any cropped logo frame must be labeled as a detail from the real page.
 
-Current runtime changes should be limited to public CSS/source bundle plus the version. PHP, JavaScript, uploaded data/settings, analytics, migrations, recovery and original logo/favicon/stage/hero artwork remain unchanged from rc.6. The host needs no frontend build or image service.
+Current results: 1,131 browser + 88 copyright HTTP + 142 branding-source HTTP checks passed, plus 6 separately recorded capture checks, 48 branding units, 19 copyright units and 15 package units. There are 20 full-viewport screenshots (3 synthetic), 24 labeled native logo crops and two 10-second normal-speed MP4s. The 390px settings frame was recaptured after its existing drawer transition settled; no runtime changed.
 
-Current observed results belong in `docs/TEST_RESULTS.md`, `design/background-smoke/` and the delivery receipt. Preserve rc.6 results under `docs/history/`; do not relabel them as current tests. Actual root/subdirectory, desktop/phone, reduced-motion/print/forced-colors and interactive navigation checks must cover the new smoke. Current screenshots must include the existing public/footer/admin/login fixes; synthetic fixtures stay explicitly labeled and never enter the installation package.
+Current observations belong in docs/TEST_RESULTS.md, design/footer-motion/ and the final delivery receipt. Final documentation can follow captures only when all recorded runtime hashes match the final Full ZIP. Distinguish that runtime equivalence from an exact final-archive capture. Queued/running Actions are not passes.
 
-Current results: **1,376 retained-presentation assertions plus 529 smoke assertions passed**, with 47 screenshots (3 explicitly synthetic) and two actual ten-second, 25fps, normal-speed MP4 previews. Both passes use candidate SHA-256 `bf5138e6fd7a7504bca2d1d9479665caec8e84101b24221092e829d35431930b` and record the same 345 runtime hashes. Main captures use reduced motion; smoke Home captures run naturally; controlled phase images and footer captures are identified separately. The fixture database/user, server and credentials were removed after checks. Bundle reproduction passed at 128,396 / 130,000 bytes; 15 package unit checks and local release gate passed. The source audit confirms 347 protected files unchanged.
+The rc.7 Full ZIP remains immutable: 26,444,170 bytes, SHA-256 d2c18d33028337dd7a5ffc3da3e9b423f185b794c9de17a8bf03971c12f1bd02. Preserve all 421 prior payload paths, eight migrations, five pinned recovery/access files and every previous compatibility asset. Do not add root favicon.ico because pinned recovery excludes it. Deliver a new cumulative rc.8 Full ZIP, actual screenshots and motion previews, checksums, source publication and GitHub artifact fallback.
 
-Final documentation may follow captures only when every recorded runtime hash is compared with the final Full ZIP. State that runtime equivalence rather than claiming an exact final-archive capture. Motion preview provenance must distinguish normal-speed recording from deterministic animation-phase checks.
+## Deployment and remaining acceptance
 
-## Release continuity
+rc.1 through rc.7 uses normal guarded same-schema Browser upgrades when checks pass. Preserve original database, owner, configuration/encryption identity, private state and uploads. Never reinstall. Existing 1.0.x additive schema-transition instructions remain.
 
-The immutable rc.6 Full ZIP is 26,433,784 bytes, SHA-256 `1e84e6ee7b947b9fda852fee6ddbbfd4102178cb78cf1eb63bd0b1c37105cd84`; its published source is the baseline above. Preserve that archive and its screenshot delivery. Deliver rc.7 as a new cumulative version and record source/tree, hashes and actual Actions state. Queued/running workflows are not passes.
-
-Installed rc.1 through rc.6 use guarded same-schema Browser upgrades when checks pass. Keep the original owner/database, configuration/encryption identity, media, private runtime and removed installer. Existing 1.0.x additive schema-update instructions remain. No reinstall, hosting token, setup code, native ticketing or automatic database provisioning.
-
-Target-host/provider acceptance remains separate; no production deployment or live payment is authorized by this presentation change.
+Keep A2/cPanel manual database setup only, with no hosting token, automatic provisioning, setup code or 20i integration. Production hosting, real mailbox/merchant, physical-device/Safari and owner acceptance remain separate. No merge or live deployment is authorized.

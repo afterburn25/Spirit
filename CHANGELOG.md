@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.0-rc.8 — visible 3D branding, smoke and compact footer
+
+- Render the unchanged full-resolution approved crowned-gorilla PNG with recurring metallic-light and gentle depth motion in the header, footer, admin sidebar, login and installer; stop motion for reduced-motion, print and forced-color displays.
+- Replace the old active animation's long still-frame holds and static footer. Preserve its asset path for cumulative compatibility.
+- Default to the approved identity through an explicit bundled/custom source setting while preserving older published/draft media IDs and all uploads without writes on GET. Allow deliberate custom publication and a guarded Use animated 3D logo action.
+- Make smoke brighter and travel farther with an 18-second alternating CSS drift; keep the stage fixed, content readable and decoration outside pointer interaction.
+- Reduce the full-width footer to content-driven height, make its background 25% transparent, wrap all original links and remove both footer tagline occurrences.
+- Add an optional plain-text Footer copyright field under Settings & access → Website settings, retaining automatic year/site-name fallback and safe escaped output.
+- Add the fixed linked Website designed & developed by Cajun Web Pro LLC line below copyright, with no admin edit or hide control.
+- Preserve original artwork, JavaScript, all migrations, private state, manual installer and pinned recovery/access files. Deliver a new immutable cumulative Full ZIP with actual screenshots, ordinary-speed motion footage and focused installed verification.
+
 ## 1.1.0-rc.7 — subtle drifting background smoke
 
 - Add slow, translucent blue-gray smoke behind public content while the selected concert-stage image remains fixed.

@@ -1,55 +1,46 @@
-# Fixed concert-stage background and drifting smoke — 1.1.0-rc.7
+# Fixed concert-stage background and visible smoke — 1.1.0-rc.8
 
-## Selected artwork and behavior
+## Selected stage and readable content
 
-The user chose option 1, the blue-lit empty concert stage, and explicitly requested a transparent main container. The public site's outer `.site-shell` now has a transparent background. A single decorative `body.public-site::before` layer stays fixed to the viewport as the document scrolls.
+The user chose option 1, the blue-lit empty concert stage, as the global public background and requested a transparent main container. A decorative body.public-site::before layer stays fixed to the viewport while content scrolls. Its source image and framing remain unchanged.
 
-The stage can show through page gutters and spaces between sections. Existing contained hero windows keep their separate artwork, and readable cards, forms, the header, footer and persistent player retain their own surfaces. The decorative stage is generated music artwork, not a claim about an actual band performance.
+The stage shows through page gutters and section gaps. Existing contained hero windows keep their separate artwork. Headings, introductions, forms, captions and other exposed content retain dark navy panels with blue borders and gold accents. The outer shell has no visible background, border, shadow, outline or rounded edge. The decorative stage is generated music artwork, not a claim about a band performance.
 
-The layer uses `position: fixed; inset: 0`, isolated stacking behind the page, and `pointer-events: none`. It requires no scroll listener or animation and does not intercept search, menu, form, link or keyboard interaction. Administration, staff access and installation layouts do not receive the public-only layer.
+The public header and footer backplates extend to both viewport edges. Each has 25% background transparency while logo, controls and text retain opacity 1. The header logo keeps its established left anchor. The footer is now compact and content-driven; see FOOTER.md.
 
-## Subtle drifting smoke
+## Visible drifting smoke
 
-The requested rc.7 continuation adds one separate `body.public-site::after` layer above the fixed stage and behind the public content. Six soft elongated radial gradients form two broad blue-gray wisps. The source image and its framing remain unchanged; only the stage layer's stacking position moves from -1 to -2 so smoke can occupy -1.
+The user reported that the rc.7 smoke could not be seen. rc.8 increases its visibility and travel while preserving the stationary stage.
 
-`stage-smoke-drift` runs a smooth 48-second loop. It moves from a -2% horizontal / +1.5% vertical translation and -1° rotation to the opposite pose at halfway, then returns continuously. Layer opacity moves from 0.65 to 0.9 and back; the gradient colors themselves use only 0.05–0.16 alpha, keeping the smoke translucent. The gradients do not repaint their shape through animated filters; only transform and opacity animate. A bounded 6% overscan prevents the layer edge from appearing during drift.
+One body.public-site::after layer sits above the stage and behind public content. Six elongated blue-gray radial gradients form soft wisps, with peak color alpha between .32 and .56. The whole layer varies from .65 to .90 opacity. This is still translucent decoration, with no flashing or moving foreground panels.
 
-The layer is fixed, `pointer-events: none`, and outside page layout. It adds no JavaScript, scroll listener, image/video asset or network dependency. The stage image remains stationary while content scrolls; the decorative smoke drifts independently behind readable panels and controls. Reduced-motion preferences, print and forced-colors modes set the smoke to `display: none` and `animation: none`. Admin, login and setup remain outside the public-only selector.
+The stage-smoke-drift animation travels from -7% horizontal / +3% vertical translation and -2° rotation to +7% / -3% and +2°. Each direction takes 18 seconds, alternating smoothly for a 36-second round trip. A native CSS -4-second delay starts a newly loaded page already in motion. A 12% overscan keeps edges outside the viewport.
 
-The compiled CSS increase is 1,055 bytes. Current installed-browser phase/pixel checks and actual normal-speed desktop/phone recordings are identified in `TEST_RESULTS.md` and the delivery receipt. Deterministic phase samples are verification aids and must not be presented as naturally elapsed animation footage.
+Only transform and opacity animate; the gradients themselves are not animated filters. The layer is fixed, pointer-events:none and outside layout. It adds no JavaScript, scroll listener, video/image asset or network service. Reduced motion, print and forced colors set it to display:none and animation:none. Admin, login and installer remain outside the public-only selector.
 
-## Full-width header and protected content
+A user-facing motion preview must record ordinary page entry at playback rate 1. Do not seek animation.currentTime, accelerate playback or present endpoint phase comparisons as ordinary motion. Current recordings and pixel/geometry observations are identified in TEST_RESULTS.md and the delivery receipt. Visibility still requires visual review of the actual page, not merely detection of changed pixels.
 
-The header's background and lower border extend to both viewport edges through a non-interactive backplate. Its existing content container, grid and left logo anchor remain in place. In rc.6 the approved horizontal logo fills available first-track space for legibility. Search, Book the Band, the phone menu and sticky behavior retain their controls. The navigation backplate is 25% transparent (75% opaque), with fully opaque logo, links and controls. The footer now uses a similar viewport-wide surface, preserving its inner alignment. The outer transparent shell has no border, shadow, outline or rounded edge; a transparent layout spacer preserves the former border width without drawing a line.
+## Responsive behavior and assets
 
-Previously exposed content receives separate dark navy panels with subtle blue borders and gold accents. Existing semantic wrappers provide most of the grouping; small markup wrappers group page introductions and release captions where required. The treatment covers loose section headings, search/account/checkout introductions, detail-page copy, media captions and public content areas. Already-contained hero copy, cards, forms and notices retain their surfaces. The transparent outer shell and open gaps continue to expose the stage.
-
-## Responsive and accessible presentation
-
-Desktop framing uses centered `cover`. At widths up to 820px, `90% center` framing favors the stage's right-hand drum kit and guitar. This is CSS viewport framing of the same artwork; the source file is unchanged.
-
-The normal website remains usable without JavaScript. Print and forced-colors modes omit the decorative background. The stage itself does not animate. The separate smoke layer and approved navbar shimmer both honor reduced-motion preferences; automatic audio is not introduced. The retained near-opaque content surfaces provide readability over the scene.
-
-## Asset and source
+Desktop uses centered cover framing. At widths up to 820px, 90% center framing favors the stage's right-hand drum kit and guitar. Both use the same image without alteration. The public site remains usable without JavaScript. Print and forced colors omit the stage decoration.
 
 | Item | Value |
 |---|---|
-| Served image | `images/backgrounds/spiritual-gorillaz-stage-background.webp` |
+| Served image | images/backgrounds/spiritual-gorillaz-stage-background.webp |
 | Native dimensions | 1672 × 941px |
 | Served bytes | 243,104 |
 | Encoding | WebP, quality 0.9 |
-| Served SHA-256 | `74c0adcadbec3bd07314d641894a1e5a7b8d3d16153e8edf942bd47eee3d9a67` |
-| Source master | `design/background-stage/blue-lit-concert-stage-master.png` |
-| Source SHA-256 | `f32efb1672a52a4ccd51af237e5f43506b33688cba85f30a055f3ec71e6001dc` |
-| Export tool | `tools/build_stage_background.py` |
+| Served SHA-256 | 74c0adcadbec3bd07314d641894a1e5a7b8d3d16153e8edf942bd47eee3d9a67 |
+| Source master | design/background-stage/blue-lit-concert-stage-master.png |
+| Source SHA-256 | f32efb1672a52a4ccd51af237e5f43506b33688cba85f30a055f3ec71e6001dc |
+| Export tool | tools/build_stage_background.py |
 
-The original generated PNG, exact generation prompt and export receipt are retained under `design/background-stage/`. The browser export changes the encoding at the original dimensions: no retouching, sharpening, cropping or upscaling. Displays can scale the image to cover their viewport; this does not create extra source detail. Do not describe the asset as 4K.
+The original PNG, generation prompt and export receipt remain under design/background-stage/. Encoding is at native dimensions without retouching, sharpening, cropping or upscaling. Viewport cover scaling does not create extra source detail; this is not a 4K asset.
 
-The CSS source is `assets/css/site-source.css`. Rebuild its committed production bundle using `node tools/build_public_assets.mjs`; the measured public CSS/JS total is **128,396 / 130,000 bytes**. Existing JavaScript and public header markup are unchanged. The relative image URL works for root and subdirectory installations.
+## Build, deployment and evidence
 
-## Deployment and verification
+Edit assets/css/site-source.css and rebuild with node tools/build_public_assets.mjs. The current measured public CSS/JS total is 129,735 / 130,000 bytes. JavaScript is unchanged. Relative asset URLs work at root and in subdirectories.
 
-The cumulative Full ZIP includes the ready-to-use WebP and rebuilt CSS. The shared PHP host needs no image conversion or Node build. Installed rc.1 through rc.6 use the normal guarded same-schema Browser upgrades path when its integrity and recovery checks pass. No migration or reinstall is needed for this presentation update.
+The cumulative Full ZIP includes compiled CSS and original artwork; the PHP host needs no Node or image service. Installed rc.1 through rc.7 use normal guarded same-schema Browser upgrades when checks pass. No migration or reinstall is required.
 
-In rc.5, `tests/capture_stage_background.py` passed 1,120 checks on actual disposable installations at root and `/band`, with 48 genuine application screenshots. Its report records fixed image geometry, sampled pixels at matching viewport positions before/after scroll, transparent shell, full-width header geometry, readable panels, route coverage, interaction checks and screenshot provenance. All six header comparisons retain the baseline logo/control rectangles at 1440, 1920 and 390px. Primary screenshots are unseeded; supplemental populated views are clearly marked synthetic. Those historical results are preserved under `history/TEST_RESULTS-1.1.0-rc.5.md`. Historical rc.6 captures verify the approved logo, footer and borderless shell. Current rc.7 checks cover smoke plus the retained presentation; see `TEST_RESULTS.md` and the companion delivery receipt for current results and runtime equivalence. Desktop/phone Chromium checks are not physical-device or Safari acceptance.
-
+Historical rc.5 background, rc.6 branding and rc.7 smoke results remain under history/. Current results must identify the frozen candidate and verify every runtime hash against the final Full ZIP if final documentation changes after capture. Desktop/phone Chromium checks are not physical-device or Safari acceptance.

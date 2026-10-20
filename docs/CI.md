@@ -24,6 +24,8 @@ The software release gate verifies committed public bundles using the pinned npm
 
 ## Reproduction and artifacts
 
+The existing logo workflow also covers footer copyright. It runs the focused branding and footer PHP units, installed SQL/HTTP checks, and the existing branding browser journey on its database/browser matrix. The copyright report/log are retained in the same artifact directory. The branding integration suite can accept an immutable candidate with --archive and emit --report; it covers legacy-source retention, explicit source selection and supported restoration. The separate tests/capture_footer_refresh.py produces actual responsive screenshots and normal-speed logo/smoke previews for a frozen ZIP. Workflow configuration is not evidence of a completed run; record actual outcomes for the published head.
+
 For guarded SQL tests use `SPIRIT_TESTING=1` and isolated `SPIRIT_DB_*` credentials with database `spirit_ci` and the required random test-prefix shape. Do not point tests at production. Test-only transports are restricted to CLI and cannot be enabled by HTTP input.
 
 Browser tests use a development virtual environment with Playwright 1.57.0 and its Chromium. The hosting account does not need these tools. Tests/build scripts stay in Git and are excluded from deployment ZIPs. Current packaging creates no setup code/hash or PRIVATE-SETUP receipt. Private config, passwords, tokens, recovery receipts, sessions and database dumps are not uploaded as artifacts. Screenshot artifacts contain deliberately synthetic test data; source artifacts are tracked public source, not application-verification evidence.

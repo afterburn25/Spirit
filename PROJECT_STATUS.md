@@ -1,31 +1,27 @@
-# Project status — 1.1.0-rc.7 subtle drifting stage smoke
+# Project status — 1.1.0-rc.8 visible motion and compact footer
 
-The application is **1.1.0-rc.7**, a cumulative review candidate on `work/1.1.0-analytics-and-navigation` in [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). Its baseline is published rc.6 commit `03470a4b6400ebfbd2d16a1d899c899ee07e2d48`, tree `a444a001dddfbcd655a0a91ab81c44301227689a`. Live main was re-inspected at `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`; the live draft head matched rc.6 before new writes.
+The application is **1.1.0-rc.8**, a cumulative review candidate on work/1.1.0-analytics-and-navigation in [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). Its baseline is published rc.7 commit 8eb75d7e8073a72bdc4b1fd8ca432408711ee3ea, tree 0f3531236f3f46da56198472244645c095c8012d. Live main was inspected at 6ef03a24ea87fdbfb0d053f7b54b4c16fce42098 before implementation; the draft head matched rc.7.
 
-## New in rc.7
+## New in rc.8
 
-The user asked for drifting smoke over the global background. A restrained blue-gray CSS layer moves slowly above the fixed stage image and behind the public content. The selected stage itself remains stationary. The decoration does not receive pointer events or alter layout, and it requires no additional image/video download, JavaScript or scroll handler.
+The approved full-resolution transparent 3D crowned-gorilla identity now uses recurring CSS light/depth motion across header, footer, admin sidebar, login and setup. The previous active WebP's long still-frame holds and static-footer path are replaced. An explicit bundled/custom source selection defaults to the approved logo for this requested correction without deleting or rewriting old media IDs. Deliberate custom publication and private draft/preview remain available.
 
-Reduced-motion preferences, print and forced-colors displays omit moving smoke. Admin, staff login and setup keep their existing separate backgrounds. Motion preview and actual current-package screenshot provenance are recorded with the delivery.
+Smoke is brighter and moves farther, with an 18-second alternating drift and natural negative start delay. The stage itself stays fixed. Reduced motion, print and forced colors stop logo motion and omit smoke. Decorative layers ignore pointer input.
 
-## Retained rc.6 and earlier work
+The footer is full width, compact and 25% transparent. Both footer tagline occurrences are removed. Owners edit the copyright under Settings & access → Website settings; blank uses the current year and site name. The linked Website designed & developed by Cajun Web Pro LLC line is fixed immediately below it, with no admin edit/hide setting.
 
-The actual approved transparent sculpted-gold crowned gorilla and horizontal wordmark remain in public header/footer, admin sidebar, login/setup and Branding previews. Header/staff shimmer retains the native static fallback; owner-uploaded public branding and private publication workflows remain intact.
+## Preserved scope
 
-Navigation background stays 25% transparent (75% opaque), with fully opaque logo/text/controls. The header logo keeps its left anchor, the footer surface reaches both screen edges and the transparent outer shell has no border, shadow, outline or rounded edge. Individual dark panels, contained heroes and maximum-fit crowned-head favicon remain.
-
-The dedicated owner Analytics section, graphical reports, Visitor Explorer, Overview snapshots and earlier workflows remain. Database migrations, analytics, JavaScript, PHP controllers/auth/forms, installed configuration/media and pinned recovery/access files are unchanged by rc.7.
+The approved PNG, all other original artwork, favicon, JavaScript, eight database migrations, manual A2/cPanel installer, private configuration/media and pinned recovery/access layer remain unchanged. Analytics, Overview snapshots, larger navigation, Search beside Book the Band, contained heroes and readable dark panels remain.
 
 ## Verification
 
-The CSS bundle rebuild and reproduction passed at **128,396 / 130,000 bytes**, adding 1,055 bytes for the smoke. Current installed-browser passes completed **1,905 assertions** (1,376 retained presentation and 529 smoke), with **47 actual screenshots and two normal-speed ten-second MP4 previews**. Root/subdirectory, desktop/phone, natural drift, fixed stage, controls, reduced motion, print and forced colors passed. Three custom-logo screenshots are explicitly synthetic; admin captures use a disposable owner.
-
-All 15 package unit checks and the local release gate passed. The source audit confirms **347 protected files unchanged** from rc.6. `docs/TEST_RESULTS.md` records current evidence; the delivery receipt records final cumulative package continuity, equivalence of all 345 captured runtime hashes, published source and actual workflow state. Historical rc.6 results and its complete delivery receipt are archived under `docs/history/`; they are not automatically new rc.7 passes. The published rc.6 package and screenshots remain immutable.
+Current installed checks passed: **1,131 browser assertions, 88 copyright SQL/HTTP assertions and 142 branding-source SQL/HTTP assertions**, with no page errors. There are 20 actual full-viewport screenshots, 24 explicitly labeled native logo crops and two 10-second normal-speed MP4s. The 67 focused PHP units, 15 package units, syntax checks, local release gate and bundle reproduction also passed. All 345 runtime hashes are recorded. The measured public bundle is **129,735 / 130,000 bytes**. See docs/TEST_RESULTS.md and the final delivery receipt for completed counts, screenshot/video provenance, package continuity and actual Actions state. Historical rc.7 results and its delivered receipt are archived under docs/history/ and remain distinct from rc.8 checks.
 
 ## Deployment
 
-Installed **rc.1 through rc.6 → rc.7** uses guarded same-schema Browser upgrades when its normal checks pass. Installed **1.0.x → 1.1** retains cumulative code deployment plus additive Database updates. Preserve the original owner, database, configuration/encryption secret, private runtime and uploads. Never reinstall or bypass update guards.
+Installed **rc.1 through rc.7 → rc.8** uses normal guarded same-schema Browser upgrades when integrity/recovery checks pass. Installed 1.0.x → 1.1 retains cumulative code deployment plus additive Database updates. Preserve the original owner, database, configuration/encryption secret, private runtime and uploads. Never reinstall or bypass update guards.
 
 ## Remaining blockers
 
-Owner review of actual pages and target-host acceptance remain separate from automated verification. No live A2 deployment, physical-device or Safari acceptance, mailbox delivery or merchant transaction is claimed. The PR remains draft and unmerged. Commerce remains dormant until provider acceptance, real catalog/policies and owner approval. Show tickets continue to use external venue sellers.
+Owner visual review and target-host acceptance remain separate from automated verification. No live A2 deployment, physical-device/Safari acceptance, mailbox delivery or merchant transaction is claimed. PR 37 remains draft and unmerged. Commerce remains dormant until provider acceptance, real catalog/policies and owner approval. Show tickets continue to use external venue sellers.

@@ -35,17 +35,23 @@ The user's follow-up decisions are part of the same presentation: keep the main 
 
 The latest approved logo supersedes the earlier Concept 2 square crown-and-shield identity. Use the actual transparent sculpted-gold crowned gorilla at the left of the horizontal two-line SPIRITUAL GORILLAZ wordmark. The user explicitly selected option 3, asked for greater three-dimensional depth and the gorilla head, then approved transparency and animation. The kit assets are now integrated in rc.6; do not substitute the previous logo or a text/crown imitation.
 
-Use the same bundled identity in public header/footer, admin sidebar and admin login/setup. The navbar animation is a stationary six-second metallic shimmer; honor reduced-motion preferences with the static original. Preserve the owner-managed public override. The header logo may fill its available first track for legibility while its left anchor and the navigation layout stay in place.
+Use the same bundled identity in public header/footer, admin sidebar and admin login/setup. The latest correction supersedes the faint six-second WebP and static footer: use the unchanged full-resolution PNG with a recurring CSS metallic-light sweep and gentle depth motion on every surface. Honor reduced motion, print and forced colors with the still original. The header logo may fill its available first track for legibility while its left anchor and navigation layout stay in place.
 
-The navigation background must be 25% transparent (75% opaque); do not reduce opacity on its logo, links or controls. The footer surface must reach both viewport edges with its inner content alignment preserved. The transparent global shell must have no visible border, shadow, outline or rounded edge. Keep the individual readable dark panels; their surfaces are separate from the invisible outer shell. Retain the fixed blue stage and existing contained page heroes.
+The user explicitly asked to replace the apparently older displayed logo. The approved bundled source is therefore the rc.8 default, including when a legacy custom-publication ID is retained. Preserve those IDs and every upload without writes on GET. Provide a clear Use animated 3D logo action and allow deliberate approved custom publication afterward; private drafts and preview remain separate from the active source.
+
+The navigation and footer backgrounds must each be 25% transparent (75% opaque); do not reduce opacity on logo, links or controls. The footer surface reaches both viewport edges with aligned inner content. Keep its height to the content required: remove both footer taglines, reduce padding and wrap all links without hiding them. Owners can edit copyright under Settings & access → Website settings. Place the fixed Website designed & developed by Cajun Web Pro LLC line immediately below it, linking the company name to https://cajunwebpro.com/ and providing no admin edit/hide control.
+
+The transparent global shell must have no visible border, shadow, outline or rounded edge. Keep the individual readable dark panels; their surfaces are separate from the invisible outer shell. Retain the fixed blue stage and existing contained page heroes.
 
 The favicon uses the same complete crowned gorilla head, genuine transparency and maximum proportional framing. Preserve the crown, face and chin; do not stretch the head or claim a larger browser-controlled icon slot. Active icon URLs must avoid stale previous filenames while compatibility paths stay available.
 
 ## Drifting stage smoke — 2026-10-20 continuation
 
-The user requested a subtle animation resembling drifting smoke over the background. Keep the selected stage image fixed and use a separate, low-opacity blue-gray decorative layer behind public content. The motion should be slow and continuous, without flashes, abrupt resets, scrolling parallax or moving the underlying artwork. Individual panels and fully opaque logo/text/controls must stay readable.
+The user requested drifting smoke, then reported the rc.7 effect could not be seen. Keep the selected stage image fixed and use a separate translucent blue-gray layer behind content, but make the wisps and travel clearly visible at ordinary playback speed. rc.8 uses brighter gradients and an 18-second alternating drift with a natural negative start delay. Motion remains smooth, without flashes, abrupt resets, scrolling parallax or moving the underlying artwork. Individual panels and fully opaque logo/text/controls must stay readable.
 
 Use a lightweight CSS effect with no new video download or scroll handler. Remove moving decoration for reduced-motion preferences, print and forced-colors displays. Keep the effect out of admin/login/setup, outside pointer interaction and outside page layout. This requested decorative motion supersedes the earlier static-only background presentation; the stage itself remains stationary.
+
+Record actual page-entry motion at normal speed for review. Do not seek animation phases, accelerate the recording or present endpoint phase comparisons as ordinary footage. A changed-pixel assertion alone is not proof the effect is visually strong enough.
 
 ## Tracked reference and assets
 

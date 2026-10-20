@@ -1,4 +1,4 @@
-name: Site logo workflow verification
+name: Site logo and footer verification
 on:
   push:
     branches: [main]
@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   branding:
-    name: Logo / PHP ${{ matrix.php }} / ${{ matrix.database }} / ${{ matrix.browser }}
+    name: Logo and footer / PHP ${{ matrix.php }} / ${{ matrix.database }} / ${{ matrix.browser }}
     runs-on: ubuntu-22.04
     timeout-minutes: 15
     strategy:
@@ -64,10 +64,12 @@ jobs:
           echo "SPIRIT_SCREENSHOT_DIR=$RUNNER_TEMP/spirit-branding" >> "$GITHUB_ENV"
           git archive --format=zip --output="$RUNNER_TEMP/spirit-branding/Spirit-source.zip" HEAD
           php tests/branding_unit.php
-          python3 -m py_compile tests/branding_integration.py tests/branding_browser.py
+          php tests/footer_settings_unit.php
+          python3 -m py_compile tests/branding_integration.py tests/branding_browser.py tests/footer_settings_integration.py
           set -o pipefail
           python3 tests/wait_for_database.py
           python3 tests/branding_integration.py 2>&1 | tee "$RUNNER_TEMP/spirit-branding/integration.log"
+          python3 tests/footer_settings_integration.py --report "$RUNNER_TEMP/spirit-branding/footer-settings-verification.json" 2>&1 | tee "$RUNNER_TEMP/spirit-branding/footer-settings-integration.log"
       - name: Prepare isolated browser and audio device
         run: |
           python3 -m venv "$RUNNER_TEMP/spirit-brand-browser"

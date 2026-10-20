@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Real owner logo editing and public shell refresh; synthetic assets only."""
 from __future__ import annotations
+import argparse
 import os
 import tempfile
 import time
@@ -38,11 +39,14 @@ def loaded_logo(page, id, shape):
 
 
 def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--archive',type=Path,help='Use an existing candidate Full ZIP instead of building another package.')
+    args=parser.parse_args()
     if os.geteuid()==0 or os.environ.get('SPIRIT_TESTING')!='1':raise RuntimeError('Non-root disposable database required.')
     name=os.environ.get('SPIRIT_BROWSER','chromium')
     if name not in ('chromium','firefox','webkit'):raise RuntimeError('Unsupported browser engine')
     with tempfile.TemporaryDirectory(prefix='spirit-brand-browser-') as directory, sync_playwright() as driver:
-        base=Path(directory);archive,code=build_package(base/'packages');browser=getattr(driver,name).launch()
+        base=Path(directory);archive,code=(args.archive.resolve(),None) if args.archive else build_package(base/'packages');browser=getattr(driver,name).launch()
         try:
             for folder,area in [('', 'root'),('band','subfolder')]:
                 with site(base/area,archive,code,folder) as s:
@@ -70,6 +74,18 @@ def main():
                             if javascript and area=='root':screenshot(page,'branding-'+label+'-editor')
                             public=context.new_page();public.goto(s.base,wait_until='networkidle')
                             loaded_logo(public,wide,(900,300));be(public.locator('.preview-banner')).to_have_count(0)
+                            be(page.get_by_role('heading',name='Custom uploaded logo',exact=True)).to_be_visible()
+                            page.get_by_role('button',name='Use animated 3D logo',exact=True).click()
+                            be(page.locator('body')).to_contain_text('Animated 3D logo is active')
+                            be(page.get_by_role('button',name='Use animated 3D logo',exact=True)).to_be_disabled()
+                            be(page.get_by_label('Logo image',exact=True)).to_have_value(str(wide))
+                            public.reload(wait_until='networkidle')
+                            be(public.locator('.site-logo')).to_have_count(0)
+                            be(public.locator('.site-header .bundled-brand-art,.site-footer .bundled-brand-art')).to_have_count(2)
+                            expect(True,'The native approved-logo control changes the public source and preserves the saved custom selection')
+                            page.locator('[name=approved]').check();page.get_by_role('button',name='Publish approved logo',exact=True).click()
+                            public.reload(wait_until='networkidle');loaded_logo(public,wide,(900,300))
+                            expect(True,'A deliberate approved Publish can reactivate the retained custom logo')
                             mutate(s,'save',tall);public.reload(wait_until='networkidle');loaded_logo(public,wide,(900,300))
                             expect(True,'Saving a replacement draft keeps the published logo in the browser')
                             if javascript:

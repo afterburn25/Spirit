@@ -1,38 +1,60 @@
-# Verification — 1.1.0-rc.7 subtle drifting stage smoke
+# Verification — 1.1.0-rc.8 visible motion and compact footer
 
 ## Scope and baseline
 
-Baseline is published rc.6 commit `03470a4b6400ebfbd2d16a1d899c899ee07e2d48`, tree `a444a001dddfbcd655a0a91ab81c44301227689a`. The new change adds restrained blue-gray drifting smoke above the stationary public stage and behind page content. Prior approved logo/admin/login, footer, shell, navigation transparency and favicon fixes are retained.
+Baseline is published rc.7 commit 8eb75d7e8073a72bdc4b1fd8ca432408711ee3ea, tree 0f3531236f3f46da56198472244645c095c8012d. Live main was inspected before writes at 6ef03a24ea87fdbfb0d053f7b54b4c16fce42098 and rechecked before publication. Draft PR 37 remained open, draft and unmerged.
 
-Current runtime changes are limited to CSS and the release version. All PHP, JavaScript, original artwork, analytics, forms/authentication, migrations and pinned recovery/access remain unchanged. Historical rc.6 tests and the delivered receipt are preserved under `history/TEST_RESULTS-1.1.0-rc.6.md` and `history/VERIFICATION-1.1.0-rc.6.json`.
+This candidate corrects the active approved-logo source, continuous logo/footer motion, invisible smoke, compact/translucent footer, editable copyright and fixed developer credit. Ten runtime files change: VERSION, six PHP files and three CSS files. Original artwork, JavaScript, migrations, authentication/installer scaffolding and pinned recovery/access files remain unchanged. Historical rc.7 results and its delivered verification receipt are preserved under history/.
 
-## Current verification
+## Current installed checks
 
-Current verification passed on disposable installations at the domain root and `/band`. Both browser passes used the frozen rc.7 candidate ZIP with SHA-256 `bf5138e6fd7a7504bca2d1d9479665caec8e84101b24221092e829d35431930b`. No production site was accessed.
+The current browser, copyright and branding-source passes use the same frozen candidate ZIP:
+
+SHA-256: 3767c829562bb2877cda272a82721e4e46901adcc8f5376748235e71ec74743d
+
+They ran on disposable root and /band installations. No production site was accessed.
 
 | Current check | Observed result |
 |---|---|
-| Retained public/admin/login/installer branding and layout | **1,376 assertions passed**, 31 actual screenshots; no page errors. Covers desktop/phone widths, footer and header geometry, transparent shell, 75% opaque navigation background, static/animated logo selection, controls, root/subdirectory URLs and owner-uploaded branding. |
-| Installed background smoke | **529 assertions passed**, 16 actual screenshots; no page errors. Covers 1920, 1440, 390 and 320px viewports at root and `/band`, natural animation progress, stationary stage during scroll, no horizontal overflow, pointer-transparent decoration, Menu/Search/PJAX, and exclusion from admin/login/setup. |
-| Accessibility and alternate rendering | Reduced motion, print and forced colors hide the smoke and remove its animation. Returning to ordinary motion restores the running layer. |
-| Actual motion recordings | Two **10.000-second H.264 MP4s at 25fps**, 1920×1080 desktop and 390×844 phone. Playback rate is 1, with the 48-second CSS loop unchanged. |
-| Public bundle reproduction | `node tools/build_public_assets.mjs --check` passed: **128,396 / 130,000 bytes**, including 1,055 added bytes. JavaScript remains byte-identical. |
-| Package unit checks | `python3 tests/package_test.py`: **15 passed**. |
-| Local release gate | `python3 tools/release_gate.py` passed, including deterministic repeated packaging, manifest verification and private/development payload exclusions. |
-| Source continuity | **347 protected source files byte-identical** to rc.6; only `VERSION`, CSS source and compiled CSS change among the 345 runtime payloads. PHP, JavaScript, original logo/favicon/stage/hero images, migrations and pinned recovery/access files remain unchanged. |
+| Installed browser footer, identity, smoke, controls and admin workflow | **1,131 assertions passed**, Chromium 143.0.7499.4, with no uncaught page errors. |
+| Footer copyright SQL/HTTP | **88 assertions passed**, including persistence, automatic fallback, escaped text, ASCII/UTF-8 byte boundaries, malformed values, CSRF, anonymous/staff-role denial and ignored developer-credit changes. |
+| Branding source SQL/HTTP | **142 assertions passed**, including retained legacy IDs, read-only defaults, explicit bundled/custom actions, private drafts, media authorization, stale forms, owner/CSRF boundaries and supported backup restoration. |
+| Branding PHP unit checks | **48 passed**. |
+| Copyright PHP unit checks | **19 passed**. |
+| Package unit checks | **15 passed**. |
+| Changed PHP/Python syntax and whitespace | Passed. |
+| Public bundle reproduction | Passed at **129,735 /130,000 bytes**. JavaScript is unchanged. |
+| Local software release gate | Passed, including deterministic repeated packaging and private/development payload exclusions. |
+| Source continuity | **347 protected source files byte-identical** to rc.7. All 339 source-backed runtime files were compared; 329 remain identical and exactly 10 authorized paths change. |
 
-The two browser passes total **1,905 assertions and 47 screenshots**. Three custom-logo screenshots use explicitly labeled synthetic fixtures; the other 44 contain no seeded band content. Admin screenshots use a disposable test owner. Main branding captures use reduced motion; smoke Home captures show naturally running animation. Smoke footer captures retain the controlled 24-second phase used during comparison. The separate phase images are verification samples, not real-time recordings.
+Installed checks total **1,361**, separate from the 67 focused PHP units and 15 packaging units. Database/browser tests cover application behavior; they do not certify production hosting or external providers. The GitHub workflow definition now includes the footer units/HTTP suite in its existing branding matrix. Exact published-head Actions outcomes belong in the delivery receipt; a queued or running workflow is not a pass.
 
-The MP4 previews start approximately 12 seconds into the existing 48-second cycle to show its drift, then run at normal speed. They are trimmed from the final ten seconds of actual browser recording without speed changes, overlays or retouching. Smoke remains deliberately restrained; endpoint-phase comparisons detect 78,778 changed desktop background pixels and 11,767 phone pixels above a one-level RGB threshold. These phase samples demonstrate a visible change, not a performance benchmark.
+## Actual page and motion evidence
 
-Current reports are `design/background-smoke/main-branding-verification.json`, `background-smoke-verification.json`, `evidence-integrity.json` and `source-continuity.json`. Screenshot/video hashes and all **345 runtime payload hashes** were reverified against the frozen candidate. Final Full ZIP equivalence, cumulative path retention, source publication and observed GitHub workflow state are recorded in the companion delivery receipt. Final documentation may differ from the captured candidate; runtime/code/asset bytes must match. Historical tests and queued/running workflows are not current passes.
+The capture manifest contains **20 full-viewport screenshots**, of which three maximum-content footer views are explicitly synthetic. The other 17 contain no seeded band content; administration views use a disposable test owner. There are also **24 native header-logo crops**, clearly identified as details from the actual page rather than full-screen screenshots.
 
-## Evidence requirements
+Two installed-browser MP4s are **10.000 seconds**, H.264, 25fps, at native 1920×1080 desktop and 390×844 phone viewports. They start from ordinary page entry with no animation.currentTime seeking, no playback acceleration and no CSS alteration. Only leading load/setup time is trimmed. The native CSS -4-second smoke delay is part of the shipped animation, not a recording-time seek.
 
-The smoke must remain decorative, fixed to the viewport, behind content and outside pointer interaction. Its transforms may drift while the stage background's placement remains unchanged during scroll. Reduced-motion preferences, print and forced colors omit the moving layer. Admin/login/setup remain unaffected.
+The image source is the unchanged 2172×724 PNG. Actual gold-logo pixels change substantially during ordinary elapsed time, with maximum 8,707 desktop and 4,742 phone changed gold pixels in the recorded crop comparisons. The 3.8-second light sweep and four-second alternating depth motion remain inside the rendered logo. The natural smoke transform progresses during each recording while the underlying stage stays fixed.
 
-Deterministic sampling at selected animation phases is for pixel/geometry verification; a user-facing motion preview must identify its normal-speed installed-site origin. Current screenshot manifests record hashes and fixture status. Any final documentation changes after capture require every runtime/code/asset hash to match the final immutable Full ZIP.
+Root visual review inspected actual desktop/phone Home and footer frames, owner settings, maximum-content layout and unaltered video frames at 0, 5 and 9 seconds. Smoke travel is visibly stronger in exposed stage areas, especially desktop gutters; phone content exposes narrower background strips. The logo remains legible and the compact footer fits its content. These observations are visual review, not a performance benchmark.
 
-## Acceptance limits
+The initial 390px settings capture caught the existing sidebar's 180ms transition while resizing from desktop. Only that screenshot was recaptured after the native drawer is fully closed, from the same frozen runtime. Its original is retained as superseded review evidence outside the final screenshot set. The capture helper now waits for the settled state; this does not change application code or relabel a whole repeated suite. Six supplementary recapture assertions passed and are recorded separately from the 1,361 main/HTTP total.
 
-Browser checks are desktop/phone viewports in the identified engine, not physical-device or Safari acceptance. No A2 production deployment, real mailbox delivery or merchant transaction is claimed. Owner review and applicable host/provider acceptance remain separate; draft PR 37 stays unmerged.
+## Responsive footer and behavior
+
+The footer was checked at 1920, 1440, 1280, 1100, 820, 390, 360 and 320px on both root and subdirectory installations. Default height is 77px at the four desktop widths, 127px at 820px, 167px at 390/360px and 183.5px at 320px. These are observed content-driven results, not hardcoded height limits.
+
+All 11 optional navigation/policy links and maximum 240-byte copyright were exercised, including unbroken text. Original links remain present, text stays inside the viewport, and the footer grows only with content and spacing. Its full-width backplate has alpha .75 while text/links retain opacity 1. The fixed HTTPS developer link sits below escaped copyright.
+
+Admin tests save, reload and render copyright, restore automatic fallback, preserve omitted old fields and ignore forged credit fields. The new branding default preserves old records without GET writes; a deliberate custom Publish selects custom, and Use animated 3D logo preserves both IDs. Search, menu/client navigation and the persistent audio node remain functional.
+
+Reduced motion stops logo motion and hides smoke; print and forced colors omit moving smoke. Administration/login/setup have the approved identity but no public stage/smoke layer.
+
+## Integrity, provenance and limits
+
+Current source reports are in design/footer-motion/: source-continuity.json, footer-refresh-verification.json, footer-settings-verification.json, branding-source-verification.json and evidence-integrity.json. Screenshot, crop and video hashes must match the delivery files. All 345 recorded runtime/code/asset hashes must match the final Full ZIP even if README, changelog, documentation and the package manifest are completed after capture.
+
+The final delivery receipt records cumulative retention of all 421 prior payload paths, original image/generated-hero equality, all eight migrations, five pinned recovery/access files, final ZIP/source tree, independent GitHub package checksum and actual workflow states.
+
+Desktop/phone viewport checks do not establish physical-device or Safari acceptance. No A2 deployment, real mailbox delivery, merchant transaction or merge is claimed. Owner review and applicable host/provider acceptance remain separate.

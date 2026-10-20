@@ -3,10 +3,22 @@
 .backstage-brand .bundled-brand-wrap,.admin .branding-swatch .bundled-brand-wrap{display:block;min-width:0;min-height:0;max-width:100%;aspect-ratio:3/1}
 .backstage-brand .bundled-brand-wrap{width:100%}
 .backstage-brand .bundled-brand-picture{display:block;width:100%;height:100%}
-.backstage-brand .bundled-site-logo,.admin .branding-swatch .bundled-site-logo{display:block;width:100%;height:100%;max-width:100%;max-height:none;object-fit:contain}
+.backstage-brand .bundled-site-logo,.admin .branding-swatch .bundled-site-logo{display:block;width:100%;height:auto;max-width:100%;max-height:none;object-fit:contain}
 .simple-header{gap:24px}
 .simple-header>.backstage-brand{flex:0 1 300px;max-width:300px}
 .simple-header>.pill{flex:0 0 auto}
 .grouped-sidebar .backstage-brand{width:calc(100% - 16px);max-width:244px}
 .admin .branding-swatch .bundled-brand-wrap{width:280px}
+.bundled-brand-art{position:relative;display:block;width:100%;height:auto;aspect-ratio:3/1;transform-origin:center;animation:brand-depth 4s ease-in-out infinite alternate}
+.bundled-brand-art::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 32%,rgba(255,242,200,.08) 40%,rgba(255,242,200,.75) 48%,rgba(255,255,255,.22) 53%,transparent 62%);background-size:300% 100%;-webkit-mask:url("../../images/branding/spiritual-gorillaz-sculpted-gold.png") center/100% 100% no-repeat;mask:url("../../images/branding/spiritual-gorillaz-sculpted-gold.png") center/100% 100% no-repeat;animation:brand-light 3.8s linear infinite}
+@keyframes brand-light{from{background-position:150% 0}to{background-position:-50% 0}}
+@keyframes brand-depth{from{transform:perspective(600px) rotateY(-3deg) translateY(0)}to{transform:perspective(600px) rotateY(3deg) translateY(-1px)}}
+.branding-source-panel{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:24px}
+.branding-source-panel h2{margin-top:0}.branding-source-panel .small{max-width:72ch}
+.branding-source-action{display:grid;justify-items:center;gap:10px;flex:0 0 230px;max-width:100%;text-align:center}
+.branding-source-action .button{max-width:100%;white-space:normal}.branding-source-action .small{margin:0}
+.branding-source-status{color:var(--gold,#e9c778);font-size:.8rem;font-weight:700;letter-spacing:.04em}
+@media(max-width:700px){.branding-source-panel{display:block}.branding-source-action{margin-top:20px;justify-items:start;text-align:left}}
 @media(max-width:480px){.simple-header{gap:12px}.simple-header>.backstage-brand{max-width:232px}}
+@media(prefers-reduced-motion:reduce),(forced-colors:active){.bundled-brand-art,.bundled-brand-art::after{animation:none}.bundled-brand-art::after{display:none}}
+@media print{.bundled-brand-art,.bundled-brand-art::after{animation:none}.bundled-brand-art::after{display:none}}
