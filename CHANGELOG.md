@@ -12,6 +12,7 @@
 - Restrict fallback hero rules so owner-uploaded section artwork stays contained and bounded. Preserve the established public composition and existing source artwork.
 - Correct inherited Home styles that cropped the foreground, hid the wide background and shortened the readability fade. Keep the native artwork ratio, remove the horizontal overlay seam, fit tablet controls, and render the Home introduction with real paragraph breaks.
 - Add targeted unit, SQL/HTTP, browser, package and Actions verification; exact observed results are in docs/TEST_RESULTS.md.
+- Verify the completed candidate in all ten GitHub workflows (23 successful jobs), retaining full preview read-only checks, owner/staff analytics boundaries and asynchronous page-time assertions.
 
 This cumulative candidate remains subject to screenshot approval and real-host acceptance. It does not activate live commerce or publish unapproved content.
 

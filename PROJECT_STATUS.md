@@ -20,7 +20,7 @@ The existing full-width sticky header, visible search, Concept 2 branding, 1320p
 
 ## Verification
 
-The new collection, privacy, session/timing, reporting and additive migration SQL/HTTP suite has passed locally at root and subfolder. Dashboard browser checks pass at 1440, 390 and 320px, including real navigation and live refresh. Remaining final runs, package integrity, screen inspection and remote Actions results are recorded in `docs/TEST_RESULTS.md`; no result is inferred from a workflow file or previous version.
+All ten GitHub workflows and all 23 jobs passed on application/test source `917997185a7512189353a4008ffbc1cd3b4f9951`, including both PHP/database variants, configured Chromium/Firefox/WebKit journeys, analytics and Apache HTTPS. Local dashboard checks pass at 1440, 390 and 320px; public Home geometry also passes at four tablet widths. Exact observed results are in `docs/TEST_RESULTS.md`. Companion screenshot manifests identify the delivered ZIP and images by SHA-256, with admin demonstration data explicitly labeled.
 
 ## Remaining blockers
 

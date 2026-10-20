@@ -2,7 +2,7 @@
 
 Repository **afterburn25/Spirit**. Continue from **`work/1.1.0-analytics-and-navigation`**. Main was inspected at `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`; the latest cumulative 1.0.13 base is `2afbd551d6083d86d26499a9bf82511aa7f7f9c2`. Do not resume from main alone and lose the intervening artwork work. Do not merge before owner screenshot approval.
 
-The cumulative review is [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). First hosted checks confirmed the analytics database workflows, public navigation across all three engines, packaging and Apache rules, then exposed stale menu counts and two test observation-boundary issues. Their targeted corrections retain complete access, read-only and timing assertions. Consult the current TEST_RESULTS.md and PR checks before claiming the updated head passed.
+The cumulative review is [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). Application/test source `917997185a7512189353a4008ffbc1cd3b4f9951` passed all ten GitHub workflows and all 23 jobs after correcting stale menu counts and two test observation boundaries. Full run links and local evidence are in TEST_RESULTS.md. This documentation checkpoint records those observed results. New application or test changes need their own applicable verification.
 
 ## Current scope
 

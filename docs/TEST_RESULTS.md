@@ -19,13 +19,28 @@ Runtime: PHP 8.3.6, MariaDB 10.11.14, Python with Pillow 12.3.0, Playwright 1.57
 - Cleanup: 47 checks pass, including read-only analytics inventory, expired/current row preservation and exact displayed removal counts. Backup: 77 checks pass, including changes to all four analytics tables after snapshot that neither block nor rewind a valid site-data restore.
 - Administration navigation: 103 unit checks and the full root/subfolder Chromium journey pass, including all 35 owner destinations and explicit owner-only analytics access. Branding: 109 SQL/HTTP checks pass; the complete-table read-only preview assertion is measured before the separate public-page observation.
 - PHP syntax: all 256 PHP/inc files pass. Packaging: 15 tests and the deterministic release gate pass. Generated public bundles match their committed sources, and `git diff --check` passes.
-- Actual public capture: 21 screenshots pass across eight public routes at desktop/phone widths, four additional Home tablet widths and the 320px menu. All images/backgrounds decode; no horizontal document overflow. Public captures use unseeded installation content. Exact delivery ZIP captures and remote Actions evidence are being finalized; no pending check is reported as passed.
+- Actual public capture: 21 screenshots pass across eight public routes at desktop/phone widths, four additional Home tablet widths and the 320px menu. All images/backgrounds decode; no horizontal document overflow. Public captures use unseeded installation content. The exact delivery ZIP's public and analytics capture manifests are supplied in its companion screenshot archive, with per-image hashes and explicit synthetic-data provenance for owner reports.
 
 ## Remote Actions
 
-The first candidate head was `a9d5fca302f2dd689efc0fae7eb96f2668399f7b`, published in [PR 37](https://github.com/afterburn25/Spirit/pull/37). The software release gate and cumulative package build passed. Public navigation passed in Chromium, Firefox and WebKit. The PHP 8.2/MariaDB analytics job passed; the PHP 8.4/MySQL analytics units and SQL/HTTP/upload stages passed. Apache HTTPS access rules passed.
+**All ten workflows and all 23 jobs passed** on application and test source `917997185a7512189353a4008ffbc1cd3b4f9951` in [PR 37](https://github.com/afterburn25/Spirit/pull/37). This documentation checkpoint records that observed result; it does not substitute previous-version evidence for a new code change.
 
-That round exposed three test-boundary issues: the old administration-menu destination count, an unsynchronized asynchronous timing assertion, and a branding preview fingerprint that also included an unrelated public visit. The focused corrections preserve the original access/read-only/timing guarantees and pass locally. Their new remote runs are pending; do not describe the whole first round as green. Current head evidence will be recorded after observation.
+| Workflow | Jobs | Observed result |
+|---|---:|---|
+|[Website and installer verification](https://github.com/afterburn25/Spirit/actions/runs/39373347004)|3|Passed|
+|[Visitor analytics verification](https://github.com/afterburn25/Spirit/actions/runs/39373347230)|2|Passed|
+|[Public navigation and native controls](https://github.com/afterburn25/Spirit/actions/runs/39373347254)|3|Passed|
+|[Populated storefront browser verification](https://github.com/afterburn25/Spirit/actions/runs/39373347064)|3|Passed|
+|[Site logo workflow verification](https://github.com/afterburn25/Spirit/actions/runs/39373347116)|4|Passed|
+|[Authoring safety verification](https://github.com/afterburn25/Spirit/actions/runs/39373347097)|4|Passed|
+|[Focused maintenance diagnostics](https://github.com/afterburn25/Spirit/actions/runs/39373347156)|1|Passed|
+|[Software release gate](https://github.com/afterburn25/Spirit/actions/runs/39373347148)|1|Passed|
+|[Review package artifact](https://github.com/afterburn25/Spirit/actions/runs/39373347108)|1|Passed|
+|[Candidate installation package](https://github.com/afterburn25/Spirit/actions/runs/39373341248)|1|Passed|
+
+The complete PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4 unit, SQL/HTTP and configured browser journeys passed, including actual Apache HTTPS access rules. Separate navigation, storefront, logo and authoring matrices passed in Chromium, Firefox and WebKit where configured. Payment and email scenarios use guarded fixtures; these results are not external-provider acceptance.
+
+The first round on `a9d5fca302f2dd689efc0fae7eb96f2668399f7b` exposed three test-boundary issues: the old administration-menu destination count, an unsynchronized asynchronous timing assertion, and a branding preview fingerprint that also included an unrelated public visit. The verified follow-up corrected those test observations while retaining complete access, read-only and timing guarantees. No failed first-round result is counted as a pass.
 
 ## Acceptance boundaries
 
