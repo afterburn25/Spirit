@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.0-rc.5 — fixed blue-lit concert-stage background
+
+- Apply the user-selected concert-stage artwork as one stationary viewport background across public pages.
+- Expose the artwork through the page shell and section gaps while retaining the existing contained page heroes and readable content surfaces.
+- Extend the sticky navigation background and lower border across the screen while preserving the existing logo and control positions.
+- Put exposed headings, page introductions, detail copy, release captions, media headings and shop/account content into matching dark navy panels without covering the gaps between sections.
+- Favor the right-side drum kit and equipment in phone framing.
+- Keep the decorative layer outside pointer interaction; omit it in print and forced-colors modes, with no scroll JavaScript or new animation.
+- Export the selected native 1672 × 941px artwork to a 243,104-byte WebP without cropping or upscaling; retain the source, prompt and reproducible export tool in development source.
+- Preserve the crowned-gorilla favicon, analytics, navigation controls, configuration, database, uploads, migrations and recovery layer.
+- Deliver a new immutable cumulative Full ZIP and actual desktop/mobile page screenshots.
+
 ## 1.1.0-rc.4 — full-size transparent gorilla favicon
 
 - Use the user-selected dimensional gold crowned-gorilla head as the website icon, with the wordmark removed.

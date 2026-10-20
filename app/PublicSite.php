@@ -42,7 +42,7 @@ final class PublicSite
     public static function text(string $text): string {return nl2br(e($text));}
     public static function releaseCard(array $release): void
     {
-        echo '<article class="release-card"><a href="'.e(self::url($release)).'" class="release-art" aria-label="Explore release: '.e($release['title']).'">'.self::image((int)$release['data']['cover_id'],$release['title']).'<span class="art-action" aria-hidden="true">▶</span></a><p class="eyebrow">'.e(strtoupper($release['data']['release_type'])).($release['data']['release_date']?' / '.e(substr($release['data']['release_date'],0,4)):'').'</p><h3><a href="'.e(self::url($release)).'">'.e($release['title']).'</a></h3><a class="text-link" href="'.e(self::url($release)).'">Explore release <span aria-hidden="true">→</span></a></article>';
+        echo '<article class="release-card"><a href="'.e(self::url($release)).'" class="release-art" aria-label="Explore release: '.e($release['title']).'">'.self::image((int)$release['data']['cover_id'],$release['title']).'<span class="art-action" aria-hidden="true">▶</span></a><div class="release-card-body"><p class="eyebrow">'.e(strtoupper($release['data']['release_type'])).($release['data']['release_date']?' / '.e(substr($release['data']['release_date'],0,4)):'').'</p><h3><a href="'.e(self::url($release)).'">'.e($release['title']).'</a></h3><a class="text-link" href="'.e(self::url($release)).'">Explore release <span aria-hidden="true">→</span></a></div></article>';
     }
     public static function ticket(array $event): void
     {

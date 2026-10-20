@@ -1,4 +1,4 @@
-# Browser installation and updates — 1.1.0-rc.4
+# Browser installation and updates — 1.1.0-rc.5
 
 Use isolated staging first, not the existing live band website. TEST_RESULTS.md records exact automated evidence. Actual shared-host ownership, domain aliases, execution limits, TLS/proxies, OPcache and provider behavior require staging acceptance.
 
@@ -28,7 +28,7 @@ An older unfinished automatic attempt is identified by its private cpanel-provis
 
 ## Existing installations
 
-**Updating rc.1, rc.2 or rc.3 to rc.4:** this favicon presentation update keeps migrations 007/008 unchanged and retains the complete graphical analytics and prior reporting corrections. The existing same-schema Browser upgrades workflow applies when its usual package, backup and recovery checks pass. The new icon files and header references apply without a data rewrite. The different 1.0.x-to-1.1 update path below still applies to installations without the analytics schema.
+**Updating rc.1, rc.2, rc.3 or rc.4 to rc.5:** this presentation update adds the fixed stage background, transparent outer shell, full-width header surface and readable content panels. It keeps all migrations unchanged and retains the complete graphical analytics, prior reporting corrections and crowned-gorilla favicon. The existing same-schema Browser upgrades workflow applies when its usual package, backup and recovery checks pass. The new background asset, public CSS and small markup wrappers apply without a data rewrite. The deployment already includes the ready-to-use WebP and compiled CSS; no server-side image or Node build is required. The different 1.0.x-to-1.1 update path below still applies to installations without the analytics schema.
 
 **1.1.0-rc.1 adds analytics migrations 007 and 008.** Use the existing configuration/database and owner account. The same-schema ZIP updater deliberately rejects this candidate from 1.0.x. Save verified code/configuration/database/media backups, deploy the cumulative code through cPanel while preserving runtime and uploaded files, and apply **System & maintenance → Database updates**. Do not recreate a removed installer folder or rerun fresh setup on the installed site. See `ANALYTICS.md` for the complete staged update sequence.
 

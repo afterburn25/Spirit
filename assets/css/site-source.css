@@ -2479,7 +2479,8 @@ figcaption small {
     padding: 22px;
   }
 }
-.checkout-page>h1 {
+.checkout-page>h1,
+.checkout-page>.content-heading>h1 {
   font-size: clamp(2.3rem,5vw,4.7rem);
   line-height: 1.05;
 }
@@ -2613,7 +2614,8 @@ figcaption small {
   .order-item {
     gap: 14px;
   }
-  .checkout-page>h1 {
+  .checkout-page>h1,
+  .checkout-page>.content-heading>h1 {
     font-size: 2.3rem;
   }
 }
@@ -3332,10 +3334,30 @@ html {
 body.public-site {
   margin: 0;
   background: radial-gradient(circle at 50% -10%,rgba(11,86,145,.16),transparent 34%),#010406;
+  isolation: isolate;
   color: var(--sg-ink);
   font-family: "Arial Narrow","Roboto Condensed","Segoe UI",Arial,sans-serif;
   font-size: 15px;
   letter-spacing: .005em;
+}
+/* One viewport-fixed stage sits behind the public content without receiving input. */
+body.public-site::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: #010406 url('../../images/backgrounds/spiritual-gorillaz-stage-background.webp') center / cover no-repeat;
+}
+@media(max-width:820px) {
+  body.public-site::before {
+    background-position: 90% center;
+  }
+}
+@media print, (forced-colors:active) {
+  body.public-site::before {
+    display: none;
+  }
 }
 body.public-site.has-player {
   padding-bottom: 116px;
@@ -3349,7 +3371,7 @@ body.public-site a {
   min-height: 100vh;
   margin: 0 auto;
   overflow: hidden;
-  background: radial-gradient(ellipse at 72% 8%,rgba(13,84,137,.12),transparent 30%),linear-gradient(180deg,#02070c,#06111a 54%,#02070c);
+  background: transparent;
   border-inline: 1px solid rgba(35,73,99,.45);
   box-shadow: 0 0 90px rgba(0,0,0,.72);
 }
@@ -4673,10 +4695,22 @@ html {
   grid-template-rows: auto;
   align-items: center;
   gap: 16px!important;
-  background: rgba(1,5,8,.965)!important;
-  border-bottom: 1px solid rgba(221,164,58,.30)!important;
-  box-shadow: 0 12px 34px rgba(0,0,0,.46),inset 0 -1px rgba(54,102,133,.22);
+  background: transparent!important;
+  border-bottom: 1px solid transparent!important;
+  box-shadow: none;
   backdrop-filter: blur(16px) saturate(1.12);
+}
+/* Extend only the bar's surface; keep the logo and navigation in their existing box. */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw) -1px;
+  z-index: -1;
+  box-sizing: border-box;
+  pointer-events: none;
+  background: rgba(1,5,8,.965);
+  border-bottom: 1px solid rgba(221,164,58,.30);
+  box-shadow: 0 12px 34px rgba(0,0,0,.46),inset 0 -1px rgba(54,102,133,.22);
 }
 .site-header .wordmark,
 .site-header .wordmark:has(.bundled-brand-animated) {
@@ -6141,4 +6175,96 @@ body.public-site {
 }
 html:not(.js) .header-search>.nav-search {
   display: none!important;
+}
+
+/* Give exposed content its own readable surface while keeping the stage in the gaps. */
+.public-site .content-panel,
+.public-site .section-heading:not(.stage-section .section-heading),
+.public-site .release-card,
+.public-site .booking-callout,
+.public-site .newsletter-callout,
+.public-site .download-card,
+.public-site .gallery-grid figure,
+.public-site .cart-line,
+.public-site .order-reference,
+.public-site .music-section>.tabs,
+.public-site .release-cover>.eyebrow,
+.public-site .search-section>p[role="status"],
+.public-site .search-pagination,
+.public-site .product-photo-status,
+.public-site .detail-back {
+  background: linear-gradient(145deg,rgba(8,22,33,.98),rgba(2,10,17,.98));
+  border: 1px solid #35566d;
+  box-shadow: 0 14px 34px rgba(0,0,0,.28);
+}
+.public-site .content-panel:not(.purpose-section),
+.public-site .section-heading:not(.stage-section .section-heading) {
+  min-width: 0;
+  padding: clamp(18px,2.2vw,30px);
+}
+.public-site .content-panel>:first-child {
+  margin-top: 0;
+}
+.public-site .content-panel>:last-child {
+  margin-bottom: 0;
+}
+.public-site .content-heading {
+  margin-bottom: 28px;
+}
+.public-site .purpose-section,
+.public-site .booking-callout,
+.public-site .newsletter-callout,
+.public-site .section.content-panel {
+  width: calc(100% - (var(--sg-hero-gutter) * 2));
+  margin: 32px auto;
+}
+.public-site .section.prose-width.content-panel {
+  max-width: 900px;
+}
+.public-site .release-card {
+  padding-bottom: 0;
+}
+.public-site .release-card .release-art {
+  margin-bottom: 0;
+}
+.release-card-body {
+  padding: 18px 20px 20px;
+}
+.public-site .gallery-grid figcaption {
+  padding: 14px 18px 18px;
+}
+.public-site .download-card,
+.public-site .cart-line {
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.public-site .download-card>div {
+  min-width: 0;
+}
+.public-site .order-reference,
+.public-site .search-pagination {
+  padding: 18px 20px;
+}
+.public-site .music-section>.tabs {
+  padding: 8px 18px;
+}
+.public-site .release-cover>.eyebrow,
+.public-site .search-section>p[role="status"],
+.public-site .product-photo-status {
+  padding: 12px 16px;
+}
+.public-site .detail-back {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 16px;
+}
+@media(max-width:600px) {
+  .public-site .download-card {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .release-card-body,
+  .public-site .cart-line {
+    padding: 16px;
+  }
 }

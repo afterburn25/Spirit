@@ -1,8 +1,20 @@
-# Spiritual Gorillaz — 1.1.0-rc.4
+# Spiritual Gorillaz — 1.1.0-rc.5
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, metallic-gold and blue-stage-light identity.
 
-## 1.1.0-rc.4 — transparent crowned-gorilla favicon
+## 1.1.0-rc.5 — fixed concert-stage background
+
+The user-selected blue-lit concert stage now sits behind the public website as a fixed viewport background. Content scrolls over the stationary artwork. The main site shell is transparent so the stage remains visible through page gutters and section gaps. Existing contained hero artwork is preserved, and exposed headings, introductions, detail copy and captions receive matching dark content panels.
+
+The sticky header's navy background and gold lower border extend to both screen edges. Its inner layout stays in place: the logo, navigation, search and Book the Band controls retain their existing positions. The panels use dark navy surfaces, subtle blue borders and gold accents to keep content legible over the stage.
+
+The decorative image cannot intercept clicks or keyboard interaction and needs no scroll JavaScript. Phone framing favors the drum kit and stage equipment on the right. Print and forced-colors modes omit the decorative image. The background is scoped to the public site; administration and the installer keep their existing surfaces.
+
+The selected native 1672 × 941px source is exported to a 243,104-byte WebP without retouching, cropping or upscaling. This is generated music-themed artwork, not a photograph of a real band performance. The source master, prompt and reproducible export are retained in development source. See `docs/STAGE_BACKGROUND.md` and `docs/TEST_RESULTS.md` for implementation and observed verification.
+
+This cumulative candidate retains the favicon and analytics work. Installed rc.1/rc.2/rc.3/rc.4 use the existing guarded same-schema Browser upgrades path when its checks pass; no new migration or reinstall is required.
+
+## Retained rc.4 — transparent crowned-gorilla favicon
 
 The selected sculpted gold gorilla head now supplies the website favicon. Its visible crown-to-chin silhouette fills 98% of a square canvas, preserving natural proportions and genuine transparency while removing excess empty space. The browser still controls its tab-icon area; larger source files improve available resolution rather than enlarging browser controls.
 
@@ -30,7 +42,7 @@ Public navigation now has one controller and reproducible CSS/JavaScript bundles
 
 This is a cumulative review candidate on `work/1.1.0-analytics-and-navigation`, based on the latest 1.0.13 work. Screenshot approval and real-host acceptance remain separate from automated verification. Exact observed results are in `docs/TEST_RESULTS.md`.
 
-**Updating an installed website:** installed `1.1.0-rc.1`, `1.1.0-rc.2` and `1.1.0-rc.3` sites already have the unchanged analytics schema, so the normal guarded same-schema **Browser upgrades** path applies when its checks pass. Updating a `1.0.x` site adds migrations `007.sql` and `008.sql`; the browser updater deliberately refuses that schema transition. For `1.0.x`, preserve the existing private configuration, owner, database and uploads, deploy the cumulative code through the hosting panel and apply **Database updates** with the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
+**Updating an installed website:** installed `1.1.0-rc.1`, `1.1.0-rc.2`, `1.1.0-rc.3` and `1.1.0-rc.4` sites already have the unchanged analytics schema, so the normal guarded same-schema **Browser upgrades** path applies when its checks pass. Updating a `1.0.x` site adds migrations `007.sql` and `008.sql`; the browser updater deliberately refuses that schema transition. For `1.0.x`, preserve the existing private configuration, owner, database and uploads, deploy the cumulative code through the hosting panel and apply **Database updates** with the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
 
 ## Preserved contained continuous-image heroes
 

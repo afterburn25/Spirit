@@ -1,32 +1,38 @@
-# Resume — 1.1.0-rc.4 transparent crowned-gorilla favicon
+# Resume — 1.1.0-rc.5 stage background and readable content
 
-Repository **afterburn25/Spirit**. Continue from **`work/1.1.0-analytics-and-navigation`**, [draft PR 37](https://github.com/afterburn25/Spirit/pull/37), retaining delivered rc.3 commit `c3584d348067d035ec14a739c9783b5880b95321` and all earlier analytics/artwork. Live main remains `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`. Do not merge before owner approval.
+Repository **afterburn25/Spirit**. Continue from **`work/1.1.0-analytics-and-navigation`**, [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). Baseline delivered rc.4 source is `315c45d2968b6b9d1eacc5820b6994aa95cae50c`; live main remains `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`. Preserve earlier artwork, analytics and favicon work. Do not merge before owner approval.
 
 ## Current user decision
 
-The favicon must use the same transparent, dimensional gold crowned-gorilla head as the newly selected logo and appear as large as possible in the browser tab. Use the whole head/crown without lettering, a background tile or distorted proportions. Browser UI controls the slot; fit the visible artwork to 98% of a square instead of adding transparent padding.
+Use **option 1, the blue-lit concert-stage image**, as a global background that remains fixed while public page content scrolls past it. The user explicitly requested that the main global container containing the inner sections be transparent. This is implemented by a transparent `.site-shell` and one fixed `body.public-site::before` layer.
+
+The user also requested a screen-wide header without moving the logo, plus individual containers for exposed content so text does not clash with the stage. The header backplate extends to both viewport edges with the existing inner layout preserved. Reusable dark navy surfaces group exposed headings, copy, captions and callouts while keeping the gaps transparent.
+
+The artwork picker was not visible to the user. Direct image links/previews were provided and the user selected option 1. Future visual handoffs should include ordinary clickable PNG screenshots rather than relying solely on a choice widget.
 
 ## Implementation
 
-- `design/favicon/sculpted-gold-gorilla-master.png`: original1254px transparent extracted master, SHA256 `3f3232cd3c314b3f227c1c598c8bf75f01c6b04b779cb6ece1bc7f51334f66bc`.
-- `tools/build_favicons.py`: browser SVG-viewport rendering, alpha-bound fitting and ICO packaging. Python only orchestrates rendering, inspects pixels and packages bytes; it does not retouch the master.
-- `images/icons/`: ready-to-use16/32/48/64/180/192/512px PNG assets and ICO16/32/48/64.
-- `images/favicon.svg`: retained compatibility URL, now containing the same head.
-- `views/favicon.php`: one shared versioned link set included by both actual headers. Preserve `app_url()` subfolder resolution.
-- `design/favicon/`: source prompt, rendered icon-size comparison, export receipt and focused HTTP evidence. These are actual icon-rendering previews, not screenshots of browser chrome.
+- Original master: `design/background-stage/blue-lit-concert-stage-master.png`, native 1672 × 941px, unchanged SHA-256 `f32efb1672a52a4ccd51af237e5f43506b33688cba85f30a055f3ec71e6001dc`.
+- Runtime: `images/backgrounds/spiritual-gorillaz-stage-background.webp`, 243,104 bytes, SHA-256 `74c0adcadbec3bd07314d641894a1e5a7b8d3d16153e8edf942bd47eee3d9a67`.
+- `tools/build_stage_background.py`: native-size browser WebP export only; no retouching/cropping/upscaling.
+- `assets/css/site-source.css` and generated `site.css`: fixed, non-interactive public decoration; transparent shell; full-width header surface; readable content panels; right-stage framing on phones; print/forced-colors omission.
+- Small semantic wrappers in four public templates and `PublicSite::releaseCard()` group exposed content. Forms, actions, CSRF fields, content conditions and escaping are preserved.
+- Existing contained hero art, JavaScript, favicon links, analytics and admin/installer surfaces are preserved.
 
-The prior animated horizontal-logo kit was delivered separately. This favicon change does not silently replace the site's bundled navbar logo or revise header spacing.
+The new stage is generated decorative artwork and should not be described as a real band performance. Do not claim 4K source resolution.
 
 ## Verification and delivery
 
-See `docs/TEST_RESULTS.md` for scoped current verification. The focused PHP/static-file fixture exercised all 8 declared icons at `/` and `/band` with 16 successful HTTP requests, correct MIME types, exact bytes, dimensions, ICO frames, transparency and rc.4 cache keys. No database or production site was accessed. Actual small-size Chromium compositions were visually inspected on light/dark backgrounds.
+Asset/export inspection, all 15 package tests, PHP syntax for all five changed files, bundle reproducibility and the deterministic software release gate passed. Public CSS/JS totals **126,436 / 130,000 bytes**. The final installed-application run passed **1,120 focused checks**, with **48 actual screenshots**: 24 unseeded primary views and 24 synthetic supplemental views. Root and `/band` checks cover desktop/phone layouts, fixed scrolling, readable panels, search/menu, no-JavaScript behavior, print/forced-colors and public-only decoration. No uncaught browser errors were observed.
 
-Archive the exact package hash, source commit, comparison evidence and observed GitHub outcomes in the final delivery receipt. Never count pending checks as passed. Delivered rc.3 final evidence is preserved under `docs/history/VERIFICATION-1.1.0-rc.3.json` and its earlier source checkpoint under `TEST_RESULTS-1.1.0-rc.3.md`.
+All six full-width-header comparisons at 1440, 1920 and 390px confirm unchanged logo/navigation/control rectangles within 0.05px, a backplate reaching both screen edges and no horizontal overflow. The source-continuity audit confirms all 80 audited whole files remain byte-identical, including migrations, pinned recovery/access, favicon and JavaScript assets and dedicated analytics code. `PublicSite.php` has only the expected release-card wrapper tags; its rendering/analytics initialization method is unchanged.
 
-Build a new immutable cumulative Full ZIP with `tools/package.py`, using the existing Pillow 12.3.0 hero generator. Keep the 15 packaging tests and deterministic release gate. Ship the favicon set separately for convenience and the actual-size comparison screenshot. Never overwrite older delivered archives or introduce a new installation requirement.
+Use `tests/capture_stage_background.py` with the existing non-root disposable SQL test environment. It checks root and subdirectory routes, desktop/phone fixed-background pixels and scrolling, transparency, header geometry, menus/search, native no-JavaScript behavior and admin exclusion. Primary screenshots use actual application pages with unseeded public content. Supplemental populated views are explicitly labeled synthetic and exist only in the disposable test database. If docs change after capture, compare every runtime/code/asset hash with the final package and document that provenance.
 
-## Preserved scope
+The companion delivery includes the new immutable cumulative Full ZIP, actual desktop/mobile screenshots and a review board. Packaging uses `tools/package.py` with Pillow 12.3.0 hero generation. Previously delivered rc.4 artifacts remain unchanged. The final receipt records the source commit/tree, ZIP hashes, screenshot provenance, package continuity and observed GitHub state. Do not reinterpret historical or pending Actions results as passes on a new commit.
 
-No analytics, collection, navigation, payment, installer, database migration or pinned recovery/access code changes are required for this favicon update. Installed rc.1/rc.2/rc.3 use normal same-schema Browser upgrades when checks pass. For1.0.x retain the existing additive schema-update instructions. Preserve private configuration, encryption secret, database/owner, media and removed installer; do not reinstall or bypass safeguards.
+## Preserved deployment
 
-Actual A2/cPanel, physical-device and merchant/provider acceptance remain separate. No native tickets, hosting token, setup code or automatic database provisioning.
+All database migrations and pinned recovery/access files remain unchanged. Installed rc.1/rc.2/rc.3/rc.4 use normal same-schema Browser upgrades when checks pass. For 1.0.x retain additive schema-update instructions. Preserve private config, encryption identity, original owner/database, media and removed installer. No reinstall, hosting token, setup code, native ticketing or automatic database provisioning.
+
+Target-host/provider acceptance is separate; no production deployment or live payment is authorized by this presentation change.

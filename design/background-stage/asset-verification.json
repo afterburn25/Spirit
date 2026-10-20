@@ -1,0 +1,20 @@
+{
+  "source": "blue-lit-concert-stage-master.png",
+  "source_dimensions": [
+    1672,
+    941
+  ],
+  "source_bytes": 2125426,
+  "source_sha256": "f32efb1672a52a4ccd51af237e5f43506b33688cba85f30a055f3ec71e6001dc",
+  "output": "spiritual-gorillaz-stage-background.webp",
+  "output_dimensions": [
+    1672,
+    941
+  ],
+  "output_bytes": 243104,
+  "output_sha256": "74c0adcadbec3bd07314d641894a1e5a7b8d3d16153e8edf942bd47eee3d9a67",
+  "source_bitmap_modified": false,
+  "crop_or_upscale_applied": false,
+  "encoding": "Chromium native-size WebP canvas export, quality 0.9",
+  "browser_version": "143.0.7499.4"
+}
