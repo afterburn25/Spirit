@@ -1,0 +1,12 @@
+DB-IP LITE COUNTRY — OCTOBER 2026
+
+Database by DB-IP.com. Source: https://db-ip.com/db/download/ip-to-country-lite
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+License text: https://creativecommons.org/licenses/by/4.0/legalcode
+Attribution: IP Geolocation by DB-IP — https://db-ip.com
+
+The original gzip download was decompressed. The MMDB database bytes are unmodified.
+The temporary transfer chunks under tools/geo-transfer contain those same bytes
+encoded with XZ and Base64 for transport. Metadata, retrieval date and checksums
+are recorded in country.json. This country-level Lite database estimates network
+location and does not establish an individual's physical location.
