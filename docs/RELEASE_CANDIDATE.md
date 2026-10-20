@@ -1,7 +1,11 @@
-# 1.0.0-rc.7 — verified staging candidate
+# 1.1.0-rc.1 — audience analytics review candidate
 
-Public phone-navigation and native-control quality pass, based on verified RC6. Implemented non-modal keyboard focus/dismissal/responsive resets and short-screen menu scroll above the player; corrected oversized admin checkbox geometry. No PHP business logic, form defaults, installer, schema or recovery changes.
+This cumulative candidate retains the latest 1.0.13 artwork work and adds owner analytics, private location-data management, aggregate Search Console imports, consolidated public assets and reliable phone navigation. Actual local checks and observed remote Actions belong in TEST_RESULTS.md. A prior successful run does not certify this candidate.
 
-Local230 PHP/inc syntax,812 existing pure assertions,eight JS syntax and12 package tests passed. Isolated Chromium DOM/style checks and all six Actions workflows passed for adcafab9. The three new browser jobs each report361 passing checks. Finalization changes documentation only; additional main-run outcomes are recorded separately after observation. See TEST_RESULTS.md and NAVIGATION_QUALITY.md.
+Migrations 007 and 008 add analytics tables. Existing sites retain their owner, configuration, encryption secret, database and media. The same-schema browser ZIP updater deliberately refuses this transition; use the documented code deployment and additive Database updates flow in ANALYTICS.md. Do not reinstall or bypass the updater's guard.
 
-Keep the locked visual design, external ticket sellers, remembered administration state and one-page manual A2/cPanel installer. No setup code/token/20i/automatic DB. Existing sites upgrade with backups and retain original private configuration/encryption secret/database/media/recovery keys. Genuine production artwork/content/policies, actual A2/mailbox/merchant/recovery, physical-device and owner approval remain before accepted1.0. No live deployment or external acceptance is claimed.
+Keep this candidate draft and unmerged until the owner approves its actual desktop/mobile screenshots. Deliver the full immutable ZIP, checksum, actual public/admin screenshots and review board. Real A2, mailbox, merchant, recovery and physical-device acceptance remain separate. Preserve the approved design, external ticket sellers and manual one-page installer; no hosting token, setup code, 20i or automatic database provisioning is introduced.
+
+## Historical RC7 checkpoint — not current candidate evidence
+
+The earlier 1.0.0-rc.7 navigation/native-control pass was based on RC6 and changed no PHP business logic, form defaults, installer, schema or recovery code at that checkpoint. Its recorded evidence was 230 PHP/inc syntax checks, 812 pure assertions, eight JavaScript syntax checks and 12 package tests, plus isolated Chromium checks and six Actions workflows for `adcafab9`. Three browser jobs recorded 361 passing checks each. The later RC7 finalization was documentation-only. Retained historical results and NAVIGATION_QUALITY.md provide that older context; none of those counts establishes verification of the analytics candidate.

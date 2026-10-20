@@ -1,4 +1,4 @@
-# Browser installation and updates — 0.9.0-dev.11
+# Browser installation and updates — 1.1.0-rc.1
 
 Use isolated staging first, not the existing live band website. TEST_RESULTS.md records exact automated evidence. Actual shared-host ownership, domain aliases, execution limits, TLS/proxies, OPcache and provider behavior require staging acceptance.
 
@@ -27,6 +27,8 @@ Durable setup/prefix ownership and filesystem locks prevent concurrent or destru
 An older unfinished automatic attempt is identified by its private cpanel-provision.php record. It is not executed, reused or deleted. Keep it for manual owner/A2 review before attempting a fresh installation. Completed sites do not need replacement databases or reinstallation.
 
 ## Existing installations
+
+**1.1.0-rc.1 adds analytics migrations 007 and 008.** Use the existing configuration/database and owner account. The same-schema ZIP updater deliberately rejects this candidate from 1.0.x. Save verified code/configuration/database/media backups, deploy the cumulative code through cPanel while preserving runtime and uploaded files, and apply **System & maintenance → Database updates**. Do not recreate a removed installer folder or rerun fresh setup on the installed site. See `ANALYTICS.md` for the complete staged update sequence.
 
 Never rerun a fresh installer. Back up config, original encryption secret, database and media before replacing code. Legacy dev.1 runtime placement needs the review in STORAGE.md; do not delete old state to bypass conflicts.
 

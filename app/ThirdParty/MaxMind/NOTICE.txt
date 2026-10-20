@@ -1,0 +1,12 @@
+MaxMind DB Reader PHP v1.14.0
+Copyright (c) 2014-2026 MaxMind, Inc.
+https://github.com/maxmind/MaxMind-DB-Reader-php
+
+Licensed under the Apache License, Version 2.0. The complete license is included
+as LICENSE.txt. Pinned upstream commit and original/bundled hashes are in SOURCE.json.
+
+Spiritual Gorillaz modification: namespace declarations and imports were relocated
+from MaxMind\Db to Spirit\ThirdParty\MaxMind\Db. This isolates the bundled bounded
+PHP decoder from older optional host extensions. Decoding behavior is unchanged.
+Only five runtime PHP source files are included; no Composer or host-side build is
+needed, and the extension is not used by this feature.

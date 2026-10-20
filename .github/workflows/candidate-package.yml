@@ -1,7 +1,7 @@
 name: Candidate installation package
 on:
   push:
-    branches: [main, work/approved-concept-native, work/1.0.13-contained-overlay-heroes]
+    branches: [main, work/approved-concept-native, work/1.0.13-contained-overlay-heroes, work/1.1.0-analytics-and-navigation]
   workflow_dispatch:
 permissions:
   contents: read

@@ -1,6 +1,6 @@
 # Security controls and remaining acceptance
 
-Cumulative 0.9.0-dev.11; see TEST_RESULTS.md for the exact new verification status. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior.
+Cumulative 1.1.0-rc.1; see TEST_RESULTS.md for the exact new verification status. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior.
 
 ## Installation, sessions and storage
 
@@ -45,3 +45,11 @@ Authenticated media, backup and update handlers detect a POST exceeding PHP's wh
 ## Verification boundaries
 
 The configured cumulative suites exercise both database engines, browser journeys, loopback TLS transport failures, permission/concurrency/recovery and actual Apache HTTPS access rules. They do not prove arbitrary provider aliases/ACL/open_basedir/OPcache/proxy behavior, real hosting/inbox/merchant results, field performance, full accessibility or penetration review, legacy relocation, master-art/content approval or v1.0 acceptance. Never trust forwarded headers indiscriminately, weaken safeguards to pass a test, or label a source-artifact run as application verification. Exceptions/logs must not expose private payloads, tokens, credentials or raw driver diagnostics.
+
+## Owner analytics
+
+Analytics reports, exports, settings, imported query snapshots and location-data management require an active owner. Mutations require CSRF; current role/session is rechecked under a database row lock before settings/query changes or City-file mutation. City uploads use a fixed private path, bounded streaming/decompression, file-type/metadata validation, atomic replacement and staged-file cleanup; a rejected upload preserves the prior file.
+
+Only eligible public GET renders receive an analytics page token. Activity accepts a bounded JSON payload from the matching origin, bound to the current session/page, with cumulative replay checks and a shared elapsed-time limit across tabs. Raw IP addresses are used transiently for local country/crawler lookup and are not persisted in analytics. Arbitrary URL/query fields, full referral URLs, full user agents and form contents are not collected. Staff/private routes, DNT/GPC and prefetch/HEAD requests are excluded. Disabling analytics stops page and activity collection; unavailable analytics must not break public rendering.
+
+Search Console imports contain aggregate queries, not visitor identities. Their dates are independent of visitor filters and the entire validated snapshot replaces atomically. CSV exports neutralize formula-leading strings. Retention is bounded and applies only to traffic/crawler tables through explicit owner or enabled scheduled maintenance; imported query snapshots are removed only by owner replacement/removal. Analytics tables are included in encrypted backups but excluded from protected-business-state digests and business/content restoration, so visitor traffic does not block or rewind a site restore.

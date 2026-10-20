@@ -1,6 +1,6 @@
-# Final 1.0 roadmap — RC8 software complete
+# Roadmap — 1.1.0-rc.1 audience analytics
 
-Feature development is complete. Remaining work is verification, external acceptance and owner-approved publication.
+The original 1.0 feature foundation is retained. The owner-requested analytics extension and navigation fixes are implemented for candidate review; verification, external acceptance and owner-approved publication remain.
 
 | Milestone | Current status | Remaining work |
 |---|---|---|
@@ -11,7 +11,8 @@ Feature development is complete. Remaining work is verification, external accept
 |5. Commerce and Authorize.net|**Software complete; activation-gated.** Token-only browser payment boundary, orders, inventory holds/releases, cancellation, reporting/recovery paths and payment worker heartbeat are implemented/tested with synthetic provider boundaries.|If store remains closed: none for core launch. If enabling commerce: genuine sandbox/provider acceptance, real products/policy and owner approval.|
 |6. Responsive/browser/accessibility quality|**Implemented.** 360/390/desktop coverage across public/store/checkout/booking, plus 320 stress checks and Chromium/Firefox/WebKit release review.|Real-host performance and final populated-content review after owner-selected assets/content.|
 |7. Release integrity|**Implemented.** Deterministic software release gate validates required source, package contents, manifest hashes, private-file exclusions and final-version blocker rules.|Latest CI must pass on final head.|
-|8. Owner acceptance and 1.0.0|**Pending external approval.**|Review remaining real-world observations and optional launch content; explicit owner approval; then bump/package/tag immutable 1.0.0.|
+|8. Owner acceptance and original 1.0.0 milestone|**1.0.0 released; current candidate acceptance pending.**|Review remaining real-world observations and optional launch content. The current cumulative 1.1.0 release requires explicit owner approval of its screenshots and applicable acceptance checks before final promotion.|
+|9. Audience analytics and navigation — 1.1.0-rc.1|**Implemented; candidate verification.** Visitor/acquisition/client/location reports, charts/export, bounce/time/live, separate crawlers, optional City data and Search Console imports; additive migrations and consolidated public assets.|Finish exact-candidate verification, review actual desktop/mobile screens, deploy through the documented additive-update path and obtain owner approval.|
 
 ## Launch profile
 

@@ -12,7 +12,14 @@ try{
  switch($argv[1]??''){
  case 'snapshot':
   $out=['backups'=>Backups::listing(),'config_hash'=>hash('sha256',json_encode(Paths::config(),JSON_THROW_ON_ERROR)),'content'=>$db->query('SELECT id,title,revision FROM '.Database::table('content').' ORDER BY id')->fetchAll(),'media'=>$db->query('SELECT id,storage_name,checksum FROM '.Database::table('media').' ORDER BY id')->fetchAll(),'users'=>$db->query('SELECT id,email,role,session_version FROM '.Database::table('users').' ORDER BY id')->fetchAll()];
-  $out['protected']=[];foreach(BackupSchema::protectedNames() as $table){$out['protected'][$table]=BackupSchema::digest($db,$table);}break;
+  $out['protected']=[];foreach(BackupSchema::protectedNames() as $table){$out['protected'][$table]=BackupSchema::digest($db,$table);}
+  foreach(['analytics_visits','analytics_pageviews','analytics_crawlers','analytics_search_queries'] as $table){$out['analytics'][$table]=BackupSchema::digest($db,$table);}break;
+ case 'analytics-after-snapshot':
+  $db->prepare('INSERT INTO '.Database::table('analytics_visits').' (visit_key,started_at,last_seen,active_clock_at,page_count) VALUES (?,UTC_TIMESTAMP(),UTC_TIMESTAMP(),UTC_TIMESTAMP(),1)')->execute([hash('sha256','backup-synthetic-current-visit')]);$visit=(int)$db->lastInsertId();
+  $db->prepare('INSERT INTO '.Database::table('analytics_pageviews').' (visit_id,page_path,viewed_at,last_seen) VALUES (?,\'/music/\',UTC_TIMESTAMP(),UTC_TIMESTAMP())')->execute([$visit]);
+  $db->exec('INSERT INTO '.Database::table('analytics_crawlers')." (visit_date,family,verification,page_path,last_seen) VALUES (UTC_DATE(),'Synthetic crawler','reported_ua','/music/',UTC_TIMESTAMP())");
+  $db->exec('INSERT INTO '.Database::table('analytics_search_queries')." (period_start,period_end,query_text,clicks,impressions,average_position,imported_at) VALUES (UTC_DATE(),UTC_DATE(),'Synthetic current query snapshot',1,10,2,UTC_TIMESTAMP())");
+  foreach(['analytics_visits','analytics_pageviews','analytics_crawlers','analytics_search_queries'] as $table){$out[$table]=BackupSchema::digest($db,$table);}break;
  case 'archive':$out=['path'=>Backups::path($id),'key'=>bin2hex(Backups::key($id)),'info'=>Backups::info($id)];break;
  case 'tamper':$path=Backups::path($id);$h=fopen($path,'r+b');fseek($h,100);$b=fread($h,1);fseek($h,100);fwrite($h,chr(ord($b)^1));fclose($h);break;
  case 'media-break':

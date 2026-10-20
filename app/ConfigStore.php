@@ -9,7 +9,7 @@ final class ConfigStore
     private static array $cache=[];
     private static function guard(string $name): void
     {
-        if(!in_array($name,['communication','store','payments','site','maintenance'],true)){throw new InvalidArgumentException('Unknown service configuration.');}
+        if(!in_array($name,['communication','store','payments','site','maintenance','analytics'],true)){throw new InvalidArgumentException('Unknown service configuration.');}
     }
     public static function read(string $name): array
     {

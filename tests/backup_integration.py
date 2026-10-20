@@ -103,7 +103,10 @@ def faults_and_locks(s):
     finally:fixture(s,'fault-off')
     expect('Restore committed' not in response[1] and 'Must survive failed restore' in Client(s.base).request('pages/?slug=backup-story')[1],'An enforced SQL insertion failure rolls back earlier restore deletes')
     expect(snapshot(s)['protected']==before['protected'],'Failed restore cannot alter protected payment, access or consent data')
+    traffic=fixture(s,'analytics-after-snapshot')
+    expect(len(traffic)==4 and all(traffic[table]!=before['analytics'][table] for table in traffic),'Post-snapshot fixture changes every analytics table without changing business records')
     fixture(s,'media-break',{'media_id':image,'missing':True});response=action(s,'restore',id=id,scope='site',confirm_restore='RESTORE')
+    expect('Restore committed' in response[1] and snapshot(s)['analytics']==traffic,'Later visits, pageviews, crawlers and imported queries neither block nor rewind during a site-data restore')
     expect('Restore committed' in response[1] and 'Original safe snapshot' in Client(s.base).request('pages/?slug=backup-story')[1],'Same-schema site-data restore repairs missing media when operational records are unchanged')
     for mode in ['shared','exclusive']:
         env={**s.env,'SPIRIT_FIXTURE_ROOT':str(s.root),'SPIRIT_FIXTURE_DOCUMENT_ROOT':str(s.docroot)}

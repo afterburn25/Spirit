@@ -29,7 +29,8 @@ def main():
                 s.claim();s.client.form('install/',s.input());s.login();fixture(s,'seed');before=fixture(s,'snapshot')
                 expect(Client(s.base).request('admin/maintenance/')[3].endswith('/admin/login.php'),'Anonymous cleanup access is denied')
                 expect(s.client.request('admin/maintenance/',{'csrf':'bad','action':'clean'})[0]==403,'Cleanup requires CSRF')
-                s.client.request('admin/maintenance/');expect(fixture(s,'snapshot')==before,'Opening cleanup preview cannot change records or temporary files')
+                preview=s.client.request('admin/maintenance/');expect(fixture(s,'snapshot')==before,'Opening cleanup preview cannot change records or temporary files')
+                expect('Anonymous pageviews older than 90 days' in preview[1] and 'Crawler daily records older than 90 days' in preview[1],'Maintenance preview includes the current analytics retention policy')
                 expect('disabled' in run_cli(s).stdout and fixture(s,'snapshot')==before,'Scheduled cleanup is disabled by default without changing data')
                 expect(s.client.request('tasks/cleanup.php')[0]==404,'CLI cleanup has no public HTTP execution path')
                 s.client.form('admin/maintenance/',{'action':'clean','owner_password':'wrong','confirm_cleanup':'CLEAN TEMPORARY DATA'})
@@ -41,6 +42,8 @@ def main():
                 expect('Cleanup completed' in result[1] and after['request_limits']==5,'Owner cleanup respects the 200-record batch cap')
                 expect(after['login_limits']==0 and after['customer_tokens']==1 and after['staff_tokens']==1,'Expired technical tokens are pruned while active tokens remain')
                 expect(after['carts']==2 and after['cart_items']==2 and after['cart_operations']==2,'Only expired order-free cart and its children are deleted')
+                expect(all(rows==before['analytics'][table][-1:] for table,rows in after['analytics'].items()),'Owner cleanup removes expired analytics while retaining exact recent traffic rows')
+                expect('3 expired analytics records' in result[1],'Cleanup confirmation reports the actual analytics rows removed')
                 bodies={r['status']:int(r['length']) for r in after['mail']}
                 expect(bodies['sent']==0 and bodies['cancelled']==0 and all(bodies[x]>0 for x in ['queued','uncertain','failed']),'Old accepted/cancelled bodies are cleared without discarding unresolved mail')
                 expect(after['protected']==before['protected'] and not after['temporary_exists'],'Business history remains byte-equivalent while old private temporary file is removed')

@@ -4,21 +4,27 @@ Workflow `.github/workflows/verify.yml` runs PHP 8.2/MariaDB 11.4 and PHP 8.4/My
 
 ## Cumulative verification
 
-Read TEST_RESULTS.md for the exact application commit, successful run and remaining boundaries. The matrix includes foundation/storage, content/history/discovery/media, booking/mail/consent, commerce/customer/payment, staff, backup/restore, code-upgrade/recovery and technical-retention tests. Both database jobs run the pure assertions, packaging tests and guarded SQL/HTTP workflows. All twelve Chromium workflows run on the PHP 8.4 leg rather than being duplicated on PHP 8.2.
+Read TEST_RESULTS.md for the exact application commit, observed runs and remaining boundaries. The matrix includes foundation/storage, content/history/discovery/media, booking/mail/consent, commerce/customer/payment, staff, backup/restore, code-upgrade/recovery and technical-retention tests. Both database jobs run the pure assertions, packaging tests and guarded SQL/HTTP workflows. The cumulative Chromium journeys in verify.yml run on its PHP 8.4 leg. Separate navigation, storefront, branding and authoring workflows cover Chromium, Firefox and WebKit.
 
-The dev8 installer workflow covers one-page form/error/completion at 1440 px, 390 px and 320 px, root/subfolder installs, a no-JavaScript existing-database journey, cPanel-mode selection and secret non-reflection. It verifies actual deletion, permanent locking on denial, replay safety and later owner login. PHP's development server may route a deleted URL to the public homepage; tests verify that fallback cannot restore the installer, alter config/locks or duplicate owners. The separate Apache suite tests the shipped access rules.
+The manual installer checks cover the one-page form, errors and completion, root/subfolder installs, native no-JavaScript forms, secret non-reflection, actual deletion, permanent locking on denial, replay safety and later owner login. PHP's development server may route a deleted URL to the public homepage; tests verify that fallback cannot restore the installer, alter config/locks or duplicate owners. The separate Apache suite tests the shipped access rules.
 
 ## A2/cPanel integration boundary
 
-`tests/cpanel_unit.php` contains 56 input, destination, naming and response-contract checks. `tests/cpanel_transport.py` exercises the real cURL HTTPS client against a disposable loopback TLS server: direct/wrapped success, rejection, unauthorized, redirect, malformed/oversized replies, untrusted certificate and hostname mismatch. It inspects actual token-header/form bytes without logging credentials. Production certificate checks, DNS pinning and redirect refusal are not disabled.
+The installed application uses manual database configuration. It has no hosting API token, automatic database/user provisioning or cPanel mode selector. Tests use the disposable application database account supplied by their workflow; they do not provision a real hosting account.
 
-`tests/cpanel_integration.py` runs eight root/subfolder scenarios through a CLI-only cPanel simulator: success, definite user-creation rejection, lost database-creation acknowledgement and later migration failure. The simulator creates actual dedicated databases and users in the disposable SQL service and cleans only resources it created. A SQL administrator credential is scoped to this single test step; neither the website nor its real cPanel client receives a root credential. Ordinary tests retain their application-level SQL user. External cPanel and payment networking are explicitly disabled in CI.
+Earlier CI documentation described a cPanel API client and provisioning simulator. That scope was retired by the owner's manual-setup decision. Those descriptions are historical and are not evidence of a callable feature or a current verification step.
 
-These tests establish the application contract and real local SQL/transport behavior, not acceptance against an actual A2 account. Real account API availability, naming/quota, TLS/port reachability and host permissions remain staging checks.
+Real A2 account naming, quotas, domain-specific PHP extensions, TLS and file permissions remain staging checks.
+
+## Analytics candidate verification
+
+Workflow `.github/workflows/analytics.yml` runs the analytics collection, geography, parser, SQL/HTTP and native upload suites on PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4. It waits for the disposable database account before testing. Its PHP file/request limits are pinned to 2M/8M because the upload stress tests intentionally cross those boundaries. The PHP 8.4 leg also runs the analytics dashboard and visitor browser journeys.
+
+The software release gate verifies committed public bundles using the pinned npm lockfile and the existing 130,000-byte CSS/JS budget. Candidate packaging installs Pillow 12.3.0, builds the cumulative versioned ZIP and publishes its checksum. These workflow definitions do not establish successful execution; record observed results for the exact candidate in TEST_RESULTS.md.
 
 ## Reproduction and artifacts
 
-For guarded SQL tests use `SPIRIT_TESTING=1` and isolated `SPIRIT_DB_*` credentials with database `spirit_ci` and the required random test-prefix shape. Do not point tests at production. The cPanel simulator additionally requires its explicit disposable administrator credential, supplied only to its own step. Test-only transports are restricted to CLI and cannot be enabled by HTTP input.
+For guarded SQL tests use `SPIRIT_TESTING=1` and isolated `SPIRIT_DB_*` credentials with database `spirit_ci` and the required random test-prefix shape. Do not point tests at production. Test-only transports are restricted to CLI and cannot be enabled by HTTP input.
 
 Browser tests use a development virtual environment with Playwright 1.57.0 and its Chromium. The hosting account does not need these tools. Tests/build scripts stay in Git and are excluded from deployment ZIPs. Current packaging creates no setup code/hash or PRIVATE-SETUP receipt. Private config, passwords, tokens, recovery receipts, sessions and database dumps are not uploaded as artifacts. Screenshot artifacts contain deliberately synthetic test data; source artifacts are tracked public source, not application-verification evidence.
 

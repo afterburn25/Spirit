@@ -25,6 +25,7 @@ final class TransientCleanup
         foreach(self::RULES as $table=>[$label,$where]){$rows[]=['kind'=>$table,'label'=>$label,'count'=>(int)$db->query('SELECT COUNT(*) FROM '.Database::table($table).' WHERE '.$where)->fetchColumn()];}
         $rows[]=['kind'=>'carts','label'=>'Bags expired for 30 days with no order reference','count'=>(int)$db->query('SELECT COUNT(*) FROM '.Database::table('carts').' c WHERE '.self::cartCondition())->fetchColumn()];
         $rows[]=['kind'=>'mail_bodies','label'=>'Accepted/cancelled message bodies older than 90 days; keep delivery records','count'=>(int)$db->query('SELECT COUNT(*) FROM '.Database::table('mail_queue').' WHERE '.self::MAIL)->fetchColumn()];
+        $rows=array_merge($rows,Analytics::retentionPreview());
         $files=self::temporaryPlan(Paths::runtime(),time()-7*86400);
         return ['rows'=>$rows,'files'=>count($files),'bytes'=>array_sum(array_column($files,'bytes'))];
     }
@@ -97,6 +98,8 @@ final class TransientCleanup
         }catch(Throwable $e){if($db->inTransaction()){$db->rollBack();}throw $e;}
         // Files are a separate best-effort phase; never claim SQL can undo an unlink.
         $out['temporary']=self::pruneTemporary(Paths::runtime(),time()-7*86400);
+        // The owner-selected analytics policy applies only to analytics records.
+        $out['analytics']=Analytics::prune($limit);
         return $out;
     }
     public static function render(): void

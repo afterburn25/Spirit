@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.1.0-rc.1 — audience analytics and reliable navigation
+
+- Add owner-only charts, date filters and visitor CSV reports for visits, pageviews, referral domains, supplied search terms, campaigns, countries and browser/OS/device families.
+- Measure visible-page activity using bounded session-bound heartbeats; show measured coverage, completed-visit bounce rate and approximate live visitors with 15-second refresh and 60-second expiry.
+- Separate crawler requests from human totals, with official-range verification for eligible Google/Bing requests and explicit reported-identity labels otherwise.
+- Include attributed offline country data and a licensed PHP MMDB reader; add validated private City MMDB upload/removal for available region/city data.
+- Import aggregate Search Console Queries CSV reports with validation, atomic replacement and independent period labels.
+- Add migrations 007/008 without changing prior migrations or replacing existing configuration, content or accounts. Preserve the browser updater's unchanged-schema requirement.
+- Consolidate public CSS/JavaScript into reproducible bundles under the 130,000-byte budget; remove competing mobile menu controllers while preserving cumulative compatibility paths, persistent audio and native controls.
+- Restrict fallback hero rules so owner-uploaded section artwork stays contained and bounded. Preserve the established public composition and existing source artwork.
+- Correct inherited Home styles that cropped the foreground, hid the wide background and shortened the readability fade. Keep the native artwork ratio, remove the horizontal overlay seam, fit tablet controls, and render the Home introduction with real paragraph breaks.
+- Add targeted unit, SQL/HTTP, browser, package and Actions verification; exact observed results are in docs/TEST_RESULTS.md.
+
+This cumulative candidate remains subject to screenshot approval and real-host acceptance. It does not activate live commerce or publish unapproved content.
+
 ## 1.0.13 — contained continuous-image heroes
 
 - keep the centered, shortened hero windows introduced in 1.0.12;

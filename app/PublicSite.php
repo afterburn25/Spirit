@@ -84,6 +84,8 @@ final class PublicSite
         header('Cache-Control: '.($private?'private, no-store':'no-cache'));if($isPreview){header('X-Robots-Tag: noindex, nofollow');}
         $canonical=null;if(!$private&&$view!=='not-found'){$path=$record?self::url($record):app_url($view==='home'?'':($view==='music'?'music/':$view.'/'));$base=Paths::basePath();$canonical=rtrim(Paths::config()['site_url'],'/').substr($path,strlen($base));}
         $metaRecord=$record??$pageContent;
+        $analyticsPage = !$isPreview && in_array($view, ['home','music','shows','band','media','press','booking','release','event','member','page'], true)
+            ? Analytics::beginPage() : null;
         require Paths::root().'/views/public/header.php';
         $templates=['booking'=>'booking.php','booking-thanks'=>'booking-thanks.php','newsletter'=>'newsletter.php','search'=>'discovery.php'];
         require Paths::root().'/views/public/'.($templates[$view]??'sections.php');

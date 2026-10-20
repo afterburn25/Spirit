@@ -1,10 +1,20 @@
-# Spiritual Gorillaz — 1.0.13
+# Spiritual Gorillaz — 1.1.0-rc.1
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, metallic-gold and blue-stage-light identity.
 
-## 1.0.13 contained continuous-image heroes
+## 1.1.0-rc.1 — audience analytics and reliable phone navigation
 
-Version 1.0.13 keeps the centered, shortened hero dimensions established in 1.0.12, but corrects the split-window mistake. Each hero is now one continuous artwork field across the complete contained window, including behind the real HTML heading and copy. Production artwork is deterministically extended to provide genuine dark atmospheric space on the left while preserving the complete right-side focal subject. Copy overlays the naturally dark portion of the same image with one soft readability fade—there is no separate text box, right-hand image box, hard seam, blurred duplicate or stretched low-resolution layer.
+The owner administration now includes visitor analytics with charts, inclusive date filters and CSV export: visits, pageviews, completed-visit bounce rate, active viewing time, approximate live visitors, referral domains, supplied search terms, campaign tags, countries, browsers, operating systems, devices and separate crawler traffic. Country lookup works locally using the included, attributed DB-IP data. Optional private City database upload enables available region/city labels. Google Search Console Queries CSV imports provide aggregate search performance with their own dates.
+
+Public navigation now has one controller and reproducible CSS/JavaScript bundles within the existing 130,000-byte budget. The approved contained artwork composition, persistent audio, accessible search and real CMS overrides are preserved. Uploaded section artwork is bounded and contained instead of being cropped by fallback-art rules.
+
+This is a cumulative review candidate on `work/1.1.0-analytics-and-navigation`, based on the latest 1.0.13 work. Screenshot approval and real-host acceptance remain separate from automated verification. Exact observed results are in `docs/TEST_RESULTS.md`.
+
+**Updating an installed website:** migrations `007.sql` and `008.sql` add analytics tables. The current browser ZIP updater deliberately refuses schema changes. Preserve the existing private configuration, owner, database and uploads; deploy the cumulative code through the hosting panel and apply **Database updates** using the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
+
+## Preserved contained continuous-image heroes
+
+The centered, shortened hero windows remain capped at the same 1320px width as the content sections. Each window presents a continuous artwork field behind the real HTML copy and focal subject, with one soft readability fade. The package generates wide WebP background compositions from the existing PNG source artwork. Resizing and dark atmospheric extension do not create new source detail; this build does not claim an increase in the artwork's native resolution. The original foreground assets remain available. Detail already cropped in a source image is not reconstructed by CSS.
 
 The same treatment is applied to Home, Music, Shows, Band, Media, Press, Booking and Merch. The header remains full-width and sticky; Search remains visible and opens its dropdown. Mobile remains a contained copy-first/artwork-second card.
 
@@ -35,7 +45,7 @@ Build the cumulative package with:
 
 `python3 tools/package.py --output ./dist`
 
-The packaging workflow installs Pillow 12.3.0 and runs `tools/generate_extended_heroes.py` before collecting the immutable ZIP payload. The generator creates the wide WebP masters from the reviewed native PNG artwork using deterministic dark-atmosphere extension and a feathered join.
+The packaging workflow installs Pillow 12.3.0 and runs `tools/generate_extended_heroes.py` before collecting the immutable ZIP payload. The generator creates reproducible wide WebP background compositions with dark-atmosphere extension and a feathered join.
 
 Validate the source/package contract with:
 
@@ -43,4 +53,6 @@ Validate the source/package contract with:
 
 The package excludes tests, development tools, runtime/private state, credentials, sessions, backups and recovery receipts. Existing installations upgrade through backups/guarded updates; never reinstall or replace the existing database/configuration to apply an update.
 
-See `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/DESIGN_LOCK.md`, `docs/ROADMAP.md` and `docs/LAUNCH_CHECKLIST.md`.
+Public bundles are committed. Rebuild after source edits with `npm ci --prefix tools/public-assets --ignore-scripts` and `node tools/build_public_assets.mjs`. CI verifies them with `--check`; the PHP host needs no Node/npm build.
+
+See `docs/ANALYTICS.md`, `docs/ANALYTICS_GEO.md`, `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/DESIGN_LOCK.md`, `docs/ROADMAP.md` and `docs/LAUNCH_CHECKLIST.md`.

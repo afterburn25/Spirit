@@ -23,6 +23,36 @@ def tab_to(page,selector,limit=60):
     raise AssertionError('Keyboard could not reach '+selector)
 
 
+def home_artwork_check(page, width):
+    """Catch real clipping/hidden-background regressions in the contained Home hero."""
+    metrics=page.locator('.concept-home').evaluate('''hero=>{
+      const box=hero.getBoundingClientRect(), image=hero.querySelector('.fallback-hero');
+      const art=image.getBoundingClientRect(), overlay=getComputedStyle(hero,'::after');
+      const content=[...hero.querySelectorAll('.hero-kicker,h1,h1 em,.hero-intro,.button,.hero-bottom p')];
+      const label=hero.querySelector('.hero-bottom p').getBoundingClientRect();
+      const overlap=[...hero.querySelectorAll('.hero-copy .button')].some(node=>{const r=node.getBoundingClientRect();
+        return r.right>label.left&&r.left<label.right&&r.bottom>label.top&&r.top<label.bottom;});
+      return {width:box.width,height:box.height,artWidth:art.width,artHeight:art.height,
+        nativeRatio:image.naturalWidth/image.naturalHeight,
+        background:getComputedStyle(hero).backgroundImage,
+        wrapperBackground:getComputedStyle(image.parentElement).backgroundColor,
+        overlayHeight:parseFloat(overlay.height),overlayMask:overlay.maskImage,overlap,
+        clipped:content.filter(node=>{const r=node.getBoundingClientRect();return r.left<box.left-1||
+          r.right>box.right+1||r.top<box.top-1||r.bottom>box.bottom+1;}).map(node=>node.className||node.tagName)};
+    }''')
+    expect(metrics['clipped']==[],f'{width}px Home heading, copy and buttons are fully inside the hero: '+repr(metrics['clipped']))
+    expect(metrics['width']<=1321,f'{width}px Home keeps its centered 1320px maximum')
+    expect(not metrics['overlap'],f'{width}px Home buttons do not overlap the movement caption')
+    if width>820:
+        expect(abs(metrics['artWidth']/metrics['artHeight']-metrics['nativeRatio'])<.002,
+               f'{width}px Home foreground retains its complete native frame without CSS crop')
+        expect('spiritual-gorillaz-home-hero-wide.webp' in metrics['background'] and metrics['wrapperBackground']=='rgba(0, 0, 0, 0)',
+               f'{width}px the wide Home artwork is visible through its transparent foreground container')
+        expect(abs(metrics['overlayHeight']-(metrics['height']-2))<1 and metrics['overlayMask']=='none',
+               f'{width}px Home readability fade spans the full hero without the old 31-percent seam')
+    screenshot(page,f'artwork-{width}-home')
+
+
 def main():
     if os.geteuid()==0 or os.environ.get('SPIRIT_TESTING')!='1':raise RuntimeError('Non-root disposable database required.')
     with tempfile.TemporaryDirectory(prefix='spirit-media-keyboard-') as directory:
@@ -35,6 +65,16 @@ def main():
             original=fixture(s,'inspect',image)['source']['bytes']
             with sync_playwright() as engine:
                 browser=engine.chromium.launch()
+                # The shortened desktop hero previously clipped text immediately
+                # above the phone breakpoint and cropped the foreground at 1440px.
+                artwork=browser.new_context(viewport={'width':1440,'height':1000},reduced_motion='reduce')
+                artwork_page=artwork.new_page()
+                for width in [1440,1180,1024,900,821,390]:
+                    artwork_page.set_viewport_size({'width':width,'height':1000})
+                    artwork_page.goto(s.base,wait_until='networkidle')
+                    artwork_page.locator('.fallback-hero').evaluate('(image)=>image.decode()')
+                    home_artwork_check(artwork_page,width)
+                artwork.close()
                 for width,height in [(1440,1000),(390,844),(320,800)]:
                     context=browser.new_context(viewport={'width':width,'height':height},device_scale_factor=1,reduced_motion='reduce',bypass_csp=False)
                     page=context.new_page();errors=[];page.on('pageerror',lambda error:errors.append(str(error)))

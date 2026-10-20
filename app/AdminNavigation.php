@@ -20,6 +20,7 @@ final class AdminNavigation
             'event' => ['Shows & ticket links', 'admin/content/?kind=event', 'content.manage'],
         ]],
         'audience' => ['Bookings & communication', 'audience', [
+            'analytics' => ['Audience analytics', 'admin/analytics/', 'owner'],
             'bookings' => ['Booking inquiries', 'admin/bookings/', 'owner'],
             'subscribers' => ['Subscribers', 'admin/subscribers/', 'owner'],
             'mail' => ['Delivery queue', 'admin/mail/', 'owner'],

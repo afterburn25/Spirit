@@ -1,38 +1,29 @@
-# RC7 verification — completed application checkpoint
+# Verification — 1.1.0-rc.1
 
-Tested **adcafab92035816571e7951e71d73d6c0a22af89**, tree **5d2d70be796b3ae9e293749126f189f2326442d1**. BaseRC6 main75a24384. Finalization changes documentation only; later main-run results and final package hashes belong in PR20/delivery report after observation.
+## Current candidate
 
-| Workflow | Run | Result |
-|---|---|---|
-|Website and installer|38802392834|Success|
-|Focused maintenance|38802392855|Success|
-|Existing populated storefront|38802392802|Success|
-|Site logo|38802392914|Success|
-|Authoring safety|38802392808|Success|
-|Public navigation and native controls|38802393254|Success|
+The candidate starts from latest 1.0.13 commit `2afbd551d6083d86d26499a9bf82511aa7f7f9c2`. Changes include new analytics/schema/reporting, offline data/City imports, public asset consolidation, mobile navigation and bounded CMS section artwork. Prior RC7 evidence is retained in `history/TEST_RESULTS-before-analytics.md`; it is not evidence that new candidate workflows passed.
 
-Full verification retained PHP8.2/MariaDB11.4 and PHP8.4/MySQL8.4, all13 existing Chromium workflow steps and actual Apache HTTPS. Existing three-engine gallery/release/section/admin-navigation/history, branding and authoring workflows passed. The PHP8.2 full job's browser steps remain skipped under their pre-existing PHP8.4 condition; this does not mean the three-engine workflows were skipped.
+## Observed local verification
 
-## New actual browser coverage
+Runtime: PHP 8.3.6, MariaDB 10.11.14, Python with Pillow 12.3.0, Playwright 1.57.0 and Chromium 143.0.7499.4. Tests use disposable databases, isolated packaged applications and synthetic data. No real customer, visitor, mailbox or merchant data is involved.
 
-Jobs116654740632 (Chromium/MySQL),116654741009 (Firefox/MariaDB) and116654741268 (WebKit/MariaDB) passed. Each downloaded log contains361 PASS lines, including repeated contexts and shared setup. Root/subfolder public menu checks use820/390/320px, keyboard Tab/reverse Tab/arrows/Escape, outside clicks/focus, responsive transitions in both directions, native destination navigation, current focus and retained CSP. A320x568 playback case requires the actual last menu link to scroll into view above the actual player and verifies continued playback with the same audio node.
+- Collection units: 67 passing checks. Geography/crawler units: 75 passing checks. Admin/parser units: 26 passing checks, including strict grouped-number parsing.
+- Analytics SQL/HTTP: root and subfolder complete; session-bound tokens, cross-tab elapsed-time cap, replay bounds, visibility/live expiry, missing-time coverage, attribution/privacy exclusions, crawler separation, retention and fail-open public rendering pass. Existing-schema to 007/008 additive updates and repeated application pass while retaining the owner.
+- Public navigation: root/subfolder 820/390/320 and 320x568 active-player checks pass, including pointer/keyboard/focus/resize/native navigation and preserved audio node.
+- Media quality: 1440/390/320 checks pass, including the existing 130,000-byte public asset budget. Final public CSS/JS is 122,397 bytes across four files. Home artwork geometry additionally passes at 1180/1024/900/821px: native foreground aspect ratio, decoded wide background, full-height soft fade, and no copy clipping or button/caption overlap.
+- Section artwork: actual root/subfolder public/editor/private-preview layouts pass at 1440/390/320, including complete portrait artwork in bounded frames.
+- Dashboard: 97 Chromium checks pass at root/subfolder 1440/390/320, including live polling/pause, real dynamic navigation/time flush, CSV and native no-JavaScript settings.
+- Admin SQL/HTTP: 107 checks pass at root/subfolder, covering private reports/CSV, validated query imports, stale owner access and City management.
+- City uploads: 86 checks pass, including real plain/gzip uploads, exact private bytes, malformed/truncated/oversized preservation, PHP limits, owner/CSRF/session/lock controls and safe removal. Fixed a stale zero-size PHP stat cache before validating a newly written file.
+- Cleanup: 47 checks pass, including read-only analytics inventory, expired/current row preservation and exact displayed removal counts. Backup: 77 checks pass, including changes to all four analytics tables after snapshot that neither block nor rewind a valid site-data restore.
+- PHP syntax: all 256 PHP/inc files pass. Packaging: 15 tests and the deterministic release gate pass. Generated public bundles match their committed sources, and `git diff --check` passes.
+- Actual public capture: 21 screenshots pass across eight public routes at desktop/phone widths, four additional Home tablet widths and the 320px menu. All images/backgrounds decode; no horizontal document overflow. Public captures use unseeded installation content. Exact delivery ZIP captures and remote Actions evidence are being finalized; no pending check is reported as passed.
 
-Native admin controls are checked at1440/390/320px across product editing, variants, categories, store settings, media upload and branding. Geometry, first-line text alignment, full label height and actual Space-key toggling are verified. The logo page also receives forced-color geometry checks. No changed control is submitted. Catalog/customer/address/token/mail snapshot tables remain unchanged; this is not a claim that login audit/session activity never occurs. Native320px no-JavaScript public navigation retains every destination. These are targeted assertions, not complete WCAG, screen-reader, physical-device or field-performance certification.
+## Remote Actions
 
-## Downloaded source and renders
+New candidate Actions results are pending publication and observation. Latest 1.0.13 public navigation, storefront navigation and public-asset budget failures were examined and addressed; earlier successful runs do not certify the new head. Preserve the separate PHP 8.2/MariaDB and PHP 8.4/MySQL matrix and existing cross-browser/Apache workflows.
 
-All three artifacts were SHA-256 verified. Their source archives match all386 local files and the exact tested tree. Each contains four actual synthetic screenshots and a browser log. Selected Chromium desktop/mobile and Firefox mobile renders were inspected. Full-page screenshots retain fixed elements at the capture scroll position; the delivered phone preview is explicitly a320x568 top-viewport excerpt, not a reconstructed image.
+## Acceptance boundaries
 
-| Artifact | SHA-256 |
-|---|---|
-|12005640534 Chromium|de5ab07e28f7b3839b89b7a73ecc5595ba32a7cb6596b41974553adb35fbcd27|
-|12004897533 Firefox|adbcd59477b7e706f9f6e03480333e8839f2000f5dbac85fa52f83611dce930d|
-|12004981413 WebKit|c3ecc4293164a8000de49c1d87bba96a1787cb9b73b60ba7392878171cf5bc59|
-
-## Local execution and preservation
-
-230 PHP/inc syntax files,812 existing pure assertions in22 scripts,eight JS syntax files, Python compilation and12 package tests passed. Permission-aware PHP tests ran as non-root. An isolated real-Chromium DOM/style exercise reproduced CSS hiding a focused element before its media-query handler, then verified the corrected recovery and negative control (page content does not lose focus). This helper is not a database-backed site run. Local PHP lacks PDO MySQL/GD/cURL/ZIP; end-to-end evidence is Actions-only and no browser/hosting policy was bypassed.
-
-A preview package retained all282 RC6 manifest paths and had283 payload files plus the manifest. Every payload hash matched source. All PHP business logic/forms, installer, six migrations, shipped access rules, pinned recovery and administration navigation were unchanged. Public.js audio/queue/fetch code outside its menu block is also unchanged. Final documentation/package hashes are verified separately before delivery. Tests, workflows, private state and synthetic media are not shipped in the Full ZIP.
-
-No real A2 deployment/configuration, mailbox delivery, merchant transaction, production artwork/content/policy publication, physical-device or final owner acceptance occurred. These substantive gates still remain. Do not reinstall an existing website to apply this cumulative candidate.
+These tests do not establish target A2 ownership/ACL/proxy/OPcache behavior, physical-device performance, complete accessibility, actual SMTP/merchant acceptance or owner artwork approval. The same-schema ZIP updater deliberately refuses 007/008; existing sites use the documented code deployment and additive Database updates path. No production install, content publication or live payment occurred. Keep the candidate draft and unmerged until screenshot approval.

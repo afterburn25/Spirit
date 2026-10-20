@@ -69,3 +69,11 @@ Retention offers previewed/bounded technical cleanup, preserving business histor
 ## Still pending before final release
 
 Full populated-site accessibility/performance/security acceptance, approved high-resolution artwork and real content, genuine provider/host tests and owner acceptance remain. Search/sharing/sitemap and targeted responsive-media/keyboard work are implemented; consult TEST_RESULTS.md for the exact verified checkpoint. LAUNCH_CHECKLIST.md lists the remaining approval and real-environment checks. A tested development checkpoint is not an accepted v1.0 website.
+
+## Audience analytics — 1.1.0-rc.1
+
+Open **Analytics** using an owner account. Choose 7/30/90 days or a custom inclusive date range; reports use UTC. Review visits/pageviews, completed-visit bounce rate, observed active time, live visitors, referral/search/campaign sources, devices/browsers/OS, approximate geography and separate crawler activity. Export the selected visitor report as CSV.
+
+Country lookup is included. **Manage location data** accepts an optional compatible City MMDB or MMDB.gz for available state/region/city labels. The owner can pause collection, geography and bot recording independently. Most Google referrals withhold search phrases; the **Search Console queries** panel imports Google's English Queries CSV as an aggregate snapshot with separate dates. Missing data stays unknown. No report identifies individual people or uses browser GPS.
+
+Analytics retention defaults to 90 days. Setting that duration marks records eligible for cleanup; use **Temporary data & retention** to run reviewed cleanup and enable a hosting schedule if desired. See `ANALYTICS.md` for definitions, import limits, exact privacy boundaries and the additive update from an already installed 1.0.x site.
