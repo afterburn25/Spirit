@@ -66,8 +66,11 @@ def journey(s):
     status,body,headers,_=s.client.request(PREVIEW)
     expect(logo_present(body,one) and 'PRIVATE PREVIEW' in body,'Saved logo appears inside the real private homepage preview')
     expect(headers.get('X-Robots-Tag')=='noindex, nofollow' and headers.get('Referrer-Policy')=='no-referrer','Private preview cannot be indexed or leak a referrer')
-    expect(not logo_present(anon.request('')[1],one) and anon.request(f'media/file.php?id={one}')[0]==404,'Saving and previewing do not expose the draft image')
     expect(fixture(s,'fingerprint')==before,'Preview is read-only after a saved draft too')
+    # This separate public observation may legitimately record a visitor pageview.
+    # Keep the private preview assertion above scoped to the complete database state.
+    expect(not logo_present(anon.request('')[1],one) and anon.request(f'media/file.php?id={one}')[0]==404,'Saving and previewing do not expose the draft image')
+    before=fixture(s,'fingerprint')
     expect('Confirm that you approve' in mutate(s,'publish',one,approved=False)[1] and fixture(s,'fingerprint')==before,'Missing publication approval preserves the private state')
     expect('Approved logo published' in mutate(s,'publish',one)[1],'Explicit approved publication completes through the real form')
     old_logo_revision=revision(s);old_logo_epoch=epoch(s)

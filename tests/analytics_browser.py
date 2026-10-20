@@ -92,8 +92,21 @@ def main():
                     expect(True, 'Real visible visit reaches the live panel and pause/resume controls work')
                     entry_token = visit.locator('template[data-analytics]').get_attribute('data-token')
                     visit.evaluate('window.analyticsNavigationWitness = true')
+                    # Owner-page interactions can leave this tab backgrounded.
+                    # Measure actual visible time before testing its final sample.
+                    visit.bring_to_front()
+                    visit.wait_for_function('document.visibilityState === "visible"')
                     visit.wait_for_timeout(2200)
-                    visit.locator('#public-nav a').filter(has_text='Shows').first.click()
+                    # The new page token is rendered before the departing page's
+                    # asynchronous beacon commits. Await that beacon response;
+                    # Chromium does not expose Blob request bodies to Playwright.
+                    with visit.expect_response(lambda response:
+                        response.url == current.base+'pages/analytics.php'
+                        and response.request.method == 'POST'
+                        and response.request.resource_type == 'ping'
+                    ) as departed:
+                        visit.locator('#public-nav a').filter(has_text='Shows').first.click()
+                    expect(departed.value.status == 204, 'The departing page activity request completes successfully')
                     visit.wait_for_url('**/shows/')
                     browser_expect(visit.locator('template[data-analytics]')).not_to_have_attribute('data-token', entry_token)
                     expect(visit.evaluate('window.analyticsNavigationWitness === true'), 'Public navigation retains the document while installing a new analytics page token')

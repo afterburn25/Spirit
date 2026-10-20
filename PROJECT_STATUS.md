@@ -1,6 +1,6 @@
 # Project status — 1.1.0-rc.1 audience analytics
 
-The application is **1.1.0-rc.1**, a cumulative review candidate on `work/1.1.0-analytics-and-navigation`. It preserves the complete latest 1.0.13 work and adds the requested owner analytics module. `main` was inspected at `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`; candidate work starts from `2afbd551d6083d86d26499a9bf82511aa7f7f9c2`.
+The application is **1.1.0-rc.1**, a cumulative review candidate on `work/1.1.0-analytics-and-navigation` in [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). It preserves the complete latest 1.0.13 work and adds the requested owner analytics module. `main` was inspected at `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`; candidate work starts from `2afbd551d6083d86d26499a9bf82511aa7f7f9c2`.
 
 ## Implemented in this candidate
 

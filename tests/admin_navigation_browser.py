@@ -35,7 +35,8 @@ def shape(page,label):
     expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),label+': no page overflow')
     expect(page.locator('#sidebar a[aria-current="page"]').count()==1,label+': exactly one current destination')
     expect(page.locator('[data-nav-group]').count()==6,label+': six owner categories')
-    expect(page.locator('#sidebar nav a').count()==34,label+': all 34 authorized destinations present')
+    expect(page.locator('#sidebar nav a').count()==35,label+': all 35 authorized destinations present')
+    expect(page.locator('#sidebar [data-nav-link="analytics"]').count()==1,label+': owner audience analytics destination present')
     expect(page.locator('[role="menu"], [role="menuitem"]').count()==0,label+': ordinary disclosure/navigation semantics retained')
 
 
@@ -105,14 +106,16 @@ def identity_and_failure(browser,s,engine,area):
     page=c.new_page();signin(s,page);owner_scope=page.locator('#sidebar').get_attribute('data-nav-scope')
     page.locator('[data-nav-action="collapse"]').click();page.locator('.admin-sidebar-actions button').click();page.wait_for_url('**/admin/login.php')
     password='Menu-fixture-only-Password-492'
-    for role,links,groups in [('owner',34,6),('content_editor',11,3),('store_manager',6,3)]:
+    for role,links,groups in [('owner',35,6),('content_editor',11,3),('store_manager',6,3)]:
         signin(s,page,'menu-'+role+'@example.test',password)
         expect(page.locator('#sidebar').get_attribute('data-nav-scope')!=owner_scope,'Different accounts have independent opaque preference scopes')
         expect(all(states(page).values()),'One account\'s collapsed layout does not spill into another')
         expect(page.locator('#sidebar nav a').count()==links and len(states(page))==groups,'Server filters links and empty categories for '+role)
+        expect(page.locator('#sidebar [data-nav-link="analytics"]').count()==int(role=='owner'),'Audience analytics navigation is owner-only for '+role)
         if role!='owner':
             expect(page.locator('#sidebar a[href*="admin/orders/payments"],#sidebar a[href*="admin/shop/customers"],#sidebar a[href*="admin/staff/"]').count()==0,'Staff do not receive owner financial/customer/access links')
             expect(page.goto(s.base+'admin/orders/payments.php').status==403,'A direct forbidden URL is still rejected by server permissions')
+            expect(page.goto(s.base+'admin/analytics/').status==403,'Direct audience analytics access is rejected for '+role)
             page.goto(s.base+'admin/');ready(page)
         page.locator('.admin-sidebar-actions button').click();page.wait_for_url('**/admin/login.php')
     signin(s,page);expect(not any(states(page).values()),'Returning to the first owner restores that owner\'s layout')

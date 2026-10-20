@@ -13,16 +13,19 @@ Runtime: PHP 8.3.6, MariaDB 10.11.14, Python with Pillow 12.3.0, Playwright 1.57
 - Public navigation: root/subfolder 820/390/320 and 320x568 active-player checks pass, including pointer/keyboard/focus/resize/native navigation and preserved audio node.
 - Media quality: 1440/390/320 checks pass, including the existing 130,000-byte public asset budget. Final public CSS/JS is 122,397 bytes across four files. Home artwork geometry additionally passes at 1180/1024/900/821px: native foreground aspect ratio, decoded wide background, full-height soft fade, and no copy clipping or button/caption overlap.
 - Section artwork: actual root/subfolder public/editor/private-preview layouts pass at 1440/390/320, including complete portrait artwork in bounded frames.
-- Dashboard: 97 Chromium checks pass at root/subfolder 1440/390/320, including live polling/pause, real dynamic navigation/time flush, CSV and native no-JavaScript settings.
+- Dashboard: 99 Chromium checks pass at root/subfolder 1440/390/320, including live polling/pause, real dynamic navigation/time flush, CSV and native no-JavaScript settings. The visitor is explicitly foregrounded and the departing beacon's successful response is awaited before checking stored time.
 - Admin SQL/HTTP: 107 checks pass at root/subfolder, covering private reports/CSV, validated query imports, stale owner access and City management.
 - City uploads: 86 checks pass, including real plain/gzip uploads, exact private bytes, malformed/truncated/oversized preservation, PHP limits, owner/CSRF/session/lock controls and safe removal. Fixed a stale zero-size PHP stat cache before validating a newly written file.
 - Cleanup: 47 checks pass, including read-only analytics inventory, expired/current row preservation and exact displayed removal counts. Backup: 77 checks pass, including changes to all four analytics tables after snapshot that neither block nor rewind a valid site-data restore.
+- Administration navigation: 103 unit checks and the full root/subfolder Chromium journey pass, including all 35 owner destinations and explicit owner-only analytics access. Branding: 109 SQL/HTTP checks pass; the complete-table read-only preview assertion is measured before the separate public-page observation.
 - PHP syntax: all 256 PHP/inc files pass. Packaging: 15 tests and the deterministic release gate pass. Generated public bundles match their committed sources, and `git diff --check` passes.
 - Actual public capture: 21 screenshots pass across eight public routes at desktop/phone widths, four additional Home tablet widths and the 320px menu. All images/backgrounds decode; no horizontal document overflow. Public captures use unseeded installation content. Exact delivery ZIP captures and remote Actions evidence are being finalized; no pending check is reported as passed.
 
 ## Remote Actions
 
-New candidate Actions results are pending publication and observation. Latest 1.0.13 public navigation, storefront navigation and public-asset budget failures were examined and addressed; earlier successful runs do not certify the new head. Preserve the separate PHP 8.2/MariaDB and PHP 8.4/MySQL matrix and existing cross-browser/Apache workflows.
+The first candidate head was `a9d5fca302f2dd689efc0fae7eb96f2668399f7b`, published in [PR 37](https://github.com/afterburn25/Spirit/pull/37). The software release gate and cumulative package build passed. Public navigation passed in Chromium, Firefox and WebKit. The PHP 8.2/MariaDB analytics job passed; the PHP 8.4/MySQL analytics units and SQL/HTTP/upload stages passed. Apache HTTPS access rules passed.
+
+That round exposed three test-boundary issues: the old administration-menu destination count, an unsynchronized asynchronous timing assertion, and a branding preview fingerprint that also included an unrelated public visit. The focused corrections preserve the original access/read-only/timing guarantees and pass locally. Their new remote runs are pending; do not describe the whole first round as green. Current head evidence will be recorded after observation.
 
 ## Acceptance boundaries
 

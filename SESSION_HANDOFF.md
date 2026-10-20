@@ -2,6 +2,8 @@
 
 Repository **afterburn25/Spirit**. Continue from **`work/1.1.0-analytics-and-navigation`**. Main was inspected at `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`; the latest cumulative 1.0.13 base is `2afbd551d6083d86d26499a9bf82511aa7f7f9c2`. Do not resume from main alone and lose the intervening artwork work. Do not merge before owner screenshot approval.
 
+The cumulative review is [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). First hosted checks confirmed the analytics database workflows, public navigation across all three engines, packaging and Apache rules, then exposed stale menu counts and two test observation-boundary issues. Their targeted corrections retain complete access, read-only and timing assertions. Consult the current TEST_RESULTS.md and PR checks before claiming the updated head passed.
+
 ## Current scope
 
 Version **1.1.0-rc.1** adds owner analytics: visits/pageviews, completed-visit bounce, visible-page time, live visitors, referrals/supplied search phrases/UTMs, client families, offline country/optional City data, separate crawlers, charts/date ranges/CSV and optional aggregate Search Console imports. Public navigation conflicts and the old asset budget failure are corrected; uploaded CMS section images are contained. See `docs/ANALYTICS.md` for definitions and `docs/TEST_RESULTS.md` for observed evidence.

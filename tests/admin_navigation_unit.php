@@ -8,7 +8,8 @@ function keys(array $menu):array{$keys=[];foreach($menu['groups'] as $group){for
 $owner=['id'=>1,'active'=>1,'role'=>'owner'];$menu=AdminNavigation::build($owner,'page');
 check($menu['overview'],'Owner keeps the direct overview destination');
 check(array_column($menu['groups'],'id')===['content','music','audience','commerce','settings','system'],'Owner navigation uses six stable relevant categories');
-check(count(keys($menu))===33 && count(array_unique(keys($menu)))===33,'All original destinations and six direct store shortcuts are unique');
+check(count(keys($menu))===34 && count(array_unique(keys($menu)))===34,'All 34 grouped destinations plus the direct Overview are unique');
+check(in_array('analytics',keys($menu),true),'Owner navigation includes audience analytics');
 foreach($menu['groups'] as $group){
     check(count($group['links'])>0,'No empty visible category: '.$group['id']);
     foreach($group['links'] as $link){
@@ -23,6 +24,7 @@ check(!array_diff($original,keys($menu)),'Every previous sidebar destination rem
 foreach(['content_editor'=>['page','member','library','gallery','video','press','release','track','event','account'],'store_manager'=>['library','store','store-categories','orders','account']] as $role=>$expected){
     $user=['id'=>2,'active'=>1,'role'=>$role];$m=AdminNavigation::build($user,'payment-settings');$actual=keys($m);sort($actual);sort($expected);
     check($actual===$expected,'Role has only permitted destinations: '.$role);
+    check(!in_array('analytics',$actual,true),'Audience analytics remains absent from staff navigation: '.$role);
     check($m['section']==='Administration','A forbidden active key does not reveal privileged context: '.$role);
     foreach($m['groups'] as $g){check(count($g['links'])>0,'No empty staff category after server filtering');}
 }
