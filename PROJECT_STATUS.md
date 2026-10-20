@@ -1,37 +1,33 @@
-# Project status — 1.1.0-rc.5 stage background and readable content
+# Project status — 1.1.0-rc.6 approved identity and seamless surfaces
 
-The application is **1.1.0-rc.5**, a cumulative review candidate on `work/1.1.0-analytics-and-navigation` in [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). Its baseline is delivered rc.4 commit `315c45d2968b6b9d1eacc5820b6994aa95cae50c`. Live `main` was re-inspected at `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`, and the live PR head matched the local baseline before writes.
+The application is **1.1.0-rc.6**, a cumulative review candidate on `work/1.1.0-analytics-and-navigation` in [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). Its baseline is delivered rc.5 commit `6c5248e1cd6033ce0b24bd9db97621431908fa4e`. Live `main` was re-inspected at `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`, and the live PR head matched the local baseline before writes.
 
-## New in rc.5
+## New in rc.6
 
-The user selected **option 1, the blue-lit concert stage**, for a global background that stays stationary while content scrolls. The follow-up decisions are a transparent main outer container, a screen-wide header that preserves the logo position, and separate dark containers around exposed content.
+The user reported that the approved new logo was missing from the public site, admin and admin login, and that the favicon still appeared small. The user also requested a full-width footer and removal of the visible outer transparent-container edge.
 
-- One fixed public-only decorative layer displays the chosen stage behind the page.
-- The main `.site-shell` is transparent so the artwork appears through side gutters and section gaps.
-- The header background and lower border extend to both screen edges while its existing logo and controls keep their positions.
-- Exposed headings, introductions, detail copy and captions receive matching dark navy panels with blue borders and gold accents. The stage stays visible between groups.
-- Existing contained page heroes, cards, forms, navigation, search and player retain their behavior.
-- Phone framing favors the drum kit and guitar on the right; print and forced-colors modes omit the decoration.
-- The source master is preserved at native 1672 × 941px and exported to a 243,104-byte WebP. The artwork is generated decoration, not a photograph of an actual performance.
-- Runtime changes are public CSS and its compiled bundle, the new background asset and small semantic markup wrappers in public templates and the release-card helper. No JavaScript or controller logic changes are introduced.
+- Install the actual approved transparent sculpted-gold crowned gorilla and horizontal wordmark. The earlier kit-only delivery had not changed the active bundled default.
+- Use it in the public header/footer, administration sidebar, staff login, installer and default Branding previews. Header/staff artwork uses the approved steady shimmer with a native static reduced-motion fallback; the footer is static.
+- Keep the existing owner-uploaded public branding workflow and settings intact. Login/setup rendering has no branding database dependency.
+- Fill available space in the header's existing logo track for readability, while preserving its left anchor and responsive controls.
+- Give the public navigation background 25% transparency (75% opacity), keeping logo/text/controls fully opaque.
+- Extend the footer surface to both viewport edges with its existing content alignment.
+- Remove the transparent outer shell's border, shadow, outline and rounded edge. Individual dark content panels, the fixed stage and contained page heroes remain.
+- Maximize proportional framing of the same complete transparent crowned-gorilla favicon and change active asset filenames. The earlier set already nearly filled the canvas; this is a modest framing correction plus fresh cache identity, not a larger browser icon slot.
 
 ## Retained application
 
-All rc.4 crowned-gorilla favicon assets and shared links remain unchanged. The rc.3 detail-page visitor drilldowns, Ecosia classification, dedicated Analytics section, graphical reports, Overview snapshots and earlier functionality remain. The separately delivered animated navbar-logo kit is not newly integrated by this change.
+The dedicated Analytics section, graphical reports, exact detail-page Visitor Explorer links, Overview snapshots and all earlier functionality remain. All migrations, analytics logic, JavaScript, installed configuration, accounts, media and pinned recovery/access files remain unchanged. Admin form actions, CSRF fields, conditions and escaping retain their existing behavior.
 
-Migrations, analytics collector, controller logic, installed configuration, accounts, media and pinned recovery layer are unchanged. Public markup changes preserve existing forms, actions, CSRF fields, conditions and escaping. Historical rc.4 source verification and its delivered receipt are archived under `docs/history/`.
+Historical rc.5 tests and its delivered receipt are archived under `docs/history/`; they are not current rc.6 test results.
 
 ## Verification
 
-The native-size asset export, unchanged-source hash check, all 15 packaging tests and deterministic software release gate passed. The public CSS/JS bundle is reproducible and totals **126,436 / 130,000 bytes**. All five changed PHP files pass syntax checks.
-
-The final installed-application browser pass completed **1,120 checks and 48 actual screenshots** at root and `/band`, including 1440px and 1920px desktop and 390px phone viewports. All six header comparisons confirm unchanged logo/navigation/control rectangles and a background reaching both screen edges. Panel readability/containment, fixed scrolling, search/menu, no-JavaScript behavior, print/forced-colors and public-only decoration passed with no uncaught browser errors. Of the captures, 24 are unseeded and 24 use clearly labeled synthetic fixtures only in disposable installations.
-
-The source-continuity audit confirms all 80 protected files are byte-identical to rc.4. Observed results and screenshot provenance are recorded in `docs/TEST_RESULTS.md` and `design/background-stage/`. The companion delivery receipt records the published source, immutable Full ZIP, final runtime/package equivalence and observed Actions state. Pending workflows are not passes.
+The approved logo assets are byte-identical to the selected kit originals. The branding unit suite passed 38 checks and the admin navigation suite passed 109 checks. Public bundle reproduction passed at **127,341 / 130,000 bytes**. The actual installed-browser run passed **1,374 checks** at root and `/band`, covering 11 public widths per installation and 31 screenshots. A focused admin paint recheck passed **180 additional checks** with 24 supplemental captures. All 15 package tests, 50 favicon/export checks and the deterministic software release gate passed. All 285 protected whole files remain byte-identical to rc.5. `docs/TEST_RESULTS.md` and the delivery receipt record precise scope, screenshot recapture provenance and final package/runtime equivalence. Pending Actions workflows are not passes.
 
 ## Deployment
 
-Installed **rc.1/rc.2/rc.3/rc.4 → rc.5** uses the guarded same-schema Browser upgrades process when its normal checks pass. Installed **1.0.x → 1.1** retains the documented cumulative-code deployment and additive Database updates flow. Preserve the original owner, database, configuration/encryption secret, private runtime and uploads. Never reinstall or bypass update guards.
+Installed **rc.1 through rc.5 → rc.6** uses guarded same-schema Browser upgrades when its normal checks pass. Installed **1.0.x → 1.1** retains cumulative code deployment plus additive Database updates. Preserve the original owner, database, configuration/encryption secret, private runtime and uploads. Never reinstall or bypass update guards.
 
 ## Remaining blockers
 

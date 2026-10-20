@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.1.0-rc.6 — approved identity and seamless full-width surfaces
+
+- Integrate the actual approved transparent sculpted-gold crowned gorilla and horizontal wordmark; the previous delivery had left it in a separate artwork kit.
+- Use the new identity in the public header/footer, admin sidebar, staff login, installer and default Branding previews, with fresh versioned asset URLs.
+- Use the approved steady six-second navbar shimmer with a static reduced-motion/format fallback and a static footer; preserve published owner-uploaded branding.
+- Fit the horizontal header mark within its existing track while retaining its left anchor and responsive menu/search controls.
+- Make the public navigation background 25% transparent while keeping its logo, links and controls fully opaque.
+- Extend the footer background and top rule to both screen edges, preserving its inner content alignment.
+- Remove the transparent outer shell's border, shadow, outline and rounded edge; preserve individual readability panels and the fixed background.
+- Fit the unchanged complete crowned-gorilla favicon to the full canvas and use new active filenames to avoid old icon URLs, while retaining prior compatibility assets.
+- Preserve all migrations, analytics, JavaScript, installed data/configuration, uploads, access controls and pinned recovery files.
+- Deliver a new immutable cumulative Full ZIP with actual public/admin/login screenshots and recorded verification.
+
 ## 1.1.0-rc.5 — fixed blue-lit concert-stage background
 
 - Apply the user-selected concert-stage artwork as one stationary viewport background across public pages.

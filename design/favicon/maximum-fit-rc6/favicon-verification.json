@@ -1,0 +1,633 @@
+{
+  "source": "sculpted-gold-gorilla-master.png",
+  "source_details": {
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_bounds": [
+      0,
+      13,
+      1240,
+      1254
+    ],
+    "visible_alpha_bounds": [
+      90,
+      15,
+      1107,
+      1238
+    ],
+    "visible_alpha_threshold": 8,
+    "visible_alpha_pixels": 793234,
+    "opaque_core_bounds": [
+      92,
+      16,
+      1105,
+      1236
+    ],
+    "opaque_core_threshold": 240,
+    "opaque_core_pixels": 785549,
+    "alpha_weighted_area_percent": 49.734,
+    "transparent_pixels": 764877,
+    "transparent_corners": true,
+    "bytes": 1380855,
+    "sha256": "3f3232cd3c314b3f227c1c598c8bf75f01c6b04b779cb6ece1bc7f51334f66bc"
+  },
+  "source_bitmap_modified": false,
+  "source_viewport": [
+    -13.0,
+    15.0,
+    1223.0,
+    1223.0
+  ],
+  "silhouette_fill_fraction": 1.0,
+  "active_icon_directory": "crowned-gorilla-full-fit",
+  "legacy_png_and_ico_paths_preserved": true,
+  "preserves_aspect_ratio": true,
+  "renderer": "Chromium SVG viewport; device scale factor 1",
+  "browser_version": "143.0.7499.4",
+  "pngs": [
+    {
+      "file": "favicon-16.png",
+      "width": 16,
+      "height": 16,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        252
+      ],
+      "alpha_bounds": [
+        1,
+        0,
+        15,
+        16
+      ],
+      "visible_alpha_bounds": [
+        1,
+        0,
+        15,
+        16
+      ],
+      "visible_alpha_threshold": 8,
+      "visible_alpha_pixels": 174,
+      "opaque_core_bounds": [
+        2,
+        1,
+        14,
+        15
+      ],
+      "opaque_core_threshold": 240,
+      "opaque_core_pixels": 104,
+      "alpha_weighted_area_percent": 52.292,
+      "transparent_pixels": 66,
+      "transparent_corners": true,
+      "bytes": 927,
+      "sha256": "0bfdb62b67809590dce16f5c5912ce5a2c952de37148f6cae3b8b950da2b200e"
+    },
+    {
+      "file": "favicon-32.png",
+      "width": 32,
+      "height": 32,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        253
+      ],
+      "alpha_bounds": [
+        2,
+        0,
+        30,
+        32
+      ],
+      "visible_alpha_bounds": [
+        2,
+        0,
+        30,
+        32
+      ],
+      "visible_alpha_threshold": 8,
+      "visible_alpha_pixels": 628,
+      "opaque_core_bounds": [
+        3,
+        1,
+        29,
+        31
+      ],
+      "opaque_core_threshold": 240,
+      "opaque_core_pixels": 477,
+      "alpha_weighted_area_percent": 52.518,
+      "transparent_pixels": 373,
+      "transparent_corners": true,
+      "bytes": 2665,
+      "sha256": "312d62b9a6250bd86b0cd84b87e31a75f377862c1af054659888a91e0bd7fde9"
+    },
+    {
+      "file": "favicon-48.png",
+      "width": 48,
+      "height": 48,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        253
+      ],
+      "alpha_bounds": [
+        3,
+        0,
+        45,
+        48
+      ],
+      "visible_alpha_bounds": [
+        3,
+        0,
+        44,
+        48
+      ],
+      "visible_alpha_threshold": 8,
+      "visible_alpha_pixels": 1328,
+      "opaque_core_bounds": [
+        5,
+        0,
+        43,
+        47
+      ],
+      "opaque_core_threshold": 240,
+      "opaque_core_pixels": 1140,
+      "alpha_weighted_area_percent": 52.614,
+      "transparent_pixels": 951,
+      "transparent_corners": true,
+      "bytes": 5165,
+      "sha256": "e8cc23d0f58e2d8eee6622e4e07958b7b047da889c6dcdc9c7f30f66d7efbd9c"
+    },
+    {
+      "file": "favicon-64.png",
+      "width": 64,
+      "height": 64,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        253
+      ],
+      "alpha_bounds": [
+        4,
+        0,
+        60,
+        64
+      ],
+      "visible_alpha_bounds": [
+        5,
+        0,
+        59,
+        64
+      ],
+      "visible_alpha_threshold": 8,
+      "visible_alpha_pixels": 2356,
+      "opaque_core_bounds": [
+        6,
+        0,
+        58,
+        63
+      ],
+      "opaque_core_threshold": 240,
+      "opaque_core_pixels": 2019,
+      "alpha_weighted_area_percent": 52.619,
+      "transparent_pixels": 1677,
+      "transparent_corners": true,
+      "bytes": 8544,
+      "sha256": "def2268e8193f987e7b9cbdb641d3255578d0e66609bec9f3fb01835605af975"
+    },
+    {
+      "file": "apple-touch-icon.png",
+      "width": 180,
+      "height": 180,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "alpha_bounds": [
+        15,
+        0,
+        179,
+        180
+      ],
+      "visible_alpha_bounds": [
+        15,
+        0,
+        165,
+        180
+      ],
+      "visible_alpha_threshold": 8,
+      "visible_alpha_pixels": 17451,
+      "opaque_core_bounds": [
+        16,
+        0,
+        164,
+        179
+      ],
+      "opaque_core_threshold": 240,
+      "opaque_core_pixels": 16771,
+      "alpha_weighted_area_percent": 52.256,
+      "transparent_pixels": 14822,
+      "transparent_corners": true,
+      "bytes": 49744,
+      "sha256": "2ea37b64d89a6ab05a684e3eb266d51fd70c9444a52a020dbddfe7945514c7fe"
+    },
+    {
+      "file": "favicon-192.png",
+      "width": 192,
+      "height": 192,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "alpha_bounds": [
+        16,
+        0,
+        190,
+        192
+      ],
+      "visible_alpha_bounds": [
+        16,
+        0,
+        176,
+        192
+      ],
+      "visible_alpha_threshold": 8,
+      "visible_alpha_pixels": 19862,
+      "opaque_core_bounds": [
+        17,
+        0,
+        175,
+        191
+      ],
+      "opaque_core_threshold": 240,
+      "opaque_core_pixels": 19078,
+      "alpha_weighted_area_percent": 52.252,
+      "transparent_pixels": 16850,
+      "transparent_corners": true,
+      "bytes": 55718,
+      "sha256": "823775a7b35bf8a24cf2999ad0ccd6bc1bb3dbd5179f8c078dfd99e020ceef6b"
+    },
+    {
+      "file": "favicon-512.png",
+      "width": 512,
+      "height": 512,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "alpha_bounds": [
+        40,
+        0,
+        512,
+        512
+      ],
+      "visible_alpha_bounds": [
+        43,
+        0,
+        470,
+        512
+      ],
+      "visible_alpha_threshold": 8,
+      "visible_alpha_pixels": 139933,
+      "opaque_core_bounds": [
+        44,
+        1,
+        468,
+        510
+      ],
+      "opaque_core_threshold": 240,
+      "opaque_core_pixels": 136778,
+      "alpha_weighted_area_percent": 52.259,
+      "transparent_pixels": 121143,
+      "transparent_corners": true,
+      "bytes": 291401,
+      "sha256": "a86f246056cc1ae6edb1b0a6defccab3c495d3946790a7f0d5e7e4321a371b47"
+    }
+  ],
+  "ico": {
+    "file": "favicon.ico",
+    "dimensions": [
+      16,
+      32,
+      48,
+      64
+    ],
+    "bytes": 17371,
+    "sha256": "f28275f6ddf83a86053023eb4ba1181fb67e55b1ece8f667082c322ae5a29111"
+  },
+  "compatibility_svg": {
+    "file": "favicon.svg",
+    "embedded_png_dimensions": 256,
+    "bytes": 120825,
+    "sha256": "9ee02ca56239d9c84da0720dd6143072c1b3c8968e27f80a5bdf4c41b3666b68"
+  },
+  "browser_errors": [],
+  "comparison": [
+    {
+      "size": 16,
+      "before": {
+        "width": 16,
+        "height": 16,
+        "mode": "RGBA",
+        "alpha_extrema": [
+          0,
+          252
+        ],
+        "alpha_bounds": [
+          1,
+          0,
+          15,
+          16
+        ],
+        "visible_alpha_bounds": [
+          1,
+          0,
+          15,
+          16
+        ],
+        "visible_alpha_threshold": 8,
+        "visible_alpha_pixels": 167,
+        "opaque_core_bounds": [
+          2,
+          1,
+          14,
+          15
+        ],
+        "opaque_core_threshold": 240,
+        "opaque_core_pixels": 103,
+        "alpha_weighted_area_percent": 50.153,
+        "transparent_pixels": 74,
+        "transparent_corners": true,
+        "bytes": 893,
+        "sha256": "afa02b6f24ed547e2dfb68c70793615e523d573f0383986fb4826cad08e9ef8c"
+      },
+      "after": {
+        "width": 16,
+        "height": 16,
+        "mode": "RGBA",
+        "alpha_extrema": [
+          0,
+          252
+        ],
+        "alpha_bounds": [
+          1,
+          0,
+          15,
+          16
+        ],
+        "visible_alpha_bounds": [
+          1,
+          0,
+          15,
+          16
+        ],
+        "visible_alpha_threshold": 8,
+        "visible_alpha_pixels": 174,
+        "opaque_core_bounds": [
+          2,
+          1,
+          14,
+          15
+        ],
+        "opaque_core_threshold": 240,
+        "opaque_core_pixels": 104,
+        "alpha_weighted_area_percent": 52.292,
+        "transparent_pixels": 66,
+        "transparent_corners": true,
+        "bytes": 927,
+        "sha256": "0bfdb62b67809590dce16f5c5912ce5a2c952de37148f6cae3b8b950da2b200e"
+      }
+    },
+    {
+      "size": 32,
+      "before": {
+        "width": 32,
+        "height": 32,
+        "mode": "RGBA",
+        "alpha_extrema": [
+          0,
+          253
+        ],
+        "alpha_bounds": [
+          2,
+          0,
+          30,
+          32
+        ],
+        "visible_alpha_bounds": [
+          2,
+          0,
+          30,
+          32
+        ],
+        "visible_alpha_threshold": 8,
+        "visible_alpha_pixels": 605,
+        "opaque_core_bounds": [
+          3,
+          1,
+          28,
+          30
+        ],
+        "opaque_core_threshold": 240,
+        "opaque_core_pixels": 455,
+        "alpha_weighted_area_percent": 50.468,
+        "transparent_pixels": 396,
+        "transparent_corners": true,
+        "bytes": 2575,
+        "sha256": "51dc5c79b97edd0d5e05de7024716ff15c5d214110152ebd7af76a79b089775d"
+      },
+      "after": {
+        "width": 32,
+        "height": 32,
+        "mode": "RGBA",
+        "alpha_extrema": [
+          0,
+          253
+        ],
+        "alpha_bounds": [
+          2,
+          0,
+          30,
+          32
+        ],
+        "visible_alpha_bounds": [
+          2,
+          0,
+          30,
+          32
+        ],
+        "visible_alpha_threshold": 8,
+        "visible_alpha_pixels": 628,
+        "opaque_core_bounds": [
+          3,
+          1,
+          29,
+          31
+        ],
+        "opaque_core_threshold": 240,
+        "opaque_core_pixels": 477,
+        "alpha_weighted_area_percent": 52.518,
+        "transparent_pixels": 373,
+        "transparent_corners": true,
+        "bytes": 2665,
+        "sha256": "312d62b9a6250bd86b0cd84b87e31a75f377862c1af054659888a91e0bd7fde9"
+      }
+    },
+    {
+      "size": 48,
+      "before": {
+        "width": 48,
+        "height": 48,
+        "mode": "RGBA",
+        "alpha_extrema": [
+          0,
+          253
+        ],
+        "alpha_bounds": [
+          4,
+          0,
+          45,
+          48
+        ],
+        "visible_alpha_bounds": [
+          4,
+          0,
+          44,
+          48
+        ],
+        "visible_alpha_threshold": 8,
+        "visible_alpha_pixels": 1275,
+        "opaque_core_bounds": [
+          5,
+          1,
+          43,
+          47
+        ],
+        "opaque_core_threshold": 240,
+        "opaque_core_pixels": 1090,
+        "alpha_weighted_area_percent": 50.584,
+        "transparent_pixels": 993,
+        "transparent_corners": true,
+        "bytes": 5004,
+        "sha256": "ce0b8b212ef73d7ec3c74c88fcc3616fa510782e55025a0e8e0ba88eb425a95d"
+      },
+      "after": {
+        "width": 48,
+        "height": 48,
+        "mode": "RGBA",
+        "alpha_extrema": [
+          0,
+          253
+        ],
+        "alpha_bounds": [
+          3,
+          0,
+          45,
+          48
+        ],
+        "visible_alpha_bounds": [
+          3,
+          0,
+          44,
+          48
+        ],
+        "visible_alpha_threshold": 8,
+        "visible_alpha_pixels": 1328,
+        "opaque_core_bounds": [
+          5,
+          0,
+          43,
+          47
+        ],
+        "opaque_core_threshold": 240,
+        "opaque_core_pixels": 1140,
+        "alpha_weighted_area_percent": 52.614,
+        "transparent_pixels": 951,
+        "transparent_corners": true,
+        "bytes": 5165,
+        "sha256": "e8cc23d0f58e2d8eee6622e4e07958b7b047da889c6dcdc9c7f30f66d7efbd9c"
+      }
+    },
+    {
+      "size": 64,
+      "before": {
+        "width": 64,
+        "height": 64,
+        "mode": "RGBA",
+        "alpha_extrema": [
+          0,
+          253
+        ],
+        "alpha_bounds": [
+          5,
+          0,
+          59,
+          64
+        ],
+        "visible_alpha_bounds": [
+          5,
+          0,
+          59,
+          64
+        ],
+        "visible_alpha_threshold": 8,
+        "visible_alpha_pixels": 2272,
+        "opaque_core_bounds": [
+          7,
+          1,
+          57,
+          62
+        ],
+        "opaque_core_threshold": 240,
+        "opaque_core_pixels": 1940,
+        "alpha_weighted_area_percent": 50.506,
+        "transparent_pixels": 1768,
+        "transparent_corners": true,
+        "bytes": 8258,
+        "sha256": "642424d36b2d78020962fa4a94aa23b2e9d599fda7712a9474197caaff00b318"
+      },
+      "after": {
+        "width": 64,
+        "height": 64,
+        "mode": "RGBA",
+        "alpha_extrema": [
+          0,
+          253
+        ],
+        "alpha_bounds": [
+          4,
+          0,
+          60,
+          64
+        ],
+        "visible_alpha_bounds": [
+          5,
+          0,
+          59,
+          64
+        ],
+        "visible_alpha_threshold": 8,
+        "visible_alpha_pixels": 2356,
+        "opaque_core_bounds": [
+          6,
+          0,
+          58,
+          63
+        ],
+        "opaque_core_threshold": 240,
+        "opaque_core_pixels": 2019,
+        "alpha_weighted_area_percent": 52.619,
+        "transparent_pixels": 1677,
+        "transparent_corners": true,
+        "bytes": 8544,
+        "sha256": "def2268e8193f987e7b9cbdb641d3255578d0e66609bec9f3fb01835605af975"
+      }
+    }
+  ]
+}

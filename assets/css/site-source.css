@@ -3370,10 +3370,13 @@ body.public-site a {
   max-width: 1520px;
   min-height: 100vh;
   margin: 0 auto;
+  padding-inline: 1px;
   overflow: hidden;
   background: transparent;
-  border-inline: 1px solid rgba(35,73,99,.45);
-  box-shadow: 0 0 90px rgba(0,0,0,.72);
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  box-shadow: none;
 }
 .site-header {
   margin: 0 auto;
@@ -4274,8 +4277,21 @@ em {
   border-radius: 0;
 }
 .site-footer {
+  position: relative;
+  isolation: isolate;
   max-width: var(--sg-max);
   padding: 35px 30px;
+  overflow: visible;
+  border-top: 1px solid transparent;
+  background: transparent;
+}
+/* The footer surface reaches both screen edges; its content stays in the same grid. */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: -1px calc(50% - 50vw) 0;
+  z-index: -1;
+  pointer-events: none;
   border-top: 1px solid #29485d;
   background: #02070c;
 }
@@ -4342,7 +4358,7 @@ em {
 }
 @media(max-width:820px) {
   .site-shell {
-    border: 0;
+    padding-inline: 0;
   }
   .wordmark,
   .wordmark .bundled-brand-wrap,
@@ -4708,7 +4724,7 @@ html {
   z-index: -1;
   box-sizing: border-box;
   pointer-events: none;
-  background: rgba(1,5,8,.965);
+  background: rgba(1,5,8,.75);
   border-bottom: 1px solid rgba(221,164,58,.30);
   box-shadow: 0 12px 34px rgba(0,0,0,.46),inset 0 -1px rgba(54,102,133,.22);
 }
@@ -5145,6 +5161,39 @@ html {
 @media(prefers-reduced-motion:reduce) {
   .site-header {
     backdrop-filter: none;
+  }
+}
+/* The approved horizontal mark fills the existing logo track without moving navigation. */
+.site-header .wordmark:has(.bundled-brand-sculpted) {
+  width: 100%!important;
+  max-width: 260px;
+}
+.site-footer .wordmark:has(.bundled-brand-sculpted) {
+  width: 240px;
+  max-width: 100%;
+  height: 84px;
+}
+.wordmark .bundled-brand-sculpted {
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+}
+.wordmark .bundled-brand-sculpted .bundled-brand-picture {
+  justify-content: flex-start;
+}
+.wordmark .bundled-brand-sculpted .bundled-site-logo {
+  width: auto!important;
+  height: auto!important;
+  max-width: 100%!important;
+  max-height: 100%!important;
+  object-fit: contain!important;
+  object-position: left center;
+}
+@media(max-width:820px) {
+  .site-header .wordmark:has(.bundled-brand-sculpted) {
+    width: 216px!important;
+    max-width: calc(100% - 140px);
+    flex: 0 1 216px;
   }
 }
 .concept-home h1 {

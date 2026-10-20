@@ -6,7 +6,7 @@ $navScope = Spirit\AdminNavigation::preferenceScope($user, Spirit\Paths::basePat
 <button class="admin-nav-backdrop" type="button" tabindex="-1" aria-label="Close administration menu" hidden></button>
 <aside class="sidebar grouped-sidebar" id="sidebar" data-nav-scope="<?=e($navScope)?>">
     <div class="admin-sidebar-heading">
-        <a class="brand" href="<?=e(app_url('admin/'))?>"><span class="brand-crown" aria-hidden="true">♛</span><span>SPIRITUAL<br><strong>GORILLAZ</strong></span></a>
+        <a class="brand backstage-brand" href="<?=e(app_url('admin/'))?>" aria-label="Spiritual Gorillaz administration"><?=$backstageBrand?></a>
         <button class="admin-sidebar-close" type="button" aria-label="Close administration menu" hidden>×</button>
         <p class="nav-label">BACKSTAGE / <?=e(strtoupper(Spirit\Permissions::ROLES[$user['role']] ?? 'STAFF'))?></p>
         <div class="admin-nav-tools" hidden><button type="button" data-nav-action="expand">Expand all</button><button type="button" data-nav-action="collapse">Collapse all</button></div>

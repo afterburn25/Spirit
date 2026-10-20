@@ -111,22 +111,25 @@ final class Branding
         return '<span class="crown" aria-hidden="true">♛</span><span>'.e($name).'</span>';
     }
 
-    /** Bundled animated fallback uses the approved transparent crown-and-wordmark mark. */
+    /** Approved sculpted-gold artwork; usable before installation without a database. */
     public static function bundledMark(bool $footer = false): string
     {
-        $animated = Paths::root().'/images/spiritual-gorillaz-logo.png';
-        $static = Paths::root().'/images/spiritual-gorillaz-logo-static.png';
+        $animatedPath = 'images/branding/spiritual-gorillaz-sculpted-gold-nav.webp';
+        $staticPath = 'images/branding/spiritual-gorillaz-sculpted-gold.png';
+        $animated = Paths::root().'/'.$animatedPath;
+        $static = Paths::root().'/'.$staticPath;
         $animatedReady = is_file($animated) && !is_link($animated);
         $staticReady = is_file($static) && !is_link($static);
-        if (!$animatedReady && !$staticReady) { return ''; }
+        if (!$staticReady) { return ''; }
 
-        $staticUrl = e(app_url('images/spiritual-gorillaz-logo-static.png'));
+        $version = '?v='.rawurlencode(Paths::version());
+        $staticUrl = e(app_url($staticPath).$version);
         if ($footer || !$animatedReady) {
-            return '<span class="bundled-brand-wrap bundled-brand-static"><img class="bundled-site-logo" src="'.$staticUrl.'" width="600" height="600" alt="" loading="'.($footer ? 'lazy' : 'eager').'" decoding="async"></span>';
+            return '<span class="bundled-brand-wrap bundled-brand-sculpted bundled-brand-static"><img class="bundled-site-logo" src="'.$staticUrl.'" width="2172" height="724" alt="" loading="'.($footer ? 'lazy' : 'eager').'" decoding="async"></span>';
         }
 
-        $source = $staticReady ? '<source media="(prefers-reduced-motion: reduce)" srcset="'.$staticUrl.'">' : '';
-        return '<span class="bundled-brand-wrap bundled-brand-animated"><picture class="bundled-brand-picture">'.$source.'<img class="bundled-site-logo" src="'.e(app_url('images/spiritual-gorillaz-logo.png')).'" width="600" height="600" alt="" loading="eager" fetchpriority="high" decoding="async"></picture></span>';
+        $source = '<source media="(prefers-reduced-motion: no-preference)" type="image/webp" srcset="'.e(app_url($animatedPath).$version).'">';
+        return '<span class="bundled-brand-wrap bundled-brand-sculpted bundled-brand-animated"><picture class="bundled-brand-picture">'.$source.'<img class="bundled-site-logo" src="'.$staticUrl.'" width="2172" height="724" alt="" loading="eager" fetchpriority="high" decoding="async"></picture></span>';
     }
 
     /** Original ratio and transparency are retained; no arbitrary image URL. */

@@ -1,26 +1,24 @@
-# Spiritual Gorillaz — 1.1.0-rc.5
+# Spiritual Gorillaz — 1.1.0-rc.6
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, metallic-gold and blue-stage-light identity.
 
-## 1.1.0-rc.5 — fixed concert-stage background
+## 1.1.0-rc.6 — approved logo throughout, full-width footer and seamless shell
 
-The user-selected blue-lit concert stage now sits behind the public website as a fixed viewport background. Content scrolls over the stationary artwork. The main site shell is transparent so the stage remains visible through page gutters and section gaps. Existing contained hero artwork is preserved, and exposed headings, introductions, detail copy and captions receive matching dark content panels.
+The approved horizontal sculpted-gold crowned gorilla and two-line wordmark now appear in the public header and footer, administration sidebar, staff login and installer. The earlier animated-logo kit had not been integrated into rc.5; this candidate corrects that omission with the actual approved transparent files. The header and staff identity use a steady six-second gold shimmer, with a static image for reduced-motion preferences. The footer uses the matching static artwork. Published owner-uploaded logos keep their existing public override and private draft/preview workflow.
 
-The sticky header's navy background and gold lower border extend to both screen edges. Its inner layout stays in place: the logo, navigation, search and Book the Band controls retain their existing positions. The panels use dark navy surfaces, subtle blue borders and gold accents to keep content legible over the stage.
+The navigation background is 25% transparent (75% opaque); the logo, links and buttons remain fully opaque. The new horizontal header logo uses available space in its existing grid track while retaining its left anchor. The footer background and top rule now reach both screen edges, with its inner content aligned as before. The transparent main shell has no border, shadow, outline or rounded edge. Individual dark content panels remain readable over the fixed stage.
 
-The decorative image cannot intercept clicks or keyboard interaction and needs no scroll JavaScript. Phone framing favors the drum kit and stage equipment on the right. Print and forced-colors modes omit the decorative image. The background is scoped to the public site; administration and the installer keep their existing surfaces.
+The complete transparent crowned-gorilla favicon is fitted to the full available canvas, preserving its proportions, crown and chin. New asset filenames and versioned links avoid reusing the old active icon URLs. The earlier icons already had little padding; this is a modest framing improvement, not a promise to enlarge the browser's icon controls. See `docs/FAVICONS.md` for measured native-size results.
 
-The selected native 1672 × 941px source is exported to a 243,104-byte WebP without retouching, cropping or upscaling. This is generated music-themed artwork, not a photograph of a real band performance. The source master, prompt and reproducible export are retained in development source. See `docs/STAGE_BACKGROUND.md` and `docs/TEST_RESULTS.md` for implementation and observed verification.
+See `docs/BRANDING.md`, `docs/STAGE_BACKGROUND.md` and `docs/TEST_RESULTS.md` for implementation and observed verification. This cumulative candidate retains all analytics, navigation, media, background and contained-hero work. Installed rc.1 through rc.5 use the existing guarded same-schema Browser upgrades path when its checks pass; no migration or reinstall is required.
 
-This cumulative candidate retains the favicon and analytics work. Installed rc.1/rc.2/rc.3/rc.4 use the existing guarded same-schema Browser upgrades path when its checks pass; no new migration or reinstall is required.
+## Retained rc.5 — fixed concert-stage background and readable panels
 
-## Retained rc.4 — transparent crowned-gorilla favicon
+The user-selected blue-lit concert stage stays fixed behind the public website while content scrolls. The transparent outer shell exposes the artwork through page gutters and section gaps. Existing contained hero artwork is preserved, and exposed headings, introductions, detail copy and captions have dark navy content panels with blue borders and gold accents.
 
-The selected sculpted gold gorilla head now supplies the website favicon. Its visible crown-to-chin silhouette fills 98% of a square canvas, preserving natural proportions and genuine transparency while removing excess empty space. The browser still controls its tab-icon area; larger source files improve available resolution rather than enlarging browser controls.
+The sticky header's background and lower rule reach both screen edges. The decorative image cannot intercept clicks or keyboard interaction and needs no scroll JavaScript. Phone framing favors the drum kit and stage equipment on the right. Print and forced-colors modes omit the decorative image. Administration and the installer retain their separate dark surfaces.
 
-Public, administration and account layouts share versioned icon links. The cumulative package includes native 16/32/48/64px PNGs, a matching multi-size ICO, a 180px touch icon, and 192/512px assets. The previous SVG path remains available with matching artwork. Source artwork and a reproducible browser export tool are retained in the repository; the PHP host needs no image build.
-
-This is a favicon presentation update. Existing analytics, data, migrations, public navigation and site content retain their rc.3 behavior. Use the normal same-schema Browser upgrades path from installed rc.1/rc.2/rc.3 when its standard checks pass. See `docs/FAVICONS.md` and the scoped verification in `docs/TEST_RESULTS.md`.
+The unchanged native 1672 × 941px source supplies a 243,104-byte WebP. This is generated music-themed decoration, not a photograph of a real performance. Historical rc.5 results are archived under `docs/history/` and are distinct from current rc.6 checks.
 
 ## Retained rc.3 — accurate page drilldowns and search attribution
 
@@ -42,7 +40,7 @@ Public navigation now has one controller and reproducible CSS/JavaScript bundles
 
 This is a cumulative review candidate on `work/1.1.0-analytics-and-navigation`, based on the latest 1.0.13 work. Screenshot approval and real-host acceptance remain separate from automated verification. Exact observed results are in `docs/TEST_RESULTS.md`.
 
-**Updating an installed website:** installed `1.1.0-rc.1`, `1.1.0-rc.2`, `1.1.0-rc.3` and `1.1.0-rc.4` sites already have the unchanged analytics schema, so the normal guarded same-schema **Browser upgrades** path applies when its checks pass. Updating a `1.0.x` site adds migrations `007.sql` and `008.sql`; the browser updater deliberately refuses that schema transition. For `1.0.x`, preserve the existing private configuration, owner, database and uploads, deploy the cumulative code through the hosting panel and apply **Database updates** with the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
+**Updating an installed website:** installed `1.1.0-rc.1` through `1.1.0-rc.5` sites already have the unchanged analytics schema, so the normal guarded same-schema **Browser upgrades** path applies when its checks pass. Updating a `1.0.x` site adds migrations `007.sql` and `008.sql`; the browser updater deliberately refuses that schema transition. For `1.0.x`, preserve the existing private configuration, owner, database and uploads, deploy the cumulative code through the hosting panel and apply **Database updates** with the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
 
 ## Preserved contained continuous-image heroes
 

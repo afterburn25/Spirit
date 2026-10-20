@@ -1,0 +1,731 @@
+{
+  "version": "1.1.0-rc.5",
+  "observed_at_utc": "2026-10-20T20:44:18.218666+00:00",
+  "source_publication": {
+    "published_commit": "6c5248e1cd6033ce0b24bd9db97621431908fa4e",
+    "tree": "7c393df3060736c0f2103d2e816d3822db472ede",
+    "local_checkpoint": "fd7687892d50ab2537735565c848fae22c8b55ce",
+    "baseline": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+    "branch": "work/1.1.0-analytics-and-navigation",
+    "main": "6ef03a24ea87fdbfb0d053f7b54b4c16fce42098",
+    "exact_tree_match": true
+  },
+  "implemented": [
+    "Selected fixed concert-stage background",
+    "Transparent outer site shell",
+    "Viewport-wide header background with baseline logo/control positions preserved",
+    "Individual navy panels around exposed headings, copy, captions and public content"
+  ],
+  "local_checks": {
+    "changed_php_files_linted": 5,
+    "package_unit_tests_passed": 15,
+    "deterministic_software_release_gate": "passed",
+    "public_bundle_reproduction": "passed",
+    "public_css_js_bytes": 126436,
+    "public_css_js_budget_bytes": 130000,
+    "protected_whole_files_byte_identical_to_rc4": 80,
+    "source_continuity_receipt": "design/background-stage/source-continuity.json"
+  },
+  "final_zip_browser_capture": {
+    "status": "passed",
+    "manifest": {
+      "file": "screenshots/stage-background-verification.json",
+      "bytes": 114140,
+      "sha256": "e5c90bf50e69fd8e3879caf9668737442c51b06fab19f242d1352e2816f5db1f"
+    },
+    "exact_final_zip_capture": true,
+    "full_zip_sha256": "2cc84ee176dc8f223bf906507c16660517d3d8a88c656c4450bc41abbb105cd8",
+    "captured_archive_label": "final.zip",
+    "delivered_archive_name": "Spiritual-Gorillaz-1.1.0-rc.5-Full.zip",
+    "archive_label_note": "The isolated non-root runner used a byte-identical temporary copy named final.zip; its SHA-256 is the final delivered Full ZIP.",
+    "assertions_passed": 1120,
+    "screenshots": 48,
+    "unseeded_primary_screenshots": 24,
+    "synthetic_supplemental_screenshots": 24,
+    "all_screenshot_file_and_archive_hashes_match": true,
+    "runtime_paths_compared": 334,
+    "all_runtime_bytes_match_final_zip": true,
+    "browser": "Chromium",
+    "browser_version": "143.0.7499.4",
+    "header_baseline_comparisons": 6,
+    "fixed_scroll_comparisons": 6,
+    "uncaught_browser_errors": 0,
+    "production_accessed": false,
+    "runtime_code_modified": false,
+    "synthetic_content_in_installation_package": false
+  },
+  "package_continuity": {
+    "version": "1.1.0-rc.5",
+    "observed_at_utc": "2026-10-20T20:31:40.117078+00:00",
+    "local_source_commit": "fd7687892d50ab2537735565c848fae22c8b55ce",
+    "source_tree": "7c393df3060736c0f2103d2e816d3822db472ede",
+    "baseline_source_commit": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+    "remote_publication_note": "The connector-published commit has the identical audited source tree; the local checkpoint is retained.",
+    "archive": {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.5-Full.zip",
+      "bytes": 24300325,
+      "sha256": "2cc84ee176dc8f223bf906507c16660517d3d8a88c656c4450bc41abbb105cd8",
+      "payload_files": 406,
+      "zip_entries": 407,
+      "expanded_bytes": 30222275,
+      "version": "1.1.0-rc.5"
+    },
+    "baseline": {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.4-Full.zip",
+      "bytes": 24045866,
+      "sha256": "f0dcbc07d9310790b85e7bf3612ffa6a8ded32eb4fd27e491c587d4f85e85706",
+      "payload_files": 402,
+      "zip_entries": 403,
+      "expanded_bytes": 29948545,
+      "version": "1.1.0-rc.4"
+    },
+    "verification": {
+      "both_manifest_hash_sets_valid": true,
+      "both_zip_integrity_checks_passed": true,
+      "all_prior_payload_paths_retained": true,
+      "only_expected_existing_files_changed": true,
+      "only_expected_new_files_added": true,
+      "unchanged_previous_payload_files": 387,
+      "tracked_payload_matches_frozen_source_tree": true,
+      "source_payload_files_compared": 400,
+      "generated_files_excluded_from_git_comparison": [
+        "images/extended/spiritual-gorillaz-band-hero-wide.webp",
+        "images/extended/spiritual-gorillaz-booking-hero-wide.webp",
+        "images/extended/spiritual-gorillaz-home-hero-wide.webp",
+        "images/extended/spiritual-gorillaz-merch-hero-wide.webp",
+        "images/extended/spiritual-gorillaz-music-hero-wide.webp",
+        "images/extended/spiritual-gorillaz-shows-hero-wide.webp"
+      ],
+      "all_protected_groups_byte_identical": true,
+      "captured_runtime_matches_final_archive": true,
+      "capture_runtime_files_compared": 334,
+      "capture_runtime_inventory_matches_final": true,
+      "below_32_mib_browser_upload_limit": true,
+      "below_64_mib_expanded_limit": true
+    },
+    "new_files": [
+      {
+        "path": "docs/STAGE_BACKGROUND.md",
+        "sha256": "e4d607953de0aef003f4382e45d973ef0fc5bb5172b137cc6dfdcf639b595963"
+      },
+      {
+        "path": "docs/history/TEST_RESULTS-1.1.0-rc.4.md",
+        "sha256": "d8aeaa3dc357c55e475d1d2217e0d43584d4f52ae4cd2f8e913f7e8fb2a63773"
+      },
+      {
+        "path": "docs/history/VERIFICATION-1.1.0-rc.4.json",
+        "sha256": "1c95b8ed35b11b0c22c394d7358b8b40f03614deae15910677ad6c2da20ed57f"
+      },
+      {
+        "path": "images/backgrounds/spiritual-gorillaz-stage-background.webp",
+        "sha256": "74c0adcadbec3bd07314d641894a1e5a7b8d3d16153e8edf942bd47eee3d9a67"
+      }
+    ],
+    "changed_files": [
+      {
+        "path": "CHANGELOG.md",
+        "old_sha256": "70c7af3062d4359f070288c844365bea9551a00c0afbc5b2f9d3f5dcc76d7604",
+        "new_sha256": "ff23a4a8f0893e9f91ef8b8d4d30f6a2faea0bc5eb04cc48516e72a037ffd7e1"
+      },
+      {
+        "path": "README.md",
+        "old_sha256": "eb8439ee03398da3931ce284aa846ceb6026364f5e83e91a9da6b2b344b8e779",
+        "new_sha256": "c3aea8623e59d986b8313e27417a87c9fe733836f4f1025af93c7bc7c63c5ee2"
+      },
+      {
+        "path": "VERSION",
+        "old_sha256": "5136a33a20220ce8ac38d6eaf9077e281114d54473e0531615d3029757c54477",
+        "new_sha256": "f5a7093ff880f0265400e6dedf1778b51c250da08d1d8ed928f84fbfab2482f7"
+      },
+      {
+        "path": "app/PublicSite.php",
+        "old_sha256": "69db8af1fa5e64e7a9bec0ddb66595ea1caf5239c09db8ae6e19c3fdc154da67",
+        "new_sha256": "f87362cd34cb6ce926b697456207326d157865f5840287b089ab1d5cb9bfb7c2"
+      },
+      {
+        "path": "assets/css/site-source.css",
+        "old_sha256": "bd7959ffea56e16a421a9201e98344c33e551fac4a8d85368f54c66ccdc8a5e3",
+        "new_sha256": "5a393004c76822bc58931f044e983b5e5e7cd26db56ad88b284d5b2b21c64c2b"
+      },
+      {
+        "path": "assets/css/site.css",
+        "old_sha256": "402f7eedee742de72b1dde000305e1a75082f694ef1df1369f362d395d3b2991",
+        "new_sha256": "9980ee053c7c065c735e923ad49a45e7a1a58135edc2796d59cdf26a592db2a1"
+      },
+      {
+        "path": "docs/DESIGN_LOCK.md",
+        "old_sha256": "c6f41cb642610ef9525073b1a90c8e5360a09179bb7368564d9c7cc2b04c7165",
+        "new_sha256": "b93161e934922f7f5d8b24c55fa555bf0e484aee0ea011902a16403215aeed66"
+      },
+      {
+        "path": "docs/INSTALLATION.md",
+        "old_sha256": "1fa7d959ce0de2c832029438e2ac716e622978cd31ff6ef92d605815049a9b32",
+        "new_sha256": "69129cc87e804d4966fb629de63e40a77bf79e68b7f20d50c8f6a437a46ad384"
+      },
+      {
+        "path": "docs/ROADMAP.md",
+        "old_sha256": "2c5e0fa71d49d088982880b3e6078229cdb2ada9f033a30d0b5409f0af9d3f1a",
+        "new_sha256": "2b2036799edceaa3a4502f3482c1ab53f65870e8464c65930c42f8bfb994cd5a"
+      },
+      {
+        "path": "docs/SECURITY.md",
+        "old_sha256": "8cf6b8543172d557bac8342d1cc9b3221e2e5fb36290feaefb6a82fece7bb26c",
+        "new_sha256": "7179913506872c3d4f22404e4aa15a24f60229119be00685d6b0db0569f43bbe"
+      },
+      {
+        "path": "docs/TEST_RESULTS.md",
+        "old_sha256": "d8aeaa3dc357c55e475d1d2217e0d43584d4f52ae4cd2f8e913f7e8fb2a63773",
+        "new_sha256": "fe47ca1e8986ce0efbb6b2ffd4cc9fdcbcc97bd2b3b50a5a3e58f9cb78361622"
+      },
+      {
+        "path": "views/public/checkout.php",
+        "old_sha256": "99435b13f30e9fd39dd12f0ba3f8612d24a298490bde31894c04b9d96c874a83",
+        "new_sha256": "81a8823c2da5f7f48fa17532088f5f4161854530cbaef8bed7b861b2335c13dd"
+      },
+      {
+        "path": "views/public/customer.php",
+        "old_sha256": "8235f6117a2f4da0f1554eba263404a498bc70221a355fd87bc9030c31ae5559",
+        "new_sha256": "bbdb342a4593d610b8f211ea7330059b977b8b3c21350e36800ced09e118d496"
+      },
+      {
+        "path": "views/public/discovery.php",
+        "old_sha256": "d9c7f8092b342ba6f9a240d6d4e98f73093afbe940512508a75f851a5b072279",
+        "new_sha256": "97af020a1b618671322c4cd76d5fa0c635b5878e61b6c89dfe72a17e3644d11c"
+      },
+      {
+        "path": "views/public/sections.php",
+        "old_sha256": "4f966cc2a5db01ab5725be0cc2838ef4b901d41a2230a0ddf411c88b89c8a934",
+        "new_sha256": "cdddff7b29ce23e46cae11ddac59c07a74f66c0007bfc049a4161053adf165aa"
+      }
+    ],
+    "removed_files": [],
+    "unchanged_groups": {
+      "migrations": {
+        "count": 8,
+        "files": [
+          {
+            "path": "database/migrations/001.sql",
+            "sha256": "097b369e23b1ddb05dff864decaf4bd071bbbf6940f328bd0e4b359a685327dc"
+          },
+          {
+            "path": "database/migrations/002.sql",
+            "sha256": "974f84569bb3eebe32ec25f5ca9154001a8172b296390fd2d89203aade644a7c"
+          },
+          {
+            "path": "database/migrations/003.sql",
+            "sha256": "b67d8b5acbec4090ac36429fc27acba9468c3f461943b23c0e27304941bf0dd5"
+          },
+          {
+            "path": "database/migrations/004.sql",
+            "sha256": "05299b5106acf175b0044ec36db44c085d4d51de2b0259955f98dc218d3d63a9"
+          },
+          {
+            "path": "database/migrations/005.sql",
+            "sha256": "afbb6e8ee18b9cf7f50b1cf8146fc093556ea99319cd7e6a2e65c67049a12c63"
+          },
+          {
+            "path": "database/migrations/006.sql",
+            "sha256": "7787fc00946dec05cf82333ada47731a97ad30341f54362a9173ec34216c8ac1"
+          },
+          {
+            "path": "database/migrations/007.sql",
+            "sha256": "d7c3794916e9062f70a5d02406d090cc2de09987aefd406e993b30ba13d42dc5"
+          },
+          {
+            "path": "database/migrations/008.sql",
+            "sha256": "3bb732c94582bf99cb947b8bf9852ec255b0d2ea4c6554b1eafb602be776f582"
+          }
+        ]
+      },
+      "access_files": {
+        "count": 13,
+        "files": [
+          {
+            "path": ".htaccess",
+            "sha256": "e873969765503efc4a9517aa4a069cc2dbefe97ddc72e417975f6e1735609d41"
+          },
+          {
+            "path": "admin/upgrades/.htaccess",
+            "sha256": "6be2a34b9ce00c371e77624ffa2bee51c2431b009a9e49b5d6df26b8a93eefae"
+          },
+          {
+            "path": "app/.htaccess",
+            "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934"
+          },
+          {
+            "path": "app/GeoData/.htaccess",
+            "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934"
+          },
+          {
+            "path": "config/.htaccess",
+            "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934"
+          },
+          {
+            "path": "database/.htaccess",
+            "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934"
+          },
+          {
+            "path": "docs/.htaccess",
+            "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934"
+          },
+          {
+            "path": "includes/.htaccess",
+            "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934"
+          },
+          {
+            "path": "install/.htaccess",
+            "sha256": "0a970a744379ec999dd7e13e04c5ded70f6316a624cd9c25b9b5f062b6fe0ba2"
+          },
+          {
+            "path": "storage/.htaccess",
+            "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934"
+          },
+          {
+            "path": "tasks/.htaccess",
+            "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934"
+          },
+          {
+            "path": "uploads/.htaccess",
+            "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934"
+          },
+          {
+            "path": "views/.htaccess",
+            "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934"
+          }
+        ]
+      },
+      "pinned_recovery_files": {
+        "count": 5,
+        "files": [
+          {
+            "path": ".htaccess",
+            "sha256": "e873969765503efc4a9517aa4a069cc2dbefe97ddc72e417975f6e1735609d41"
+          },
+          {
+            "path": "includes/maintenance-entry.php",
+            "sha256": "3ea94c8aacf8800e2a7ab1f344b9904139911f9c67a684928ed13d7acc73000e"
+          },
+          {
+            "path": "admin/upgrades/RecoveryEngine.php",
+            "sha256": "8dcca701ce7875843cdd40045e4d6ab32c471fb078012887cdd07e8fc1f7a4f5"
+          },
+          {
+            "path": "admin/upgrades/recover.php",
+            "sha256": "f5c0be1860216bd5fa78fd9daf21edd7dfc435003a3a5e9f469ddc3b428dbf15"
+          },
+          {
+            "path": "admin/upgrades/.htaccess",
+            "sha256": "6be2a34b9ce00c371e77624ffa2bee51c2431b009a9e49b5d6df26b8a93eefae"
+          }
+        ]
+      },
+      "favicon_assets": {
+        "count": 8,
+        "files": [
+          {
+            "path": "images/icons/apple-touch-icon.png",
+            "sha256": "8d83aa5753538e78a2ca79e707ea31c707dc976c1bf236b4bbb25dd3d6d49dec"
+          },
+          {
+            "path": "images/icons/favicon-16.png",
+            "sha256": "afa02b6f24ed547e2dfb68c70793615e523d573f0383986fb4826cad08e9ef8c"
+          },
+          {
+            "path": "images/icons/favicon-192.png",
+            "sha256": "4d6c202b255dd351c7e16cf4adb78ae03403d7a193ed52ec8b6cb4d1c0bb8f49"
+          },
+          {
+            "path": "images/icons/favicon-32.png",
+            "sha256": "51dc5c79b97edd0d5e05de7024716ff15c5d214110152ebd7af76a79b089775d"
+          },
+          {
+            "path": "images/icons/favicon-48.png",
+            "sha256": "ce0b8b212ef73d7ec3c74c88fcc3616fa510782e55025a0e8e0ba88eb425a95d"
+          },
+          {
+            "path": "images/icons/favicon-512.png",
+            "sha256": "33053ce482c919a95f3ece5b5443d435394467b681c557480ade6a24b8314c6c"
+          },
+          {
+            "path": "images/icons/favicon-64.png",
+            "sha256": "642424d36b2d78020962fa4a94aa23b2e9d599fda7712a9474197caaff00b318"
+          },
+          {
+            "path": "images/icons/favicon.ico",
+            "sha256": "d7081bfa7b7d1144c8d152ed03284e5ee533a952f094b6945202dec3283df59a"
+          }
+        ]
+      },
+      "favicon_compatibility": {
+        "count": 2,
+        "files": [
+          {
+            "path": "images/favicon.svg",
+            "sha256": "1c7c50123f9146a120fea6604198e24cfb4e1c88d3616fea1646da4b3a18370d"
+          },
+          {
+            "path": "views/favicon.php",
+            "sha256": "86efaa4c225f3e8599cb195f20556f6613e7757409d9597fc6c6f994142e4e56"
+          }
+        ]
+      },
+      "generated_hero_files": {
+        "count": 6,
+        "files": [
+          {
+            "path": "images/extended/spiritual-gorillaz-band-hero-wide.webp",
+            "sha256": "f64412e6ab06fd38bfd69a34f4e2024d2438e7d017243ec9ad96bb15c47ea682"
+          },
+          {
+            "path": "images/extended/spiritual-gorillaz-booking-hero-wide.webp",
+            "sha256": "0b362035850cf3f5405aed3621972ce98f519b6103e54f256eaff3033372edda"
+          },
+          {
+            "path": "images/extended/spiritual-gorillaz-home-hero-wide.webp",
+            "sha256": "3ec844e6b8bf9c3de6df2bb50495d30320e6569e0b724ce8e4add4700a292e4a"
+          },
+          {
+            "path": "images/extended/spiritual-gorillaz-merch-hero-wide.webp",
+            "sha256": "8a88afa17355fcc70a6c40f58342a6d3b7bf447ec18357f6bdfd337805eefe59"
+          },
+          {
+            "path": "images/extended/spiritual-gorillaz-music-hero-wide.webp",
+            "sha256": "8bd28c94e25620cfbd706af75b2448a5a9dd0454c4b764ce68c91e8d49913bd8"
+          },
+          {
+            "path": "images/extended/spiritual-gorillaz-shows-hero-wide.webp",
+            "sha256": "68147a6c002a72e6a3a027a16fbe054c094c73161e3b28e414e6da04b8a792cf"
+          }
+        ]
+      }
+    },
+    "screenshot_runtime_equivalence": {
+      "manifest_file": "design/background-stage/browser-verification.json",
+      "manifest_sha256": "59256f785d6c11e61b965e6b130bd0cd958bcafe1f4f591aa9842f24021c36e7",
+      "captured_candidate_sha256": "823559dc59e0906164d6aa9f07248027679089f3e58e8ac16b45d6374e12a906",
+      "final_archive_sha256": "2cc84ee176dc8f223bf906507c16660517d3d8a88c656c4450bc41abbb105cd8",
+      "compared_runtime_files": 334,
+      "all_identical": true,
+      "provenance": "The captured candidate and final delivered archive have identical runtime/code/asset bytes. Documentation changed after capture, so their complete ZIP hashes differ.",
+      "browser": "Chromium",
+      "browser_version": "143.0.7499.4",
+      "assertions_passed": 1120,
+      "recorded_screenshots": 48,
+      "primary_unseeded_screenshots": 24,
+      "supplemental_synthetic_screenshots": 24
+    },
+    "screenshot_file_recheck": {
+      "status": "passed",
+      "manifest": {
+        "file": "screenshots/stage-background-verification.json",
+        "bytes": 114140,
+        "sha256": "e5c90bf50e69fd8e3879caf9668737442c51b06fab19f242d1352e2816f5db1f"
+      },
+      "exact_final_zip_capture": true,
+      "full_zip_sha256": "2cc84ee176dc8f223bf906507c16660517d3d8a88c656c4450bc41abbb105cd8",
+      "captured_archive_label": "final.zip",
+      "delivered_archive_name": "Spiritual-Gorillaz-1.1.0-rc.5-Full.zip",
+      "archive_label_note": "The isolated non-root runner used a byte-identical temporary copy named final.zip; its SHA-256 is the final delivered Full ZIP.",
+      "assertions_passed": 1120,
+      "screenshots": 48,
+      "unseeded_primary_screenshots": 24,
+      "synthetic_supplemental_screenshots": 24,
+      "all_screenshot_file_and_archive_hashes_match": true,
+      "runtime_paths_compared": 334,
+      "all_runtime_bytes_match_final_zip": true,
+      "browser": "Chromium",
+      "browser_version": "143.0.7499.4",
+      "header_baseline_comparisons": 6,
+      "fixed_scroll_comparisons": 6,
+      "uncaught_browser_errors": 0,
+      "production_accessed": false,
+      "runtime_code_modified": false,
+      "synthetic_content_in_installation_package": false
+    },
+    "original_capture_file_recheck": {
+      "status": "pending_final_zip_recapture",
+      "verified_file_count": 0,
+      "missing_file_count": 48,
+      "mismatched_files": [],
+      "note": "The original 48 captures passed the recorded browser review, but their temporary files were lost when the tool environment reset. The committed browser report remains intact and its 334 runtime hashes match the final ZIP. A new capture from the exact final ZIP is pending; no raw screenshot file hashes are claimed reverified by this audit."
+    },
+    "published_source_commit": "6c5248e1cd6033ce0b24bd9db97621431908fa4e"
+  },
+  "github_independent_package": {
+    "version": "1.1.0-rc.5",
+    "evidence_source": "Previously retrieved GitHub workflow metadata, job steps, artifact metadata and decoded job logs; no additional API calls.",
+    "repository": "afterburn25/Spirit",
+    "source_commit": "6c5248e1cd6033ce0b24bd9db97621431908fa4e",
+    "source_tree": "7c393df3060736c0f2103d2e816d3822db472ede",
+    "workflow": {
+      "id": 39493474147,
+      "name": "Candidate installation package",
+      "run_number": 178,
+      "attempt": 1,
+      "url": "https://github.com/afterburn25/Spirit/actions/runs/39493474147",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at_utc": "2026-10-20T20:36:52Z",
+      "updated_at_utc": "2026-10-20T20:37:28Z"
+    },
+    "job": {
+      "id": 118872361189,
+      "name": "Validate and build cumulative candidate",
+      "url": "https://github.com/afterburn25/Spirit/actions/runs/39493474147/job/118872361189",
+      "status": "completed",
+      "conclusion": "success",
+      "reported_step_count": 8,
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 2,
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 3,
+          "name": "Install deterministic image build dependency",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 4,
+          "name": "Validate software release contract",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 5,
+          "name": "Build immutable versioned full ZIP",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 6,
+          "name": "Upload candidate package",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 12,
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "number": 13,
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ]
+    },
+    "full_zip": {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.5-Full.zip",
+      "local_archive_sha256": "2cc84ee176dc8f223bf906507c16660517d3d8a88c656c4450bc41abbb105cd8",
+      "independently_built_sha256": "2cc84ee176dc8f223bf906507c16660517d3d8a88c656c4450bc41abbb105cd8",
+      "matched_local_archive": true,
+      "observed_checksum_log_timestamp_utc": "2026-10-20T20:37:22.7711367Z",
+      "observed_checksum_log_line": "2026-10-20T20:37:22.7711367Z 2cc84ee176dc8f223bf906507c16660517d3d8a88c656c4450bc41abbb105cd8  Spiritual-Gorillaz-1.1.0-rc.5-Full.zip",
+      "comparison_basis": "The workflow printed sha256sum for its independently built Full ZIP; this exactly matches the audited local archive hash."
+    },
+    "software_release_gate": {
+      "conclusion": "passed",
+      "observed_log_timestamp_utc": "2026-10-20T20:37:16.8689139Z",
+      "observed_log_line": "2026-10-20T20:37:16.8689139Z PASS software release gate for 1.1.0-rc.5"
+    },
+    "artifact": {
+      "id": 12296213579,
+      "name": "Spiritual-Gorillaz-6c5248e1cd6033ce0b24bd9db97621431908fa4e-candidate",
+      "size_in_bytes": 24058652,
+      "api_url": "https://api.github.com/repos/afterburn25/Spirit/actions/artifacts/12296213579",
+      "archive_download_url": "https://api.github.com/repos/afterburn25/Spirit/actions/artifacts/12296213579/zip",
+      "container_digest": "sha256:5d5054c064f15e1af83e385f598b81d3af6b92ccc26c39cd54f73f71bba25cac",
+      "expired_when_observed": false,
+      "created_at_utc": "2026-10-20T20:37:24Z",
+      "expires_at_utc": "2026-11-03T20:37:22Z",
+      "note": "The Actions artifact wraps the Full ZIP and checksum file. Its container digest is distinct from the Full ZIP checksum."
+    },
+    "limitations": [
+      "This record covers the candidate package workflow only; it makes no claim about other workflow conclusions.",
+      "No new workflow was triggered and no GitHub write was performed.",
+      "Full raw logs and unrelated account metadata are intentionally excluded."
+    ]
+  },
+  "github_observation": {
+    "observed_at_utc": "2026-10-20 20:43:26 UTC",
+    "pr": {
+      "number": 37,
+      "head": "6c5248e1cd6033ce0b24bd9db97621431908fa4e",
+      "base": "6ef03a24ea87fdbfb0d053f7b54b4c16fce42098",
+      "draft": true,
+      "state": "open",
+      "merged": false,
+      "url": "https://github.com/afterburn25/Spirit/pull/37",
+      "updated_at": "2026-10-20T20:37:57Z"
+    },
+    "actions": {
+      "head_sha": "6c5248e1cd6033ce0b24bd9db97621431908fa4e",
+      "total_count": 10,
+      "runs": [
+        {
+          "id": 39493480960,
+          "name": "Software release gate",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/Spirit/actions/runs/39493480960",
+          "created_at": "2026-10-20T20:36:55Z",
+          "updated_at": "2026-10-20T20:37:28Z",
+          "head_sha": "6c5248e1cd6033ce0b24bd9db97621431908fa4e"
+        },
+        {
+          "id": 39493480891,
+          "name": "Populated storefront browser verification",
+          "status": "in_progress",
+          "conclusion": null,
+          "url": "https://github.com/afterburn25/Spirit/actions/runs/39493480891",
+          "created_at": "2026-10-20T20:36:55Z",
+          "updated_at": "2026-10-20T20:37:05Z",
+          "head_sha": "6c5248e1cd6033ce0b24bd9db97621431908fa4e"
+        },
+        {
+          "id": 39493480882,
+          "name": "Authoring safety verification",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/Spirit/actions/runs/39493480882",
+          "created_at": "2026-10-20T20:36:55Z",
+          "updated_at": "2026-10-20T20:41:35Z",
+          "head_sha": "6c5248e1cd6033ce0b24bd9db97621431908fa4e"
+        },
+        {
+          "id": 39493480977,
+          "name": "Review package artifact",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/Spirit/actions/runs/39493480977",
+          "created_at": "2026-10-20T20:36:55Z",
+          "updated_at": "2026-10-20T20:39:34Z",
+          "head_sha": "6c5248e1cd6033ce0b24bd9db97621431908fa4e"
+        },
+        {
+          "id": 39493480961,
+          "name": "Focused maintenance diagnostics",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/Spirit/actions/runs/39493480961",
+          "created_at": "2026-10-20T20:36:55Z",
+          "updated_at": "2026-10-20T20:39:42Z",
+          "head_sha": "6c5248e1cd6033ce0b24bd9db97621431908fa4e"
+        },
+        {
+          "id": 39493480987,
+          "name": "Website and installer verification",
+          "status": "in_progress",
+          "conclusion": null,
+          "url": "https://github.com/afterburn25/Spirit/actions/runs/39493480987",
+          "created_at": "2026-10-20T20:36:55Z",
+          "updated_at": "2026-10-20T20:39:41Z",
+          "head_sha": "6c5248e1cd6033ce0b24bd9db97621431908fa4e"
+        },
+        {
+          "id": 39493480927,
+          "name": "Public navigation and native controls",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/Spirit/actions/runs/39493480927",
+          "created_at": "2026-10-20T20:36:55Z",
+          "updated_at": "2026-10-20T20:41:30Z",
+          "head_sha": "6c5248e1cd6033ce0b24bd9db97621431908fa4e"
+        },
+        {
+          "id": 39493480978,
+          "name": "Visitor analytics verification",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/Spirit/actions/runs/39493480978",
+          "created_at": "2026-10-20T20:36:55Z",
+          "updated_at": "2026-10-20T20:42:30Z",
+          "head_sha": "6c5248e1cd6033ce0b24bd9db97621431908fa4e"
+        },
+        {
+          "id": 39493481104,
+          "name": "Site logo workflow verification",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/Spirit/actions/runs/39493481104",
+          "created_at": "2026-10-20T20:36:55Z",
+          "updated_at": "2026-10-20T20:42:37Z",
+          "head_sha": "6c5248e1cd6033ce0b24bd9db97621431908fa4e"
+        },
+        {
+          "id": 39493474147,
+          "name": "Candidate installation package",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/Spirit/actions/runs/39493474147",
+          "created_at": "2026-10-20T20:36:52Z",
+          "updated_at": "2026-10-20T20:37:28Z",
+          "head_sha": "6c5248e1cd6033ce0b24bd9db97621431908fa4e"
+        }
+      ]
+    }
+  },
+  "artifacts": [
+    {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.5-Full.zip",
+      "bytes": 24300325,
+      "sha256": "2cc84ee176dc8f223bf906507c16660517d3d8a88c656c4450bc41abbb105cd8"
+    },
+    {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.5-Screenshots.zip",
+      "bytes": 36052941,
+      "sha256": "5c953a2ebe1e42ed1a192ebc1697156fb3f2dd47ed91d4c393dedf99f2700765"
+    },
+    {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.5-Package-Continuity.json",
+      "bytes": 15977,
+      "sha256": "175cb567006584a64658edaad4f28dc793225527ba0310b0df547350c6b3dde0"
+    },
+    {
+      "file": "REVIEW.md",
+      "bytes": 1694,
+      "sha256": "db88c9b3c52b082d563fbe0cdbc5b447de86aa99096101b9415f6fc38d5f9121"
+    },
+    {
+      "file": "review/Spiritual-Gorillaz-1.1.0-rc.5-ReviewBoard-Provenance.json",
+      "bytes": 3014,
+      "sha256": "76cbddc57b8bf74cc58ba86e7353b68eefbdade956ecd2bc54ef5bc4e84a6448"
+    },
+    {
+      "file": "review/Spiritual-Gorillaz-1.1.0-rc.5-ReviewBoard.png",
+      "bytes": 1699119,
+      "sha256": "81edeca19a2a9aca80cf78ab510869f1b6ce874ff6993e323d8184977f9eff36"
+    },
+    {
+      "file": "review/Spiritual-Gorillaz-1.1.0-rc.5-ReviewBoard.html",
+      "bytes": 6797667,
+      "sha256": "19ae51069b3443b0763aeeceaa1d98afa9975ea6ee0e853b5cd9ef0f8cbef760"
+    },
+    {
+      "file": "github-independent-package.json",
+      "bytes": 4193,
+      "sha256": "0a2cab422f9d2fa9d469332d263025b687c58c40ea3173bcd6af00f6c63f06f3"
+    }
+  ],
+  "acceptance_limits": {
+    "production_deployment": false,
+    "pr_merged": false,
+    "safari_or_physical_device_acceptance": false,
+    "real_mailbox_or_merchant_transaction": false,
+    "pending_workflows_are_passes": false,
+    "owner_and_target_host_acceptance_remain_separate": true
+  },
+  "upgrade": "rc.1/rc.2/rc.3/rc.4 use the normal guarded same-schema Browser upgrades path when its checks pass. Preserve the original owner, database, configuration/encryption identity, private runtime and uploads; do not reinstall."
+}

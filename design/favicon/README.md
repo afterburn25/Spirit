@@ -2,9 +2,11 @@
 
 This master was extracted from the user-selected sculpted gold Spiritual Gorillaz logo using the built-in image-generation edit tool, with genuine alpha transparency. It supplies the matching crowned head without the two-line wordmark. The original generated file is retained separately.
 
-The browser export tool fits the complete alpha silhouette to 98% of a square canvas, preserves its proportions, renders the target PNG sizes, and packs the smallest PNGs into a multi-size ICO. The intended effect is maximum apparent size within the browser-controlled favicon area. The website's public, administration and account headers share versioned icon links.
+The rc.6 browser export fits the complete visible alpha silhouette to 100% of a square viewport, preserves its proportions, renders the target PNG sizes, and packs the smallest PNGs into a multi-size ICO. This removes the previous 1% top and bottom margins. The dimensional increase from the rc.4/rc.5 98% fit is approximately 2%, not a dramatic change to the browser-controlled favicon area. The source bitmap, full crown and head remain unchanged. The website's public, administration and account headers share versioned icon links.
 
-The static favicon is intentionally independent of the animated navbar artwork. Source art belongs here; deployable assets are under `images/icons/`, with `images/favicon.svg` retained as a compatibility path. The original source pixels are not retouched by the export tool.
+The static favicon is intentionally independent of the animated navbar artwork. Source art belongs here; active deployable assets are under `images/icons/crowned-gorilla-full-fit/`. The previous flat `images/icons/` paths and `images/favicon.svg` remain usable compatibility paths with the same updated head. The new directory changes the icon's cache identity as well as the release-version query. The original source pixels are not retouched by the export tool.
+
+See `maximum-fit-rc6/README.md` for the measured before/after comparison, true-size and enlarged-pixel captures, exact export geometry and root-favicon compatibility constraint. The original rc.4 capture/report in this directory remains historical evidence of the 98% export.
 
 ## Original edit prompt
 

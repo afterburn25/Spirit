@@ -1,25 +1,26 @@
-# Roadmap — 1.1.0-rc.5 fixed stage background
+# Roadmap — 1.1.0-rc.6 approved identity and seamless surfaces
 
-The existing feature foundation, graphical analytics and crowned-gorilla favicon remain. This continuation implements the user's chosen concert-stage backdrop, transparent outer container, screen-wide header and readable content panels.
+The existing feature foundation, graphical analytics and fixed blue stage remain. This continuation installs the missing approved logo throughout the application, maximizes proportional favicon framing, extends the footer and removes the outer shell edge.
 
 | Milestone | Current status | Remaining work |
 |---|---|---|
 | Core website and administration | Implemented. Public site, CMS, media/music/shows/press, booking/mail, accounts and dormant commerce remain. | Correct concrete acceptance defects. |
-| Approved public presentation | Implemented. Existing contained heroes, real HTML, responsive navigation and search beside Book the Band remain. | Owner review and genuine content publishing. |
-| Fixed concert-stage background and readable content — rc.5 | Implemented and locally verified with 1,120 installed-application checks and 48 actual screenshots. Selected option 1, fixed public layer, transparent shell, full-width header preserving logo position, readable panels and phone framing. | Owner visual review and applicable target-host acceptance. |
-| Transparent crowned-gorilla favicon — rc.4 | Delivered. Native transparent icon set, maximum-height framing and shared versioned links retained. | Preserve behavior. |
-| A2 installation, updates and recovery | Implemented and previously verified. | Applicable real-host/recovery acceptance. |
-| Email and scheduling | Implemented. Worker heartbeats and owner-opt-in cleanup. | Applicable actual mailbox/schedule acceptance. |
+| Approved identity and seamless surfaces — rc.6 | Implemented. Actual approved artwork in public/admin/login/setup; reduced-motion fallback; 25% transparent navigation background; full-width footer; borderless transparent outer shell; refreshed favicon URLs. | Locally verified with 1,374 main browser checks, 180 admin paint checks and package/release integrity checks. Owner visual review and target-host acceptance remain. |
+| Approved public presentation | Implemented. Contained heroes, real HTML, larger responsive navigation and Search beside Book the Band remain. | Genuine content publishing and applicable acceptance. |
+| Fixed concert-stage background and readable content — rc.5 | Delivered; 1,120 historical installed-application checks and 48 screenshots. Fixed public layer, transparent shell, full-width header and readable panels retained. | Preserve behavior; historical checks are distinct from rc.6 verification. |
+| Transparent crowned-gorilla favicon | Same approved head retained with complete proportional framing and native icon sizes. | Browser/bookmark/search caches may refresh independently. |
+| A2 installation, updates and recovery | Implemented and previously verified; pinned recovery/access unchanged. | Applicable real-host/recovery acceptance. |
+| Email and scheduling | Implemented. Worker heartbeats and owner-opt-in cleanup. | Applicable mailbox/schedule acceptance. |
 | Commerce and Authorize.net | Software complete; activation-gated. | Real provider acceptance, catalog/policies and owner approval. |
 | Graphical analytics and Overview | Implemented. Dedicated menu, charts, journeys, source/device/geography/crawlers and search imports. | Preserve definitions and owner-only access. |
-| Exact detail-page drilldowns and attribution — rc.3 | Delivered and verified. Canonical slug paths and Ecosia classification. | Preserve behavior. |
-| Release integrity | All 15 package tests, deterministic software release gate, bundle reproduction, PHP syntax and protected-source continuity passed. | Published commit, immutable package hashes and observed Actions state are recorded in the delivery receipt. |
-| Owner and target-host acceptance | Current candidate review required. | Review actual background presentation and applicable host observations. |
+| Exact detail-page drilldowns and attribution — rc.3 | Delivered. Canonical slug paths and Ecosia classification. | Preserve behavior. |
+| Release integrity | Cumulative packages, deterministic build and unchanged-schema guards retained. | Current local checks passed; exact source/package hashes and observed Actions state are recorded in the delivery receipt. |
+| Owner and target-host acceptance | Current candidate review required. | Review actual logo, favicon, footer and transparent-shell presentation plus applicable host observations. |
 
 ## Upgrade paths
 
-All migrations remain unchanged. **rc.1/rc.2/rc.3/rc.4 → rc.5** uses normal guarded same-schema Browser upgrades when checks pass. **1.0.x → 1.1** retains reviewed code deployment plus additive Database updates. Preserve the original owner, configuration/encryption secret, database, private runtime and uploads.
+All migrations remain unchanged. **rc.1 through rc.5 → rc.6** uses normal guarded same-schema Browser upgrades when checks pass. **1.0.x → 1.1** retains reviewed code deployment plus additive Database updates. Preserve the original owner, configuration/encryption secret, database, private runtime and uploads.
 
 ## Evidence
 
-Current results belong in `TEST_RESULTS.md` and the delivery receipt. Historical rc.3 and rc.4 outcomes remain under `history/`. The selected stage is decorative generated artwork; application screenshots must be actual rendered pages, with any synthetic content identified.
+Current results belong in `TEST_RESULTS.md` and the delivery receipt. Historical rc.3, rc.4 and rc.5 outcomes remain under `history/`. Application screenshots must be actual rendered pages, with synthetic content identified. The selected stage is generated decorative artwork, not a real performance photograph.
