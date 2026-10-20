@@ -1,0 +1,249 @@
+{
+  "source": "sculpted-gold-gorilla-master.png",
+  "source_details": {
+    "width": 1254,
+    "height": 1254,
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_bounds": [
+      0,
+      13,
+      1240,
+      1254
+    ],
+    "visible_alpha_bounds": [
+      90,
+      15,
+      1107,
+      1238
+    ],
+    "visible_alpha_threshold": 8,
+    "transparent_pixels": 764877,
+    "transparent_corners": true,
+    "bytes": 1380855,
+    "sha256": "3f3232cd3c314b3f227c1c598c8bf75f01c6b04b779cb6ece1bc7f51334f66bc"
+  },
+  "source_bitmap_modified": false,
+  "source_viewport": [
+    -25.4795918367347,
+    2.5204081632653015,
+    1247.9591836734694,
+    1247.9591836734694
+  ],
+  "silhouette_fill_fraction": 0.98,
+  "preserves_aspect_ratio": true,
+  "renderer": "Chromium SVG viewport; device scale factor 1",
+  "browser_version": "143.0.7499.4",
+  "pngs": [
+    {
+      "file": "favicon-16.png",
+      "width": 16,
+      "height": 16,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        252
+      ],
+      "alpha_bounds": [
+        1,
+        0,
+        15,
+        16
+      ],
+      "visible_alpha_bounds": [
+        1,
+        0,
+        15,
+        16
+      ],
+      "visible_alpha_threshold": 8,
+      "transparent_pixels": 74,
+      "transparent_corners": true,
+      "bytes": 893,
+      "sha256": "afa02b6f24ed547e2dfb68c70793615e523d573f0383986fb4826cad08e9ef8c"
+    },
+    {
+      "file": "favicon-32.png",
+      "width": 32,
+      "height": 32,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        253
+      ],
+      "alpha_bounds": [
+        2,
+        0,
+        30,
+        32
+      ],
+      "visible_alpha_bounds": [
+        2,
+        0,
+        30,
+        32
+      ],
+      "visible_alpha_threshold": 8,
+      "transparent_pixels": 396,
+      "transparent_corners": true,
+      "bytes": 2575,
+      "sha256": "51dc5c79b97edd0d5e05de7024716ff15c5d214110152ebd7af76a79b089775d"
+    },
+    {
+      "file": "favicon-48.png",
+      "width": 48,
+      "height": 48,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        253
+      ],
+      "alpha_bounds": [
+        4,
+        0,
+        45,
+        48
+      ],
+      "visible_alpha_bounds": [
+        4,
+        0,
+        44,
+        48
+      ],
+      "visible_alpha_threshold": 8,
+      "transparent_pixels": 993,
+      "transparent_corners": true,
+      "bytes": 5004,
+      "sha256": "ce0b8b212ef73d7ec3c74c88fcc3616fa510782e55025a0e8e0ba88eb425a95d"
+    },
+    {
+      "file": "favicon-64.png",
+      "width": 64,
+      "height": 64,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        253
+      ],
+      "alpha_bounds": [
+        5,
+        0,
+        59,
+        64
+      ],
+      "visible_alpha_bounds": [
+        5,
+        0,
+        59,
+        64
+      ],
+      "visible_alpha_threshold": 8,
+      "transparent_pixels": 1768,
+      "transparent_corners": true,
+      "bytes": 8258,
+      "sha256": "642424d36b2d78020962fa4a94aa23b2e9d599fda7712a9474197caaff00b318"
+    },
+    {
+      "file": "apple-touch-icon.png",
+      "width": 180,
+      "height": 180,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "alpha_bounds": [
+        16,
+        1,
+        177,
+        178
+      ],
+      "visible_alpha_bounds": [
+        16,
+        1,
+        164,
+        178
+      ],
+      "visible_alpha_threshold": 8,
+      "transparent_pixels": 15507,
+      "transparent_corners": true,
+      "bytes": 48108,
+      "sha256": "8d83aa5753538e78a2ca79e707ea31c707dc976c1bf236b4bbb25dd3d6d49dec"
+    },
+    {
+      "file": "favicon-192.png",
+      "width": 192,
+      "height": 192,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "alpha_bounds": [
+        17,
+        1,
+        189,
+        190
+      ],
+      "visible_alpha_bounds": [
+        17,
+        1,
+        175,
+        190
+      ],
+      "visible_alpha_threshold": 8,
+      "transparent_pixels": 17658,
+      "transparent_corners": true,
+      "bytes": 53810,
+      "sha256": "4d6c202b255dd351c7e16cf4adb78ae03403d7a193ed52ec8b6cb4d1c0bb8f49"
+    },
+    {
+      "file": "favicon-512.png",
+      "width": 512,
+      "height": 512,
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        254
+      ],
+      "alpha_bounds": [
+        46,
+        4,
+        507,
+        507
+      ],
+      "visible_alpha_bounds": [
+        47,
+        4,
+        465,
+        507
+      ],
+      "visible_alpha_threshold": 8,
+      "transparent_pixels": 126722,
+      "transparent_corners": true,
+      "bytes": 282766,
+      "sha256": "33053ce482c919a95f3ece5b5443d435394467b681c557480ade6a24b8314c6c"
+    }
+  ],
+  "ico": {
+    "file": "favicon.ico",
+    "dimensions": [
+      16,
+      32,
+      48,
+      64
+    ],
+    "bytes": 16800,
+    "sha256": "d7081bfa7b7d1144c8d152ed03284e5ee533a952f094b6945202dec3283df59a"
+  },
+  "compatibility_svg": {
+    "file": "favicon.svg",
+    "embedded_png_dimensions": 256,
+    "bytes": 117145,
+    "sha256": "1c7c50123f9146a120fea6604198e24cfb4e1c88d3616fea1646da4b3a18370d"
+  },
+  "browser_errors": []
+}

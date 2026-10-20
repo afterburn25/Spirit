@@ -1,12 +1,20 @@
-# Spiritual Gorillaz — 1.1.0-rc.3
+# Spiritual Gorillaz — 1.1.0-rc.4
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, metallic-gold and blue-stage-light identity.
 
-## 1.1.0-rc.3 — accurate page drilldowns and search attribution
+## 1.1.0-rc.4 — transparent crowned-gorilla favicon
+
+The selected sculpted gold gorilla head now supplies the website favicon. Its visible crown-to-chin silhouette fills 98% of a square canvas, preserving natural proportions and genuine transparency while removing excess empty space. The browser still controls its tab-icon area; larger source files improve available resolution rather than enlarging browser controls.
+
+Public, administration and account layouts share versioned icon links. The cumulative package includes native 16/32/48/64px PNGs, a matching multi-size ICO, a 180px touch icon, and 192/512px assets. The previous SVG path remains available with matching artwork. Source artwork and a reproducible browser export tool are retained in the repository; the PHP host needs no image build.
+
+This is a favicon presentation update. Existing analytics, data, migrations, public navigation and site content retain their rc.3 behavior. Use the normal same-schema Browser upgrades path from installed rc.1/rc.2/rc.3 when its standard checks pass. See `docs/FAVICONS.md` and the scoped verification in `docs/TEST_RESULTS.md`.
+
+## Retained rc.3 — accurate page drilldowns and search attribution
 
 Page-performance links now open Visitor Explorer for the exact recorded release, show, member, product or custom page, including its validated `slug` identifier. The same page/date filters remain active when inspecting a visit. Unrelated query fields and private paths are still rejected. Supported Ecosia referrals now appear as Organic search, consistent with the collector's existing recognition of supplied search terms.
 
-These are read-only reporting corrections: retained traffic becomes navigable without data conversion. Migrations, collection rules, configuration, media and the pinned recovery layer remain unchanged. See `docs/TEST_RESULTS.md` for observed rc.3 verification and the archived final rc.2 results.
+These are read-only reporting corrections: retained traffic becomes navigable without data conversion. Migrations, collection rules, configuration, media and the pinned recovery layer remain unchanged. The complete delivered rc.3 verification is archived under `docs/history/VERIFICATION-1.1.0-rc.3.json`.
 
 ## Retained graphical analytics, visitor exploration and Overview snapshots
 
@@ -14,7 +22,7 @@ Analytics has its own owner-only administration section. The dashboard puts traf
 
 The public search button sits immediately beside **Book the Band**, with larger navigation text and responsive spacing through tablet and phone widths.
 
-This candidate refines the analytics introduced in rc.1 without adding a database migration or changing public artwork. Existing `007.sql` and `008.sql` remain byte-for-byte unchanged. Empty or unavailable observations remain explicitly labeled; review screenshots use synthetic data only.
+The retained rc.2 analytics refinements added no database migration or changes to the public hero artwork. Existing `007.sql` and `008.sql` remain byte-for-byte unchanged. Empty or unavailable observations remain explicitly labeled; review screenshots use synthetic data only.
 
 The owner administration now includes visitor analytics with charts, inclusive date filters and CSV export: visits, pageviews, completed-visit bounce rate, active viewing time, approximate live visitors, referral domains, supplied search terms, campaign tags, countries, browsers, operating systems, devices and separate crawler traffic. Country lookup works locally using the included, attributed DB-IP data. Optional private City database upload enables available region/city labels. Google Search Console Queries CSV imports provide aggregate search performance with their own dates.
 
@@ -22,7 +30,7 @@ Public navigation now has one controller and reproducible CSS/JavaScript bundles
 
 This is a cumulative review candidate on `work/1.1.0-analytics-and-navigation`, based on the latest 1.0.13 work. Screenshot approval and real-host acceptance remain separate from automated verification. Exact observed results are in `docs/TEST_RESULTS.md`.
 
-**Updating an installed website:** installed `1.1.0-rc.1` and `1.1.0-rc.2` sites already have the unchanged analytics schema, so the normal guarded same-schema **Browser upgrades** path applies when its checks pass. Updating a `1.0.x` site adds migrations `007.sql` and `008.sql`; the browser updater deliberately refuses that schema transition. For `1.0.x`, preserve the existing private configuration, owner, database and uploads, deploy the cumulative code through the hosting panel and apply **Database updates** with the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
+**Updating an installed website:** installed `1.1.0-rc.1`, `1.1.0-rc.2` and `1.1.0-rc.3` sites already have the unchanged analytics schema, so the normal guarded same-schema **Browser upgrades** path applies when its checks pass. Updating a `1.0.x` site adds migrations `007.sql` and `008.sql`; the browser updater deliberately refuses that schema transition. For `1.0.x`, preserve the existing private configuration, owner, database and uploads, deploy the cumulative code through the hosting panel and apply **Database updates** with the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
 
 ## Preserved contained continuous-image heroes
 

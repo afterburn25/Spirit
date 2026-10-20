@@ -1,33 +1,32 @@
-# Resume — 1.1.0-rc.3 analytics drilldown corrections
+# Resume — 1.1.0-rc.4 transparent crowned-gorilla favicon
 
-Repository **afterburn25/Spirit**. Continue from **`work/1.1.0-analytics-and-navigation`**, [draft PR 37](https://github.com/afterburn25/Spirit/pull/37), rather than main alone. The baseline is delivered rc.2 commit `f6b8e6349e75d3ca465bec60a010f74f8eaf84e4`; main was re-inspected at `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`. The latest 1.0.13 artwork and complete rc.1/rc.2 analytics remain. Do not merge before owner screenshot approval.
+Repository **afterburn25/Spirit**. Continue from **`work/1.1.0-analytics-and-navigation`**, [draft PR 37](https://github.com/afterburn25/Spirit/pull/37), retaining delivered rc.3 commit `c3584d348067d035ec14a739c9783b5880b95321` and all earlier analytics/artwork. Live main remains `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`. Do not merge before owner approval.
 
-## Current correction
+## Current user decision
 
-The continuation audit found that the collector already retains canonical `?slug=` identifiers for detail/custom pages, while the rc.2 visitor filter rejected every question mark. The dashboard therefore generated a valid recorded path that its explorer refused. rc.3 validates the filter by comparing it to `Analytics::normalisePath()` instead of banning all queries. It accepts only the exact canonical stored value, preserving the single validated slug while rejecting unrelated queries, private paths, aliases and fragments.
+The favicon must use the same transparent, dimensional gold crowned-gorilla head as the newly selected logo and appear as large as possible in the browser tab. Use the whole head/crown without lettering, a background tile or distorted proportions. Browser UI controls the slot; fit the visible artwork to 98% of a square instead of adding transparent padding.
 
-The report's existing search-domain classifier also omitted Ecosia although the collector recognized its supplied search term. rc.3 adds the explicit supported host suffix and tests genuine and lookalike domains. It does not modify the collector or introduce new tracking.
+## Implementation
 
-## Source and test ownership
+- `design/favicon/sculpted-gold-gorilla-master.png`: original1254px transparent extracted master, SHA256 `3f3232cd3c314b3f227c1c598c8bf75f01c6b04b779cb6ece1bc7f51334f66bc`.
+- `tools/build_favicons.py`: browser SVG-viewport rendering, alpha-bound fitting and ICO packaging. Python only orchestrates rendering, inspects pixels and packages bytes; it does not retouch the master.
+- `images/icons/`: ready-to-use16/32/48/64/180/192/512px PNG assets and ICO16/32/48/64.
+- `images/favicon.svg`: retained compatibility URL, now containing the same head.
+- `views/favicon.php`: one shared versioned link set included by both actual headers. Preserve `app_url()` subfolder resolution.
+- `design/favicon/`: source prompt, rendered icon-size comparison, export receipt and focused HTTP evidence. These are actual icon-rendering previews, not screenshots of browser chrome.
 
-Runtime changes are confined to `app/AnalyticsVisitors.php` and the visitor-filter help text in `views/admin/analytics-visitors.php`. Tests cover all five detail route families, a second distinct release slug, root/subfolder behavior, actual report links, retained selected visit/date scope, no-JavaScript operation and malformed/private filters. A separate test-only `detail-paths-fixture` keeps the original demonstration totals stable. Never ship or use these fixtures as production observations.
+The prior animated horizontal-logo kit was delivered separately. This favicon change does not silently replace the site's bundled navbar logo or revise header spacing.
 
-The exact-package analytics capture helper retains its 19 existing images and adds desktop/phone detail-page-filter journeys, for 21 administration captures. The public helper retains 21 captures. Both manifests must reference the same final Full ZIP by SHA-256. The review-board renderer validates its source manifests and images; all admin pictures are synthetic and labeled.
+## Verification and delivery
 
-## Verification checkpoint
+See `docs/TEST_RESULTS.md` for scoped current verification. The focused PHP/static-file fixture exercised all 8 declared icons at `/` and `/band` with 16 successful HTTP requests, correct MIME types, exact bytes, dimensions, ICO frames, transparency and rc.4 cache keys. No database or production site was accessed. Actual small-size Chromium compositions were visually inspected on light/dark backgrounds.
 
-See `docs/TEST_RESULTS.md` for current observed rc.3 checks. Local validation, the published source, remote workflow results, exact rc.2-to-rc.3 upgrade and final capture evidence must stay distinguishable. Do not label earlier rc.2 passes as rc.3 verification.
+Archive the exact package hash, source commit, comparison evidence and observed GitHub outcomes in the final delivery receipt. Never count pending checks as passed. Delivered rc.3 final evidence is preserved under `docs/history/VERIFICATION-1.1.0-rc.3.json` and its earlier source checkpoint under `TEST_RESULTS-1.1.0-rc.3.md`.
 
-The archived rc.2 final receipt (`docs/history/VERIFICATION-1.1.0-rc.2.json`) records all 10 workflows / 23 jobs passing, its exact ZIP hash,40 screenshots and the 43-check rc.1-to-rc.2 upgrade. The source-checkpoint report is retained separately because its final CI/captures occurred after that immutable commit.
+Build a new immutable cumulative Full ZIP with `tools/package.py`, using the existing Pillow 12.3.0 hero generator. Keep the 15 packaging tests and deterministic release gate. Ship the favicon set separately for convenience and the actual-size comparison screenshot. Never overwrite older delivered archives or introduce a new installation requirement.
 
-## Retained behavior and upgrade path
+## Preserved scope
 
-The owner Overview is an at-load seven-day UTC snapshot. The Analytics dashboard alone refreshes live activity. Anonymous visit/session definitions, classic completed-visit bounce, measured foreground time, unknown locations/search terms, aggregate Search Console periods and separate crawler identities remain as documented in `ANALYTICS.md`. Staff have no Analytics access; report reads do not change the database.
+No analytics, collection, navigation, payment, installer, database migration or pinned recovery/access code changes are required for this favicon update. Installed rc.1/rc.2/rc.3 use normal same-schema Browser upgrades when checks pass. For1.0.x retain the existing additive schema-update instructions. Preserve private configuration, encryption secret, database/owner, media and removed installer; do not reinstall or bypass safeguards.
 
-Installed rc.1/rc.2 use the normal same-schema Browser upgrades process for rc.3. Existing 1.0.x installations still need cumulative-code deployment plus additive Database updates 007/008; the browser updater intentionally rejects that schema change. Preserve configuration, encryption secret, database/owner, private runtime, media and previously removed installer. Do not alter migrations, collector/sampling code or pinned recovery/access files.
-
-Build with `tools/package.py`, which uses Pillow 12.3.0 for deterministic wide WebP backgrounds. Public bundles reproduce with `node tools/build_public_assets.mjs --check` and remain within 130,000 bytes. Deliver every completed version as a new immutable Full ZIP plus checksum, actual screenshots and review board. Never overwrite prior downloads.
-
-## Remaining external acceptance
-
-Keep the PR draft until the owner approves the current screenshots. Actual A2/cPanel behavior, optional scheduling and merchant/provider acceptance are not established by local tests. Commerce stays closed until separately accepted; Part 3 remains unpublished without approved provider details. Preserve the approved public artwork and confirmed band roles. No native ticketing, hosting token, setup code or automatic database provisioning.
+Actual A2/cPanel, physical-device and merchant/provider acceptance remain separate. No native tickets, hosting token, setup code or automatic database provisioning.

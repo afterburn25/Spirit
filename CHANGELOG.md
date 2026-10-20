@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1.0-rc.4 — full-size transparent gorilla favicon
+
+- Use the user-selected dimensional gold crowned-gorilla head as the website icon, with the wordmark removed.
+- Fit the visible silhouette to 98% of a square while preserving proportions and transparent surrounding pixels.
+- Supply native 16/32/48/64px PNGs, matching ICO frames, a 180px touch icon and 192/512px assets.
+- Share versioned favicon links across public, administration and account headers, including subdirectory installations.
+- Keep the existing SVG path with the new matching artwork for cumulative compatibility.
+- Retain the source master, edit prompt and browser-based export pipeline in development source; ship ready-to-use assets.
+- Preserve rc.3 analytics, navigation, installed configuration, database, uploads and immutable migrations; deliver a new cumulative Full ZIP.
+
 ## 1.1.0-rc.3 — accurate page drilldowns and search attribution
 
 - Fix Analytics-to-Visitor-Explorer links for recorded release, show, member, product and custom-page paths containing an allowlisted slug.

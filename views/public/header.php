@@ -12,7 +12,7 @@ $assetVersion = rawurlencode(Spirit\Paths::version());
 <?php Spirit\Metadata::tags($meta, $settings['site_name']); ?>
 <meta name="theme-color" content="#050c14">
 <script src="<?=e(app_url('assets/js/js-capability.js'))?>?v=<?=e($assetVersion)?>"></script>
-<link rel="icon" type="image/svg+xml" href="<?=e(app_url('images/favicon.svg'))?>">
+<?php require dirname(__DIR__) . '/favicon.php'; ?>
 <link rel="stylesheet" href="<?=e(app_url('assets/css/site.css'))?>?v=<?=e($assetVersion)?>">
 <script defer src="<?=e(app_url('assets/js/site.js'))?>?v=<?=e($assetVersion)?>"></script>
 <script defer src="<?=e(app_url('assets/js/analytics.js'))?>?v=<?=e($assetVersion)?>"></script>

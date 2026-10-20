@@ -1,6 +1,6 @@
 # Security controls and remaining acceptance
 
-Cumulative 1.1.0-rc.3; see TEST_RESULTS.md for the exact new verification status. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior.
+Cumulative 1.1.0-rc.4; see TEST_RESULTS.md for the exact new verification status. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior.
 
 ## Installation, sessions and storage
 
