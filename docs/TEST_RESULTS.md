@@ -1,47 +1,48 @@
-# Verification — 1.1.0-rc.1
+# Verification — 1.1.0-rc.2
 
 ## Current candidate
 
-The candidate starts from latest 1.0.13 commit `2afbd551d6083d86d26499a9bf82511aa7f7f9c2`. Changes include new analytics/schema/reporting, offline data/City imports, public asset consolidation, mobile navigation and bounded CMS section artwork. Prior RC7 evidence is retained in `history/TEST_RESULTS-before-analytics.md`; it is not evidence that new candidate workflows passed.
+This candidate starts from the delivered rc.1 source `1bde497daa174ac265096e1adee967dd9bf3f900`. It adds the requested dedicated Analytics navigation, Overview snapshots, graphical reports and visitor exploration. The application remains on schema migrations 007/008; existing migrations and public collector behavior are unchanged.
 
-## Observed local verification
+The rc.1 evidence is retained in `history/TEST_RESULTS-1.1.0-rc.1.md`. All ten workflows on its final documentation checkpoint completed successfully before this work began. Those earlier results are baseline evidence, not verification of the rc.2 changes.
 
-Runtime: PHP 8.3.6, MariaDB 10.11.14, Python with Pillow 12.3.0, Playwright 1.57.0 and Chromium 143.0.7499.4. Tests use disposable databases, isolated packaged applications and synthetic data. No real customer, visitor, mailbox or merchant data is involved.
+## Current verification
 
-- Collection units: 67 passing checks. Geography/crawler units: 75 passing checks. Admin/parser units: 26 passing checks, including strict grouped-number parsing.
-- Analytics SQL/HTTP: root and subfolder complete; session-bound tokens, cross-tab elapsed-time cap, replay bounds, visibility/live expiry, missing-time coverage, attribution/privacy exclusions, crawler separation, retention and fail-open public rendering pass. Existing-schema to 007/008 additive updates and repeated application pass while retaining the owner.
-- Public navigation: root/subfolder 820/390/320 and 320x568 active-player checks pass, including pointer/keyboard/focus/resize/native navigation and preserved audio node.
-- Media quality: 1440/390/320 checks pass, including the existing 130,000-byte public asset budget. Final public CSS/JS is 122,397 bytes across four files. Home artwork geometry additionally passes at 1180/1024/900/821px: native foreground aspect ratio, decoded wide background, full-height soft fade, and no copy clipping or button/caption overlap.
-- Section artwork: actual root/subfolder public/editor/private-preview layouts pass at 1440/390/320, including complete portrait artwork in bounded frames.
-- Dashboard: 99 Chromium checks pass at root/subfolder 1440/390/320, including live polling/pause, real dynamic navigation/time flush, CSV and native no-JavaScript settings. The visitor is explicitly foregrounded and the departing beacon's successful response is awaited before checking stored time.
-- Admin SQL/HTTP: 107 checks pass at root/subfolder, covering private reports/CSV, validated query imports, stale owner access and City management.
-- City uploads: 86 checks pass, including real plain/gzip uploads, exact private bytes, malformed/truncated/oversized preservation, PHP limits, owner/CSRF/session/lock controls and safe removal. Fixed a stale zero-size PHP stat cache before validating a newly written file.
-- Cleanup: 47 checks pass, including read-only analytics inventory, expired/current row preservation and exact displayed removal counts. Backup: 77 checks pass, including changes to all four analytics tables after snapshot that neither block nor rewind a valid site-data restore.
-- Administration navigation: 103 unit checks and the full root/subfolder Chromium journey pass, including all 35 owner destinations and explicit owner-only analytics access. Branding: 109 SQL/HTTP checks pass; the complete-table read-only preview assertion is measured before the separate public-page observation.
-- PHP syntax: all 256 PHP/inc files pass. Packaging: 15 tests and the deterministic release gate pass. Generated public bundles match their committed sources, and `git diff --check` passes.
-- Actual public capture: 21 screenshots pass across eight public routes at desktop/phone widths, four additional Home tablet widths and the 320px menu. All images/backgrounds decode; no horizontal document overflow. Public captures use unseeded installation content. The exact delivery ZIP's public and analytics capture manifests are supplied in its companion screenshot archive, with per-image hashes and explicit synthetic-data provenance for owner reports.
+The following local checks passed on rc.2 application/test source using PHP 8.3.6, MariaDB 10.11.14 and disposable installations. Remote rc.2 Actions and final delivery capture evidence are pending at this checkpoint; no pending check is counted as a pass.
 
-## Remote Actions
+| Check | Observed result |
+|---|---|
+|Analytics admin/chart/import units|**35 checks passed**, including safe empty arrays, exact data values, unique SVG IDs, escaped labels, cohort percentages and native heatmap data.|
+|Analytics owner SQL/HTTP integration|**191 checks passed** at root and `/band`: report bucket totals, bounded filters, session/detail scope, journey pagination/chronology, supplied attribution escaping, owner boundaries, query imports and geography controls. Supported search hosts and short lookalikes are distinguished.|
+|Rendered analytics browser suite|**141 checks passed** in Chromium at root and `/band`: the traffic chart is within the first 1440×960 screen; actual values, keyboard readouts, color distinctions, channel/hourly/heatmap charts, 390/320px layouts, visitor drilldowns/filters, live source/OS/links and pause/resume, public page-time beacons, CSV, geography and native forms.|
+|Final report-section navigation|**4 focused assertions passed** after the final JavaScript adjustment: click, hash change, browser back and direct anchor. Persistent regression assertions were added for CI.|
+|Public navigation and controls|**401 checks passed** in Chromium at root and `/band`. Search sits 8–20px beside Book the Band, aligned and centered with logo clearance at 1440/1180/1024/900/821px; dropdown/focus/Escape, mobile menu, persistent audio, native controls and no-JavaScript navigation remain usable with unchanged business data.|
+|Public asset build|Committed bundles reproduce exactly: **123,884 / 130,000 bytes** across four loaded CSS/JS files.|
+|Packaging|**15 package tests passed**, including immutable version filenames, complete hashes, private/development exclusions and repeatable bytes. The software release gate passed after two independent cumulative builds.|
+|Changed-source validation|15 changed/new PHP files passed syntax checks; changed JavaScript passed Node syntax and six changed Python tools compiled at this checkpoint. Final source checks also run in CI.|
+|Schema and collector continuity|Migrations 007/008, the public Analytics collector and browser sampling asset, and the pinned recovery engine remain byte-identical to rc.1.|
 
-**All ten workflows and all 23 jobs passed** on application and test source `917997185a7512189353a4008ffbc1cd3b4f9951` in [PR 37](https://github.com/afterburn25/Spirit/pull/37). This documentation checkpoint records that observed result; it does not substitute previous-version evidence for a new code change.
+## Focused Navigation and Overview checks — rc.2
 
-| Workflow | Jobs | Observed result |
-|---|---:|---|
-|[Website and installer verification](https://github.com/afterburn25/Spirit/actions/runs/39373347004)|3|Passed|
-|[Visitor analytics verification](https://github.com/afterburn25/Spirit/actions/runs/39373347230)|2|Passed|
-|[Public navigation and native controls](https://github.com/afterburn25/Spirit/actions/runs/39373347254)|3|Passed|
-|[Populated storefront browser verification](https://github.com/afterburn25/Spirit/actions/runs/39373347064)|3|Passed|
-|[Site logo workflow verification](https://github.com/afterburn25/Spirit/actions/runs/39373347116)|4|Passed|
-|[Authoring safety verification](https://github.com/afterburn25/Spirit/actions/runs/39373347097)|4|Passed|
-|[Focused maintenance diagnostics](https://github.com/afterburn25/Spirit/actions/runs/39373347156)|1|Passed|
-|[Software release gate](https://github.com/afterburn25/Spirit/actions/runs/39373347148)|1|Passed|
-|[Review package artifact](https://github.com/afterburn25/Spirit/actions/runs/39373347108)|1|Passed|
-|[Candidate installation package](https://github.com/afterburn25/Spirit/actions/runs/39373341248)|1|Passed|
+Observed locally on 2026-10-20 against the working rc.2 source. These checks used packaged disposable PHP/database installations and synthetic traffic, with payment networking disabled; they did not access the real A2 website or production audience data. They are focused checks, not a claim that the full rc.2 workflow matrix has completed.
 
-The complete PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4 unit, SQL/HTTP and configured browser journeys passed, including actual Apache HTTPS access rules. Separate navigation, storefront, logo and authoring matrices passed in Chromium, Firefox and WebKit where configured. Payment and email scenarios use guarded fixtures; these results are not external-provider acceptance.
+| Check | Observed result |
+|---|---|
+|`php tests/admin_navigation_unit.php`|**109 checks passed.** Seven owner groups and 37 total destinations, including a separate three-link Analytics group; four communication destinations remain under Bookings & communication. Every destination exists, identities are unique, staff receive no Analytics links, and opaque saved-menu scopes remain isolated.|
+|Packaged owner Overview, Chromium, root and `/band`|**Passed.** Empty-state report, explicit seven-day UTC window, uncached response, seeded **67 visits / 131 pageviews / 35.8% bounce**, real daily SVG series, seven-row native daily table, real top referrer/country highlights and working links into Analytics/visitor exploration.|
+|Overview responsive geometry|**Passed at 1440, 390 and 320px** in both root and subfolder checks. All six metric cards and both traffic series render without document overflow; the traffic chart is within the first 960px desktop screen.|
+|Read-only and no-JavaScript behavior|**Passed.** Reload, resize and daily disclosure preserve the full database fingerprint. With JavaScript disabled, Overview metrics/SVG, native daily disclosure and the visitor-explorer link remain usable.|
+|Paused and unavailable reporting, additional Chromium root run|**Passed.** Pausing collection retains the 67 seeded visits and performs no read-side writes. Temporarily renaming an analytics table returns a usable 200 Overview with an explicit unavailable state, no invented zero metric cards and the existing operational summaries. Test state was restored afterward.|
+|Phone navigation, additional 390px Chromium root run|**Passed.** The dedicated category, unique current destination, persisted expand/collapse choices, exact URL/query/hash reload, sidebar scroll restoration, focus containment, Escape handling and per-tab behavior remain correct with no database mutation or uncaught page errors.|
+|Owner/staff identities and direct report routes, Chromium root|**Passed.** Owner snapshot/menu visibility, absence for content editors/store managers, direct staff 403 responses for dashboard/explorer/geography, exact current keys on all three Analytics destinations, corrupt/unavailable browser-storage fallback and native no-JavaScript navigation.|
+|Source validation|**Passed.** PHP syntax for the Overview controller/partial, navigation, geography renderer and shared header; Python compile for the navigation browser test; `git diff --check`.|
 
-The first round on `a9d5fca302f2dd689efc0fae7eb96f2668399f7b` exposed three test-boundary issues: the old administration-menu destination count, an unsynchronized asynchronous timing assertion, and a branding preview fingerprint that also included an unrelated public visit. The verified follow-up corrected those test observations while retaining complete access, read-only and timing guarantees. No failed first-round result is counted as a pass.
+The reproducible assertions are in `tests/admin_navigation_unit.php` and `tests/admin_navigation_browser.py`; the existing verification/storefront workflows already invoke those files. Focused runs called the browser test functions directly to isolate the changed behavior before the broader final suites. The additional root run includes the phone chart label/focus improvements and paused/unavailable coverage; the earlier root/subfolder run established path and responsive behavior. A final text-only Overview footer addition retains the DB-IP country attribution and must be present in final delivery captures.
+
+Actual 1440px desktop and 390px phone Overview QA images were captured and visually inspected. Values are synthetic fixture values, not production measurements. The snapshot explicitly labels live activity as **at page load** with a UTC timestamp and a reload instruction; it does not claim continuous polling. Public navigation QA has since passed the 401-check Chromium suite described above. A QA-only package produced 19 actual administration captures, which were visually inspected at desktop and phone sizes. The final delivery must use fresh captures tied to its exact archive; broader latest-head rc.2 CI evidence is still pending at this source checkpoint.
 
 ## Acceptance boundaries
 
-These tests do not establish target A2 ownership/ACL/proxy/OPcache behavior, physical-device performance, complete accessibility, actual SMTP/merchant acceptance or owner artwork approval. The same-schema ZIP updater deliberately refuses 007/008; existing sites use the documented code deployment and additive Database updates path. No production install, content publication or live payment occurred. Keep the candidate draft and unmerged until screenshot approval.
+Automated workflows use disposable databases and synthetic traffic. Exact-package owner screenshots label synthetic demonstration data and are accompanied by image/package hashes. They do not report real production audience counts.
+
+Actual hosting behavior, owner screenshot approval and external provider acceptance remain separate. This work does not install or activate services on the real A2 website.

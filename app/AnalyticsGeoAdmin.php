@@ -38,7 +38,7 @@ final class AnalyticsGeoAdmin
         }
         $geography = AnalyticsGeo::status(); $limits = HostingLimits::current();
         $gzipAvailable = function_exists('inflate_init') && function_exists('inflate_add') && function_exists('inflate_get_status') && function_exists('inflate_get_read_len');
-        View::start('Analytics geography', 'admin', 'analytics', $user);
+        View::start('Analytics geography', 'admin', 'analytics-geography', $user);
         require Paths::root() . '/views/admin/analytics-geography.php';
         View::end();
     }

@@ -1,8 +1,14 @@
-# Spiritual Gorillaz — 1.1.0-rc.1
+# Spiritual Gorillaz — 1.1.0-rc.2
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, metallic-gold and blue-stage-light identity.
 
-## 1.1.0-rc.1 — audience analytics and reliable phone navigation
+## 1.1.0-rc.2 — graphical analytics, visitor exploration and Overview snapshots
+
+Analytics has its own owner-only administration section. The dashboard puts traffic charts and consistent color-coded metrics near the top, adds graphical acquisition/device/engagement breakdowns and hourly activity, and exposes retained visit details through a filterable visitor explorer with chronological page journeys. The main owner Overview includes a seven-day analytics snapshot and a compact traffic chart.
+
+The public search button sits immediately beside **Book the Band**, with larger navigation text and responsive spacing through tablet and phone widths.
+
+This candidate refines the analytics introduced in rc.1 without adding a database migration or changing public artwork. Existing `007.sql` and `008.sql` remain byte-for-byte unchanged. Empty or unavailable observations remain explicitly labeled; review screenshots use synthetic data only.
 
 The owner administration now includes visitor analytics with charts, inclusive date filters and CSV export: visits, pageviews, completed-visit bounce rate, active viewing time, approximate live visitors, referral domains, supplied search terms, campaign tags, countries, browsers, operating systems, devices and separate crawler traffic. Country lookup works locally using the included, attributed DB-IP data. Optional private City database upload enables available region/city labels. Google Search Console Queries CSV imports provide aggregate search performance with their own dates.
 
@@ -10,7 +16,7 @@ Public navigation now has one controller and reproducible CSS/JavaScript bundles
 
 This is a cumulative review candidate on `work/1.1.0-analytics-and-navigation`, based on the latest 1.0.13 work. Screenshot approval and real-host acceptance remain separate from automated verification. Exact observed results are in `docs/TEST_RESULTS.md`.
 
-**Updating an installed website:** migrations `007.sql` and `008.sql` add analytics tables. The current browser ZIP updater deliberately refuses schema changes. Preserve the existing private configuration, owner, database and uploads; deploy the cumulative code through the hosting panel and apply **Database updates** using the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
+**Updating an installed website:** an installed `1.1.0-rc.1` already has the unchanged analytics schema, so the normal guarded same-schema **Browser upgrades** path applies when its checks pass. Updating a `1.0.x` site adds migrations `007.sql` and `008.sql`; the browser updater deliberately refuses that schema transition. For `1.0.x`, preserve the existing private configuration, owner, database and uploads, deploy the cumulative code through the hosting panel and apply **Database updates** with the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
 
 ## Preserved contained continuous-image heroes
 

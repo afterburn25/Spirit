@@ -45,14 +45,48 @@ def main():
                     query_csv = b'Top queries,Clicks,Impressions,CTR,Position\nspiritual gorillaz,120,1200,10%,2.3\nlive music lafayette,84,1400,6%,4.1\nblues band louisiana,36,720,5%,6.2\n'
                     multipart(current.client, 'admin/analytics/', query_values(), 'queries', 'Queries.csv', query_csv)
                     before = admin_fixture(current, 'snapshot')
+                    known = admin_fixture(current, 'explore')['report']
                     context = browser.new_context(viewport={'width':1440,'height':960}, reduced_motion='reduce', accept_downloads=True)
                     page = context.new_page(); errors = []
                     page.on('pageerror', lambda error: errors.append(str(error)))
                     browser_login(page, current)
                     # Navigate through the actual grouped administration link.
                     page.locator('[data-nav-link="analytics"]').click()
-                    browser_expect(page.locator('.analytics-heading h1')).to_contain_text('listening')
+                    browser_expect(page.locator('.analytics-heading h1')).to_contain_text('Audience analytics')
                     page.locator('.analytics-presets a').filter(has_text='7 days').click()
+                    traffic_box = page.locator('.analytics-trend').bounding_box()
+                    expect(traffic_box is not None and traffic_box['height'] >= 160
+                           and traffic_box['width'] >= 500 and traffic_box['y'] + traffic_box['height'] <= 960,
+                           'The large traffic chart is fully visible in the first 1440px desktop viewport')
+                    browser_expect(page.locator('.metric-visits strong')).to_have_text(f"{known['summary']['visits']:,}")
+                    browser_expect(page.locator('.metric-pageviews strong')).to_have_text(f"{known['summary']['pageviews']:,}")
+                    expect(known['summary']['visits'] > 0 and known['summary']['pageviews'] > known['summary']['visits'],
+                           'Prominent traffic totals show the actual nonzero seeded cohort')
+                    expect(page.locator('.analytics-channel-panel .chart-segment').count() >= 3
+                           and page.locator('.analytics-hourly .chart-hour-bar').count() == 24
+                           and page.locator('.analytics-heatmap .chart-heat').count() == 168,
+                           'Channel composition, hourly bars and all weekday/hour cells are rendered graphics')
+                    colors = page.locator('.analytics-stats .stat strong').evaluate_all('(items)=>items.map(item=>getComputedStyle(item).color)')
+                    expect(len(set(colors)) == 6, 'All six headline metrics have distinct, consistent color keys')
+                    point = page.locator('.analytics-trend .chart-datapoint').last
+                    exact_tip = point.get_attribute('data-chart-tip')
+                    point.focus()
+                    browser_expect(page.locator('.analytics-chart-panel [data-chart-readout]')).to_have_text(exact_tip)
+                    expect(str(known['daily'][-1]['pageviews'])+' pageviews' in exact_tip,
+                           'Keyboard chart focus exposes exact recorded values, not a decorative tooltip')
+                    page.locator('.analytics-section-nav a[href="#technology"]').click()
+                    expect(page.url.endswith('#technology') and page.locator('#technology').bounding_box()['y'] < 100,
+                           'Report section navigation reaches the actual technology report')
+                    browser_expect(page.locator('.analytics-section-nav a[href="#technology"]')).to_have_attribute('aria-current','location')
+                    page.evaluate('location.hash = "crawlers"')
+                    browser_expect(page.locator('.analytics-section-nav a[href="#crawlers"]')).to_have_attribute('aria-current','location')
+                    page.go_back()
+                    browser_expect(page.locator('.analytics-section-nav a[href="#technology"]')).to_have_attribute('aria-current','location')
+                    expect(page.url.endswith('#technology'), 'Report selection follows hash changes and browser-back navigation')
+                    page.goto(current.base+'admin/analytics/?range=7#search-console', wait_until='networkidle')
+                    browser_expect(page.locator('.analytics-section-nav a[href="#search-console"]')).to_have_attribute('aria-current','location')
+                    expect(True, 'A direct report anchor starts with the matching selected section')
+                    page.evaluate('window.scrollTo(0,0)')
                     for width in [1440, 390, 320]:
                         page.set_viewport_size({'width':width,'height':960})
                         layout(page, f'{engine_name} {folder or "root"} {width}px dashboard')
@@ -62,6 +96,29 @@ def main():
                         expect(page.locator('#search-console').inner_text().find('120') >= 0, 'Imported query metrics remain present on the page')
                         if not folder and width in [1440,390]:
                             screenshot(page, 'analytics-'+engine_name+'-'+str(width)+'-synthetic')
+                    page.set_viewport_size({'width':1440,'height':960})
+                    page.locator('.analytics-heading-actions a').filter(has_text='Explore visitors').click()
+                    browser_expect(page.locator('.analytics-explorer h1')).to_contain_text('Every visit')
+                    expect(page.locator('.analytics-visitor-list tbody [data-visitor-id]').count() == 25,
+                           'Visitor explorer renders the first real paginated cohort')
+                    page.locator('.analytics-visitor-list a').filter(has_text='Inspect visit').first.click()
+                    browser_expect(page.locator('.analytics-session-details')).to_contain_text('Arrival & discovery')
+                    browser_expect(page.locator('.analytics-session-details')).to_contain_text('Device & location')
+                    expect(page.locator('.analytics-journey-card').count() >= 1,
+                           'A selected anonymous session exposes its source, technology and actual page journey')
+                    for width in [1440,390,320]:
+                        page.set_viewport_size({'width':width,'height':960})
+                        layout(page, f'{engine_name} {folder or "root"} {width}px visitor explorer')
+                        if not folder and width in [1440,390]: screenshot(page, 'analytics-'+engine_name+'-visitor-'+str(width)+'-synthetic')
+                    page.locator('.analytics-explorer-filter-details summary').click()
+                    page.locator('[name=path]').fill('/no-matching-visitor-fixture/')
+                    page.locator('button').filter(has_text='Apply visitor filters').click()
+                    browser_expect(page.locator('.analytics-visitor-list')).to_contain_text('No visits match these filters')
+                    expect(page.locator('.analytics-explorer-filter-details').get_attribute('open') is not None,
+                           'Native active filters stay open and unmatched visits have an honest empty state')
+                    page.locator('a').filter(has_text='Reset filters').click()
+                    browser_expect(page.locator('.analytics-visitor-list tbody [data-visitor-id]')).to_have_count(25)
+                    page.goto(current.base+'admin/analytics/?range=7')
                     page.set_viewport_size({'width':1440,'height':960})
                     page.locator('.analytics-detail summary').filter(has_text='View daily data').click()
                     expect(page.locator('.analytics-chart-panel tbody tr').count() == 7, 'Daily table matches the selected inclusive seven-day filter')
@@ -84,6 +141,10 @@ def main():
                     page.reload(wait_until='networkidle')
                     browser_expect(page.locator('[data-live-count]')).to_have_text('1', timeout=20000)
                     browser_expect(page.locator('[data-live-rows]')).to_contain_text('/music/')
+                    browser_expect(page.locator('[data-live-rows]')).to_contain_text('Chrome · Windows')
+                    expect(page.locator('[data-live-rows] tr').first.locator('td').count() == 7
+                           and 'visitors.php?visit=' in page.locator('[data-live-rows] a').first.get_attribute('href'),
+                           'Live refresh retains source, software, page count and a working internal session link')
                     toggle = page.locator('[data-live-toggle]')
                     toggle.click(); browser_expect(toggle).to_have_attribute('aria-pressed','true')
                     browser_expect(page.locator('[data-live-status]')).to_contain_text('paused')
@@ -134,6 +195,14 @@ def main():
                     layout(native_page, 'No-JavaScript analytics')
                     expect(native_page.locator('[data-live-toggle]').is_hidden(), 'No-JavaScript report does not advertise an inoperative live button')
                     expect(native_page.locator('.analytics-trend').count() == 1 and native_page.locator('#analytics-retention').is_enabled(), 'Native charts and analytics settings remain usable without JavaScript')
+                    native_page.locator('.analytics-detail summary').filter(has_text='View weekday / hour counts').click()
+                    expect(native_page.locator('table caption').filter(has_text='Pageviews by weekday and hour in UTC').locator('..').locator('tbody tr').count() == 7,
+                           'The heatmap exposes its exact weekday/hour table without JavaScript')
+                    native_page.locator('.analytics-heading-actions a').filter(has_text='Explore visitors').click()
+                    native_page.locator('.analytics-visitor-list a').filter(has_text='Inspect visit').first.click()
+                    expect(native_page.locator('.analytics-journey-card').count() >= 1,
+                           'Visitor session drilldown and its page journey work without JavaScript')
+                    native_page.goto(current.base+'admin/analytics/?range=7')
                     native_page.locator('.analytics-settings-form [name=enabled]').uncheck()
                     native_page.locator('.analytics-settings-form button').click()
                     browser_expect(native_page.locator('.notice').filter(has_text='Visitor collection is paused')).to_be_visible()

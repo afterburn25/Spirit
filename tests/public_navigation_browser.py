@@ -16,6 +16,37 @@ def closed(page):
     be(page.locator('#public-nav')).to_be_hidden()
 
 
+def desktop_header_checks(browser, s, engine, area):
+    context=browser.new_context(viewport={'width':1440,'height':960},reduced_motion='reduce')
+    page=context.new_page();page.goto(s.base,wait_until='networkidle')
+    for width in (1440,1180,1024,900,821):
+        page.set_viewport_size({'width':width,'height':960})
+        metrics=page.evaluate('''() => {
+          const nav=document.querySelector('#public-nav'),book=nav.querySelector('.nav-book'),
+            search=document.querySelector('.header-search .nav-search'),logo=document.querySelector('.site-header .wordmark');
+          const n=nav.getBoundingClientRect(),b=book.getBoundingClientRect(),s=search.getBoundingClientRect(),l=logo.getBoundingClientRect();
+          return {gap:s.left-b.right,center:(n.left+s.right)/2,logoRight:l.right,navLeft:n.left,
+            font:parseFloat(getComputedStyle(nav.querySelector('a')).fontSize),
+            aligned:Math.abs(b.top+b.height/2-s.top-s.height/2),overflow:document.documentElement.scrollWidth>innerWidth+1};
+        }''')
+        if abs(metrics['center']-width/2)>2 or metrics['logoRight']+4>metrics['navLeft'] or metrics['overflow']:
+            print(f'Header geometry at {width}px: {metrics}', flush=True)
+        expect(8<=metrics['gap']<=20 and metrics['aligned']<=2,
+               f'{width}px search sits directly beside Book the band with aligned controls')
+        expect(abs(metrics['center']-width/2)<=2 and metrics['logoRight']+4<=metrics['navLeft'] and not metrics['overflow'],
+               f'{width}px complete navigation/search group is centered without logo collision or overflow')
+        expect(metrics['font']>=(15 if width==1440 else 12),f'{width}px navigation uses the enlarged readable type')
+        search=page.get_by_role('button',name='Open site search',exact=True);search.click()
+        be(page.locator('#header-search-panel')).to_be_visible();be(page.locator('#header-search-query')).to_be_focused()
+        box=page.locator('#header-search-panel').bounding_box()
+        expect(box is not None and box['x']>=0 and box['x']+box['width']<=width+1,
+               f'{width}px adjacent search dropdown stays within the viewport')
+        page.keyboard.press('Escape');be(page.locator('#header-search-panel')).to_be_hidden();be(search).to_be_focused()
+    page.set_viewport_size({'width':1440,'height':960})
+    if area=='root':screenshot(page,'navigation-'+engine+'-1440-header')
+    context.close()
+
+
 def menu_checks(page, width):
     toggle=page.locator('.nav-toggle');nav=page.locator('#public-nav');links=nav.locator('a[href]')
     be(links).to_have_count(7);closed(page)
@@ -129,6 +160,7 @@ def main():
                 with site(base/area,archive,code,folder) as s:
                     s.claim();s.client.form('install/',s.input());s.login();seed_media_and_music(s);pid,_,_=seed_catalog(s)
                     before=snapshot(s)
+                    desktop_header_checks(browser,s,name,area)
                     for width in (820,390,320):
                         context=browser.new_context(viewport={'width':width,'height':680},reduced_motion='reduce',bypass_csp=False)
                         page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))

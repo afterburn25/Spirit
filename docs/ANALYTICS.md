@@ -1,10 +1,28 @@
-# Visitor analytics — 1.1.0-rc.1
+# Visitor analytics — 1.1.0-rc.2
 
 ## Open the dashboard
 
-Sign in with an active owner account and choose **Analytics** in the administration menu. Content editors and store staff cannot view analytics, export it or change its settings. Charts and the full report are rendered by PHP and remain usable without JavaScript. Live refresh is an optional browser enhancement.
+Sign in with an active owner account. **Analytics** has its own administration menu group containing **Dashboard**, **Visitor explorer** and **Geography**. It is separate from **Bookings & communication**. Content editors and store staff cannot view analytics, export it or change its settings. Charts and the full report are rendered by PHP and remain usable without JavaScript. Live refresh and interactive chart tooltips are browser enhancements.
 
 Choose the last 7, 30 or 90 days, or an inclusive custom range of at most 366 days. Dates and displayed times use UTC. Export the selected report as CSV. Collection, geography and crawler reporting can each be paused in Analytics settings. The default retention policy is 90 days; the owner may choose 30, 90, 180 or 365 days.
+
+## Overview snapshots and graphical reports
+
+The main administration **Overview** shows a compact seven-day snapshot for the owner: visits, pageviews, completed-visit bounce rate, measured active time, live visits and separate crawler hits. Its traffic chart, top referring source, country and page use the same seven-day UTC window. The displayed live number is a snapshot at page load, with its timestamp; open the Analytics dashboard for the refreshing live panel. Pausing collection preserves historical reports. If analytics is unavailable, Overview still opens and shows an explicit unavailable message.
+
+The Analytics dashboard uses consistent colors: gold for visits, blue for pageviews, coral for bounce, purple for measured active time and teal for live activity. The large daily traffic chart is near the top. Channel and device composition, ranked referral/browser/OS/location bars, hourly activity, the weekday/hour grid, entry and exit pages, session depth and measured engagement make the supporting reports easier to compare. Legends, labels and report tables retain the actual numeric values; meaning does not rely on color alone. Empty reports remain empty instead of displaying demonstration numbers.
+
+The channel breakdown derives categories from retained attribution. Recognized paid or email campaign media take precedence, followed by supported social/search referrals, other tagged campaigns, other external referrals and Direct / unknown. This is a reporting classification, not proof of the visitor's intention. Hourly visit counts are distinct within each hour; a session active in several hours appears in each relevant hour. The weekday/hour grid counts pageviews. Session depth uses the complete session's recorded page count; engagement bands use measured activity on pages viewed in the selected period. Unmeasured sessions have their own band.
+
+Entry pages are the first retained pages of sessions qualifying for the selected dates. Exit pages are the last retained pages of completed sessions in that cohort. Those retained first/last pages can lie outside the selected dates when a session crosses midnight. These are session-level journey reports, while the existing page report is scoped to pageviews within the selected dates.
+
+## Explore a visitor session
+
+Open **Analytics → Visitor explorer** to search retained anonymous sessions. Combine date, traffic channel, status, country, device, browser, operating system, referring domain, region, city and visited-page filters. Region/city and page filters match the recorded values; page paths exclude query parameters. Results show 25 sessions per page, ordered by most recent activity. A selected-date cohort includes sessions with a counted page during that range.
+
+Choose **Inspect visit** to see the session's arrival and last activity, supplied referral/search/campaign labels, client families, available approximate location, first and last retained page, classic bounce status and timing coverage. The chronological journey shows each retained public pageview, its observed timing and whether it falls outside the selected dates. Long journeys are paginated in groups of 100 events. Details keep the active filters and date scope; a missing, expired or unrelated session does not bypass them.
+
+These identifiers describe anonymous sessions. The explorer does not reveal a person's name, raw IP, full user-agent string, account history, checkout details or form contents. Missing phrases stay **Not supplied**, missing location stays **Unknown**, and missing duration stays **Unmeasured**. Live, recent, completed and single-page-bounce labels follow the same boundaries as the dashboard. The visitor list is read-only and updates when loaded; it is not a second continuously polling live feed.
 
 ## What the numbers mean
 
@@ -64,6 +82,10 @@ Migrations `007.sql` and `008.sql` add four analytics tables. Existing migration
 4. Open Analytics, visit public pages in a separate ordinary browser session and verify the new observations. Check the selected retention settings, country attribution, live data and any optional City/query imports. Review the public desktop/mobile screenshots and run the applicable acceptance checks before cutover.
 
 There is no automatic rollback of the added SQL schema. Existing same-schema recovery checkpoints are not a universal cross-schema rollback. Follow the reviewed staging backup/restore plan if this deployment must be reversed. The implementation does not contact or modify the real A2 site merely by building this archive.
+
+## Update an installed 1.1.0-rc.1 website
+
+This candidate changes presentation and read-only reports. Migrations `007.sql` and `008.sql` are unchanged and no new migration is added. Follow the existing guarded **Browser upgrades** process for the newer cumulative Full ZIP when its same-schema, recovery and file-integrity checks pass. Preserve the original owner, configuration/encryption secret, database, private runtime and uploads. Existing analytics history remains available; do not run the fresh installer again.
 
 ## Verification
 

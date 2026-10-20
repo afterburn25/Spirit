@@ -41,54 +41,24 @@ final class AnalyticsAdmin
 
     public static function number(int|float $value): string { return number_format($value); }
 
-    public static function trend(array $days): void
+    public static function trend(array $days, bool $compact = false): void
     {
-        $peak = max(1, ...array_map(static fn($row) => max((int)$row['visits'], (int)$row['pageviews']), $days));
-        $ceiling = max(4, (int)(ceil($peak / 4) * 4));
-        $count = count($days);
-        $x = static fn(int $i): float => 54 + ($count > 1 ? $i * 722 / ($count - 1) : 361);
-        $y = static fn(int $v): float => 226 - min(1, $v / $ceiling) * 190;
-        echo '<svg class="analytics-trend" viewBox="0 0 820 276" role="img" aria-labelledby="traffic-chart-title traffic-chart-desc">';
-        echo '<title id="traffic-chart-title">Daily visits and pageviews</title><desc id="traffic-chart-desc">Gold shows visits. Blue shows pageviews. Exact values are available in the daily data table below.</desc>';
-        for ($i = 0; $i <= 4; $i++) {
-            $n = (int)($ceiling * $i / 4); $yy = $y($n);
-            echo '<line class="chart-grid" x1="54" x2="776" y1="'.$yy.'" y2="'.$yy.'"/><text class="chart-label" x="42" y="'.($yy + 4).'" text-anchor="end">'.self::number($n).'</text>';
-        }
-        foreach (['pageviews', 'visits'] as $series) {
-            $points = [];
-            foreach ($days as $i => $row) { $points[] = round($x($i), 2).','.round($y((int)$row[$series]), 2); }
-            if ($points) { echo '<polyline class="chart-line chart-'.$series.'" points="'.implode(' ', $points).'"/>'; }
-        }
-        foreach ($days as $i => $row) {
-            $tip = $row['date'].': '.self::number((int)$row['visits']).' visits, '.self::number((int)$row['pageviews']).' pageviews';
-            echo '<circle class="chart-point" cx="'.round($x($i), 2).'" cy="'.round($y((int)$row['visits']), 2).'" r="4" tabindex="0" aria-label="'.e($tip).'"><title>'.e($tip).'</title></circle>';
-        }
-        foreach (array_unique([0, (int)floor(max(0, $count - 1) / 2), max(0, $count - 1)]) as $i) {
-            if (!isset($days[$i])) { continue; }
-            echo '<text class="chart-label" x="'.round($x($i), 2).'" y="254" text-anchor="middle">'.e(substr($days[$i]['date'], 5)).'</text>';
-        }
-        echo '</svg>';
+        AnalyticsCharts::trend($days, $compact);
     }
 
     public static function bars(array $rows, string $label = 'label', string $value = 'visits', string $empty = 'No visits recorded in this period.', ?int $denominator = null): void
     {
-        if (!$rows) { echo '<p class="analytics-empty">'.e($empty).'</p>'; return; }
-        $total = max(1, $denominator ?? array_sum(array_map(static fn($row) => (int)$row[$value], $rows)));
-        $max = max(1, ...array_map(static fn($row) => (int)$row[$value], $rows));
-        echo '<ol class="analytics-ranking">';
-        foreach ($rows as $row) {
-            $name = (string)($row[$label] ?: 'Unknown'); $amount = max(0, (int)$row[$value]);
-            echo '<li><div><span>'.e($name).'</span><strong>'.self::number($amount).'<small>'.round($amount * 100 / $total).'%</small></strong></div><svg viewBox="0 0 400 5" preserveAspectRatio="none" aria-hidden="true"><rect class="chart-bar-track" width="400" height="5" rx="2"/><rect class="chart-bar" width="'.round(400 * $amount / $max, 2).'" height="5" rx="2"/></svg></li>';
-        }
-        echo '</ol>';
+        AnalyticsCharts::bars($rows, $label, $value, $empty, $denominator);
     }
 
     public static function liveRows(array $visitors): void
     {
-        if (!$visitors) { echo '<tr><td colspan="6" class="analytics-empty">No visitors active in the last minute.</td></tr>'; return; }
+        if (!$visitors) { echo '<tr><td colspan="7" class="analytics-empty">No visitors active in the last minute.</td></tr>'; return; }
         foreach ($visitors as $visitor) {
             $place = implode(', ', array_filter([$visitor['city'] ?? '', $visitor['region'] ?? '', $visitor['country'] ?? ''], static fn($value) => $value !== '' && $value !== 'Unknown'));
-            echo '<tr><td><span class="analytics-live-dot" aria-hidden="true"></span>Visit '.e((string)$visitor['id']).'</td><td>'.e((string)$visitor['path']).'</td><td>'.e($place ?: 'Unknown').'</td><td>'.e((string)$visitor['device']).'<small>'.e((string)$visitor['browser']).'</small></td><td>'.self::duration((int)$visitor['active_seconds']).'</td><td>'.e(substr((string)$visitor['last_seen'], 11, 8)).' UTC</td></tr>';
+            $label = 'Visit '.e((string)$visitor['id']);
+            if (!empty($visitor['record_id'])) { $label = '<a class="analytics-session-link" href="'.e(app_url('admin/analytics/visitors.php?visit='.(int)$visitor['record_id'])).'">'.$label.' <span aria-hidden="true">↗</span></a>'; }
+            echo '<tr><td><span class="analytics-live-dot" aria-hidden="true"></span>'.$label.'</td><td class="analytics-path">'.e((string)$visitor['path']).'<small>'.self::number((int)($visitor['page_count'] ?? 1)).' pages in session</small></td><td>'.e((string)($visitor['referrer'] ?? 'Direct / unknown')).'</td><td>'.e($place ?: 'Unknown').'</td><td>'.e((string)$visitor['device']).'<small>'.e(implode(' · ', array_filter([(string)$visitor['browser'], (string)($visitor['os'] ?? '')]))).'</small></td><td>'.self::duration((int)$visitor['active_seconds']).'</td><td>'.e(substr((string)$visitor['last_seen'], 11, 8)).' UTC</td></tr>';
         }
     }
 
@@ -112,7 +82,7 @@ final class AnalyticsAdmin
         $write(['Bounce rate is single-page completed visits / completed visits; live visits are excluded.']);
         $write(['Active time counts visible-page heartbeats; unavailable time is not inferred from open tabs.']);
         $write(['Country data: IP Geolocation by DB-IP', 'https://db-ip.com', 'Approximate; not GPS.']);
-        foreach (['summary','daily','pages','referrers','search_terms','campaigns','browsers','devices','operating_systems','countries','regions','cities','crawlers'] as $section) {
+        foreach (['summary','daily','pages','referrers','search_terms','campaigns','browsers','devices','operating_systems','countries','regions','cities','crawlers','channels','hourly','heatmap','entry_pages','exit_pages','depth','engagement'] as $section) {
             $write([]); $write([$section]);
             $rows = $report[$section] ?? [];
             if ($section === 'summary') { foreach ($rows as $key => $value) { $write([$key, $value]); } continue; }

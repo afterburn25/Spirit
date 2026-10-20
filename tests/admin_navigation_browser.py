@@ -10,6 +10,8 @@ from playwright.sync_api import sync_playwright, expect as be
 from http_integration import ROOT, build_package, expect, site, dashboard
 from launch_integration import fixture
 from public_browser import screenshot
+from analytics_admin_integration import admin_fixture
+from analytics_integration import fixture as analytics_fixture
 
 
 def signin(s,page,email=None,password=None):
@@ -34,9 +36,10 @@ def states(page):return page.locator('[data-nav-group]').evaluate_all('(nodes)=>
 def shape(page,label):
     expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),label+': no page overflow')
     expect(page.locator('#sidebar a[aria-current="page"]').count()==1,label+': exactly one current destination')
-    expect(page.locator('[data-nav-group]').count()==6,label+': six owner categories')
-    expect(page.locator('#sidebar nav a').count()==35,label+': all 35 authorized destinations present')
-    expect(page.locator('#sidebar [data-nav-link="analytics"]').count()==1,label+': owner audience analytics destination present')
+    expect(page.locator('[data-nav-group]').count()==7,label+': seven owner categories')
+    expect(page.locator('#sidebar nav a').count()==37,label+': all 37 authorized destinations present')
+    expect(page.locator('[data-nav-group="analytics"] [data-nav-link]').count()==3,label+': Analytics has its own three destinations')
+    expect(page.locator('[data-nav-group="audience"] [data-nav-link="analytics"]').count()==0,label+': Analytics is outside Bookings and communication')
     expect(page.locator('[role="menu"], [role="menuitem"]').count()==0,label+': ordinary disclosure/navigation semantics retained')
 
 
@@ -51,7 +54,7 @@ def journey(browser,s,width,engine,area):
     page.locator('[data-nav-action="collapse"]').click()
     page.locator('[data-nav-group="content"] > summary').focus();page.keyboard.press('Enter')
     page.locator('[data-nav-group="music"] > summary').focus();page.keyboard.press('Space')
-    expected={'content':True,'music':True,'audience':False,'commerce':False,'settings':False,'system':False}
+    expected={'content':True,'music':True,'analytics':False,'audience':False,'commerce':False,'settings':False,'system':False}
     expect(states(page)==expected,'Keyboard Enter/Space selects independent expanded categories')
     exact=page.url;page.reload(wait_until='networkidle');ready(page)
     expect(page.url==exact and states(page)==expected,'Refresh preserves exact query/hash URL and category choices')
@@ -106,21 +109,24 @@ def identity_and_failure(browser,s,engine,area):
     page=c.new_page();signin(s,page);owner_scope=page.locator('#sidebar').get_attribute('data-nav-scope')
     page.locator('[data-nav-action="collapse"]').click();page.locator('.admin-sidebar-actions button').click();page.wait_for_url('**/admin/login.php')
     password='Menu-fixture-only-Password-492'
-    for role,links,groups in [('owner',35,6),('content_editor',11,3),('store_manager',6,3)]:
+    for role,links,groups in [('owner',37,7),('content_editor',11,3),('store_manager',6,3)]:
         signin(s,page,'menu-'+role+'@example.test',password)
         expect(page.locator('#sidebar').get_attribute('data-nav-scope')!=owner_scope,'Different accounts have independent opaque preference scopes')
         expect(all(states(page).values()),'One account\'s collapsed layout does not spill into another')
         expect(page.locator('#sidebar nav a').count()==links and len(states(page))==groups,'Server filters links and empty categories for '+role)
         expect(page.locator('#sidebar [data-nav-link="analytics"]').count()==int(role=='owner'),'Audience analytics navigation is owner-only for '+role)
+        expect(page.locator('[data-analytics-snapshot]').count()==int(role=='owner'),'The Overview analytics snapshot is owner-only for '+role)
         if role!='owner':
             expect(page.locator('#sidebar a[href*="admin/orders/payments"],#sidebar a[href*="admin/shop/customers"],#sidebar a[href*="admin/staff/"]').count()==0,'Staff do not receive owner financial/customer/access links')
             expect(page.goto(s.base+'admin/orders/payments.php').status==403,'A direct forbidden URL is still rejected by server permissions')
             expect(page.goto(s.base+'admin/analytics/').status==403,'Direct audience analytics access is rejected for '+role)
+            expect(page.goto(s.base+'admin/analytics/visitors.php').status==403,'Direct visitor exploration is rejected for '+role)
+            expect(page.goto(s.base+'admin/analytics/geography.php').status==403,'Direct geography access is rejected for '+role)
             page.goto(s.base+'admin/');ready(page)
         page.locator('.admin-sidebar-actions button').click();page.wait_for_url('**/admin/login.php')
     signin(s,page);expect(not any(states(page).values()),'Returning to the first owner restores that owner\'s layout')
     # Active store subsections must be more precise than the old generic store key.
-    for route,key in [('admin/shop/categories.php','store-categories'),('admin/shop/customers.php','customers'),('admin/shop/settings.php','store-settings'),('admin/orders/payments.php?environment=sandbox','payment-settings'),('admin/orders/policy.php','delivery-policy'),('admin/orders/webhooks.php','payment-notifications')]:
+    for route,key in [('admin/shop/categories.php','store-categories'),('admin/shop/customers.php','customers'),('admin/shop/settings.php','store-settings'),('admin/orders/payments.php?environment=sandbox','payment-settings'),('admin/orders/policy.php','delivery-policy'),('admin/orders/webhooks.php','payment-notifications'),('admin/analytics/','analytics'),('admin/analytics/visitors.php','analytics-visitors'),('admin/analytics/geography.php','analytics-geography')]:
         page.goto(s.base+route,wait_until='networkidle');ready(page)
         be(page.locator('#sidebar a[aria-current="page"]')).to_have_attribute('data-nav-link',key)
         expect(not any(states(page).values()),'Direct subsection entry does not reopen deliberately collapsed categories')
@@ -150,6 +156,62 @@ def identity_and_failure(browser,s,engine,area):
     screenshot(page,f'admin-nav-{engine}-{area}-native');c.close()
 
 
+def audience_overview(browser,s,engine,area):
+    """A real owner snapshot must show stored data while preserving the database."""
+    c=browser.new_context(viewport={'width':1440,'height':960},reduced_motion='reduce',bypass_csp=False)
+    page=c.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));signin(s,page)
+    be(page.locator('[data-overview-metric="visits"]')).to_have_text('0')
+    expect('No public traffic recorded' in page.locator('[data-analytics-snapshot]').inner_text(),'Fresh Overview honestly shows an empty audience snapshot')
+    admin_fixture(s,'seed')
+    before=fixture(s,'fingerprint')
+    response=page.reload(wait_until='networkidle');ready(page)
+    expect(response.status==200 and 'no-store' in response.headers.get('cache-control',''),'Owner Overview snapshot is a private uncached report')
+    be(page.locator('[data-overview-metric="visits"]')).to_have_text('67')
+    be(page.locator('[data-overview-metric="pageviews"]')).to_have_text('131')
+    be(page.locator('[data-overview-metric="bounce"]')).to_have_text('35.8%')
+    expect('Last 7 days' in page.locator('.overview-period').inner_text() and 'UTC' in page.locator('.overview-period').inner_text(),'Snapshot states its seven-day UTC reporting window')
+    expect('at page load' in page.locator('.tone-live').inner_text() and 'reload to refresh' in page.locator('.overview-audience-footer').inner_text(),'At-load live count is not presented as a continuously polling metric')
+    for width in [1440,390,320]:
+        page.set_viewport_size({'width':width,'height':960})
+        expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),'Overview analytics fits '+str(width)+'px without document overflow')
+        expect(page.locator('.overview-audience-metrics .overview-metric').count()==6,'Six colored analytics snapshots are present at '+str(width)+'px')
+        chart=page.locator('.overview-traffic .analytics-trend')
+        expect(chart.count()==1 and chart.locator('.chart-visits').count()==1 and chart.locator('.chart-pageviews').count()==1,'Overview renders both measured traffic series at '+str(width)+'px')
+        if width==1440:
+            box=chart.bounding_box()
+            expect(box is not None and box['y']+box['height']<=960,'Overview traffic chart is visible in the first desktop screen')
+        if width in [1440,390]:screenshot(page,f'analytics-overview-{engine}-{area}-{width}-synthetic')
+    page.locator('.overview-daily summary').click()
+    expect(page.locator('.overview-daily tbody tr').count()==7,'Native daily data reveals the same seven-day snapshot')
+    expect('google.com' in page.locator('.overview-audience-highlights').inner_text() and 'United States' in page.locator('.overview-audience-highlights').inner_text(),'Overview highlights reflect real synthetic source and country aggregates')
+    expect(fixture(s,'fingerprint')==before,'Overview read, resize and daily disclosure do not write database records')
+    page.locator('.overview-audience-heading a').click();page.wait_for_url('**/admin/analytics/?range=7')
+    expect(page.locator('#sidebar a[aria-current="page"]').get_attribute('data-nav-link')=='analytics','Overview links into the real seven-day Analytics dashboard')
+    analytics_fixture(s,'settings',{'enabled':'0'})
+    try:
+        before=fixture(s,'fingerprint')
+        page.goto(s.base+'admin/',wait_until='networkidle')
+        be(page.locator('.overview-audience-notice')).to_contain_text('Collection is paused')
+        be(page.locator('[data-overview-metric="visits"]')).to_have_text('67')
+        expect(fixture(s,'fingerprint')==before,'Paused collection preserves the existing report and Overview performs no writes')
+    finally: analytics_fixture(s,'settings',{'enabled':'1'})
+    analytics_fixture(s,'break')
+    try:
+        response=page.reload(wait_until='networkidle')
+        expect(response.status==200 and page.locator('.overview-audience-unavailable').is_visible(),'An unavailable analytics table does not break the owner Overview')
+        expect(page.locator('[data-overview-metric]').count()==0 and page.locator('.stats .stat').count()==3,'Unavailable reporting shows no invented zero metrics and retains the operational summaries')
+    finally: analytics_fixture(s,'restore')
+    expect(not errors,'Overview analytics has no uncaught browser errors');c.close()
+    native=browser.new_context(viewport={'width':390,'height':960},java_script_enabled=False,bypass_csp=False)
+    page=native.new_page();page.goto(s.base+'admin/login.php');page.locator('[name="email"]').fill(s.owner);page.locator('[name="password"]').fill(s.password);page.get_by_role('button',name='Enter backstage').click();page.wait_for_url('**/admin/')
+    be(page.locator('[data-overview-metric="visits"]')).to_have_text('67')
+    expect(page.locator('.overview-traffic .chart-visits').count()==1,'Overview chart renders without JavaScript')
+    page.locator('.overview-daily summary').click();expect(page.locator('.overview-daily tbody').is_visible(),'Overview daily data disclosure works without JavaScript')
+    page.locator('.overview-audience-footer a').filter(has_text='Explore visitors').click();page.wait_for_url('**/admin/analytics/visitors.php?range=7')
+    expect(page.locator('h1').is_visible(),'Native Overview visitor-explorer link opens the real report')
+    native.close()
+
+
 def main():
     if os.geteuid()==0 or os.environ.get('SPIRIT_TESTING')!='1' or os.environ.get('SPIRIT_DISABLE_PAYMENT_NETWORK')!='1':raise RuntimeError('Use a non-root disposable database and disabled payment network.')
     engine=os.environ.get('SPIRIT_BROWSER','chromium')
@@ -164,6 +226,7 @@ def main():
                         s.claim();s.client.form('install/',s.input());s.login()
                         env={**s.env,'SPIRIT_FIXTURE_ROOT':str(s.root),'SPIRIT_FIXTURE_DOCUMENT_ROOT':str(s.docroot)}
                         subprocess.run(['php',str(ROOT/'tests/navigation_fixture.php')],env=env,check=True,timeout=15)
+                        audience_overview(browser,s,engine,area)
                         for width in [1440,820,390,320]:journey(browser,s,width,engine,area)
                     # Separate disposable instance keeps repeated login tests below
                     # the real per-account limit without weakening rate limiting.

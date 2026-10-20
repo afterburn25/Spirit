@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.0-rc.2 — graphical analytics and visitor exploration
+
+- Give Analytics its own owner administration category, separate from Bookings & communication.
+- Put a compact analytics snapshot and real traffic chart on the main owner Overview.
+- Place public search immediately beside Book the Band and enlarge the centered desktop navigation, with fitted tablet spacing and the existing phone controls.
+- Replace the oversized analytics introduction with a compact report header, prominent charts and consistent metric colors.
+- Add graphical channel, device, hourly activity, engagement and retained entry/exit breakdowns alongside existing geography, browser, operating-system, search and crawler reports.
+- Add a native, filterable visitor explorer and anonymous session details with chronological retained page journeys, measured time, acquisition, campaign, client and approximate-location information.
+- Preserve owner-only access, private responses, escaped data, bounded queries, measured-time definitions and honest unavailable states.
+- Keep the existing analytics schema, public collection rules, public artwork, installed owner/configuration and cumulative-package contract.
+- Deliver a new versioned Full ZIP with exact-package screenshots; rc.1 downloads remain unchanged. New verification evidence belongs in `docs/TEST_RESULTS.md`.
+
 ## 1.1.0-rc.1 — audience analytics and reliable navigation
 
 - Add owner-only charts, date filters and visitor CSV reports for visits, pageviews, referral domains, supplied search terms, campaigns, countries and browser/OS/device families.

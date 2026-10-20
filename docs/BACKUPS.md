@@ -1,6 +1,6 @@
 # Encrypted snapshots and guarded restoration
 
-Current behavior for 1.1.0-rc.1; this module originated in checkpoint 0.9.0-dev.2. Consult TEST_RESULTS.md for exact execution evidence. It provides application-data backups and same-installation restoration. Browser code upgrades are a separate implemented module described in UPGRADES.md; cross-host disaster recovery remains outside this restore path.
+Current behavior for 1.1.0-rc.2; this module originated in checkpoint 0.9.0-dev.2. Consult TEST_RESULTS.md for exact execution evidence. It provides application-data backups and same-installation restoration. Browser code upgrades are a separate implemented module described in UPGRADES.md; cross-host disaster recovery remains outside this restore path.
 
 ## Owner workflow
 

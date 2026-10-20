@@ -20,6 +20,16 @@ from analytics_browser import browser_login
 from capture_review import HUMAN_UA, digest, record
 
 
+def element_record(page, output, name, route, viewport, selector):
+    element = page.locator(selector)
+    element.scroll_into_view_if_needed()
+    destination = output / (name + '.png')
+    element.screenshot(path=str(destination), animations='disabled')
+    return {'file':destination.name, 'sha256':digest(destination), 'route':route,
+            'viewport':viewport, 'full_page':False, 'element':selector,
+            'page_title':page.title()}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--archive', required=True, type=Path,
@@ -33,6 +43,8 @@ def main():
         version = bundle.read('VERSION').decode().strip()
         expect(all(name in bundle.namelist() for name in [
             'admin/analytics/index.php', 'admin/analytics/geography.php',
+            'admin/analytics/visitors.php', 'app/AnalyticsCharts.php',
+            'assets/css/admin-analytics-overview.css',
             'database/migrations/007.sql', 'database/migrations/008.sql',
             'assets/css/admin-analytics.css', 'app/GeoData/country.mmdb',
         ]), 'The supplied final ZIP includes the complete analytics module')
@@ -81,6 +93,18 @@ def main():
                     page = context.new_page(); errors = []
                     page.on('pageerror', lambda error: errors.append(str(error)))
                     browser_login(page, current)
+                    for width, height in [(1440,1000), (390,844), (320,844)]:
+                        viewport = {'width':width, 'height':height}
+                        page.set_viewport_size(viewport)
+                        page.goto(current.base + 'admin/', wait_until='networkidle')
+                        browser_expect(page.locator('[data-analytics-snapshot]')).to_be_visible()
+                        manifest['screenshots'].append(record(page, output,
+                            f'analytics-overview-{width}-Synthetic', 'admin/', viewport))
+                        if width == 1440:
+                            manifest['screenshots'].append(record(page, output,
+                                'analytics-overview-1440-first-screen-Synthetic', 'admin/', viewport,
+                                full_page=False))
+                    page.set_viewport_size({'width':1440, 'height':1000})
                     response = page.goto(current.base + 'admin/analytics/?range=7', wait_until='networkidle')
                     expect(response.status == 200, 'Packaged owner analytics opens')
                     expect('v' + version in page.locator('.admin-build').inner_text(),
@@ -99,16 +123,36 @@ def main():
                                 full_page=False))
                     viewport = {'width':1440, 'height':1000}
                     page.set_viewport_size(viewport)
-                    live = page.locator('.analytics-live-panel')
-                    live.scroll_into_view_if_needed()
-                    live_file = output / 'analytics-1440-live-panel-Synthetic.png'
-                    live.screenshot(path=str(live_file), animations='disabled')
-                    manifest['screenshots'].append({
-                        'file':live_file.name, 'sha256':digest(live_file),
-                        'route':'admin/analytics/?range=7', 'viewport':viewport,
-                        'full_page':False, 'element':'.analytics-live-panel',
-                        'page_title':page.title(),
-                    })
+                    manifest['screenshots'].append(element_record(page, output,
+                        'analytics-1440-live-panel-Synthetic', 'admin/analytics/?range=7', viewport,
+                        '.analytics-live-panel'))
+                    manifest['screenshots'].append(element_record(page, output,
+                        'analytics-1440-traffic-charts-Synthetic', 'admin/analytics/?range=7', viewport,
+                        '.analytics-primary-grid'))
+
+                    response = page.goto(current.base + 'admin/analytics/visitors.php?range=7', wait_until='networkidle')
+                    expect(response.status == 200, 'Packaged owner visitor explorer opens')
+                    for width, height in [(1440,1000), (390,844), (320,844)]:
+                        viewport = {'width':width, 'height':height}
+                        page.set_viewport_size(viewport)
+                        page.evaluate('scrollTo(0, 0)')
+                        manifest['screenshots'].append(record(page, output,
+                            f'analytics-visitors-{width}-Synthetic', 'admin/analytics/visitors.php?range=7', viewport))
+                    sessions = admin_fixture(current, 'explore')['explorer']['visitors']
+                    selected = next(row for row in sessions if row['page_count'] >= 3)
+                    detail_route = 'admin/analytics/visitors.php?range=7&visit=' + str(selected['record_id'])
+                    response = page.goto(current.base + detail_route, wait_until='networkidle')
+                    expect(response.status == 200, 'Packaged owner anonymous session journey opens')
+                    browser_expect(page.locator('#visit-detail .analytics-journey-card')).to_have_count(selected['retained_pageviews'])
+                    for width, height in [(1440,1000), (390,844)]:
+                        viewport = {'width':width, 'height':height}
+                        page.set_viewport_size(viewport)
+                        page.evaluate('scrollTo(0, 0)')
+                        manifest['screenshots'].append(record(page, output,
+                            f'analytics-visit-detail-{width}-Synthetic', detail_route, viewport))
+                        manifest['screenshots'].append(element_record(page, output,
+                            f'analytics-visit-detail-panel-{width}-Synthetic', detail_route, viewport,
+                            '#visit-detail'))
                     response = page.goto(current.base + 'admin/analytics/geography.php', wait_until='networkidle')
                     expect(response.status == 200, 'Packaged owner geography opens')
                     for width, height in [(1440,1000), (390,844)]:
