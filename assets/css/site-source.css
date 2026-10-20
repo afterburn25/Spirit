@@ -3345,9 +3345,38 @@ body.public-site::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   pointer-events: none;
   background: #010406 url('../../images/backgrounds/spiritual-gorillaz-stage-background.webp') center / cover no-repeat;
+}
+/* Two soft stage wisps share one composited layer; only their position and opacity move. */
+body.public-site::after {
+  content: "";
+  position: fixed;
+  inset: -6%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 34% 4% at 20% 54%,rgba(171,196,209,.16),rgba(123,161,189,.065) 42%,transparent 76%),
+    radial-gradient(ellipse 25% 7% at 42% 50%,rgba(139,176,201,.11),transparent 72%),
+    radial-gradient(ellipse 20% 3% at 53% 45%,rgba(180,204,215,.12),transparent 74%),
+    radial-gradient(ellipse 34% 5% at 84% 80%,rgba(164,192,209,.15),rgba(111,153,184,.05) 46%,transparent 75%),
+    radial-gradient(ellipse 23% 8% at 66% 75%,rgba(135,173,199,.10),transparent 74%),
+    radial-gradient(ellipse 19% 3% at 51% 69%,rgba(169,198,216,.10),transparent 72%);
+  opacity: .65;
+  transform: translate3d(-2%,1.5%,0) rotate(-1deg);
+  animation: stage-smoke-drift 48s ease-in-out infinite;
+  will-change: transform,opacity;
+}
+@keyframes stage-smoke-drift {
+  0%,100% {
+    opacity: .65;
+    transform: translate3d(-2%,1.5%,0) rotate(-1deg);
+  }
+  50% {
+    opacity: .9;
+    transform: translate3d(2%,-1.5%,0) rotate(1deg);
+  }
 }
 @media(max-width:820px) {
   body.public-site::before {
@@ -3357,6 +3386,12 @@ body.public-site::before {
 @media print, (forced-colors:active) {
   body.public-site::before {
     display: none;
+  }
+}
+@media(prefers-reduced-motion:reduce), print, (forced-colors:active) {
+  body.public-site::after {
+    display: none;
+    animation: none;
   }
 }
 body.public-site.has-player {

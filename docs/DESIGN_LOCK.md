@@ -41,6 +41,12 @@ The navigation background must be 25% transparent (75% opaque); do not reduce op
 
 The favicon uses the same complete crowned gorilla head, genuine transparency and maximum proportional framing. Preserve the crown, face and chin; do not stretch the head or claim a larger browser-controlled icon slot. Active icon URLs must avoid stale previous filenames while compatibility paths stay available.
 
+## Drifting stage smoke — 2026-10-20 continuation
+
+The user requested a subtle animation resembling drifting smoke over the background. Keep the selected stage image fixed and use a separate, low-opacity blue-gray decorative layer behind public content. The motion should be slow and continuous, without flashes, abrupt resets, scrolling parallax or moving the underlying artwork. Individual panels and fully opaque logo/text/controls must stay readable.
+
+Use a lightweight CSS effect with no new video download or scroll handler. Remove moving decoration for reduced-motion preferences, print and forced-colors displays. Keep the effect out of admin/login/setup, outside pointer interaction and outside page layout. This requested decorative motion supersedes the earlier static-only background presentation; the stage itself remains stationary.
+
 ## Tracked reference and assets
 
 - `design/approved-reference-thumbnail.webp`: a derived 300-pixel-wide thumbnail of the selected composite.

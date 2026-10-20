@@ -1,0 +1,476 @@
+{
+  "version": "1.1.0-rc.6",
+  "observed_at_utc": "2026-10-20T21:25:05.210802+00:00",
+  "source_publication": {
+    "repository": "afterburn25/Spirit",
+    "branch": "work/1.1.0-analytics-and-navigation",
+    "baseline_commit": "6c5248e1cd6033ce0b24bd9db97621431908fa4e",
+    "baseline_tree": "7c393df3060736c0f2103d2e816d3822db472ede",
+    "local_checkpoint_commit": "69d7fd9c3110f7dfc4550dd80108a5774c764737",
+    "published_commit": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48",
+    "tree": "a444a001dddfbcd655a0a91ab81c44301227689a",
+    "local_and_remote_trees_identical": true,
+    "files_changed": 57,
+    "force_push": false,
+    "production_deployed": false,
+    "pr": 37,
+    "pr_url": "https://github.com/afterburn25/Spirit/pull/37",
+    "pr_draft": true,
+    "pr_merged": false
+  },
+  "implemented": [
+    "Approved transparent sculpted-gold logo across public header/footer, admin sidebar, staff login and installer",
+    "Approved six-second header/staff shimmer with native static reduced-motion fallback; static footer",
+    "Public navigation background25%transparent(75%opaque), with opaque logo/text/controls",
+    "Footer surface across both viewport edges with existing inner alignment",
+    "Transparent outer shell without border, shadow, outline or rounded edge; fixed stage and readable individual panels preserved",
+    "Same complete crowned-head favicon at maximum proportional visible-height fit with fresh active URLs and retained compatibility paths"
+  ],
+  "local_checks": {
+    "changed_php_files_linted": 6,
+    "branding_unit_checks": 38,
+    "admin_navigation_checks": 109,
+    "package_unit_tests": 15,
+    "favicon_source_export_compatibility_checks": 50,
+    "software_release_gate": "passed",
+    "public_bundle_reproduction": "passed",
+    "public_css_js_bytes": 127341,
+    "public_css_js_budget": 130000,
+    "protected_whole_files_byte_identical_to_rc5": 285
+  },
+  "browser_evidence": {
+    "browser": "Chromium143.0.7499.4",
+    "main_assertions": 1374,
+    "main_screenshots": 31,
+    "main_unseeded_screenshots": 28,
+    "main_synthetic_custom_logo_screenshots": 3,
+    "supplementary_admin_assertions": 180,
+    "supplementary_admin_screenshots": 24,
+    "public_viewport_widths": [
+      320,
+      360,
+      390,
+      820,
+      821,
+      880,
+      1000,
+      1100,
+      1280,
+      1440,
+      1920
+    ],
+    "installations": [
+      "/",
+      "/band"
+    ],
+    "geometry_combinations": 22,
+    "logo_observations": 114,
+    "shared_favicon_surfaces": 4,
+    "custom_logo_workflows": 6,
+    "uncaught_errors": 0,
+    "all_screenshot_hashes_verified": true,
+    "all_runtime_bytes_match_final_zip": true,
+    "runtime_paths_compared": 345,
+    "exact_final_archive_captured": false,
+    "tested_candidate_sha256": "711fa1824e87dc979f97f914a875d85c0bfb655073ed848c22cc0f69d6e8b21e",
+    "final_archive_sha256": "1e84e6ee7b947b9fda852fee6ddbbfd4102178cb78cf1eb63bd0b1c37105cd84",
+    "final_documentation_differences": [
+      "docs/FAVICONS.md",
+      "docs/PACKAGE-MANIFEST.json",
+      "docs/ROADMAP.md",
+      "docs/STAGE_BACKGROUND.md",
+      "docs/TEST_RESULTS.md"
+    ],
+    "one_mobile_sidebar_capture_replaced_with_recorded_same_candidate_paint_recheck": true,
+    "synthetic_band_content_in_installation_package": false,
+    "production_accessed": false,
+    "runtime_modified_after_capture": false,
+    "provenance_note": "Screenshots came from an immutable candidate ZIP. Final release documentation and package manifest were completed afterward; all345 runtime/code/asset hashes are identical. One phone-sidebar image uses an explicitly recorded same-candidate paint recapture."
+  },
+  "favicon_size": {
+    "source_bitmap_unchanged": true,
+    "previous_visible_height_fit": 0.98,
+    "current_visible_height_fit": 1,
+    "proportional_dimension_increase_percent": 2.0408163265306145,
+    "native16_visible_bounds_before_after": [
+      [
+        14,
+        16
+      ],
+      [
+        14,
+        16
+      ]
+    ],
+    "native16_solid_core_bounds_before_after": [
+      [
+        12,
+        14
+      ],
+      [
+        12,
+        14
+      ]
+    ],
+    "native16_alpha_weighted_area_percent_before_after": [
+      50.153,
+      52.292
+    ],
+    "native32_solid_core_bounds_before_after": [
+      [
+        25,
+        29
+      ],
+      [
+        26,
+        30
+      ]
+    ],
+    "native32_alpha_weighted_area_percent_before_after": [
+      50.468,
+      52.518
+    ],
+    "browser_tab_chrome_observed": false,
+    "framing_improvement_is_modest": true,
+    "new_root_icon_omitted_to_preserve_pinned_update_contract": true
+  },
+  "package_continuity": {
+    "version": "1.1.0-rc.6",
+    "observed_at_utc": "2026-10-20T21:19:59.565625+00:00",
+    "status": "passed",
+    "source_local_commit": "69d7fd9c3110f7dfc4550dd80108a5774c764737",
+    "source_tree": "a444a001dddfbcd655a0a91ab81c44301227689a",
+    "baseline_commit": "6c5248e1cd6033ce0b24bd9db97621431908fa4e",
+    "full_zip": {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.6-Full.zip",
+      "bytes": 26433784,
+      "sha256": "1e84e6ee7b947b9fda852fee6ddbbfd4102178cb78cf1eb63bd0b1c37105cd84",
+      "entries": 420,
+      "payload_files": 419
+    },
+    "baseline_zip": {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.5-Full.zip",
+      "sha256": "2cc84ee176dc8f223bf906507c16660517d3d8a88c656c4450bc41abbb105cd8",
+      "payload_files": 406
+    },
+    "all_prior_payload_paths_retained": true,
+    "new_payload_paths": [
+      "assets/css/admin-branding.css",
+      "docs/history/TEST_RESULTS-1.1.0-rc.5.md",
+      "docs/history/VERIFICATION-1.1.0-rc.5.json",
+      "images/branding/spiritual-gorillaz-sculpted-gold-nav.webp",
+      "images/branding/spiritual-gorillaz-sculpted-gold.png",
+      "images/icons/crowned-gorilla-full-fit/apple-touch-icon.png",
+      "images/icons/crowned-gorilla-full-fit/favicon-16.png",
+      "images/icons/crowned-gorilla-full-fit/favicon-192.png",
+      "images/icons/crowned-gorilla-full-fit/favicon-32.png",
+      "images/icons/crowned-gorilla-full-fit/favicon-48.png",
+      "images/icons/crowned-gorilla-full-fit/favicon-512.png",
+      "images/icons/crowned-gorilla-full-fit/favicon-64.png",
+      "images/icons/crowned-gorilla-full-fit/favicon.ico"
+    ],
+    "changed_existing_payload_paths": [
+      "CHANGELOG.md",
+      "README.md",
+      "VERSION",
+      "app/Branding.php",
+      "assets/css/site-source.css",
+      "assets/css/site.css",
+      "docs/BRANDING.md",
+      "docs/DESIGN_LOCK.md",
+      "docs/FAVICONS.md",
+      "docs/ROADMAP.md",
+      "docs/STAGE_BACKGROUND.md",
+      "docs/TEST_RESULTS.md",
+      "images/favicon.svg",
+      "images/icons/apple-touch-icon.png",
+      "images/icons/favicon-16.png",
+      "images/icons/favicon-192.png",
+      "images/icons/favicon-32.png",
+      "images/icons/favicon-48.png",
+      "images/icons/favicon-512.png",
+      "images/icons/favicon-64.png",
+      "images/icons/favicon.ico",
+      "views/admin/branding.php",
+      "views/admin/navigation.php",
+      "views/favicon.php",
+      "views/header.php"
+    ],
+    "unchanged_existing_payload_count": 381,
+    "all_manifest_hashes_verified": true,
+    "source_payload_paths_compared": 413,
+    "all_tracked_payloads_match_source": true,
+    "generated_heroes": [
+      "images/extended/spiritual-gorillaz-band-hero-wide.webp",
+      "images/extended/spiritual-gorillaz-booking-hero-wide.webp",
+      "images/extended/spiritual-gorillaz-home-hero-wide.webp",
+      "images/extended/spiritual-gorillaz-merch-hero-wide.webp",
+      "images/extended/spiritual-gorillaz-music-hero-wide.webp",
+      "images/extended/spiritual-gorillaz-shows-hero-wide.webp"
+    ],
+    "all_six_generated_heroes_byte_identical_to_rc5": true,
+    "migrations_byte_identical": [
+      "database/migrations/001.sql",
+      "database/migrations/002.sql",
+      "database/migrations/003.sql",
+      "database/migrations/004.sql",
+      "database/migrations/005.sql",
+      "database/migrations/006.sql",
+      "database/migrations/007.sql",
+      "database/migrations/008.sql"
+    ],
+    "pinned_recovery_access_byte_identical": [
+      ".htaccess",
+      "includes/maintenance-entry.php",
+      "admin/upgrades/RecoveryEngine.php",
+      "admin/upgrades/recover.php",
+      "admin/upgrades/.htaccess"
+    ],
+    "packaged_access_files_byte_identical": [
+      ".htaccess",
+      "admin/upgrades/.htaccess",
+      "app/.htaccess",
+      "app/GeoData/.htaccess",
+      "config/.htaccess",
+      "database/.htaccess",
+      "docs/.htaccess",
+      "includes/.htaccess",
+      "install/.htaccess",
+      "storage/.htaccess",
+      "tasks/.htaccess",
+      "uploads/.htaccess",
+      "views/.htaccess"
+    ],
+    "all_runtime_javascript_byte_identical": [
+      "assets/js/admin-analytics.js",
+      "assets/js/admin-navigation.js",
+      "assets/js/analytics.js",
+      "assets/js/app.js",
+      "assets/js/branding.js",
+      "assets/js/commerce.js",
+      "assets/js/edit-guard.js",
+      "assets/js/header-search.js",
+      "assets/js/js-capability.js",
+      "assets/js/mobile-nav-portal.js",
+      "assets/js/mobile-nav-scroll-fix.js",
+      "assets/js/navigation-reliability.js",
+      "assets/js/payments.js",
+      "assets/js/public.js",
+      "assets/js/quality.js",
+      "assets/js/site.js"
+    ],
+    "stage_asset_byte_identical": true,
+    "protected_source_files_rechecked": 285,
+    "all_protected_source_hashes_still_match": true,
+    "browser_provenance": {
+      "tested_candidate_sha256": "711fa1824e87dc979f97f914a875d85c0bfb655073ed848c22cc0f69d6e8b21e",
+      "final_zip_sha256": "1e84e6ee7b947b9fda852fee6ddbbfd4102178cb78cf1eb63bd0b1c37105cd84",
+      "exact_final_archive_captured": false,
+      "runtime_paths_compared": 345,
+      "all_runtime_bytes_match_final_zip": true,
+      "candidate_final_differences": [
+        "docs/FAVICONS.md",
+        "docs/PACKAGE-MANIFEST.json",
+        "docs/ROADMAP.md",
+        "docs/STAGE_BACKGROUND.md",
+        "docs/TEST_RESULTS.md"
+      ],
+      "note": "Screenshots came from an immutable candidate ZIP. Final release documentation and package manifest were completed afterward; all345 runtime/code/asset hashes are identical. One phone-sidebar image uses an explicitly recorded same-candidate paint recapture.",
+      "main_checks": 1374,
+      "main_screenshots": 31,
+      "supplementary_checks": 180,
+      "supplementary_screenshots": 24
+    },
+    "private_runtime_and_development_payloads_excluded": true,
+    "new_root_favicon_omitted_for_update_compatibility": true,
+    "published_source_commit": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48",
+    "published_source_matches_audited_tree": true
+  },
+  "github_independent_package": {
+    "published_commit": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48",
+    "source_tree": "a444a001dddfbcd655a0a91ab81c44301227689a",
+    "run_id": 39499541380,
+    "job_id": 118893226300,
+    "run_url": "https://github.com/afterburn25/Spirit/actions/runs/39499541380",
+    "job_name": "Validate and build cumulative candidate",
+    "conclusion": "success",
+    "all_eight_steps_passed": true,
+    "software_release_gate_passed": true,
+    "full_zip_sha256": "1e84e6ee7b947b9fda852fee6ddbbfd4102178cb78cf1eb63bd0b1c37105cd84",
+    "local_full_zip_sha256": "1e84e6ee7b947b9fda852fee6ddbbfd4102178cb78cf1eb63bd0b1c37105cd84",
+    "ci_checksum_matches_delivered_zip": true,
+    "observed_checksum_log_line": "2026-10-20T21:20:53.2593488Z 1e84e6ee7b947b9fda852fee6ddbbfd4102178cb78cf1eb63bd0b1c37105cd84  Spiritual-Gorillaz-1.1.0-rc.6-Full.zip",
+    "observation_method": "GitHub Actions job metadata and decoded completed-job log; independent candidate build hash compared with local immutable Full ZIP.",
+    "artifact_downloaded": false
+  },
+  "github_observation": {
+    "observed_at_utc": "2026-10-20 21:22:12 UTC",
+    "head_sha": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48",
+    "base_sha": "6ef03a24ea87fdbfb0d053f7b54b4c16fce42098",
+    "pr": {
+      "url": "https://github.com/afterburn25/Spirit/pull/37",
+      "number": 37,
+      "state": "open",
+      "draft": true,
+      "merged": false
+    },
+    "runs": [
+      {
+        "id": 39499547731,
+        "name": "Populated storefront browser verification",
+        "status": "queued",
+        "conclusion": null,
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39499547731",
+        "head_sha": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48"
+      },
+      {
+        "id": 39499547702,
+        "name": "Public navigation and native controls",
+        "status": "queued",
+        "conclusion": null,
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39499547702",
+        "head_sha": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48"
+      },
+      {
+        "id": 39499547736,
+        "name": "Focused maintenance diagnostics",
+        "status": "queued",
+        "conclusion": null,
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39499547736",
+        "head_sha": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48"
+      },
+      {
+        "id": 39499547848,
+        "name": "Authoring safety verification",
+        "status": "queued",
+        "conclusion": null,
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39499547848",
+        "head_sha": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48"
+      },
+      {
+        "id": 39499547707,
+        "name": "Software release gate",
+        "status": "queued",
+        "conclusion": null,
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39499547707",
+        "head_sha": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48"
+      },
+      {
+        "id": 39499547734,
+        "name": "Website and installer verification",
+        "status": "queued",
+        "conclusion": null,
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39499547734",
+        "head_sha": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48"
+      },
+      {
+        "id": 39499547811,
+        "name": "Site logo workflow verification",
+        "status": "queued",
+        "conclusion": null,
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39499547811",
+        "head_sha": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48"
+      },
+      {
+        "id": 39499547721,
+        "name": "Review package artifact",
+        "status": "queued",
+        "conclusion": null,
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39499547721",
+        "head_sha": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48"
+      },
+      {
+        "id": 39499547742,
+        "name": "Visitor analytics verification",
+        "status": "queued",
+        "conclusion": null,
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39499547742",
+        "head_sha": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48"
+      },
+      {
+        "id": 39499541380,
+        "name": "Candidate installation package",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39499541380",
+        "head_sha": "03470a4b6400ebfbd2d16a1d899c899ee07e2d48"
+      }
+    ],
+    "pending_workflows_are_passes": false
+  },
+  "screenshots_zip": {
+    "entries": 67,
+    "all_manifest_listed_capture_bytes_verified": true
+  },
+  "artifacts": [
+    {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.6-Full.zip",
+      "bytes": 26433784,
+      "sha256": "1e84e6ee7b947b9fda852fee6ddbbfd4102178cb78cf1eb63bd0b1c37105cd84"
+    },
+    {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.6-Screenshots.zip",
+      "bytes": 35160643,
+      "sha256": "993f11a90d41e7ebca2cf5ee0a239b8012dd2c5de9ee9b9af1bf1030e89987c3"
+    },
+    {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.6-Package-Continuity.json",
+      "bytes": 5696,
+      "sha256": "9aa158416802a5ffa6e2034c68be62ea851ee376fae5486193a1fd2a7c6fc6ec"
+    },
+    {
+      "file": "source-publication.json",
+      "bytes": 650,
+      "sha256": "a2edc6751df489f61bb4d91b9d76f72d4f1b53bbe78ec4c7bc4c38a1b32016f6"
+    },
+    {
+      "file": "github-independent-package.json",
+      "bytes": 1007,
+      "sha256": "abc8137a0fbe68c7838e04abee6bb78b79625b354258fd750ea42a7387b05814"
+    },
+    {
+      "file": "github-observation.json",
+      "bytes": 3172,
+      "sha256": "bf3a802b0c5cac634fbdfa0e7701b16a85498f7cf9d667779aa1e161f5814e08"
+    },
+    {
+      "file": "REVIEW.md",
+      "bytes": 4556,
+      "sha256": "31843e58502a379ee52e1845d269bee07f9fec72aa3bac24ca2df7f688263001"
+    },
+    {
+      "file": "review/Spiritual-Gorillaz-1.1.0-rc.6-ReviewBoard.png",
+      "bytes": 2710815,
+      "sha256": "1434120c84533800bf4026e2d08a35785e18d60d528cc0db3d952f0369a2fd2c"
+    },
+    {
+      "file": "review/Spiritual-Gorillaz-1.1.0-rc.6-ReviewBoard.html",
+      "bytes": 6428611,
+      "sha256": "2af328cb44a488b4b42a845c76a22bf8b7ba83fc84001b9a4e85c33808a35491"
+    },
+    {
+      "file": "review/Spiritual-Gorillaz-1.1.0-rc.6-ReviewBoard-Provenance.json",
+      "bytes": 8404,
+      "sha256": "2f064c9ff282b31a7d329b1f406da9f2f91380fcf9927f59acf5c15cf2c164bf"
+    },
+    {
+      "file": "screenshots/branding-refresh-verification.json",
+      "bytes": 201214,
+      "sha256": "11c59569d8cc544f8798d6e4f89eb5b26bfb1404d487a9de3a8716ecc7778eb9"
+    },
+    {
+      "file": "screenshots/admin-paint-recheck/branding-refresh-verification.json",
+      "bytes": 57463,
+      "sha256": "3618d14b4b564685e319ae90511fb028d2548e5daf2c35aa894ebdde1f2256a0"
+    }
+  ],
+  "acceptance_limits": {
+    "production_deployed": false,
+    "pr_merged": false,
+    "physical_device_or_safari_acceptance": false,
+    "real_mailbox_or_merchant_transaction": false,
+    "pending_workflows_are_passes": false,
+    "owner_and_target_host_acceptance_separate": true
+  },
+  "upgrade": "Use the normal guarded same-schema Browser upgrades path fromrc.1 throughrc.5 when its checks pass. Preserve original owner, database, configuration/encryption identity, private runtime and uploads; do not reinstall. Existing1.0.x additive schema-transition instructions remain."
+}

@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.1.0-rc.7 — subtle drifting background smoke
+
+- Add slow, translucent blue-gray smoke behind public content while the selected concert-stage image remains fixed.
+- Keep the decorative layer outside pointer interaction and layout, with no scroll handler, additional JavaScript or downloaded video/image asset.
+- Omit moving smoke for reduced-motion preferences, print and forced-colors displays; keep admin/login/setup backgrounds separate.
+- Preserve the approved logo throughout public/admin/login, full-width footer, borderless shell, 25% navigation-background transparency and maximum-fit favicon from rc.6.
+- Preserve all application workflows, source artwork, analytics, configuration, data, migrations and pinned recovery/access files.
+- Deliver a new immutable cumulative Full ZIP with actual page captures and a short motion preview; retain the already published rc.6 package unchanged.
+
 ## 1.1.0-rc.6 — approved identity and seamless full-width surfaces
 
 - Integrate the actual approved transparent sculpted-gold crowned gorilla and horizontal wordmark; the previous delivery had left it in a separate artwork kit.

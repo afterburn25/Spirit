@@ -1,33 +1,30 @@
-# Project status — 1.1.0-rc.6 approved identity and seamless surfaces
+# Project status — 1.1.0-rc.7 subtle drifting stage smoke
 
-The application is **1.1.0-rc.6**, a cumulative review candidate on `work/1.1.0-analytics-and-navigation` in [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). Its baseline is delivered rc.5 commit `6c5248e1cd6033ce0b24bd9db97621431908fa4e`. Live `main` was re-inspected at `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`, and the live PR head matched the local baseline before writes.
+The application is **1.1.0-rc.7**, a cumulative review candidate on `work/1.1.0-analytics-and-navigation` in [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). Its baseline is published rc.6 commit `03470a4b6400ebfbd2d16a1d899c899ee07e2d48`, tree `a444a001dddfbcd655a0a91ab81c44301227689a`. Live main was re-inspected at `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`; the live draft head matched rc.6 before new writes.
 
-## New in rc.6
+## New in rc.7
 
-The user reported that the approved new logo was missing from the public site, admin and admin login, and that the favicon still appeared small. The user also requested a full-width footer and removal of the visible outer transparent-container edge.
+The user asked for drifting smoke over the global background. A restrained blue-gray CSS layer moves slowly above the fixed stage image and behind the public content. The selected stage itself remains stationary. The decoration does not receive pointer events or alter layout, and it requires no additional image/video download, JavaScript or scroll handler.
 
-- Install the actual approved transparent sculpted-gold crowned gorilla and horizontal wordmark. The earlier kit-only delivery had not changed the active bundled default.
-- Use it in the public header/footer, administration sidebar, staff login, installer and default Branding previews. Header/staff artwork uses the approved steady shimmer with a native static reduced-motion fallback; the footer is static.
-- Keep the existing owner-uploaded public branding workflow and settings intact. Login/setup rendering has no branding database dependency.
-- Fill available space in the header's existing logo track for readability, while preserving its left anchor and responsive controls.
-- Give the public navigation background 25% transparency (75% opacity), keeping logo/text/controls fully opaque.
-- Extend the footer surface to both viewport edges with its existing content alignment.
-- Remove the transparent outer shell's border, shadow, outline and rounded edge. Individual dark content panels, the fixed stage and contained page heroes remain.
-- Maximize proportional framing of the same complete transparent crowned-gorilla favicon and change active asset filenames. The earlier set already nearly filled the canvas; this is a modest framing correction plus fresh cache identity, not a larger browser icon slot.
+Reduced-motion preferences, print and forced-colors displays omit moving smoke. Admin, staff login and setup keep their existing separate backgrounds. Motion preview and actual current-package screenshot provenance are recorded with the delivery.
 
-## Retained application
+## Retained rc.6 and earlier work
 
-The dedicated Analytics section, graphical reports, exact detail-page Visitor Explorer links, Overview snapshots and all earlier functionality remain. All migrations, analytics logic, JavaScript, installed configuration, accounts, media and pinned recovery/access files remain unchanged. Admin form actions, CSRF fields, conditions and escaping retain their existing behavior.
+The actual approved transparent sculpted-gold crowned gorilla and horizontal wordmark remain in public header/footer, admin sidebar, login/setup and Branding previews. Header/staff shimmer retains the native static fallback; owner-uploaded public branding and private publication workflows remain intact.
 
-Historical rc.5 tests and its delivered receipt are archived under `docs/history/`; they are not current rc.6 test results.
+Navigation background stays 25% transparent (75% opaque), with fully opaque logo/text/controls. The header logo keeps its left anchor, the footer surface reaches both screen edges and the transparent outer shell has no border, shadow, outline or rounded edge. Individual dark panels, contained heroes and maximum-fit crowned-head favicon remain.
+
+The dedicated owner Analytics section, graphical reports, Visitor Explorer, Overview snapshots and earlier workflows remain. Database migrations, analytics, JavaScript, PHP controllers/auth/forms, installed configuration/media and pinned recovery/access files are unchanged by rc.7.
 
 ## Verification
 
-The approved logo assets are byte-identical to the selected kit originals. The branding unit suite passed 38 checks and the admin navigation suite passed 109 checks. Public bundle reproduction passed at **127,341 / 130,000 bytes**. The actual installed-browser run passed **1,374 checks** at root and `/band`, covering 11 public widths per installation and 31 screenshots. A focused admin paint recheck passed **180 additional checks** with 24 supplemental captures. All 15 package tests, 50 favicon/export checks and the deterministic software release gate passed. All 285 protected whole files remain byte-identical to rc.5. `docs/TEST_RESULTS.md` and the delivery receipt record precise scope, screenshot recapture provenance and final package/runtime equivalence. Pending Actions workflows are not passes.
+The CSS bundle rebuild and reproduction passed at **128,396 / 130,000 bytes**, adding 1,055 bytes for the smoke. Current installed-browser passes completed **1,905 assertions** (1,376 retained presentation and 529 smoke), with **47 actual screenshots and two normal-speed ten-second MP4 previews**. Root/subdirectory, desktop/phone, natural drift, fixed stage, controls, reduced motion, print and forced colors passed. Three custom-logo screenshots are explicitly synthetic; admin captures use a disposable owner.
+
+All 15 package unit checks and the local release gate passed. The source audit confirms **347 protected files unchanged** from rc.6. `docs/TEST_RESULTS.md` records current evidence; the delivery receipt records final cumulative package continuity, equivalence of all 345 captured runtime hashes, published source and actual workflow state. Historical rc.6 results and its complete delivery receipt are archived under `docs/history/`; they are not automatically new rc.7 passes. The published rc.6 package and screenshots remain immutable.
 
 ## Deployment
 
-Installed **rc.1 through rc.5 → rc.6** uses guarded same-schema Browser upgrades when its normal checks pass. Installed **1.0.x → 1.1** retains cumulative code deployment plus additive Database updates. Preserve the original owner, database, configuration/encryption secret, private runtime and uploads. Never reinstall or bypass update guards.
+Installed **rc.1 through rc.6 → rc.7** uses guarded same-schema Browser upgrades when its normal checks pass. Installed **1.0.x → 1.1** retains cumulative code deployment plus additive Database updates. Preserve the original owner, database, configuration/encryption secret, private runtime and uploads. Never reinstall or bypass update guards.
 
 ## Remaining blockers
 

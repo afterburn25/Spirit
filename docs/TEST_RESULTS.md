@@ -1,48 +1,38 @@
-# Verification — 1.1.0-rc.6 approved identity and seamless surfaces
+# Verification — 1.1.0-rc.7 subtle drifting stage smoke
 
 ## Scope and baseline
 
-Baseline: delivered rc.5 source `6c5248e1cd6033ce0b24bd9db97621431908fa4e`. This update installs the actual approved logo throughout public/admin/login/setup, maximizes proportional favicon framing with fresh active URLs, extends the footer across the viewport, removes the outer shell edge and makes the navigation background 25% transparent. It preserves the fixed stage, contained heroes, individual readability panels, owner-uploaded public branding and existing data/workflows.
+Baseline is published rc.6 commit `03470a4b6400ebfbd2d16a1d899c899ee07e2d48`, tree `a444a001dddfbcd655a0a91ab81c44301227689a`. The new change adds restrained blue-gray drifting smoke above the stationary public stage and behind page content. Prior approved logo/admin/login, footer, shell, navigation transparency and favicon fixes are retained.
 
-Historical rc.5 tests and its delivered receipt are archived in `history/TEST_RESULTS-1.1.0-rc.5.md` and `history/VERIFICATION-1.1.0-rc.5.json`. Those historical outcomes are not new rc.6 regression runs.
+Current runtime changes are limited to CSS and the release version. All PHP, JavaScript, original artwork, analytics, forms/authentication, migrations and pinned recovery/access remain unchanged. Historical rc.6 tests and the delivered receipt are preserved under `history/TEST_RESULTS-1.1.0-rc.6.md` and `history/VERIFICATION-1.1.0-rc.6.json`.
 
-## Observed current checks
+## Current verification
 
-| Check | Result |
+Current verification passed on disposable installations at the domain root and `/band`. Both browser passes used the frozen rc.7 candidate ZIP with SHA-256 `bf5138e6fd7a7504bca2d1d9479665caec8e84101b24221092e829d35431930b`. No production site was accessed.
+
+| Current check | Observed result |
 |---|---|
-| Branding unit suite | 38 checks passed, including unchanged draft/publication guards, exact new asset paths and native static fallback. |
-| Administration navigation suite | 109 checks passed, preserving grouped destinations, separate Analytics and role boundaries. |
-| Packaging unit suite | All 15 tests passed, including deterministic payloads, private-state exclusion and immutable-version refusal. |
-| Favicon source/export/compatibility | 50 checks passed. Independent Chromium export reproduced all native PNG/ICO and compatibility bytes; original source, crown, proportions, transparency and pinned recovery remain unchanged. |
-| Approved logo identity | Both deployed files are byte-identical to the approved static PNG and navbar WebP kit originals. |
-| Production bundle | Rebuild and `--check` passed after the final transparency change: **127,341 / 130,000 bytes**, including 110,904-byte compiled CSS. All JavaScript is unchanged. |
-| Installed-browser review | **1,374 checks passed** in Chromium 143.0.7499.4 on actual root and `/band` installations, with 31 screenshots. All 11 public widths per installation passed, from 320 through 1920px. No uncaught browser errors. |
-| Admin paint recheck | **180 additional checks passed**, with 24 captures at 1440, 390 and 320px across root and `/band`. Painted-pixel verification confirms the sidebar logo is visible; a single premature main capture was replaced by its recorded same-candidate recapture. |
-| PHP syntax | All six changed PHP files passed, comprising five runtime files plus the branding unit test. |
-| Source continuity | All **285 protected whole files** are byte-identical to rc.5. All 8 migrations, 5 pinned recovery/access files, 17 access-rule files, 16 runtime JavaScript files, analytics, original stage/hero artwork and unrelated application/controllers are preserved. Only the bundled-output method changes within `Branding.php`; the other 11 methods are identical. |
-| Software release gate | Passed, including two byte-identical cumulative builds, exact payload manifests and private-file exclusions. Final ZIP/source/runtime comparisons are recorded separately in the delivery receipt. |
-| Whitespace | `git diff --check` passed. |
+| Retained public/admin/login/installer branding and layout | **1,376 assertions passed**, 31 actual screenshots; no page errors. Covers desktop/phone widths, footer and header geometry, transparent shell, 75% opaque navigation background, static/animated logo selection, controls, root/subdirectory URLs and owner-uploaded branding. |
+| Installed background smoke | **529 assertions passed**, 16 actual screenshots; no page errors. Covers 1920, 1440, 390 and 320px viewports at root and `/band`, natural animation progress, stationary stage during scroll, no horizontal overflow, pointer-transparent decoration, Menu/Search/PJAX, and exclusion from admin/login/setup. |
+| Accessibility and alternate rendering | Reduced motion, print and forced colors hide the smoke and remove its animation. Returning to ordinary motion restores the running layer. |
+| Actual motion recordings | Two **10.000-second H.264 MP4s at 25fps**, 1920×1080 desktop and 390×844 phone. Playback rate is 1, with the 48-second CSS loop unchanged. |
+| Public bundle reproduction | `node tools/build_public_assets.mjs --check` passed: **128,396 / 130,000 bytes**, including 1,055 added bytes. JavaScript remains byte-identical. |
+| Package unit checks | `python3 tests/package_test.py`: **15 passed**. |
+| Local release gate | `python3 tools/release_gate.py` passed, including deterministic repeated packaging, manifest verification and private/development payload exclusions. |
+| Source continuity | **347 protected source files byte-identical** to rc.6; only `VERSION`, CSS source and compiled CSS change among the 345 runtime payloads. PHP, JavaScript, original logo/favicon/stage/hero images, migrations and pinned recovery/access files remain unchanged. |
 
-The main browser report includes 22 public geometry observations, 114 logo checks, four complete favicon-link response/decode sets, and six custom-logo workflow combinations. Widths are 320, 360, 390, 820, 821, 880, 1000, 1100, 1280, 1440 and 1920px. Navigation background alpha is exactly 0.75 while logo/controls remain at opacity 1. Header/footer backplates reach both edges without overflow; shell background, borders, shadow, outline and radius are clear. The prior logo left anchors at 1440, 1920 and 390px are retained.
+The two browser passes total **1,905 assertions and 47 screenshots**. Three custom-logo screenshots use explicitly labeled synthetic fixtures; the other 44 contain no seeded band content. Admin screenshots use a disposable test owner. Main branding captures use reduced motion; smoke Home captures show naturally running animation. Smoke footer captures retain the controlled 24-second phase used during comparison. The separate phase images are verification samples, not real-time recordings.
 
-Actual private preview, publication, a portrait replacement, withdrawal, native no-JavaScript pages and persistent audio during enhanced navigation passed. Reduced-motion pages select the static original, and changing the preference updates the selected image after browser decoding.
+The MP4 previews start approximately 12 seconds into the existing 48-second cycle to show its drift, then run at normal speed. They are trimmed from the final ten seconds of actual browser recording without speed changes, overlays or retouching. Smoke remains deliberately restrained; endpoint-phase comparisons detect 78,778 changed desktop background pixels and 11,767 phone pixels above a one-level RGB threshold. These phase samples demonstrate a visible change, not a performance benchmark.
 
-A screenshot review caught one phone admin drawer image before its logo painted. A same-candidate focused recheck confirmed approximately 6,070–6,081 gold pixels in all six tested drawer views. The capture tool now waits for decoded frames and verifies painted pixels. The original incomplete screenshot is not delivered as a passing view; the replacement and its source manifest are explicitly recorded. No runtime code was changed to resolve this capture race.
+Current reports are `design/background-smoke/main-branding-verification.json`, `background-smoke-verification.json`, `evidence-integrity.json` and `source-continuity.json`. Screenshot/video hashes and all **345 runtime payload hashes** were reverified against the frozen candidate. Final Full ZIP equivalence, cumulative path retention, source publication and observed GitHub workflow state are recorded in the companion delivery receipt. Final documentation may differ from the captured candidate; runtime/code/asset bytes must match. Historical tests and queued/running workflows are not current passes.
 
-## Favicon size evidence
+## Evidence requirements
 
-The unchanged head is fitted at 100% rather than 98% of its visible height, a 2.04% scale change. At native 16px, its visible 14 × 16 and solid-core 12 × 14 bounds are unchanged after pixel rounding; alpha-weighted area rises from 50.153% to 52.292%. At 32px, its visible bounds remain 28 × 32, while the solid core grows from 25 × 29 to 26 × 30 and weighted area rises from 50.468% to 52.518%. This is a modest improvement. A website cannot enlarge the browser's own icon controls.
+The smoke must remain decorative, fixed to the viewport, behind content and outside pointer interaction. Its transforms may drift while the stage background's placement remains unchanged during scroll. Reduced-motion preferences, print and forced colors omit the moving layer. Admin/login/setup remain unaffected.
 
-`design/favicon/maximum-fit-rc6/` records the original/master hashes, exact export geometry, all size measurements and asset checks. Its review board shows native-size image samples plus clearly labeled nearest-neighbor pixel enlargements; it is not fabricated browser chrome. Shared links use new `images/icons/crowned-gorilla-full-fit/` paths with the release version. Old cumulative paths remain available. No root payload is added because the pinned recovery allowlist excludes it.
+Deterministic sampling at selected animation phases is for pixel/geometry verification; a user-facing motion preview must identify its normal-speed installed-site origin. Current screenshot manifests record hashes and fixture status. Any final documentation changes after capture require every runtime/code/asset hash to match the final immutable Full ZIP.
 
-## Browser and screenshot provenance
+## Acceptance limits
 
-`tests/capture_branding_refresh.py` exercises actual disposable root and `/band` installations of the cumulative candidate. The main set contains 28 captures without seeded band content and 3 explicitly synthetic custom-logo views; administrative captures use a disposable owner. The 24 supplemental admin views are recorded separately. A separate synthetic phase tests owner-uploaded branding, preview/publication/withdrawal and persistent audio during enhanced navigation. Synthetic data is not included in the installation package or published as band content.
-
-The capture manifest records each screenshot hash, route, viewport, scroll position, motion preference observations, icon responses and runtime/code/asset hashes. Any documentation updates after capture require exact comparison of every recorded runtime hash to the final immutable Full ZIP; the delivery receipt states that provenance explicitly.
-
-## Publication and acceptance
-
-Published commit/tree, final Full ZIP hashes, cumulative package continuity, screenshot provenance and actually observed GitHub Actions state belong in the companion delivery receipt. Pending workflows are not passes.
-
-These checks use Chromium desktop/phone viewports; they are not physical-device or Safari acceptance. No A2 production deployment, real mailbox delivery or merchant transaction is claimed. Owner review and applicable host/provider acceptance remain separate; draft PR 37 stays unmerged.
+Browser checks are desktop/phone viewports in the identified engine, not physical-device or Safari acceptance. No A2 production deployment, real mailbox delivery or merchant transaction is claimed. Owner review and applicable host/provider acceptance remain separate; draft PR 37 stays unmerged.
