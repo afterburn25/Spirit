@@ -1,0 +1,39 @@
+name: Prepare pinned visitor geography
+on:
+  push:
+    branches: [work/1.1.0-country-data-preparation]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    if: github.repository == 'afterburn25/Spirit'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Retrieve and verify the licensed October 2026 database
+        run: |
+          python3 - <<'PY'
+          import gzip, hashlib, io, pathlib, urllib.request
+          url = 'https://download.db-ip.com/free/dbip-country-lite-2026-10.mmdb.gz'
+          with urllib.request.urlopen(url, timeout=45) as response:
+              compressed = response.read(20 * 1024 * 1024 + 1)
+          assert hashlib.sha256(compressed).hexdigest() == '4cd44536ddfd40fec7eca94a233f7d19f38d470e6522e653cb8d27001f5fe177'
+          with gzip.GzipFile(fileobj=io.BytesIO(compressed)) as source:
+              data = source.read(8348510)
+          assert len(data) == 8348509
+          assert hashlib.sha256(data).hexdigest() == 'dbd70ccfa2a13627eaf4913d19920a1a229f1b3c5439ac01c509995b6364202a'
+          target = pathlib.Path('app/GeoData/country.mmdb')
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_bytes(data)
+          print('Verified the unmodified DB-IP Lite October 2026 country database.')
+          PY
+      - name: Save only the verified database on this preparation branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- app/GeoData/country.mmdb
+          if ! git diff --cached --quiet; then
+            git commit -m "Add verified DB-IP Lite country data for visitor analytics"
+            git push origin HEAD:refs/heads/work/1.1.0-country-data-preparation
+          fi
