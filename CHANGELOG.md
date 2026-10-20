@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.1.0-rc.3 — accurate page drilldowns and search attribution
+
+- Fix Analytics-to-Visitor-Explorer links for recorded release, show, member, product and custom-page paths containing an allowlisted slug.
+- Keep the selected page and date scope when opening an anonymous visit, paging through results or using native forms without JavaScript.
+- Validate against the collector's canonical public-path rules; arbitrary query fields, private routes and malformed paths remain rejected.
+- Classify supported Ecosia search referrals as Organic search, matching the existing search-term collector while excluding lookalike hosts.
+- Apply these read-only corrections to retained analytics without rewriting traffic or adding a migration.
+- Preserve the rc.2 charts, Overview snapshots, separate Analytics navigation, larger public menu and search beside Book the Band.
+- Deliver a new cumulative immutable Full ZIP and actual screenshots; previously delivered archives remain unchanged.
+
 ## 1.1.0-rc.2 — graphical analytics and visitor exploration
 
 - Give Analytics its own owner administration category, separate from Bookings & communication.

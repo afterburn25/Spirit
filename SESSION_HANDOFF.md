@@ -1,49 +1,33 @@
-# Resume — 1.1.0-rc.2 graphical analytics and navigation
+# Resume — 1.1.0-rc.3 analytics drilldown corrections
 
-Repository **afterburn25/Spirit**. Continue from **`work/1.1.0-analytics-and-navigation`** and [draft PR 37](https://github.com/afterburn25/Spirit/pull/37). The rc.2 work starts from delivered rc.1 source `1bde497daa174ac265096e1adee967dd9bf3f900`. Main was re-inspected at `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`; the cumulative 1.0.13 artwork base is `2afbd551d6083d86d26499a9bf82511aa7f7f9c2`. Do not resume from main alone and lose the intervening artwork or analytics work. Do not merge before owner screenshot approval.
+Repository **afterburn25/Spirit**. Continue from **`work/1.1.0-analytics-and-navigation`**, [draft PR 37](https://github.com/afterburn25/Spirit/pull/37), rather than main alone. The baseline is delivered rc.2 commit `f6b8e6349e75d3ca465bec60a010f74f8eaf84e4`; main was re-inspected at `6ef03a24ea87fdbfb0d053f7b54b4c16fce42098`. The latest 1.0.13 artwork and complete rc.1/rc.2 analytics remain. Do not merge before owner screenshot approval.
 
-## Current scope
+## Current correction
 
-Version **1.1.0-rc.2** addresses the owner's corrections: Analytics has its own category, reports have prominent charts and consistent colors, individual anonymous sessions have a visitor explorer, and the main Overview has analytical snapshots. Public search is moved directly beside **Book the Band**, with larger centered navigation text and fitted tablet spacing; local public navigation QA has passed at root and `/band`, including adjacent search and fitted desktop/tablet spacing.
+The continuation audit found that the collector already retains canonical `?slug=` identifiers for detail/custom pages, while the rc.2 visitor filter rejected every question mark. The dashboard therefore generated a valid recorded path that its explorer refused. rc.3 validates the filter by comparing it to `Analytics::normalisePath()` instead of banning all queries. It accepts only the exact canonical stored value, preserving the single validated slug while rejecting unrelated queries, private paths, aliases and fragments.
 
-The owner Overview renders seven inclusive UTC days of visits/pageviews, completed-visit bounce, measured active time per visit, live count at page load and separate crawler requests. It includes a real daily chart, no-JavaScript daily disclosure, top referrer/country/page and links into full reports. It says when the snapshot was taken and does not pretend to poll live. Empty, paused and unavailable reporting states are separate, and a report failure leaves operational Overview summaries usable.
+The report's existing search-domain classifier also omitted Ecosia although the collector recognized its supplied search term. rc.3 adds the explicit supported host suffix and tests genuine and lookalike domains. It does not modify the collector or introduce new tracking.
 
-The full Analytics dashboard retains date filters, export, live visitor refresh, source/supplied-search/UTM reporting, client/location/crawler details and aggregate Search Console imports. Expanded charts cover channels, devices, hourly activity, engagement, page depth and entry/exit pages. The visitor explorer offers filters, native pagination and bounded retained page journeys with measured time and stored attribution. No report identifies people, invents withheld search terms or stores raw IP/full UA/full referrer URLs. Definitions remain in `docs/ANALYTICS.md`.
+## Source and test ownership
 
-| Destination | Route | Active navigation key |
-|---|---|---|
-|Owner Overview|`admin/`|`dashboard`|
-|Audience dashboard|`admin/analytics/`|`analytics`|
-|Visitor explorer and session detail|`admin/analytics/visitors.php`|`analytics-visitors`|
-|Geography data|`admin/analytics/geography.php`|`analytics-geography`|
+Runtime changes are confined to `app/AnalyticsVisitors.php` and the visitor-filter help text in `views/admin/analytics-visitors.php`. Tests cover all five detail route families, a second distinct release slug, root/subfolder behavior, actual report links, retained selected visit/date scope, no-JavaScript operation and malformed/private filters. A separate test-only `detail-paths-fixture` keeps the original demonstration totals stable. Never ship or use these fixtures as production observations.
 
-The live endpoint remains `admin/analytics/live.php` and the bounded session collector remains `pages/analytics.php`. Public tracking starts only for eligible public renders and observes `spirit:navigated` after dynamic navigation. Staff, private routes, DNT/GPC, prefetch and HEAD requests are excluded. Analytics remains owner-only in navigation and on direct requests; staff Overview does not query or show the owner snapshot.
+The exact-package analytics capture helper retains its 19 existing images and adds desktop/phone detail-page-filter journeys, for 21 administration captures. The public helper retains 21 captures. Both manifests must reference the same final Full ZIP by SHA-256. The review-board renderer validates its source manifests and images; all admin pictures are synthetic and labeled.
 
-## Verification checkpoint and next steps
+## Verification checkpoint
 
-Focused local rc.2 Navigation/Overview checks passed: all 109 navigation unit checks; packaged root and `/band` snapshots at 1440/390/320px; exact fixture metrics; native SVG and daily data without JavaScript; no read-side database mutation; accurate report links; and no document overflow. A further Chromium run passed paused/unavailable reporting, a phone menu journey, all Analytics active identities, owner/staff separation and direct staff 403 responses. Desktop/phone QA screenshots were inspected; final delivery captures must still be produced from the final ZIP. Detailed scope is in `docs/TEST_RESULTS.md`.
+See `docs/TEST_RESULTS.md` for current observed rc.3 checks. Local validation, the published source, remote workflow results, exact rc.2-to-rc.3 upgrade and final capture evidence must stay distinguishable. Do not label earlier rc.2 passes as rc.3 verification.
 
-Local analytics units/integration/browser checks, the public navigation suite, package tests and deterministic release gate have since passed; see TEST_RESULTS for their exact counts. Nineteen QA-only administration captures were visually reviewed. Latest-head GitHub Actions and final exact-package capture/manifests remain pending at this source checkpoint. Record observed outcomes before delivery; do not copy rc.1 passes forward as rc.2 evidence. The earlier all-ten-workflow baseline is retained in `docs/history/TEST_RESULTS-1.1.0-rc.1.md`.
+The archived rc.2 final receipt (`docs/history/VERIFICATION-1.1.0-rc.2.json`) records all 10 workflows / 23 jobs passing, its exact ZIP hash,40 screenshots and the 43-check rc.1-to-rc.2 upgrade. The source-checkpoint report is retained separately because its final CI/captures occurred after that immutable commit.
 
-## Deployment and packaging
+## Retained behavior and upgrade path
 
-Migrations **007 and 008 are unchanged from rc.1**; rc.2 adds no migration and does not alter existing public collector rules.
+The owner Overview is an at-load seven-day UTC snapshot. The Analytics dashboard alone refreshes live activity. Anonymous visit/session definitions, classic completed-visit bounce, measured foreground time, unknown locations/search terms, aggregate Search Console periods and separate crawler identities remain as documented in `ANALYTICS.md`. Staff have no Analytics access; report reads do not change the database.
 
-- **Installed 1.1.0-rc.1 → rc.2:** use the normal guarded **Browser upgrades** flow for the newer cumulative Full ZIP when its same-schema, recovery and file-integrity checks pass. Existing analytics history remains in place.
-- **Installed 1.0.x → rc.2:** migrations 007/008 are additive. The same-schema browser updater must reject this transition. Deploy code through the documented hosting-panel path, then apply **Database updates** with the existing owner.
+Installed rc.1/rc.2 use the normal same-schema Browser upgrades process for rc.3. Existing 1.0.x installations still need cumulative-code deployment plus additive Database updates 007/008; the browser updater intentionally rejects that schema change. Preserve configuration, encryption secret, database/owner, private runtime, media and previously removed installer. Do not alter migrations, collector/sampling code or pinned recovery/access files.
 
-Both paths preserve the installed owner, database, encryption secret, private configuration/runtime and uploads. Do not rerun the fresh installer, strip migrations, bypass manifest checks or change the pinned recovery layer. See `docs/ANALYTICS.md` for the exact version-specific instructions.
+Build with `tools/package.py`, which uses Pillow 12.3.0 for deterministic wide WebP backgrounds. Public bundles reproduce with `node tools/build_public_assets.mjs --check` and remain within 130,000 bytes. Deliver every completed version as a new immutable Full ZIP plus checksum, actual screenshots and review board. Never overwrite prior downloads.
 
-Public source is `assets/css/site-source.css` plus source JS. Build with `npm ci --prefix tools/public-assets --ignore-scripts` and `node tools/build_public_assets.mjs`; `--check` verifies committed bundles. Node is a development dependency only. Keep historical public patch paths as inert compatibility files for cumulative manifests. The public request must remain within 130,000 bytes of CSS/JS.
+## Remaining external acceptance
 
-`tools/package.py` builds a cumulative immutable ZIP and uses Pillow 12.3.0 to generate wide WebP backgrounds. It includes licensed offline geography and reader files, but excludes tests, dev dependencies and private state. Deliver every completed version with the full ZIP, checksum, actual public/admin screenshots and review board; never replace rc.1 downloads with different bytes. `tests/capture_review.py` can render an exact supplied ZIP. Administration fixtures are synthetic, clearly labeled in review material, and never shipped as production data.
-
-## Visual and content decisions
-
-Full-width sticky header; larger centered navigation; accessible search directly beside Book the Band. Short centered hero windows capped at 1320px, a continuous artwork field behind real copy and a single soft fade. Phone cards show copy then complete artwork. Preserve original source art and complete focal subjects; resizing/dark extension does not create higher-resolution detail. Preserve animated Concept 2 branding and the Home title. rc.2 changes administration presentation and public header spacing, not the approved artwork.
-
-Chad Lindsey: guitar, keyboards and vocals. Ron Green: harmonica. Charlie Savell: drums. Part 3 stays unpublished until genuine URL/title/credits are approved. External venue ticket links only; no native ticketing. Do not fabricate portraits, performances, products, reviews or audience numbers.
-
-## Remaining acceptance
-
-Review this candidate's final desktop/mobile screenshots before merge. Observe target-host navigation, location/collection and scheduled cleanup after deployment; choosing analytics retention does not create a cron schedule. Commerce stays dormant until genuine Authorize.net merchant/provider acceptance, real catalog/policy content and owner approval. Local and CI checks do not prove A2 deployment, mailbox delivery, a real recovery drill, physical-device performance or a payment. None is claimed by this development checkpoint.
+Keep the PR draft until the owner approves the current screenshots. Actual A2/cPanel behavior, optional scheduling and merchant/provider acceptance are not established by local tests. Commerce stays closed until separately accepted; Part 3 remains unpublished without approved provider details. Preserve the approved public artwork and confirmed band roles. No native ticketing, hosting token, setup code or automatic database provisioning.

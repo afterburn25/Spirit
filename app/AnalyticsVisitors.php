@@ -18,7 +18,7 @@ final class AnalyticsVisitors
     public const STATUSES = ['live' => 'Live now', 'recent' => 'Recent activity', 'completed' => 'Completed visits', 'bounced' => 'Single-page bounces'];
     // Deliberately supported host suffixes, not a wildcard for every string
     // following a provider's name. Unlisted domains remain visible as referrals.
-    private const SEARCH_HOSTS = 'google[.](com|ca|co[.]uk|com[.]au|co[.]nz|de|fr|es|it|nl|ie|co[.]in|co[.]jp|co[.]za|com[.]br|com[.]mx)|bing[.]com|search[.]yahoo[.]com|duckduckgo[.]com|yandex[.](com|ru|by|kz|com[.]tr)|baidu[.]com|search[.]brave[.]com';
+    private const SEARCH_HOSTS = 'google[.](com|ca|co[.]uk|com[.]au|co[.]nz|de|fr|es|it|nl|ie|co[.]in|co[.]jp|co[.]za|com[.]br|com[.]mx)|bing[.]com|search[.]yahoo[.]com|duckduckgo[.]com|ecosia[.]org|yandex[.](com|ru|by|kz|com[.]tr)|baidu[.]com|search[.]brave[.]com';
 
     /** Fixed SQL expression: no caller-supplied identifiers or values. */
     public static function channelExpression(): string
@@ -44,7 +44,10 @@ final class AnalyticsVisitors
         if ($result['country'] !== '' && $result['country'] !== 'unknown' && !preg_match('/^[A-Z]{2}$/D', $result['country'])) { throw new InvalidArgumentException('Choose a valid country filter.'); }
         if ($result['channel'] !== '' && !isset(self::CHANNELS[$result['channel']])) { throw new InvalidArgumentException('Choose a valid traffic channel.'); }
         if ($result['status'] !== '' && !isset(self::STATUSES[$result['status']])) { throw new InvalidArgumentException('Choose a valid visit status.'); }
-        if ($result['path'] !== '' && ($result['path'][0] !== '/' || str_contains($result['path'], '?') || str_contains($result['path'], '#'))) { throw new InvalidArgumentException('Enter a recorded page path without query parameters.'); }
+        // Detail pages retain their validated public slug. Require the exact
+        // collector format so those drill-downs work without accepting private
+        // routes, arbitrary query fields, fragments or noncanonical aliases.
+        if ($result['path'] !== '' && Analytics::normalisePath($result['path']) !== $result['path']) { throw new InvalidArgumentException('Enter the exact public page path shown in Analytics, including its slug when present.'); }
         foreach (['page','journey_page'] as $key) {
             $value = $input[$key] ?? '1';
             if (!is_string($value) || !preg_match('/^[1-9][0-9]{0,6}$/D', $value)) { throw new InvalidArgumentException('Choose a valid report page.'); }

@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import os
 import tempfile
+from urllib.parse import parse_qs, urlencode, urlsplit
 from pathlib import Path
 from playwright.sync_api import sync_playwright, expect as browser_expect
 from http_integration import Client, build_package, expect, site
@@ -28,6 +29,36 @@ def layout(page, label):
         print(json.dumps(page.evaluate('''() => ({width:innerWidth,scroll:document.documentElement.scrollWidth,items:Array.from(document.querySelectorAll('main *')).filter(el=>!el.closest('.table-scroll') && el.getBoundingClientRect().right>innerWidth+1).slice(0,12).map(el=>({tag:el.tagName,cls:el.className,text:el.textContent.slice(0,70),right:el.getBoundingClientRect().right}))})''')), flush=True)
     expect(fits, label+': no horizontal page overflow')
     expect(page.locator('link[href*="admin-analytics.css"]').count() == 1, label+': analytics stylesheet is loaded')
+
+
+def page_drilldowns(page, current, fixtures, label, paths=None):
+    """Follow the shipped report links; a detail slug must stay an exact filter."""
+    dates = {key: fixtures[key] for key in ['start', 'end']}
+    visitor_route = urlsplit(current.base+'admin/analytics/visitors.php').path
+    for recorded_path in paths or fixtures['paths']:
+        page.goto(current.base+'admin/analytics/?'+urlencode(dates))
+        link = page.locator('.analytics-path').get_by_role('link', name=recorded_path, exact=True)
+        with page.expect_response(lambda response: response.request.is_navigation_request()
+                                  and urlsplit(response.url).path == visitor_route) as opened:
+            link.click()
+        expect(opened.value.status == 200, label+': recorded page link opens successfully: '+recorded_path)
+        browser_expect(page.locator('[name=path]')).to_have_value(recorded_path)
+        filters = parse_qs(urlsplit(page.url).query)
+        expect(filters.get('path') == [recorded_path]
+               and all(filters.get(key) == [value] for key, value in dates.items()),
+               label+': page identifier and selected dates survive the dashboard link')
+        expected_id = str(fixtures['ids'][recorded_path])
+        rows = page.locator('.analytics-visitor-list tbody [data-visitor-id]')
+        expect(rows.evaluate_all('(items)=>items.map(item=>item.dataset.visitorId)') == [expected_id],
+               label+': only the matching recorded page visit is listed, including exact slug separation')
+        rows.locator('a').filter(has_text='Inspect visit').click()
+        browser_expect(page.locator('.analytics-session-details')).to_have_attribute('data-selected-visit', expected_id)
+        browser_expect(page.locator('.analytics-journey-card')).to_have_count(1)
+        browser_expect(page.locator('.analytics-journey-card').first).to_contain_text(recorded_path)
+        selected = parse_qs(urlsplit(page.url).query)
+        expect(selected.get('path') == [recorded_path] and selected.get('visit') == [expected_id]
+               and all(selected.get(key) == [value] for key, value in dates.items()),
+               label+': Inspect visit preserves the exact page/date cohort and shows its recorded journey')
 
 
 def main():
@@ -111,7 +142,7 @@ def main():
                         layout(page, f'{engine_name} {folder or "root"} {width}px visitor explorer')
                         if not folder and width in [1440,390]: screenshot(page, 'analytics-'+engine_name+'-visitor-'+str(width)+'-synthetic')
                     page.locator('.analytics-explorer-filter-details summary').click()
-                    page.locator('[name=path]').fill('/no-matching-visitor-fixture/')
+                    page.locator('[name=path]').fill('/media/')
                     page.locator('button').filter(has_text='Apply visitor filters').click()
                     browser_expect(page.locator('.analytics-visitor-list')).to_contain_text('No visits match these filters')
                     expect(page.locator('.analytics-explorer-filter-details').get_attribute('open') is not None,
@@ -185,6 +216,9 @@ def main():
                         layout(page, f'{engine_name} {folder or "root"} {width}px geography')
                         expect(page.locator('input[name=city_database]').count() == 1, 'Geography route has the actual file control')
                         if not folder and width in [1440,390]: screenshot(page, 'analytics-'+engine_name+'-geography-'+str(width))
+                    detail_paths = admin_fixture(current, 'detail-paths-fixture')
+                    page.set_viewport_size({'width':1440,'height':960})
+                    page_drilldowns(page, current, detail_paths, engine_name+' '+(folder or 'root'))
                     expect(not errors, 'Analytics and geography pages have no uncaught JavaScript errors')
                     context.close()
 
@@ -202,6 +236,8 @@ def main():
                     native_page.locator('.analytics-visitor-list a').filter(has_text='Inspect visit').first.click()
                     expect(native_page.locator('.analytics-journey-card').count() >= 1,
                            'Visitor session drilldown and its page journey work without JavaScript')
+                    page_drilldowns(native_page, current, detail_paths, 'No-JavaScript '+(folder or 'root'),
+                                    [path for path in detail_paths['paths'] if path.startswith('/pages/')])
                     native_page.goto(current.base+'admin/analytics/?range=7')
                     native_page.locator('.analytics-settings-form [name=enabled]').uncheck()
                     native_page.locator('.analytics-settings-form button').click()

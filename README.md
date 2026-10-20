@@ -1,8 +1,14 @@
-# Spiritual Gorillaz — 1.1.0-rc.2
+# Spiritual Gorillaz — 1.1.0-rc.3
 
 Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, metallic-gold and blue-stage-light identity.
 
-## 1.1.0-rc.2 — graphical analytics, visitor exploration and Overview snapshots
+## 1.1.0-rc.3 — accurate page drilldowns and search attribution
+
+Page-performance links now open Visitor Explorer for the exact recorded release, show, member, product or custom page, including its validated `slug` identifier. The same page/date filters remain active when inspecting a visit. Unrelated query fields and private paths are still rejected. Supported Ecosia referrals now appear as Organic search, consistent with the collector's existing recognition of supplied search terms.
+
+These are read-only reporting corrections: retained traffic becomes navigable without data conversion. Migrations, collection rules, configuration, media and the pinned recovery layer remain unchanged. See `docs/TEST_RESULTS.md` for observed rc.3 verification and the archived final rc.2 results.
+
+## Retained graphical analytics, visitor exploration and Overview snapshots
 
 Analytics has its own owner-only administration section. The dashboard puts traffic charts and consistent color-coded metrics near the top, adds graphical acquisition/device/engagement breakdowns and hourly activity, and exposes retained visit details through a filterable visitor explorer with chronological page journeys. The main owner Overview includes a seven-day analytics snapshot and a compact traffic chart.
 
@@ -16,7 +22,7 @@ Public navigation now has one controller and reproducible CSS/JavaScript bundles
 
 This is a cumulative review candidate on `work/1.1.0-analytics-and-navigation`, based on the latest 1.0.13 work. Screenshot approval and real-host acceptance remain separate from automated verification. Exact observed results are in `docs/TEST_RESULTS.md`.
 
-**Updating an installed website:** an installed `1.1.0-rc.1` already has the unchanged analytics schema, so the normal guarded same-schema **Browser upgrades** path applies when its checks pass. Updating a `1.0.x` site adds migrations `007.sql` and `008.sql`; the browser updater deliberately refuses that schema transition. For `1.0.x`, preserve the existing private configuration, owner, database and uploads, deploy the cumulative code through the hosting panel and apply **Database updates** with the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
+**Updating an installed website:** installed `1.1.0-rc.1` and `1.1.0-rc.2` sites already have the unchanged analytics schema, so the normal guarded same-schema **Browser upgrades** path applies when its checks pass. Updating a `1.0.x` site adds migrations `007.sql` and `008.sql`; the browser updater deliberately refuses that schema transition. For `1.0.x`, preserve the existing private configuration, owner, database and uploads, deploy the cumulative code through the hosting panel and apply **Database updates** with the existing owner account. Do not reinstall. Detailed steps are in `docs/ANALYTICS.md`.
 
 ## Preserved contained continuous-image heroes
 

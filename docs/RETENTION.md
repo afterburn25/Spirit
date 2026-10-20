@@ -1,6 +1,6 @@
 # Technical retention and private temporary cleanup
 
-Current behavior for 1.1.0-rc.2. This module originated in checkpoint 0.9.0-dev.4; consult TEST_RESULTS.md for observed results on the current candidate rather than treating that earlier checkpoint as current evidence.
+Current behavior for 1.1.0-rc.3. This module originated in checkpoint 0.9.0-dev.4; consult TEST_RESULTS.md for observed results on the current candidate rather than treating that earlier checkpoint as current evidence.
 
 ## Owner workflow
 

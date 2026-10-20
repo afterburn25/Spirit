@@ -1,48 +1,34 @@
-# Verification — 1.1.0-rc.2
+# Verification — 1.1.0-rc.3
 
-## Current candidate
+## Current source and exact baseline
 
-This candidate starts from the delivered rc.1 source `1bde497daa174ac265096e1adee967dd9bf3f900`. It adds the requested dedicated Analytics navigation, Overview snapshots, graphical reports and visitor exploration. The application remains on schema migrations 007/008; existing migrations and public collector behavior are unchanged.
+This candidate starts from delivered rc.2 commit `f6b8e6349e75d3ca465bec60a010f74f8eaf84e4`. It fixes canonical detail-page visitor filters and the existing Ecosia search-source classification. The collector, browser sampling asset, migrations 007/008 and pinned recovery layer are unchanged. Retained traffic needs no data conversion.
 
-The rc.1 evidence is retained in `history/TEST_RESULTS-1.1.0-rc.1.md`. All ten workflows on its final documentation checkpoint completed successfully before this work began. Those earlier results are baseline evidence, not verification of the rc.2 changes.
+The rc.2 source checkpoint is archived in `history/TEST_RESULTS-1.1.0-rc.2.md`. Its later final receipt, `history/VERIFICATION-1.1.0-rc.2.json`, records all 10 workflows / 23 jobs passing, the exact delivered archive, 40 screenshots and the 43-check rc.1-to-rc.2 upgrade. Those results are historical baseline evidence and do not certify this candidate.
 
-## Current verification
+## Current local verification
 
-The following local checks passed on rc.2 application/test source using PHP 8.3.6, MariaDB 10.11.14 and disposable installations. Remote rc.2 Actions and final delivery capture evidence are pending at this checkpoint; no pending check is counted as a pass.
-
-| Check | Observed result |
-|---|---|
-|Analytics admin/chart/import units|**35 checks passed**, including safe empty arrays, exact data values, unique SVG IDs, escaped labels, cohort percentages and native heatmap data.|
-|Analytics owner SQL/HTTP integration|**191 checks passed** at root and `/band`: report bucket totals, bounded filters, session/detail scope, journey pagination/chronology, supplied attribution escaping, owner boundaries, query imports and geography controls. Supported search hosts and short lookalikes are distinguished.|
-|Rendered analytics browser suite|**141 checks passed** in Chromium at root and `/band`: the traffic chart is within the first 1440×960 screen; actual values, keyboard readouts, color distinctions, channel/hourly/heatmap charts, 390/320px layouts, visitor drilldowns/filters, live source/OS/links and pause/resume, public page-time beacons, CSV, geography and native forms.|
-|Final report-section navigation|**4 focused assertions passed** after the final JavaScript adjustment: click, hash change, browser back and direct anchor. Persistent regression assertions were added for CI.|
-|Public navigation and controls|**401 checks passed** in Chromium at root and `/band`. Search sits 8–20px beside Book the Band, aligned and centered with logo clearance at 1440/1180/1024/900/821px; dropdown/focus/Escape, mobile menu, persistent audio, native controls and no-JavaScript navigation remain usable with unchanged business data.|
-|Public asset build|Committed bundles reproduce exactly: **123,884 / 130,000 bytes** across four loaded CSS/JS files.|
-|Packaging|**15 package tests passed**, including immutable version filenames, complete hashes, private/development exclusions and repeatable bytes. The software release gate passed after two independent cumulative builds.|
-|Changed-source validation|15 changed/new PHP files passed syntax checks; changed JavaScript passed Node syntax and six changed Python tools compiled at this checkpoint. Final source checks also run in CI.|
-|Schema and collector continuity|Migrations 007/008, the public Analytics collector and browser sampling asset, and the pinned recovery engine remain byte-identical to rc.1.|
-
-## Focused Navigation and Overview checks — rc.2
-
-Observed locally on 2026-10-20 against the working rc.2 source. These checks used packaged disposable PHP/database installations and synthetic traffic, with payment networking disabled; they did not access the real A2 website or production audience data. They are focused checks, not a claim that the full rc.2 workflow matrix has completed.
+Observed locally using PHP 8.3.6, MariaDB 10.11.14 and Chromium in disposable installations. Remote rc.3 Actions and final delivered-package captures occur after this source checkpoint and are recorded separately below. No pending remote result is counted as a pass.
 
 | Check | Observed result |
 |---|---|
-|`php tests/admin_navigation_unit.php`|**109 checks passed.** Seven owner groups and 37 total destinations, including a separate three-link Analytics group; four communication destinations remain under Bookings & communication. Every destination exists, identities are unique, staff receive no Analytics links, and opaque saved-menu scopes remain isolated.|
-|Packaged owner Overview, Chromium, root and `/band`|**Passed.** Empty-state report, explicit seven-day UTC window, uncached response, seeded **67 visits / 131 pageviews / 35.8% bounce**, real daily SVG series, seven-row native daily table, real top referrer/country highlights and working links into Analytics/visitor exploration.|
-|Overview responsive geometry|**Passed at 1440, 390 and 320px** in both root and subfolder checks. All six metric cards and both traffic series render without document overflow; the traffic chart is within the first 960px desktop screen.|
-|Read-only and no-JavaScript behavior|**Passed.** Reload, resize and daily disclosure preserve the full database fingerprint. With JavaScript disabled, Overview metrics/SVG, native daily disclosure and the visitor-explorer link remain usable.|
-|Paused and unavailable reporting, additional Chromium root run|**Passed.** Pausing collection retains the 67 seeded visits and performs no read-side writes. Temporarily renaming an analytics table returns a usable 200 Overview with an explicit unavailable state, no invented zero metric cards and the existing operational summaries. Test state was restored afterward.|
-|Phone navigation, additional 390px Chromium root run|**Passed.** The dedicated category, unique current destination, persisted expand/collapse choices, exact URL/query/hash reload, sidebar scroll restoration, focus containment, Escape handling and per-tab behavior remain correct with no database mutation or uncaught page errors.|
-|Owner/staff identities and direct report routes, Chromium root|**Passed.** Owner snapshot/menu visibility, absence for content editors/store managers, direct staff 403 responses for dashboard/explorer/geography, exact current keys on all three Analytics destinations, corrupt/unavailable browser-storage fallback and native no-JavaScript navigation.|
-|Source validation|**Passed.** PHP syntax for the Overview controller/partial, navigation, geography renderer and shared header; Python compile for the navigation browser test; `git diff --check`.|
+|Analytics admin/chart/import units|**57 passed.** Canonical static/detail/custom-page identifiers, subfolder normalization, supplied Ecosia terms, forbidden path forms and the retained chart/import contracts.|
+|Analytics owner SQL/HTTP integration|**223 passed** at root and `/band`. Each of the five detail families and a second release slug select only their own session and native 200 journey; invalid/private forms reject 400. Ecosia and its www host classify as organic, while lookalikes remain referrals.|
+|Delivered rc.2 negative witness|**Passed.** The new real-link browser regression reproduced the old delivered ZIP's actual rejection of a canonical slug path, without changing that archive or its runtime.|
+|Rendered analytics browser suite|**201 passed** at root and `/band`, including 14 actual dashboard→explorer→visit journeys. Exact path, dates and selected session remain correct for all detail families, same-route/different-slug controls and no-JavaScript custom pages. Retained charts, live controls, responsive layouts and native forms also pass.|
+|Packaging|**15 tests passed**, including immutable version paths, manifest coverage, private/development exclusions and repeatable bytes. The deterministic software release gate also passed with two independent cumulative builds.|
+|Public bundles|Reproduce exactly at **123,884 / 130,000 bytes** across 4 files; public code is unchanged.|
+|Source validation|Changed PHP/Python syntax and `git diff --check` passed.|
+|Continuity|Migrations 007/008, public collector/sampling and all pinned recovery/access files are byte-identical to delivered rc.2.|
 
-The reproducible assertions are in `tests/admin_navigation_unit.php` and `tests/admin_navigation_browser.py`; the existing verification/storefront workflows already invoke those files. Focused runs called the browser test functions directly to isolate the changed behavior before the broader final suites. The additional root run includes the phone chart label/focus improvements and paused/unavailable coverage; the earlier root/subfolder run established path and responsive behavior. A final text-only Overview footer addition retains the DB-IP country attribution and must be present in final delivery captures.
+The initial SQL/browser setup attempts encountered a stopped disposable database. After the same local server was restarted, the complete runs above passed. No production database was accessed. The two runtime changes are limited to visitor filter validation, the supported-search host constant and explanatory visitor-field text.
 
-Actual 1440px desktop and 390px phone Overview QA images were captured and visually inspected. Values are synthetic fixture values, not production measurements. The snapshot explicitly labels live activity as **at page load** with a UTC timestamp and a reload instruction; it does not claim continuous polling. Public navigation QA has since passed the 401-check Chromium suite described above. A QA-only package produced 19 actual administration captures, which were visually inspected at desktop and phone sizes. The final delivery must use fresh captures tied to its exact archive; broader latest-head rc.2 CI evidence is still pending at this source checkpoint.
+## Evidence produced after source publication
+
+GitHub builds and tests the published candidate. The final companion `FINAL-VERIFICATION.json` in its delivered screenshot/review archive records the observed workflow/job outcomes, source commit, exact Full ZIP hash, capture manifests and exact delivered-version upgrade result. The PR links those results. A prior source-checkpoint statement that CI/captures were pending is not a final release verdict; the companion receipt identifies the same immutable source and archive.
+
+The final expected capture set contains 21 unseeded public screenshots and 21 synthetic administration screenshots, including the desktop/phone retained detail-page filter. Counts and outcomes must be checked against the completed capture manifests before delivery.
 
 ## Acceptance boundaries
 
-Automated workflows use disposable databases and synthetic traffic. Exact-package owner screenshots label synthetic demonstration data and are accompanied by image/package hashes. They do not report real production audience counts.
-
-Actual hosting behavior, owner screenshot approval and external provider acceptance remain separate. This work does not install or activate services on the real A2 website.
+Tests use disposable databases and synthetic data. Administrative review images are labeled synthetic demonstration data and are not measurements of the real audience. No real A2 deployment, mailbox delivery, merchant transaction or physical-device acceptance is established by the automated results. Current owner screenshot review and applicable host/provider acceptance remain separate.

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 require dirname(__DIR__).'/includes/bootstrap.php';
 ob_start();
-use Spirit\{AnalyticsAdmin,AnalyticsCharts,AnalyticsSearchConsole};
+use Spirit\{Analytics,AnalyticsAdmin,AnalyticsCharts,AnalyticsSearchConsole,AnalyticsVisitors};
 $checks = 0;
 function analyticsCheck(bool $condition, string $label): void { global $checks; if (!$condition) { throw new RuntimeException($label); } $checks++; echo 'PASS '.$label."\n"; }
 function rejected(callable $call): bool { try { $call(); return false; } catch (InvalidArgumentException|RuntimeException) { return true; } }
@@ -10,6 +10,15 @@ $range = AnalyticsAdmin::range(['range'=>'7']);
 analyticsCheck($range[1] === gmdate('Y-m-d') && (new DateTimeImmutable($range[0]))->diff(new DateTimeImmutable($range[1]))->days===6,'Seven-day report includes both endpoints');
 foreach ([['start'=>'2026-02-30','end'=>'2026-03-01'],['start'=>'2026-10-01','end'=>'2026-09-01'],['start'=>'2023-01-01','end'=>'2026-01-01'],['start'=>['bad'],'end'=>'2026-01-01'],['start'=>'2999-01-01','end'=>'2999-01-02']] as $input) { analyticsCheck(rejected(fn()=>AnalyticsAdmin::range($input)),'Invalid, reversed, future or unbounded dates are rejected'); }
 analyticsCheck(AnalyticsAdmin::duration(null)==='—' && AnalyticsAdmin::duration(0)==='0s' && AnalyticsAdmin::duration(65)==='1m 5s' && AnalyticsAdmin::duration(3661)==='1h 1m','Unavailable time differs from measured zero and durations have clear units');
+foreach (['/','/music/','/music/release.php?slug=real-album','/shows/event.php?slug=real-show','/band/member.php?slug=chad-lindsey','/shop/product.php?slug=band-shirt','/pages/?slug=privacy-policy'] as $path) {
+ analyticsCheck(AnalyticsVisitors::filters(['path'=>$path])['path']===$path,'Recorded public page identifiers remain filterable: '.$path);
+}
+$subfolderPath=Analytics::normalisePath('/band/music/release.php?slug=real-album&utm_source=newsletter','/band');
+analyticsCheck($subfolderPath==='/music/release.php?slug=real-album' && AnalyticsVisitors::filters(['path'=>$subfolderPath])['path']===$subfolderPath,'A subfolder collector identifier opens the same exact public-page filter');
+analyticsCheck(Analytics::acquisition('https://www.ecosia.org/search?q=live+music','band.test',[])['search_term']==='live music','Existing Ecosia supplied search terms remain available to organic-search reporting');
+foreach (['/admin/','/account/','/shop/cart.php','/music/?q=private','/music/release.php?slug=real-album&token=private','/music/release.php?slug=real-album#notes','/music/release.php?slug=real-album&slug=other','/music/release.php?slug=Real-Album','/music/release.php?slug[]=real-album','/music/release.php?slug=%72eal-album','/pages/?slug=music','https://example.test/music/','//example.test/music/'] as $path) {
+ analyticsCheck(rejected(fn()=>AnalyticsVisitors::filters(['path'=>$path])),'Private or noncanonical visitor page filters are rejected: '.$path);
+}
 ob_start(); AnalyticsAdmin::bars([['label'=>'<script>alert(1)</script>','visits'=>10]],'label','visits','',100); $html=ob_get_clean();
 analyticsCheck(!str_contains($html,'<script>') && str_contains($html,'&lt;script&gt;') && str_contains($html,'10%'),'Chart labels are escaped and percentages use the full supplied cohort');
 ob_start(); AnalyticsCharts::donut([['label'=>'No observations','visits'=>0]]); $html=ob_get_clean();

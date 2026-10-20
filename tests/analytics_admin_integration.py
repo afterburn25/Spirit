@@ -179,8 +179,10 @@ def visitor_journey(s, route):
            'Derived channels respect campaign medium and exact search/social host boundaries')
     host_cases = {'www.google.co.uk': 'organic', 'google.ca': 'organic', 'google.com.au': 'organic',
                   'www.bing.com': 'organic', 'search.yahoo.com': 'organic', 'yandex.ru': 'organic',
+                  'ecosia.org': 'organic', 'www.ecosia.org': 'organic',
                   'google.com.evil': 'referral', 'google.evil': 'referral', 'yandex.com.evil': 'referral',
-                  'evilgoogle.com': 'referral', 'facebook.com.evil': 'referral', '': 'direct'}
+                  'evilgoogle.com': 'referral', 'facebook.com.evil': 'referral',
+                  'ecosia.org.evil': 'referral', 'evilecosia.org': 'referral', '': 'direct'}
     expect(admin_fixture(s, 'classify-sources', {'sources': list(host_cases)}) == host_cases,
            'Supported search domains classify correctly and short provider lookalikes remain referrals')
     expect(next(row['visits'] for row in aggregate['engagement'] if row['label'] == 'Unmeasured') == 1,
@@ -221,6 +223,24 @@ def visitor_journey(s, route):
     for values in [{'country':'USA'}, {'channel':'untrusted'}, {'status':'expired'}, {'page':'-1'},
                    {'visit':'1 OR 1=1'}, {'path':'/music/?secret=private'}, {'browser[]':'Chrome'}]:
         expect(s.client.request(url(values))[0] == 400, 'Malformed visitor filter receives a controlled rejection: ' + next(iter(values)))
+
+    detail_fixture = admin_fixture(s, 'detail-paths-fixture')
+    detail_scope = {'start': detail_fixture['start'], 'end': detail_fixture['end']}
+    for path in detail_fixture['paths']:
+        matching = admin_fixture(s, 'explore', {**detail_scope, 'filters': {'path': path}})['explorer']
+        expected_id = detail_fixture['ids'][path]
+        expect(matching['available'] and matching['total'] == 1
+               and matching['visitors'][0]['record_id'] == expected_id,
+               'Canonical detail-page filter selects its exact session, including the public slug: ' + path)
+        detail_url = route + '?' + urllib.parse.urlencode({**detail_scope, 'path': path, 'visit': str(expected_id)})
+        detail = s.client.request(detail_url)
+        expect(detail[0] == 200 and 'data-selected-visit="' + str(expected_id) + '"' in detail[1]
+               and '1 matching visits' in detail[1] and path in detail[1],
+               'Native detail-page drilldown keeps the canonical path and selected journey: ' + path)
+    for path in ['/music/release.php?slug=real-album&token=private',
+                 '/music/release.php?slug=real-album#private', '/admin/', '/pages/?slug=music']:
+        result = s.client.request(route + '?' + urllib.parse.urlencode({**detail_scope, 'path': path}))
+        expect(result[0] == 400, 'Detail-page support still rejects private and noncanonical filter values: ' + path)
 
 
 def main():

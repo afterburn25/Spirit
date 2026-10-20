@@ -1,4 +1,4 @@
-# Visitor analytics — 1.1.0-rc.2
+# Visitor analytics — 1.1.0-rc.3
 
 ## Open the dashboard
 
@@ -18,7 +18,7 @@ Entry pages are the first retained pages of sessions qualifying for the selected
 
 ## Explore a visitor session
 
-Open **Analytics → Visitor explorer** to search retained anonymous sessions. Combine date, traffic channel, status, country, device, browser, operating system, referring domain, region, city and visited-page filters. Region/city and page filters match the recorded values; page paths exclude query parameters. Results show 25 sessions per page, ordered by most recent activity. A selected-date cohort includes sessions with a counted page during that range.
+Open **Analytics → Visitor explorer** to search retained anonymous sessions. Combine date, traffic channel, status, country, device, browser, operating system, referring domain, region, city and visited-page filters. Region/city and page filters match the recorded values. A page filter accepts the exact canonical public path recorded by the collector, including its single validated `?slug=` identifier for a release, show, member, product or custom page. Arbitrary query fields, fragments and private paths remain rejected. Click a page in the dashboard's page-performance report to carry its exact path and selected dates into the explorer. Results show 25 sessions per page, ordered by most recent activity. A selected-date cohort includes sessions with a counted page during that range.
 
 Choose **Inspect visit** to see the session's arrival and last activity, supplied referral/search/campaign labels, client families, available approximate location, first and last retained page, classic bounce status and timing coverage. The chronological journey shows each retained public pageview, its observed timing and whether it falls outside the selected dates. Long journeys are paginated in groups of 100 events. Details keep the active filters and date scope; a missing, expired or unrelated session does not bypass them.
 
@@ -83,9 +83,9 @@ Migrations `007.sql` and `008.sql` add four analytics tables. Existing migration
 
 There is no automatic rollback of the added SQL schema. Existing same-schema recovery checkpoints are not a universal cross-schema rollback. Follow the reviewed staging backup/restore plan if this deployment must be reversed. The implementation does not contact or modify the real A2 site merely by building this archive.
 
-## Update an installed 1.1.0-rc.1 website
+## Update an installed 1.1.0-rc.1 or 1.1.0-rc.2 website
 
-This candidate changes presentation and read-only reports. Migrations `007.sql` and `008.sql` are unchanged and no new migration is added. Follow the existing guarded **Browser upgrades** process for the newer cumulative Full ZIP when its same-schema, recovery and file-integrity checks pass. Preserve the original owner, configuration/encryption secret, database, private runtime and uploads. Existing analytics history remains available; do not run the fresh installer again.
+This candidate corrects read-only reports and retains the graphical presentation introduced in rc.2. Migrations `007.sql` and `008.sql` are unchanged and no new migration is added. Follow the existing guarded **Browser upgrades** process for the newer cumulative Full ZIP when its same-schema, recovery and file-integrity checks pass. Preserve the original owner, configuration/encryption secret, database, private runtime and uploads. Existing analytics history remains available, including previously recorded detail-page slugs; do not run the fresh installer again.
 
 ## Verification
 

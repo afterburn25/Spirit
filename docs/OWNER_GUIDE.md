@@ -70,13 +70,15 @@ Retention offers previewed/bounded technical cleanup, preserving business histor
 
 Full populated-site accessibility/performance/security acceptance, approved high-resolution artwork and real content, genuine provider/host tests and owner acceptance remain. Search/sharing/sitemap and targeted responsive-media/keyboard work are implemented; consult TEST_RESULTS.md for the exact verified checkpoint. LAUNCH_CHECKLIST.md lists the remaining approval and real-environment checks. A tested development checkpoint is not an accepted v1.0 website.
 
-## Audience analytics — 1.1.0-rc.2
+## Audience analytics — 1.1.0-rc.3
 
 The main **Overview** includes a seven-day analytics snapshot, a compact traffic chart and top source/country/page. Its live number is recorded at page load; the timestamp makes that boundary visible.
 
 Open the dedicated **Analytics → Dashboard** section using an owner account. Choose 7/30/90 days or a custom inclusive date range; reports use UTC. Review the large traffic chart, consistent metric colors, channel/device composition, ranked sources and client/location reports, hourly activity, engagement and separate crawler activity. Live visitors refresh while that dashboard is visible. Export the selected aggregate report as CSV.
 
 Use **Analytics → Visitor explorer** to combine date, source/channel, status, country/region/city, device/browser/OS and page filters. **Inspect visit** opens the anonymous session's retained acquisition fields, location, client details, timing coverage and chronological page journey. Missing search phrases and timings remain explicitly unavailable. The explorer does not identify people or expose account, checkout or form contents. **Analytics → Geography** manages optional private City data.
+
+Clicking a page in the dashboard's page-performance report opens the explorer with that exact recorded path and the selected dates. Release, show, member, product and custom-page paths retain their validated `slug` identifier, so different detail pages remain distinct. The page filter also remains active when inspecting a visit.
 
 Country lookup is included. **Manage location data** accepts an optional compatible City MMDB or MMDB.gz for available state/region/city labels. The owner can pause collection, geography and bot recording independently. Most Google referrals withhold search phrases; the **Search Console queries** panel imports Google's English Queries CSV as an aggregate snapshot with separate dates. Missing data stays unknown. No report identifies individual people or uses browser GPS.
 

@@ -1,4 +1,4 @@
-# Browser installation and updates — 1.1.0-rc.2
+# Browser installation and updates — 1.1.0-rc.3
 
 Use isolated staging first, not the existing live band website. TEST_RESULTS.md records exact automated evidence. Actual shared-host ownership, domain aliases, execution limits, TLS/proxies, OPcache and provider behavior require staging acceptance.
 
@@ -28,7 +28,7 @@ An older unfinished automatic attempt is identified by its private cpanel-provis
 
 ## Existing installations
 
-**Updating rc.1 to rc.2:** this graphical-report and visitor-explorer refinement keeps migrations 007/008 unchanged. The existing same-schema Browser upgrades workflow applies when its usual package, backup and recovery checks pass. The different 1.0.x-to-1.1 update path below still applies to installations without the analytics schema.
+**Updating rc.1 or rc.2 to rc.3:** this read-only reporting correction keeps migrations 007/008 unchanged and retains the graphical dashboard. The existing same-schema Browser upgrades workflow applies when its usual package, backup and recovery checks pass. Previously recorded detail-page paths become usable without a data rewrite. The different 1.0.x-to-1.1 update path below still applies to installations without the analytics schema.
 
 **1.1.0-rc.1 adds analytics migrations 007 and 008.** Use the existing configuration/database and owner account. The same-schema ZIP updater deliberately rejects this candidate from 1.0.x. Save verified code/configuration/database/media backups, deploy the cumulative code through cPanel while preserving runtime and uploaded files, and apply **System & maintenance → Database updates**. Do not recreate a removed installer folder or rerun fresh setup on the installed site. See `ANALYTICS.md` for the complete staged update sequence.
 

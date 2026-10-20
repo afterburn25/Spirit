@@ -1,0 +1,1794 @@
+{
+  "schema_version": 1,
+  "version": "1.1.0-rc.2",
+  "source_repository": "https://github.com/afterburn25/Spirit",
+  "source_commit": "f6b8e6349e75d3ca465bec60a010f74f8eaf84e4",
+  "pull_request": "https://github.com/afterburn25/Spirit/pull/37",
+  "pull_request_state": "draft, open, unmerged",
+  "observed_at_utc": "2026-10-20 15:26:57 UTC",
+  "package": {
+    "file": "Spiritual-Gorillaz-1.1.0-rc.2-Full.zip",
+    "bytes": 23521440,
+    "sha256": "8a91f3f1f557a4eee83fbd5ae3258371de94473ccd4283525e4ca0e0f7d85b4e"
+  },
+  "independent_github_package": {
+    "run_id": 39446746810,
+    "job_id": 118710555414,
+    "url": "https://github.com/afterburn25/Spirit/actions/runs/39446746810",
+    "sha256": "8a91f3f1f557a4eee83fbd5ae3258371de94473ccd4283525e4ca0e0f7d85b4e",
+    "matches_delivered_archive": true
+  },
+  "github_actions": {
+    "workflow_count": 10,
+    "job_count": 23,
+    "all_passed": true,
+    "workflows": [
+      {
+        "id": 39446756059,
+        "name": "Focused maintenance diagnostics",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756059",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "f6b8e6349e75d3ca465bec60a010f74f8eaf84e4",
+        "completed_or_updated_at": "2026-10-20T15:17:10Z",
+        "jobs": [
+          {
+            "id": 118710588471,
+            "name": "maintenance",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756059/job/118710588471",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify database and installer foundation",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run unchanged maintenance assertions and record diagnostic notices",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Preserve synthetic failure evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 39446755801,
+        "name": "Review package artifact",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39446755801",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "f6b8e6349e75d3ca465bec60a010f74f8eaf84e4",
+        "completed_or_updated_at": "2026-10-20T15:16:00Z",
+        "jobs": [
+          {
+            "id": 118710587065,
+            "name": "package",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446755801/job/118710587065",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Install deterministic image dependency",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Build cumulative deployment and checksum",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Upload review package",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 39446756012,
+        "name": "Public navigation and native controls",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756012",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "f6b8e6349e75d3ca465bec60a010f74f8eaf84e4",
+        "completed_or_updated_at": "2026-10-20T15:18:43Z",
+        "jobs": [
+          {
+            "id": 118710588093,
+            "name": "Navigation / PHP 8.4 / mariadb:11.4 / webkit",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756012/job/118710588093",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Record exact source and wait for disposable SQL",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare isolated browser and audio device",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify actual menus, playback and native controls",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Retain exact source and synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710588468,
+            "name": "Navigation / PHP 8.4 / mariadb:11.4 / firefox",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756012/job/118710588468",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Record exact source and wait for disposable SQL",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare isolated browser and audio device",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify actual menus, playback and native controls",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Retain exact source and synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710588583,
+            "name": "Navigation / PHP 8.4 / mysql:8.4 / chromium",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756012/job/118710588583",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Record exact source and wait for disposable SQL",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare isolated browser and audio device",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify actual menus, playback and native controls",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Retain exact source and synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 39446756149,
+        "name": "Software release gate",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756149",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "f6b8e6349e75d3ca465bec60a010f74f8eaf84e4",
+        "completed_or_updated_at": "2026-10-20T15:19:59Z",
+        "jobs": [
+          {
+            "id": 118710597026,
+            "name": "Source and package release contract",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756149/job/118710597026",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Install deterministic image build dependency",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify committed public bundles and their size budget",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Validate finalizable software package",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 39446756198,
+        "name": "Visitor analytics verification",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756198",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "f6b8e6349e75d3ca465bec60a010f74f8eaf84e4",
+        "completed_or_updated_at": "2026-10-20T15:19:52Z",
+        "jobs": [
+          {
+            "id": 118710589437,
+            "name": "Analytics / PHP 8.4 / mysql:8.4",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756198/job/118710589437",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare deterministic package builds and disposable SQL",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Check collection, reporting, geography and administration rules",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare test-only browser",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Exercise dashboard, live polling and owner uploads",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Preserve synthetic analytics screenshots",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710589918,
+            "name": "Analytics / PHP 8.2 / mariadb:11.4",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756198/job/118710589918",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare deterministic package builds and disposable SQL",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Check collection, reporting, geography and administration rules",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare test-only browser",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Exercise dashboard, live polling and owner uploads",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Preserve synthetic analytics screenshots",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 39446756026,
+        "name": "Authoring safety verification",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756026",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "f6b8e6349e75d3ca465bec60a010f74f8eaf84e4",
+        "completed_or_updated_at": "2026-10-20T15:20:40Z",
+        "jobs": [
+          {
+            "id": 118710588290,
+            "name": "Editors / PHP 8.2 / chromium",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756026/job/118710588290",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify submitted-field correction without database mutation",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Install isolated browser",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Check warning lifecycle and actual editor workflows",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Preserve exact source and synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710588715,
+            "name": "Editors / PHP 8.4 / chromium",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756026/job/118710588715",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify submitted-field correction without database mutation",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Install isolated browser",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Check warning lifecycle and actual editor workflows",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Preserve exact source and synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710588734,
+            "name": "Editors / PHP 8.4 / webkit",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756026/job/118710588734",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify submitted-field correction without database mutation",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Install isolated browser",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Check warning lifecycle and actual editor workflows",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Preserve exact source and synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710588799,
+            "name": "Editors / PHP 8.4 / firefox",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756026/job/118710588799",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify submitted-field correction without database mutation",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Install isolated browser",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Check warning lifecycle and actual editor workflows",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Preserve exact source and synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 39446756393,
+        "name": "Site logo workflow verification",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756393",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "f6b8e6349e75d3ca465bec60a010f74f8eaf84e4",
+        "completed_or_updated_at": "2026-10-20T15:23:14Z",
+        "jobs": [
+          {
+            "id": 118710591220,
+            "name": "Logo / PHP 8.4 / mariadb:11.4 / firefox",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756393/job/118710591220",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Record exact source and check new unit and database workflows",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare isolated browser and audio device",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify actual logo editing and continued public playback",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Retain exact source and synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710591765,
+            "name": "Logo / PHP 8.2 / mariadb:11.4 / chromium",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756393/job/118710591765",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Record exact source and check new unit and database workflows",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare isolated browser and audio device",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify actual logo editing and continued public playback",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Retain exact source and synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710591809,
+            "name": "Logo / PHP 8.4 / mysql:8.4 / chromium",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756393/job/118710591809",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Record exact source and check new unit and database workflows",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare isolated browser and audio device",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify actual logo editing and continued public playback",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Retain exact source and synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710591831,
+            "name": "Logo / PHP 8.4 / mariadb:11.4 / webkit",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756393/job/118710591831",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Record exact source and check new unit and database workflows",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare isolated browser and audio device",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify actual logo editing and continued public playback",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Retain exact source and synthetic evidence",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 39446756146,
+        "name": "Populated storefront browser verification",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756146",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "f6b8e6349e75d3ca465bec60a010f74f8eaf84e4",
+        "completed_or_updated_at": "2026-10-20T15:24:25Z",
+        "jobs": [
+          {
+            "id": 118710589320,
+            "name": "Storefront / firefox",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756146/job/118710589320",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare browser and synthetic evidence directory",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Provide an audio output device on the disposable browser runner",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify published gallery, actual image selection and fallback",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Review release pages, native access and checkout without charging",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify grouped administration navigation and remembered state",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify managed section artwork and saved-draft previews",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify native pagination and private-history restoration",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Preserve synthetic storefront renders",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710589768,
+            "name": "Storefront / chromium",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756146/job/118710589768",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare browser and synthetic evidence directory",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Provide an audio output device on the disposable browser runner",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify published gallery, actual image selection and fallback",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Review release pages, native access and checkout without charging",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify grouped administration navigation and remembered state",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify managed section artwork and saved-draft previews",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify native pagination and private-history restoration",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Preserve synthetic storefront renders",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710590127,
+            "name": "Storefront / webkit",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756146/job/118710590127",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Prepare browser and synthetic evidence directory",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Provide an audio output device on the disposable browser runner",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify published gallery, actual image selection and fallback",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Review release pages, native access and checkout without charging",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify grouped administration navigation and remembered state",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify managed section artwork and saved-draft previews",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Verify native pagination and private-history restoration",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Preserve synthetic storefront renders",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 39446756023,
+        "name": "Website and installer verification",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756023",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "f6b8e6349e75d3ca465bec60a010f74f8eaf84e4",
+        "completed_or_updated_at": "2026-10-20T15:26:38Z",
+        "jobs": [
+          {
+            "id": 118710588972,
+            "name": "Actual Apache PHP 8.4 HTTPS access rules",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756023/job/118710588972",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Build isolated Apache test environment",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Exercise shipped access rules without external networking",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710589492,
+            "name": "PHP 8.2 / mariadb:11.4",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756023/job/118710589492",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Configure synthetic screenshot output",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Install deterministic image build dependency",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Syntax and permission-aware unit tests",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Database and HTTP integration",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Install test-only Chromium",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered installer and admin smoke checks",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered public pages and persistent playback",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered booking and communication workflows",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered commerce and customer workflows",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered tokenization and order workflows",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered owner invitation and staff permissions",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered backup and restore workflows",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered ZIP upgrade and independent recovery",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered conservative retention workflow",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered private content history and draft restoration",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered published discovery and metadata navigation",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered responsive images and keyboard quality",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Rendered launch diagnostics and upload-limit feedback",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Preserve synthetic browser screenshots",
+                "status": "completed",
+                "conclusion": "skipped"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          },
+          {
+            "id": 118710589616,
+            "name": "PHP 8.4 / mysql:8.4",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446756023/job/118710589616",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Initialize containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Configure synthetic screenshot output",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Install deterministic image build dependency",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Syntax and permission-aware unit tests",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Database and HTTP integration",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Install test-only Chromium",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered installer and admin smoke checks",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered public pages and persistent playback",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered booking and communication workflows",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered commerce and customer workflows",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered tokenization and order workflows",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered owner invitation and staff permissions",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered backup and restore workflows",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered ZIP upgrade and independent recovery",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered conservative retention workflow",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered private content history and draft restoration",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered published discovery and metadata navigation",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered responsive images and keyboard quality",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Rendered launch diagnostics and upload-limit feedback",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Preserve synthetic browser screenshots",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Stop containers",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": 39446746810,
+        "name": "Candidate installation package",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39446746810",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "f6b8e6349e75d3ca465bec60a010f74f8eaf84e4",
+        "completed_or_updated_at": "2026-10-20T15:16:13Z",
+        "jobs": [
+          {
+            "id": 118710555414,
+            "name": "Validate and build cumulative candidate",
+            "url": "https://github.com/afterburn25/Spirit/actions/runs/39446746810/job/118710555414",
+            "status": "completed",
+            "conclusion": "success",
+            "steps": [
+              {
+                "name": "Set up job",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Install deterministic image build dependency",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Validate software release contract",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Build immutable versioned full ZIP",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Upload candidate package",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+                "status": "completed",
+                "conclusion": "success"
+              },
+              {
+                "name": "Complete job",
+                "status": "completed",
+                "conclusion": "success"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "observed_local_verification": {
+    "analytics_admin_chart_import_unit_checks": 35,
+    "owner_analytics_sql_http_checks": 191,
+    "chromium_analytics_browser_checks": 141,
+    "final_focused_report_navigation_assertions": 4,
+    "admin_navigation_unit_checks": 109,
+    "chromium_public_navigation_control_checks": 401,
+    "package_tests": 15,
+    "final_admin_capture_checks": 72,
+    "exact_delivered_rc1_to_rc2_upgrade_logged_checks": 43,
+    "exact_upgrade_evidence": "Exact-rc1-to-rc2-Upgrade-Verification.json",
+    "public_bundle_bytes": 123884,
+    "public_bundle_budget_bytes": 130000,
+    "source_checkpoint_documentation": "docs/TEST_RESULTS.md in the repository and Full ZIP records the local verification checkpoint when the immutable source commit was created; this companion receipt records its later GitHub and capture results."
+  },
+  "actual_application_captures": {
+    "total": 40,
+    "public": 21,
+    "admin": 19,
+    "all_from_delivered_package": true,
+    "admin_data": "Synthetic demonstration data in a disposable installation; live row from a separate local test browser.",
+    "public_content_seeded": false,
+    "capture_manifests": [
+      {
+        "file": "public-capture-manifest.json",
+        "sha256": "2b696bdd3ef2c62d08f04527bf14e3da7455a46bc588507b132f9e37523013e9",
+        "screenshots": 21
+      },
+      {
+        "file": "analytics-capture-manifest.json",
+        "sha256": "76671e9948fb04f12fc9bfbf6fea14b0393585349ed61b5830fbacc580b660cb",
+        "screenshots": 19
+      }
+    ],
+    "review_board": {
+      "file": "Spiritual-Gorillaz-v1.1.0-rc.2-ReviewBoard.png",
+      "sha256": "9e084f3eac8c310dcd3c194508dc632402b572da309958161c0ad549f08a8640"
+    },
+    "dashboard_preview": {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.2-Analytics-Synthetic.png",
+      "sha256": "fdbc3fc3a6c78dbbb8810e50c8ba6bf0cf0dd1b00ec595065c01ab3af5e16451"
+    }
+  },
+  "deployment": {
+    "production_deployed": false,
+    "actual_a2_host_accepted": false,
+    "live_payments_performed": false,
+    "approval_boundary": "Owner review of actual desktop and phone screenshots before merging; actual host acceptance remains separate."
+  }
+}

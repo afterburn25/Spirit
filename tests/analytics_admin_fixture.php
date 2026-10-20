@@ -23,6 +23,20 @@ case 'classify-sources':
     $result = [];
     foreach ($input['sources'] as $source) { $query->execute([$source]); $result[$source] = $query->fetchColumn(); }
     break;
+case 'detail-paths-fixture':
+    foreach (['analytics_pageviews','analytics_visits','analytics_crawlers'] as $name) { $db->exec('DELETE FROM '.Database::table($name)); }
+    $paths = ['/music/release.php?slug=real-album','/shows/event.php?slug=real-show','/band/member.php?slug=chad-lindsey','/shop/product.php?slug=band-shirt','/pages/?slug=privacy-policy','/music/release.php?slug=other-album'];
+    $stamp = gmdate('Y-m-d H:i:s',time()-3600); $date = substr($stamp,0,10);
+    $visit = $db->prepare('INSERT INTO '.Database::table('analytics_visits').' (visit_key,started_at,last_seen,active_clock_at,page_count) VALUES (?,?,?,?,1)');
+    $page = $db->prepare('INSERT INTO '.Database::table('analytics_pageviews').' (visit_id,page_path,viewed_at,last_seen) VALUES (?,?,?,?)');
+    $ids = [];
+    foreach ($paths as $path) {
+        if (Analytics::normalisePath($path) !== $path) { throw new RuntimeException('Fixture requires an actual canonical public page identifier.'); }
+        $visit->execute([hash('sha256','detail-path-'.$path),$stamp,$stamp,$stamp]);
+        $ids[$path] = (int)$db->lastInsertId(); $page->execute([$ids[$path],$path,$stamp,$stamp]);
+    }
+    $result = ['ids'=>$ids,'paths'=>$paths,'start'=>$date,'end'=>$date];
+    break;
 case 'explorer-fixture':
     foreach (['analytics_pageviews','analytics_visits','analytics_crawlers'] as $name) { $db->exec('DELETE FROM '.Database::table($name)); }
     $visit = $db->prepare('INSERT INTO '.Database::table('analytics_visits').' (visit_key,started_at,last_seen,active_clock_at,page_count,active_seconds,referrer_domain,search_term,utm_source,utm_medium,utm_campaign,browser_family,os_family,device_family,country_code,country_name,region,city) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');

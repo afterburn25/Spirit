@@ -22,7 +22,7 @@ $place = static fn(array $visit): string => implode(', ',array_unique(array_filt
   <?php foreach (['country'=>'Country','device'=>'Device','browser'=>'Browser','os'=>'Operating system','source'=>'Referring domain'] as $key=>$label): ?><label><?=e($label)?><select name="<?=e($key)?>"><option value=""><?=e($optionLabels[$key])?></option><?php $seen=[]; foreach ($explorer['options'][$key] as $option): $seen[]=$option['value']; ?><option value="<?=e($option['value'])?>" <?=$filters[$key]===$option['value']?'selected':''?>><?=e($option['label'])?></option><?php endforeach; ?><?php if ($filters[$key]!=='' && !in_array($filters[$key],$seen,true)): ?><option value="<?=e($filters[$key])?>" selected><?=e($filters[$key])?></option><?php endif; ?></select></label><?php endforeach; ?>
   <label>Region<input name="region" value="<?=e($filters['region'])?>" maxlength="100" placeholder="Any region"></label>
   <label>City<input name="city" value="<?=e($filters['city'])?>" maxlength="100" placeholder="Any city"></label>
-  <label>Visited page<input name="path" value="<?=e($filters['path'])?>" maxlength="255" placeholder="/music/"></label>
+  <label>Visited page<input name="path" value="<?=e($filters['path'])?>" maxlength="255" placeholder="/music/"><small class="muted">Use the exact path shown in Analytics, including ?slug=… for detail pages.</small></label>
  </div>
  <div class="analytics-filter-actions"><button class="button" type="submit">Apply visitor filters</button><a class="button secondary" href="<?=e(app_url('admin/analytics/visitors.php'))?>">Reset filters</a><p class="small muted">Dates use UTC. Sessions qualify when a page was viewed during these dates; details show their retained session history.</p></div>
  </form>

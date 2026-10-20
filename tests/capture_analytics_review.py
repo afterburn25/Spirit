@@ -16,7 +16,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright, expect as browser_expect
 from http_integration import expect, site
 from analytics_admin_integration import admin_fixture, multipart, query_values
-from analytics_browser import browser_login
+from analytics_browser import browser_login, page_drilldowns
 from capture_review import HUMAN_UA, digest, record
 
 
@@ -161,8 +161,22 @@ def main():
                         page.evaluate('scrollTo(0, 0)')
                         manifest['screenshots'].append(record(page, output,
                             f'analytics-geography-{width}-Synthetic', 'admin/analytics/geography.php', viewport))
+                    # Preserve the baseline review images above, then show the
+                    # exact-page drilldown correction using separate test data.
+                    visitors.close()
+                    detail_paths = admin_fixture(current, 'detail-paths-fixture')
+                    page.set_viewport_size({'width':1440, 'height':1000})
+                    page_drilldowns(page, current, detail_paths, 'Exact-ZIP review',
+                                    [detail_paths['paths'][0]])
+                    detail_route = page.url[len(current.base):]
+                    for width, height in [(1440,1000), (390,844)]:
+                        viewport = {'width':width, 'height':height}
+                        page.set_viewport_size(viewport)
+                        page.evaluate('scrollTo(0, 0)')
+                        manifest['screenshots'].append(record(page, output,
+                            f'analytics-page-filter-{width}-Synthetic', detail_route, viewport))
                     expect(errors == [], 'Captured analytics pages have no uncaught browser errors')
-                    context.close(); visitors.close()
+                    context.close()
                 finally:
                     browser.close()
     (output / 'analytics-capture-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
