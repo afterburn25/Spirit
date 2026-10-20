@@ -11,15 +11,14 @@ jobs:
     timeout-minutes: 6
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
-      - name: Retrieve and verify the licensed October 2026 database
+      - name: Reassemble and verify the licensed October 2026 database
         run: |
           python3 - <<'PY'
-          import gzip, hashlib, io, pathlib, urllib.request
-          url = 'https://download.db-ip.com/free/dbip-country-lite-2026-10.mmdb.gz'
-          with urllib.request.urlopen(url, timeout=45) as response:
-              compressed = response.read(20 * 1024 * 1024 + 1)
-          assert hashlib.sha256(compressed).hexdigest() == '4cd44536ddfd40fec7eca94a233f7d19f38d470e6522e653cb8d27001f5fe177'
-          with gzip.GzipFile(fileobj=io.BytesIO(compressed)) as source:
+          import base64, hashlib, io, lzma, pathlib
+          parts = sorted(pathlib.Path('tools/geo-transfer').glob('country-*.b64'))
+          assert len(parts) == 12
+          compressed = b''.join(base64.b64decode(p.read_text(), validate=True) for p in parts)
+          with lzma.LZMAFile(io.BytesIO(compressed)) as source:
               data = source.read(8348510)
           assert len(data) == 8348509
           assert hashlib.sha256(data).hexdigest() == 'dbd70ccfa2a13627eaf4913d19920a1a229f1b3c5439ac01c509995b6364202a'
