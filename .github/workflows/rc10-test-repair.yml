@@ -1,0 +1,43 @@
+name: Prepare rc10 test path corrections
+on:
+  push:
+    branches: [work/rc10-source-transfer]
+    paths: [.github/workflows/rc10-test-repair.yml]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: e6a77fc00210dcda1e3fa7f64eeefc3866de54d0
+          persist-credentials: false
+      - name: Prepare only the three reviewed test corrections
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import pathlib,hashlib,json,os,urllib.request,base64,subprocess
+          patches={
+            'app/tests/communication_integration.py': ('ec7232e4b742607a2993ff969e23efd60122a3bc','ce0155c0fe44016a44f30cc56d6e33f3db378b8e',[("expect(s.client.request('app/tasks/mail.php')[0] == 404, 'Scheduled mail worker cannot be invoked by an HTTP visitor')","expect(s.client.request('app/tasks/mail.php')[0] == 403, 'Private app directory denies HTTP access before the scheduled mail worker can run')\n    expect(s.client.request('tasks/mail.php')[0] == 404, 'Retired scheduled-worker URL is not reintroduced')")]),
+            'app/tests/payment_integration.py': ('7eb8fa946acbcd97b76ebea293f92c85b5b45f22','91771f492548e2e1684dcbf884ebc06fdf17bdfc',[("Client(s.base).request('app/tasks/payments.php')[0]==404","Client(s.base).request('app/tasks/payments.php')[0]==403")]),
+            'app/tests/layout_transition_integration.py': ('a546e3ed9876df2bfc86c06270e555cbaabd5f70','a57d435d98953e34e4dbff34bff3b6743323055e',[("if directory.name in ['admin','app','assets','config','docs','images','includes','storage','uploads']:continue","# Keep only the approved root directories, not old nested names such as views/admin.\n        if directory.parent == s.root and directory.name in ['admin','app','assets','config','docs','images','includes','storage','uploads']:continue"),("expect({p.name for p in s.root.iterdir() if p.is_dir()}==expected,'Installed root contains only approved folders after removed-installer transition')","actual={p.name for p in s.root.iterdir() if p.is_dir()}\n                expect(actual==expected,'Installed root contains only approved folders after removed-installer transition: '+', '.join(sorted(actual)))")])
+          }
+          receipt=[]
+          def git_hash(data):return hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()
+          for name,(before,after,replacements) in patches.items():
+              path=pathlib.Path(name);raw=path.read_bytes();assert git_hash(raw)==before
+              text=raw.decode()
+              for old,new in replacements:
+                  assert text.count(old)==1,(name,old)
+                  text=text.replace(old,new)
+              raw=text.encode();assert git_hash(raw)==after
+              compile(text,name,'exec')
+              request=urllib.request.Request('https://api.github.com/repos/afterburn25/Spirit/git/blobs',data=json.dumps({'encoding':'base64','content':base64.b64encode(raw).decode()}).encode(),method='POST',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Content-Type':'application/json'})
+              with urllib.request.urlopen(request,timeout=30) as response: result=json.load(response)
+              assert result['sha']==after
+              receipt.append({'path':name,'sha':after})
+          print(json.dumps({'verified_blobs':receipt,'branches_updated':False},indent=2))
+          PY
