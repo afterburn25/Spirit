@@ -1,7 +1,12 @@
+Options -Indexes -MultiViews
 DirectoryIndex index.php
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteRule ^(?:app|includes|config|storage|database|docs|tests|tools|views|design|vendor|\.git|\.github)(?:/|$) - [F,L]
+RewriteRule ^(?:app|includes|config|storage|database|docs|tests|tools|views|design|tasks|vendor|\.git|\.github)(?:/|$) - [F,L]
+# Route only non-files/non-directories; keep assets/admin/install unchanged.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [END]
 </IfModule>
 <FilesMatch "(?i)^(?:\..*|composer\.(?:json|lock)|VERSION|AGENTS\.md|README\.md|CHANGELOG\.md|PROJECT_STATUS\.md|SESSION_HANDOFF\.md)$">
 Require all denied

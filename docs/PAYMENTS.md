@@ -43,7 +43,7 @@ Use the owner Payment notifications screen to process or retry reporting lookups
 /usr/bin/php /home/ACCOUNT/public_html/band/tasks/payments.php --document-root=/home/ACCOUNT/public_html
 ```
 
-Use actual host paths and PHP executable. This runs bounded expiry/interruption/receipt maintenance and signed-notification reporting. Keep the separate `tasks/mail.php` schedule for queued email. Both workers are CLI-only; no public cron token or arbitrary web execution endpoint exists. The document-root argument is the server's actual document root, not automatically the application subfolder. These tasks are not permanent background daemons. Verify their execution and queue states on the real hosting account.
+Use actual host paths and PHP executable. This runs bounded expiry/interruption/receipt maintenance and signed-notification reporting. Keep the separate `app/tasks/mail.php` schedule for queued email. Both workers are CLI-only; no public cron token or arbitrary web execution endpoint exists. The document-root argument is the server's actual document root, not automatically the application subfolder. These tasks are not permanent background daemons. Verify their execution and queue states on the real hosting account.
 
 ## Receipts, customer access and fulfillment
 

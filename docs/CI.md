@@ -10,7 +10,7 @@ The manual installer checks cover the one-page form, errors and completion, root
 
 ## A2/cPanel integration boundary
 
-The installed application uses manual database configuration. It has no hosting API token, automatic database/user provisioning or cPanel mode selector. Tests use the disposable application database account supplied by their workflow; they do not provision a real hosting account.
+The installed application uses manual database configuration. It has no hosting API token, automatic config/database/user provisioning or cPanel mode selector. Tests use the disposable application database account supplied by their workflow; they do not provision a real hosting account.
 
 Earlier CI documentation described a cPanel API client and provisioning simulator. That scope was retired by the owner's manual-setup decision. Those descriptions are historical and are not evidence of a callable feature or a current verification step.
 
@@ -24,7 +24,7 @@ The software release gate verifies committed public bundles using the pinned npm
 
 ## Reproduction and artifacts
 
-The existing logo workflow also covers footer copyright. It runs the focused branding and footer PHP units, installed SQL/HTTP checks, and the existing branding browser journey on its database/browser matrix. The copyright report/log are retained in the same artifact directory. The branding integration suite can accept an immutable candidate with --archive and emit --report; it covers legacy-source retention, explicit source selection and supported restoration. The separate tests/capture_footer_refresh.py produces actual responsive screenshots and normal-speed logo/smoke previews for a frozen ZIP. Workflow configuration is not evidence of a completed run; record actual outcomes for the published head.
+The existing logo workflow also covers footer copyright. It runs the focused branding and footer PHP units, installed SQL/HTTP checks, and the existing branding browser journey on its config/database/browser matrix. The copyright report/log are retained in the same artifact directory. The branding integration suite can accept an immutable candidate with --archive and emit --report; it covers legacy-source retention, explicit source selection and supported restoration. The separate app/tests/capture_footer_refresh.py produces actual responsive screenshots and normal-speed logo/smoke previews for a frozen ZIP. Workflow configuration is not evidence of a completed run; record actual outcomes for the published head.
 
 For guarded SQL tests use `SPIRIT_TESTING=1` and isolated `SPIRIT_DB_*` credentials with database `spirit_ci` and the required random test-prefix shape. Do not point tests at production. Test-only transports are restricted to CLI and cannot be enabled by HTTP input.
 

@@ -57,7 +57,7 @@ Record actual page-entry motion at normal speed for review. Do not seek animatio
 
 - `design/approved-reference-thumbnail.webp`: a derived 300-pixel-wide thumbnail of the selected composite.
 - `images/spiritual-gorillaz-*-hero.png`: existing source artwork; preserve its actual available detail.
-- `tools/generate_extended_heroes.py`: deterministic build tool that resizes and extends the source artwork with dark atmosphere and a feathered join.
+- `app/tools/generate_extended_heroes.py`: deterministic build tool that resizes and extends the source artwork with dark atmosphere and a feathered join.
 - Packaged `images/extended/spiritual-gorillaz-*-hero-wide.webp`: generated wide background compositions used by the contained continuous-image heroes.
 
 Resizing and extending these assets does not create new native image detail or restore detail already outside a source image. The source Home image itself truncates the top of its crown; CSS should avoid adding further crop.

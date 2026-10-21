@@ -44,12 +44,12 @@ A new root `favicon.ico` is intentionally omitted: the pinned recovery kernel's 
 
 The unchanged 1254 × 1254 transparent master and original image-generation edit prompt are retained under `design/favicon/`. Source SHA-256 is `3f3232cd3c314b3f227c1c598c8bf75f01c6b04b779cb6ece1bc7f51334f66bc`. The master was isolated from the approved logo with the built-in image tool; the export pipeline does not retouch its pixels.
 
-`tools/build_favicons.py` reads alpha bounds for centering, renders the unchanged bitmap through the square SVG viewBox `-13 15 1223 1223` in Chromium, captures exact native PNG sizes and packs those PNG bytes into ICO frames. Almost invisible source noise below alpha 8/255 does not add padding. Pillow is used for pixel inspection only.
+`app/tools/build_favicons.py` reads alpha bounds for centering, renders the unchanged bitmap through the square SVG viewBox `-13 15 1223 1223` in Chromium, captures exact native PNG sizes and packs those PNG bytes into ICO frames. Almost invisible source noise below alpha 8/255 does not add padding. Pillow is used for pixel inspection only.
 
 With Playwright, Chromium and Pillow available:
 
 ```sh
-python3 tools/build_favicons.py \
+python3 app/tools/build_favicons.py \
   --browser /absolute/path/to/chromium \
   --review-dir design/favicon/maximum-fit-rc6 \
   --previous-icons design/favicon/maximum-fit-rc6/before

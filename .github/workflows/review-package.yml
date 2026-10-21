@@ -20,7 +20,7 @@ jobs:
       - name: Build cumulative deployment and checksum
         run: |
           mkdir -p "$RUNNER_TEMP/spirit-release"
-          python3 tools/package.py --output "$RUNNER_TEMP/spirit-release"
+          python3 app/tools/package.py --output "$RUNNER_TEMP/spirit-release"
           cd "$RUNNER_TEMP/spirit-release"
           sha256sum Spiritual-Gorillaz-*-Full.zip > Spiritual-Gorillaz-SHA256SUMS.txt
       - name: Upload review package

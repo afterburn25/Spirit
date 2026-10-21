@@ -40,5 +40,5 @@ $options = Spirit\Analytics::settings();
 $geo = Spirit\AnalyticsGeo::status();
 $searchConsole = Spirit\AnalyticsSearchConsole::snapshot();
 Spirit\View::start('Audience analytics', 'admin', 'analytics', $user);
-require Spirit\Paths::root().'/views/admin/analytics.php';
+require Spirit\Paths::root().'/app/views/admin/analytics.php';
 Spirit\View::end();

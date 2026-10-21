@@ -62,25 +62,25 @@ jobs:
           pactl list short sinks
       - name: Verify published gallery, actual image selection and fallback
         run: |
-          php tests/gallery_unit.php
+          php app/tests/gallery_unit.php
           set -o pipefail
-          "$RUNNER_TEMP/spirit-browser/bin/python" tests/gallery_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-gallery.log"
+          "$RUNNER_TEMP/spirit-browser/bin/python" app/tests/gallery_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-gallery.log"
       - name: Review release pages, native access and checkout without charging
         run: |
           set -o pipefail
-          "$RUNNER_TEMP/spirit-browser/bin/python" tests/release_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-release.log"
+          "$RUNNER_TEMP/spirit-browser/bin/python" app/tests/release_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-release.log"
       - name: Verify grouped administration navigation and remembered state
         run: |
           set -o pipefail
-          "$RUNNER_TEMP/spirit-browser/bin/python" tests/admin_navigation_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-navigation.log"
+          "$RUNNER_TEMP/spirit-browser/bin/python" app/tests/admin_navigation_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-navigation.log"
       - name: Verify managed section artwork and saved-draft previews
         run: |
           set -o pipefail
-          "$RUNNER_TEMP/spirit-browser/bin/python" tests/section_pages_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-sections.log"
+          "$RUNNER_TEMP/spirit-browser/bin/python" app/tests/section_pages_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-sections.log"
       - name: Verify native pagination and private-history restoration
         run: |
           set -o pipefail
-          "$RUNNER_TEMP/spirit-browser/bin/python" tests/content_history_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-history.log"
+          "$RUNNER_TEMP/spirit-browser/bin/python" app/tests/content_history_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-history.log"
       - name: Preserve synthetic storefront renders
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

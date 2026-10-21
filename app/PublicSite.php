@@ -86,9 +86,9 @@ final class PublicSite
         $metaRecord=$record??$pageContent;
         $analyticsPage = !$isPreview && in_array($view, ['home','music','shows','band','media','press','booking','release','event','member','page'], true)
             ? Analytics::beginPage() : null;
-        require Paths::root().'/views/public/header.php';
+        require Paths::root().'/app/views/public/header.php';
         $templates=['booking'=>'booking.php','booking-thanks'=>'booking-thanks.php','newsletter'=>'newsletter.php','search'=>'discovery.php'];
-        require Paths::root().'/views/public/'.($templates[$view]??'sections.php');
-        require Paths::root().'/views/public/footer.php';
+        require Paths::root().'/app/views/public/'.($templates[$view]??'sections.php');
+        require Paths::root().'/app/views/public/footer.php';
     }
 }

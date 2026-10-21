@@ -16,5 +16,5 @@ catch (Throwable $e) { http_response_code(503); Spirit\View::start('Site logo', 
 $values = $error ? ['logo_id'=>post('logo_id'), 'revision'=>post('revision'), 'restore_epoch'=>post('restore_epoch')] : ['logo_id'=>$state['draft_logo_id'], 'revision'=>$state['revision'], 'restore_epoch'=>Spirit\Branding::restoreEpoch()];
 $settings = Spirit\Settings::all();
 Spirit\View::start('Site logo', 'admin', 'settings', $user);
-require Spirit\Paths::root().'/views/admin/branding.php';
+require Spirit\Paths::root().'/app/views/admin/branding.php';
 Spirit\View::end();

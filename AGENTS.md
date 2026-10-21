@@ -19,7 +19,7 @@ Some of these files are being established in the initial implementation. Do not 
 - Full password-protected owner administration is required. Content editors and store staff must not inherit owner privileges.
 - Every show's ticket button opens the venue's configured external ticket seller. Do NOT implement native ticketing, ticket issuance, scanning, or admission management.
 - Merchandise is separate: Authorize.net, sandbox-first, no raw card storage, never claim a payment test passed without evidence.
-- **User decision 2026-10-14:** No setup code, package claim gate or PRIVATE-SETUP receipt. Use one browser installer page for hosting checks, database/owner settings, validation errors and completion. Keep CSRF, private write probes, locks, safe self-deletion and separate owner sign-in. Do not reintroduce a setup code in a later session. Fresh setup is open until completion: document immediate installation or hosting-panel directory protection. Backup/update recovery keys are unrelated and must stay protected.
+- **User decision 2026-10-14:** No setup code, package claim gate or PRIVATE-SETUP receipt. Use one browser installer page for hosting checks, config/database/owner settings, validation errors and completion. Keep CSRF, private write probes, locks, safe self-deletion and separate owner sign-in. Do not reintroduce a setup code in a later session. Fresh setup is open until completion: document immediate installation or hosting-panel directory protection. Backup/update recovery keys are unrelated and must stay protected.
 - Shared PHP/MySQL hosting; browser installation with no required SSH/root or host-side Node build. Keep code organized in app, includes, admin, install, config, storage, database, images/assets, uploads, docs and tests rather than dumping scripts in the root.
 - Installer must test actual create/write/read/rename/delete operations and create protected writable runtime locations. It must attempt safe removal of its own installer directory after success, and remain permanently locked even if the host prevents physical deletion. Never claim that PHP can bypass host ownership/ACL restrictions; never require chmod 0777.
 - Preserve configuration, uploaded media and existing data during supported upgrades. Never silently reinstall or drop tables.
@@ -36,10 +36,10 @@ Some of these files are being established in the initial implementation. Do not 
 - Never commit real passwords, production configuration, API keys, subscriber/customer data, sessions, backups or logs.
 
 ## Confirmed hosting and installer update (2026-10-14, latest decision)
-- **A2 Hosting with cPanel only. No 20i. Manual database configuration only.** The user cannot obtain a cPanel token and explicitly removed automatic database/user creation. Do not restore hosting API clients, automatic-mode selectors or token fields.
+- **A2 Hosting with cPanel only. No 20i. Manual database configuration only.** The user cannot obtain a cPanel token and explicitly removed automatic config/database/user creation. Do not restore hosting API clients, automatic-mode selectors or token fields.
 - No setup code or PRIVATE-SETUP receipt. Keep checks, manual database and owner fields, corrections and completion on one page, with native forms usable without JavaScript.
 - cURL and ZIP are optional for installation and must have separate truthful notices. cURL is needed for payment-server connections; ZIP for browser upgrades. Missing extensions cannot be silently treated as enabled. Hosting changes belong in cPanel or with A2 support, not a token workflow.
-- Preserve private state from earlier unfinished attempts for manual review without executing, adopting, deleting or resetting it. Completed installations retain their original configuration, database/user and media; no reinstall or replacement DB.
+- Preserve private state from earlier unfinished attempts for manual review without executing, adopting, deleting or resetting it. Completed installations retain their original configuration, config/database/user and media; no reinstall or replacement DB.
 - The three retired Cpanel file paths are inert compatibility files, not API classes. Keep them while older supported update manifests require every previous path; do not weaken cumulative-update checks or restore their old logic.
 - Read docs/CPANEL_INSTALLER.md for manual setup and extension instructions. Actual A2 host/mailbox/merchant acceptance remains separate from automated tests.
 
@@ -47,3 +47,6 @@ Some of these files are being established in the initial implementation. Do not 
 - Dev11 supersedes the differing dev10 preview and branch. Use one Launch checks implementation at admin/launch; admin/readiness must retain the same active-owner/method/CSRF boundary. Keep inert preview paths required by existing update manifests.
 - Support exports use a strict fixed-field allowlist, not raw settings, paths, logs or private data. Observations cannot enable services, process queues or certify external acceptance.
 - Oversized upload feedback must reject with no mutation while preserving normal CSRF and permission checks. Never solve a missing PHP ZIP notice by hiding it or pretending a host module was installed.
+
+## Latest directory decision — 2026-10-21
+Root folders are admin, app, assets, config, docs, images, includes, install, storage and uploads. Keep images in root. Public handlers are app/http, views app/views, tasks app/tasks, tests app/tests, tools app/tools, database config/database, design docs/design. Do not restore the old root clutter. Preserve public URLs through the explicit dispatcher. Cross-layout updates need the documented transition; never bypass recovery pins. rc.9 was not recovered; rc.10 is a new version from verified rc.8.

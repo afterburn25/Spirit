@@ -30,7 +30,7 @@ Conservative cleanup is bounded, opt-in where scheduled, and preserves active cr
 
 Fresh setup is intentionally open until completion. CSRF/database access are not proof of hosting ownership. Install promptly or protect unattended staging; do not restore the removed setup-code gate. Private writes, prefix ownership, safe deletion and permanent installation locking remain.
 
-Automatic hosting provisioning is removed. No cPanel API class, token form, privileged SQL administrator or database/user creation path remains. Retired automatic input is rejected without reflecting credentials. A prior unfinished cpanel-provision.php record is detected by existence only: never execute, adopt, delete or reset it. Keep it for manual owner/host review. Already installed configurations remain locked and untouched.
+Automatic hosting provisioning is removed. No cPanel API class, token form, privileged SQL administrator or config/database/user creation path remains. Retired automatic input is rejected without reflecting credentials. A prior unfinished cpanel-provision.php record is detected by existence only: never execute, adopt, delete or reset it. Keep it for manual owner/host review. Already installed configurations remain locked and untouched.
 
 The three former Cpanel file paths contain only an inert declaration and comments, not class definitions or API logic. Their presence preserves dev8's cumulative-update requirements while replacing the retired functionality; this is not a supported automatic setup path.
 

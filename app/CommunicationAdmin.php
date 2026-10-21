@@ -45,7 +45,7 @@ final class CommunicationAdmin
             $q=$db->prepare('SELECT '.$fields.' FROM '.$table.$where.' ORDER BY id DESC LIMIT 25 OFFSET '.(($page-1)*25));$q->execute($parameters);$items=$q->fetchAll();
         }
         View::start($titles[$section],'admin',$section==='booking'?'bookings':$section,$user);
-        require Paths::root().'/views/admin/communication.php';
+        require Paths::root().'/app/views/admin/communication.php';
         View::end();
     }
     private static function batchMessage(array $r): string

@@ -63,13 +63,13 @@ jobs:
           mkdir -p "$RUNNER_TEMP/spirit-branding"
           echo "SPIRIT_SCREENSHOT_DIR=$RUNNER_TEMP/spirit-branding" >> "$GITHUB_ENV"
           git archive --format=zip --output="$RUNNER_TEMP/spirit-branding/Spirit-source.zip" HEAD
-          php tests/branding_unit.php
-          php tests/footer_settings_unit.php
-          python3 -m py_compile tests/branding_integration.py tests/branding_browser.py tests/footer_settings_integration.py
+          php app/tests/branding_unit.php
+          php app/tests/footer_settings_unit.php
+          python3 -m py_compile app/tests/branding_integration.py app/tests/branding_browser.py app/tests/footer_settings_integration.py
           set -o pipefail
-          python3 tests/wait_for_database.py
-          python3 tests/branding_integration.py 2>&1 | tee "$RUNNER_TEMP/spirit-branding/integration.log"
-          python3 tests/footer_settings_integration.py --report "$RUNNER_TEMP/spirit-branding/footer-settings-verification.json" 2>&1 | tee "$RUNNER_TEMP/spirit-branding/footer-settings-integration.log"
+          python3 app/tests/wait_for_database.py
+          python3 app/tests/branding_integration.py 2>&1 | tee "$RUNNER_TEMP/spirit-branding/integration.log"
+          python3 app/tests/footer_settings_integration.py --report "$RUNNER_TEMP/spirit-branding/footer-settings-verification.json" 2>&1 | tee "$RUNNER_TEMP/spirit-branding/footer-settings-integration.log"
       - name: Prepare isolated browser and audio device
         run: |
           python3 -m venv "$RUNNER_TEMP/spirit-brand-browser"
@@ -82,7 +82,7 @@ jobs:
       - name: Verify actual logo editing and continued public playback
         run: |
           set -o pipefail
-          "$RUNNER_TEMP/spirit-brand-browser/bin/python" tests/branding_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-branding/browser.log"
+          "$RUNNER_TEMP/spirit-brand-browser/bin/python" app/tests/branding_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-branding/browser.log"
       - name: Retain exact source and synthetic evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

@@ -16,12 +16,12 @@ Use the existing **Bookings & communication > Email settings** screen. No new in
 2. Use **Send a test to my owner email**. Confirm receipt of **Spiritual Gorillaz delivery test** in the mailbox belonging to the signed-in owner. An SMTP-accepted count or SENT queue row alone does not prove delivery. A different configured owner mailbox need not be the connected Gmail account.
 3. In an authorized test context, submit one clearly marked booking inquiry using the operator's own contact address. Check the saved inquiry, owner notification and organizer acknowledgement without creating a real reservation or marketing enrollment.
 4. Exercise newsletter signup, its explicit confirmation button, welcome mail and explicit unsubscribe. Pending is not confirmed; opening a link alone is not the consent-changing action.
-5. Verify the existing CLI-only `tasks/mail.php` through the actual cPanel schedule. Use the correct PHP executable and absolute public document root; do not guess them or invoke the worker over HTTP. Confirm processing while the website is idle, rather than counting manual processing as cron evidence. Payment follow-up remains a distinct later checkout test.
+5. Verify the existing CLI-only `app/tasks/mail.php` through the actual cPanel schedule. Use the correct PHP executable and absolute public document root; do not guess them or invoke the worker over HTTP. Confirm processing while the website is idle, rather than counting manual processing as cron evidence. Payment follow-up remains a distinct later checkout test.
 
 Do not blindly retry an UNCERTAIN message. Inspect provider/mailbox evidence before any action that might resend it. Do not enable public signup or send to a customer list merely to produce a test result. The current task is verification, not a marketing campaign.
 
 ## Source basis and current limit
 
-Labels and behavior were read from `views/admin/communication.php`, `app/CommunicationAdmin.php` and `tasks/mail.php` at source commit 0654748da766ad8244a7c2ee9675373fcbe6a744. The older communication guide has historical deployment notes; current source governs the controls above.
+Labels and behavior were read from `views/admin/communication.php`, `app/CommunicationAdmin.php` and `app/tasks/mail.php` at source commit 0654748da766ad8244a7c2ee9675373fcbe6a744. The older communication guide has historical deployment notes; current source governs the controls above.
 
 This checkpoint records user feedback and prepares the next test sequence. No SMTP setting, queued message, website record, cPanel job, provider account, payment or deployment was changed. No new email or hosting result is claimed. Artwork/content, protected recovery, genuine sandbox, physical-device and final owner acceptance remain under the existing six milestones.

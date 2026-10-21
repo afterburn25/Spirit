@@ -21,7 +21,7 @@ final class UpdatePackage
         if(!self::validName($name)){return false;}
         if(in_array($name,self::PINNED,true)||\SpiritRecovery::mutable($name)){return true;}
         if(preg_match('#^(config|storage|uploads)/(\.htaccess|README\.md)$#D',$name)){return true;}
-        if(preg_match('#^database/migrations/[0-9]{3}\.sql$#D',$name)||$name==='database/.htaccess'){return true;}
+        if(preg_match('#^config/database/migrations/[0-9]{3}\.sql$#D',$name)||$name==='config/database/.htaccess'){return true;}
         return in_array($name,['install/index.php','install/.htaccess','install/README.md','install/access.php'],true);
     }
     public static function stage(string $archive,string $directory): array
@@ -66,7 +66,7 @@ final class UpdatePackage
                     if(strlen($body)>2097152){throw new RuntimeException('PHP entry is too large to validate safely.');}
                     try{token_get_all($body,TOKEN_PARSE);}catch(\ParseError $e){throw new RuntimeException('The package contains PHP syntax incompatible with this server.');}
                 }
-                if(in_array($name,self::PINNED,true)||str_starts_with($name,'database/')||(basename($name)==='.htaccess'&&!str_starts_with($name,'install/'))){
+                if(in_array($name,self::PINNED,true)||str_starts_with($name,'config/database/')||(basename($name)==='.htaccess'&&!str_starts_with($name,'install/'))){
                     $original=Paths::root().'/'.$name;
                     if(is_link($original)||!is_file($original)||!hash_equals(hash_file('sha256',$original),hash('sha256',$body))){throw new RuntimeException('This package changes the pinned recovery layer or database schema. Browser code-only upgrade is refused before any application changes.');}
                 }
@@ -76,7 +76,7 @@ final class UpdatePackage
                 }
             }
             foreach(array_merge(self::PINNED,['includes/bootstrap.php','index.php','VERSION','admin/upgrades/index.php','app/UpdateManager.php']) as $required){if(!isset($entries[$required])){throw new RuntimeException('The cumulative package is missing a required application component.');}}
-            foreach(Migrations::files() as $migration){if(!isset($entries['database/migrations/'.basename($migration)])){throw new RuntimeException('Existing immutable migrations must be present in every update.');}}
+            foreach(Migrations::files() as $migration){if(!isset($entries['config/database/migrations/'.basename($migration)])){throw new RuntimeException('Existing immutable migrations must be present in every update.');}}
             // A code-only upgrade never guesses which omitted scripts are safe
             // to delete. Require a cumulative package; preserve unrelated files.
             $oldManifest=Paths::root().'/docs/PACKAGE-MANIFEST.json';

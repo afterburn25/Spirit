@@ -89,4 +89,4 @@ This candidate corrects read-only reports and retains the graphical presentation
 
 ## Verification
 
-Reproducible suites are `analytics_unit.php`, `analytics_geo_unit.php`, `analytics_admin_unit.php`, `analytics_integration.py`, `analytics_admin_integration.py`, `analytics_geo_integration.py` and `analytics_browser.py` under `tests/`. They use only disposable test databases and synthetic visitors/data. GitHub Actions is configured for PHP/MySQL and PHP/MariaDB variants. Exact observed results belong in [TEST_RESULTS.md](TEST_RESULTS.md), not inferred from the presence of a workflow.
+Reproducible suites are `analytics_unit.php`, `analytics_geo_unit.php`, `analytics_admin_unit.php`, `analytics_integration.py`, `analytics_admin_integration.py`, `analytics_geo_integration.py` and `analytics_browser.py` under `app/tests/`. They use only disposable test databases and synthetic visitors/data. GitHub Actions is configured for PHP/MySQL and PHP/MariaDB variants. Exact observed results belong in [TEST_RESULTS.md](TEST_RESULTS.md), not inferred from the presence of a workflow.

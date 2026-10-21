@@ -8,9 +8,9 @@ final class View
     {
         header('Cache-Control: no-store');
         if ($area !== 'public') { header('X-Robots-Tag: noindex, nofollow'); }
-        require Paths::root() . '/views/header.php';
+        require Paths::root() . '/app/views/header.php';
     }
-    public static function end(): void { require Paths::root() . '/views/footer.php'; }
+    public static function end(): void { require Paths::root() . '/app/views/footer.php'; }
     public static function notice(?string $error = null): void
     {
         if ($error) { echo '<div class="notice error" role="alert">' . e($error) . '</div>'; }

@@ -82,6 +82,8 @@ final class Paths
     public static function basePath(): string
     {
         $script = (string)($_SERVER['SCRIPT_NAME'] ?? '/index.php');
+        // CLI entry filenames are not URLs; keep worker/unit output independent of checkout depth.
+        if (PHP_SAPI === 'cli' && !str_starts_with($script, '/')) { return ''; }
         $file = str_replace('\\', '/', (string)($_SERVER['SCRIPT_FILENAME'] ?? self::root() . '/index.php'));
         $relative = substr($file, strlen(str_replace('\\', '/', self::root())));
         $base = ($relative !== '' && str_ends_with($script, $relative)) ? substr($script, 0, -strlen($relative)) : '';

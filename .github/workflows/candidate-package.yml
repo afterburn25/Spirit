@@ -21,12 +21,12 @@ jobs:
         run: python3 -m pip install --disable-pip-version-check Pillow==12.3.0
       - name: Validate software release contract
         run: |
-          python3 -m py_compile tools/package.py tools/release_gate.py tools/generate_extended_heroes.py
-          python3 tools/release_gate.py
+          python3 -m py_compile app/tools/package.py app/tools/release_gate.py app/tools/generate_extended_heroes.py
+          python3 app/tools/release_gate.py
       - name: Build immutable versioned full ZIP
         run: |
           mkdir -p "$RUNNER_TEMP/spirit-package"
-          python3 tools/package.py --output "$RUNNER_TEMP/spirit-package"
+          python3 app/tools/package.py --output "$RUNNER_TEMP/spirit-package"
           cd "$RUNNER_TEMP/spirit-package"
           sha256sum Spiritual-Gorillaz-*-Full.zip > SHA256SUMS.txt
           cat SHA256SUMS.txt

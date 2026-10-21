@@ -28,7 +28,7 @@ final class BackupAdmin
                 MaintenanceGate::release();go('admin/backups/');
             }catch(InvalidArgumentException|RuntimeException $e){MaintenanceGate::release();$error=Storefront::error($e);}
         }
-        $all=Backups::listing();$pages=max(1,(int)ceil(count($all)/25));$page=max(1,min($pages,Input::integer($_GET,'page',1,PHP_INT_MAX,1)));$rows=array_slice($all,($page-1)*25,25);View::start('Backups & safe restore','admin','backups',$user);require Paths::root().'/views/admin/backups.php';View::end();
+        $all=Backups::listing();$pages=max(1,(int)ceil(count($all)/25));$page=max(1,min($pages,Input::integer($_GET,'page',1,PHP_INT_MAX,1)));$rows=array_slice($all,($page-1)*25,25);View::start('Backups & safe restore','admin','backups',$user);require Paths::root().'/app/views/admin/backups.php';View::end();
     }
     private static function download(string $id,bool $key): never
     {

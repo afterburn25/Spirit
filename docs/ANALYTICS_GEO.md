@@ -89,13 +89,13 @@ historical verification result.
 Updates are explicit development/maintenance operations:
 
 ```sh
-python3 tools/refresh_analytics_data.py --country-month 2026-10 --crawlers
+python3 app/tools/refresh_analytics_data.py --country-month 2026-10 --crawlers
 ```
 
-The tool contacts only fixed HTTPS database/range endpoints, applies download and
+The tool contacts only fixed HTTPS config/database/range endpoints, applies download and
 decompression bounds, validates crawler CIDRs, and records source hashes. It sends
 no visitor data. Review the resulting changes and tests before a new cumulative
-release. `tools/package.py` packages the checked-in files without downloading data.
+release. `app/tools/package.py` packages the checked-in files without downloading data.
 Do not silently replace an already-delivered version with refreshed contents.
 `app/.htaccess` and `app/GeoData/.htaccess` deny web access to the datasets.
 
@@ -112,7 +112,7 @@ browser, or `family`, `verification`, `verified`, `source`, `data_version`, and
 `snapshot_at`. `verification` is either `verified_range` or `reported_ua`.
 `status()` exposes separate Google, Bing and Yahoo verification availability.
 
-`tests/analytics_geo_unit.php` covers actual shipped-country lookup, optional
+`app/tests/analytics_geo_unit.php` covers actual shipped-country lookup, optional
 city behavior, malformed data fallback, address filtering, IPv4/IPv6 CIDR and
 MMDB range boundaries, and spoofed crawler claims. Small official synthetic
-fixtures remain under `tests/fixtures/analytics-geo`; they are not deployed.
+fixtures remain under `app/tests/fixtures/analytics-geo`; they are not deployed.

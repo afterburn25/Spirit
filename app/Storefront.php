@@ -33,9 +33,9 @@ final class Storefront
         elseif(!$isPreview&&$store['enabled']&&$view==='catalog'&&!isset($_GET['q'])&&!isset($_GET['category'])){$page=Input::integer($_GET,'page',1,1000000,1);$canonical=Metadata::absolute(app_url('shop/'.($page>1?'?page='.$page:'')));}
         $analyticsPage = !$isPreview && $store['enabled'] && ($view === 'catalog' || ($view === 'product' && $record))
             ? Analytics::beginPage() : null;
-        require Paths::root().'/views/public/header.php';
-        require Paths::root().'/views/public/'.(in_array($view,['catalog','product','cart'],true)?'store.php':'customer.php');
-        require Paths::root().'/views/public/footer.php';
+        require Paths::root().'/app/views/public/header.php';
+        require Paths::root().'/app/views/public/'.(in_array($view,['catalog','product','cart'],true)?'store.php':'customer.php');
+        require Paths::root().'/app/views/public/footer.php';
     }
     public static function cart(): void
     {

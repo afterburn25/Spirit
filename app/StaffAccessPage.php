@@ -23,6 +23,6 @@ final class StaffAccessPage
             }catch(\InvalidArgumentException|\RuntimeException $e){$error=Storefront::error($e);}
         }
         $valid=$recovery?null:Staff::token(preg_match('/^[a-f0-9]{64}$/D',$token)?hash('sha256',$token):'');
-        View::start($recovery?'Staff password recovery':'Complete staff access','login');require Paths::root().'/views/admin/staff-access.php';View::end();
+        View::start($recovery?'Staff password recovery':'Complete staff access','login');require Paths::root().'/app/views/admin/staff-access.php';View::end();
     }
 }

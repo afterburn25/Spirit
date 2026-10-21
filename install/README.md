@@ -1,6 +1,6 @@
 # Manual-only single-page browser installer
 
-From 0.9.0-dev.9, use an existing database and its assigned database user. Automatic cPanel creation is removed. No hosting API token, setup code, generated access.php, claim step or private setup receipt is required. Hosting checks, database/owner fields, corrections and completion remain on one page. Native forms also work without JavaScript; owner sign-in is a separate explicit button after completion.
+From 0.9.0-dev.9, use an existing database and its assigned database user. Automatic cPanel creation is removed. No hosting API token, setup code, generated access.php, claim step or private setup receipt is required. Hosting checks, config/database/owner fields, corrections and completion remain on one page. Native forms also work without JavaScript; owner sign-in is a separate explicit button after completion.
 
 PHP cURL and PHP ZIP have separate optional notices. Manual installation may continue without them; payment connections and browser ZIP upgrades require their corresponding extension. See docs/CPANEL_INSTALLER.md for A2 cPanel configuration and support instructions.
 

@@ -118,6 +118,6 @@ final class TransientCleanup
             }catch(\InvalidArgumentException|RuntimeException $e){MaintenanceGate::release();$error=Storefront::error($e);}
         }
         $preview=self::preview();$scheduled=(ConfigStore::read('maintenance')['scheduled_cleanup']??false)===true;
-        View::start('Temporary data & retention','admin','maintenance',$user);require Paths::root().'/views/admin/maintenance.php';View::end();
+        View::start('Temporary data & retention','admin','maintenance',$user);require Paths::root().'/app/views/admin/maintenance.php';View::end();
     }
 }

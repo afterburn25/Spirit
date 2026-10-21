@@ -1,3 +1,15 @@
+# 1.1.0-rc.10 — grouped directory recovery
+
+- Restore the requested ten-folder layout from independently verified rc.8 after
+  the unpublished rc.9 working files could not be recovered.
+- Keep images at root; group public handlers/views/tasks/tests/tools under app,
+  database migrations under config and design evidence under docs.
+- Preserve exact public URLs with a fail-closed dispatcher and Apache rewrites.
+- Preserve the early maintenance guard and separate new recovery generations;
+  do not permit a cross-layout partial browser upgrade/rollback.
+- Update build/test/workflow paths and exclude development content from ZIPs.
+- Keep original CSS, JavaScript, artwork, schema and owner data unchanged.
+
 # Changelog
 
 ## 1.1.0-rc.8 — visible 3D branding, smoke and compact footer

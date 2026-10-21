@@ -33,13 +33,13 @@ Desktop uses centered cover framing. At widths up to 820px, 90% center framing f
 | Served SHA-256 | 74c0adcadbec3bd07314d641894a1e5a7b8d3d16153e8edf942bd47eee3d9a67 |
 | Source master | design/background-stage/blue-lit-concert-stage-master.png |
 | Source SHA-256 | f32efb1672a52a4ccd51af237e5f43506b33688cba85f30a055f3ec71e6001dc |
-| Export tool | tools/build_stage_background.py |
+| Export tool | app/tools/build_stage_background.py |
 
 The original PNG, generation prompt and export receipt remain under design/background-stage/. Encoding is at native dimensions without retouching, sharpening, cropping or upscaling. Viewport cover scaling does not create extra source detail; this is not a 4K asset.
 
 ## Build, deployment and evidence
 
-Edit assets/css/site-source.css and rebuild with node tools/build_public_assets.mjs. The current measured public CSS/JS total is 129,735 / 130,000 bytes. JavaScript is unchanged. Relative asset URLs work at root and in subdirectories.
+Edit assets/css/site-source.css and rebuild with node app/tools/build_public_assets.mjs. The current measured public CSS/JS total is 129,735 / 130,000 bytes. JavaScript is unchanged. Relative asset URLs work at root and in subdirectories.
 
 The cumulative Full ZIP includes compiled CSS and original artwork; the PHP host needs no Node or image service. Installed rc.1 through rc.7 use normal guarded same-schema Browser upgrades when checks pass. No migration or reinstall is required.
 

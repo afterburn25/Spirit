@@ -19,5 +19,5 @@ try {
 if (!$explorer['available']) { http_response_code(503); }
 elseif ($explorer['selected_missing']) { http_response_code(404); }
 Spirit\View::start('Visitor explorer','admin','analytics-visitors',$user);
-require Spirit\Paths::root().'/views/admin/analytics-visitors.php';
+require Spirit\Paths::root().'/app/views/admin/analytics-visitors.php';
 Spirit\View::end();

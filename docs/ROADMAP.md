@@ -1,3 +1,5 @@
+> **Current rc.10 layout:** read [DIRECTORY_LAYOUT.md](DIRECTORY_LAYOUT.md) and [LAYOUT_TRANSITION.md](LAYOUT_TRANSITION.md). An rc.8-or-earlier updater must refuse the changed foundation. Preserve existing data; never reinstall.
+
 # Roadmap — 1.1.0-rc.8 visible motion and compact footer
 
 The established PHP/MySQL application, analytics and approved visual direction remain. Current work corrects displayed branding and motion, makes smoke visible, and adds the requested compact footer and copyright control.

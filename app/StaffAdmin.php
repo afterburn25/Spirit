@@ -23,6 +23,6 @@ final class StaffAdmin
         $db=Database::connect();$total=(int)$db->query('SELECT COUNT(*) FROM '.Database::table('users'))->fetchColumn();$pages=max(1,(int)ceil($total/25));$page=max(1,min($pages,Input::integer($_GET,'page',1,PHP_INT_MAX,1)));
         $users=$db->query('SELECT id,name,email,role,active,session_version FROM '.Database::table('users').' ORDER BY id LIMIT 25 OFFSET '.(($page-1)*25))->fetchAll();
         $invites=$db->query('SELECT id,name,email,target_role,expires_at FROM '.Database::table('staff_tokens')." WHERE kind='invite' AND used_at IS NULL AND expires_at>UTC_TIMESTAMP() ORDER BY id DESC LIMIT 25")->fetchAll();
-        View::start('Staff access','admin','staff',$user);require Paths::root().'/views/admin/staff.php';View::end();
+        View::start('Staff access','admin','staff',$user);require Paths::root().'/app/views/admin/staff.php';View::end();
     }
 }

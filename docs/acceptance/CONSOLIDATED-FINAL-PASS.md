@@ -12,7 +12,7 @@ The owner explicitly instructed the project to continue through final release. T
 |Owner email|Owner-confirmed receipt, checkpoint 02.|
 |Booking|Owner-confirmed saved inquiry and both notification/acknowledgement emails, checkpoint 03.|
 |Newsletter|Owner-confirmed signup, confirmation, welcome and unsubscribe sequence, checkpoint 04.|
-|Mail schedule configuration|Owner-confirmed existing tasks/mail.php cron entry, checkpoint 05; no duplicate setup.|
+|Mail schedule configuration|Owner-confirmed existing app/tasks/mail.php cron entry, checkpoint 05; no duplicate setup.|
 |Customer accounts|Owner-confirmed registration/activation/sign-in/password recovery and associated emails, checkpoint 06.|
 |Unpaid checkout cancellation|Owner-confirmed original stock restored and stable after refresh.|
 

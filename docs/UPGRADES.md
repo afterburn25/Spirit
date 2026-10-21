@@ -1,3 +1,5 @@
+> **Current rc.10 layout:** read [DIRECTORY_LAYOUT.md](DIRECTORY_LAYOUT.md) and [LAYOUT_TRANSITION.md](LAYOUT_TRANSITION.md). An rc.8-or-earlier updater must refuse the changed foundation. Preserve existing data; never reinstall.
+
 # Browser code upgrades and independent recovery
 
 Development milestone 0.9.0-dev.3. New full regression execution is pending. Do not treat the following implementation description as a passed result; see TEST_RESULTS.md and exact Actions head.
