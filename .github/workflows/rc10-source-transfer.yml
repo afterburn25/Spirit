@@ -1,0 +1,33 @@
+name: RC10 source transfer validation
+on:
+  push:
+    branches: [work/rc10-source-transfer]
+    paths: [.github/workflows/rc10-source-transfer.yml]
+permissions:
+  contents: read
+jobs:
+  transfer:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - name: Read source transfer objects without executing them
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os,json,urllib.request,base64,pathlib,hashlib
+          out=pathlib.Path(os.environ['RUNNER_TEMP'])/'transfer';out.mkdir()
+          shas=['5184f32e75b9b42c1e850c7f04641ff508cb3f55','235c54ba00b0f959dcaaf5295d572829b8e7f53e','884e5addcd73347520df4d8b94f2c7b441875041']
+          for i,sha in enumerate(shas,1):
+              request=urllib.request.Request('https://api.github.com/repos/afterburn25/Spirit/git/blobs/'+sha,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
+              with urllib.request.urlopen(request,timeout=30) as response: data=json.load(response)
+              raw=base64.b64decode(data['content'])
+              (out/f'part-{i}.bin').write_bytes(raw)
+              print(i,len(raw),hashlib.sha256(raw).hexdigest())
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spirit-transfer-verification
+          path: ${{ runner.temp }}/transfer/*
+          retention-days: 2
+          if-no-files-found: error
