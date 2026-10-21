@@ -722,7 +722,8 @@ figcaption small {
   grid-template-columns: minmax(0,168px) minmax(0,1fr) minmax(180px,300px);
   gap: 8px 20px;
   align-items: center;
-  margin: auto;
+  width: 100%;
+  margin: 0 auto;
   color: var(--muted);
   font-size: 12px;
 }
@@ -3317,6 +3318,10 @@ html {
   background: #000;
 }
 body.public-site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   background: radial-gradient(circle at 50% -10%,rgba(11,86,145,.16),transparent 34%),#010406;
   isolation: isolate;
@@ -3379,16 +3384,15 @@ body.public-site::after {
     animation: none;
   }
 }
-body.public-site.has-player {
-  padding-bottom: 116px;
-}
 body.public-site a {
   text-decoration: none;
 }
 .site-shell {
   width: min(100%,1520px);
   max-width: 1520px;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 auto;
   margin: 0 auto;
   padding-inline: 1px;
   overflow: hidden;
@@ -3397,6 +3401,15 @@ body.public-site a {
   border-radius: 0;
   outline: 0;
   box-shadow: none;
+}
+/* Fill short pages while keeping the header, newsletter and footer content-sized. */
+.site-shell>#site-content {
+  flex: 1 0 auto;
+}
+
+/* Keep the former shared gap when flex layout stops these margins collapsing. */
+#site-content:has(>.booking-callout:last-child)+.newsletter-callout {
+  margin-top: 0;
 }
 .site-header {
   margin: 0 auto;

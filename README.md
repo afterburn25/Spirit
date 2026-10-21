@@ -1,4 +1,13 @@
-# Spiritual Gorillaz — 1.1.0-rc.10
+# Spiritual Gorillaz — 1.1.0-rc.12
+
+## rc.12 footer placement
+
+This cumulative candidate places the compact footer at the bottom of the
+viewport on short public pages. Longer pages keep the footer after their
+content. The page reserves the audio player's measured height when playback is
+open, keeping footer links accessible on narrow screens. The rc.11 Music filter
+wrapping fix and the published rc.10 grouped layout are retained.
+Read docs/TEST_RESULTS.md for the precise scope of current verification.
 
 ## Grouped directories, unchanged visual identity
 
@@ -23,8 +32,9 @@ requested organization from verified rc.8. It does not overwrite rc.9.
 The animated 3D logo, fixed blue stage background and smoke, transparent
 navigation, compact full-width footer with editable copyright and fixed linked
 Cajun Web Pro LLC credit, maximum-fit favicon, charts, Visitor Explorer and
-Overview analytics are retained without design changes. Original images, public
-CSS/JavaScript and all eight migrations are preserved byte for byte.
+Overview analytics are retained without design changes. The public stylesheet
+changes only page/footer flow and the player clearance rule. Original images,
+public JavaScript and all eight migrations are preserved byte for byte.
 
 The existing owner CMS, media/private previews, booking/newsletter, staff
 permissions, optional merchandise/Authorize.net workflows, backups and manual

@@ -1,3 +1,27 @@
+# 1.1.0-rc.12 — footer at the bottom of short pages
+
+- Let the public page shell fill the viewport and give spare vertical space to
+  the main content, so the compact footer reaches the bottom on short pages.
+- Keep the footer in normal document flow on longer pages and retain the
+  optional newsletter, original links, copyright and developer credit.
+- Remove an obsolete fixed player clearance override so the measured audio
+  player height also protects footer links on narrow screens.
+- Preserve the approved artwork, logo/smoke, footer transparency, ten-folder
+  layout, JavaScript, eight migrations and the rc.11 Music filter wrapping fix.
+- Rebuild the committed stylesheet within the existing public asset budget and
+  deliver a new cumulative Full ZIP; previous versions remain unchanged.
+
+# 1.1.0-rc.11 — narrow Music filters and reconciled handoff
+
+- Retain the ten-folder grouped layout published in rc.10, including root images.
+- Allow the Music release-type navigation to wrap on narrow screens using the
+  existing button-row utility. No CSS/JavaScript or artwork replacement.
+- Add an isolated real-template browser regression that needs no database. This
+  checks rendering/navigation, not an installed-site or storage workflow.
+- Preserve and distinguish historical results, clarify the layout transition,
+  and provide a source patch for the read-only-connector session.
+- No SQL migration, credentials change, deployment, merge or final acceptance.
+
 # 1.1.0-rc.10 — grouped directory recovery
 
 - Restore the requested ten-folder layout from independently verified rc.8 after

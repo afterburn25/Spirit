@@ -1,4 +1,4 @@
-# Directory layout — 1.1.0-rc.10
+# Directory layout — 1.1.0-rc.12
 
 The application now has exactly ten primary folders. Images remain at the root.
 
@@ -55,7 +55,7 @@ The package excludes app/tests, app/tools, docs/design, runtime data and secrets
 
 ## Recovery boundary
 
-rc.10 uses recovery generation grouped-v2. Earlier recovery jobs are preserved
+rc.10 through rc.12 use recovery generation grouped-v2. Earlier recovery jobs are preserved
 but cannot partially restore the old folder layout over this code. Complete
 cross-layout rollback uses the pre-transition hosting backup. Once transitioned,
 future same-layout, same-schema packages use the guarded Browser upgrades flow.

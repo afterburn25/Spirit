@@ -1,6 +1,6 @@
-# One-time layout transition from rc.8 or earlier to rc.10
+# One-time layout transition from rc.8 or earlier to the grouped layout
 
-**Do not send rc.10 to the old Browser upgrades screen. It must reject this
+**Do not send rc.10 through rc.12 to the old Browser upgrades screen. It must reject this
 package because the pinned routing and recovery foundation changed. Do not
 weaken that guard, reinstall, create a replacement database, or delete uploads.**
 
@@ -60,3 +60,13 @@ carry a separate layout identity so old checkpoints cannot be applied.
 
 Actual A2/cPanel permissions, real mail, live payments, physical devices and
 owner acceptance remain separate from automated test results.
+
+## rc.11 and rc.12 continuation
+
+The directory/recovery foundation in rc.11 and rc.12 is unchanged from published
+rc.10. The transition above still applies to rc.8 and earlier installations.
+An rc.10 or rc.11 site can use guarded same-layout, same-schema Browser upgrades
+if all existing integrity checks pass. Keep the full pre-update backup and
+independent recovery receipt. Neither release adds a SQL migration or requires
+reinstalling. See TEST_RESULTS.md for the tested upgrade scope; actual A2
+permissions and acceptance must be checked on the target host.

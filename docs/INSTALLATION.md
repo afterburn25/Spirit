@@ -1,4 +1,4 @@
-> **Current rc.10 layout:** read [DIRECTORY_LAYOUT.md](DIRECTORY_LAYOUT.md) and [LAYOUT_TRANSITION.md](LAYOUT_TRANSITION.md). An rc.8-or-earlier updater must refuse the changed foundation. Preserve existing data; never reinstall.
+> **Current rc.10–rc.12 layout:** read [DIRECTORY_LAYOUT.md](DIRECTORY_LAYOUT.md) and [LAYOUT_TRANSITION.md](LAYOUT_TRANSITION.md). An rc.8-or-earlier updater must refuse the changed foundation. Preserve existing data; never reinstall.
 
 # Browser installation and updates — 1.1.0-rc.5
 
