@@ -1,0 +1,27 @@
+name: Current grouped source snapshot
+on:
+  push:
+    branches: [work/rc10-source-transfer]
+    paths: [.github/workflows/current-source-snapshot.yml]
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 5703ca41a13a6ff01a3b7807287abdeb72c151a5
+          persist-credentials: false
+      - name: Archive tracked source
+        run: |
+          mkdir -p "$RUNNER_TEMP/source"
+          git archive --format=tar HEAD | gzip -n > "$RUNNER_TEMP/source/Spirit-current.tar.gz"
+          git rev-parse HEAD > "$RUNNER_TEMP/source/SOURCE.txt"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spirit-current-5703ca4
+          path: ${{ runner.temp }}/source/*
+          retention-days: 7
+          if-no-files-found: error
