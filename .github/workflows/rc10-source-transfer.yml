@@ -41,6 +41,9 @@ jobs:
           assert hashlib.sha256(raw).hexdigest()=='45ef727fdb01c0c8496f71855273c8273e117c8f7b2ad4a8339774499f4c7451'
           script=out/'source-transfer.py';script.write_bytes(raw)
           subprocess.run(['python3',str(script)],check=True)
+          tree=subprocess.check_output(['git','write-tree'],text=True).strip()
+          with (out/'Spirit-rc10-source.tar.gz').open('wb') as f:
+              f.write(gzip.compress(subprocess.check_output(['git','archive','--format=tar',tree]),mtime=0))
           PY
       - name: Verify syntax, package contract and deterministic build
         run: |
@@ -49,39 +52,43 @@ jobs:
           python3 app/tests/package_test.py
           python3 app/tools/release_gate.py
           python3 app/tools/package.py --output "$RUNNER_TEMP/transfer/package"
-      - name: Publish exact Git objects only; never update a branch
+      - name: Publish exact tree atomically; never update a branch
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           python3 - <<'PY'
-          import subprocess,os,json,urllib.request,base64,pathlib,time
-          api='https://api.github.com/repos/afterburn25/Spirit/git/'
-          def post(kind,payload):
-              time.sleep(1.05)
-              req=urllib.request.Request(api+kind,data=json.dumps(payload).encode(),method='POST',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Content-Type':'application/json'})
-              with urllib.request.urlopen(req,timeout=30) as response:return json.load(response)
+          import subprocess,os,json,urllib.request,urllib.error,pathlib
           original={line.split()[2] for line in subprocess.check_output(['git','ls-tree','-r','HEAD'],text=True).splitlines()}
-          entries=[];uploaded=set()
+          entries=[];changed=0
           for line in subprocess.check_output(['git','ls-files','-s'],text=True).splitlines():
               metadata,path=line.split('\t',1);mode,sha,stage=metadata.split()
               assert stage=='0'
-              if sha not in original and sha not in uploaded:
-                  raw=subprocess.check_output(['git','cat-file','blob',sha])
-                  result=post('blobs',{'content':base64.b64encode(raw).decode(),'encoding':'base64'})
-                  assert result['sha']==sha
-                  uploaded.add(sha)
-              entries.append({'path':path,'mode':mode,'type':'blob','sha':sha})
-          tree=post('trees',{'tree':entries})['sha']
+              entry={'path':path,'mode':mode,'type':'blob'}
+              if sha in original: entry['sha']=sha
+              else:
+                  entry['content']=subprocess.check_output(['git','cat-file','blob',sha]).decode('utf-8')
+                  changed+=1
+              entries.append(entry)
+          payload=json.dumps({'tree':entries}).encode()
+          print('One tree request:',len(payload),'bytes;',changed,'changed text files;',len(entries),'total files',flush=True)
+          request=urllib.request.Request('https://api.github.com/repos/afterburn25/Spirit/git/trees',data=payload,method='POST',headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Content-Type':'application/json'})
+          try:
+              with urllib.request.urlopen(request,timeout=90) as response: tree=json.load(response)['sha']
+          except urllib.error.HTTPError as error:
+              print('GitHub error:',error.code,error.read().decode('utf-8','replace')[:2000],flush=True)
+              raise
           assert tree=='964b4c8e2d8c2154d1ceaa0698eb0ad35a1393ff'
-          receipt={'tree':tree,'parent':'456e8dc82e8013605494f60a5af48d3f1f4d44ff','uploaded_blobs':len(uploaded),'tracked_files':len(entries),'branch_updated':False}
+          receipt={'tree':tree,'parent':'456e8dc82e8013605494f60a5af48d3f1f4d44ff','changed_text_files':changed,'tracked_files':len(entries),'branch_updated':False}
           print(json.dumps(receipt,indent=2))
           (pathlib.Path(os.environ['RUNNER_TEMP'])/'transfer/TREE.json').write_text(json.dumps(receipt,indent=2))
           PY
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
         with:
           name: Spirit-rc10-verified-source
           path: |
             ${{ runner.temp }}/transfer/TREE.json
+            ${{ runner.temp }}/transfer/Spirit-rc10-source.tar.gz
             ${{ runner.temp }}/transfer/package/*
           retention-days: 14
           if-no-files-found: error
