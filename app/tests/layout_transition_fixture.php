@@ -23,7 +23,9 @@ if (($argv[1] ?? '') === 'legacy-reject') {
 if (($argv[1] ?? '') === 'old-marker') {
     // Idle old-generation record: retain it, never adopt it as a new checkpoint.
     $folder=Spirit\Paths::runtime().'/updates';
-    file_put_contents($folder.'/latest.json', json_encode(['id'=>str_repeat('a',32)]));
+    if (!is_dir($folder) && !mkdir($folder,0700,true)) { throw new RuntimeException('Cannot create isolated recovery fixture directory.'); }
+    $written=file_put_contents($folder.'/latest.json', json_encode(['id'=>str_repeat('a',32)]));
+    if ($written === false) { throw new RuntimeException('Cannot write isolated recovery fixture marker.'); }
     echo '{}'; exit;
 }
 if (($argv[1] ?? '') === 'generation') {

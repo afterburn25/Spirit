@@ -19,6 +19,14 @@ function check(string $name, callable $test): void { global $results; try { if (
 function rejects(callable $call): bool { try { $call(); return false; } catch (InvalidArgumentException|RuntimeException $e) { return true; } }
 function removeFixture(string $path): void { if (is_link($path) || is_file($path)) { unlink($path); return; } foreach (array_diff(scandir($path), ['.','..']) as $name) { removeFixture($path . '/' . $name); } rmdir($path); }
 
+check('All eight original migrations resolve from grouped config directory', function(): bool {
+    $files = Spirit\Migrations::files();
+    return count($files) >= 8 && array_slice(array_map('basename', $files), 0, 8) ===
+        ['001.sql','002.sql','003.sql','004.sql','005.sql','006.sql','007.sql','008.sql'] &&
+        count(array_filter($files, static fn(string $file): bool =>
+            is_readable($file) && str_starts_with($file, Paths::root() . '/config/database/migrations/'))) === count($files);
+});
+
 check('HTML escaping blocks markup', fn() => e('<script>"&') === '&lt;script&gt;&quot;&amp;');
 check('CSRF token is unpredictable length', fn() => strlen(Security::csrf()) === 64);
 check('CSRF accepts exact token', fn() => Security::validCsrf(Security::csrf()));
