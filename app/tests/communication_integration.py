@@ -180,7 +180,8 @@ def subscription(s):
     visitor.form('newsletter/confirm.php?token=' + expired, {'token': expired})
     expect(state(s)['subscribers'][-1]['status'] == 'pending', 'Expired token cannot activate a subscription')
     expect('expired@example.test' not in s.client.form('admin/subscribers/', {'action': 'export'})[1], 'Pending addresses are excluded from subscriber exports')
-    expect(s.client.request('app/tasks/mail.php')[0] == 404, 'Scheduled mail worker cannot be invoked by an HTTP visitor')
+    expect(s.client.request('app/tasks/mail.php')[0] == 403, 'Private app directory denies HTTP access before the scheduled mail worker can run')
+    expect(s.client.request('tasks/mail.php')[0] == 404, 'Retired scheduled-worker URL is not reintroduced')
 
 
 def upgrade(s):

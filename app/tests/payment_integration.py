@@ -293,7 +293,7 @@ def main():
                 pid,vid,_=seed_catalog(s);adjust(s,pid,vid,200);configure(s)
                 for route in ['admin/orders/','admin/orders/payments.php','admin/orders/policy.php','admin/orders/webhooks.php']:
                     expect(Client(s.base).request(route)[3].endswith('/admin/login.php'),'Anonymous order administration denied: '+route)
-                expect(Client(s.base).request('payments/sandbox.php')[0]==405 and Client(s.base).request('app/tasks/payments.php')[0]==404,'Webhook is POST-only and maintenance is CLI-only')
+                expect(Client(s.base).request('payments/sandbox.php')[0]==405 and Client(s.base).request('app/tasks/payments.php')[0]==403,'Webhook is POST-only and maintenance is CLI-only')
                 money_and_privacy(s,pid,vid);failure_and_recovery(s,vid);reversals(s,vid);reservation_race(s,pid,vid);customer_orders(s,pid,vid)
                 run_payment_task(s)
                 s.database('editor');expect(s.client.request('admin/orders/')[0]==403,'Editor cannot inherit payment or customer order privileges');s.database('owner')

@@ -35,7 +35,8 @@ def apply_same_root(s,archive):
                 if hashlib.sha256(target.read_bytes()).hexdigest()!=digest:raise AssertionError('Refusing to remove changed legacy file '+name)
                 target.unlink()
     for directory in sorted([p for p in s.root.rglob('*') if p.is_dir()],key=lambda p:len(p.parts),reverse=True):
-        if directory.name in ['admin','app','assets','config','docs','images','includes','storage','uploads']:continue
+        # Keep only the approved root directories, not old nested names such as views/admin.
+        if directory.parent == s.root and directory.name in ['admin','app','assets','config','docs','images','includes','storage','uploads']:continue
         try:directory.rmdir()
         except OSError:pass
 
@@ -81,6 +82,7 @@ def main():
                 expect('Content must survive the folder transition.' in s.client.request('pages/?slug=layout-preserved')[1],'Original published content renders after transition')
                 expect(s.database('count')=={'users':1,'state':'installed'},'Original owner and installation state retained')
                 expected={'admin','app','assets','config','docs','images','includes','storage','uploads'}
-                expect({p.name for p in s.root.iterdir() if p.is_dir()}==expected,'Installed root contains only approved folders after removed-installer transition')
+                actual={p.name for p in s.root.iterdir() if p.is_dir()}
+                expect(actual==expected,'Installed root contains only approved folders after removed-installer transition: '+', '.join(sorted(actual)))
     print('Exact rc.8 same-root transition passed at root and /band. No live host was touched.',flush=True)
 if __name__=='__main__':main()
