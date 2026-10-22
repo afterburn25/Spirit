@@ -4,13 +4,43 @@ This runs the cPanel-equivalent file transition in a test directory, never the
 user's host. It does not bypass the old updater or change schema/credentials.
 """
 from __future__ import annotations
-import hashlib,json,os,shutil,subprocess,tempfile,zipfile
+import hashlib,json,os,re,shutil,subprocess,tempfile,zipfile
 from pathlib import Path
+from urllib.parse import urlsplit
 from http_integration import ROOT,Client,build_package,expect,site,dashboard
 from content_integration import save_content,upload,png_bytes
 from upgrade_integration import fixture as upgrade_fixture
 
 BASE_SHA256='26fb560e2da2f14af1fbd61d19630898f6146b43de7704e2278af347f0bacdfc'
+
+def transition_diagnostic(s,path,response=None):
+    """Bounded synthetic-server diagnostics; never print response bodies or secrets."""
+    status=response[0] if response else 'unavailable'
+    final_path=urlsplit(response[3] if response else s.base+path).path
+    print(f'TRANSITION REQUEST FAILED: status={status} path={final_path}',flush=True)
+    s.log.flush()
+    with Path(s.log.name).open('rb') as handle:
+        handle.seek(0,os.SEEK_END);size=handle.tell();handle.seek(max(0,size-16384))
+        lines=handle.read(16384).decode('utf-8',errors='replace').splitlines()[-40:]
+    errors=[line for line in lines if re.search(r'Spirit failure|PHP (?:Fatal|Parse|Warning|Notice|Deprecated)|Uncaught|Stack trace|#\d+|thrown in',line)]
+    tail='\n'.join(errors[-20:])[-8000:]
+    for value in [s.password,s.env.get('SPIRIT_DB_PASSWORD',''),s.owner,str(s.runtime),str(s.root),str(s.home)]:
+        if value:tail=tail.replace(value,'[redacted]')
+    tail=re.sub(r'\b[a-f0-9]{64}\b','[redacted-token]',tail,flags=re.I)
+    tail=re.sub(r'([?&](?:csrf|token|key|password|recovery_key)=)[^&\s]+',r'\1[redacted]',tail,flags=re.I)
+    print('ISOLATED PHP ERROR TAIL:\n'+(tail or '(no PHP error lines in bounded tail)'),flush=True)
+
+def transition_request(s,path,data=None,client=None):
+    try:response=(client or s.client).request(path,data)
+    except Exception:
+        transition_diagnostic(s,path)
+        raise
+    if response[0]!=200:transition_diagnostic(s,path,response)
+    return response
+
+def transition_expect(s,response,condition,label):
+    if not condition and response[0]==200:transition_diagnostic(s,'',response)
+    expect(condition,label)
 
 def fixture(s,action,new_package=None):
     env={**s.env,'SPIRIT_FIXTURE_ROOT':str(s.root),'SPIRIT_FIXTURE_DOCUMENT_ROOT':str(s.docroot),'SPIRIT_NEW_PACKAGE':str(new_package or '')}
@@ -75,11 +105,20 @@ def main():
                 expect(all((s.runtime/name).is_file() and hashlib.sha256((s.runtime/name).read_bytes()).hexdigest()==digest for name,digest in private_static.items()),'All original uploaded image bytes remain unchanged')
                 generation=fixture(s,'generation')
                 expect(generation=={'layout':'grouped-v2','latest':None} and (s.runtime/'updates/latest.json').read_bytes()==old_marker,'Old recovery checkpoint is preserved but cannot become a grouped-layout rollback')
-                expect(dashboard(s.login()[3]),'Original owner signs into reorganized site')
+                retained=transition_request(s,'admin/')
+                transition_expect(s,retained,retained[0]==200 and dashboard(retained[3]),'Original authenticated owner session reaches administration after transition')
+                fresh=Client(s.base)
+                signin=transition_request(s,'admin/login.php',client=fresh)
+                token=re.search(r'name="csrf" value="([a-f0-9]{64})"',signin[1])
+                transition_expect(s,signin,signin[0]==200 and urlsplit(signin[3]).path.endswith('/admin/login.php') and token is not None,'Fresh client receives the post-transition owner sign-in form')
+                signed_in=transition_request(s,'admin/login.php',{'email':s.owner,'password':s.password,'csrf':token.group(1)},client=fresh)
+                transition_expect(s,signed_in,signed_in[0]==200 and dashboard(signed_in[3]),'Original owner credentials independently sign into reorganized site')
+                s.client=fresh
                 for route in ['', 'music/','shows/','band/','media/','press/','booking/','pages/?slug=layout-preserved','admin/','admin/media/','admin/settings.php','admin/analytics/','admin/analytics/visitors.php','admin/upgrades/']:
-                    response=s.client.request(route)
-                    expect(response[0]==200,'Existing application route opens after same-root transition: '+route)
-                expect('Content must survive the folder transition.' in s.client.request('pages/?slug=layout-preserved')[1],'Original published content renders after transition')
+                    response=transition_request(s,route)
+                    transition_expect(s,response,response[0]==200,'Existing application route opens after same-root transition: '+route)
+                published=transition_request(s,'pages/?slug=layout-preserved')
+                transition_expect(s,published,published[0]==200 and 'Content must survive the folder transition.' in published[1],'Original published content renders after transition')
                 expect(s.database('count')=={'users':1,'state':'installed'},'Original owner and installation state retained')
                 expected={'admin','app','assets','config','docs','images','includes','storage','uploads'}
                 actual={p.name for p in s.root.iterdir() if p.is_dir()}
