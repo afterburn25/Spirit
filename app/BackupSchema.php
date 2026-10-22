@@ -33,7 +33,9 @@ final class BackupSchema
     }
     public static function protectedNames(): array
     {
-        return array_values(array_diff(self::names(),['installation','migrations','audit','login_limits','request_limits','content','content_media','content_revisions','media','settings','products','shop_categories']));
+        // Analytics is retained in snapshots but is never a restore target. New
+        // visits or scheduled analytics pruning must not block a site-data restore.
+        return array_values(array_diff(self::names(),['installation','migrations','audit','login_limits','request_limits','content','content_media','content_revisions','media','settings','products','shop_categories','analytics_visits','analytics_pageviews','analytics_crawlers','analytics_search_queries']));
     }
     public static function digest(PDO $db,string $name): string
     {

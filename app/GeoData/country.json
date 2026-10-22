@@ -1,0 +1,18 @@
+{
+  "format": 1,
+  "source": "DB-IP Lite Country",
+  "data_version": "2026-10",
+  "source_url": "https://db-ip.com/db/download/ip-to-country-lite",
+  "download_url": "https://download.db-ip.com/free/dbip-country-lite-2026-10.mmdb.gz",
+  "retrieved_at": "2026-10-20T00:54:31Z",
+  "license": "CC-BY-4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "attribution_label": "IP Geolocation by DB-IP",
+  "attribution_url": "https://db-ip.com",
+  "size_bytes": 8348509,
+  "sha256": "dbd70ccfa2a13627eaf4913d19920a1a229f1b3c5439ac01c509995b6364202a",
+  "compressed_sha256": "4cd44536ddfd40fec7eca94a233f7d19f38d470e6522e653cb8d27001f5fe177",
+  "modifications": "Gzip container removed; MMDB database bytes are unmodified.",
+  "precision": "country",
+  "limitations": "Approximate IP network location, reduced Lite coverage/accuracy; not a person's physical location."
+}

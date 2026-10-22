@@ -1,0 +1,30 @@
+{
+  "project": "MaxMind DB Reader PHP",
+  "repository": "https://github.com/maxmind/MaxMind-DB-Reader-php",
+  "tag": "v1.14.0",
+  "commit": "f3c92f68b3bec42a9aa780368399e03dc6b91e89",
+  "license": "Apache-2.0",
+  "modifications": "Namespace and imports relocated from MaxMind\\Db to Spirit\\ThirdParty\\MaxMind\\Db to use the pinned bounded PHP decoder even on hosts with an older optional MaxMind extension. No decoding logic was modified.",
+  "files": {
+    "Reader/Decoder.php": {
+      "upstream_sha256": "c34c120070f2b0b7b8d8aa2d84fc68e8fc73bd5b4439b1f4e1a6ab004f4e4d74",
+      "bundled_sha256": "1a05937183d0550f1db8ffb642875a65b306e2d3e384b9326ffec6a5ec91ab29"
+    },
+    "Reader/InvalidDatabaseException.php": {
+      "upstream_sha256": "579ef674f3c88e3aeec00f3ef67e61fb5d1e347754f00c8c7c8c99a1a33aa6ae",
+      "bundled_sha256": "46bec603feef9026e0f71b86d05ed60250e11e8fb7e1c770ec04e7fc80fc5180"
+    },
+    "Reader/Metadata.php": {
+      "upstream_sha256": "6300a504f53521ef0ec27747af36385b9c37d2711b5428a8ad73ee37666b4ad9",
+      "bundled_sha256": "b797c340214ea4350ceb766428e8dffcb0d47ef9f9f17c11155ce557e0d5e962"
+    },
+    "Reader/Util.php": {
+      "upstream_sha256": "f5c0dd889bb336c868a90577f394934fe63e02ed1388292a152bcbfcf87f0664",
+      "bundled_sha256": "483271ffa06beb582274626c67e918210fe3570d6a9f6884752fab8f45320b1e"
+    },
+    "Reader.php": {
+      "upstream_sha256": "017f3d5f02bad752c58e01080f4cc436227a40eac1654a9a9e89be172148451c",
+      "bundled_sha256": "91c3734b675cfe342f2ef8ae8a138dfa35641172254bcd595e058bbc1eebaee9"
+    }
+  }
+}

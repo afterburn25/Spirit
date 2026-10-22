@@ -28,7 +28,7 @@ final class CheckoutPage
         $payable=$order&&$order['payment_state']==='awaiting_payment'&&strtotime($order['expires_at'].' UTC')>time()&&PaymentSettings::available()&&$order['environment']===PaymentSettings::all()['environment'];
         if($payable){$host=$order['environment']==='sandbox'?'jstest.authorize.net':'js.authorize.net';$api=$order['environment']==='sandbox'?'apitest.authorize.net':'api.authorize.net';header("Content-Security-Policy: default-src 'self'; style-src 'self'; script-src 'self' https://".$host."; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://".$api."; frame-ancestors 'none'; base-uri 'self'; form-action 'self'");}
         $settings=Settings::all();$active='shop';$record=null;$canonical=null;$isPreview=false;$title=$view==='checkout'?'Checkout':($view==='unavailable'?'Order unavailable':'Your order');$description='Private merchandise checkout and order receipt.';
-        require Paths::root().'/views/public/header.php';require Paths::root().'/views/public/checkout.php';require Paths::root().'/views/public/footer.php';
+        require Paths::root().'/app/views/public/header.php';require Paths::root().'/app/views/public/checkout.php';require Paths::root().'/app/views/public/footer.php';
     }
     public static function totals(array $order): void
     {

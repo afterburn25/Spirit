@@ -1,0 +1,238 @@
+{
+  "version": "1.1.0-rc.4",
+  "headers_include_same_partial": true,
+  "fixture_only": true,
+  "database_accessed": false,
+  "routes": [
+    {
+      "mount": "/",
+      "links": [
+        {
+          "file": "favicon.ico",
+          "status": 200,
+          "mime": "image/vnd.microsoft.icon",
+          "bytes": 16800,
+          "sha256": "d7081bfa7b7d1144c8d152ed03284e5ee533a952f094b6945202dec3283df59a",
+          "frames": [
+            [
+              16,
+              16
+            ],
+            [
+              32,
+              32
+            ],
+            [
+              48,
+              48
+            ],
+            [
+              64,
+              64
+            ]
+          ],
+          "transparent": true
+        },
+        {
+          "file": "favicon-16.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 893,
+          "sha256": "afa02b6f24ed547e2dfb68c70793615e523d573f0383986fb4826cad08e9ef8c",
+          "dimensions": [
+            16,
+            16
+          ],
+          "transparent": true
+        },
+        {
+          "file": "favicon-32.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 2575,
+          "sha256": "51dc5c79b97edd0d5e05de7024716ff15c5d214110152ebd7af76a79b089775d",
+          "dimensions": [
+            32,
+            32
+          ],
+          "transparent": true
+        },
+        {
+          "file": "favicon-48.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 5004,
+          "sha256": "ce0b8b212ef73d7ec3c74c88fcc3616fa510782e55025a0e8e0ba88eb425a95d",
+          "dimensions": [
+            48,
+            48
+          ],
+          "transparent": true
+        },
+        {
+          "file": "favicon-64.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 8258,
+          "sha256": "642424d36b2d78020962fa4a94aa23b2e9d599fda7712a9474197caaff00b318",
+          "dimensions": [
+            64,
+            64
+          ],
+          "transparent": true
+        },
+        {
+          "file": "favicon-192.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 53810,
+          "sha256": "4d6c202b255dd351c7e16cf4adb78ae03403d7a193ed52ec8b6cb4d1c0bb8f49",
+          "dimensions": [
+            192,
+            192
+          ],
+          "transparent": true
+        },
+        {
+          "file": "favicon-512.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 282766,
+          "sha256": "33053ce482c919a95f3ece5b5443d435394467b681c557480ade6a24b8314c6c",
+          "dimensions": [
+            512,
+            512
+          ],
+          "transparent": true
+        },
+        {
+          "file": "apple-touch-icon.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 48108,
+          "sha256": "8d83aa5753538e78a2ca79e707ea31c707dc976c1bf236b4bbb25dd3d6d49dec",
+          "dimensions": [
+            180,
+            180
+          ],
+          "transparent": true
+        }
+      ]
+    },
+    {
+      "mount": "/band",
+      "links": [
+        {
+          "file": "favicon.ico",
+          "status": 200,
+          "mime": "image/vnd.microsoft.icon",
+          "bytes": 16800,
+          "sha256": "d7081bfa7b7d1144c8d152ed03284e5ee533a952f094b6945202dec3283df59a",
+          "frames": [
+            [
+              16,
+              16
+            ],
+            [
+              32,
+              32
+            ],
+            [
+              48,
+              48
+            ],
+            [
+              64,
+              64
+            ]
+          ],
+          "transparent": true
+        },
+        {
+          "file": "favicon-16.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 893,
+          "sha256": "afa02b6f24ed547e2dfb68c70793615e523d573f0383986fb4826cad08e9ef8c",
+          "dimensions": [
+            16,
+            16
+          ],
+          "transparent": true
+        },
+        {
+          "file": "favicon-32.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 2575,
+          "sha256": "51dc5c79b97edd0d5e05de7024716ff15c5d214110152ebd7af76a79b089775d",
+          "dimensions": [
+            32,
+            32
+          ],
+          "transparent": true
+        },
+        {
+          "file": "favicon-48.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 5004,
+          "sha256": "ce0b8b212ef73d7ec3c74c88fcc3616fa510782e55025a0e8e0ba88eb425a95d",
+          "dimensions": [
+            48,
+            48
+          ],
+          "transparent": true
+        },
+        {
+          "file": "favicon-64.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 8258,
+          "sha256": "642424d36b2d78020962fa4a94aa23b2e9d599fda7712a9474197caaff00b318",
+          "dimensions": [
+            64,
+            64
+          ],
+          "transparent": true
+        },
+        {
+          "file": "favicon-192.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 53810,
+          "sha256": "4d6c202b255dd351c7e16cf4adb78ae03403d7a193ed52ec8b6cb4d1c0bb8f49",
+          "dimensions": [
+            192,
+            192
+          ],
+          "transparent": true
+        },
+        {
+          "file": "favicon-512.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 282766,
+          "sha256": "33053ce482c919a95f3ece5b5443d435394467b681c557480ade6a24b8314c6c",
+          "dimensions": [
+            512,
+            512
+          ],
+          "transparent": true
+        },
+        {
+          "file": "apple-touch-icon.png",
+          "status": 200,
+          "mime": "image/png",
+          "bytes": 48108,
+          "sha256": "8d83aa5753538e78a2ca79e707ea31c707dc976c1bf236b4bbb25dd3d6d49dec",
+          "dimensions": [
+            180,
+            180
+          ],
+          "transparent": true
+        }
+      ]
+    }
+  ]
+}

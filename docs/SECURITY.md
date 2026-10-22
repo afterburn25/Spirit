@@ -1,6 +1,6 @@
 # Security controls and remaining acceptance
 
-Cumulative 0.9.0-dev.11; see TEST_RESULTS.md for the exact new verification status. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior.
+Cumulative 1.1.0; see TEST_RESULTS.md for the exact verification status. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior. Historical owner-confirmed acceptance remains recorded in acceptance/CONSOLIDATED-FINAL-PASS.md. Commerce stays disabled until its separate activation requirements are met.
 
 ## Installation, sessions and storage
 
@@ -30,7 +30,7 @@ Conservative cleanup is bounded, opt-in where scheduled, and preserves active cr
 
 Fresh setup is intentionally open until completion. CSRF/database access are not proof of hosting ownership. Install promptly or protect unattended staging; do not restore the removed setup-code gate. Private writes, prefix ownership, safe deletion and permanent installation locking remain.
 
-Automatic hosting provisioning is removed. No cPanel API class, token form, privileged SQL administrator or database/user creation path remains. Retired automatic input is rejected without reflecting credentials. A prior unfinished cpanel-provision.php record is detected by existence only: never execute, adopt, delete or reset it. Keep it for manual owner/host review. Already installed configurations remain locked and untouched.
+Automatic hosting provisioning is removed. No cPanel API class, token form, privileged SQL administrator or config/database/user creation path remains. Retired automatic input is rejected without reflecting credentials. A prior unfinished cpanel-provision.php record is detected by existence only: never execute, adopt, delete or reset it. Keep it for manual owner/host review. Already installed configurations remain locked and untouched.
 
 The three former Cpanel file paths contain only an inert declaration and comments, not class definitions or API logic. Their presence preserves dev8's cumulative-update requirements while replacing the retired functionality; this is not a supported automatic setup path.
 
@@ -44,4 +44,14 @@ Authenticated media, backup and update handlers detect a POST exceeding PHP's wh
 
 ## Verification boundaries
 
-The configured cumulative suites exercise both database engines, browser journeys, loopback TLS transport failures, permission/concurrency/recovery and actual Apache HTTPS access rules. They do not prove arbitrary provider aliases/ACL/open_basedir/OPcache/proxy behavior, real hosting/inbox/merchant results, field performance, full accessibility or penetration review, legacy relocation, master-art/content approval or v1.0 acceptance. Never trust forwarded headers indiscriminately, weaken safeguards to pass a test, or label a source-artifact run as application verification. Exceptions/logs must not expose private payloads, tokens, credentials or raw driver diagnostics.
+The configured cumulative suites exercise both database engines, browser journeys, loopback TLS transport failures, permission/concurrency/recovery and actual Apache HTTPS access rules. Their results do not prove arbitrary provider aliases/ACL/open_basedir/OPcache/proxy behavior, a new hosting/inbox/merchant observation, field performance, full accessibility or penetration review, legacy relocation or new artwork/content approval. The recorded owner acceptance of 1.0 remains a separate historical fact; it is not represented as an automated test or a newly observed provider result. Never trust forwarded headers indiscriminately, weaken safeguards to pass a test, or label a source-artifact run as application verification. Exceptions/logs must not expose private payloads, tokens, credentials or raw driver diagnostics.
+
+## Owner analytics
+
+Analytics reports, exports, settings, imported query snapshots and location-data management require an active owner. Mutations require CSRF; current role/session is rechecked under a database row lock before settings/query changes or City-file mutation. City uploads use a fixed private path, bounded streaming/decompression, file-type/metadata validation, atomic replacement and staged-file cleanup; a rejected upload preserves the prior file.
+
+The Overview snapshot and visitor explorer use the same owner boundary. The explorer is read-only, private/no-store, rejects cross-site and unsupported-method requests, validates bounded filter values and binds SQL parameters. Session details retain the selected date/filter cohort. Results and journeys are paginated; stored attribution is escaped. The UI exposes an anonymous shortened session label, not the internal visit hash, raw IP, account identity or private-route contents. Unavailable reporting leaves the owner Overview usable without inventing zero-valued metrics.
+
+Only eligible public GET renders receive an analytics page token. Activity accepts a bounded JSON payload from the matching origin, bound to the current session/page, with cumulative replay checks and a shared elapsed-time limit across tabs. Raw IP addresses are used transiently for local country/crawler lookup and are not persisted in analytics. Arbitrary URL/query fields, full referral URLs, full user agents and form contents are not collected. Staff/private routes, DNT/GPC and prefetch/HEAD requests are excluded. Disabling analytics stops page and activity collection; unavailable analytics must not break public rendering.
+
+Search Console imports contain aggregate queries, not visitor identities. Their dates are independent of visitor filters and the entire validated snapshot replaces atomically. CSV exports neutralize formula-leading strings. Retention is bounded and applies only to traffic/crawler tables through explicit owner or enabled scheduled maintenance; imported query snapshots are removed only by owner replacement/removal. Analytics tables are included in encrypted backups but excluded from protected-business-state digests and business/content restoration, so visitor traffic does not block or rewind a site restore.

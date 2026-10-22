@@ -1,49 +1,65 @@
-# Spiritual Gorillaz — 1.0.0
+# Spiritual Gorillaz — 1.1.0
 
-Spiritual Gorillaz is a cumulative PHP/MySQL band website for shared hosting with a cinematic black/deep-navy, gold and blue crowned-gorilla design.
+## Final 1.1 release
 
-## Final software state
+This cumulative release includes owner analytics and Visitor Explorer, the
+approved animated gold gorilla and blue stage/smoke, the ten-folder layout,
+wrapping Music filters and the short-page footer correction. The compact
+footer reaches the viewport bottom when content is short and follows content
+on longer pages. Measured player clearance keeps footer links accessible.
 
-Version 1.0.0 promotes the fully verified RC10 software line to the first final release. The application implementation is complete.
+The final promotion preserves rc.12 application code, CSS, JavaScript, artwork,
+all eight SQL migrations and the pinned recovery layer. Deployment changes are
+the version and current release/operating documentation. Development source
+also gains repeatable verification of unchanged baseline and target ZIPs.
 
-Implemented:
-- public Home, Music, Shows, Band, Media, Press, Booking, newsletter and search;
-- persistent local-audio player and native no-JavaScript audio access;
-- owner CMS/media/branding, staff permissions and private draft/preview workflows;
-- booking, transactional email, newsletter and customer-account flows;
-- merchandise/catalog/cart/checkout/orders with Authorize.net tokenization boundaries;
-- inventory reservation/release, payment reconciliation/reversal safeguards and private order history;
-- manual A2/cPanel one-page installer;
-- encrypted backup/import/restore, guarded cumulative browser upgrades and independent same-schema code rollback;
-- owner launch diagnostics, support report, scheduled-worker heartbeat support and conservative cleanup;
-- deterministic package/release gate.
+## Installation and updates
 
-Final launch hardening includes approved copy fallbacks, the confirmed Chad Lindsey / Ron Green / Charlie Savell lineup fallback, scalable bundled logo, contained fallback hero presentation, closed-store navigation/account/search behavior, dormant-commerce diagnostics, and 360 px/390 px cross-browser coverage.
+The ten deployment folders are **admin, app, assets, config, docs, images,
+includes, install, storage and uploads**. Public URLs are unchanged. Read
+docs/DIRECTORY_LAYOUT.md for the complete map.
 
-## Launch behavior
+- **Fresh site:** use the one-page manual A2/cPanel installer described in
+  docs/INSTALLATION.md. No setup code or hosting API token is required.
+- **Existing grouped rc.10, rc.11 or rc.12:** use owner Browser upgrades after
+  saving a full backup and the private recovery receipt. Normal integrity,
+  version, schema and recovery checks must pass; see docs/UPGRADES.md.
+- **rc.8 or an earlier layout:** follow docs/LAYOUT_TRANSITION.md at the same
+  absolute site root. Its old updater must refuse the layout change. The
+  unrecovered earlier rc.9 requires comparison with its actual package.
 
-Missing optional real-world content is never fabricated. Shows may be empty, Part 3 may remain unpublished, portraits may remain unset and the storefront may stay closed. When commerce is closed, Merch/Bag and merchandise search affordances are not advertised globally. Merchant sandbox acceptance is deferred until commerce activation.
+Keep the original configuration, installation secret, database, owner account,
+private runtime and media. Do not reinstall an existing site or recreate its
+removed installer. The final promotion adds no SQL migration.
 
-The owner may replace the bundled logo/hero and publish approved content through the existing administration workflows without a software release.
+## Retained launch scope
 
-## Deployment contract
+The owner CMS, media/private previews, booking/newsletter, staff permissions,
+customer accounts, backups and independent code recovery remain available.
+Show tickets open external venue sellers. Commerce remains optional and disabled
+until the owner completes activation acceptance. No real performances, customers,
+traffic or products are seeded by the package.
 
-A2/cPanel manual database setup only. No hosting token, no 20i integration, no setup code and no automatic database/user creation.
+Previously accepted installation, communication and account results remain in
+docs/acceptance/CONSOLIDATED-FINAL-PASS.md. They are owner-reported acceptance,
+not new provider tests.
 
-Build the cumulative package with:
+## Development and evidence
 
-`python3 tools/package.py --output ./dist`
+Build: `python3 app/tools/package.py --output ./dist`
 
-Validate the source/package contract with:
+Release checks: `python3 app/tools/release_gate.py`
 
-`python3 tools/release_gate.py`
+Public asset check: `npm ci --prefix app/tools/public-assets --ignore-scripts`
+then `node app/tools/build_public_assets.mjs --check`.
 
-The package excludes tests, development tools, runtime/private state, credentials, sessions, backups and recovery receipts. Existing installations upgrade through backups/guarded updates; never reinstall or replace the existing database/configuration to apply an update.
+Tests live under app/tests and remain outside the installation ZIP. The host
+needs PHP/MySQL and Apache/LiteSpeed rewriting, with no host-side Python, Node,
+SSH or root requirement. See PROJECT_STATUS.md, docs/TEST_RESULTS.md and
+docs/acceptance/FINAL-1.1.0.md for the evidence and operational limits.
 
-## 1.0 release boundary
+Repository: https://github.com/afterburn25/Spirit
 
-The owner explicitly instructed the project to proceed to final 1.0.0. The RC10 software matrix was fully green before promotion. Commerce remains intentionally disabled, so genuine Authorize.net sandbox acceptance is deferred until that feature is later activated.
-
-Items that were not directly re-observed from this chat—such as a particular recent cron execution, a fresh production rollback drill, or host-specific performance measurements—are not claimed as passed. They are operational follow-ups, not unresolved software defects in this final release.
-
-See `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/LAUNCH_CHECKLIST.md` and `docs/acceptance/CONSOLIDATED-FINAL-PASS.md`.
+The final release is consolidated through PR 37 into authoritative main.
+Previously delivered archives remain immutable. Shipping this package does not
+install it on the owner's live hosting account.

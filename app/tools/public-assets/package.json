@@ -1,0 +1,16 @@
+{
+  "name": "spirit-public-assets",
+  "private": true,
+  "description": "Development-only builders for the committed public bundles; not required on the PHP host.",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node ../build_public_assets.mjs",
+    "check": "node ../build_public_assets.mjs --check"
+  },
+  "devDependencies": {
+    "csso": "5.0.5",
+    "terser": "5.51.2"
+  }
+}

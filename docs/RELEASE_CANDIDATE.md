@@ -1,7 +1,29 @@
-# 1.0.0-rc.7 — verified staging candidate
+# 1.1.0 — final cumulative release
 
-Public phone-navigation and native-control quality pass, based on verified RC6. Implemented non-modal keyboard focus/dismissal/responsive resets and short-screen menu scroll above the player; corrected oversized admin checkbox geometry. No PHP business logic, form defaults, installer, schema or recovery changes.
+The release includes completed analytics/navigation, approved animated gorilla
+identity and stage/smoke, grouped folders, Music filter wrapping and short-page
+footer correction. The final promotion preserves rc.12 production code/assets;
+only VERSION and operating/release documentation change in the deployment
+payload. Development-only tests gain exact-package upgrade coverage.
 
-Local230 PHP/inc syntax,812 existing pure assertions,eight JS syntax and12 package tests passed. Isolated Chromium DOM/style checks and all six Actions workflows passed for adcafab9. The three new browser jobs each report361 passing checks. Finalization changes documentation only; additional main-run outcomes are recorded separately after observation. See TEST_RESULTS.md and NAVIGATION_QUALITY.md.
+The compact footer reaches the viewport bottom on short pages and follows
+content on long pages, retaining its appearance, links and fixed developer
+credit. Measured player height supplies narrow-screen clearance. No SQL
+migration, public route, artwork or recovery-pin change is introduced.
 
-Keep the locked visual design, external ticket sellers, remembered administration state and one-page manual A2/cPanel installer. No setup code/token/20i/automatic DB. Existing sites upgrade with backups and retain original private configuration/encryption secret/database/media/recovery keys. Genuine production artwork/content/policies, actual A2/mailbox/merchant/recovery, physical-device and owner approval remain before accepted1.0. No live deployment or external acceptance is claimed.
+**Existing rc.10, rc.11 or rc.12:** use owner Browser upgrades with normal full
+backup, trust acknowledgement and private recovery receipt. All integrity/schema
+checks apply. **Existing rc.8 or earlier:** use the documented one-time same-root
+hosting-panel transition; the old updater must refuse the layout change.
+**Earlier unrecovered rc.9:** compare the actual package first.
+
+Preserve original configuration, owner, database, private runtime, media and
+removed installer. Do not reinstall. Read TEST_RESULTS.md and
+acceptance/FINAL-1.1.0.md for evidence and scope. The companion receipt records
+the frozen archive identity and final CI/publication checks. Historical
+candidate archives stay unchanged.
+
+This file retains its cumulative path for updater compatibility. The package
+is final 1.1.0; publication does not deploy it to the owner's A2 account or
+enable commerce. Host, physical-device and merchant observations remain
+distinct from automated verification.

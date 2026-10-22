@@ -1,0 +1,82 @@
+name: Visitor analytics verification
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: analytics-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  analytics:
+    name: Analytics / PHP ${{ matrix.php }} / ${{ matrix.database }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 18
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '8.2'
+            database: 'mariadb:11.4'
+          - php: '8.4'
+            database: 'mysql:8.4'
+    services:
+      database:
+        image: ${{ matrix.database }}
+        env:
+          MYSQL_ROOT_PASSWORD: ephemeral-ci-root-not-production
+          MYSQL_DATABASE: spirit_ci
+          MYSQL_USER: spirit_ci
+          MYSQL_PASSWORD: ephemeral-ci-user-not-production
+        ports:
+          - 3306:3306
+    env:
+      SPIRIT_TESTING: '1'
+      SPIRIT_DISABLE_PAYMENT_NETWORK: '1'
+      SPIRIT_DB_HOST: 127.0.0.1
+      SPIRIT_DB_PORT: '3306'
+      SPIRIT_DB_NAME: spirit_ci
+      SPIRIT_DB_USER: spirit_ci
+      SPIRIT_DB_PASSWORD: ephemeral-ci-user-not-production
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl, zip, zlib
+          ini-values: upload_max_filesize=2M, post_max_size=8M
+          coverage: none
+      - name: Prepare deterministic package builds and disposable SQL
+        run: |
+          python3 -m pip install --disable-pip-version-check Pillow==12.3.0
+          python3 app/tests/wait_for_database.py
+      - name: Check collection, reporting, geography and administration rules
+        run: |
+          php app/tests/analytics_unit.php
+          php app/tests/analytics_geo_unit.php
+          php app/tests/analytics_admin_unit.php
+          python3 app/tests/analytics_integration.py
+          python3 app/tests/analytics_admin_integration.py
+          python3 app/tests/analytics_geo_integration.py
+      - name: Prepare test-only browser
+        if: matrix.php == '8.4'
+        run: |
+          echo "SPIRIT_SCREENSHOT_DIR=$RUNNER_TEMP/spirit-analytics" >> "$GITHUB_ENV"
+          python3 -m venv "$RUNNER_TEMP/spirit-analytics-browser"
+          "$RUNNER_TEMP/spirit-analytics-browser/bin/pip" install playwright==1.57.0 Pillow==12.3.0
+          "$RUNNER_TEMP/spirit-analytics-browser/bin/python" -m playwright install --with-deps chromium
+      - name: Exercise dashboard, live polling and owner uploads
+        if: matrix.php == '8.4'
+        run: '"$RUNNER_TEMP/spirit-analytics-browser/bin/python" app/tests/analytics_browser.py'
+      - name: Preserve synthetic analytics screenshots
+        if: always() && matrix.php == '8.4'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spirit-analytics-${{ github.sha }}
+          path: ${{ runner.temp }}/spirit-analytics/*.png
+          if-no-files-found: ignore
+          retention-days: 14

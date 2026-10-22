@@ -1,57 +1,49 @@
-# Project status — 1.0.0 final
+# Project status — 1.1.0
 
-The application is **1.0.0**. The planned application scope is complete and the owner explicitly instructed the project to proceed to final release.
+## Release scope
 
-## Software implementation status
+Final 1.1.0 consolidates the completed analytics/navigation development and
+approved branding, background, directory and responsive-layout work through
+PR 37. Main remains the authoritative release source.
 
-**Implementation scope: complete.**
+The final promotion retains rc.12 application code byte for byte. It updates
+VERSION and release/operating documentation and adds development-only exact
+package upgrade/recovery verification. The ten deployment folders, public URLs,
+eight migrations, private-storage identity and recovery pins stay intact.
 
-The public site, owner administration, content/media/music/shows/press, booking/email/newsletter, customer accounts, merchandise/orders/payments, branding, backups, guarded upgrades/recovery, diagnostics and shared-host installer are implemented.
+Short pages fill the viewport with the compact footer at the bottom; long pages
+keep it after their content. Music filter wrapping, newsletter spacing and
+measured player clearance are retained. Public CSS/JavaScript remains 129,916
+bytes against the unchanged 130,000-byte budget.
 
-Final launch-hardening includes:
-- approved launch copy as safe runtime fallbacks for Home, Music, Shows, Band, Media, Booking, Press and Merch;
-- confirmed three-member Band fallbacks for Chad Lindsey, Ron Green and Charlie Savell, including partial-profile publishing without duplicates or fake portraits;
-- scalable bundled crown/wordmark SVG fallback while preserving owner-managed logo publication;
-- contained fallback hero presentation;
-- responsive hardening at 360 px, 390 px and desktop widths;
-- cross-browser checkout/review/cancellation coverage in Chromium, Firefox and WebKit;
-- browser/server billing-address validation alignment;
-- closed-store navigation, customer-account and Search behavior;
-- launch diagnostics that distinguish dormant commerce from activation blockers;
-- private successful-run heartbeat support for the real mail/payment CLI workers;
-- deterministic software release gate.
+## Verification
 
-The complete RC10 GitHub Actions matrix was green on source commit `2a833986f5a39d2f8de99f41bd8640b0642648e8` before final promotion.
+All eleven GitHub workflows succeeded on published rc.12 source
+46744207a0916ae2256d84fbaa312c9c4fc67768, including the populated storefront,
+installer, editing, navigation, analytics, branding and grouped-layout checks.
 
-## Launch-safe content behavior
-
-The confirmed roster and factual Band/Press copy are available without requiring invented content. Published CMS records still override fallbacks.
-
-Truthfully empty optional sections are supported:
-- Shows may remain empty until a genuine event exists.
-- Part 3 may remain unpublished until its real YouTube/Vimeo URL and exact public metadata are confirmed.
-- Member portraits may remain unset; factual non-clickable fallback cards are used for unpublished profiles.
-- Merchandise may remain closed. When closed, Merch/Bag and merchandise search affordances are hidden; merchant credentials/provider acceptance are feature-activation requirements rather than core-site blockers.
-- Longer biographies are optional.
-
-## Final release decision
-
-The owner explicitly instructed the project to continue through final 1.0.0. Commerce is intentionally disabled, so Authorize.net sandbox/provider acceptance is deferred until commerce activation.
-
-Previously recorded owner acceptance covers installation/upgrade/admin operation, owner email receipt, booking notifications/acknowledgement, newsletter confirmation/unsubscribe, customer-account activation/recovery and unpaid checkout stock restoration. Those owner-reported checks remain historical evidence; they are not re-characterized as assistant-inspected results.
-
-Host-specific observations that have not been directly re-observed in this chat—such as a particular recent cron heartbeat, a fresh recovery drill or current production performance measurements—remain recommended operational follow-ups. They are not claimed as passed.
+Current local evidence, archive identities and the final verification procedure
+are in docs/TEST_RESULTS.md. The companion verification receipt records the
+frozen final ZIP and publication checks. Final-source Actions must succeed
+before publication; rc.12 evidence alone does not establish final-commit CI.
 
 ## Remaining blockers
 
 None.
 
-## Operational follow-ups
+## Operational follow-up and evidence boundaries
 
-- After deploying the final package, confirm the Search page shows the closed-store 1.0 behavior.
-- Review Launch Checks after deployment and address any real warning that appears.
-- Observe scheduled-worker heartbeat freshness during normal operation.
-- Exercise the supported recovery path during a suitable maintenance/staging window.
-- Record real-host phone/desktop performance measurements when desired.
-- Complete genuine Authorize.net sandbox/provider acceptance before enabling commerce.
-- Publish only genuine owner-approved optional shows, Part 3 metadata, portraits or merchandise.
+The owner's continuation authorizes completing this software release and
+consolidating PR 37 into main. It does not claim a live-host installation,
+physical-device review, provider test or payment activation.
+
+Retain the owner-confirmed installation, administration, booking, newsletter,
+account, mail-schedule configuration and unpaid-cancellation results in
+docs/acceptance/CONSOLIDATED-FINAL-PASS.md. Do not restart those accepted checks.
+Commerce remains intentionally disabled; merchant acceptance belongs to later
+activation. Optional content may remain unpublished.
+
+Use the documented update path and check actual host permissions, current
+mail/cron execution and physical devices when deploying. No live host or
+customer data was changed by this release session. Historical records remain
+under docs/history.

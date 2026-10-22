@@ -15,5 +15,5 @@ if($method==='POST'){
     header('Content-Type: application/json; charset=utf-8');header('Content-Disposition: attachment; filename="Spirit-support-report.json"');header('Content-Length: '.strlen($body));echo $body;exit;
 }
 Spirit\View::start('Launch checks','admin','launch',$user);
-require Spirit\Paths::root().'/views/admin/launch.php';
+require Spirit\Paths::root().'/app/views/admin/launch.php';
 Spirit\View::end();

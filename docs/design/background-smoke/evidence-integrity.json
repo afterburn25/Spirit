@@ -1,0 +1,250 @@
+{
+  "verified_at_utc": "2026-10-20T21:32:09.014647+00:00",
+  "status": "passed",
+  "candidate": "/workspace/scratch/567deeba36fd/rc7-browser-candidate/Spiritual-Gorillaz-1.1.0-rc.7-Full.zip",
+  "candidate_sha256": "bf5138e6fd7a7504bca2d1d9479665caec8e84101b24221092e829d35431930b",
+  "runtime_file_count": 345,
+  "all_runtime_hashes_match_both_manifests": true,
+  "source_test_hashes": {
+    "capture_branding_refresh.py": "0aa33696960bf737791e36756ef45ac39e2e97ac5cbf72c97c5b2b833e1960eb",
+    "capture_background_smoke.py": "de8f569e06ca95e63430408d4510234bbd45de120cc9784f1578a89b93c2c63f"
+  },
+  "manifests": [
+    {
+      "manifest": "branding-refresh-verification.json",
+      "manifest_sha256": "c005fb25287cda319950de5e86407751a89757caa82639b87544658a904d2ff6",
+      "assertions_passed": 1376,
+      "screenshots": [
+        {
+          "file": "root-1440-installer.png",
+          "sha256": "26cbad34bc7464697d147d4b7414d6f1d580de4f060c0f106915a5f698c0c974"
+        },
+        {
+          "file": "root-390-installer.png",
+          "sha256": "bd70d7ba2eb395fc773c2e8f3e74e3a018cc46cd198099b6d26117cd9e7b9509"
+        },
+        {
+          "file": "root-1440-login.png",
+          "sha256": "7a661e8f6344e78940a0e937236bd7122dc410ddd94c9e23cf1e062fcebaac9b"
+        },
+        {
+          "file": "root-1440-admin-overview-sidebar.png",
+          "sha256": "be876b7bf0be16d63381f42c757f8ec99de3cc975b61f5822faaba077931e8c7"
+        },
+        {
+          "file": "root-1440-branding-defaults.png",
+          "sha256": "951856b159e2e70c4646ee048a335fa9c3ddc58b7e15e6abad178ddebc9ad011"
+        },
+        {
+          "file": "root-390-login.png",
+          "sha256": "38b31a00f10d7db710f8aa70242c698793d2f124ec5bd780bb080094bb32001c"
+        },
+        {
+          "file": "root-390-admin-overview-sidebar.png",
+          "sha256": "26f7be798ceaf73db4c2cbb2a6a4cb1e8990518903dfb4a349d111476b4bf3f1"
+        },
+        {
+          "file": "root-390-branding-defaults.png",
+          "sha256": "3833aa3aeda102a70a35a994494536ae60421cd879f8e65b33888e3e04e6086a"
+        },
+        {
+          "file": "root-1920-home-top.png",
+          "sha256": "5eb741fd4ae37c6af581676a94918bb5e921fa8b1f85d86c8f453e4742c82de8"
+        },
+        {
+          "file": "root-1920-home-scrolled.png",
+          "sha256": "ce6779429bf03e7f48e4271b8c5b5ebc234740cbce57d4e35ac510be09c7678e"
+        },
+        {
+          "file": "root-1920-footer.png",
+          "sha256": "9addcab9b2a643816666bca20b477c3a9186e16bb310db70ae7a952fbfcdeae4"
+        },
+        {
+          "file": "root-1440-home-top.png",
+          "sha256": "8a528aeadd4bc72827a694f2313ea26d7bdd0b4b25ca29c8cc974497c71acaea"
+        },
+        {
+          "file": "root-1440-footer.png",
+          "sha256": "170638a68a266f21289d0c8e9496dbda452edac43f87895d352c319b42395c5e"
+        },
+        {
+          "file": "root-1440-search-open.png",
+          "sha256": "c4021c4168683a7ffb1821092b8c5fd8fb8d87e13e6f9ca7be7e96d0a116712a"
+        },
+        {
+          "file": "root-1440-music.png",
+          "sha256": "ac21e41b7c24bae9f5f5db3e5aa5dd659056a96472c7569e1c222256a9c6b4dd"
+        },
+        {
+          "file": "root-820-home-top.png",
+          "sha256": "1d67470c17cbbbdbc98bfefdb33f7eff5f5ca9d7c36174e43772da508cac13e2"
+        },
+        {
+          "file": "root-820-footer.png",
+          "sha256": "8ae467fccd416861b268edf39d577b97fe356a25054dcbe643afeefc035ff0fe"
+        },
+        {
+          "file": "root-390-home-top.png",
+          "sha256": "5a3f641309ab992ee753619bf29e287e6b90bb95f05cd8ce0c024a51facc2258"
+        },
+        {
+          "file": "root-390-home-scrolled.png",
+          "sha256": "908b20d192ef1fe756143433e9801cc525c1f7603685c615e501a815b6ce4534"
+        },
+        {
+          "file": "root-390-footer.png",
+          "sha256": "8b02b8e61b2079c3ec3267ffffd7e05f07479df94c4684dd88d591fa43d25d13"
+        },
+        {
+          "file": "root-390-search-open.png",
+          "sha256": "b42926bff05cd9a97b08d97c3911871fff68e3b5ffa3a194c3fb978e67103fb2"
+        },
+        {
+          "file": "root-390-menu-open.png",
+          "sha256": "913e4fd4547ae0eca3a0936d2dee6b848596d7395b84c6cc3603d5451a981ca9"
+        },
+        {
+          "file": "root-390-music.png",
+          "sha256": "4d49703c7e75babf21ba05ca2ecebd5a7b846e9541b9d551785175556b7514bb"
+        },
+        {
+          "file": "root-360-home-top.png",
+          "sha256": "2d2fb1d000afd299cabefb4f291225b457e048eae25051f8693819dc5931a9be"
+        },
+        {
+          "file": "root-360-footer.png",
+          "sha256": "a4cde217f63d6599458f07feb705e8286349472f73ca9834105ce23aee1d0c78"
+        },
+        {
+          "file": "root-320-home-top.png",
+          "sha256": "a77bcd3ecebf8a6d8b9414ba009d8b5d07b12e389c7d2bff73690a0b2824e2d3"
+        },
+        {
+          "file": "root-320-footer.png",
+          "sha256": "e9ee6039efb9e2ac99100696844891af5ba5705cf38ceaad3f3e86fbb4086460"
+        },
+        {
+          "file": "root-390-no-js-music.png",
+          "sha256": "e5806cc65296af8f28723f1224f0a9b818414f5afffd766f0276d08b82678df0"
+        },
+        {
+          "file": "synthetic-private-logo-preview.png",
+          "sha256": "1a6d5e0761c5c1aa615c10110a645cedcc76dd25ad0235b48beeda597741c740"
+        },
+        {
+          "file": "synthetic-1440-custom-logo.png",
+          "sha256": "1001e35644d1bc75fdbd0e97052de08e68c6cfec4fa0160ebff22863712e4d65"
+        },
+        {
+          "file": "synthetic-390-custom-logo.png",
+          "sha256": "aefca1e07c4a0b59361b3d1163d590e7fce034546d6b29d487816d87c00d2bf4"
+        }
+      ],
+      "video_artifacts": [],
+      "synthetic_screenshot_count": 3
+    },
+    {
+      "manifest": "smoke/background-smoke-verification.json",
+      "manifest_sha256": "953040868cc81c7d4577ede92fd9fd82c44491c1aa39b152ad00a2065fec1864",
+      "assertions_passed": 529,
+      "screenshots": [
+        {
+          "file": "smoke/root-1920-smoke-home-top.png",
+          "sha256": "bfa50c81668f29620b2349e2d8b69ba6f450136a3b3526a8779cf0af01299178"
+        },
+        {
+          "file": "smoke/root-1920-phase-0.png",
+          "sha256": "39694987a37077ed13d7c1d7ec0555f69f17a668ffaa0afd6401c353353d9b90"
+        },
+        {
+          "file": "smoke/root-1920-phase-24000.png",
+          "sha256": "fab4207621763710d18b292f3166e1344a4466bca916963d49d03a53962cf738"
+        },
+        {
+          "file": "smoke/root-1920-smoke-footer.png",
+          "sha256": "24008caa33c60f082a420bda49b3decbf728f4a3984297096b55e0497aa77a45"
+        },
+        {
+          "file": "smoke/root-1920-reduced-motion.png",
+          "sha256": "a3dd82ea94996798213f50841b30417c8b40751e83ead1387b5c35ec17161081"
+        },
+        {
+          "file": "smoke/root-390-smoke-home-top.png",
+          "sha256": "f850e9fdb8161f2d110c9db47be44e24c504ce01198a786efa33b62bf9b8f606"
+        },
+        {
+          "file": "smoke/root-390-phase-0.png",
+          "sha256": "df751862440990231b9e07de15afa022683adce63ea49dd2550c0184ac7ded6e"
+        },
+        {
+          "file": "smoke/root-390-phase-24000.png",
+          "sha256": "9db90d7e476774f297006b990fba0e4a35607315d061bdf113a1280319007db9"
+        },
+        {
+          "file": "smoke/root-390-smoke-footer.png",
+          "sha256": "c50288d25f9ae96d1ac9052918862136dd6ed3526e79424006a69df536f3d855"
+        },
+        {
+          "file": "smoke/root-390-reduced-motion.png",
+          "sha256": "4d49703c7e75babf21ba05ca2ecebd5a7b846e9541b9d551785175556b7514bb"
+        },
+        {
+          "file": "smoke/root-1920-video-poster.png",
+          "sha256": "0f70f5691406d9ab5b1bd8f6730362661bbd0ec078f740af6f20bdd12ad78117"
+        },
+        {
+          "file": "smoke/root-390-video-poster.png",
+          "sha256": "88e74e38cd9b04099023c57f3687766b22f1202dd93cf6caafd65c74a0a2bcb7"
+        },
+        {
+          "file": "smoke/subfolder-1920-phase-0.png",
+          "sha256": "c797f3e31086b9aa28ad19661c3a9b2567048d81a69a3a646fa6752bba24f4dd"
+        },
+        {
+          "file": "smoke/subfolder-1920-phase-24000.png",
+          "sha256": "66efa142a4d2b76045a522376255ea0b28448a958833132d682281d706dafa6e"
+        },
+        {
+          "file": "smoke/subfolder-390-phase-0.png",
+          "sha256": "e9866aa1e502a68883e9ff57a3e7793337314a3491877f411b0fc0a7a0b20885"
+        },
+        {
+          "file": "smoke/subfolder-390-phase-24000.png",
+          "sha256": "551942d62722ea088ab237a4d0cf5f3e93c2b50484c6d1a403e4cde009bbe15a"
+        }
+      ],
+      "video_artifacts": [
+        {
+          "file": "smoke/Spiritual-Gorillaz-rc7-Smoke-Desktop.mp4",
+          "sha256": "eec32faf2f10ce3ce1bab162e8dd57c4ca1eeaed42f25c56ee92011a231c1eec"
+        },
+        {
+          "file": "smoke/raw-videos/cf6d68aa0540d615541deb4e5a3a29f1.webm",
+          "sha256": "69889db9a850bf7c3484b977060bb5f88c797dc16d226883d5cf0815e4b93d38"
+        },
+        {
+          "file": "smoke/Spiritual-Gorillaz-rc7-Smoke-Phone.mp4",
+          "sha256": "29b865485d1d4168ce5a31b4edb72c13fb96b393b0a7d38b628a8916af67916b"
+        },
+        {
+          "file": "smoke/raw-videos/94ed9dd4a518971c1d44c7dc6d12c7a2.webm",
+          "sha256": "7415395204c7892a2919fc16d703f54b83ed4f3d8e40145aedabeb2beca0d7da"
+        }
+      ],
+      "synthetic_screenshot_count": 0
+    }
+  ],
+  "totals": {
+    "assertions": 1905,
+    "actual_screenshots": 47,
+    "synthetic_screenshots": 3,
+    "normal_speed_mp4_clips": 2,
+    "raw_webm_recordings": 2
+  },
+  "notes": [
+    "Main screenshots use reduced motion to show stable geometry and approved static identity.",
+    "Smoke screenshots use animations=allow; phase images intentionally pause CSS at 0 or24000ms. Smoke footer captures remain at24000ms after the phase inspection.",
+    "Both10-second videos use normal playbackRate1, starting partway through the existing48-second CSS loop; only leading setup time is trimmed.",
+    "No production site accessed. No runtime CSS or app code was changed by the browser test."
+  ]
+}

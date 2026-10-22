@@ -37,11 +37,12 @@ jobs:
         with:
           php-version: '8.4'
           extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl, zip
+          ini-values: upload_max_filesize=32M, post_max_size=40M
           coverage: none
       - name: Verify database and installer foundation
-        run: python3 tests/http_integration.py
+        run: python3 app/tests/http_integration.py
       - name: Run unchanged maintenance assertions and record diagnostic notices
-        run: python3 tests/maintenance_diagnostic.py
+        run: python3 app/tests/maintenance_diagnostic.py
       - name: Preserve synthetic failure evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

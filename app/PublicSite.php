@@ -42,7 +42,7 @@ final class PublicSite
     public static function text(string $text): string {return nl2br(e($text));}
     public static function releaseCard(array $release): void
     {
-        echo '<article class="release-card"><a href="'.e(self::url($release)).'" class="release-art" aria-label="Explore release: '.e($release['title']).'">'.self::image((int)$release['data']['cover_id'],$release['title']).'<span class="art-action" aria-hidden="true">▶</span></a><p class="eyebrow">'.e(strtoupper($release['data']['release_type'])).($release['data']['release_date']?' / '.e(substr($release['data']['release_date'],0,4)):'').'</p><h3><a href="'.e(self::url($release)).'">'.e($release['title']).'</a></h3><a class="text-link" href="'.e(self::url($release)).'">Explore release <span aria-hidden="true">→</span></a></article>';
+        echo '<article class="release-card"><a href="'.e(self::url($release)).'" class="release-art" aria-label="Explore release: '.e($release['title']).'">'.self::image((int)$release['data']['cover_id'],$release['title']).'<span class="art-action" aria-hidden="true">▶</span></a><div class="release-card-body"><p class="eyebrow">'.e(strtoupper($release['data']['release_type'])).($release['data']['release_date']?' / '.e(substr($release['data']['release_date'],0,4)):'').'</p><h3><a href="'.e(self::url($release)).'">'.e($release['title']).'</a></h3><a class="text-link" href="'.e(self::url($release)).'">Explore release <span aria-hidden="true">→</span></a></div></article>';
     }
     public static function ticket(array $event): void
     {
@@ -84,9 +84,11 @@ final class PublicSite
         header('Cache-Control: '.($private?'private, no-store':'no-cache'));if($isPreview){header('X-Robots-Tag: noindex, nofollow');}
         $canonical=null;if(!$private&&$view!=='not-found'){$path=$record?self::url($record):app_url($view==='home'?'':($view==='music'?'music/':$view.'/'));$base=Paths::basePath();$canonical=rtrim(Paths::config()['site_url'],'/').substr($path,strlen($base));}
         $metaRecord=$record??$pageContent;
-        require Paths::root().'/views/public/header.php';
+        $analyticsPage = !$isPreview && in_array($view, ['home','music','shows','band','media','press','booking','release','event','member','page'], true)
+            ? Analytics::beginPage() : null;
+        require Paths::root().'/app/views/public/header.php';
         $templates=['booking'=>'booking.php','booking-thanks'=>'booking-thanks.php','newsletter'=>'newsletter.php','search'=>'discovery.php'];
-        require Paths::root().'/views/public/'.($templates[$view]??'sections.php');
-        require Paths::root().'/views/public/footer.php';
+        require Paths::root().'/app/views/public/'.($templates[$view]??'sections.php');
+        require Paths::root().'/app/views/public/footer.php';
     }
 }

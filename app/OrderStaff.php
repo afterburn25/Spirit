@@ -19,6 +19,6 @@ final class OrderStaff
         }
         $pages=max(1,(int)ceil((int)$db->query('SELECT COUNT(*) FROM '.Database::table('orders'))->fetchColumn()/25));$page=max(1,min($pages,Input::integer($_GET,'page',1,PHP_INT_MAX,1)));
         $rows=$view==='orders'?$db->query('SELECT id,reference,buyer_email,environment,total_cents,payment_state,fulfillment_state FROM '.Database::table('orders').' ORDER BY id DESC LIMIT 25 OFFSET '.(($page-1)*25))->fetchAll():[];
-        View::start('Order fulfillment','admin','orders',$user);require Paths::root().'/views/admin/order-staff.php';View::end();
+        View::start('Order fulfillment','admin','orders',$user);require Paths::root().'/app/views/admin/order-staff.php';View::end();
     }
 }

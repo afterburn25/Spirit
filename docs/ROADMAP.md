@@ -1,24 +1,30 @@
-# Final 1.0 roadmap — RC8 software complete
+# Roadmap — final 1.1.0
 
-Feature development is complete. Remaining work is verification, external acceptance and owner-approved publication.
-
-| Milestone | Current status | Remaining work |
+| Area | Final software status | Operational follow-up |
 |---|---|---|
-|1. Core website and administration|**Complete.** Public site, CMS/admin, media/music/shows/press, booking/newsletter, accounts, commerce/orders, branding and responsive design are implemented.|Fix only defects found by final CI/acceptance.|
-|2. Production-safe fallback presentation|**Complete.** Approved copy fallbacks, confirmed lineup cards, scalable bundled logo, contained hero fallback, truthful empty states and dormant-store shell behavior are implemented.|Owner may replace fallback hero/logo or add real portraits/content through existing workflows; not a software dependency.|
-|3. A2 installation, maintenance and recovery|**Implemented and extensively automated-tested; normal operation previously owner-confirmed.** Browser installer, backups, guarded update/rollback and independent recovery are present.|Real staging/host drill evidence and owner acceptance where required.|
-|4. Email and scheduled processing|**Implemented.** Owner/booking/newsletter/customer mail flows previously owner-confirmed. Real mail worker now records a protected successful-run heartbeat exposed in Launch Checks.|Observe actual scheduled execution on the target host if required for final acceptance.|
-|5. Commerce and Authorize.net|**Software complete; activation-gated.** Token-only browser payment boundary, orders, inventory holds/releases, cancellation, reporting/recovery paths and payment worker heartbeat are implemented/tested with synthetic provider boundaries.|If store remains closed: none for core launch. If enabling commerce: genuine sandbox/provider acceptance, real products/policy and owner approval.|
-|6. Responsive/browser/accessibility quality|**Implemented.** 360/390/desktop coverage across public/store/checkout/booking, plus 320 stress checks and Chromium/Firefox/WebKit release review.|Real-host performance and final populated-content review after owner-selected assets/content.|
-|7. Release integrity|**Implemented.** Deterministic software release gate validates required source, package contents, manifest hashes, private-file exclusions and final-version blocker rules.|Latest CI must pass on final head.|
-|8. Owner acceptance and 1.0.0|**Pending external approval.**|Review remaining real-world observations and optional launch content; explicit owner approval; then bump/package/tag immutable 1.0.0.|
+| Grouped directories | Ten deployment roots, root images and original URLs retained | Same-root transition for pre-grouped installations |
+| Short-page footer | Viewport-filling layout with content-sized footer; long-page flow retained | Physical-device review during deployment |
+| Player clearance | Measured height restored; installed 320px keyboard regression passed | Preserve the measured inset in future styles |
+| Music filters | rc.11 wrapping retained | Existing responsive CI stays active |
+| Data and recovery | Unchanged schema and recovery boundary; exact-package tests | Preserve backups/receipt and verify host permissions |
+| Approved design | Animated 3D logo, stage/smoke, transparent surfaces and compact credit retained | Review actual package screenshots; no redesign |
+| Analytics | Graphs, Visitor Explorer and Overview reports complete | Retain owner access and measurement definitions |
+| CMS, media, music, shows, booking and accounts | Functionality and accepted checkpoints retained | Add only owner-approved optional content |
+| Commerce | Optional and disabled; venue ticket links remain external | Merchant/catalog/policy acceptance before activation |
+| Final release | 1.1.0 promoted from rc.12 runtime through PR 37 | Publication does not update the live host |
 
-## Launch profile
+## Evidence and continuation
 
-A content-first 1.0 launch does **not** require invented material. Shows, portraits, Part 3 and merchandise may stay unpublished/closed until genuine data exists.
+TEST_RESULTS.md separates historical checks, exact package tests and current
+release verification. acceptance/FINAL-1.1.0.md records the accepted scope.
+The companion receipt identifies the delivered ZIP and exact CI/publication
+results. Do not turn owner-confirmed installation or communication checks into
+new blockers. No mandatory feature remains in this 1.1 scope.
 
-Commerce is an activation-gated feature. When storefront and payments are disabled, launch diagnostics treat the missing merchant credentials/provider acceptance/product catalog as dormant rather than broken. Enabling commerce restores the strict sandbox/policy/product/worker checks.
+## Existing installations
 
-Final content source: `design/final-launch-content/FINAL-CONTENT-MAP.md`.
-Production asset guidance: `design/final-launch-content/PRODUCTION-ASSET-SPECS.md`.
-Final acceptance scope: `docs/acceptance/CONSOLIDATED-FINAL-PASS.md`.
+Read LAYOUT_TRANSITION.md. Grouped rc.10/rc.11/rc.12 use guarded same-layout
+updates. An rc.8-or-earlier updater must refuse the changed foundation; the
+unavailable earlier rc.9 needs comparison with its actual package. Do not
+reinstall, replace the database, relocate private runtime or delete unknown
+custom files to force the transition.

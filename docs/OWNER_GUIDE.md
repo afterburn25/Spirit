@@ -14,7 +14,7 @@ Sign in with the owner created during browser installation. No public administra
 
 Use the one-page browser installer for a new deployment only. No package setup code, PRIVATE-SETUP receipt or cPanel API token is required. Automatic database creation has been removed. Create an empty database and dedicated user through cPanel Database Wizard or Manage My Databases, assign the user to that database and copy the complete prefixed names and database-user password into the installer. See CPANEL_INSTALLER.md for permissions and precautions.
 
-Checks, database/owner details, corrections and the completion result remain on the same page. The result distinguishes actual installer-folder deletion from a retained, permanently locked directory. Use **Open administration** after completion. Install promptly after uploading or use cPanel Directory Privacy while unattended. An already installed website must follow the upgrade instructions instead; never create a new database to replace its existing data.
+Checks, config/database/owner details, corrections and the completion result remain on the same page. The result distinguishes actual installer-folder deletion from a retained, permanently locked directory. Use **Open administration** after completion. Install promptly after uploading or use cPanel Directory Privacy while unattended. An already installed website must follow the upgrade instructions instead; never create a new database to replace its existing data.
 
 PHP cURL and PHP ZIP are reported separately in setup and in owner **Installation health**. Neither blocks manual installation. Payment connections require cURL and browser ZIP upgrades require ZIP. Enable missing extensions for the domain's actual PHP version through cPanel Select PHP Version > Extensions, or ask A2 support; then refresh the check. No API token is involved. The owner health page remains available after the installer is deleted.
 
@@ -33,6 +33,12 @@ Pages, releases, tracks, shows, band members, galleries, videos and press downlo
 Upload authorized JPEG/PNG/WebP, MP3/OGG/WAV and PDFs; scripts/SVG/archives are not accepted. Images are decoded/re-encoded, and unreferenced files remain private. Published content/products authorize their selected images/audio/documents. Provide meaningful alternative text and usage-rights confirmation. Historical damaged/missing media blocks restoration instead of silently dropping it.
 
 Reserved page URL names home/band/booking/press feed the designed sections; other pages have individual URLs. Website settings controls name/tagline/welcome. Publish a release and its authorized tracks for the user-initiated persistent player. External streaming platforms use verified outbound links.
+
+## Logo and footer — 1.1.0-rc.8
+
+Open **Settings & access → Website settings** for the **Footer copyright** field. Enter the complete line as plain text, or leave it blank to follow the current year and website name automatically. Save website settings to publish it. The fixed linked Cajun Web Pro LLC developer credit appears directly below copyright and has no edit/hide control. See FOOTER.md.
+
+**Manage site logo** shows the current public source. The approved animated 3D crowned-gorilla logo is the corrected default. Earlier uploaded logos and saved drafts remain retained. Choose **Use animated 3D logo** to return to it while keeping those images. To use custom artwork, save and preview a private draft, then explicitly approve and publish it. Publishing a custom image changes the public header and footer; staff/setup retain the approved bundled identity. Reduced-motion preferences stop decorative logo/smoke movement. See BRANDING.md.
 
 ## Search, sharing and responsive media
 
@@ -69,3 +75,17 @@ Retention offers previewed/bounded technical cleanup, preserving business histor
 ## Still pending before final release
 
 Full populated-site accessibility/performance/security acceptance, approved high-resolution artwork and real content, genuine provider/host tests and owner acceptance remain. Search/sharing/sitemap and targeted responsive-media/keyboard work are implemented; consult TEST_RESULTS.md for the exact verified checkpoint. LAUNCH_CHECKLIST.md lists the remaining approval and real-environment checks. A tested development checkpoint is not an accepted v1.0 website.
+
+## Audience analytics — 1.1.0-rc.3
+
+The main **Overview** includes a seven-day analytics snapshot, a compact traffic chart and top source/country/page. Its live number is recorded at page load; the timestamp makes that boundary visible.
+
+Open the dedicated **Analytics → Dashboard** section using an owner account. Choose 7/30/90 days or a custom inclusive date range; reports use UTC. Review the large traffic chart, consistent metric colors, channel/device composition, ranked sources and client/location reports, hourly activity, engagement and separate crawler activity. Live visitors refresh while that dashboard is visible. Export the selected aggregate report as CSV.
+
+Use **Analytics → Visitor explorer** to combine date, source/channel, status, country/region/city, device/browser/OS and page filters. **Inspect visit** opens the anonymous session's retained acquisition fields, location, client details, timing coverage and chronological page journey. Missing search phrases and timings remain explicitly unavailable. The explorer does not identify people or expose account, checkout or form contents. **Analytics → Geography** manages optional private City data.
+
+Clicking a page in the dashboard's page-performance report opens the explorer with that exact recorded path and the selected dates. Release, show, member, product and custom-page paths retain their validated `slug` identifier, so different detail pages remain distinct. The page filter also remains active when inspecting a visit.
+
+Country lookup is included. **Manage location data** accepts an optional compatible City MMDB or MMDB.gz for available state/region/city labels. The owner can pause collection, geography and bot recording independently. Most Google referrals withhold search phrases; the **Search Console queries** panel imports Google's English Queries CSV as an aggregate snapshot with separate dates. Missing data stays unknown. No report identifies individual people or uses browser GPS.
+
+Analytics retention defaults to 90 days. Setting that duration marks records eligible for cleanup; use **Temporary data & retention** to run reviewed cleanup and enable a hosting schedule if desired. See `ANALYTICS.md` for definitions, import limits, exact privacy boundaries and the additive update from an already installed 1.0.x site.

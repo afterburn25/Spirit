@@ -36,13 +36,13 @@ if ($method === 'POST') {
 // this running script's installer directory has been successfully removed.
 Spirit\View::start($completed !== null ? 'Installation complete' : 'Set up your website', 'install');
 if ($completed !== null) {
-    require Spirit\Paths::root() . '/views/install/complete.php';
+    require Spirit\Paths::root() . '/app/views/install/complete.php';
 } else {
     $checks = Spirit\Installer::preflight();
     $ready = !array_filter($checks, static fn(array $check): bool => $check['required'] && !$check['ok']);
     $host = (string)($_SERVER['HTTP_HOST'] ?? '');
     $defaultUrl = preg_match('/^[A-Za-z0-9.:-]+$/D', $host)
         ? (Spirit\Security::isHttps() ? 'https://' : 'http://') . $host . Spirit\Paths::basePath() : '';
-    require Spirit\Paths::root() . '/views/install/setup.php';
+    require Spirit\Paths::root() . '/app/views/install/setup.php';
 }
 Spirit\View::end();

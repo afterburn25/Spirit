@@ -1,0 +1,32 @@
+{
+  "source": "https://github.com/maxmind/MaxMind-DB",
+  "commit": "363086b7d90650100e91f954937794c6a090c2a0",
+  "license": "Apache-2.0 OR MIT",
+  "purpose": "Synthetic upstream regression fixtures; never deployed as real geolocation data.",
+  "files": {
+    "GeoIP2-City-Test.mmdb": {
+      "sha256": "ed972738e4e03a3e56e12041a6af4d91592249d110f7e4a647e5f2fa0e639c09",
+      "bytes": 22569
+    },
+    "MaxMind-DB-test-ipv4-24.mmdb": {
+      "sha256": "07249989619a06bd267bf6aba890ed2f0ef490000c9bc82419bfbe0a924b2e02",
+      "bytes": 1285
+    },
+    "MaxMind-DB-test-ipv6-24.mmdb": {
+      "sha256": "599f1555ce3a568c2d4ad965332dcba87d0d109297636f1b595241247263d98b",
+      "bytes": 2794
+    },
+    "GeoIP2-City-Test-Broken-Double-Format.mmdb": {
+      "sha256": "a340a6871b8bee8351befb8ad26f5229453705dddee0e948a35a65916c931e9c",
+      "bytes": 22478
+    },
+    "LICENSE-APACHE": {
+      "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+      "bytes": 11360
+    },
+    "LICENSE-MIT": {
+      "sha256": "91276db973f25602d1aa43491f59cbc84cb88e6f151e1d0cc82a755563ce0195",
+      "bytes": 1023
+    }
+  }
+}

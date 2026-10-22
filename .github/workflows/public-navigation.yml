@@ -60,8 +60,8 @@ jobs:
           mkdir -p "$RUNNER_TEMP/spirit-navigation"
           echo "SPIRIT_SCREENSHOT_DIR=$RUNNER_TEMP/spirit-navigation" >> "$GITHUB_ENV"
           git archive --format=zip --output="$RUNNER_TEMP/spirit-navigation/Spirit-source.zip" HEAD
-          python3 -m py_compile tests/public_navigation_browser.py
-          python3 tests/wait_for_database.py
+          python3 -m py_compile app/tests/public_navigation_browser.py
+          python3 app/tests/wait_for_database.py
       - name: Prepare isolated browser and audio device
         run: |
           python3 -m venv "$RUNNER_TEMP/spirit-nav-browser"
@@ -74,7 +74,7 @@ jobs:
       - name: Verify actual menus, playback and native controls
         run: |
           set -o pipefail
-          "$RUNNER_TEMP/spirit-nav-browser/bin/python" tests/public_navigation_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-navigation/browser.log"
+          "$RUNNER_TEMP/spirit-nav-browser/bin/python" app/tests/public_navigation_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-navigation/browser.log"
       - name: Retain exact source and synthetic evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

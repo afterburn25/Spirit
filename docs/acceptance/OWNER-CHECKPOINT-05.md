@@ -2,7 +2,7 @@
 
 ## Direct user confirmation
 
-Asked whether a `tasks/mail.php` job was already listed in cPanel Current Cron Jobs, the user replied **“yes next”**. Record the job's presence as **confirmed by the user** and move on. Do not ask for another screenshot of its existence, create a duplicate job or alter working SMTP settings.
+Asked whether a `app/tasks/mail.php` job was already listed in cPanel Current Cron Jobs, the user replied **“yes next”**. Record the job's presence as **confirmed by the user** and move on. Do not ask for another screenshot of its existence, create a duplicate job or alter working SMTP settings.
 
 This answers the configuration-presence question. No command, cadence, output, exit status, document root or scheduled delivery was inspected. Do not mark quiet-site execution or the whole communication milestone passed from job existence alone. Keep scheduled execution as a separate remaining observation without repeating the same setup question. Prior accepted installation, owner-email, booking/two-email and newsletter results remain accepted at their recorded scope.
 

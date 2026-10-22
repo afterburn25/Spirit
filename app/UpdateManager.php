@@ -43,8 +43,8 @@ final class UpdateManager
                 if(!Filesystem::probe($parent)){throw new RuntimeException('PHP cannot safely replace one of the destination files. Check hosting-panel ownership; no application files were changed.');}
                 $changes[$path]=['before'=>$before,'after'=>$hash,'mode'=>is_file($target)?(fileperms($target)&0777):0644];
             }
-            $key=bin2hex(random_bytes(32));$job=['id'=>$id,'root'=>Paths::root(),'state'=>'staged','created_at'=>gmdate('c'),'from'=>Paths::version(),'to'=>$package['version'],'changes'=>$changes,'schema'=>\SpiritRecovery::schema(),'recovery_hash'=>hash('sha256',$key),'sealed_recovery'=>PrivateValue::seal($key),'actor'=>$actor,'pre_backup'=>null];
-            \SpiritRecovery::save($job);\SpiritRecovery::writeJson(\SpiritRecovery::folder().'/latest.json',['id'=>$id]);
+            $key=bin2hex(random_bytes(32));$job=['layout'=>\SpiritRecovery::LAYOUT,'id'=>$id,'root'=>Paths::root(),'state'=>'staged','created_at'=>gmdate('c'),'from'=>Paths::version(),'to'=>$package['version'],'changes'=>$changes,'schema'=>\SpiritRecovery::schema(),'recovery_hash'=>hash('sha256',$key),'sealed_recovery'=>PrivateValue::seal($key),'actor'=>$actor,'pre_backup'=>null];
+            \SpiritRecovery::save($job);\SpiritRecovery::writeJson(\SpiritRecovery::folder().'/latest.json',['layout'=>\SpiritRecovery::LAYOUT,'id'=>$id]);
             Database::audit(Database::connect(),$actor,'upgrade.staged');return $job;
         }catch(Throwable $e){self::cleanJobFolder($folder);throw $e;}
     }
@@ -116,6 +116,6 @@ final class UpdateManager
                 MaintenanceGate::release();go('admin/upgrades/');
             }catch(\InvalidArgumentException|RuntimeException $e){MaintenanceGate::release();$error=Storefront::error($e);}
         }
-        $job=self::current();View::start('Browser upgrades & recovery','admin','upgrades',$user);require Paths::root().'/views/admin/upgrades.php';View::end();
+        $job=self::current();View::start('Browser upgrades & recovery','admin','upgrades',$user);require Paths::root().'/app/views/admin/upgrades.php';View::end();
     }
 }

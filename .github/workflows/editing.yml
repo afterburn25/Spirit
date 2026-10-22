@@ -63,11 +63,11 @@ jobs:
           mkdir -p "$RUNNER_TEMP/spirit-editors"
           echo "SPIRIT_SCREENSHOT_DIR=$RUNNER_TEMP/spirit-editors" >> "$GITHUB_ENV"
           git archive --format=zip --output="$RUNNER_TEMP/spirit-editors/Spirit-source.zip" HEAD
-          php tests/product_edit_form_unit.php
-          python3 -m py_compile tests/editor_integration.py tests/editor_browser.py tests/edit_guard_helper.py
+          php app/tests/product_edit_form_unit.php
+          python3 -m py_compile app/tests/editor_integration.py app/tests/editor_browser.py app/tests/edit_guard_helper.py
           set -o pipefail
-          python3 tests/wait_for_database.py
-          python3 tests/editor_integration.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/integration.log"
+          python3 app/tests/wait_for_database.py
+          python3 app/tests/editor_integration.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/integration.log"
       - name: Install isolated browser
         run: |
           python3 -m venv "$RUNNER_TEMP/spirit-editor-browser"
@@ -76,9 +76,9 @@ jobs:
       - name: Check warning lifecycle and actual editor workflows
         run: |
           set -o pipefail
-          "$RUNNER_TEMP/spirit-editor-browser/bin/python" tests/edit_guard_helper.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/helper.log"
-          "$RUNNER_TEMP/spirit-editor-browser/bin/python" tests/edit_guard_reload_probe.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/reload-probe.log"
-          "$RUNNER_TEMP/spirit-editor-browser/bin/python" tests/editor_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/browser.log"
+          "$RUNNER_TEMP/spirit-editor-browser/bin/python" app/tests/edit_guard_helper.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/helper.log"
+          "$RUNNER_TEMP/spirit-editor-browser/bin/python" app/tests/edit_guard_reload_probe.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/reload-probe.log"
+          "$RUNNER_TEMP/spirit-editor-browser/bin/python" app/tests/editor_browser.py 2>&1 | tee "$RUNNER_TEMP/spirit-editors/browser.log"
       - name: Preserve exact source and synthetic evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

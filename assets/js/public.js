@@ -20,12 +20,22 @@
   const mobileNavigation = window.matchMedia('(max-width: 820px)');
   let navigationFocus = null;
   const menuIsOpen = () => mobileNavigation.matches && nav.classList.contains('is-open');
+  // Keep the real disclosure beside its trigger in the DOM. Moving it to body
+  // broke natural focus order and required pointer-event suppression on the
+  // page. One menu owns its open state, geometry and normal pointer activation.
   const fitMenu = () => {
     if (!menuIsOpen()) { nav.style.removeProperty('--menu-max-height'); return; }
     const viewport = window.visualViewport;
     let bottom = Math.min(window.innerHeight, viewport ? viewport.offsetTop + viewport.height : window.innerHeight) - 16;
     if (!player.hidden) bottom = Math.min(bottom, player.getBoundingClientRect().top - 12);
     nav.style.setProperty('--menu-max-height', `${Math.max(88, Math.floor(bottom - nav.getBoundingClientRect().top))}px`);
+  };
+  const revealMenuLink = link => {
+    if (!menuIsOpen() || !(link instanceof HTMLElement)) return;
+    fitMenu();
+    const box = nav.getBoundingClientRect(), item = link.getBoundingClientRect();
+    if (item.top < box.top + 9) nav.scrollTop -= box.top + 9 - item.top;
+    else if (item.bottom > box.bottom - 9) nav.scrollTop += item.bottom - box.bottom + 9;
   };
   const menu = (open, returnFocus = false) => {
     const show = Boolean(open && mobileNavigation.matches);
@@ -40,8 +50,11 @@
     if (!mobileNavigation.matches || !['ArrowDown', 'ArrowUp'].includes(event.key)) return;
     event.preventDefault(); menu(true);
     const links = nav.querySelectorAll('a[href]');
-    (event.key === 'ArrowDown' ? links[0] : links[links.length - 1])?.focus();
+    const link = event.key === 'ArrowDown' ? links[0] : links[links.length - 1];
+    link?.focus({ preventScroll: true });
+    revealMenuLink(link);
   });
+  nav.addEventListener('focusin', event => revealMenuLink(event.target));
   document.documentElement.classList.add('public-enhanced');
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && menuIsOpen()) {
@@ -143,9 +156,14 @@
   }
   async function navigate(url, push = true) {
     if (navigation) navigation.abort(); navigation = new AbortController();
-    const signal = navigation.signal;
+    const controller = navigation, signal = controller.signal;
+    let timedOut = false;
     document.getElementById('navigation-status').textContent = 'Loading page.';
     document.getElementById('site-content').setAttribute('aria-busy', 'true');
+    const fallback = window.setTimeout(() => {
+      if (navigation !== controller || signal.aborted) return;
+      timedOut = true; controller.abort(); location.assign(url.href);
+    }, 5000);
     try {
       const response = await fetch(url.href, { credentials: 'same-origin', signal, headers: { 'X-Spirit-Navigation': '1' } });
       const html = await response.text();
@@ -176,8 +194,10 @@
       next.focus({ preventScroll: true });
       document.getElementById('navigation-status').textContent = 'Page loaded.';
       document.dispatchEvent(new CustomEvent('spirit:navigated', { detail: { root: next } }));
-    } catch (error) { if (error.name !== 'AbortError') location.assign(url.href); }
+    } catch (error) { if (!timedOut && navigation === controller && error.name !== 'AbortError') location.assign(url.href); }
+    finally { clearTimeout(fallback); if (navigation === controller) navigation = null; }
   }
+
   document.addEventListener('click', e => {
     const track = e.target.closest('.play-track');
     if (track) {
@@ -191,7 +211,7 @@
     if (!link || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || link.target || link.hasAttribute('download')) return;
     const url = new URL(link.href, location.href);
     if (!internal(url) || (url.pathname === location.pathname && url.search === location.search && url.hash)) return;
-    e.preventDefault(); navigate(url);
+    e.preventDefault(); menu(false); navigate(url);
   });
   document.addEventListener('submit', e => {
     const form = e.target.closest('.public-filter'); if (!form) return;

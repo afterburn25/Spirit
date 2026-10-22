@@ -12,9 +12,8 @@ concurrency:
 jobs:
   integration:
     name: PHP ${{ matrix.php }} / ${{ matrix.database }}
-    # Same assertions and PHP/database matrix; use the available Ubuntu22 pool.
     runs-on: ubuntu-22.04
-    timeout-minutes: 20
+    timeout-minutes: 22
     strategy:
       fail-fast: false
       matrix:
@@ -51,55 +50,58 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl, zip
+          ini-values: upload_max_filesize=32M, post_max_size=40M
           coverage: none
+      - name: Install deterministic image build dependency
+        run: python3 -m pip install --disable-pip-version-check Pillow==12.3.0
       - name: Syntax and permission-aware unit tests
         run: |
           find . -type f \( -name '*.php' -o -name '*.inc' \) -print0 | xargs -0 -n1 php -l
-          php tests/run.php
-          php tests/storage.php
-          php tests/foundation_paths.php
-          php tests/manual_installer_unit.php
-          php tests/launch_unit.php
-          php tests/gallery_unit.php
-          php tests/public_access_unit.php
-          php tests/admin_navigation_unit.php
-          php tests/section_pages_unit.php
-          php tests/content_schema.php
-          php tests/content_history_unit.php
-          php tests/discovery_unit.php
-          php tests/media_quality_unit.php
-          php tests/communication_unit.php
-          php tests/commerce_unit.php
-          php tests/payment_unit.php
-          php tests/staff_unit.php
-          php tests/backup_unit.php
-          php tests/upgrade_unit.php
-          php tests/cleanup_unit.php
-          python3 -m py_compile tools/package.py tools/release_gate.py tests/*.py
-          python3 tests/package_test.py
-          python3 tools/release_gate.py
+          php app/tests/run.php
+          php app/tests/storage.php
+          php app/tests/foundation_paths.php
+          php app/tests/manual_installer_unit.php
+          php app/tests/launch_unit.php
+          php app/tests/gallery_unit.php
+          php app/tests/public_access_unit.php
+          php app/tests/admin_navigation_unit.php
+          php app/tests/section_pages_unit.php
+          php app/tests/content_schema.php
+          php app/tests/content_history_unit.php
+          php app/tests/discovery_unit.php
+          php app/tests/media_quality_unit.php
+          php app/tests/communication_unit.php
+          php app/tests/commerce_unit.php
+          php app/tests/payment_unit.php
+          php app/tests/staff_unit.php
+          php app/tests/backup_unit.php
+          php app/tests/upgrade_unit.php
+          php app/tests/cleanup_unit.php
+          python3 -m py_compile app/tools/package.py app/tools/release_gate.py app/tools/generate_extended_heroes.py app/tests/*.py
+          python3 app/tests/package_test.py
+          python3 app/tools/release_gate.py
       - name: Database and HTTP integration
         run: |
-          python3 tests/http_integration.py
-          php tests/foundation_db.php
-          python3 tests/content_integration.py
-          python3 tests/section_pages_integration.py
-          python3 tests/content_history_integration.py
-          python3 tests/discovery_integration.py
-          python3 tests/media_quality_integration.py
-          python3 tests/communication_integration.py
-          python3 tests/smtp_integration.py
-          python3 tests/manual_installer_integration.py
-          python3 tests/launch_integration.py
-          python3 tests/launch_extras_integration.py
-          python3 tests/mail_acceptance.py
-          python3 tests/commerce_integration.py
-          python3 tests/payment_integration.py
-          python3 tests/payment_http.py
-          python3 tests/staff_integration.py
-          python3 tests/backup_integration.py
-          python3 tests/upgrade_integration.py
-          python3 tests/cleanup_integration.py
+          python3 app/tests/http_integration.py
+          php app/tests/foundation_db.php
+          python3 app/tests/content_integration.py
+          python3 app/tests/section_pages_integration.py
+          python3 app/tests/content_history_integration.py
+          python3 app/tests/discovery_integration.py
+          python3 app/tests/media_quality_integration.py
+          python3 app/tests/communication_integration.py
+          python3 app/tests/smtp_integration.py
+          python3 app/tests/manual_installer_integration.py
+          python3 app/tests/launch_integration.py
+          python3 app/tests/launch_extras_integration.py
+          python3 app/tests/mail_acceptance.py
+          python3 app/tests/commerce_integration.py
+          python3 app/tests/payment_integration.py
+          python3 app/tests/payment_http.py
+          python3 app/tests/staff_integration.py
+          python3 app/tests/backup_integration.py
+          python3 app/tests/upgrade_integration.py
+          python3 app/tests/cleanup_integration.py
       - name: Install test-only Chromium
         if: matrix.php == '8.4'
         run: |
@@ -108,43 +110,43 @@ jobs:
           "$RUNNER_TEMP/spirit-browser/bin/python" -m playwright install --with-deps chromium
       - name: Rendered installer and admin smoke checks
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/browser_smoke.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/browser_smoke.py'
       - name: Rendered public pages and persistent playback
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/public_browser.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/public_browser.py'
       - name: Rendered booking and communication workflows
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/communication_browser.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/communication_browser.py'
       - name: Rendered commerce and customer workflows
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/commerce_browser.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/commerce_browser.py'
       - name: Rendered tokenization and order workflows
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/payment_browser.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/payment_browser.py'
       - name: Rendered owner invitation and staff permissions
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/staff_browser.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/staff_browser.py'
       - name: Rendered backup and restore workflows
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/backup_browser.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/backup_browser.py'
       - name: Rendered ZIP upgrade and independent recovery
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/upgrade_browser.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/upgrade_browser.py'
       - name: Rendered conservative retention workflow
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/cleanup_browser.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/cleanup_browser.py'
       - name: Rendered private content history and draft restoration
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/content_history_browser.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/content_history_browser.py'
       - name: Rendered published discovery and metadata navigation
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/discovery_browser.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/discovery_browser.py'
       - name: Rendered responsive images and keyboard quality
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/media_quality_browser.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/media_quality_browser.py'
       - name: Rendered launch diagnostics and upload-limit feedback
         if: matrix.php == '8.4'
-        run: '"$RUNNER_TEMP/spirit-browser/bin/python" tests/launch_browser.py'
+        run: '"$RUNNER_TEMP/spirit-browser/bin/python" app/tests/launch_browser.py'
       - name: Preserve synthetic browser screenshots
         if: always() && matrix.php == '8.4'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -162,6 +164,6 @@ jobs:
         with:
           persist-credentials: false
       - name: Build isolated Apache test environment
-        run: docker build -f tests/docker/Apache.Dockerfile -t spirit-apache-checks .
+        run: docker build -f app/tests/docker/Apache.Dockerfile -t spirit-apache-checks .
       - name: Exercise shipped access rules without external networking
         run: docker run --rm --network none --read-only --tmpfs /tmp:rw,nosuid,nodev,mode=1777 spirit-apache-checks

@@ -8,9 +8,9 @@ In A2 cPanel open **Database Wizard** (older label **MySQL Database Wizard**) or
 
 The application needs SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, DROP, INDEX and REFERENCES for its tables/probes/migrations. cPanel's ALL PRIVILEGES choice for this dedicated database is an alternative; it must not be a global/server grant. Do not use phpMyAdmin to create databases/users because cPanel needs to track them.
 
-Copy the complete database and database-user names, including any account prefix, into the one-page installer. Use the database-user password, not the cPanel login password. Host defaults to localhost and port3306; use A2's supplied MySQL host when different. The table prefix defaults to sg_ and is separate from the account prefix in database/user names.
+Copy the complete database and database-user names, including any account prefix, into the one-page installer. Use the database-user password, not the cPanel login password. Host defaults to localhost and port3306; use A2's supplied MySQL host when different. The table prefix defaults to sg_ and is separate from the account prefix in config/database/user names.
 
-The installer connects to the existing database, probes table privileges, creates website tables and the owner, saves private configuration, permanently locks setup and attempts verified installer-folder deletion. It never creates or deletes a hosting database/user. Errors remain on the same page; non-secret values survive correction but password values are cleared. No API token is needed for this flow.
+The installer connects to the existing database, probes table privileges, creates website tables and the owner, saves private configuration, permanently locks setup and attempts verified installer-folder deletion. It never creates or deletes a hosting config/database/user. Errors remain on the same page; non-secret values survive correction but password values are cleared. No API token is needed for this flow.
 
 ## PHP cURL / PHP ZIP notices
 
@@ -25,7 +25,7 @@ In cPanel open **Software > Select PHP Version > Extensions**, enable curl and z
 
 ## Existing or interrupted installations
 
-Never replace a working site's database/user just to apply this update. Back up and use the documented same-schema browser upgrade or reviewed older-version deployment. Keep original config, encryption secret, database, uploads and separate recovery keys. The update does not recreate the removed installer.
+Never replace a working site's config/database/user just to apply this update. Back up and use the documented same-schema browser upgrade or reviewed older-version deployment. Keep original config, encryption secret, database, uploads and separate recovery keys. The update does not recreate the removed installer.
 
 A dev8 automatic attempt that stopped before completion may have a private cpanel-provision.php record. The new installer leaves it untouched and refuses a new setup until manual owner/A2 review. It does not execute the record, reveal its credentials, infer ownership, reset passwords or remove any resources. Do not delete it simply to bypass the check. If automatic setup was never attempted, this condition does not apply.
 

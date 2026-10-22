@@ -6,12 +6,14 @@ use InvalidArgumentException;
 use RuntimeException;
 use Throwable;
 
-/** Owner-managed logo drafts. Only the explicitly published image is public. */
+/** Owner-managed logo drafts and an explicit source for the public identity. */
 final class Branding
 {
     public const KEY = 'site_branding_v1';
+    public const SOURCE_KEY = 'site_branding_source_v1';
     public const EMPTY_STATE = ['revision'=>0, 'draft_logo_id'=>0, 'published_logo_id'=>0];
     private static ?array $cached = null;
+    private static ?string $cachedSource = null;
     private static bool $preview = false;
 
     public static function decode(?string $json): array
@@ -26,6 +28,16 @@ final class Branding
             }
         }
         return $state;
+    }
+
+    /** Older records remain intact; the requested approved artwork is the default. */
+    public static function decodeSource(?string $source): string
+    {
+        if ($source === null) { return 'bundled'; }
+        if (!in_array($source, ['bundled', 'custom'], true)) {
+            throw new RuntimeException('Saved branding source is unreadable. Its original value has been preserved.');
+        }
+        return $source;
     }
 
     /** Audit is append-only across supported restoration; old forms retain the old epoch. */
@@ -44,16 +56,24 @@ final class Branding
         return self::$cached = self::decode($json === false ? null : $json);
     }
 
+    public static function source(): string
+    {
+        if (self::$cachedSource !== null) { return self::$cachedSource; }
+        $q = Database::connect()->prepare('SELECT setting_value FROM '.Database::table('settings').' WHERE setting_key=?');
+        $q->execute([self::SOURCE_KEY]); $source = $q->fetchColumn();
+        return self::$cachedSource = self::decodeSource($source === false ? null : $source);
+    }
+
     /** Pure transition; stale submissions must not overwrite another session. */
     public static function transition(array $state, array $input, string $action, int $restoreEpoch = 0): array
     {
         $state = self::decode(json_encode($state, JSON_THROW_ON_ERROR));
-        if (!in_array($action, ['save', 'publish', 'withdraw'], true)) { throw new InvalidArgumentException('Unknown branding action.'); }
+        if (!in_array($action, ['save', 'publish', 'withdraw', 'builtin'], true)) { throw new InvalidArgumentException('Unknown branding action.'); }
         $submittedEpoch = Input::integer($input, 'restore_epoch', 0, PHP_INT_MAX, 0);
         if ($submittedEpoch !== $restoreEpoch) { throw new RuntimeException('Site data was restored after this form opened. Reload and review the recovered branding before saving.'); }
         $expected = Input::integer($input, 'revision', 0, 4294967293, 0);
         if ($expected !== $state['revision']) { throw new RuntimeException('Branding changed in another session. Reload and review the saved version before trying again.'); }
-        if ($action !== 'withdraw') {
+        if (in_array($action, ['save', 'publish'], true)) {
             if (($input['logo_id'] ?? null) === '') { $input['logo_id'] = '0'; }
             $state['draft_logo_id'] = Input::integer($input, 'logo_id', 0, 4294967294, 0);
         }
@@ -79,10 +99,13 @@ final class Branding
             // An absent key is initialized only inside a successful explicit POST.
             $q = $db->prepare('INSERT INTO '.Database::table('settings').' (setting_key,setting_value) VALUES (?,?) ON DUPLICATE KEY UPDATE setting_key=setting_key');
             $q->execute([self::KEY, json_encode(self::EMPTY_STATE, JSON_THROW_ON_ERROR)]);
+            $q->execute([self::SOURCE_KEY, 'bundled']);
             $q = $db->prepare('SELECT setting_value FROM '.Database::table('settings').' WHERE setting_key=? FOR UPDATE');
             $q->execute([self::KEY]);
             $state = self::transition(self::decode($q->fetchColumn()), $input, $action, self::restoreEpoch($db));
-            if ($action !== 'withdraw' && $state['draft_logo_id'] > 0) {
+            $q->execute([self::SOURCE_KEY]);
+            $source = self::decodeSource($q->fetchColumn());
+            if (in_array($action, ['save', 'publish'], true) && $state['draft_logo_id'] > 0) {
                 $media = Media::get($state['draft_logo_id']);
                 try {
                     if (!$media || $media['kind'] !== 'image') { throw new RuntimeException(); }
@@ -90,16 +113,22 @@ final class Branding
                     if (!is_string($actual) || !hash_equals($media['checksum'], $actual) || !Media::dimensions($media)) { throw new RuntimeException(); }
                 } catch (Throwable $e) { throw new InvalidArgumentException('Choose an existing, undamaged image from Media library. No branding was changed.'); }
             }
+            $source = match ($action) {
+                'publish' => $state['published_logo_id'] > 0 ? 'custom' : 'bundled',
+                'builtin', 'withdraw' => 'bundled',
+                default => $source,
+            };
             $q = $db->prepare('UPDATE '.Database::table('settings').' SET setting_value=? WHERE setting_key=?');
             $q->execute([json_encode($state, JSON_THROW_ON_ERROR), self::KEY]);
-            Database::audit($db, $actor, 'branding.'.$action); $db->commit(); self::$cached = $state;
+            $q->execute([$source, self::SOURCE_KEY]);
+            Database::audit($db, $actor, 'branding.'.$action); $db->commit(); self::$cached = $state; self::$cachedSource = $source;
         } catch (Throwable $e) { if ($db->inTransaction()) { $db->rollBack(); } throw $e; }
     }
 
     public static function publicImage(int $id): bool
     {
         if ($id < 1) { return false; }
-        try { return self::state()['published_logo_id'] === $id; }
+        try { return self::source() === 'custom' && self::state()['published_logo_id'] === $id; }
         catch (Throwable $e) { return false; }
     }
 
@@ -111,12 +140,17 @@ final class Branding
         return '<span class="crown" aria-hidden="true">♛</span><span>'.e($name).'</span>';
     }
 
-    /** Bundled scalable fallback mirrors the existing crown + wordmark identity. */
+    /** Approved sculpted-gold artwork; usable before installation without a database. */
     public static function bundledMark(bool $footer = false): string
     {
-        $file=Paths::root().'/images/spiritual-gorillaz-logo.svg';
-        if(!is_file($file)||is_link($file)){return '';}
-        return '<span class="bundled-brand-wrap"><img class="bundled-site-logo" src="'.e(app_url('images/spiritual-gorillaz-logo.svg')).'" width="1200" height="420" alt="" loading="'.($footer?'lazy':'eager').'" decoding="async"></span>';
+        $staticPath = 'images/branding/spiritual-gorillaz-sculpted-gold.png';
+        $static = Paths::root().'/'.$staticPath;
+        $staticReady = is_file($static) && !is_link($static);
+        if (!$staticReady) { return ''; }
+        // The immutable PNG also supplies the stylesheet mask: one URL, full native detail.
+        // Motion belongs to CSS so every surface honors reduced motion without image swaps.
+        $priority = $footer ? '' : ' fetchpriority="high"';
+        return '<span class="bundled-brand-wrap bundled-brand-sculpted bundled-brand-animated"><span class="bundled-brand-art"><img class="bundled-site-logo" src="'.e(app_url($staticPath)).'" width="2172" height="724" alt="" loading="'.($footer ? 'lazy' : 'eager').'"'.$priority.' decoding="async"></span></span>';
     }
 
     /** Original ratio and transparency are retained; no arbitrary image URL. */
@@ -137,8 +171,10 @@ final class Branding
     public static function mark(array $settings, bool $footer = false): string
     {
         try {
-            $state = self::state(); $image = self::image($state[self::$preview ? 'draft_logo_id' : 'published_logo_id'], $footer);
-            if ($image !== '') { return $image; }
+            if (self::$preview || self::source() === 'custom') {
+                $state = self::state(); $image = self::image($state[self::$preview ? 'draft_logo_id' : 'published_logo_id'], $footer);
+                if ($image !== '') { return $image; }
+            }
         } catch (Throwable $e) { /* Keep the site's name available without exposing a storage error. */ }
         $bundled=self::bundledMark($footer);
         return $bundled!==''?$bundled:self::textMark((string)$settings['site_name']);

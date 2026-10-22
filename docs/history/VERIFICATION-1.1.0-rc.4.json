@@ -1,0 +1,229 @@
+{
+  "version": "1.1.0-rc.4",
+  "observed_at_utc": "2026-10-20 19:08:55 UTC",
+  "change": "Maximum-height transparent crowned gold gorilla favicon, integrated in both existing site headers.",
+  "source": {
+    "repository": "https://github.com/afterburn25/Spirit",
+    "branch": "work/1.1.0-analytics-and-navigation",
+    "published_commit": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+    "original_local_commit": "a7ae3fe803ccc62e53af542163ef241e289fc427",
+    "parent_commit": "c3584d348067d035ec14a739c9783b5880b95321",
+    "tree": "9291519d479d51a5b0d75b14c9572d6857bf4d29",
+    "remote_tree_exactly_matches_packaged_local_tree": true,
+    "local_checkout_matches_published_commit": true,
+    "local_working_tree_clean": true,
+    "pull_request": "https://github.com/afterburn25/Spirit/pull/37",
+    "pull_request_draft": true,
+    "merged": false,
+    "main_unchanged": "6ef03a24ea87fdbfb0d053f7b54b4c16fce42098",
+    "remote_pull_request_head_verified": true
+  },
+  "artifacts": {
+    "full_site": {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.4-Full.zip",
+      "bytes": 24045866,
+      "sha256": "f0dcbc07d9310790b85e7bf3612ffa6a8ded32eb4fd27e491c587d4f85e85706",
+      "payload_files": 402
+    },
+    "reusable_favicons": {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.4-Favicons.zip",
+      "bytes": 2255849,
+      "sha256": "a06ee3d83a8fc50ef3ba8854fbf589e9f26d23a03be0d35da52119c90e69f4f7",
+      "entries": 15
+    },
+    "preview_png": {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.4-Favicon-Preview.png",
+      "bytes": 140567,
+      "sha256": "64ded294ea4659b460247fab70d43f96701f608f39e6480af5c6085efbe10394"
+    },
+    "preview_html": {
+      "file": "Spiritual-Gorillaz-1.1.0-rc.4-Favicon-Preview.html",
+      "bytes": 433886,
+      "sha256": "4cd057d4dea5e34722e373822a2951239020f8d2a818f19d4209a19fedeb5cb7"
+    }
+  },
+  "favicon": {
+    "transparent": true,
+    "visible_silhouette_height_fraction": 0.98,
+    "aspect_ratio_preserved": true,
+    "crown_and_chin_retained": true,
+    "png_sizes": [
+      16,
+      32,
+      48,
+      64,
+      180,
+      192,
+      512
+    ],
+    "ico_frames": [
+      16,
+      32,
+      48,
+      64
+    ],
+    "icon_links_version": "1.1.0-rc.4",
+    "primary_source_sha256": "3f3232cd3c314b3f227c1c598c8bf75f01c6b04b779cb6ece1bc7f51334f66bc",
+    "source_bitmap_modified_after_generation": false,
+    "browser_slot_size_controlled_by_browser": true,
+    "actual_size_comparison_visually_inspected": true,
+    "preview_is_browser_rendered_asset_comparison_not_browser_chrome_screenshot": true,
+    "navbar_logo_animation_installed": false
+  },
+  "local_verification": {
+    "changed_php_files_syntax": "passed (3 files)",
+    "git_diff_check": "passed",
+    "native_dimensions_transparency_and_ico_frames": "passed",
+    "root_and_band_icon_http_requests": {
+      "total": 16,
+      "passed": 16,
+      "fixture_only": true,
+      "database_accessed": false
+    },
+    "package_unit_tests": {
+      "total": 15,
+      "passed": 15
+    },
+    "software_release_gate": "passed; two byte-identical packages",
+    "favicon_archive_contents_checksums_and_crc": "passed",
+    "previous_payload_paths_retained": true,
+    "prior_payload_paths_removed": 0,
+    "migrations_unchanged": 8,
+    "access_files_unchanged": 13,
+    "pinned_recovery_files_unchanged": 5,
+    "generated_hero_assets_unchanged": 6,
+    "tracked_payloads_match_source_tree": 396,
+    "broad_analytics_sql_payment_and_browser_local_suites_rerun_for_rc4": false,
+    "prior_rc3_results": "Historical only; archived in source docs/history."
+  },
+  "github_ci": {
+    "observation": "The independent Candidate installation package workflow passed. The other nine workflows were queued or running at this checkpoint; full GitHub CI completion is pending.",
+    "workflow_count": 10,
+    "workflows": [
+      {
+        "id": 39480606788,
+        "name": "Authoring safety verification",
+        "event": "pull_request",
+        "status": "queued",
+        "conclusion": null,
+        "head_sha": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39480606788",
+        "created_at": "2026-10-20T19:06:32Z",
+        "updated_at": "2026-10-20T19:06:32Z"
+      },
+      {
+        "id": 39480606803,
+        "name": "Software release gate",
+        "event": "pull_request",
+        "status": "queued",
+        "conclusion": null,
+        "head_sha": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39480606803",
+        "created_at": "2026-10-20T19:06:32Z",
+        "updated_at": "2026-10-20T19:06:32Z"
+      },
+      {
+        "id": 39480606982,
+        "name": "Populated storefront browser verification",
+        "event": "pull_request",
+        "status": "queued",
+        "conclusion": null,
+        "head_sha": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39480606982",
+        "created_at": "2026-10-20T19:06:32Z",
+        "updated_at": "2026-10-20T19:06:32Z"
+      },
+      {
+        "id": 39480606948,
+        "name": "Public navigation and native controls",
+        "event": "pull_request",
+        "status": "queued",
+        "conclusion": null,
+        "head_sha": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39480606948",
+        "created_at": "2026-10-20T19:06:32Z",
+        "updated_at": "2026-10-20T19:06:32Z"
+      },
+      {
+        "id": 39480606889,
+        "name": "Review package artifact",
+        "event": "pull_request",
+        "status": "queued",
+        "conclusion": null,
+        "head_sha": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39480606889",
+        "created_at": "2026-10-20T19:06:32Z",
+        "updated_at": "2026-10-20T19:06:32Z"
+      },
+      {
+        "id": 39480606963,
+        "name": "Visitor analytics verification",
+        "event": "pull_request",
+        "status": "queued",
+        "conclusion": null,
+        "head_sha": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39480606963",
+        "created_at": "2026-10-20T19:06:32Z",
+        "updated_at": "2026-10-20T19:06:32Z"
+      },
+      {
+        "id": 39480606998,
+        "name": "Site logo workflow verification",
+        "event": "pull_request",
+        "status": "queued",
+        "conclusion": null,
+        "head_sha": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39480606998",
+        "created_at": "2026-10-20T19:06:32Z",
+        "updated_at": "2026-10-20T19:06:32Z"
+      },
+      {
+        "id": 39480606978,
+        "name": "Focused maintenance diagnostics",
+        "event": "pull_request",
+        "status": "queued",
+        "conclusion": null,
+        "head_sha": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39480606978",
+        "created_at": "2026-10-20T19:06:32Z",
+        "updated_at": "2026-10-20T19:06:32Z"
+      },
+      {
+        "id": 39480607058,
+        "name": "Website and installer verification",
+        "event": "pull_request",
+        "status": "in_progress",
+        "conclusion": null,
+        "head_sha": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39480607058",
+        "created_at": "2026-10-20T19:06:32Z",
+        "updated_at": "2026-10-20T19:08:18Z"
+      },
+      {
+        "id": 39480595722,
+        "name": "Candidate installation package",
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "315c45d2968b6b9d1eacc5820b6994aa95cae50c",
+        "url": "https://github.com/afterburn25/Spirit/actions/runs/39480595722",
+        "created_at": "2026-10-20T19:06:28Z",
+        "updated_at": "2026-10-20T19:07:40Z"
+      }
+    ]
+  },
+  "deployment": {
+    "production_deployed": false,
+    "live_payment_performed": false,
+    "review_candidate": true,
+    "same_schema_installed_rc1_rc2_rc3_upgrade": "Use documented guarded Browser upgrades when integrity/recovery checks pass.",
+    "reinstall_required_for_favicon": false
+  },
+  "evidence": {
+    "package_continuity": "Spiritual-Gorillaz-1.1.0-rc.4-Package-Continuity.json",
+    "favicon_packaging": "Spiritual-Gorillaz-1.1.0-rc.4-Favicon-Packaging.json",
+    "source_export_report": "design/favicon/favicon-verification.json",
+    "source_header_report": "design/favicon/header-integration-verification.json",
+    "source_test_checkpoint": "docs/TEST_RESULTS.md"
+  }
+}

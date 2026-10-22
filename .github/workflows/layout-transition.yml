@@ -1,0 +1,101 @@
+name: Grouped layout transition verification
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: layout-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  transition:
+    name: Layout transition / PHP ${{ matrix.php }} / ${{ matrix.database }}
+    runs-on: ubuntu-22.04
+    timeout-minutes: 18
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: '8.2'
+            database: 'mariadb:11.4'
+          - php: '8.4'
+            database: 'mysql:8.4'
+    services:
+      database:
+        image: ${{ matrix.database }}
+        env:
+          MYSQL_ROOT_PASSWORD: ephemeral-ci-root-not-production
+          MYSQL_DATABASE: spirit_ci
+          MYSQL_USER: spirit_ci
+          MYSQL_PASSWORD: ephemeral-ci-user-not-production
+        ports:
+          - 3306:3306
+    env:
+      SPIRIT_TESTING: '1'
+      SPIRIT_DISABLE_PAYMENT_NETWORK: '1'
+      SPIRIT_DB_HOST: 127.0.0.1
+      SPIRIT_DB_PORT: '3306'
+      SPIRIT_DB_NAME: spirit_ci
+      SPIRIT_DB_USER: spirit_ci
+      SPIRIT_DB_PASSWORD: ephemeral-ci-user-not-production
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl, zip, zlib
+          ini-values: upload_max_filesize=2M, post_max_size=8M
+          coverage: none
+      - name: Prepare deterministic package builds and disposable SQL
+        run: |
+          python3 -m pip install --disable-pip-version-check Pillow==12.3.0
+          python3 app/tests/wait_for_database.py
+      - name: Recover exact previous source and package
+        run: |
+          git fetch --no-tags --depth=1 origin a0357ff18a2b927bd2107254086aadae47866276
+          mkdir -p "$RUNNER_TEMP/spirit-legacy"
+          git archive FETCH_HEAD | tar -x -C "$RUNNER_TEMP/spirit-legacy"
+          python3 "$RUNNER_TEMP/spirit-legacy/tools/package.py" --output "$RUNNER_TEMP/spirit-legacy-package"
+          echo "SPIRIT_LEGACY_PACKAGE=$RUNNER_TEMP/spirit-legacy-package/Spiritual-Gorillaz-1.1.0-rc.8-Full.zip" >> "$GITHUB_ENV"
+      - name: Exercise old rejection and same-root transition
+        run: python3 app/tests/layout_transition_integration.py
+      - name: Build pinned grouped baselines and current cumulative package
+        run: |
+          git fetch --no-tags --depth=1 origin 5703ca41a13a6ff01a3b7807287abdeb72c151a5
+          mkdir -p "$RUNNER_TEMP/spirit-exact-rc10-source"
+          git archive 5703ca41a13a6ff01a3b7807287abdeb72c151a5 | tar -x -C "$RUNNER_TEMP/spirit-exact-rc10-source"
+          python3 "$RUNNER_TEMP/spirit-exact-rc10-source/app/tools/package.py" --output "$RUNNER_TEMP/spirit-exact-rc10"
+          git fetch --no-tags --depth=1 origin 46744207a0916ae2256d84fbaa312c9c4fc67768
+          mkdir -p "$RUNNER_TEMP/spirit-exact-rc12-source"
+          git archive 46744207a0916ae2256d84fbaa312c9c4fc67768 | tar -x -C "$RUNNER_TEMP/spirit-exact-rc12-source"
+          python3 "$RUNNER_TEMP/spirit-exact-rc12-source/app/tools/package.py" --output "$RUNNER_TEMP/spirit-exact-rc12"
+          python3 app/tools/package.py --output "$RUNNER_TEMP/spirit-exact-current"
+      - name: Enable full ZIP uploads for exact-package journeys
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_mysql, openssl, posix, fileinfo, gd, curl, zip, zlib
+          ini-values: upload_max_filesize=64M, post_max_size=128M
+          coverage: none
+      - name: Verify unchanged grouped packages and independent recovery
+        run: |
+          exact_rc10="$RUNNER_TEMP/spirit-exact-rc10/Spiritual-Gorillaz-1.1.0-rc.10-Full.zip"
+          exact_rc12="$RUNNER_TEMP/spirit-exact-rc12/Spiritual-Gorillaz-1.1.0-rc.12-Full.zip"
+          exact_target="$RUNNER_TEMP/spirit-exact-current/Spiritual-Gorillaz-$(cat VERSION)-Full.zip"
+          python3 app/tests/exact_package_upgrade.py \
+            --baseline "$exact_rc10" --baseline "$exact_rc12" --target "$exact_target" \
+            --provenance "$(sha256sum "$exact_rc10" | cut -d' ' -f1)=Source reproduction from published commit 5703ca41a13a6ff01a3b7807287abdeb72c151a5." \
+            --provenance "$(sha256sum "$exact_rc12" | cut -d' ' -f1)=Source reproduction from published commit 46744207a0916ae2256d84fbaa312c9c4fc67768." \
+            --output "$RUNNER_TEMP/spirit-exact-receipt"
+      - name: Retain exact package verification receipt
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: exact-upgrades-php-${{ matrix.php }}-${{ strategy.job-index }}
+          path: ${{ runner.temp }}/spirit-exact-receipt/report.json
+          if-no-files-found: warn
+          retention-days: 14

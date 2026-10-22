@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "assertions_passed": 88,
+  "archive_sha256": "3767c829562bb2877cda272a82721e4e46901adcc8f5376748235e71ec74743d",
+  "scope": "Installed root/subfolder footer copyright, escaping, limits, CSRF, owner permissions and fixed developer credit",
+  "production_site_accessed": false
+}

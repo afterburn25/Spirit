@@ -1,6 +1,6 @@
 # Encrypted snapshots and guarded restoration
 
-Development checkpoint 0.9.0-dev.2. Consult TEST_RESULTS.md for exact execution evidence. This is an application-data backup and same-installation restore module, not a completed cross-host disaster-recovery installer or browser ZIP code updater.
+Current behavior for 1.1.0-rc.3; this module originated in checkpoint 0.9.0-dev.2. Consult TEST_RESULTS.md for exact execution evidence. It provides application-data backups and same-installation restoration. Browser code upgrades are a separate implemented module described in UPGRADES.md; cross-host disaster recovery remains outside this restore path.
 
 ## Owner workflow
 
@@ -11,6 +11,8 @@ Create a snapshot, verify it, download its .sgbackup archive, and separately dow
 ## Archive contents and authentication
 
 All known application tables are recorded with exact column shape and migration hashes, along with the private installation config and all database-referenced uploaded media. Code is obtained from the matching cumulative installation ZIP. Snapshot reads use primary-key ordering, a repeatable-read database transaction, and unbuffered row iteration. Each media file is checked against its database checksum and checked again while copying.
+
+Snapshots include the four analytics tables. Neither restore scope rewinds those tables, and changing visitor traffic, cleanup or imported query rows does not affect the protected-business-state guard. The optional private City MMDB is maintained separately; retain its original licensed download if it needs to be reinstalled.
 
 Records are individually AES-256-GCM authenticated with a random per-archive key, per-record nonce, sequence, previous authentication tag and archive header. An authenticated footer and table/file counts detect incomplete output. An import does not execute SQL strings, PHP or serialized objects from an archive. A wrapped recovery key is persisted in private metadata before archive bytes are written; interrupted building entries are not represented as completed backups.
 
@@ -36,6 +38,8 @@ Normal application HTTP and default CLI database connections share a private fil
 
 Hosting control-panel/database tools and external services do not participate in the application's filesystem lock. Do not make out-of-band changes concurrently with a restore. A signed payment notification may need provider retry after a brief maintenance response.
 
-## Incomplete work and staging requirements
+## Maintenance and staging requirements
 
-Automatic retention, cleanup of abandoned temporary files, resumable large snapshots, cross-host/full-business-state disaster recovery and browser ZIP upgrades remain separate work. Failed/hard-interrupted temporary files are private but can consume space. Confirm host storage, file permissions, lock behavior, timeouts and a real recovery drill before relying on this module in production. The full regression suite uses generated data and must pass on the exact code checkpoint before this feature is called verified.
+Bounded cleanup of recognized abandoned temporary files is implemented in RETENTION.md, with an optional owner-enabled hosting schedule. Completed and partial backup archives and their recovery metadata are preserved; removing a backup requires its explicit owner action. Same-schema browser ZIP upgrades are implemented separately in UPGRADES.md. Resumable large snapshots and cross-host/full-business-state disaster recovery remain unimplemented.
+
+Failed or hard-interrupted temporary files remain private but can consume space until eligible cleanup. Confirm host storage, file permissions, lock behavior, timeouts and a real recovery drill before relying on this module in production. Use TEST_RESULTS.md for exact automated evidence and its remaining target-host acceptance boundaries.

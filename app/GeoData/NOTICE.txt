@@ -1,0 +1,28 @@
+OFFLINE COUNTRY DATA
+
+This package includes the DB-IP Lite Country database by DB-IP.com.
+Source: https://db-ip.com/db/download/ip-to-country-lite
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+License text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+The application displays a linked "IP Geolocation by DB-IP" attribution wherever
+the owner sees geography results. Preserve this attribution in derivative reports.
+The database has been decompressed from its download container; its MMDB bytes
+are unmodified. Version, source URL, retrieval date and SHA-256 are in country.json.
+The Lite database estimates a network's country and has reduced coverage and
+accuracy. It does not establish an individual person's physical location.
+
+CRAWLER RANGE SNAPSHOTS
+
+The crawler JSON contains IP range facts published for crawler verification by
+Google and Microsoft Bing. Original source URLs, source creation dates, retrieval
+dates and source hashes are retained in crawlers.json. Matching uses these offline
+snapshots; it does not perform live verification, DNS lookup, or access control.
+After 90 days without refreshing, new observations become user-agent-only reports.
+Yahoo Slurp and other identities are only reported from their user agent.
+
+PHP DATABASE READER
+
+The five PHP reader source files are MaxMind DB Reader PHP v1.14.0, distributed
+under Apache License 2.0. See ../ThirdParty/MaxMind/LICENSE.txt and SOURCE.json.
+Namespace relocation is documented there; decoding logic is unchanged.

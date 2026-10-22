@@ -1,10 +1,10 @@
 # Technical retention and private temporary cleanup
 
-Development checkpoint 0.9.0-dev.4. Full current SQL/browser verification is pending; source presence and pure unit tests alone are not acceptance.
+Current behavior for 1.1.0-rc.3. This module originated in checkpoint 0.9.0-dev.4; consult TEST_RESULTS.md for observed results on the current candidate rather than treating that earlier checkpoint as current evidence.
 
 ## Owner workflow
 
-Open Admin > Temporary data & retention. A GET only previews counts. To perform a bounded batch, confirm the current owner password and type `CLEAN TEMPORARY DATA`. The database phase is transactional; temporary-file removal is a separate best-effort phase, with skipped items reported instead of claiming physical deletion succeeded.
+Open Admin > Temporary data & retention. A GET only previews counts. To perform a bounded batch, confirm the current owner password and type `CLEAN TEMPORARY DATA`. Operational technical records are processed in one database transaction. Temporary-file removal follows as a separate best-effort phase. Analytics then runs its own bounded database transaction. A failure rolls back the transaction in which it occurs; it cannot undo an earlier committed phase or deleted file. Completed output reports the actual operational, analytics and file counts, including skipped temporary items.
 
 Each default batch affects at most 200 records in each category:
 
@@ -12,6 +12,9 @@ Each default batch affects at most 200 records in each category:
 - Customer activation/reset and staff invitation/reset tokens expired more than 30 days ago. Customer/staff accounts and current usable tokens remain.
 - Shopping bags expired more than 30 days ago **only when no order references them**, including their items and operation nonces. All order-linked bags remain.
 - Encrypted bodies of accepted messages more than 90 days after SMTP acceptance, or cancelled messages created more than 90 days ago. The delivery record, status, metadata and unique deduplication key are retained. Queued, retrying, failed, uncertain and sending bodies are never cleared by this policy.
+- Analytics pageviews, completed visits and crawler daily records older than the owner-selected retention period. The default is 90 days, with 30/90/180/365-day choices in Analytics. The cutoff is UTC midnight on the retention boundary. An old visit is deleted only after its pageview batches have cleared; recent traffic is retained. Imported Search Console query snapshots are not purged by traffic retention.
+
+The separate **Clean up expired analytics now** action in Analytics processes at most 500 rows per analytics table after owner password confirmation. It does not clean operational records or create a hosting schedule. A retention selection alone only determines eligibility; records remain until an authorized cleanup runs.
 
 A shared/exclusive maintenance lock prevents cleanup during website writes or code replacement. Repeat a reviewed batch when eligible records remain; this is not an unbounded DELETE of an entire table. No retention period is a claim of legal compliance: the owner must separately determine the business's applicable record-retention and privacy obligations.
 
@@ -26,7 +29,7 @@ No symlink or non-canonical parent is traversed. Identity is rechecked before fi
 Automatic permission is disabled by default. Enabling it in the owner screen does not create a schedule. The host may run, for example, a daily command using its actual PHP binary and public document root:
 
 ```text
-/usr/bin/php /home/ACCOUNT/public_html/band/tasks/cleanup.php --document-root=/home/ACCOUNT/public_html
+/usr/bin/php /home/ACCOUNT/public_html/band/app/tasks/cleanup.php --document-root=/home/ACCOUNT/public_html
 ```
 
 The task is CLI-only, refuses an uninstalled/outdated application, respects the maintenance gate, and exits without changes unless the owner enabled scheduled cleanup. It uses no public cron token or secret in the command. The hosting panel provides scheduling without SSH; actual execution must be verified on the host. This is not a permanent background service.

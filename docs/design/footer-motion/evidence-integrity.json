@@ -1,0 +1,570 @@
+{
+  "status": "passed",
+  "version": "1.1.0-rc.8",
+  "verified_at_utc": "2026-10-20T22:16:55.501305+00:00",
+  "candidate_file": "Spiritual-Gorillaz-1.1.0-rc.8-Full.zip",
+  "candidate_sha256": "3767c829562bb2877cda272a82721e4e46901adcc8f5376748235e71ec74743d",
+  "candidate_replaced_before_any_install_or_capture": true,
+  "runtime_files_verified": 345,
+  "runtime_hashes_match_candidate_and_extracted_runtime": true,
+  "existing_repository_runtime_files_verified": 339,
+  "generated_package_files": [
+    "images/extended/spiritual-gorillaz-band-hero-wide.webp",
+    "images/extended/spiritual-gorillaz-booking-hero-wide.webp",
+    "images/extended/spiritual-gorillaz-home-hero-wide.webp",
+    "images/extended/spiritual-gorillaz-merch-hero-wide.webp",
+    "images/extended/spiritual-gorillaz-music-hero-wide.webp",
+    "images/extended/spiritual-gorillaz-shows-hero-wide.webp"
+  ],
+  "runtime_payload_hash_map_sha256": "205fec43ff5156f7f3a07d440638211d1fbcf340b2218baddedcfef69e90813c",
+  "runtime_code_modified_by_capture": false,
+  "production_site_accessed": false,
+  "browser": {
+    "name": "Chromium",
+    "version": "143.0.7499.4",
+    "device_scale_factor": 1,
+    "actual_installed_browser": true
+  },
+  "reports": {
+    "footer_refresh": {
+      "file": "footer-refresh-verification.json",
+      "sha256": "137e59c499f993939ecf55edc2bf68c4e3a8a2af1478137613c7fe4d01135b49",
+      "assertions_passed": 1131,
+      "candidate_sha256": "3767c829562bb2877cda272a82721e4e46901adcc8f5376748235e71ec74743d"
+    },
+    "footer_settings": {
+      "file": "settings/footer-settings-verification.json",
+      "sha256": "9dc995499f7c0f6fff3b646fe5b2eba00d510ddd000c2aa523fbd03053f63823",
+      "assertions_passed": 88,
+      "candidate_sha256": "3767c829562bb2877cda272a82721e4e46901adcc8f5376748235e71ec74743d"
+    },
+    "branding_source": {
+      "file": "branding/branding-source-verification.json",
+      "sha256": "57e1f28600770bab333be2b2cea250b3f7cc96719b39e45c63334aa0f84258cd",
+      "assertions_passed": 142,
+      "candidate_sha256": "3767c829562bb2877cda272a82721e4e46901adcc8f5376748235e71ec74743d"
+    },
+    "phone_settings_recapture": {
+      "file": "recapture-receipt.json",
+      "sha256": "ef83dfdb0a982c1be48d555b9f629bd8e0d4009bc6322e06ca8c41f8089aeabe",
+      "assertions_passed": 6,
+      "candidate_sha256": "3767c829562bb2877cda272a82721e4e46901adcc8f5376748235e71ec74743d"
+    }
+  },
+  "evidence_counts": {
+    "viewport_png": 20,
+    "synthetic_viewport_png": 3,
+    "unseeded_viewport_png": 17,
+    "disposable_owner_viewport_png": 4,
+    "actual_viewport_logo_crop_png": 24,
+    "mp4": 2,
+    "raw_browser_webm": 2,
+    "verified_capture_files": 48
+  },
+  "assertions": {
+    "main_browser": 1131,
+    "footer_settings": 88,
+    "branding_source": 142,
+    "current_feature_total": 1361,
+    "isolated_phone_recapture": 6,
+    "including_isolated_recapture": 1367
+  },
+  "source_tests": {
+    "tests/capture_footer_refresh.py": {
+      "sha256": "f9dea1942d9c5d096a02cd232509e01ffd73ed059de3e3c5e955917839d7f0e5",
+      "executed_copy_matches": true
+    },
+    "tests/footer_settings_integration.py": {
+      "sha256": "85dac763fb7c6f3c86798866369fdd377c6a0e7f2620e62192b8f48781036272",
+      "executed_copy_matches": true
+    },
+    "tests/branding_integration.py": {
+      "sha256": "6290df2ed555056ccf68c3f3239118cbedf9b3a9e8b3d6310e48a96085e0e914",
+      "executed_copy_matches": true
+    },
+    "tests/branding_fixture.php": {
+      "sha256": "72f3acac6e04eec9f9b2f99f04c2520aebb8647ceeafbc3916baf62a4845c106",
+      "executed_copy_matches": true
+    }
+  },
+  "original_main_execution_source_sha256": "741c802998128bdf3da357886c7f708ab621ee3baa6a0674c93995748577bdeb",
+  "original_main_execution_source_preserved_outside_final_evidence": true,
+  "single_view_recapture_script_sha256": "6b8d92585e45ece5749e48aa63af7c2b22005cc8db5e5cf54d8e727ef3ebc496",
+  "capture_source_revision_note": "The final capture helper adds only a native hidden/off-canvas wait for a closed mobile drawer. The 1,131-check main suite used the preserved initial helper; its single phone settings image was replaced by the separately verified same-candidate recapture.",
+  "verified_evidence": [
+    {
+      "file": "root-1440-installer.png",
+      "sha256": "925a7a7e62858af9e4fd48ba623b9def9c5283fe2de40e449078d840340a6992",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-390-installer.png",
+      "sha256": "8ae7acb61efda9819063d93af900fdd30c40e378831ad56677037b8352aabe34",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-1440-login.png",
+      "sha256": "6a35a402214c36c0033e61b986fb4959fd8a64fa7ee0b0944892a77095368fcb",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-1440-admin-sidebar.png",
+      "sha256": "d80435580d034119b3577cd068bf94361b8449ea1796351d4c603524ecd528f9",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-390-login.png",
+      "sha256": "62fff0662cd6d73eae3ca003614a6b4845a3178cc347fc0fabb2500d1aece311",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-390-admin-sidebar.png",
+      "sha256": "01e2c5483c672c16aafe69be25efc060cd2850c2aa19819b96df9a1be3da6348",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-1920-home-top.png",
+      "sha256": "9e406bbe1367cc255510708a520d4ced18ed093a69220d41e0efbc120e2b2bb4",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-1920-footer.png",
+      "sha256": "800762a325bb19716bb5a057c4daead40b07d19cd0d8195216700c1ce2d42a50",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-1440-footer.png",
+      "sha256": "ffaa47178ab667464b9e1de60d3b55cfe7ab3257c98ddc63f6a3716e133047b6",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-820-footer.png",
+      "sha256": "5402ca382e11d30cd37bd6be8162bfd3b93f03f2f1630c57a70b7c9d3e20169b",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-390-home-top.png",
+      "sha256": "43445855684eeafa7738c5998a543f410b8e860f9349ece9c640b73d98abc00f",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-390-footer.png",
+      "sha256": "fea17c44c853fe83f0f94098e98c85c2db9fcabf5020af23c59f9454d8b5fd54",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-320-footer.png",
+      "sha256": "760d67f70bfd2eca724a7c54b04737831fa81e835f89f12cc4747b0d6b1b27e9",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-1920-video-poster.png",
+      "sha256": "4a477f37c1e4ca5e8a878c43d5e12e16db4bcede12762d70ff57025d8f044b09",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-390-video-poster.png",
+      "sha256": "922d59ff811e65416a01daa6ed3e0e39f832b3e55a0daffbcfd94c4d7d8ba825",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-1440-footer-settings.png",
+      "sha256": "a9250206519c8242721a5ac9bd8c0a08d38e40d0178ef321a8355050632cd571",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "root-390-footer-settings.png",
+      "sha256": "6b59334e53e147243ab50375bb8cd85253585605e412eab01db385cea86e98b2",
+      "kind": "viewport_png",
+      "synthetic_content": false
+    },
+    {
+      "file": "synthetic-root-1440-maximum-footer.png",
+      "sha256": "80db21a4fae52cdef379df8885813f5f0e837539fea27c28f20ebe6d2faabd66",
+      "kind": "viewport_png",
+      "synthetic_content": true
+    },
+    {
+      "file": "synthetic-root-390-maximum-footer.png",
+      "sha256": "f2798ae4eb755cac992e3f986f7683cf48d91f25f81cdf8f7ca99b3e319d40a9",
+      "kind": "viewport_png",
+      "synthetic_content": true
+    },
+    {
+      "file": "synthetic-root-320-maximum-footer.png",
+      "sha256": "70488f5bde1bb3d8a0f7dc0cd623ccf6366ec900ecd99ee1b73c405b2fc066b9",
+      "kind": "viewport_png",
+      "synthetic_content": true
+    },
+    {
+      "file": "Spiritual-Gorillaz-rc8-Natural-Motion-Desktop.mp4",
+      "sha256": "576d337170b82f2243fedc7d87c8f38172ffbd156de659c7a157e228d6546ca4",
+      "kind": "mp4"
+    },
+    {
+      "file": "raw-videos/5f4e6036e11a7b90c87025cee6da8b97.webm",
+      "sha256": "3f5be40960843336fb3066f594372d951db32400108f7195cf7143fffafa6ad9",
+      "kind": "raw_browser_webm"
+    },
+    {
+      "file": "logo-motion-samples/root-1920-natural-logo-00.png",
+      "sha256": "f7922c2745bc429299d467534432caabc5e928ef1ea251e3a42c18f5e30b1426",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-1920-natural-logo-01.png",
+      "sha256": "3d9b6f3c23833d87a802e60f8d5136e2fcd684297f936266d3aa82bf92725bab",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-1920-natural-logo-02.png",
+      "sha256": "46b7f00a64002aee5ed1eff4f0094a0138024ddbb56f629c8d16258c6680352e",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-1920-natural-logo-03.png",
+      "sha256": "e8f7c454acfa14ecd13f5404b9dcad7d861fcddaed7c3c6e9e84f4cf8ba19e48",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-1920-natural-logo-04.png",
+      "sha256": "7ca3df95fd31956c98b3b4faefdc8ebaeaeca9940feed62a302c35e5407d8b3c",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-1920-natural-logo-05.png",
+      "sha256": "9c33fd383e5cfd95854f8c1cabdf37aa34f546f150405ceb3addf06eab358f48",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-1920-natural-logo-06.png",
+      "sha256": "f535313f490545255e13de5410ea66aff9a10bb5426d590018ed56001917b76e",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-1920-natural-logo-07.png",
+      "sha256": "0507a126f444636852fffd1d1fcd7377a14d8ddf3c746a4e54177b4e6d0fa56e",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-1920-natural-logo-08.png",
+      "sha256": "4f01cfb94d350c62ee6ca853b9d6e4460159891bae45f9f87124efe3d5669432",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-1920-natural-logo-09.png",
+      "sha256": "225d90a8c4945e1c994bf6a11d413eca3f98b09fec60f43f6230c995ad9d8673",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-1920-natural-logo-10.png",
+      "sha256": "36b39a0314df2c83c652e545c3ea2ee979c61ef7728e3e8a45f29fcff5bc0184",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-1920-natural-logo-11.png",
+      "sha256": "f709f3f09bcab92c517ed13f6fbef55830fc3b95f804ee759604ce5edf07bada",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "Spiritual-Gorillaz-rc8-Natural-Motion-Phone.mp4",
+      "sha256": "4f887884d9fb28e1c0f3954478189bf8ecedd5f00d21c08e92f2849419b7ca2e",
+      "kind": "mp4"
+    },
+    {
+      "file": "raw-videos/7a22e34774151d9669b0b9eb90be3e0f.webm",
+      "sha256": "164d57df3e3616db807a231b7c50daa10b6457b6989a6ea0beb23286284e9aa0",
+      "kind": "raw_browser_webm"
+    },
+    {
+      "file": "logo-motion-samples/root-390-natural-logo-00.png",
+      "sha256": "e22798cf95eefbf6daf8bcb1ac4fd52ed58c1c9378ba5882292c1ea4fa79c405",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-390-natural-logo-01.png",
+      "sha256": "eb362edd0e5303f5d220021ff4455d7af167b9f4b22e33604b053170c2c37552",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-390-natural-logo-02.png",
+      "sha256": "463050d91690478ff56ab6c1bcaa184cde9d46bac31a00ecf042dae2f864d9f6",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-390-natural-logo-03.png",
+      "sha256": "69ddd45d54e4c8b39c1fb84c5b4f2f8926f17627f67b3405c9ce8cb530e92bc3",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-390-natural-logo-04.png",
+      "sha256": "bca73f385b857de85633309bc071d959ffef5c81d125e6a679ce4d4861839a24",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-390-natural-logo-05.png",
+      "sha256": "dfcb45114662abe447ab21191ea2622f1e489747d5c907d8baebf90d5ed90e32",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-390-natural-logo-06.png",
+      "sha256": "b0b5f9d3f7ea465f67d12bf5bcb49c9acc59e620aa3476253fbcefe9047856cd",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-390-natural-logo-07.png",
+      "sha256": "8eaeb4c2a0f243206cf04bb2d3ac8b8a1872550ba934282433c3db3048dd2bd3",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-390-natural-logo-08.png",
+      "sha256": "790bce11ab98d8fa7db2032b6803b6dac5f9b0e4de411ec6f42bd8157f02752e",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-390-natural-logo-09.png",
+      "sha256": "d38203b5b04153de2e5f77151f89bbd27c9659804c2c4a7cee78450d8cc7a192",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-390-natural-logo-10.png",
+      "sha256": "7b396a22670b63348b7da68155efa144249ec10cfc1aca628aa2ab652d4e46f5",
+      "kind": "actual_viewport_logo_crop_png"
+    },
+    {
+      "file": "logo-motion-samples/root-390-natural-logo-11.png",
+      "sha256": "573714117fafce76d5df427dff63cc2a117c383fc499d2326fe2e28193df124a",
+      "kind": "actual_viewport_logo_crop_png"
+    }
+  ],
+  "footer_geometry": [
+    {
+      "label": "root-1920 default",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "height": 77,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 1920,
+      "documentOverflow": false
+    },
+    {
+      "label": "root-1440 default",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "height": 77,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 1440,
+      "documentOverflow": false
+    },
+    {
+      "label": "root-1280 default",
+      "viewport": {
+        "width": 1280,
+        "height": 1000
+      },
+      "height": 77,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 1280,
+      "documentOverflow": false
+    },
+    {
+      "label": "root-1100 default",
+      "viewport": {
+        "width": 1100,
+        "height": 1000
+      },
+      "height": 77,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 1100,
+      "documentOverflow": false
+    },
+    {
+      "label": "root-820 default",
+      "viewport": {
+        "width": 820,
+        "height": 1000
+      },
+      "height": 127,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 820,
+      "documentOverflow": false
+    },
+    {
+      "label": "root-390 default",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "height": 167,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 390,
+      "documentOverflow": false
+    },
+    {
+      "label": "root-360 default",
+      "viewport": {
+        "width": 360,
+        "height": 844
+      },
+      "height": 167,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 360,
+      "documentOverflow": false
+    },
+    {
+      "label": "root-320 default",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "height": 183.5,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 320,
+      "documentOverflow": false
+    },
+    {
+      "label": "root-1920 maximum copyright and all links",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "height": 148.5,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 1920,
+      "documentOverflow": false
+    },
+    {
+      "label": "root-1440 maximum copyright and all links",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "height": 148.5,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 1440,
+      "documentOverflow": false
+    },
+    {
+      "label": "root-820 maximum copyright and all links",
+      "viewport": {
+        "width": 820,
+        "height": 1000
+      },
+      "height": 197.5,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 820,
+      "documentOverflow": false
+    },
+    {
+      "label": "root-390 maximum copyright and all links",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "height": 364,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 390,
+      "documentOverflow": false
+    },
+    {
+      "label": "root-320 maximum copyright and all links",
+      "viewport": {
+        "width": 320,
+        "height": 844
+      },
+      "height": 460.5,
+      "minHeight": "0px",
+      "maxHeight": "none",
+      "background": "rgba(2, 7, 12, 0.75)",
+      "surfaceLeft": 0,
+      "surfaceRight": 320,
+      "documentOverflow": false
+    }
+  ],
+  "video_review": {
+    "encoded_frames_reviewed_at_seconds": [
+      0,
+      6
+    ],
+    "both_native_viewports_reviewed": true,
+    "normal_speed": true,
+    "ordinary_page_entry": true,
+    "animation_seek_performed": false,
+    "mp4_duration_seconds": 10,
+    "browser_recording_trim": "Last 10 seconds; initial loading omitted, no speed change or image alteration.",
+    "desktop_observation": "Brighter smoke wisps visibly travel through the exposed fixed stage, with continuous masked logo movement.",
+    "phone_observation": "Logo highlight and subtle depth movement are visible; smoke is visible in exposed margins and gaps around opaque content panels."
+  },
+  "sanitization": {
+    "report_private_path_scan_passed": true,
+    "credentials_scan_passed": true,
+    "text_files_scanned": 460
+  },
+  "disposable_fixture_cleanup": {
+    "status": "passed",
+    "completed_at_utc": "2026-10-20T22:17:26.209302+00:00",
+    "prefixed_fixture_tables_remaining": 0,
+    "database_removed": true,
+    "sql_user_removed": true,
+    "sql_server_stopped": true,
+    "credentials_file_removed": true,
+    "browser_and_python_cache_preserved": true,
+    "frozen_candidates_and_evidence_preserved": true
+  }
+}

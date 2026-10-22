@@ -1,7 +1,7 @@
 name: Candidate installation package
 on:
   push:
-    branches: [main]
+    branches: [main, work/approved-concept-native, work/1.0.13-contained-overlay-heroes, work/1.1.0-analytics-and-navigation]
   workflow_dispatch:
 permissions:
   contents: read
@@ -12,19 +12,21 @@ jobs:
   package:
     name: Validate and build cumulative candidate
     runs-on: ubuntu-22.04
-    timeout-minutes: 8
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           persist-credentials: false
+      - name: Install deterministic image build dependency
+        run: python3 -m pip install --disable-pip-version-check Pillow==12.3.0
       - name: Validate software release contract
         run: |
-          python3 -m py_compile tools/package.py tools/release_gate.py
-          python3 tools/release_gate.py
+          python3 -m py_compile app/tools/package.py app/tools/release_gate.py app/tools/generate_extended_heroes.py
+          python3 app/tools/release_gate.py
       - name: Build immutable versioned full ZIP
         run: |
           mkdir -p "$RUNNER_TEMP/spirit-package"
-          python3 tools/package.py --output "$RUNNER_TEMP/spirit-package"
+          python3 app/tools/package.py --output "$RUNNER_TEMP/spirit-package"
           cd "$RUNNER_TEMP/spirit-package"
           sha256sum Spiritual-Gorillaz-*-Full.zip > SHA256SUMS.txt
           cat SHA256SUMS.txt

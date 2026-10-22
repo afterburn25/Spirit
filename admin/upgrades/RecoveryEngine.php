@@ -5,6 +5,7 @@ declare(strict_types=1);
  */
 final class SpiritRecovery
 {
+    public const LAYOUT = 'grouped-v2';
     private static mixed $lock = null;
     private static bool $exclusive = false;
     private static ?string $runtime = null;
@@ -107,11 +108,15 @@ final class SpiritRecovery
     public static function latest(): ?array
     {
         $file = self::folder() . '/latest.json';
-        return !file_exists($file) ? null : self::readJson($file);
+        if (!file_exists($file)) { return null; }
+        $latest = self::readJson($file);
+        if (($latest['layout'] ?? null) !== self::LAYOUT) { return null; }
+        return $latest;
     }
     public static function job(string $id): array
     {
         $j = self::readJson(self::folder() . '/job-' . self::id($id) . '.json');
+        if (($j['layout'] ?? null) !== self::LAYOUT) { throw new RuntimeException('This recovery checkpoint belongs to the earlier directory layout. Use its complete hosting backup, not a partial code rollback.'); }
         if (($j['id'] ?? null) !== $id || ($j['root'] ?? null) !== self::root()) { throw new RuntimeException('Update belongs to another installation.'); }
         return $j;
     }
@@ -121,8 +126,9 @@ final class SpiritRecovery
         if (!preg_match('#^(?:[A-Za-z0-9_-]+/)*(?:[A-Za-z0-9_.-]+|\.htaccess)$#D', $path) || str_contains($path, '..') || str_contains($path, '//')) { return false; }
         if (in_array($path, ['includes/maintenance-entry.php', 'admin/upgrades/RecoveryEngine.php', 'admin/upgrades/recover.php', 'admin/upgrades/.htaccess', '.htaccess'], true)) { return false; }
         if (preg_match('/private-(?:setup|key|recovery)/i', $path) || preg_match('/\.(?:zip|key|pem|log|gz|sqlite|bak)$/i', $path)) { return false; }
+        if (preg_match('#^(?:app/(?:tests|tools)|docs/design)(?:/|$)#D', $path)) { return false; }
         $dir = explode('/', $path)[0];
-        return in_array($path, ['index.php', 'VERSION', 'README.md', 'CHANGELOG.md'], true) || in_array($dir, ['app','admin','includes','views','assets','images','docs','music','shows','band','media','booking','press','shop','account','pages','newsletter','tasks','payments'], true) && !str_ends_with($path, '/location.php');
+        return in_array($path, ['index.php', 'VERSION', 'README.md', 'CHANGELOG.md'], true) || in_array($dir, ['app','admin','includes','assets','images','docs'], true) && !str_ends_with($path, '/location.php');
     }
     public static function target(string $path, bool $create = false): string
     {

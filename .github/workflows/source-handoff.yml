@@ -1,0 +1,31 @@
+name: Source handoff snapshot
+on:
+  workflow_dispatch:
+  push:
+    branches: ['work/1.1.0-analytics-and-navigation']
+    paths: ['.github/workflows/source-handoff.yml']
+permissions:
+  contents: read
+jobs:
+  snapshot:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Archive tracked source only
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/spirit-handoff"
+          git archive --format=tar HEAD | gzip -n > "$RUNNER_TEMP/spirit-handoff/Spirit-source.tar.gz"
+          git rev-parse HEAD > "$RUNNER_TEMP/spirit-handoff/SOURCE_COMMIT.txt"
+          cd "$RUNNER_TEMP/spirit-handoff"
+          sha256sum Spirit-source.tar.gz > SHA256SUMS.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spirit-source-${{ github.sha }}
+          path: ${{ runner.temp }}/spirit-handoff/*
+          retention-days: 14
+          if-no-files-found: error

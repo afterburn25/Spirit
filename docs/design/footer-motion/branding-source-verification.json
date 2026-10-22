@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "assertions_passed": 142,
+  "archive_sha256": "3767c829562bb2877cda272a82721e4e46901adcc8f5376748235e71ec74743d",
+  "scope": "Installed root/subfolder approved-logo default, retained legacy state, explicit source actions, private preview, public media authorization, revision/CSRF/owner guards and supported restore",
+  "production_site_accessed": false
+}

@@ -1,38 +1,130 @@
-# RC7 verification — completed application checkpoint
+# Final 1.1.0 verification
 
-Tested **adcafab92035816571e7951e71d73d6c0a22af89**, tree **5d2d70be796b3ae9e293749126f189f2326442d1**. BaseRC6 main75a24384. Finalization changes documentation only; later main-run results and final package hashes belong in PR20/delivery report after observation.
+## Release scope
 
-| Workflow | Run | Result |
+Final 1.1.0 promotes the production runtime from published rc.12 source
+46744207a0916ae2256d84fbaa312c9c4fc67768. Application PHP, public CSS/JavaScript,
+approved artwork, all eight SQL migrations, routing and recovery pins are
+unchanged. Deployment changes are VERSION and release/operating documentation.
+Development source adds app/tests/exact_package_upgrade.py and an explicit CI
+invocation against pinned published baselines.
+
+All previous cumulative payload paths remain. The ten deployment directories,
+original installation identity, removed installer and disabled-commerce scope
+are preserved. No live host or real customer/provider data is used.
+
+## Observed rc.12 CI
+
+On 2026-10-22 UTC, all eleven workflows for the exact rc.12 head above were
+observed completed successfully:
+
+| Workflow | GitHub Actions run |
+|---|---:|
+| Populated storefront browser verification | 39661313013 |
+| Website and installer verification | 39661313086 |
+| Visitor analytics verification | 39661313065 |
+| Grouped layout transition verification | 39661313143 |
+| Public navigation and native controls | 39661312854 |
+| Focused maintenance diagnostics | 39661313218 |
+| Review package artifact | 39661313353 |
+| Software release gate | 39661312927 |
+| Authoring safety verification | 39661312958 |
+| Site logo and footer verification | 39661312940 |
+| Candidate installation package | 39661303086 |
+
+These are rc.12 results, not a claim about another commit. Final-source CI must
+be inspected separately before publication. PR 37 and the companion release
+receipt identify those final checks; post-merge main may have a different
+workflow set.
+
+## Exact baseline-to-rc.12 upgrade and recovery — observed 2026-10-22 UTC
+
+Environment: non-root PHP 8.3.6, MariaDB 10.11.14 and Python 3.12.14 with dedicated
+disposable database prefixes. PHP's normal extension configuration is retained;
+only isolated test upload/post limits are raised to accept the original ZIPs.
+Verification GETs use the site's supported DNT behavior so observer requests do
+not create analytics rows. Production settings and guards are not changed.
+
+| Baseline | Original/source identity | ZIP SHA-256 |
 |---|---|---|
-|Website and installer|38802392834|Success|
-|Focused maintenance|38802392855|Success|
-|Existing populated storefront|38802392802|Success|
-|Site logo|38802392914|Success|
-|Authoring safety|38802392808|Success|
-|Public navigation and native controls|38802393254|Success|
+| rc.10 | Reproduced from published commit 5703ca41a13a6ff01a3b7807287abdeb72c151a5 | dddd811599691dff31f4adb30426d0aa156227d65133bbe811f5acf11399b4f5 |
+| rc.11 | Original delivered archive | 4abbc7d59dc6e1cd003950eecca628d73fa8fb3ecffb1466b73dd1147107168c |
+| rc.12 target | Original delivered archive | f65a5db2e5b226c54409d909b390f174dcc6e0c2e3dc1408f0b0a06e26a0e8ec |
 
-Full verification retained PHP8.2/MariaDB11.4 and PHP8.4/MySQL8.4, all13 existing Chromium workflow steps and actual Apache HTTPS. Existing three-engine gallery/release/section/admin-navigation/history, branding and authoring workflows passed. The PHP8.2 full job's browser steps remain skipped under their pre-existing PHP8.4 condition; this does not mean the three-engine workflows were skipped.
+The original rc.10 delivery's checksum was not recovered. Its baseline uses the
+exact published source, original packager and Pillow 12.3.0; identity with its
+originally delivered ZIP is not asserted.
 
-## New actual browser coverage
+**429 assertions passed across six scenarios:** each baseline performed a root
+and /band installation, real owner upload, receipt download, apply, separate
+confirmation and independent recovery, plus a separate interrupted-copy
+recovery. Each baseline passed 76 root checks, 76 subfolder checks and 56
+interruption checks; thirteen further checks validated archive integrity and
+unchanged input hashes.
 
-Jobs116654740632 (Chromium/MySQL),116654741009 (Firefox/MariaDB) and116654741268 (WebKit/MariaDB) passed. Each downloaded log contains361 PASS lines, including repeated contexts and shared setup. Root/subfolder public menu checks use820/390/320px, keyboard Tab/reverse Tab/arrows/Escape, outside clicks/focus, responsive transitions in both directions, native destination navigation, current focus and retained CSP. A320x568 playback case requires the actual last menu link to scroll into view above the actual player and verifies continued playback with the same audio node.
+The checks verified exact installed payload hashes, encrypted pre-update backup,
+public 503 maintenance until confirmation, original owner sign-in, unchanged
+private configuration/lock/runtime identity and stored/served media bytes.
+Digests of all 32 stable database tables include complete users/password hashes,
+settings, published copy, private drafts, migration ledger and analytics.
+Expected audit and request/login counters are excluded, not business records.
+Code recovery preserved content added after the upgrade, removed target-only
+files, left the installer physically absent and refused replay of a consumed
+recovery receipt. Synthetic test content is confined to disposable sites.
 
-Native admin controls are checked at1440/390/320px across product editing, variants, categories, store settings, media upload and branding. Geometry, first-line text alignment, full label height and actual Space-key toggling are verified. The logo page also receives forced-color geometry checks. No changed control is submitted. Catalog/customer/address/token/mail snapshot tables remain unchanged; this is not a claim that login audit/session activity never occurs. Native320px no-JavaScript public navigation retains every destination. These are targeted assertions, not complete WCAG, screen-reader, physical-device or field-performance certification.
+## Retained footer and media verification
 
-## Downloaded source and renders
+The original rc.12 evidence is preserved under
+history/rc12-source-checkpoint/docs-TEST_RESULTS.md. It records:
 
-All three artifacts were SHA-256 verified. Their source archives match all386 local files and the exact tested tree. Each contains four actual synthetic screenshots and a browser log. Selected Chromium desktop/mobile and Firefox mobile renders were inspected. Full-page screenshots retain fixed elements at the capture scroll position; the delivered phone preview is explicitly a320x568 top-viewport excerpt, not a reconstructed image.
+- 53 installed before/after geometry checks, with no uncaught browser errors.
+- Footer bottoms matching short viewports at 1100, 1200 and 800 pixels, while
+  footer heights, long-page geometry, links and 75%-opaque appearance remain.
+- The original 32px Home booking/newsletter gap.
+- Real playback at 320px: 152px player and 168px body clearance, including the
+  existing 16px allowance; focused footer links remain visible.
+- 112 installed media/keyboard assertions and 197 isolated real-template Music
+  filter assertions. The latter is a component check, not an installation test.
+- Reproducible public assets totaling 129,916 / 130,000 bytes, fifteen package
+  unit tests and the deterministic software release gate.
 
-| Artifact | SHA-256 |
-|---|---|
-|12005640534 Chromium|de5ab07e28f7b3839b89b7a73ecc5595ba32a7cb6596b41974553adb35fbcd27|
-|12004897533 Firefox|adbcd59477b7e706f9f6e03480333e8839f2000f5dbac85fa52f83611dce930d|
-|12004981413 WebKit|c3ecc4293164a8000de49c1d87bba96a1787cb9b73b60ba7392878171cf5bc59|
+Those historical observations are retained accurately rather than relabeled
+as fresh tests of the final archive.
 
-## Local execution and preservation
+## Final archive publication procedure and receipt
 
-230 PHP/inc syntax files,812 existing pure assertions in22 scripts,eight JS syntax files, Python compilation and12 package tests passed. Permission-aware PHP tests ran as non-root. An isolated real-Chromium DOM/style exercise reproduced CSS hiding a focused element before its media-query handler, then verified the corrected recovery and negative control (page content does not lose focus). This helper is not a database-backed site run. Local PHP lacks PDO MySQL/GD/cURL/ZIP; end-to-end evidence is Actions-only and no browser/hosting policy was bypassed.
+Freeze all deployment files before building the immutable
+Spiritual-Gorillaz-1.1.0-Full.zip. The package's own hash cannot be embedded in its
+payload without changing that hash; record it in the separate release receipt.
 
-A preview package retained all282 RC6 manifest paths and had283 payload files plus the manifest. Every payload hash matched source. All PHP business logic/forms, installer, six migrations, shipped access rules, pinned recovery and administration navigation were unchanged. Public.js audio/queue/fetch code outside its menu block is also unchanged. Final documentation/package hashes are verified separately before delivery. Tests, workflows, private state and synthetic media are not shipped in the Full ZIP.
+Before publication:
 
-No real A2 deployment/configuration, mailbox delivery, merchant transaction, production artwork/content/policy publication, physical-device or final owner acceptance occurred. These substantive gates still remain. Do not reinstall an existing website to apply this cumulative candidate.
+1. Run the package unit tests, deterministic release gate and public asset check.
+2. Compare final and rc.12 manifests: no previous path omitted; all non-VERSION,
+   non-documentation runtime hashes unchanged; original migrations/pins retained.
+3. Run the exact-package harness with rc.10, original rc.11 and original rc.12
+   baselines against that frozen final ZIP, preserving each input unchanged.
+4. Capture real unseeded public pages and short-page Search geometry from the
+   same ZIP using Chromium 143.0.7499.4. Include package/screenshot hashes in the
+   capture manifests. Static reduced-motion captures do not certify animation.
+5. Observe successful Actions for the final PR head, merge that reviewed head
+   into main, and record the merge/tree identity. Check applicable main runs
+   separately. Never infer a deployment from a GitHub merge.
+
+The companion Screenshots-and-Verification ZIP contains these final execution
+receipts and actual captures. The final source workflow reproduces pinned
+rc.10/rc.12 baseline packages; those CI builds are labeled source reproductions,
+while local rc.11/rc.12 tests use the original delivered bytes.
+
+## Existing acceptance and limits
+
+The consolidated 1.0 owner-confirmed installation/mail/account results remain
+accepted; see acceptance/CONSOLIDATED-FINAL-PASS.md and acceptance/FINAL-1.1.0.md. They are
+not newly inspected provider records. Commerce stays disabled and optional
+content may remain unpublished. Merchant acceptance belongs to activation.
+
+Tests do not establish actual A2 permissions, physical-device behavior, recent
+cron execution, live delivery, merchant processing, field performance or a
+complete accessibility/security audit. No live deployment is performed.
+rc.8-or-earlier updaters must still reject the grouped foundation; use the
+documented same-root transition rather than weakening recovery checks.

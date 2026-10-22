@@ -47,6 +47,6 @@ final class OrderAdmin
                 }
             }catch(InvalidArgumentException|RuntimeException $e){$error=Storefront::error($e);}
         }
-        View::start($titles[$view],'admin',match($view){'payments'=>'payment-settings','policy'=>'delivery-policy','webhooks'=>'payment-notifications',default=>'orders'},$user);require Paths::root().'/views/admin/orders.php';View::end();
+        View::start($titles[$view],'admin',match($view){'payments'=>'payment-settings','policy'=>'delivery-policy','webhooks'=>'payment-notifications',default=>'orders'},$user);require Paths::root().'/app/views/admin/orders.php';View::end();
     }
 }
