@@ -1,6 +1,6 @@
 # Security controls and remaining acceptance
 
-Cumulative 1.1.0-rc.5; see TEST_RESULTS.md for the exact new verification status. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior.
+Cumulative 1.1.0; see TEST_RESULTS.md for the exact verification status. No security certification, complete penetration audit or production deployment is claimed. TEST_RESULTS.md distinguishes exact Actions results, local checks and unverified provider/host behavior. Historical owner-confirmed acceptance remains recorded in acceptance/CONSOLIDATED-FINAL-PASS.md. Commerce stays disabled until its separate activation requirements are met.
 
 ## Installation, sessions and storage
 
@@ -44,7 +44,7 @@ Authenticated media, backup and update handlers detect a POST exceeding PHP's wh
 
 ## Verification boundaries
 
-The configured cumulative suites exercise both database engines, browser journeys, loopback TLS transport failures, permission/concurrency/recovery and actual Apache HTTPS access rules. They do not prove arbitrary provider aliases/ACL/open_basedir/OPcache/proxy behavior, real hosting/inbox/merchant results, field performance, full accessibility or penetration review, legacy relocation, master-art/content approval or v1.0 acceptance. Never trust forwarded headers indiscriminately, weaken safeguards to pass a test, or label a source-artifact run as application verification. Exceptions/logs must not expose private payloads, tokens, credentials or raw driver diagnostics.
+The configured cumulative suites exercise both database engines, browser journeys, loopback TLS transport failures, permission/concurrency/recovery and actual Apache HTTPS access rules. Their results do not prove arbitrary provider aliases/ACL/open_basedir/OPcache/proxy behavior, a new hosting/inbox/merchant observation, field performance, full accessibility or penetration review, legacy relocation or new artwork/content approval. The recorded owner acceptance of 1.0 remains a separate historical fact; it is not represented as an automated test or a newly observed provider result. Never trust forwarded headers indiscriminately, weaken safeguards to pass a test, or label a source-artifact run as application verification. Exceptions/logs must not expose private payloads, tokens, credentials or raw driver diagnostics.
 
 ## Owner analytics
 

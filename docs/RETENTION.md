@@ -29,7 +29,7 @@ No symlink or non-canonical parent is traversed. Identity is rechecked before fi
 Automatic permission is disabled by default. Enabling it in the owner screen does not create a schedule. The host may run, for example, a daily command using its actual PHP binary and public document root:
 
 ```text
-/usr/bin/php /home/ACCOUNT/public_html/band/tasks/cleanup.php --document-root=/home/ACCOUNT/public_html
+/usr/bin/php /home/ACCOUNT/public_html/band/app/tasks/cleanup.php --document-root=/home/ACCOUNT/public_html
 ```
 
 The task is CLI-only, refuses an uninstalled/outdated application, respects the maintenance gate, and exits without changes unless the owner enabled scheduled cleanup. It uses no public cron token or secret in the command. The hosting panel provides scheduling without SSH; actual execution must be verified on the host. This is not a permanent background service.

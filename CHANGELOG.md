@@ -1,3 +1,19 @@
+# 1.1.0 — final release
+
+- Promote the verified rc.12 runtime, including completed analytics/navigation,
+  approved animated identity and stage/smoke, grouped directories, Music filter
+  wrapping and the short-page footer/player-clearance correction.
+- Preserve application PHP, public CSS/JavaScript, artwork, all eight migrations
+  and pinned recovery files; final deployment changes are VERSION and docs.
+- Add repeatable exact-package upgrade/confirmation/independent recovery checks
+  for root, subfolder and interrupted-copy cases, with explicit archive
+  provenance and preservation of configuration, owner/database state and media.
+- Execute that test in CI using pinned published grouped-layout baselines.
+- Reconcile current installation/update/cron guidance and preserve historical
+  acceptance, disabled commerce and all cumulative payload paths.
+- Deliver a new immutable final Full ZIP and real screenshots with separate
+  archive/verification receipts. Earlier candidate packages remain unchanged.
+
 # 1.1.0-rc.12 — footer at the bottom of short pages
 
 - Let the public page shell fill the viewport and give spare vertical space to

@@ -1,8 +1,8 @@
-> **Current rc.10 layout:** read [DIRECTORY_LAYOUT.md](DIRECTORY_LAYOUT.md) and [LAYOUT_TRANSITION.md](LAYOUT_TRANSITION.md). An rc.8-or-earlier updater must refuse the changed foundation. Preserve existing data; never reinstall.
+> **Current 1.1.0 layout:** the grouped foundation is unchanged from rc.10–rc.12. Read [DIRECTORY_LAYOUT.md](DIRECTORY_LAYOUT.md) and [LAYOUT_TRANSITION.md](LAYOUT_TRANSITION.md). An rc.8-or-earlier updater must refuse the changed foundation. Preserve existing data; never reinstall.
 
 # Browser code upgrades and independent recovery
 
-Development milestone 0.9.0-dev.3. New full regression execution is pending. Do not treat the following implementation description as a passed result; see TEST_RESULTS.md and exact Actions head.
+This module originated in development milestone 0.9.0-dev.3 and is retained in 1.1.0. An installed rc.10, rc.11 or rc.12 has the same layout, migrations and pinned recovery foundation as final 1.1.0, so the guarded workflow below applies when its checks pass. TEST_RESULTS.md records the exact package and CI verification scope; this implementation description is not evidence of an update on the owner's host.
 
 ## Supported workflow
 
@@ -12,7 +12,7 @@ The PHP ZIP extension with indexed stream support is needed only for this module
 
 Staging streams every entry, rejects traversal, case collisions/duplicates, symlinks/special files, missing checksums, unexpected private/runtime/installer destinations, incompatible PHP syntax, same-version replacements, downgrades and omissions from the previously deployed cumulative manifest. PHP is parsed, never executed, during validation. The original config, installation secret, runtime and removed installer stay untouched. All access rules and the small independent recovery kernel are pinned.
 
-This first code-updater iteration accepts **unchanged database schemas/migrations only**. A package adding or changing migrations or changing the pinned recovery layer is refused before application writes. Such releases require a reviewed staging deployment and the existing additive database update, not an unsafe automatic SQL rewind. Cross-schema unattended upgrades and rollback are not implemented.
+The code updater accepts **unchanged database schemas/migrations only**. A package adding or changing migrations or changing the pinned recovery layer is refused before application writes. Such releases require a reviewed staging deployment and the existing additive database update, not an unsafe automatic SQL rewind. Cross-schema unattended upgrades and rollback are not implemented.
 
 ## Before installation
 

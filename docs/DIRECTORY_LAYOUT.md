@@ -1,4 +1,4 @@
-# Directory layout — 1.1.0-rc.12
+# Directory layout — 1.1.0
 
 The application now has exactly ten primary folders. Images remain at the root.
 

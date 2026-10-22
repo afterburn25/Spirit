@@ -1,47 +1,50 @@
-# Spiritual Gorillaz — 1.1.0-rc.12
+# Spiritual Gorillaz — 1.1.0
 
-## rc.12 footer placement
+## Final 1.1 release
 
-This cumulative candidate places the compact footer at the bottom of the
-viewport on short public pages. Longer pages keep the footer after their
-content. The page reserves the audio player's measured height when playback is
-open, keeping footer links accessible on narrow screens. The rc.11 Music filter
-wrapping fix and the published rc.10 grouped layout are retained.
-Read docs/TEST_RESULTS.md for the precise scope of current verification.
+This cumulative release includes owner analytics and Visitor Explorer, the
+approved animated gold gorilla and blue stage/smoke, the ten-folder layout,
+wrapping Music filters and the short-page footer correction. The compact
+footer reaches the viewport bottom when content is short and follows content
+on longer pages. Measured player clearance keeps footer links accessible.
 
-## Grouped directories, unchanged visual identity
+The final promotion preserves rc.12 application code, CSS, JavaScript, artwork,
+all eight SQL migrations and the pinned recovery layer. Deployment changes are
+the version and current release/operating documentation. Development source
+also gains repeatable verification of unchanged baseline and target ZIPs.
 
-This cumulative review candidate groups the site into ten primary folders:
-**admin, app, assets, config, docs, images, includes, install, storage, uploads**.
-Images stay in root. Database migrations move to config/database; public PHP
-handlers, templates, scheduled workers and development tools live under app.
-Design source/evidence lives under docs/design. Public URLs are unchanged.
+## Installation and updates
 
-Read **docs/DIRECTORY_LAYOUT.md** for the map and **docs/LAYOUT_TRANSITION.md**
-before updating an existing site. This is a one-time layout/recovery transition,
-not a package that the rc.8 browser updater can safely apply. Do not reinstall.
-The private configuration/database/owner/uploads must be retained at the same
-absolute site root. No SQL file or table definition has changed.
+The ten deployment folders are **admin, app, assets, config, docs, images,
+includes, install, storage and uploads**. Public URLs are unchanged. Read
+docs/DIRECTORY_LAYOUT.md for the complete map.
 
-The earlier rc.9 source and artifacts could not be recovered from the resumed
-session or Library, and never reached GitHub. This release reconstructs the
-requested organization from verified rc.8. It does not overwrite rc.9.
+- **Fresh site:** use the one-page manual A2/cPanel installer described in
+  docs/INSTALLATION.md. No setup code or hosting API token is required.
+- **Existing grouped rc.10, rc.11 or rc.12:** use owner Browser upgrades after
+  saving a full backup and the private recovery receipt. Normal integrity,
+  version, schema and recovery checks must pass; see docs/UPGRADES.md.
+- **rc.8 or an earlier layout:** follow docs/LAYOUT_TRANSITION.md at the same
+  absolute site root. Its old updater must refuse the layout change. The
+  unrecovered earlier rc.9 requires comparison with its actual package.
 
-## Retained work
+Keep the original configuration, installation secret, database, owner account,
+private runtime and media. Do not reinstall an existing site or recreate its
+removed installer. The final promotion adds no SQL migration.
 
-The animated 3D logo, fixed blue stage background and smoke, transparent
-navigation, compact full-width footer with editable copyright and fixed linked
-Cajun Web Pro LLC credit, maximum-fit favicon, charts, Visitor Explorer and
-Overview analytics are retained without design changes. The public stylesheet
-changes only page/footer flow and the player clearance rule. Original images,
-public JavaScript and all eight migrations are preserved byte for byte.
+## Retained launch scope
 
-The existing owner CMS, media/private previews, booking/newsletter, staff
-permissions, optional merchandise/Authorize.net workflows, backups and manual
-one-page A2/cPanel installer remain. Show tickets continue to open external venue
-sellers. No real performances, customers, traffic or product records are seeded.
+The owner CMS, media/private previews, booking/newsletter, staff permissions,
+customer accounts, backups and independent code recovery remain available.
+Show tickets open external venue sellers. Commerce remains optional and disabled
+until the owner completes activation acceptance. No real performances, customers,
+traffic or products are seeded by the package.
 
-## Development
+Previously accepted installation, communication and account results remain in
+docs/acceptance/CONSOLIDATED-FINAL-PASS.md. They are owner-reported acceptance,
+not new provider tests.
+
+## Development and evidence
 
 Build: `python3 app/tools/package.py --output ./dist`
 
@@ -50,13 +53,13 @@ Release checks: `python3 app/tools/release_gate.py`
 Public asset check: `npm ci --prefix app/tools/public-assets --ignore-scripts`
 then `node app/tools/build_public_assets.mjs --check`.
 
-Tests are under app/tests and workflows reference those paths. Development
-scripts, design evidence, credentials and private runtime data are excluded from
-the installation ZIP. The host needs PHP/MySQL and Apache/LiteSpeed rewriting,
-not Python, Node, SSH, a setup code or hosting API tokens.
+Tests live under app/tests and remain outside the installation ZIP. The host
+needs PHP/MySQL and Apache/LiteSpeed rewriting, with no host-side Python, Node,
+SSH or root requirement. See PROJECT_STATUS.md, docs/TEST_RESULTS.md and
+docs/acceptance/FINAL-1.1.0.md for the evidence and operational limits.
 
-## Status
+Repository: https://github.com/afterburn25/Spirit
 
-See PROJECT_STATUS.md and docs/TEST_RESULTS.md for observed results. The draft
-branch is work/1.1.0-analytics-and-navigation, PR 37. No production deployment,
-merge, merchant acceptance or final release approval is claimed.
+The final release is consolidated through PR 37 into authoritative main.
+Previously delivered archives remain immutable. Shipping this package does not
+install it on the owner's live hosting account.

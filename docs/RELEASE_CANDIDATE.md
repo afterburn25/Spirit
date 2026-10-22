@@ -1,23 +1,29 @@
-# 1.1.0-rc.12 — footer at the bottom of short pages
+# 1.1.0 — final cumulative release
 
-This cumulative review candidate retains the rc.11 Music filter wrapping and
-rc.10 grouped directory layout. The public shell fills the viewport, leaving
-the compact footer at the bottom on short pages and after content on long pages.
-The audio player's measured height supplies clearance for accessible footer
-links on narrow screens. Original newsletter spacing is retained.
+The release includes completed analytics/navigation, approved animated gorilla
+identity and stage/smoke, grouped folders, Music filter wrapping and short-page
+footer correction. The final promotion preserves rc.12 production code/assets;
+only VERSION and operating/release documentation change in the deployment
+payload. Development-only tests gain exact-package upgrade coverage.
 
-The source stylesheet and its generated bundle change. Approved artwork,
-JavaScript, all eight migrations, routing, recovery, analytics, logo/smoke,
-footer transparency, editable copyright and fixed Cajun Web Pro credit remain.
-Read TEST_RESULTS.md for observed local checks and their limits. Check the
-exact published branch head's Actions before claiming CI passed.
+The compact footer reaches the viewport bottom on short pages and follows
+content on long pages, retaining its appearance, links and fixed developer
+credit. Measured player height supplies narrow-screen clearance. No SQL
+migration, public route, artwork or recovery-pin change is introduced.
 
-**Existing rc.8 or earlier:** use the documented one-time same-root hosting-panel
-transition. The old Browser upgrades system must reject this layout change.
-**Existing rc.10 or rc.11:** same-layout, same-schema Browser upgrades may be used
-when all existing integrity/recovery checks pass. Do not bypass any check.
-**Earlier rc.9:** compare the actual installed package before assuming compatibility.
+**Existing rc.10, rc.11 or rc.12:** use owner Browser upgrades with normal full
+backup, trust acknowledgement and private recovery receipt. All integrity/schema
+checks apply. **Existing rc.8 or earlier:** use the documented one-time same-root
+hosting-panel transition; the old updater must refuse the layout change.
+**Earlier unrecovered rc.9:** compare the actual package first.
 
-No database migration is added. Preserve configuration, original owner, private
-runtime, uploads and absent installer. Do not reinstall. Target host, real mail,
-merchant and final owner acceptance remain separate. Keep PR 37 draft/unmerged.
+Preserve original configuration, owner, database, private runtime, media and
+removed installer. Do not reinstall. Read TEST_RESULTS.md and
+acceptance/FINAL-1.1.0.md for evidence and scope. The companion receipt records
+the frozen archive identity and final CI/publication checks. Historical
+candidate archives stay unchanged.
+
+This file retains its cumulative path for updater compatibility. The package
+is final 1.1.0; publication does not deploy it to the owner's A2 account or
+enable commerce. Host, physical-device and merchant observations remain
+distinct from automated verification.

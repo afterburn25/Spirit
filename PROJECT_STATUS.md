@@ -1,33 +1,49 @@
-# Project status — 1.1.0-rc.12
+# Project status — 1.1.0
 
-## Implemented
-The cumulative development branch is work/1.1.0-analytics-and-navigation, draft
-PR 37. The rc.11 source recovered from its delivered patch retains the rc.10
-grouped layout and wraps the Music release filters on narrow screens.
+## Release scope
 
-The rc.12 public layout fills the viewport on short pages, allowing main content
-to take the spare vertical space while the compact footer stays at the bottom.
-On longer pages the footer remains after the content and optional newsletter.
-The fixed audio player's measured height supplies its bottom clearance instead
-of an obsolete 116px override, keeping narrow-screen footer links accessible.
+Final 1.1.0 consolidates the completed analytics/navigation development and
+approved branding, background, directory and responsive-layout work through
+PR 37. Main remains the authoritative release source.
 
-Deployment still has ten primary folders: admin, app, assets, config, docs,
-images, includes, install, storage and uploads. Approved artwork, logo/smoke,
-footer appearance and settings, JavaScript, eight SQL migrations, public URLs
-and the grouped recovery foundation are retained.
+The final promotion retains rc.12 application code byte for byte. It updates
+VERSION and release/operating documentation and adds development-only exact
+package upgrade/recovery verification. The ten deployment folders, public URLs,
+eight migrations, private-storage identity and recovery pins stay intact.
+
+Short pages fill the viewport with the compact footer at the bottom; long pages
+keep it after their content. Music filter wrapping, newsletter spacing and
+measured player clearance are retained. Public CSS/JavaScript remains 129,916
+bytes against the unchanged 130,000-byte budget.
 
 ## Verification
-Observed results and exact limitations are in docs/TEST_RESULTS.md. The rebuilt
-public CSS/JavaScript totals 129,916 bytes against the unchanged 130,000-byte
-budget. The existing installed media/keyboard regression passed all 112 checks,
-including the formerly failing 320px footer-focus clearance check, using
-Chromium 143, PHP 8.3 and disposable MariaDB 10.11 as an unprivileged user.
 
-Historical rc.10 and rc.11 results remain in docs/history and must not be
-presented as new CI or hosting acceptance.
+All eleven GitHub workflows succeeded on published rc.12 source
+46744207a0916ae2256d84fbaa312c9c4fc67768, including the populated storefront,
+installer, editing, navigation, analytics, branding and grouped-layout checks.
+
+Current local evidence, archive identities and the final verification procedure
+are in docs/TEST_RESULTS.md. The companion verification receipt records the
+frozen final ZIP and publication checks. Final-source Actions must succeed
+before publication; rc.12 evidence alone does not establish final-commit CI.
 
 ## Remaining blockers
-Observe GitHub Actions for the published rc.12 commit before claiming all CI
-passed. Target A2 layout-transition/update acceptance, enabled-provider
-acceptance, physical-device review and owner visual approval remain. PR 37
-stays draft and unmerged; main and the live host are not changed.
+
+None.
+
+## Operational follow-up and evidence boundaries
+
+The owner's continuation authorizes completing this software release and
+consolidating PR 37 into main. It does not claim a live-host installation,
+physical-device review, provider test or payment activation.
+
+Retain the owner-confirmed installation, administration, booking, newsletter,
+account, mail-schedule configuration and unpaid-cancellation results in
+docs/acceptance/CONSOLIDATED-FINAL-PASS.md. Do not restart those accepted checks.
+Commerce remains intentionally disabled; merchant acceptance belongs to later
+activation. Optional content may remain unpublished.
+
+Use the documented update path and check actual host permissions, current
+mail/cron execution and physical devices when deploying. No live host or
+customer data was changed by this release session. Historical records remain
+under docs/history.

@@ -1,8 +1,8 @@
-> **Current rc.10–rc.12 layout:** read [DIRECTORY_LAYOUT.md](DIRECTORY_LAYOUT.md) and [LAYOUT_TRANSITION.md](LAYOUT_TRANSITION.md). An rc.8-or-earlier updater must refuse the changed foundation. Preserve existing data; never reinstall.
+> **Current 1.1.0 layout:** the grouped foundation is unchanged from rc.10–rc.12. Read [DIRECTORY_LAYOUT.md](DIRECTORY_LAYOUT.md) and [LAYOUT_TRANSITION.md](LAYOUT_TRANSITION.md). An rc.8-or-earlier updater must refuse the changed foundation. Preserve existing data; never reinstall.
 
-# Browser installation and updates — 1.1.0-rc.5
+# Browser installation and updates — 1.1.0
 
-Use isolated staging first, not the existing live band website. TEST_RESULTS.md records exact automated evidence. Actual shared-host ownership, domain aliases, execution limits, TLS/proxies, OPcache and provider behavior require staging acceptance.
+Try a new update on an isolated staging copy before changing the existing live band website. TEST_RESULTS.md records exact automated evidence; it does not establish behavior on an unobserved host. The accepted installation, mail and account results in acceptance/CONSOLIDATED-FINAL-PASS.md remain historical owner-confirmed results and do not need to be restarted for this software release.
 
 ## Hosting and fresh installation
 
@@ -30,15 +30,24 @@ An older unfinished automatic attempt is identified by its private cpanel-provis
 
 ## Existing installations
 
-**Updating rc.1, rc.2, rc.3 or rc.4 to rc.5:** this presentation update adds the fixed stage background, transparent outer shell, full-width header surface and readable content panels. It keeps all migrations unchanged and retains the complete graphical analytics, prior reporting corrections and crowned-gorilla favicon. The existing same-schema Browser upgrades workflow applies when its usual package, backup and recovery checks pass. The new background asset, public CSS and small markup wrappers apply without a data rewrite. The deployment already includes the ready-to-use WebP and compiled CSS; no server-side image or Node build is required. The different 1.0.x-to-1.1 update path below still applies to installations without the analytics schema.
+Choose the path for the version actually installed:
 
-**1.1.0-rc.1 adds analytics migrations 007 and 008.** Use the existing configuration/database and owner account. The same-schema ZIP updater deliberately rejects this candidate from 1.0.x. Save verified code/configuration/database/media backups, deploy the cumulative code through cPanel while preserving runtime and uploaded files, and apply **System & maintenance → Database updates**. Do not recreate a removed installer folder or rerun fresh setup on the installed site. See `ANALYTICS.md` for the complete staged update sequence.
+| Installed version | Path to 1.1.0 |
+|---|---|
+| 1.1.0-rc.10, rc.11 or rc.12 | Guarded same-layout, same-schema **Browser upgrades**, when all existing integrity, backup and recovery checks pass. See UPGRADES.md and TEST_RESULTS.md for the exact verified scope. |
+| 1.1.0-rc.8 or an earlier 1.1 candidate | One-time same-root cPanel transition in LAYOUT_TRANSITION.md. The older updater must refuse the changed routing/recovery foundation. |
+| 1.0.x | Preserve the existing installation, follow the same-root layout transition, and apply the additive analytics database update described below. The browser code-only updater must refuse this cross-schema/layout update. |
+| The earlier unrecovered rc.9 package | Compare the actual installed package and its recovery foundation before choosing an update path; compatibility is not assumed. |
+
+**Analytics migrations 007 and 008 were introduced in 1.1.0-rc.1.** An existing 1.0.x installation retains its configuration, database, owner and original encryption secret. Save verified code/configuration/database/media backups, deploy the cumulative code through cPanel while preserving runtime and uploaded files, and apply **System & maintenance → Database updates**. Do not recreate a removed installer folder or rerun fresh setup. Read ANALYTICS.md together with LAYOUT_TRANSITION.md. There is no additional migration from rc.8, rc.10, rc.11 or rc.12 to final 1.1.0.
+
+The stage background and transparent shell introduced in rc.5, later identity refinements, rc.11 Music wrapping and rc.12 footer placement remain in the cumulative release. Ready-to-use WebP artwork and compiled CSS are included; no server-side image or Node build is required.
 
 Never rerun a fresh installer. Back up config, original encryption secret, database and media before replacing code. Legacy dev.1 runtime placement needs the review in STORAGE.md; do not delete old state to bypass conflicts.
 
 Supported installations with the current maintenance/recovery foundation can use owner **Browser upgrades** for a newer trusted cumulative ZIP with **unchanged migrations/schema and pinned recovery layer**. The owner downloads a separate private update-recovery receipt, confirms it is stored, installs, then verifies the newly started application before public access resumes. The removed installer and private runtime are preserved. Interrupted replacement can recover via `/admin/upgrades/recover.php` and the saved private receipt. Read UPGRADES.md before updating.
 
-The three retired Cpanel paths contain no class or API logic. Their inert files permit an existing dev8 updater to replace the old code without omitting tracked paths. Do not remove these compatibility entries or edit a package manifest to bypass validation.
+The three retired Cpanel paths contain no class or API logic. Their inert files were retained for older cumulative update manifests and remain in this release. Do not remove these compatibility entries or edit a package manifest to bypass validation.
 
 Cross-schema releases or changes to pinned recovery/access files require a reviewed staging deployment and the existing additive Database updates flow; the automatic updater deliberately refuses them. Do not rename versions or strip safety checks to force acceptance. Automatic legacy-runtime relocation and cross-host disaster recovery are not implemented.
 
@@ -46,11 +55,11 @@ Cross-schema releases or changes to pinned recovery/access files require a revie
 
 Owner **Backups & safe restore** supports authenticated encrypted snapshots, verification/import/download and guarded same-instance restoration. Keep the separate recovery key offline. Content-only restore preserves payment/account/stock/consent histories; broader site-data restore refuses changed protected operational state. Read BACKUPS.md and keep independent provider backups.
 
-Owner retention tools remove only eligible bounded technical data after review; they do not erase business histories or create a hosting schedule. See RETENTION.md if present and the administration guidance. Configure TLS SMTP and verify delivery with the real mailbox/provider using COMMUNICATION.md. Configure Authorize.net sandbox separately using PAYMENTS.md; synthetic tests do not establish actual SDK/API/webhook/merchant acceptance. Production enablement requires an explicit owner decision after staging validation.
+Owner retention tools remove only eligible bounded technical data after review; they do not erase business histories or create a hosting schedule. See RETENTION.md and the administration guidance. Preserve the owner's accepted SMTP and mail schedule; use COMMUNICATION.md when configuring or changing a provider. Commerce remains intentionally disabled. Before activating it, configure and verify Authorize.net sandbox separately using PAYMENTS.md; synthetic tests do not establish actual SDK/API/webhook/merchant acceptance. Live payments require an explicit owner decision after that validation.
 
 ## Final staging acceptance
 
-Follow LAUNCH_CHECKLIST.md before cutover. Responsive image caches are private, optional and regenerable; original approved media remains authoritative and belongs in backups. Real provider/host/master-art/content acceptance remains separate from regression results. Never treat the development version or a successful package upload as owner approval to enable live payments.
+Use the applicable deployment checks in LAUNCH_CHECKLIST.md before a host cutover, preserving the accepted scope recorded in acceptance/CONSOLIDATED-FINAL-PASS.md. Responsive image caches are private, optional and regenerable; original approved media remains authoritative and belongs in backups. Current target-host behavior and any new provider or content changes remain separate from automated software results. A software release or successful package upload does not enable live payments.
 
 ## Post-install launch checks
 

@@ -27,7 +27,7 @@ The earlier full-screen and split-column interpretations are superseded by this 
 
 The user selected **option 1: the blue-lit concert stage** as a global public-site background. It remains fixed relative to the viewport while page content scrolls. Expose it through the page shell, gutters and section gaps while preserving the existing contained continuous-image heroes, readable content surfaces, sticky navigation and controls. Use a decorative, non-interactive layer; no scroll-driven animation is needed. Phone framing should retain recognizable stage equipment. Omit decoration for print and forced-colors displays.
 
-The source master is `design/background-stage/blue-lit-concert-stage-master.png` (native 1672 × 941px); the served asset is `images/backgrounds/spiritual-gorillaz-stage-background.webp`. This selected background supersedes the former solid full-height page-shell backdrop. It does not replace the separate page-specific hero artwork. It is generated decorative music artwork, not evidence of a real band performance.
+The source master is `docs/design/background-stage/blue-lit-concert-stage-master.png` (native 1672 × 941px); the served asset is `images/backgrounds/spiritual-gorillaz-stage-background.webp`. This selected background supersedes the former solid full-height page-shell backdrop. It does not replace the separate page-specific hero artwork. It is generated decorative music artwork, not evidence of a real band performance.
 
 The user's follow-up decisions are part of the same presentation: keep the main outer container transparent; extend the header's background and lower border to both viewport edges while keeping the logo in exactly its existing position; place previously exposed content into its own dark navy containers. Group related headings and descriptions together, use existing semantic wrappers where possible, and avoid adding extra panels inside already-contained heroes, cards or forms. Keep the stage visible in the spacing between those surfaces.
 
@@ -55,7 +55,7 @@ Record actual page-entry motion at normal speed for review. Do not seek animatio
 
 ## Tracked reference and assets
 
-- `design/approved-reference-thumbnail.webp`: a derived 300-pixel-wide thumbnail of the selected composite.
+- `docs/design/approved-reference-thumbnail.webp`: a derived 300-pixel-wide thumbnail of the selected composite.
 - `images/spiritual-gorillaz-*-hero.png`: existing source artwork; preserve its actual available detail.
 - `app/tools/generate_extended_heroes.py`: deterministic build tool that resizes and extends the source artwork with dark atmosphere and a feathered join.
 - Packaged `images/extended/spiritual-gorillaz-*-hero-wide.webp`: generated wide background compositions used by the contained continuous-image heroes.

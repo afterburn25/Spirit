@@ -1,25 +1,30 @@
-# Roadmap — 1.1.0-rc.12
+# Roadmap — final 1.1.0
 
-| Area | Implemented status | Remaining acceptance |
+| Area | Final software status | Operational follow-up |
 |---|---|---|
-| Functional folder grouping | Ten deployment roots, images retained at root | One-time A2 same-root transition for older installations |
-| Short-page footer | rc.12 fills viewport and keeps footer content-sized in normal flow | Owner and physical-device review |
-| Audio-player clearance | Measured player height restored; installed 320px keyboard regression passed | Current CI and physical-device review |
-| Music release filters | Recovered rc.11 wrapping retained | Current full storefront CI |
-| URLs, data and recovery | Exact route allowlist, immutable migrations, grouped-v2 boundary retained | Actual A2 same-layout update acceptance |
-| Approved design | Animated 3D logo, fixed stage/smoke, transparent header/footer and compact credit retained | Owner visual review |
-| Analytics | Dedicated graphs, Visitor Explorer and Overview snapshots retained | Preserve owner access and measurement definitions |
-| CMS, media, music, shows and booking | Existing implementation retained | Full current CI and enabled-provider acceptance |
-| Commerce | Optional, activation-gated; no native ticket sales | Catalog, policies and merchant acceptance before activation |
+| Grouped directories | Ten deployment roots, root images and original URLs retained | Same-root transition for pre-grouped installations |
+| Short-page footer | Viewport-filling layout with content-sized footer; long-page flow retained | Physical-device review during deployment |
+| Player clearance | Measured height restored; installed 320px keyboard regression passed | Preserve the measured inset in future styles |
+| Music filters | rc.11 wrapping retained | Existing responsive CI stays active |
+| Data and recovery | Unchanged schema and recovery boundary; exact-package tests | Preserve backups/receipt and verify host permissions |
+| Approved design | Animated 3D logo, stage/smoke, transparent surfaces and compact credit retained | Review actual package screenshots; no redesign |
+| Analytics | Graphs, Visitor Explorer and Overview reports complete | Retain owner access and measurement definitions |
+| CMS, media, music, shows, booking and accounts | Functionality and accepted checkpoints retained | Add only owner-approved optional content |
+| Commerce | Optional and disabled; venue ticket links remain external | Merchant/catalog/policy acceptance before activation |
+| Final release | 1.1.0 promoted from rc.12 runtime through PR 37 | Publication does not update the live host |
 
-## Publication
-The cumulative candidate belongs to work/1.1.0-analytics-and-navigation, draft
-PR 37. Main and production remain unchanged. Read TEST_RESULTS.md for observed
-local results; verify the exact published head's Actions before claiming CI.
+## Evidence and continuation
 
-## Transition and evidence
-Read LAYOUT_TRANSITION.md and TEST_RESULTS.md. No reinstall, database replacement,
-private-runtime relocation or destructive folder deletion. Old rc.8 updaters
-must reject the changed foundation; grouped rc.10/rc.11 installations may use
-guarded same-layout updates. The unavailable earlier rc.9 package requires
-separate comparison.
+TEST_RESULTS.md separates historical checks, exact package tests and current
+release verification. acceptance/FINAL-1.1.0.md records the accepted scope.
+The companion receipt identifies the delivered ZIP and exact CI/publication
+results. Do not turn owner-confirmed installation or communication checks into
+new blockers. No mandatory feature remains in this 1.1 scope.
+
+## Existing installations
+
+Read LAYOUT_TRANSITION.md. Grouped rc.10/rc.11/rc.12 use guarded same-layout
+updates. An rc.8-or-earlier updater must refuse the changed foundation; the
+unavailable earlier rc.9 needs comparison with its actual package. Do not
+reinstall, replace the database, relocate private runtime or delete unknown
+custom files to force the transition.

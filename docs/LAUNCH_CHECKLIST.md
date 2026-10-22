@@ -1,6 +1,23 @@
-# Staging and launch acceptance — manual installer
+# Staging and launch acceptance — 1.1.0 manual installer
 
-Current installer scope: A2/cPanel, manual database configuration, no API token, no setup code. This checklist is not a declaration of production readiness. Read PROJECT_STATUS.md and TEST_RESULTS.md for exact verified code and known limits. Record environment, tester, date, result and evidence for every item. Never put passwords, payment keys, recovery keys or customer details in Git.
+Current installer scope: A2/cPanel, manual database configuration, no API token, no setup code. This is a reusable checklist for a host deployment, changed service or newly enabled feature. Read PROJECT_STATUS.md and TEST_RESULTS.md for exact verified code and known limits. Record environment, tester, date, result and evidence for each newly performed check. Never put passwords, payment keys, recovery keys or customer details in Git.
+
+## Current release scope and retained acceptance
+
+The owner-confirmed installation/upgrade/admin, owner email, booking, newsletter,
+mail-schedule configuration, customer-account and unpaid-checkout cancellation
+results in [CONSOLIDATED-FINAL-PASS.md](acceptance/CONSOLIDATED-FINAL-PASS.md) remain
+accepted historical results. Do not restart that checklist or recast those
+results as new provider observations. Preserve the confirmed band lineup and
+approved design; optional shows, portraits, provider metadata and merchandise
+may remain unpublished.
+
+The storefront remains intentionally disabled. Section 4 and sales-specific
+items apply before commerce activation. A new host deployment, physical-device
+review, recent scheduled-task observation, recovery drill or field-performance
+measurement must be reported only when actually performed. They are distinct
+from the current software release; any discovered defect still needs a recorded
+follow-up. Use the remaining sections for the change actually being deployed.
 
 ## 1. Approved band content and artwork
 
@@ -43,8 +60,8 @@ Keep live enablement off until owner approval. Synthetic tests do not satisfy th
 - Independently verify shipping/tax/terms/destinations and compliance/security/fulfillment responsibilities; configured rates are not an automatic jurisdiction-aware tax service.
 - No live test charge without separate explicit authorization.
 
-## 5. Release candidate, approval and cutover
+## 5. Software release and host cutover
 
-Resolve blockers, retain a verified independent backup/recovery materials, record final commit/package hashes and rerun the complete regression matrix. Review populated pages against the approved design. Measure real-host performance with approved assets; fixture budgets are not field Core Web Vitals. Preserve/map actual old-site URLs deliberately.
+For a software release, resolve the release's concrete code/package defects, record its final commit/package hashes and exact regression results, and retain the approved design and launch scope. User review captures must come from the actual versioned package; synthetic fixture content must be identified. A green run alone does not establish an unobserved provider or host result.
 
-Only then prepare the candidate, record owner acceptance and plan cutover. A green run, version number, checkout button or lack of reported defects does not establish accepted v1.0.
+For a separate host cutover, retain verified independent backup/recovery materials, follow INSTALLATION.md and LAYOUT_TRANSITION.md for the installed version, and preserve/map actual old-site URLs deliberately. Review the changed pages and record observed host results. Field-performance measurements require the real host and approved assets; fixture budgets are not field Core Web Vitals. Do not reinstall an existing site, enable commerce or alter working provider configuration merely to repeat historical acceptance.

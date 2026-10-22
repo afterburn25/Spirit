@@ -1,12 +1,12 @@
-# Checkout, orders and payment operations — 0.8.0-dev.1
+# Checkout, orders and payment operations — 1.1.0
 
-Development implementation. Read TEST_RESULTS.md for the exact tested commit and boundaries. The application has not been accepted against a real Authorize.net merchant account. Do not enable production solely because synthetic tests pass.
+The optional payment subsystem introduced in 0.8 remains in 1.1.0. Read TEST_RESULTS.md for the exact tested commit and boundaries. The storefront remains intentionally disabled, and actual Authorize.net merchant acceptance is deferred until commerce activation. Historical accepted software/account/cancellation results remain in acceptance/CONSOLIDATED-FINAL-PASS.md. They do not establish merchant acceptance or enable production payments.
 
 ## Configuration and staged acceptance
 
 The owner sidebar includes Orders & payments. Save Shipping, tax & store terms first. Initial delivery support is the United States: a flat shipping amount, explicitly configured state rates and optional state/ZIP overrides, plus whether shipping is taxable. Rates are entered as percentages with up to four decimal places; calculations use integer cents and an integer rate. Unsupported destinations fail closed. These are merchant-configured rules, not an automatic tax service or legal determination. State-level or ZIP-level rules may be insufficient for a particular jurisdiction. Independently verify rates, destination boundaries, shipping treatment and rounding before opening sales. Address validation checks syntax, not postal deliverability.
 
-Store terms must be approved before enabling checkout. Each order retains the accepted terms and its calculated totals. Changes to current prices or policies do not rewrite an existing order. The amount is displayed before payment. This checkpoint does not implement carrier quotes, discount codes, partial fulfillment or international checkout.
+Store terms must be approved before enabling checkout. Each order retains the accepted terms and its calculated totals. Changes to current prices or policies do not rewrite an existing order. The amount is displayed before payment. Current operating limits exclude carrier quotes, discount codes, partial fulfillment and international checkout.
 
 Payment settings separate sandbox and production credentials. Configure API Login ID, Transaction Key, Signature Key and Public Client Key. Secrets are encrypted using the private installation secret and never reflected in the owner form. Blank secret fields preserve existing values. The current owner password is required to save credentials, test API authentication, void or refund. Each environment's merchant Login ID becomes fixed after initial configuration; credential rotation is allowed, silent merchant migration is not.
 
@@ -40,7 +40,7 @@ Subscribe to relevant payment auth-capture, fraud held/approved/declined, void a
 Use the owner Payment notifications screen to process or retry reporting lookups. A failed lookup is not a new payment attempt. For regular processing on a quiet shared-host site, configure the hosting panel's scheduled PHP command, for example every five minutes:
 
 ```text
-/usr/bin/php /home/ACCOUNT/public_html/band/tasks/payments.php --document-root=/home/ACCOUNT/public_html
+/usr/bin/php /home/ACCOUNT/public_html/band/app/tasks/payments.php --document-root=/home/ACCOUNT/public_html
 ```
 
 Use actual host paths and PHP executable. This runs bounded expiry/interruption/receipt maintenance and signed-notification reporting. Keep the separate `app/tasks/mail.php` schedule for queued email. Both workers are CLI-only; no public cron token or arbitrary web execution endpoint exists. The document-root argument is the server's actual document root, not automatically the application subfolder. These tasks are not permanent background daemons. Verify their execution and queue states on the real hosting account.
@@ -55,7 +55,7 @@ Payment and fulfillment states are separate. Only paid orders with consumed inve
 
 The owner may request a full void before settlement or a full refund after settlement, with current-password reauthentication and explicit confirmation. The application verifies original transaction status and total first. Refunds use only the provider's last-four card reference, not a stored card number. The durable reversal operation precedes its irreversible API call. Repeating a reversal cannot call the payment mutation twice. Unknown results remain reversal-uncertain until reporting resolves them.
 
-This checkpoint supports one reversal operation per order. Rejected or uncertain operations cannot be blindly resubmitted. Partial refunds, externally initiated unmatched refunds and chargebacks need provider/owner review and remain visible in the notification diagnostics rather than being silently claimed as successful. A refund does not automatically restock potentially shipped goods. Record any actual return as a separate audited inventory adjustment. Final release acceptance must decide whether these supported limits fit the store's operating procedures; they are not hidden behind a nominal completed-version label.
+The current implementation supports one reversal operation per order. Rejected or uncertain operations cannot be blindly resubmitted. Partial refunds, externally initiated unmatched refunds and chargebacks need provider/owner review and remain visible in the notification diagnostics rather than being silently claimed as successful. A refund does not automatically restock potentially shipped goods. Record any actual return as a separate audited inventory adjustment. Before activating commerce, confirm that these supported limits fit the store's operating procedures.
 
 ## Reproducible test boundary
 
@@ -65,6 +65,6 @@ Run the full existing installer/content/communication/commerce suite plus paymen
 
 ## Required real-provider and host acceptance
 
-Before live sales, verify actual merchant sandbox activation, matching SDK/API credentials, real SDK tokenization, approved and declined sandbox charges, AVS/CVV behavior, held transactions, true provider-signed notifications, merchantReferenceId correlation, server reporting, void/refund settlement timing, delivery workers, receipts, HTTPS/CSP and hosting access rules. Verify the actual approved product content, inventory, shipping/tax/store policies, PCI/security review, backups and recovery. Do not perform a live charge without explicit authorization. No completed v1.0 or live deployment is established by this development checkpoint.
+Before live sales, verify actual merchant sandbox activation, matching SDK/API credentials, real SDK tokenization, approved and declined sandbox charges, AVS/CVV behavior, held transactions, true provider-signed notifications, merchantReferenceId correlation, server reporting, void/refund settlement timing, delivery workers, receipts, HTTPS/CSP and hosting access rules. Verify the actual approved product content, inventory, shipping/tax/store policies, PCI/security review, backups and recovery. Do not perform a live charge without explicit authorization. These are commerce-activation requirements; they do not reopen the accepted 1.0 launch scope or prevent a software release with commerce disabled. This document does not claim a current host deployment or merchant acceptance.
 
 Primary implementation references consulted: Authorize.net Accept.js documentation (`https://developer.authorize.net/api/reference/features/acceptjs.html`), Webhooks documentation (`https://developer.authorize.net/api/reference/features/webhooks.html`), Payment Transactions (`https://developer.authorize.net/api/reference/features/payment_transactions.html`) and the official SDK transaction-details contract (`https://github.com/AuthorizeNet/sdk-php/blob/master/lib/net/authorize/api/contract/v1/TransactionDetailsType.php`).
