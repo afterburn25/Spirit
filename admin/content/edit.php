@@ -28,4 +28,17 @@ Spirit\View::start($id?'Edit '.$item['title']:'Add '.$kind,'admin',$kind,$user);
 <aside class="panel editor-actions"><p class="eyebrow">PUBLISHING</p><h2>Keep control.</h2><p>Draft changes do not alter the published page. Publishing makes its selected files public too.</p><label>Sort order<input type="number" name="sort_order" value="<?=e($values['sort_order']??0)?>" min="-100000" max="100000"></label><p class="small muted">Lower numbers appear first.</p><button class="button wide" name="action" value="save">Save private draft</button><button class="button outline wide" name="action" value="publish">Publish approved content</button>
 <?php if($id):?><a class="button outline wide" href="<?=e(app_url('admin/content/history.php?id='.$id))?>">Version history &amp; restore</a><a class="button outline wide" target="_blank" rel="noopener" href="<?=e(app_url('admin/content/preview.php?id='.$id))?>">Preview saved draft ↗</a><?php endif;?>
 <?php if($item&&$item['is_published']):?><button class="text-button" name="action" value="unpublish">Remove from public site</button><?php endif;?><p class="small muted">Only use approved names, photographs, music, dates and documents. Save before previewing.</p></aside></form>
+<?php if($kind==='member'&&$id):?>
+<section class="panel" aria-labelledby="remove-member-title">
+<h2 id="remove-member-title">Remove this band member</h2>
+<p>Removing a member takes their profile off the website and content list. Existing media files are retained, and this cannot be undone through the editor.</p>
+<form action="<?=e(app_url('admin/content/delete.php'))?>" method="post">
+<?=csrf_field()?>
+<input type="hidden" name="id" value="<?=$id?>">
+<input type="hidden" name="kind" value="member">
+<input type="hidden" name="revision" value="<?=e($values['revision']??0)?>">
+<label><input type="checkbox" name="confirm" value="yes" required> I understand this member will be removed from the website.</label>
+<button class="button outline" type="submit">Remove band member</button>
+</form></section>
+<?php endif;?>
 <?php Spirit\View::end();?>
