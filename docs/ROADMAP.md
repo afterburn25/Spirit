@@ -28,3 +28,7 @@ updates. An rc.8-or-earlier updater must refuse the changed foundation; the
 unavailable earlier rc.9 needs comparison with its actual package. Do not
 reinstall, replace the database, relocate private runtime or delete unknown
 custom files to force the transition.
+
+## Planned follow-up — 1.2.0 content administration
+
+Track implementation and acceptance in [issue #38](https://github.com/afterburn25/Spirit/issues/38). Add owner-editable page/section text and imagery throughout the public site using the existing CMS/media permissions and draft/publish infrastructure. Provide a dedicated admin Band Members manager for add/edit/delete, image/biography editing, publishing and persistent ordering. Public `/band/` members must be vertically stacked, with portrait left and name/role/bio right on desktop and image-first stacking on mobile. Preserve the approved 1.1.0 design, legacy content, installations, media and upgrade/recovery guarantees. This is planned work, not shipped with 1.1.0.
