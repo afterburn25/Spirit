@@ -26,6 +26,21 @@ final class MemberOnboarding
         return (int)$q->fetchColumn()===0;
     }
 
+    /** Keep the old displayed lineup while only private draft records exist. */
+    public static function showLegacyFallback(): bool
+    {
+        $db=Database::connect();
+        $q=$db->prepare('SELECT COUNT(*) FROM '.Database::table('content').
+            ' WHERE kind=? AND (deleted_at IS NOT NULL OR published_json IS NOT NULL)');
+        $q->execute(['member']);
+        if((int)$q->fetchColumn()>0){return false;}
+        $q=$db->prepare('SELECT COUNT(*) FROM '.Database::table('content_revisions').' r JOIN '.
+            Database::table('content').' c ON c.id=r.content_id'.
+            ' WHERE c.kind=? AND r.action IN (\'publish\',\'unpublish\')');
+        $q->execute(['member']);
+        return (int)$q->fetchColumn()===0;
+    }
+
     public static function import(int $actor): int
     {
         $db=Database::connect();
