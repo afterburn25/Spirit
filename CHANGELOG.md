@@ -17,8 +17,15 @@
 - Extend CI to exercise **actual 1.1.0 final source reproduction ZIP -> this
   candidate ZIP** in isolated root/subfolder/interrupted update-and-recovery
   scenarios on PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4.
-- Candidate publication remains blocked on new exact-head CI, actual review
-  screenshots, owner UI/accessibility acceptance and release documentation.
+- Previous source head `41d2dcf` passed all 11 CI workflows, 737 upgrade/recovery
+  assertions per PHP/database matrix, and synthetic screenshot inspection.
+- Expose per-member portrait description and optional HTTPS website link through
+  the existing JSON CMS; render safely in Band list/detail. Prevent abandoned
+  historical member names persisting in the default Band hero/SEO copy after
+  lineup publication, unpublication or removal; retain untouched-site fallback.
+  Update member Help Center instructions and targeted unit/browser checks.
+- This new change requires its own exact-head CI. Human device/screen-reader
+  acceptance, final immutable package and owner approval still block release.
   The source-reproduced 1.1.0 baseline is not represented as an original
   delivered archive or a production-host update.
 

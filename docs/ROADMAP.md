@@ -2,53 +2,13 @@
 
 ## Current 1.2.0 milestone and release criteria
 
-The 1.2 development branch implements site-wide CMS section text/media controls
-with designed fallbacks, responsive image-left/bio-right Band rows, permitted
-profile additions/edits/sort/soft removal and explicit one-time legacy import,
-media picker previews and a searchable permission-aware Admin Help Center.
-The existing 1.1.0 production source remains on main; PR #39 stays draft.
+The 1.2.0-rc.1 development branch implements owner/staff editing of public-page text and media with safe designed fallbacks, Band profiles in portrait-left/bio-right desktop rows and mobile stacks, add/edit/draft/publish/sort/soft-remove, one-time confirmed legacy lineup import, media previews, and a searchable permission-controlled Admin Help Center. Main remains the authoritative final 1.1.0 production source; PR #39 stays draft.
 
-**Help Center screenshot review (October 28, 2026 UTC):** The new synthetic
-Chromium captures at 1440, 820, 390 and 320 pixels show the dark/gold Help
-layout and confirm a genuine visual regression on both phone widths: the
-search input expanded to roughly 300px tall because its desktop `flex-basis`
-was interpreted vertically after switching the search row to a column.
-The candidate CSS now overrides the phone input to `flex:0 0 auto` with a
-normal minimum height, and the browser suite asserts bounded input height and
-proper stacked submit placement at 320/390px, including no-JavaScript search.
-These changes require a new CI pass and corrected artifact inspection. This
-is CSS/test-only; HelpCatalog routes and instructions did not change. No
-physical-device, human screen-reader, owner acceptance or release is claimed.
+**Verified October 28, 2026:** All **11 of 11 GitHub workflows passed** at commit `41d2dcf1e08d9408d4f720e827ba943175a3200e`. Both PHP 8.2/MariaDB and PHP 8.4/MySQL passed **737 exact-package upgrade/recovery assertions each**, including historical zero, draft, published, unpublished and soft-deleted member records. Package archive integrity, digest and no-nested-ZIP checks passed. Synthetic Chromium Help Center screenshots at 1440, 820, 390 and 320px were reviewed; the prior stretched phone search field was fixed, and sampled Band/editor layouts showed no obvious clipping. This is not human accessibility, physical-device or original-delivery ZIP verification.
 
-**CI checkpoint, October 28, 2026 UTC:** all 11 workflows succeeded on
-ae31a7a97bb9fbf9cde9599bb10bc52ba3eaa274, including both PHP/database
-web/installer and grouped-layout matrices. That commit's package still claimed
-1.1.0. The 1.2.0-rc.1 candidate includes a distinct final-1.1.0 source
-reproduction baseline in grouped-layout CI, exercising real
-root/subfolder/interrupted upgrades with independent rollback. The newly
-versioned candidate's results must be checked separately.
+**New corrective work, awaiting its own CI:** Address issue #38's remaining member portrait-description and optional HTTPS-link fields, render them safely on Band rows/member detail, and stop hardcoded former member names from appearing in default Band hero and metadata after owner changes the roster. Preserve the original historical fallback intro on untouched/draft-only installations, and preserve explicit owner-edited Page text. Update the Help Center member workflow and focused validation/browser regression tests. No database migration is required; the new member fields are stored in the existing content JSON.
 
-Legacy member-state test coverage was added to the exact-package upgrade suite:
-1.1.0 baseline zero-member/import, private-only draft and mixed
-published/unpublished/soft-deleted histories. Each starts from real owner
-content forms (with the deleted state modeled only in isolated test SQL),
-checks the new Band public listing and Help-linked import flow after upgrade,
-and preserves data through independent recovery. Those historical fixtures passed on exact head 45a072c on both PHP/database
-matrices (737 assertions on each). This is synthetic CI evidence, not host or
-owner acceptance. Help Center task instructions are unchanged because these
-checks do not alter user-facing workflows.
-
-At 45a072c all eleven exact-head PR checks passed; the exact-package upgrade
-and recovery matrix included all five historical member-state conditions.
-The subsequent Help Center browser coverage now tests owner/staff filtering,
-topics, native keyboard search and link activation, mobile no-JavaScript
-search, horizontal overflow and synthetic screenshots at 1440/820/390/320px.
-That new coverage still needs successful exact-head CI and screenshot review.
-Remaining acceptance also requires human accessibility/screen-reader and
-physical-device review, final immutable package hash/version/docs
-reconciliation and explicit owner acceptance.
-Do not conflate CI fixtures with physical-device/live-host validation or
-merge/deploy the candidate.
+**Open gates:** All 11 checks and both upgrade matrices must pass again on the new source head; inspect new artifacts; obtain human screen-reader, keyboard/focus and physical-device UI acceptance; finalize release VERSION, immutable archive digest and docs; and receive explicit owner authorization before any merge, tag or production deployment. Avoid redundant CI reruns, duplicated ZIPs or uncontrolled changes.
 
 ## Historical final 1.1.0 roadmap
 

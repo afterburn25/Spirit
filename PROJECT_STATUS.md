@@ -25,31 +25,19 @@ including the real ZIP upgrade, historical member fixtures and independent
 recovery. Source reproduction does not prove byte identity with an earlier
 delivered 1.1.0 archive. Tests added after that head need their own CI result.
 
+## Current verified evidence — October 28, 2026 UTC
+
+All **11 of 11 PR workflows passed** at source head `41d2dcf1e08d9408d4f720e827ba943175a3200e` (tested through PR merge ref `3140ac5c0f036bc9c9949edbbb730823c8aaf5cf`). The exact-package 1.1.0-to-1.2.0-rc.1 upgrade and independent recovery matrices passed **737 assertions on each** of PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4. Review package integrity and SHA-256 verification passed. Synthetic Chromium screenshot inspection covered Help topics and search at 1440/820/390/320px and Band/editor screens; no obvious clipping remained after the phone search control fix. This is not owner, assistive-technology or physical-device acceptance.
+
+A subsequent source change adds editable per-member portrait descriptions and safe optional HTTPS website links, and removes stale default Band hero/SEO lineup names after the saved roster replaces the historical fallback. That change is **not verified by the above runs**; the new exact-head tests must finish before claiming it passed. Help Center member guidance is updated for the new workflow. No deployment or merge is authorized.
+
 ## Remaining blockers
 
-- Screenshot review on the preceding 71fce0b branch source exposed a real
-  320/390px Help search visual defect: the input stretched vertically to its
-  desktop 300px flex basis on phone layouts, despite no horizontal overflow.
-  A scoped CSS override plus browser geometry assertions now target that
-  defect; verify the new exact-head CI and inspect corrected screenshots.
-  HelpCatalog instructions and route permissions remain unchanged.
-- Verify the new exact-head Actions after adding Help Center browser checks;
-  all eleven workflows passed on preceding commit 45a072c, but passing an
-  earlier source commit does not establish acceptance of a newer one.
-- Inspect actual screenshots of Band pages, Help Center and content editing at
-  desktop, tablet and mobile widths. New Help topic/search screenshots,
-  keyword submission, link focus, permission filtering and no-JavaScript
-  checks are implemented in the browser suite, **not yet CI-verified** on
-  the updated head. Human screen-reader and physical-device acceptance
-  remain open; synthetic captures are not an owner review.
-- Retain passing exact-package legacy-member evidence (zero records with
-  confirmed owner import, drafts, published, unpublished, soft-deleted) and
-  independent data/media/configuration preservation at 45a072c; reverify
-  on any new test head. This is isolated synthetic CI, not actual owner or
-  original-delivery archive acceptance.
-- Reconcile final version, package integrity and documentation; obtain owner's
-  explicit acceptance before promotion of a new final immutable 1.2.0 ZIP.
-- Keep PR #39 draft, never merge to main or change live hosting before gates.
+- Reverify **all 11 GitHub workflows on the new feature-branch commit** covering member portrait descriptions, HTTPS links and the corrected historical roster text. Old-green source SHA must not be represented as current acceptance.
+- Retain exact-package root/subfolder/interrupt/recovery and historical member-state evidence on both PHP/database matrices; re-run on the new head. Baseline 1.1.0 is reproduced from pinned source and is not claimed byte-identical to a previously delivered customer ZIP.
+- The prior head's synthetic screenshots were reviewed; capture/review updated Band/Help/editor screenshots and conduct owner physical-device, keyboard focus and screen-reader acceptance. CI cannot provide human approval.
+- Before final 1.2.0, reconcile final VERSION, status/handoff/changelog and immutable package SHA-256 with passing final-head CI and owner acceptance.
+- Keep PR #39 draft; never merge to main or modify live hosting until the release is expressly accepted.
 
 ---
 

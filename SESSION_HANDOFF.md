@@ -1,52 +1,10 @@
 # Active development handoff — Spiritual Gorillaz 1.2.0-rc.1 (unreleased)
 
-**New visual QA finding (October 28, 2026 UTC):** Inspected actual synthetic
-Chromium Help topic/search captures at 1440, 820, 390 and 320px from PR #39.
-The dark/gold layout and article stack render, but at 320 and 390px the
-search `<input>` is abnormally tall: `flex:1 1 300px` from the horizontal
-row becomes a vertical height basis when the phone media query changes the
-row to `flex-direction:column`. Fixed only the phone search input to
-`flex:0 0 auto; min-height:2.75rem` and added 32–64px browser height and
-submit-order assertions, including native no-JavaScript Help search.
-Recheck corrected browser screenshots and all GitHub Actions on the new
-source head; prior green checks are not this fix's acceptance. HelpCatalog
-text remains accurate because user workflows are unchanged. Keep PR draft.
+**Current verification (October 28, 2026 UTC):** Source head `41d2dcf1e08d9408d4f720e827ba943175a3200e` passed all **11 GitHub PR workflows**. Exact-package 1.1.0-to-1.2.0-rc.1 and independent recovery checks passed **737 assertions per PHP/database matrix**; review package archive and digest were checked. Chromium Help Center topic/search at 1440/820/390/320px and Band/editor screens were visually inspected in actual synthetic CI screenshots; the corrected phone-height input is compact. These are NOT real-device, screen-reader or owner acceptance tests.
 
-**Latest observed checkpoint (October 28, 2026 UTC):** All eleven exact-head
-PR #39 workflows succeeded at 45a072c095cbbfc97eeaaca437a09de259645c15.
-Both grouped-layout PHP/database matrices passed 737 real package/upgrade/
-rollback assertions each, including historical member states. The owner
-has not accepted screenshots, keyboard/screen-reader behavior or release
-packaging. The next change adds Help Center browser screenshots at 1440,
-820, 390 and 320px plus live synthetic keyboard search and permission
-filtering (including no-JavaScript); **its own exact-head CI is pending**.
-HelpCatalog text was not changed because routes and guide tasks are unchanged.
-Keep this as draft; do not merge or deploy.
+**New scope gap addressed in this continuation:** The original issue #38 included member portrait description and optional external links, but the editor only exposed role/bio/image. Add those JSON-backed fields with HTTPS URL validation, a per-profile alt-text override (otherwise Media alt/name fallback), an external link in Band rows and member detail, HelpCatalog instructions and browser/unit regression checks. Additionally the default Band introduction and SEO description must stop naming the old full lineup after a first publish, unpublish or soft deletion; otherwise the historical names remain despite a revised member list. Retain the factual original introduction only while the legacy fallback remains active. This new commit requires exact-head CI; never transfer the old SHA's green status to it.
 
-
-**Verified previous head:** ae31a7a97bb9fbf9cde9599bb10bc52ba3eaa274
-had all 11 exact-head PR workflows green as observed October 28, 2026 UTC,
-including both PHP/DB website matrices and grouped-layout test matrices.
-That head was still packaging itself as 1.1.0 and therefore did NOT verify
-upgrades from final 1.1.0 to 1.2.0.
-
-**Candidate handoff:** Bumped the development branch to 1.2.0-rc.1 (never
-production/main), updated release/roadmap documentation and extended the
-existing exact-package grouped-layout CI to include pinned final-1.1.0
-source reproduction as an additional baseline. Observe all checks on the
-new candidate head before claiming success. Original delivered 1.1.0 ZIP
-byte identity is not claimed by this source reproduction. Remain draft until
-owner's UX/accessibility review, legacy member-state upgrade cases and
-immutable final packaging are accepted.
-
-**Additional pending verification:** The exact-package upgrade test now seeds
-factual 1.1.0 legacy member histories (zero records, private-only drafts,
-published, unpublished, and soft-deleted), checks the 1.2 Band/public and
-owner-confirmed import rules, then checks DB/private state through independent
-recovery. The delete-state fixture is guarded to disposable CI SQL and excluded
-from deployment. These are committed assertions, **not a passing test claim**;
-read exact-head grouped-layout results before promoting. No Help Center workflow
-change was made, so existing topic text remains accurate.
+**Remaining gates:** Verify the new head's workflows and artifacts, conduct physical-device/assistive-technology owner UX acceptance, reconcile a final immutable 1.2.0 release package, then seek explicit owner merge/deployment approval. Keep PR #39 draft. No production access or main branch changes.
 
 **Repository:** `afterburn25/Spirit`. **Authoritative release:** `main` at 1.1.0. **In-progress branch:** `work/1.2.0-content-band-layout`. **PR:** #39 (draft). **Issue:** #38.
 

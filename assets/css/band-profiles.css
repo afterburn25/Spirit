@@ -8,5 +8,6 @@
 .band-profile-copy .gold-subtitle{margin:.5rem 0 1.25rem}
 .band-profile-copy .prose{white-space:normal;line-height:1.75;margin:1rem 0}
 .band-profile-copy .text-link{display:inline-block;margin-top:1rem}
+.band-profile-copy .member-website-link{margin-left:1rem}
 @media(max-width:720px){.band-profile{grid-template-columns:minmax(0,1fr)}.band-profile-photo{max-width:440px}.band-profile-list{gap:1.25rem}}
 @media(prefers-reduced-motion:reduce){.band-profile *{scroll-behavior:auto}}

@@ -11,6 +11,16 @@ $fields=Spirit\ContentSchema::fields('page');
 foreach(['headline','eyebrow','subtitle','body','image_id','button_label','button_url','slot_1','slot_2','slot_3','slot_4'] as $field){
     $check(isset($fields[$field]),'Missing editable page field: '.$field);
 }
+$memberFields=Spirit\ContentSchema::fields('member');
+foreach(['role','bio','image_id','portrait_alt','website_url'] as $field){
+    $check(isset($memberFields[$field]),'Missing member editor field: '.$field);
+}
+$member=Spirit\ContentSchema::validate('member',['role'=>'Guitar','portrait_alt'=>'Gold guitar on a stage','website_url'=>'https://member.example.test/'],true);
+$check($member['portrait_alt']==='Gold guitar on a stage'&&$member['website_url']==='https://member.example.test/','Approved portrait description and HTTPS link survive validation.');
+foreach(['javascript:alert(1)','http://member.example.test/'] as $invalidUrl){
+    try{Spirit\ContentSchema::validate('member',['website_url'=>$invalidUrl],true);$errors[]='An unsafe member website URL was accepted.';}catch(InvalidArgumentException $expected){}
+}
+try{Spirit\ContentSchema::validate('member',['portrait_alt'=>str_repeat('x',301)],true);$errors[]='Oversized portrait alternative text was accepted.';}catch(InvalidArgumentException $expected){}
 $labels=Spirit\SectionPages::slotLabels('home');
 $check(count($labels)===4,'Home section headings are not all editable.');
 $check(Spirit\SectionPages::heading(['data'=>['slot_1'=>'<script>']], 'slot_1','<em>Default</em>')==='&lt;script&gt;','Section heading override must be HTML escaped.');
