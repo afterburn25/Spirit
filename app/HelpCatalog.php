@@ -4,7 +4,7 @@ namespace Spirit;
 /** Keep these guides aligned with the working admin screens. */
 final class HelpCatalog {
  public static function categories(): array {
-  return [
+  $topics = [
    'getting-started'=>['Getting started','Launch checks, your dashboard and where to begin',[
     ['Your administration dashboard','Open Overview to review site health, published music and shows, audience summary and recent activity.','admin/'],
     ['Before launching','Open System & maintenance → Launch checks. Review HTTPS, settings, installation state and any warnings before publishing.','admin/launch/']]],
@@ -48,5 +48,25 @@ final class HelpCatalog {
     ['Site needs an update','Review Installation health, Database updates and Browser upgrades before taking action. Back up first and never run the fresh installer on an existing live site.','admin/installation.php'],
     ['Store unavailable','Commerce is optional and may be intentionally disabled. Review store activation and payment readiness without collecting transactions until provider acceptance is complete.','admin/shop/settings.php']]],
   ];
+  foreach([['Find the right instructions','Open Help & guidance → Help Center, search by a task or select a topic. Guides link directly to the related admin screen; staff only see topics their permissions allow.','admin/help/']] as $guide){$topics['getting-started'][2][]=$guide;}
+  foreach([['Publish a video','Go to Website content → Videos, add the approved YouTube or Vimeo URL, choose an optional poster image, save privately, preview and publish.','admin/content/?kind=video'],
+           ['Manage press downloads','Open Press downloads and create an entry with a previously uploaded, approved PDF. Preview it, then publish it for visitors to access.','admin/content/?kind=press']] as $guide){$topics['media'][2][]=$guide;}
+  foreach([['Add an audio track','Upload the authorized recording to Media library. Open Audio tracks, associate it with the correct release, add its title and duration, then save and publish.','admin/content/?kind=track']] as $guide){$topics['music'][2][]=$guide;}
+  foreach([['Review newsletter subscribers','Open Subscribers and review subscription state and consent before sending. Never add addresses without permission.','admin/subscribers/'],
+           ['Investigate delivery errors','Open Delivery queue to review pending or failed messages. Correct verified SMTP settings, then use the available retry actions only after checking duplicates.','admin/mail/']] as $guide){$topics['audience'][2][]=$guide;}
+  foreach([['Organize products into categories','Open Product categories to create or maintain the organization of approved merchandise. Confirm that product category assignments display correctly.','admin/shop/categories.php'],
+           ['Review customer accounts','Open Customers to review existing customer records according to your staff permissions. Avoid exporting private details unless business operations require them.','admin/shop/customers.php'],
+           ['Manage fulfillment','Open Orders & fulfillment, review order status and verified payment before dispatching goods. Keep fulfillment records accurate.','admin/orders/'],
+           ['Configure shipping and tax policies','Open Shipping, tax & terms; review required business policies and validate the results before activating checkout.','admin/orders/policy.php'],
+           ['Set up payment processing','Open Payment settings and follow the gateway configuration and acceptance process. Keep credentials private; do not process live transactions before testing.','admin/orders/payments.php'],
+           ['Inspect payment notifications','Review Payment notifications to understand webhook delivery and processing state. Never manually mark a payment received without provider confirmation.','admin/orders/webhooks.php'],
+           ['Review store settings','Open Store settings to review optional commerce activation. Checkout stays disabled until merchant, inventory and policy acceptance is complete.','admin/shop/settings.php']] as $guide){$topics['commerce'][2][]=$guide;}
+  foreach([['Control search and sharing','Open Search & sharing to review public discovery metadata and social previews. Make sure descriptions and artwork are approved before publication.','admin/discovery.php']] as $guide){$topics['account'][2][]=$guide;}
+  foreach([['Apply browser upgrades safely','Take and verify a full backup first. Open Browser upgrades, inspect the package version and use the guarded upgrade/recovery flow for your current installation layout.','admin/upgrades/'],
+           ['Apply database updates','Open Database updates only when the application reports pending migrations. Preserve the database and installation lock; do not reinstall to resolve pending updates.','admin/updates.php'],
+           ['Review temporary data maintenance','Open Temporary data & retention and review the documented cleanup boundaries. Do not delete actual media, orders, consent, audit or recovery data as a shortcut.','admin/maintenance/'],
+           ['Review administrative activity','Open Activity history to examine changes made by authorized staff. Follow up on unexpected actions before editing or restoring content.','admin/activity/'],
+           ['Read the release roadmap','Open Release roadmap to review available features and planned changes. Do not assume a feature is live merely because it appears on the roadmap.','admin/roadmap.php']] as $guide){$topics['maintenance'][2][]=$guide;}
+  return $topics;
  }
 }
