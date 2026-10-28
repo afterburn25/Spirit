@@ -16,6 +16,26 @@ final class SectionPages
         'merch' => ['Merchandise', 'shop/', 'catalog', 1400, 'Introduction and feature artwork on the catalog, not private checkout pages.'],
     ];
 
+    /** Editable optional headings; intentionally scoped to existing designed sections. */
+    public static function slotLabels(string $slug): array
+    {
+        return match($slug){
+            'home'=>[
+                'slot_1'=>'Home · Music section heading',
+                'slot_2'=>'Home · Shows section heading',
+                'slot_3'=>'Home · Purpose section heading',
+                'slot_4'=>'Home · Booking callout heading',
+            ],
+            'music'=>['slot_1'=>'Music · More releases heading'],
+            'band'=>['slot_1'=>'Band · Member profiles heading'],
+            'media'=>['slot_1'=>'Media · Videos heading','slot_2'=>'Media · Photo gallery heading'],
+            'booking'=>['slot_1'=>'Booking · Details panel heading'],
+            'press'=>['slot_1'=>'Press · Story heading','slot_2'=>'Press · Downloads heading'],
+            'merch'=>['slot_1'=>'Merchandise · Empty-store heading'],
+            default=>[],
+        };
+    }
+
     public static function definition(string $slug): ?array
     {
         return self::SECTIONS[$slug] ?? null;
