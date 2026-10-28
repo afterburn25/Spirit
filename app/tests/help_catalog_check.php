@@ -18,5 +18,19 @@ foreach($categories as $slug=>$category){
   $key=$slug.'|'.$guide[0];if(isset($seen[$key])){$errors[]='Duplicate article: '.$key;}$seen[$key]=true;
  }
 }
+$documentedDestinations=Spirit\AdminNavigation::documentedDestinations();
+$guidePaths=[];
+foreach($categories as $category){
+    foreach($category[2] as $guide){
+        $guidePaths[$guide[2]]=true;
+        if(!isset($documentedDestinations[$guide[2]])){
+            $errors[]='Help guide has no matching admin navigation destination: '.$guide[2];
+        }
+    }
+}
+foreach($documentedDestinations as $path=>$permission){
+    if(!isset($guidePaths[$path])){$errors[]='Missing Help Center coverage for: '.$path;}
+    if(!is_string($permission)||$permission===''){$errors[]='Missing permission rule for: '.$path;}
+}
 if($errors){fwrite(STDERR,implode("\n",$errors)."\n");exit(1);}
 echo "Help catalog checked: ".count($categories)." categories, ".count($seen)." guides.\n";
