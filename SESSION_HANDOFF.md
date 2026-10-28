@@ -1,3 +1,19 @@
+# Active development handoff — Spiritual Gorillaz 1.2.0 (unreleased)
+
+**Repository:** `afterburn25/Spirit`. **Authoritative release:** `main` at 1.1.0. **In-progress branch:** `work/1.2.0-content-band-layout`. **PR:** #39 (draft). **Issue:** #38.
+
+The owner requested continued development of complete page image/text editing, vertical image-left/biography-right Band profiles, admin add/edit/soft-delete of members, and a commercial-quality Help Center updated with every new feature. Work is committed to the development branch, NOT merged into main and NOT deployed. Never represent queued workflow jobs as passing.
+
+**Implemented in branch:** CMS-based published member row layout, responsive portrait/bio stylesheet, admin member removal with CSRF, revision and staff-permission checks; page headline/eyebrow/CTA fields with legacy design fallback; compatible public display across Home, Music, Shows, Band, Media, Booking, Press and Merchandise catalog; dedicated searchable Help Center, permission-aligned navigation, complete admin route coverage, contextual shortcuts, responsive UI, troubleshooting and admin media image previews. Existing content/publications remain governed by draft/publish controls.
+
+**Tests/checks committed:** `app/tests/help_catalog_check.php`, `app/tests/page_controls_check.php`, `.github/workflows/help-center-quality.yml`; focused syntax, endpoint documentation, optional CTA safety, Band layout assertions, JS syntax. These must actually execute and pass. Existing GitHub Actions jobs may remain queued because of runner limits. Do not trigger repeated commits merely to add queued jobs.
+
+**Release blockers:** check current CI on exact head, fix failures, verify visible browser screenshots and mobile/keyboard behavior, perform upgrade/recovery tests from 1.1.0 preserving database/private state/media, reconcile VERSION/docs/acceptance, complete owner-approved admin UX and merge only on green tested head.
+
+**Documentation policy:** when a menu route/feature changes, update `app/HelpCatalog.php` in the same PR. Navigation permissions are the source of truth via `AdminNavigation::documentedDestinations()`. CI fails if nav destinations lack guides. PR template includes Help Center review.
+
+---
+
 # Resume — final 1.1.0
 
 Repository: afterburn25/Spirit. Main is authoritative. PR 37 consolidates
