@@ -8,15 +8,8 @@ if(!array_key_exists($selected,$categories)){$selected='getting-started';}
 $query=is_string($_GET['q']??null)?trim($_GET['q']):'';
 if(strlen($query)>100){$query=substr($query,0,100);}
 $canReadGuide=static function(string $path) use($user):bool {
- $permission=match(true){
-  str_starts_with($path,'admin/content/')=>'content.manage',
-  str_starts_with($path,'admin/media/')=>'media.manage',
-  str_starts_with($path,'admin/analytics/'),str_starts_with($path,'admin/staff/'),str_starts_with($path,'admin/backups/'),str_starts_with($path,'admin/communication/'),str_starts_with($path,'admin/bookings/'),str_starts_with($path,'admin/launch/'),str_starts_with($path,'admin/installation'),str_starts_with($path,'admin/shop/settings'),$path==='admin/settings.php'=>'owner',
-  str_starts_with($path,'admin/shop/')=>'store.manage',
-  $path==='admin/account.php'=>'account',
-  default=>'dashboard'
- };
- return Spirit\Permissions::allows($user,$permission);
+    $permission=Spirit\AdminNavigation::permissionForDestination($path);
+    return $permission!==null&&Spirit\Permissions::allows($user,$permission);
 };
 foreach($categories as $key=>$category){$categories[$key][2]=array_values(array_filter($category[2],static fn(array $guide):bool=>$canReadGuide($guide[2])));if(!$categories[$key][2]){unset($categories[$key]);}}
 if(!isset($categories[$selected])){$selected=array_key_first($categories);}
