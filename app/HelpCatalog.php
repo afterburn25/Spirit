@@ -3,6 +3,21 @@ declare(strict_types=1);
 namespace Spirit;
 /** Keep these guides aligned with the working admin screens. */
 final class HelpCatalog {
+ /** Link every admin screen to the most relevant help topic. */
+ public static function topicForAdmin(string $active): string {
+  return match($active){
+   'page'=>'pages',
+   'member'=>'members',
+   'library','gallery','video','press'=>'media',
+   'release','track','event'=>'music',
+   'analytics','analytics-visitors','analytics-geography'=>'analytics',
+   'bookings','subscribers','mail','communication'=>'audience',
+   'store','store-categories','customers','orders','store-settings','delivery-policy','payment-settings','payment-notifications'=>'commerce',
+   'staff','account','settings','discovery'=>'account',
+   'launch','installation','backups','upgrades','updates','maintenance','activity','roadmap'=>'maintenance',
+   default=>'getting-started'
+  };
+ }
  public static function categories(): array {
   $topics = [
    'getting-started'=>['Getting started','Launch checks, your dashboard and where to begin',[
