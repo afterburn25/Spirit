@@ -35,6 +35,19 @@ final class SectionPages
         return is_string($value) && trim($value) !== '' ? $value : $fallback;
     }
 
+    /** Optional externally linked call-to-action; never render an incomplete override. */
+    public static function customButton(?array $page): string
+    {
+        $label=self::text($page,'button_label');
+        $url=self::text($page,'button_url');
+        if($label===''||$url===''){return '';}
+        // The editor checks HTTPS URLs; this is a defensive guard for legacy records.
+        if(!filter_var($url,FILTER_VALIDATE_URL)||parse_url($url,PHP_URL_SCHEME)!=='https'){
+            return '';
+        }
+        return '<a class="button outline" href="'.e($url).'" target="_blank" rel="noopener noreferrer">'.e($label).'</a>';
+    }
+
     public static function focal(?array $page): string
     {
         $focal = $page['data']['focal'] ?? 'center';
