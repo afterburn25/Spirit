@@ -61,6 +61,21 @@ final class AdminNavigation
         ]],
     ];
 
+    /** Read-only navigation permissions shared by the Help Center and guide checks. */
+    public static function documentedDestinations(): array
+    {
+        $destinations=['admin/'=>'dashboard'];
+        foreach(self::GROUPS as $group){
+            foreach($group[2] as $item){$destinations[$item[1]]=$item[2];}
+        }
+        return $destinations;
+    }
+
+    public static function permissionForDestination(string $path): ?string
+    {
+        return self::documentedDestinations()[$path]??null;
+    }
+
     public static function build(?array $user, string $active): array
     {
         $menu = ['overview' => Permissions::allows($user, 'dashboard'), 'groups' => [], 'section' => 'Administration', 'label' => 'Overview'];
