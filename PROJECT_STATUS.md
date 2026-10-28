@@ -27,17 +27,16 @@ delivered 1.1.0 archive. Tests added after that head need their own CI result.
 
 ## Current verified evidence — October 28, 2026 UTC
 
-All **11 of 11 PR workflows passed** at source head `41d2dcf1e08d9408d4f720e827ba943175a3200e` (tested through PR merge ref `3140ac5c0f036bc9c9949edbbb730823c8aaf5cf`). The exact-package 1.1.0-to-1.2.0-rc.1 upgrade and independent recovery matrices passed **737 assertions on each** of PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4. Review package integrity and SHA-256 verification passed. Synthetic Chromium screenshot inspection covered Help topics and search at 1440/820/390/320px and Band/editor screens; no obvious clipping remained after the phone search control fix. This is not owner, assistive-technology or physical-device acceptance.
+All **11/11 GitHub PR workflows passed** at exact source head `6196f25b1dee5ca0e7dc98b9c70212c17300aa40`, including the new member alt text, HTTPS member links, Band hero and SEO roster correction. The pinned 1.1.0-source-to-1.2.0-rc.1 package upgrades and independent recovery passed **737 assertions on each** PHP/database matrix. Synthetic screenshots and package integrity remain machine evidence, not human device/accessibility acceptance.
 
-A subsequent source change adds editable per-member portrait descriptions and safe optional HTTPS website links, and removes stale default Band hero/SEO lineup names after the saved roster replaces the historical fallback. That change is **not verified by the above runs**; the new exact-head tests must finish before claiming it passed. Help Center member guidance is updated for the new workflow. No deployment or merge is authorized.
+The following code-only correction addresses another roster consistency gap: the Press story still named the original lineup after a member was published or removed, and an editor who published a headline-only Page could inadvertently blank the approved Home, Band or Press introductory body. The renderer now uses the existing blank-aware Page helper and the legacy Press names only while the old lineup fallback is legitimate. Browser and unit assertions were added. **This new commit is not verified by the previous head's green CI.** Help guidance is updated; no schema or host state changes.
 
 ## Remaining blockers
 
-- Reverify **all 11 GitHub workflows on the new feature-branch commit** covering member portrait descriptions, HTTPS links and the corrected historical roster text. Old-green source SHA must not be represented as current acceptance.
-- Retain exact-package root/subfolder/interrupt/recovery and historical member-state evidence on both PHP/database matrices; re-run on the new head. Baseline 1.1.0 is reproduced from pinned source and is not claimed byte-identical to a previously delivered customer ZIP.
-- The prior head's synthetic screenshots were reviewed; capture/review updated Band/Help/editor screenshots and conduct owner physical-device, keyboard focus and screen-reader acceptance. CI cannot provide human approval.
-- Before final 1.2.0, reconcile final VERSION, status/handoff/changelog and immutable package SHA-256 with passing final-head CI and owner acceptance.
-- Keep PR #39 draft; never merge to main or modify live hosting until the release is expressly accepted.
+- Verify all 11 GitHub Actions workflows and both exact-package upgrade/recovery matrices on the new source head. Never attribute previous passing jobs to this change.
+- Inspect the new Band/Press/Home and editor browser artifacts, confirm no regressions on desktop/mobile and test keyboard/focus behavior on actual devices and with assistive technology.
+- Preserve separate provenance for the source-reproduced final 1.1.0 baseline; it is not asserted byte-identical to the historical customer-delivered ZIP.
+- Before final 1.2.0, reconcile VERSION, release docs, immutable archive SHA-256 and owner acceptance. Keep PR #39 draft; no merge, tag or production deployment without explicit approval.
 
 ---
 

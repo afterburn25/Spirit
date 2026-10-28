@@ -11,12 +11,11 @@ preserves existing names without inventing portraits or biographies. The
 searchable, role-filtered Help Center covers current administration routes.
 
 **Do not deploy or distribute this candidate as the final 1.2.0 release.**
-PR #39 remains draft. The prior source head `41d2dcf` passed all eleven
+PR #39 remains draft. Source head `6196f25` passed all eleven
 GitHub workflows and 737 exact-package upgrade/recovery assertions per PHP/DB
-matrix, and synthetic desktop/tablet/mobile screenshots were inspected. A
-new member accessibility/link and historical-introduction correction requires
-fresh exact-head verification; human screen-reader/device review and explicit
-owner acceptance remain open. The existing production baseline is final 1.1.0 on main.
+matrix. A follow-on Press roster and blank Home/Band/Press Page body fallback
+repair requires fresh exact-head verification; human screen-reader/device review
+and explicit owner acceptance remain open. Production is still final 1.1.0 on main.
 No live website has been changed. Build candidate packages in a separate
 folder and never overwrite a delivered ZIP or place a ZIP inside another ZIP.
 

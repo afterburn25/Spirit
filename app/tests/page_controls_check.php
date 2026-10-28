@@ -21,6 +21,8 @@ foreach(['javascript:alert(1)','http://member.example.test/'] as $invalidUrl){
     try{Spirit\ContentSchema::validate('member',['website_url'=>$invalidUrl],true);$errors[]='An unsafe member website URL was accepted.';}catch(InvalidArgumentException $expected){}
 }
 try{Spirit\ContentSchema::validate('member',['portrait_alt'=>str_repeat('x',301)],true);$errors[]='Oversized portrait alternative text was accepted.';}catch(InvalidArgumentException $expected){}
+$check(Spirit\SectionPages::text(['data'=>['body'=>'']],'body','Approved fallback copy')==='Approved fallback copy','Empty published Page body retains its approved designed text.');
+$check(Spirit\SectionPages::text(['data'=>['body'=>'Owner-authored story']],'body','Approved fallback copy')==='Owner-authored story','Explicitly authored Page text continues to override the fallback.');
 $labels=Spirit\SectionPages::slotLabels('home');
 $check(count($labels)===4,'Home section headings are not all editable.');
 $check(Spirit\SectionPages::heading(['data'=>['slot_1'=>'<script>']], 'slot_1','<em>Default</em>')==='&lt;script&gt;','Section heading override must be HTML escaped.');

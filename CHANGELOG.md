@@ -24,8 +24,10 @@
   historical member names persisting in the default Band hero/SEO copy after
   lineup publication, unpublication or removal; retain untouched-site fallback.
   Update member Help Center instructions and targeted unit/browser checks.
-- This new change requires its own exact-head CI. Human device/screen-reader
-  acceptance, final immutable package and owner approval still block release.
+- Commit `6196f25` passed all 11 exact-head workflows and both 737-assertion
+  upgrade/recovery matrices. The subsequent Press roster-default and blank-body
+  fallback correction adds browser/unit coverage and awaits its own CI.
+  Human device/screen-reader acceptance and owner approval still block release.
   The source-reproduced 1.1.0 baseline is not represented as an original
   delivered archive or a production-host update.
 

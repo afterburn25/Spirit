@@ -72,6 +72,12 @@ def main():
                         expect(page.locator('h1').count() == 1 and page.locator('h1').is_visible(), f'Chromium {width}px has a visible primary heading')
                         expect(page.evaluate('document.documentElement.scrollWidth <= window.innerWidth + 1'), f'Chromium {width}px has no horizontal page overflow')
                         decoded_images(page, f'Chromium {width}px {route or "home"}')
+                        if route == 'press/':
+                            press_copy = page.locator('.press-story .prose').inner_text()
+                            if width == 1440:
+                                expect('Ron Green' in press_copy and 'Charlie Savell' in press_copy, 'Untouched Press copy retains the original factual lineup')
+                            else:
+                                expect('Ron Green' not in press_copy and 'Charlie Savell' not in press_copy, 'Updated Press copy does not resurrect historical lineup names on mobile')
                         if route == 'band/':
                             rows = page.locator('.band-profile-list .band-profile')
                             if width == 1440:
@@ -114,6 +120,22 @@ def main():
                         expect('Chad L.' in names and 'Published fixture profile.' in names and 'Ron Green' not in names and 'Charlie Savell' not in names and 'Chad Lindsey' not in names, 'Only approved CMS biographies appear when one member is published')
                         expect('Ron Green' not in page.locator('.band-hero').inner_text() and 'Charlie Savell' not in page.locator('.band-hero').inner_text(), 'Default Band introduction stops naming removed or unpublished historical members')
                         expect('Ron Green' not in (page.locator('meta[name="description"]').get_attribute('content') or ''), 'Default Band metadata stops naming removed historical members')
+                        page.goto(current.base + 'press/', wait_until='networkidle')
+                        initial_press = page.locator('.press-story .prose').inner_text()
+                        expect('Ron Green' not in initial_press and 'Charlie Savell' not in initial_press and 'For event inquiries' in initial_press, 'Press fallback stops advertising former members after roster publication')
+                        # A partial Page edit must not erase the designed Home/Band/Press introduction.
+                        save_content(current, 'page', 'Home introduction', {'headline': 'Edited Home headline'}, slug='home')
+                        save_content(current, 'page', 'Band introduction', {'headline': 'Edited Band headline'}, slug='band')
+                        save_content(current, 'page', 'Press introduction', {'headline': 'Edited Press headline'}, slug='press')
+                        page.goto(current.base, wait_until='networkidle')
+                        expect('Music can turn an ordinary moment' in page.locator('.purpose-section .prose').inner_text(), 'Empty Home Page body preserves the approved purpose copy')
+                        page.goto(current.base + 'band/', wait_until='networkidle')
+                        band_copy = page.locator('.band-hero .prose').inner_text()
+                        expect('Meet the musicians behind Spiritual Gorillaz' in band_copy and 'Ron Green' not in band_copy, 'Empty Band Page body preserves updated roster-safe default copy')
+                        page.goto(current.base + 'press/', wait_until='networkidle')
+                        press_copy = page.locator('.press-story .prose').inner_text()
+                        expect('For event inquiries' in press_copy and 'Ron Green' not in press_copy and 'Charlie Savell' not in press_copy, 'Empty Press Page body falls back through empty Band copy to roster-safe editorial text')
+                        page.goto(current.base + 'band/', wait_until='networkidle')
                         expect(rows.locator('.band-profile-photo img').first.get_attribute('alt')=='Chad playing a gold guitar on stage', 'Member portrait description overrides Media library alt text')
                         member_website=rows.get_by_role('link', name='Member website')
                         expect(member_website.count()==1 and member_website.get_attribute('href')=='https://member.example.test/chad' and member_website.get_attribute('target')=='_blank' and 'noopener' in (member_website.get_attribute('rel') or ''), 'Member website is explicitly HTTPS and safely opens a new tab')
