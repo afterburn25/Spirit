@@ -15,7 +15,7 @@ Spirit\View::start($label,'admin',$kind,$user);
 <p>Add as many members as needed. Enter each name, musical role, approved portrait and full biography. Set the display order using the Sort order field (lower numbers appear first). Save drafts privately, preview, and publish when ready. A published member appears on the Band page as a portrait on the left and biography on the right.</p>
 <div class="button-row"><a class="button" href="<?=e(app_url('admin/content/edit.php?kind=member'))?>">Add a band member</a><a class="button secondary" href="<?=e(app_url('admin/media/'))?>">Manage photographs</a><a class="text-link" href="<?=e(app_url('band/'))?>" target="_blank" rel="noopener">View the Band page ↗</a></div>
 <?php if(Spirit\MemberOnboarding::canImport()):?>
-<details class="panel" style="margin-top:1rem"><summary>Bring the existing lineup into the editor</summary>
+<details class="panel member-import-panel"><summary>Bring the existing lineup into the editor</summary>
 <p>The previously displayed confirmed names and instruments can be imported as published, editable profiles. No portraits or biographies are invented. This option appears only when no member records, including deleted ones, exist.</p>
 <form action="<?=e(app_url('admin/content/import-lineup.php'))?>" method="post"><?=csrf_field()?>
 <label><input type="checkbox" name="confirm" value="yes" required> Import Chad Lindsey, Ron Green and Charlie Savell as editable profiles.</label>
