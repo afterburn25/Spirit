@@ -69,6 +69,13 @@ final class ContentSchema
             if (!$date || $date->format('Y-m-d\TH:i') !== $data['starts_at']) { throw new InvalidArgumentException('The event time is invalid, including a possible daylight-saving time change.'); }
             $data['starts_utc'] = $date->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
         }
+        if ($publishing && $kind==='page') {
+            $section=is_string($input['slug']??null)?trim($input['slug']):'';
+            if(!in_array($section,['home','band','booking','press'],true)
+               && (($data['button_label']==='') !== ($data['button_url']===''))) {
+                throw new InvalidArgumentException('For this page, enter both the button label and an HTTPS destination, or leave both empty.');
+            }
+        }
         if ($publishing) {
             $required = match($kind) { 'track'=>['release_id','audio_id'], 'event'=>['starts_at','venue','city'], 'gallery'=>['image_id'], 'video'=>['url'], 'press'=>['file_id'], default=>[] };
             if($kind==='event'&&$data['event_access']==='public'){$required=array_merge($required,['address','country']);}
