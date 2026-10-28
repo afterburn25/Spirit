@@ -1,0 +1,30 @@
+name: Help Center quality
+on:
+  push:
+    branches: [main, work/1.2.0-content-band-layout]
+  pull_request:
+    paths:
+      - 'app/HelpCatalog.php'
+      - 'admin/help/**'
+      - 'app/AdminNavigation.php'
+      - 'app/tests/help_catalog_check.php'
+      - 'assets/css/admin-help.css'
+      - '.github/workflows/help-center-quality.yml'
+jobs:
+  check-help:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+      - name: Syntax check
+        run: |
+          php -l app/HelpCatalog.php
+          php -l admin/help/index.php
+          php -l app/AdminNavigation.php
+          php -l app/tests/help_catalog_check.php
+      - name: Help content and endpoint integrity
+        run: php app/tests/help_catalog_check.php
