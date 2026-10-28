@@ -28,7 +28,8 @@
   upgrade/recovery matrices after the Press roster and blank Page body fixes.
 - Keep the mobile administration breadcrumb on one row when contextual Help and
   the account chip are present; preserve 44px Help access and add 320/390px
-  browser regressions. This new header correction awaits its own CI.
+  browser regressions. Exact application-code source head `c7f2d61` passed
+  all 11 PR Actions and both 737-assertion upgrade/recovery matrices.
   Human device/screen-reader acceptance and owner approval still block release.
   Source-reproduced 1.1.0 is not asserted identical to the delivered archive.
 

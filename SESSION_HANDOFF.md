@@ -1,10 +1,26 @@
 # Active development handoff — Spiritual Gorillaz 1.2.0-rc.1 (unreleased)
 
-**Latest verified source head (October 28, 2026 UTC):** `4ae17b0d284a8d2fa60250ba9c6eba0b38e51bda` passed all 11 PR workflows, 737 actual ZIP upgrade/recovery assertions per PHP/database matrix, and review ZIP digest/451 manifest hashes (`4d02c4cc6d265a0a1250b94000b2dca87e0a58389c0ad7176000a4d88a5662e8`). Not live-host, physical-device, screen-reader or owner acceptance.
+**Verified application-code source head (October 28, 2026 UTC):**
+`c7f2d613252f8feb56a8a5339733005ec9f29d62` passed all 11 PR Actions workflows. Both PHP 8.2/MariaDB
+11.4 and PHP 8.4/MySQL 8.4 actual-package upgrade/independent-recovery suites
+passed 737 assertions each. Reviewed candidate ZIP SHA-256
+`4357afa2243557bfc1be98d665f69b890ed483f69338f1892ecffd683b535312`
+matched its checksum; all 451 manifest hashes, archive integrity and
+no-nested-ZIP requirements passed. The pinned 1.1.0 source reproduction is
+not proven byte-identical to the original delivered archive.
 
-**New branch-only fix awaiting exact-head CI:** A downloaded 390px staff browser screenshot showed `ADMINISTRATION` breaking mid-word because the new contextual Help link narrowed its breadcrumb. Add a full-width breadcrumb row at <=600px, separate Help/account controls with a 44px Help target and browser assertions at 390/320px. An isolated Chromium CSS reproduction confirms the heading now takes one 12.6px line rather than two; full installed CI still pending. Update Help guidance and roadmap. The earlier Press/story and blank Page intro fixes passed at `4ae17b0`. No migration, production access or merge.
+**Mobile admin-header regression verified:** Installed Chromium 320/390px
+root/subfolder checks confirmed the administration breadcrumb stays on one
+line, the contextual Help touch target stays at least 44px, and account
+controls do not overlap. CI screenshots were inspected. The Help Center and
+roadmap already document the changed control placement; no application/Help
+behavior was changed in this documentation reconciliation.
 
-**Remaining gates:** All 11 new-head workflows and both exact-package matrices, updated screenshots/artifacts, human device/keyboard/focus and screen-reader acceptance, final 1.2.0 release version/digest/docs and explicit owner approval. Keep PR #39 draft and unmerged.
+**Remaining gates:** Recheck exact-head Actions for any later commit; complete
+physical-device, keyboard/focus, screen-reader and owner design acceptance;
+reconcile final 1.2.0 version/docs and immutable release artifact; obtain
+explicit owner approval. PR #39 must remain draft/unmerged. This is not
+production-host testing, final owner acceptance or a deployment.
 
 **Repository:** `afterburn25/Spirit`. **Authoritative release:** `main` at 1.1.0. **In-progress branch:** `work/1.2.0-content-band-layout`. **PR:** #39 (draft). **Issue:** #38.
 

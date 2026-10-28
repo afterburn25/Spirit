@@ -25,18 +25,38 @@ including the real ZIP upgrade, historical member fixtures and independent
 recovery. Source reproduction does not prove byte identity with an earlier
 delivered 1.1.0 archive. Tests added after that head need their own CI result.
 
-## Current verified evidence — October 28, 2026 UTC
+## Verified application-code baseline — October 28, 2026 UTC
 
-All 11/11 PR workflows passed at `4ae17b0d284a8d2fa60250ba9c6eba0b38e51bda`, covering the Press roster and blank Home/Band/Press introduction fixes. Both PHP/database matrices passed 737 actual ZIP upgrade/recovery assertions each. The downloaded `1.2.0-rc.1` archive SHA-256 is `4d02c4cc6d265a0a1250b94000b2dca87e0a58389c0ad7176000a4d88a5662e8`; published checksums, 451 manifest hashes, archive integrity and no-nested-ZIP checks match. The baseline final 1.1.0 ZIP was reproduced from pinned source, not asserted byte-identical to a customer's delivered ZIP.
+Commit `c7f2d613252f8feb56a8a5339733005ec9f29d62` completed all **11 of 11** exact-source PR Actions workflows
+successfully. The PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4 actual-package
+1.1.0-to-1.2.0-rc.1 upgrade and independent recovery matrices each passed
+**737 assertions**. The source-reproduced final 1.1.0 baseline is not
+asserted byte-identical to the historical customer-delivered 1.1.0 ZIP.
 
-**New branch-only responsive correction awaiting exact-head CI:** The real synthetic 390px staff screenshot showed `ADMINISTRATION` splitting mid-word when the contextual Help shortcut and user chip competed for header space. CSS now gives the breadcrumb a full mobile row, keeps Help/account separate with a 44px Help target and adds 320/390px browser assertions. An isolated Chromium CSS reproduction reduced the 390px label from a 25.2px two-line element to 12.6px on one line. This is not yet a passing full-site test. The Help guide and roadmap were updated; no production or schema change.
+The candidate review ZIP at that source head has SHA-256
+`4357afa2243557bfc1be98d665f69b890ed483f69338f1892ecffd683b535312`.
+Its checksum file, **451 of 451** package manifest hashes, archive integrity
+and absence of nested ZIPs were inspected. This CI candidate is not an
+immutable, approved final release artifact.
+
+Installed Chromium 320px and 390px regressions now pass for the corrected
+mobile administration heading, contextual Help touch target and separated
+account controls. Synthetic mobile Help and editor screenshots were inspected.
+This is not physical-device, assistive-technology or owner acceptance. These
+results belong to the cited application-code commit; any newer branch head
+requires its own workflow verification before release.
 
 ## Remaining blockers
 
-- Re-run **all 11** GitHub workflows and both PHP/database upgrade/recovery matrices on the new header-fix commit. Earlier passing results belong to `4ae17b0`.
-- Review 320/390px updated administration screenshots and conduct owner physical-device, keyboard focus and screen-reader acceptance.
-- Keep the source-reproduced final 1.1.0 baseline distinct from the historical customer ZIP; reconcile final 1.2.0 VERSION, package digest and release documents.
-- Keep PR #39 draft and unmerged; no production deployment or release without explicit owner approval.
+- Confirm all required GitHub checks on the exact branch head after any later
+  documentation or code changes; do not assume the verified application-code
+  baseline transfers to a new commit.
+- Complete owner review on actual devices, keyboard/focus and screen-reader
+  acceptance; synthetic Chromium evidence is not a substitute.
+- Reconcile final 1.2.0 VERSION, release documents, original-delivery
+  provenance where available and an immutable final-package digest.
+- Obtain explicit owner approval before merging, tagging, distributing or
+  deploying. Keep PR #39 draft and production/main unchanged.
 
 ---
 

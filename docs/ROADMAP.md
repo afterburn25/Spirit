@@ -4,11 +4,29 @@
 
 The 1.2.0-rc.1 development branch implements owner/staff editing of public-page text and media with safe designed fallbacks, Band profiles in portrait-left/bio-right desktop rows and mobile stacks, add/edit/draft/publish/sort/soft-remove, one-time confirmed legacy lineup import, media previews, and a searchable permission-controlled Admin Help Center. Main remains the authoritative final 1.1.0 production source; PR #39 stays draft.
 
-**Latest verified head — October 28, 2026:** All 11/11 PR workflows passed at `4ae17b0d284a8d2fa60250ba9c6eba0b38e51bda`, including Press roster and blank-page introduction checks. Each PHP 8.2/MariaDB and PHP 8.4/MySQL exact-package upgrade/recovery matrix passed 737 assertions. The downloaded candidate SHA-256 `4d02c4cc6d265a0a1250b94000b2dca87e0a58389c0ad7176000a4d88a5662e8` matches the checksum and all 451 manifest hashes, with no nested ZIPs. This is not human physical-device or screen-reader acceptance.
+**Verified application-code head — October 28, 2026:** At
+`c7f2d613252f8feb56a8a5339733005ec9f29d62`, **all 11/11 PR workflows passed**, including the 320/390px
+mobile admin-header and contextual Help browser regressions. Each PHP
+8.2/MariaDB and PHP 8.4/MySQL exact-package upgrade/recovery matrix passed
+**737 assertions**. The candidate ZIP SHA-256
+`4357afa2243557bfc1be98d665f69b890ed483f69338f1892ecffd683b535312`
+matched its published checksum and all 451 package-manifest hashes; archive
+integrity and no-nested-ZIP checks passed. These are synthetic CI results,
+not real-device, screen-reader or owner acceptance. The 1.1.0 upgrade baseline
+was rebuilt from pinned source, not proven byte-identical to an old delivery.
 
-**New mobile header correction (pending its own CI):** Real 390px synthetic staff screenshot showed the administration category broken mid-word when contextual Help and the account chip compressed its column. Reserve a full-width title row on <=600px, keep Help/account controls below it, retain a 44px Help target and add 320/390px browser assertions. The Help guide documents where to find this shortcut on phones. Earlier Press/Home/Band corrections are verified. No migration or hosting changes.
+**Mobile header correction verified:** The 390px staff screenshot previously
+showed the administration title split mid-word by Help/account controls.
+The corrected <=600px layout reserves a title row, keeps Help/account below,
+and retains a 44px Help target; installed Chromium at 320px and 390px
+passed root/subfolder tests. Existing mobile Help instructions describe the
+shortcut. No database migration, public-design redesign or host change.
 
-**Open gates:** Reverify all 11 workflows and both exact-package matrices on the new mobile-header source head. Review updated phone screenshots, conduct owner device/keyboard/focus and assistive-technology acceptance, finalize 1.2.0 version/immutable package and obtain explicit approval. Do not merge, tag, deploy or dispatch redundant jobs.
+**Open gates:** Recheck exact-head Actions after any subsequent commit;
+conduct owner physical-device, keyboard focus, screen-reader and visual
+acceptance; reconcile final 1.2.0 version, immutable artifact/package digest
+and release documents; and obtain explicit approval. Do not merge, tag,
+distribute, deploy or manually dispatch redundant jobs.
 
 ## Historical final 1.1.0 roadmap
 

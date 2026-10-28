@@ -11,10 +11,11 @@ preserves existing names without inventing portraits or biographies. The
 searchable, role-filtered Help Center covers current administration routes.
 
 **Do not deploy or distribute this candidate as the final 1.2.0 release.**
-PR #39 remains draft. Source head `4ae17b0` passed all eleven GitHub
-workflows and 737 exact-package upgrade/recovery assertions per PHP/DB matrix.
-A subsequent mobile admin-header/Help layout correction requires fresh exact-head
-verification. Human device/screen-reader review and explicit owner acceptance
+PR #39 remains draft. Application-code head `c7f2d61` passed all eleven
+GitHub PR workflows, including the mobile admin-header/Help regression checks,
+and 737 exact-package upgrade/recovery assertions per PHP/DB matrix. Recheck
+the exact branch head after any further commit. Human device/screen-reader
+review, immutable final release reconciliation and explicit owner acceptance
 remain open. Production is final 1.1.0 on main.
 No live website has been changed. Build candidate packages in a separate
 folder and never overwrite a delivered ZIP or place a ZIP inside another ZIP.
