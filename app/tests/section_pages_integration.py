@@ -11,7 +11,7 @@ from content_history_integration import fixture as history_fixture, restore, sna
 from launch_integration import fixture as launch_fixture
 
 SECTIONS={'home':'','music':'music/','shows':'shows/','band':'band/','media':'media/','booking':'booking/','press':'press/','merch':'shop/'}
-HEADINGS={'home':'MUSIC<br>WITH A HIGHER','music':'OUR MUSIC','shows':'UPCOMING SHOWS','band':'THE BAND','media':'WATCH &amp; EXPLORE','booking':'BOOK THE BAND','press':'PRESS KIT','merch':'WEAR THE MOVEMENT'}
+HEADINGS={'home':'MUSIC<br>WITH A HIGHER','music':'OUR MUSIC','shows':'UPCOMING SHOWS','band':'THE BAND','media':'WATCH &amp; EXPLORE','booking':'BOOK<br>THE BAND','press':'PRESS KIT','merch':'WEAR THE MOVEMENT'}
 
 def journey(s):
     anon=Client(s.base)
@@ -57,6 +57,31 @@ def journey(s):
         save_content(s,'page',slug.title(),fields,action='unpublish',item_id=item,slug=slug)
         expect('FIRST '+slug not in anon.request(route)[1],'Unpublishing restores the default section presentation: '+slug)
         expect(anon.request(f'media/file.php?id={first}')[0]==404 and anon.request(f'media/file.php?id={first}&width=320')[0]==404,'Unpublishing withdraws otherwise-private original and derivative: '+slug)
+        if slug=='booking':
+            # Booking uses its dedicated inquiry-form template, not the generic sections.php branch.
+            custom={'headline':'PRIVATE BOOKING <script>unsafe</script>',
+                    'eyebrow':'PRIVATE BOOKING KICKER','subtitle':'PRIVATE BOOKING SUBTITLE',
+                    'body':'PRIVATE BOOKING BODY','slot_1':'PRIVATE BOOKING DETAILS',
+                    'button_label':'Booking press guide','button_url':'https://example.com/booking-press'}
+            save_content(s,'page','Booking page',custom,action='save',item_id=item,slug=slug)
+            draft=s.client.request(preview)[1]
+            expect('PRIVATE BOOKING &lt;script&gt;unsafe&lt;/script&gt;' in draft
+                   and '<script>unsafe</script>' not in draft
+                   and all(word in draft for word in ['PRIVATE BOOKING KICKER','PRIVATE BOOKING SUBTITLE','PRIVATE BOOKING DETAILS','Booking press guide'])
+                   and 'href="https://example.com/booking-press"' in draft
+                   and 'rel="noopener noreferrer"' in draft
+                   and 'class="preview-controls" disabled' in draft,
+                   'Dedicated Booking preview escapes editable headings/CTA and disables inquiry submission')
+            expect('PRIVATE BOOKING KICKER' not in anon.request(route)[1],
+                   'Private Booking draft never changes the public inquiry page')
+            save_content(s,'page','Booking page',custom,item_id=item,slug=slug)
+            live=anon.request(route)[1]
+            expect('PRIVATE BOOKING &lt;script&gt;unsafe&lt;/script&gt;' in live
+                   and all(word in live for word in ['PRIVATE BOOKING KICKER','PRIVATE BOOKING DETAILS','Booking press guide'])
+                   and 'href="https://example.com/booking-press"' in live
+                   and 'name="name"' in live,
+                   'Publishing Booking fields updates the real inquiry page without removing its form')
+            save_content(s,'page','Booking page',custom,action='unpublish',item_id=item,slug=slug)
     # Existing page records outside the bounded listing remain discoverable.
     history_fixture(s,'seed',{'kind':'page','count':1100})
     directory=s.client.request('admin/content/?kind=page')[1]

@@ -121,11 +121,14 @@ def main():
                     # remains operable independently of CSS animation or pointer timing.
                     page=context.new_page();login(page,s);page.goto(s.base+f'admin/shop/edit.php?id={pid}')
                     page.locator('[name=name]').fill('Native unsent product');page.locator('[name=slug]').fill('invalid slug')
-                    page.get_by_role('button',name='Save private draft',exact=True).press('Enter');page.wait_for_load_state('domcontentloaded')
+                    with page.expect_navigation(wait_until='domcontentloaded'):
+                        page.get_by_role('button',name='Save private draft',exact=True).press('Enter')
                     be(page.locator('[name=name]')).to_have_value('Native unsent product')
                     expect(page.locator('.edit-guard-notice').count()==0,'No-JavaScript correction preserves text without pretending to provide a browser warning')
-                    page.locator('[name=slug]').fill('fixture-shirt');page.get_by_role('button',name='Save private draft',exact=True).press('Enter')
-                    page.wait_for_load_state('domcontentloaded');expect(page.locator('.notice.error').count()==0,'Native product correction remains usable')
+                    page.locator('[name=slug]').fill('fixture-shirt')
+                    with page.expect_navigation(wait_until='domcontentloaded'):
+                        page.get_by_role('button',name='Save private draft',exact=True).press('Enter')
+                    expect(page.locator('.notice.error').count()==0,'Native product correction remains usable')
                     context.close()
         finally:browser.close()
     print('Actual editor departure, correction and save workflows passed for '+engine+'.',flush=True)
