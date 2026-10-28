@@ -41,6 +41,15 @@ $featured=$releases[0]??null;$remaining=array_slice($releases,1);
 <a class="text-link" href="<?=e(PublicSite::url($member))?>">Member profile →</a>
 </div></article>
 <?php endforeach;?></div>
+<?php elseif(\Spirit\MemberOnboarding::showLegacyFallback()):?>
+<div class="band-profile-list">
+<?php foreach(\Spirit\MemberOnboarding::confirmed() as [$name,$role,$slug]):?>
+<article class="band-profile"><div class="band-profile-photo"><?=PublicSite::image(0,$name,'band-profile-image')?></div>
+<div class="band-profile-copy"><p class="eyebrow">SPIRITUAL GORILLAZ / BAND MEMBER</p><h3><?=e($name)?></h3>
+<p class="gold-subtitle"><?=e($role)?></p>
+<p class="small muted">Approved biography and portrait have not yet been published.</p>
+</div></article>
+<?php endforeach;?></div>
 <?php else:?><div class="empty-state"><h3>Meet the band.</h3><p>Member profiles will appear here as soon as they are published.</p></div><?php endif;?></section>
 <?php elseif($view==='member'): $d=$record['data'];?>
 <section class="section member-detail"><a class="text-link detail-back" href="<?=e(app_url('band/'))?>">← Meet the band</a><div class="split-detail"><?=PublicSite::image((int)$d['image_id'],$record['title'],'portrait',true)?><div class="content-panel member-copy"><p class="eyebrow"><?=e($d['role'])?></p><h1><?=e($record['title'])?></h1><div class="prose"><?=PublicSite::text($d['bio'])?></div></div></div></section>
