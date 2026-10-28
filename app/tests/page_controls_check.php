@@ -8,9 +8,13 @@ $check=static function(bool $ok,string $message) use (&$errors):void {
     if(!$ok){$errors[]=$message;}
 };
 $fields=Spirit\ContentSchema::fields('page');
-foreach(['headline','eyebrow','subtitle','body','image_id','button_label','button_url'] as $field){
+foreach(['headline','eyebrow','subtitle','body','image_id','button_label','button_url','slot_1','slot_2','slot_3','slot_4'] as $field){
     $check(isset($fields[$field]),'Missing editable page field: '.$field);
 }
+$labels=Spirit\SectionPages::slotLabels('home');
+$check(count($labels)===4,'Home section headings are not all editable.');
+$check(Spirit\SectionPages::heading(['data'=>['slot_1'=>'<script>']], 'slot_1','<em>Default</em>')==='&lt;script&gt;','Section heading override must be HTML escaped.');
+$check(Spirit\SectionPages::heading(null,'slot_1','<em>Default</em>')==='<em>Default</em>','Approved default heading typography must survive without an override.');
 $published=Spirit\ContentSchema::validate('page',['slug'=>'music'],true);
 $check($published['button_label']===''&&$published['button_url']==='','Blank overrides must preserve existing page controls.');
 try {
