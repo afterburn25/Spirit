@@ -10,6 +10,8 @@ on:
       - 'app/ContentAdmin.php'
       - 'app/ContentSchema.php'
       - 'app/SectionPages.php'
+      - 'app/MemberOnboarding.php'
+      - 'admin/content/import-lineup.php'
       - 'app/views/public/sections.php'
       - 'app/views/public/store.php'
       - 'admin/help/**'
@@ -27,6 +29,8 @@ on:
       - 'app/ContentAdmin.php'
       - 'app/ContentSchema.php'
       - 'app/SectionPages.php'
+      - 'app/MemberOnboarding.php'
+      - 'admin/content/import-lineup.php'
       - 'app/views/public/sections.php'
       - 'app/views/public/store.php'
       - 'app/tests/page_controls_check.php'
@@ -62,6 +66,8 @@ jobs:
           php -l app/ContentSchema.php
           php -l app/SectionPages.php
           php -l app/ContentAdmin.php
+          php -l app/MemberOnboarding.php
+          php -l admin/content/import-lineup.php
           php -l admin/content/edit.php
           php -l admin/content/delete.php
           node --check assets/js/admin-media-preview.js
