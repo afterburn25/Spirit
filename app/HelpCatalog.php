@@ -31,6 +31,20 @@ final class HelpCatalog {
     ['Manage access','Open Staff access to review permissions. Give each staff member only the access required for their work.','admin/staff/'],
     ['Backup before upgrading','Create and verify a backup before using Browser upgrades. Follow the version-specific upgrade notes; do not rerun the fresh installer on an existing site.','admin/backups/'],
     ['Check site settings','Use Website settings to maintain brand and site details. Use Installation health or Database updates only when needed.','admin/settings.php']]],
+   'analytics'=>['Analytics & reporting','Understand audience reports without confusing visitors and visits',[
+    ['Review audience trends','Open Analytics → Audience dashboard, choose a date range, and review traffic trends. Traffic counts depend on enabled collection and observed data.','admin/analytics/'],
+    ['Explore visitor records','Use Visitor explorer to review the measured visits. Respect privacy and do not treat bot traffic as confirmed people.','admin/analytics/visitors.php'],
+    ['Review geographic data','Open Geography data to inspect collected location summaries. Geo results are approximate, not exact visitor addresses.','admin/analytics/geography.php']]],
+   'account'=>['Accounts & permissions','Maintain sign-in security and manage collaborators',[
+    ['Update your account','Open Account & security to review your own account and sign-in options.','admin/account.php'],
+    ['Manage staff permissions','Use Staff access to manage roles. Review access after role changes and keep owner privileges limited.','admin/staff/']]],
+   'troubleshooting'=>['Troubleshooting','Resolve common publishing and operation problems',[
+    ['Changes are not showing','Confirm you selected Publish approved content rather than Save private draft; reload the public page. Only published records appear in the public site.','admin/content/?kind=page'],
+    ['Portrait or artwork is missing','Open Media library and verify the approved file exists. Then confirm the content record selects that image and was published. Do not delete shared images to fix a preview.','admin/media/'],
+    ['Cannot publish a show','Check the required event fields including venue, date, timezone and city. Add the venue ticket link only when confirmed.','admin/content/?kind=event'],
+    ['Email is not being delivered','Review SMTP configuration in Email settings and the Delivery queue. Check host certificate, encryption and credentials rather than switching to insecure delivery.','admin/communication/'],
+    ['Site needs an update','Review Installation health, Database updates and Browser upgrades before taking action. Back up first and never run the fresh installer on an existing live site.','admin/installation.php'],
+    ['Store unavailable','Commerce is optional and may be intentionally disabled. Review store activation and payment readiness without collecting transactions until provider acceptance is complete.','admin/shop/settings.php']]],
   ];
  }
 }
