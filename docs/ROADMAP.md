@@ -8,6 +8,18 @@ profile additions/edits/sort/soft removal and explicit one-time legacy import,
 media picker previews and a searchable permission-aware Admin Help Center.
 The existing 1.1.0 production source remains on main; PR #39 stays draft.
 
+**Help Center screenshot review (October 28, 2026 UTC):** The new synthetic
+Chromium captures at 1440, 820, 390 and 320 pixels show the dark/gold Help
+layout and confirm a genuine visual regression on both phone widths: the
+search input expanded to roughly 300px tall because its desktop `flex-basis`
+was interpreted vertically after switching the search row to a column.
+The candidate CSS now overrides the phone input to `flex:0 0 auto` with a
+normal minimum height, and the browser suite asserts bounded input height and
+proper stacked submit placement at 320/390px, including no-JavaScript search.
+These changes require a new CI pass and corrected artifact inspection. This
+is CSS/test-only; HelpCatalog routes and instructions did not change. No
+physical-device, human screen-reader, owner acceptance or release is claimed.
+
 **CI checkpoint, October 28, 2026 UTC:** all 11 workflows succeeded on
 ae31a7a97bb9fbf9cde9599bb10bc52ba3eaa274, including both PHP/database
 web/installer and grouped-layout matrices. That commit's package still claimed

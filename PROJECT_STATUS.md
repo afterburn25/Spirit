@@ -27,6 +27,12 @@ delivered 1.1.0 archive. Tests added after that head need their own CI result.
 
 ## Remaining blockers
 
+- Screenshot review on the preceding 71fce0b branch source exposed a real
+  320/390px Help search visual defect: the input stretched vertically to its
+  desktop 300px flex basis on phone layouts, despite no horizontal overflow.
+  A scoped CSS override plus browser geometry assertions now target that
+  defect; verify the new exact-head CI and inspect corrected screenshots.
+  HelpCatalog instructions and route permissions remain unchanged.
 - Verify the new exact-head Actions after adding Help Center browser checks;
   all eleven workflows passed on preceding commit 45a072c, but passing an
   earlier source commit does not establish acceptance of a newer one.

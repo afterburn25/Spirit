@@ -1,5 +1,17 @@
 # Active development handoff — Spiritual Gorillaz 1.2.0-rc.1 (unreleased)
 
+**New visual QA finding (October 28, 2026 UTC):** Inspected actual synthetic
+Chromium Help topic/search captures at 1440, 820, 390 and 320px from PR #39.
+The dark/gold layout and article stack render, but at 320 and 390px the
+search `<input>` is abnormally tall: `flex:1 1 300px` from the horizontal
+row becomes a vertical height basis when the phone media query changes the
+row to `flex-direction:column`. Fixed only the phone search input to
+`flex:0 0 auto; min-height:2.75rem` and added 32–64px browser height and
+submit-order assertions, including native no-JavaScript Help search.
+Recheck corrected browser screenshots and all GitHub Actions on the new
+source head; prior green checks are not this fix's acceptance. HelpCatalog
+text remains accurate because user workflows are unchanged. Keep PR draft.
+
 **Latest observed checkpoint (October 28, 2026 UTC):** All eleven exact-head
 PR #39 workflows succeeded at 45a072c095cbbfc97eeaaca437a09de259645c15.
 Both grouped-layout PHP/database matrices passed 737 real package/upgrade/

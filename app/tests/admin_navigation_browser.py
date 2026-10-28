@@ -115,6 +115,15 @@ def journey(browser,s,width,engine,area):
     expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),f'Help topic fits {width}px without horizontal overflow')
     if engine=='chromium' and area=='root':screenshot(page,f'help-{width}-members')
     field=page.get_by_label('Search help articles')
+    if width<=600:
+        # In a column flex container, desktop flex-basis:300px must not become
+        # a 300px-tall search input (caught in actual 320/390px screenshots).
+        rect=field.bounding_box()
+        expect(rect is not None and 32<=rect['height']<=64,
+               f'{engine}/{area}/{width}: mobile Help search input remains a single-line control')
+        submit=page.get_by_role('button',name='Search guides',exact=True).bounding_box()
+        expect(submit is not None and submit['y']>=rect['y']+rect['height'],
+               f'{engine}/{area}/{width}: mobile Help submit follows the field without overlap')
     field.focus()
     page.keyboard.press('Tab')
     be(page.get_by_role('button',name='Search guides',exact=True)).to_be_focused()
@@ -199,6 +208,9 @@ def identity_and_failure(browser,s,engine,area):
     page.goto(s.base+'admin/help/',wait_until='domcontentloaded')
     field=page.get_by_label('Search help articles')
     be(field).to_be_visible()
+    rect=field.bounding_box()
+    expect(rect is not None and 32<=rect['height']<=64,
+           'No-JavaScript 390px Help search input remains a normal single-line control')
     field.fill('biography')
     with page.expect_navigation(wait_until='domcontentloaded'):
         page.get_by_role('button',name='Search guides',exact=True).press('Enter')
