@@ -10,6 +10,8 @@ final class HelpCatalog {
     ['Before launching','Open System & maintenance → Launch checks. Review HTTPS, settings, installation state and any warnings before publishing.','admin/launch/']]],
    'pages'=>['Pages & imagery','Edit website introductions, backgrounds and photographs',[
     ['Edit a page','Open Website content → Pages & homepage. Choose the page, update Subtitle, Page text or Feature image, then Save private draft. Preview the draft and choose Publish approved content to make it live.','admin/content/?kind=page'],
+    ['Change a page headline','Open Pages & homepage, edit the Page headline or Small heading above headline, and publish. Leaving these optional fields empty keeps the approved default text.','admin/content/?kind=page'],
+    ['Edit the Band page button','Open the Band page record in Pages & homepage. Set Primary button label and an optional HTTPS destination; leaving the destination blank retains the internal Press link. Preview before publishing.','admin/content/?kind=page'],
     ['Replace an image','Open Media library to upload an approved photograph or artwork. Return to the page editor, select its Feature image, preview, then publish. Uploaded files do not automatically replace a public image.','admin/media/']]],
    'members'=>['Band members','Portraits, biographies and lineup order',[
     ['Add a band member','Open Website content → Band members and select Add band member. Enter the name, musical role, biography and an approved image from Media library. Save, preview and publish.','admin/content/?kind=member'],
