@@ -32,6 +32,11 @@ $check(str_contains($html,'&lt;special&gt;')&&!str_contains($html,'<special>'),'
 $check(Spirit\SectionPages::customButton(['data'=>['button_label'=>'Unsafe','button_url'=>'javascript:alert(1)']])==='','Unsafe legacy CTA must not render.');
 $public=file_get_contents(dirname(__DIR__,2).'/app/views/public/sections.php');
 $shop=file_get_contents(dirname(__DIR__,2).'/app/views/public/store.php');
+$lineup=Spirit\MemberOnboarding::confirmed();
+$check(count($lineup)===3,'Expected three existing factual lineup names.');
+$slugs=array_column($lineup,2);
+$check(count($slugs)===count(array_unique($slugs)),'Default lineup has duplicate URL slugs.');
+$check(is_string($public)&&str_contains($public,'MemberOnboarding::showLegacyFallback()'),'Preserved legacy lineup fallback is missing.');
 $check(is_string($public)&&str_contains($public,'band-profile-list'),'Vertical band biography layout is missing.');
 $check(is_string($public)&&!str_contains($public,'member-grid band-member-grid'),'Old band grid unexpectedly restored.');
 $check(is_string($public)&&substr_count($public,'SectionPages::customButton($pageContent)')>=3,'Optional page CTAs are not connected to public section layouts.');
