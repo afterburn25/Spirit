@@ -5,5 +5,5 @@
 <?php if($area==='admin'):
 $menu = Spirit\AdminNavigation::build($user, $active);
 require Spirit\Paths::root().'/app/views/admin/navigation.php';
-?><div class="workspace"><header class="topbar"><div class="admin-breadcrumb"><span><?=e($menu['section'])?></span><strong><?=e($title)?></strong></div><span class="user-chip"><?=e($user['name']??'Owner')?></span></header>
+?><div class="workspace"><header class="topbar"><div class="admin-breadcrumb"><span><?=e($menu['section'])?></span><strong><?=e($title)?></strong></div><?php if($active!=='help'):?><a class="text-link admin-context-help" href="<?=e(app_url('admin/help/?topic='.Spirit\\HelpCatalog::topicForAdmin($active)))?>">Help for this screen</a><?php endif;?><span class="user-chip"><?=e($user['name']??'Owner')?></span></header>
 <?php else:?><header class="simple-header"><a class="brand backstage-brand" href="<?=e(app_url())?>" aria-label="Spiritual Gorillaz home"><?=$backstageBrand?></a><span class="pill"><?=$area==='install'?'BROWSER INSTALLER':($area==='login'?'STAFF ACCESS':'MUSIC · PEOPLE · PURPOSE')?></span></header><div class="public-wrap"><?php endif;?><main id="main" class="main" tabindex="-1">
