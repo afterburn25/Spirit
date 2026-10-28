@@ -1,4 +1,4 @@
-# Spiritual Gorillaz — 1.2.0-rc.1 (development candidate; not released)
+# Spiritual Gorillaz — 1.2.0-rc.1
 
 ## Unreleased 1.2.0 content administration
 
