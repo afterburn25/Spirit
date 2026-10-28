@@ -1,4 +1,44 @@
-# Project status — 1.1.0
+# Project status — Spiritual Gorillaz 1.2.0-rc.1 (unreleased)
+
+## Current development scope
+
+The authoritative final production source remains 1.1.0 on main.
+Draft PR #39 contains the 1.2.0 page-content editor, portrait-and-biography
+Band manager, one-time legacy-member import, media previews and a searchable
+role-aware Help Center. This candidate is not deployed or merged.
+
+## Verified source baseline and new evidence boundary
+
+At commit ae31a7a97bb9fbf9cde9599bb10bc52ba3eaa274 (October 28, 2026 UTC),
+all eleven PR workflows completed successfully, including PHP 8.2/MariaDB 11.4
+and PHP 8.4/MySQL 8.4 website/installer checks, Help, package, grouped-layout
+recovery, browser navigation and storefront checks. That head still packaged
+itself as 1.1.0; those passing checks do **not** establish a successful
+1.1.0-to-1.2.0 upgrade or candidate release acceptance.
+
+Versioned review candidate 1.2.0-rc.1 adds a pinned final-1.1.0 source
+reproduction baseline to the actual installer ZIP upgrade/recovery matrix.
+Its own exact-head results must be observed before marking that verification
+complete. Source reproduction is not proof of byte-identical original delivery.
+
+## Remaining blockers
+
+- Verify every GitHub Actions job and the exact-package 1.1.0-to-1.2.0-rc.1
+  root, subfolder and interruption/rollback journeys at this candidate head.
+- Inspect actual screenshots of Band pages, Help Center and content editing at
+  desktop, tablet and mobile widths, including keyboard labels, focus and
+  screen-reader interactions. Synthetic CI screenshots are evidence of test
+  rendering, not owner or physical-device acceptance.
+- Verify zero/draft/published/unpublished/deleted historical Band profile
+  upgrade states without resurrecting removed profiles or changing private
+  owner/configuration/media/database state.
+- Reconcile final version, package integrity and documentation; obtain owner's
+  explicit acceptance before promotion of a new final immutable 1.2.0 ZIP.
+- Keep PR #39 draft, never merge to main or change live hosting before gates.
+
+---
+
+## Historical status — final 1.1.0
 
 ## Release scope
 
@@ -27,9 +67,9 @@ are in docs/TEST_RESULTS.md. The companion verification receipt records the
 frozen final ZIP and publication checks. Final-source Actions must succeed
 before publication; rc.12 evidence alone does not establish final-commit CI.
 
-## Remaining blockers
+## Historical 1.1.0 blockers
 
-None.
+None for the completed 1.1.0 release; the open 1.2.0 candidate blockers are listed above.
 
 ## Operational follow-up and evidence boundaries
 

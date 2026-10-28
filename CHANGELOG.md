@@ -1,3 +1,29 @@
+# 1.2.0-rc.1 — unreleased development review candidate
+
+- Extend existing owner/staff CMS editing of designed public page headings,
+  section copy, image choices, labeled subheadings and optional safe calls to
+  action. Preserve published/draft controls and existing designed fallbacks.
+- Display published Band profiles in responsive portrait-left/biography-right
+  vertical rows. Manage biographical text, portraits, roles, publication, sort
+  order and soft deletion through authenticated administration.
+- Provide explicit, one-time, confirmed, transactional import of the historically
+  displayed lineup without inventing photos/bios or reviving deleted members.
+- Add searchable, categorized, role-aware administration Help Center,
+  contextual shortcuts and current navigation destination coverage tests.
+- Add media selection previews and focused page/Band/Help regression coverage.
+- Preserve 1.1.0 installation identity, configuration, database/media, eight
+  migrations, pinned recovery kernel, approved identity, tickets and disabled
+  commerce. No deployment or merge is authorized by this candidate.
+- Extend CI to exercise **actual 1.1.0 final source reproduction ZIP -> this
+  candidate ZIP** in isolated root/subfolder/interrupted update-and-recovery
+  scenarios on PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4.
+- Candidate publication remains blocked on new exact-head CI, actual review
+  screenshots, owner UI/accessibility acceptance and release documentation.
+  The source-reproduced 1.1.0 baseline is not represented as an original
+  delivered archive or a production-host update.
+
+---
+
 # 1.1.0 — final release
 
 - Promote the verified rc.12 runtime, including completed analytics/navigation,

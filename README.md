@@ -1,4 +1,29 @@
-# Spiritual Gorillaz — 1.1.0
+# Spiritual Gorillaz — 1.2.0-rc.1 (development candidate; not released)
+
+## Unreleased 1.2.0 content administration
+
+This review candidate adds owner-editable page and section text, background/media
+selection and safe optional calls to action while retaining the approved public
+design when no override is published. Published Band members are arranged in
+responsive portrait-left/biography-right rows; the admin CMS manages profiles,
+order, drafts and soft removal. An explicit, one-time legacy-lineup import
+preserves existing names without inventing portraits or biographies. The
+searchable, role-filtered Help Center covers current administration routes.
+
+**Do not deploy or distribute this candidate as the final 1.2.0 release.**
+PR #39 remains draft pending exact-package 1.1.0-to-1.2.0-rc.1 upgrade and
+independent recovery tests, desktop/tablet/mobile review, accessibility and
+owner acceptance. The existing production baseline is final 1.1.0 on main.
+No live website has been changed. Build candidate packages in a separate
+folder and never overwrite a delivered ZIP or place a ZIP inside another ZIP.
+
+The current one-page installer, ten deployable root folders, owner account,
+database, private runtime, approved logo/smoke, external-ticketing model and
+intentionally disabled commerce remain in scope. See
+[the roadmap](docs/ROADMAP.md), [status](PROJECT_STATUS.md), and
+[upgrade instructions](docs/UPGRADES.md) before reviewing this candidate.
+
+## Historical release baseline — final 1.1.0
 
 ## Final 1.1 release
 

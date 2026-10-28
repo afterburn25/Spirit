@@ -1,4 +1,31 @@
-# Roadmap — final 1.1.0
+# Roadmap — 1.2.0-rc.1 candidate (unreleased)
+
+## Current 1.2.0 milestone and release criteria
+
+The 1.2 development branch implements site-wide CMS section text/media controls
+with designed fallbacks, responsive image-left/bio-right Band rows, permitted
+profile additions/edits/sort/soft removal and explicit one-time legacy import,
+media picker previews and a searchable permission-aware Admin Help Center.
+The existing 1.1.0 production source remains on main; PR #39 stays draft.
+
+**CI checkpoint, October 28, 2026 UTC:** all 11 workflows succeeded on
+ae31a7a97bb9fbf9cde9599bb10bc52ba3eaa274, including both PHP/database
+web/installer and grouped-layout matrices. That commit's package still claimed
+1.1.0. The 1.2.0-rc.1 candidate includes a distinct final-1.1.0 source
+reproduction baseline in grouped-layout CI, exercising real
+root/subfolder/interrupted upgrades with independent rollback. The newly
+versioned candidate's results must be checked separately.
+
+Remaining acceptance: exact-head CI on rc.1, visual review of true desktop,
+tablet and mobile screenshots of the Band, Help Center and content editor;
+keyboard/labels/focus and screen-reader review; explicit legacy member
+zero/private/published/unpublished/deleted state coverage; confirmation of
+owner/configuration/database/media preservation and recovery; final release
+metadata/package hash reconciliation and explicit owner acceptance.
+Do not conflate CI fixtures with physical-device/live-host validation or
+merge/deploy the candidate.
+
+## Historical final 1.1.0 roadmap
 
 | Area | Final software status | Operational follow-up |
 |---|---|---|

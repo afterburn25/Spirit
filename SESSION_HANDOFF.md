@@ -1,4 +1,19 @@
-# Active development handoff — Spiritual Gorillaz 1.2.0 (unreleased)
+# Active development handoff — Spiritual Gorillaz 1.2.0-rc.1 (unreleased)
+
+**Verified previous head:** ae31a7a97bb9fbf9cde9599bb10bc52ba3eaa274
+had all 11 exact-head PR workflows green as observed October 28, 2026 UTC,
+including both PHP/DB website matrices and grouped-layout test matrices.
+That head was still packaging itself as 1.1.0 and therefore did NOT verify
+upgrades from final 1.1.0 to 1.2.0.
+
+**Candidate handoff:** Bumped the development branch to 1.2.0-rc.1 (never
+production/main), updated release/roadmap documentation and extended the
+existing exact-package grouped-layout CI to include pinned final-1.1.0
+source reproduction as an additional baseline. Observe all checks on the
+new candidate head before claiming success. Original delivered 1.1.0 ZIP
+byte identity is not claimed by this source reproduction. Remain draft until
+owner's UX/accessibility review, legacy member-state upgrade cases and
+immutable final packaging are accepted.
 
 **Repository:** `afterburn25/Spirit`. **Authoritative release:** `main` at 1.1.0. **In-progress branch:** `work/1.2.0-content-band-layout`. **PR:** #39 (draft). **Issue:** #38.
 
