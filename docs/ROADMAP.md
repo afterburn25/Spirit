@@ -32,3 +32,10 @@ custom files to force the transition.
 ## Planned follow-up — 1.2.0 content administration
 
 Track implementation and acceptance in [issue #38](https://github.com/afterburn25/Spirit/issues/38). Add owner-editable page/section text and imagery throughout the public site using the existing CMS/media permissions and draft/publish infrastructure. Provide a dedicated admin Band Members manager for add/edit/delete, image/biography editing, publishing and persistent ordering. Public `/band/` members must be vertically stacked, with portrait left and name/role/bio right on desktop and image-first stacking on mobile. Preserve the approved 1.1.0 design, legacy content, installations, media and upgrade/recovery guarantees. This is planned work, not shipped with 1.1.0.
+
+## Admin Help Center — 1.2.0 in progress
+
+- Add **Help & guidance → Help center** with owner/staff-accessible topic navigation and short task-oriented instructions. Implemented on development branch, not yet released.
+- Help content must describe the actual routes and workflows, distinguish unpublished and optional features, and remain consistent with permissions.
+- **Release rule:** Every feature addition, rename, workflow change, or admin deletion requires updating the corresponding HelpCatalog guide, reviewing links/permissions and checking responsive and keyboard usability in the same PR. Help review is mandatory before merge.
+- Future polish: contextual Help links from screens, searchable articles, guided screenshots, troubleshooting, role-specific visibility, and automated link coverage.
