@@ -36,10 +36,11 @@ def states(page):return page.locator('[data-nav-group]').evaluate_all('(nodes)=>
 def shape(page,label):
     expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),label+': no page overflow')
     expect(page.locator('#sidebar a[aria-current="page"]').count()==1,label+': exactly one current destination')
-    expect(page.locator('[data-nav-group]').count()==7,label+': seven owner categories')
-    expect(page.locator('#sidebar nav a').count()==37,label+': all 37 authorized destinations present')
+    expect(page.locator('[data-nav-group]').count()==8,label+': eight owner categories')
+    expect(page.locator('#sidebar nav a').count()==38,label+': all 38 authorized destinations present')
     expect(page.locator('[data-nav-group="analytics"] [data-nav-link]').count()==3,label+': Analytics has its own three destinations')
     expect(page.locator('[data-nav-group="audience"] [data-nav-link="analytics"]').count()==0,label+': Analytics is outside Bookings and communication')
+    expect(page.locator('[data-nav-group="help"] [data-nav-link="help"]').count()==1,label+': Help Center is a dedicated permitted destination')
     expect(page.locator('[role="menu"], [role="menuitem"]').count()==0,label+': ordinary disclosure/navigation semantics retained')
 
 
@@ -54,7 +55,7 @@ def journey(browser,s,width,engine,area):
     page.locator('[data-nav-action="collapse"]').click()
     page.locator('[data-nav-group="content"] > summary').focus();page.keyboard.press('Enter')
     page.locator('[data-nav-group="music"] > summary').focus();page.keyboard.press('Space')
-    expected={'content':True,'music':True,'analytics':False,'audience':False,'commerce':False,'settings':False,'system':False}
+    expected={'content':True,'music':True,'analytics':False,'audience':False,'commerce':False,'settings':False,'help':False,'system':False}
     expect(states(page)==expected,'Keyboard Enter/Space selects independent expanded categories')
     exact=page.url;page.reload(wait_until='networkidle');ready(page)
     expect(page.url==exact and states(page)==expected,'Refresh preserves exact query/hash URL and category choices')
@@ -109,12 +110,13 @@ def identity_and_failure(browser,s,engine,area):
     page=c.new_page();signin(s,page);owner_scope=page.locator('#sidebar').get_attribute('data-nav-scope')
     page.locator('[data-nav-action="collapse"]').click();page.locator('.admin-sidebar-actions button').click();page.wait_for_url('**/admin/login.php')
     password='Menu-fixture-only-Password-492'
-    for role,links,groups in [('owner',37,7),('content_editor',11,3),('store_manager',6,3)]:
+    for role,links,groups in [('owner',38,8),('content_editor',12,4),('store_manager',7,4)]:
         signin(s,page,'menu-'+role+'@example.test',password)
         expect(page.locator('#sidebar').get_attribute('data-nav-scope')!=owner_scope,'Different accounts have independent opaque preference scopes')
         expect(all(states(page).values()),'One account\'s collapsed layout does not spill into another')
         expect(page.locator('#sidebar nav a').count()==links and len(states(page))==groups,'Server filters links and empty categories for '+role)
         expect(page.locator('#sidebar [data-nav-link="analytics"]').count()==int(role=='owner'),'Audience analytics navigation is owner-only for '+role)
+        expect(page.locator('#sidebar [data-nav-link="help"]').count()==1,'Help Center is available to every authorized staff role: '+role)
         expect(page.locator('[data-analytics-snapshot]').count()==int(role=='owner'),'The Overview analytics snapshot is owner-only for '+role)
         if role!='owner':
             expect(page.locator('#sidebar a[href*="admin/orders/payments"],#sidebar a[href*="admin/shop/customers"],#sidebar a[href*="admin/staff/"]').count()==0,'Staff do not receive owner financial/customer/access links')

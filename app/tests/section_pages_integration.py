@@ -11,7 +11,7 @@ from content_history_integration import fixture as history_fixture, restore, sna
 from launch_integration import fixture as launch_fixture
 
 SECTIONS={'home':'','music':'music/','shows':'shows/','band':'band/','media':'media/','booking':'booking/','press':'press/','merch':'shop/'}
-HEADINGS={'home':'MUSIC<br>WITH A HIGHER','music':'OUR MUSIC','shows':'UPCOMING SHOWS','band':'THE BAND','media':'WATCH & EXPLORE','booking':'BOOK<br>THE BAND','press':'PRESS KIT','merch':'WEAR THE MOVEMENT'}
+HEADINGS={'home':'MUSIC<br>WITH A HIGHER','music':'OUR MUSIC','shows':'UPCOMING SHOWS','band':'THE BAND','media':'WATCH &amp; EXPLORE','booking':'BOOK THE BAND','press':'PRESS KIT','merch':'WEAR THE MOVEMENT'}
 
 def journey(s):
     anon=Client(s.base)
