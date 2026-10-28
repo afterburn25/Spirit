@@ -24,12 +24,13 @@
   historical member names persisting in the default Band hero/SEO copy after
   lineup publication, unpublication or removal; retain untouched-site fallback.
   Update member Help Center instructions and targeted unit/browser checks.
-- Commit `6196f25` passed all 11 exact-head workflows and both 737-assertion
-  upgrade/recovery matrices. The subsequent Press roster-default and blank-body
-  fallback correction adds browser/unit coverage and awaits its own CI.
+- Source head `4ae17b0` passed all 11 exact-head workflows and both 737-assertion
+  upgrade/recovery matrices after the Press roster and blank Page body fixes.
+- Keep the mobile administration breadcrumb on one row when contextual Help and
+  the account chip are present; preserve 44px Help access and add 320/390px
+  browser regressions. This new header correction awaits its own CI.
   Human device/screen-reader acceptance and owner approval still block release.
-  The source-reproduced 1.1.0 baseline is not represented as an original
-  delivered archive or a production-host update.
+  Source-reproduced 1.1.0 is not asserted identical to the delivered archive.
 
 ---
 

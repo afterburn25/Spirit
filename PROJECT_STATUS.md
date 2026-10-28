@@ -27,16 +27,16 @@ delivered 1.1.0 archive. Tests added after that head need their own CI result.
 
 ## Current verified evidence — October 28, 2026 UTC
 
-All **11/11 GitHub PR workflows passed** at exact source head `6196f25b1dee5ca0e7dc98b9c70212c17300aa40`, including the new member alt text, HTTPS member links, Band hero and SEO roster correction. The pinned 1.1.0-source-to-1.2.0-rc.1 package upgrades and independent recovery passed **737 assertions on each** PHP/database matrix. Synthetic screenshots and package integrity remain machine evidence, not human device/accessibility acceptance.
+All 11/11 PR workflows passed at `4ae17b0d284a8d2fa60250ba9c6eba0b38e51bda`, covering the Press roster and blank Home/Band/Press introduction fixes. Both PHP/database matrices passed 737 actual ZIP upgrade/recovery assertions each. The downloaded `1.2.0-rc.1` archive SHA-256 is `4d02c4cc6d265a0a1250b94000b2dca87e0a58389c0ad7176000a4d88a5662e8`; published checksums, 451 manifest hashes, archive integrity and no-nested-ZIP checks match. The baseline final 1.1.0 ZIP was reproduced from pinned source, not asserted byte-identical to a customer's delivered ZIP.
 
-The following code-only correction addresses another roster consistency gap: the Press story still named the original lineup after a member was published or removed, and an editor who published a headline-only Page could inadvertently blank the approved Home, Band or Press introductory body. The renderer now uses the existing blank-aware Page helper and the legacy Press names only while the old lineup fallback is legitimate. Browser and unit assertions were added. **This new commit is not verified by the previous head's green CI.** Help guidance is updated; no schema or host state changes.
+**New branch-only responsive correction awaiting exact-head CI:** The real synthetic 390px staff screenshot showed `ADMINISTRATION` splitting mid-word when the contextual Help shortcut and user chip competed for header space. CSS now gives the breadcrumb a full mobile row, keeps Help/account separate with a 44px Help target and adds 320/390px browser assertions. An isolated Chromium CSS reproduction reduced the 390px label from a 25.2px two-line element to 12.6px on one line. This is not yet a passing full-site test. The Help guide and roadmap were updated; no production or schema change.
 
 ## Remaining blockers
 
-- Verify all 11 GitHub Actions workflows and both exact-package upgrade/recovery matrices on the new source head. Never attribute previous passing jobs to this change.
-- Inspect the new Band/Press/Home and editor browser artifacts, confirm no regressions on desktop/mobile and test keyboard/focus behavior on actual devices and with assistive technology.
-- Preserve separate provenance for the source-reproduced final 1.1.0 baseline; it is not asserted byte-identical to the historical customer-delivered ZIP.
-- Before final 1.2.0, reconcile VERSION, release docs, immutable archive SHA-256 and owner acceptance. Keep PR #39 draft; no merge, tag or production deployment without explicit approval.
+- Re-run **all 11** GitHub workflows and both PHP/database upgrade/recovery matrices on the new header-fix commit. Earlier passing results belong to `4ae17b0`.
+- Review 320/390px updated administration screenshots and conduct owner physical-device, keyboard focus and screen-reader acceptance.
+- Keep the source-reproduced final 1.1.0 baseline distinct from the historical customer ZIP; reconcile final 1.2.0 VERSION, package digest and release documents.
+- Keep PR #39 draft and unmerged; no production deployment or release without explicit owner approval.
 
 ---
 

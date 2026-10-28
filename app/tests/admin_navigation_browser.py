@@ -42,6 +42,16 @@ def shape(page,label):
     expect(page.locator('[data-nav-group="audience"] [data-nav-link="analytics"]').count()==0,label+': Analytics is outside Bookings and communication')
     expect(page.locator('[data-nav-group="help"] [data-nav-link="help"]').count()==1,label+': Help Center is a dedicated permitted destination')
     expect(page.locator('[role="menu"], [role="menuitem"]').count()==0,label+': ordinary disclosure/navigation semantics retained')
+    if page.viewport_size['width'] <= 600:
+        heading=page.locator('.admin-breadcrumb span')
+        expect(heading.evaluate('(n)=>n.getBoundingClientRect().height <= parseFloat(getComputedStyle(n).lineHeight)*1.25'),label+': mobile administration category is not broken mid-word')
+        help_link=page.locator('.admin-context-help')
+        expect(help_link.count()==1 and help_link.is_visible() and help_link.evaluate('(n)=>n.getBoundingClientRect().height >= 43.5'),label+': contextual Help retains a 44px phone target')
+        expect(page.evaluate('''() => {
+            const a=document.querySelector('.admin-context-help').getBoundingClientRect();
+            const b=document.querySelector('.topbar .user-chip').getBoundingClientRect();
+            return a.right <= b.left+1 || b.right <= a.left+1 || a.bottom <= b.top+1 || b.bottom <= a.top+1;
+        }'''),label+': contextual Help and account identity never overlap')
 
 
 def journey(browser,s,width,engine,area):
