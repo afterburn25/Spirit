@@ -10,9 +10,9 @@ foreach($categories as $slug=>$category){
   if(count($guide)!==3||!is_string($guide[0])||!is_string($guide[1])||!is_string($guide[2])){$errors[]='Invalid guide schema: '.$slug;continue;}
   if(trim($guide[0])===''||trim($guide[1])===''){$errors[]='Empty title or steps in '.$slug;}
   $path=$guide[2];
-  if(!preg_match('~^admin/[a-z0-9/_?.=&-]+$~D',$path)||str_contains($path,'..')){$errors[]='Unsafe guide destination: '.$path;continue;}
+  if(!preg_match('~^admin/[a-z0-9/_?.=&-]*$~D',$path)||str_contains($path,'..')){$errors[]='Unsafe guide destination: '.$path;continue;}
   $pathname=explode('?',substr($path,6),2)[0];
-  if(str_ends_with($pathname,'/')){$pathname.='index.php';}
+  if($pathname===''||str_ends_with($pathname,'/')){$pathname.='index.php';}
   if(!str_ends_with($pathname,'.php')){$errors[]='Not a PHP endpoint: '.$path;continue;}
   if(!is_file(dirname(__DIR__,2).'/admin/'.$pathname)){$errors[]='Missing help destination: '.$path;}
   $key=$slug.'|'.$guide[0];if(isset($seen[$key])){$errors[]='Duplicate article: '.$key;}$seen[$key]=true;
