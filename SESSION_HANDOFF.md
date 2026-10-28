@@ -15,6 +15,15 @@ byte identity is not claimed by this source reproduction. Remain draft until
 owner's UX/accessibility review, legacy member-state upgrade cases and
 immutable final packaging are accepted.
 
+**Additional pending verification:** The exact-package upgrade test now seeds
+factual 1.1.0 legacy member histories (zero records, private-only drafts,
+published, unpublished, and soft-deleted), checks the 1.2 Band/public and
+owner-confirmed import rules, then checks DB/private state through independent
+recovery. The delete-state fixture is guarded to disposable CI SQL and excluded
+from deployment. These are committed assertions, **not a passing test claim**;
+read exact-head grouped-layout results before promoting. No Help Center workflow
+change was made, so existing topic text remains accurate.
+
 **Repository:** `afterburn25/Spirit`. **Authoritative release:** `main` at 1.1.0. **In-progress branch:** `work/1.2.0-content-band-layout`. **PR:** #39 (draft). **Issue:** #38.
 
 The owner requested continued development of complete page image/text editing, vertical image-left/biography-right Band profiles, admin add/edit/soft-delete of members, and a commercial-quality Help Center updated with every new feature. Work is committed to the development branch, NOT merged into main and NOT deployed. Never represent queued workflow jobs as passing.

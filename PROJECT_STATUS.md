@@ -29,9 +29,11 @@ complete. Source reproduction is not proof of byte-identical original delivery.
   desktop, tablet and mobile widths, including keyboard labels, focus and
   screen-reader interactions. Synthetic CI screenshots are evidence of test
   rendering, not owner or physical-device acceptance.
-- Verify zero/draft/published/unpublished/deleted historical Band profile
-  upgrade states without resurrecting removed profiles or changing private
-  owner/configuration/media/database state.
+- Run the newly added final-1.1.0 exact-package legacy member fixtures: zero
+  records with confirmed import, private-only drafts, and mixed published,
+  unpublished and soft-deleted historical records. Inspect the new CI results
+  before claiming those fixtures passed or that deleted profiles cannot return.
+  Original private owner/configuration/media/database preservation remains required.
 - Reconcile final version, package integrity and documentation; obtain owner's
   explicit acceptance before promotion of a new final immutable 1.2.0 ZIP.
 - Keep PR #39 draft, never merge to main or change live hosting before gates.

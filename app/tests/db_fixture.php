@@ -17,6 +17,13 @@ try{
  case 'owner':$db->exec("UPDATE ".$users." SET role='owner'");echo '{}';break;
  case 'limits':$db->exec('DELETE FROM `'.$prefix.'login_limits`');echo '{}';break;
  case 'content-count':echo json_encode(['content'=>(int)$db->query('SELECT COUNT(*) FROM `'.$prefix.'content`')->fetchColumn(),'media'=>(int)$db->query('SELECT COUNT(*) FROM `'.$prefix.'media`')->fetchColumn()]);break;
+ case 'qa-historical-member-soft-delete':
+   // Model a removed 1.1.0 member using only the isolated CI database.
+   // No production route, credential, or live record is accessed.
+   $q=$db->prepare('UPDATE `'.$prefix.'content` SET deleted_at=UTC_TIMESTAMP(), published_slug=NULL, published_json=NULL, published_at=NULL, revision=revision+1, updated_at=UTC_TIMESTAMP() WHERE kind=? AND draft_slug=? AND deleted_at IS NULL');
+   $q->execute(['member','qa-history-deleted']);
+   if($q->rowCount()!==1){throw new RuntimeException('Expected one disposable historical member.');}
+   echo json_encode(['removed'=>1]);break;
  case 'legacy-schema':
    foreach(['content_media','content_revisions','content','media','migrations'] as $table){$db->exec('DROP TABLE IF EXISTS `'.$prefix.$table.'`');}echo '{}';break;
  case 'cleanup':
