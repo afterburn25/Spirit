@@ -11,8 +11,9 @@ $canReadGuide=static function(string $path) use($user):bool {
  $permission=match(true){
   str_starts_with($path,'admin/content/')=>'content.manage',
   str_starts_with($path,'admin/media/')=>'media.manage',
+  str_starts_with($path,'admin/analytics/'),str_starts_with($path,'admin/staff/'),str_starts_with($path,'admin/backups/'),str_starts_with($path,'admin/communication/'),str_starts_with($path,'admin/bookings/'),str_starts_with($path,'admin/launch/'),str_starts_with($path,'admin/installation'),str_starts_with($path,'admin/shop/settings'),$path==='admin/settings.php'=>'owner',
   str_starts_with($path,'admin/shop/')=>'store.manage',
-  str_starts_with($path,'admin/staff/'),str_starts_with($path,'admin/backups/'),str_starts_with($path,'admin/communication/'),str_starts_with($path,'admin/bookings/'),str_starts_with($path,'admin/launch/'),$path==='admin/settings.php'=>'owner',
+  $path==='admin/account.php'=>'account',
   default=>'dashboard'
  };
  return Spirit\Permissions::allows($user,$permission);
