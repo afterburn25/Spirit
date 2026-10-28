@@ -2,14 +2,34 @@ name: Help Center quality
 on:
   push:
     branches: [main, work/1.2.0-content-band-layout]
+    paths:
+      - 'app/HelpCatalog.php'
+      - 'app/ContentSchema.php'
+      - 'app/SectionPages.php'
+      - 'app/views/public/sections.php'
+      - 'app/views/public/store.php'
+      - 'admin/help/**'
+      - 'app/AdminNavigation.php'
+      - 'app/tests/help_catalog_check.php'
+      - 'app/tests/page_controls_check.php'
+      - 'assets/css/admin-help.css'
+      - '.github/workflows/help-center-quality.yml'
   pull_request:
     paths:
       - 'app/HelpCatalog.php'
+      - 'app/ContentSchema.php'
+      - 'app/SectionPages.php'
+      - 'app/views/public/sections.php'
+      - 'app/views/public/store.php'
+      - 'app/tests/page_controls_check.php'
       - 'admin/help/**'
       - 'app/AdminNavigation.php'
       - 'app/tests/help_catalog_check.php'
       - 'assets/css/admin-help.css'
       - '.github/workflows/help-center-quality.yml'
+concurrency:
+  group: help-center-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   check-help:
     runs-on: ubuntu-latest
@@ -28,3 +48,12 @@ jobs:
           php -l app/tests/help_catalog_check.php
       - name: Help content and endpoint integrity
         run: php app/tests/help_catalog_check.php
+      - name: Content editor and Band layout invariants
+        run: |
+          php -l app/tests/page_controls_check.php
+          php -l app/ContentSchema.php
+          php -l app/SectionPages.php
+          php -l app/views/public/sections.php
+          php -l app/views/public/store.php
+          php -l app/views/header.php
+          php app/tests/page_controls_check.php
