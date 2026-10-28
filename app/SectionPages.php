@@ -55,6 +55,13 @@ final class SectionPages
         return is_string($value) && trim($value) !== '' ? $value : $fallback;
     }
 
+    /** Escape admin text, but preserve trusted built-in markup when unset. */
+    public static function heading(?array $page,string $slot,string $trustedFallbackHtml): string
+    {
+        $value=self::text($page,$slot);
+        return $value!==''?e($value):$trustedFallbackHtml;
+    }
+
     /** Optional externally linked call-to-action; never render an incomplete override. */
     public static function customButton(?array $page): string
     {
