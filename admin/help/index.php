@@ -6,11 +6,23 @@ $categories=Spirit\HelpCatalog::categories();
 $selected=is_string($_GET['topic']??null)?$_GET['topic']:'getting-started';
 if(!array_key_exists($selected,$categories)){$selected='getting-started';}
 $query=is_string($_GET['q']??null)?trim($_GET['q']):'';
-if(mb_strlen($query)>100){$query=mb_substr($query,0,100);}
+if(strlen($query)>100){$query=substr($query,0,100);}
+$canReadGuide=static function(string $path) use($user):bool {
+ $permission=match(true){
+  str_starts_with($path,'admin/content/')=>'content.manage',
+  str_starts_with($path,'admin/media/')=>'media.manage',
+  str_starts_with($path,'admin/shop/')=>'store.manage',
+  str_starts_with($path,'admin/staff/'),str_starts_with($path,'admin/backups/'),str_starts_with($path,'admin/communication/'),str_starts_with($path,'admin/bookings/'),str_starts_with($path,'admin/launch/'),$path==='admin/settings.php'=>'owner',
+  default=>'dashboard'
+ };
+ return Spirit\Permissions::allows($user,$permission);
+};
+foreach($categories as $key=>$category){$categories[$key][2]=array_values(array_filter($category[2],static fn(array $guide):bool=>$canReadGuide($guide[2])));if(!$categories[$key][2]){unset($categories[$key]);}}
+if(!isset($categories[$selected])){$selected=array_key_first($categories);}
 $matches=[];
 if($query!==''){
  foreach($categories as $categoryKey=>[$categoryTitle,$intro,$guides]){
-  foreach($guides as $guide){if(mb_stripos($categoryTitle.' '.$guide[0].' '.$guide[1],$query)!==false){$matches[]=[$categoryKey,$categoryTitle,$guide];}}
+  foreach($guides as $guide){if(stripos($categoryTitle.' '.$guide[0].' '.$guide[1],$query)!==false){$matches[]=[$categoryKey,$categoryTitle,$guide];}}
  }
 }
 Spirit\View::start('Help center','admin','help',$user);
