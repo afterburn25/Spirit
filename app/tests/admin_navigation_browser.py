@@ -101,7 +101,39 @@ def journey(browser,s,width,engine,area):
     page.reload(wait_until='networkidle');ready(page)
     expect(states(page)['music'],'Reloading an older tab cannot overwrite a newer explicit category choice')
     newpage.close()
-    expect(fixture(s,'fingerprint')==before,'Navigation toggles, reloads, links and preferences do not modify database records')
+    # Observe the actual Help Center, not only its sidebar link. Capture owner
+    # topic/search screenshots at desktop, tablet and phone sizes and require
+    # native keyboard navigation without changing owner data.
+    response=page.goto(s.base+'admin/help/?topic=members',wait_until='networkidle')
+    expect(response.status==200,f'{engine}/{area}/{width}: Help Center serves the protected topic')
+    if width<=800 and page.locator('.admin-menu-toggle').get_attribute('aria-expanded')=='true':
+        page.locator('.admin-menu-toggle').click()
+    be(page.get_by_role('navigation',name='Help topics')).to_be_visible()
+    be(page.get_by_role('heading',name='Band members',exact=True)).to_be_visible()
+    be(page.locator('.help-topics a[href*="topic=members"]')).to_have_attribute('aria-current','page')
+    expect(page.locator('.help-guide').count()==5,'Owner Help Center documents all five member-management tasks')
+    expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),f'Help topic fits {width}px without horizontal overflow')
+    if engine=='chromium' and area=='root':screenshot(page,f'help-{width}-members')
+    field=page.get_by_label('Search help articles')
+    field.focus()
+    page.keyboard.press('Tab')
+    be(page.get_by_role('button',name='Search guides',exact=True)).to_be_focused()
+    page.keyboard.press('Shift+Tab')
+    be(field).to_be_focused()
+    field.fill('biography')
+    with page.expect_navigation(wait_until='domcontentloaded'):
+        field.press('Enter')
+    be(page.get_by_role('heading',name='Results for “biography”')).to_be_visible()
+    expect(page.locator('.help-guide').count()>0,'Native keyboard Help search returns real matching guides')
+    expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),f'Help search fits {width}px without horizontal overflow')
+    if engine=='chromium' and area=='root':screenshot(page,f'help-{width}-search')
+    guide=page.locator('.help-guide .text-link').first
+    guide.focus()
+    be(guide).to_be_focused()
+    with page.expect_navigation(wait_until='domcontentloaded'):
+        guide.press('Enter')
+    expect(page.url.endswith('admin/content/?kind=member'),'Keyboard activates an authorized Help guide destination')
+    expect(fixture(s,'fingerprint')==before,'Navigation, Help reading and Help search do not modify database records')
     expect(not errors,'Navigation journey has no uncaught JavaScript errors: '+repr(errors));c.close()
 
 
@@ -117,6 +149,15 @@ def identity_and_failure(browser,s,engine,area):
         expect(page.locator('#sidebar nav a').count()==links and len(states(page))==groups,'Server filters links and empty categories for '+role)
         expect(page.locator('#sidebar [data-nav-link="analytics"]').count()==int(role=='owner'),'Audience analytics navigation is owner-only for '+role)
         expect(page.locator('#sidebar [data-nav-link="help"]').count()==1,'Help Center is available to every authorized staff role: '+role)
+        page.goto(s.base+'admin/help/?topic=analytics',wait_until='networkidle')
+        expect(page.locator('.help-search').count()==1,'Permitted '+role+' can read Help without a forbidden response')
+        if role=='owner':
+            expect(page.locator('.help-topics a[href*="topic=analytics"]').count()==1,'Owner retains Analytics Help topic')
+        else:
+            expect(page.locator('.help-topics a[href*="topic=analytics"]').count()==0 and
+                   page.locator('.help-guide a[href*="/admin/analytics/"]').count()==0,
+                   'Staff Help navigation excludes owner-only Analytics topics and guides: '+role)
+        page.goto(s.base+'admin/',wait_until='networkidle');ready(page)
         expect(page.locator('[data-analytics-snapshot]').count()==int(role=='owner'),'The Overview analytics snapshot is owner-only for '+role)
         if role!='owner':
             expect(page.locator('#sidebar a[href*="admin/orders/payments"],#sidebar a[href*="admin/shop/customers"],#sidebar a[href*="admin/staff/"]').count()==0,'Staff do not receive owner financial/customer/access links')
@@ -155,7 +196,16 @@ def identity_and_failure(browser,s,engine,area):
     summary=page.locator('[data-nav-group="music"] > summary');summary.click();expect(page.locator('[data-nav-link="track"]').is_hidden(),'Native details collapse without page JavaScript');summary.click()
     page.locator('[data-nav-link="track"]').click();page.wait_for_url('**/admin/content/?kind=track')
     expect(page.locator('h1').is_visible(),'Native links still navigate to the intended page without JavaScript')
-    screenshot(page,f'admin-nav-{engine}-{area}-native');c.close()
+    page.goto(s.base+'admin/help/',wait_until='domcontentloaded')
+    field=page.get_by_label('Search help articles')
+    be(field).to_be_visible()
+    field.fill('biography')
+    with page.expect_navigation(wait_until='domcontentloaded'):
+        page.get_by_role('button',name='Search guides',exact=True).press('Enter')
+    expect(page.locator('.help-guide').count()>0,'No-JavaScript mobile Help search returns matching guides')
+    expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),'No-JavaScript Help search fits 390px')
+    screenshot(page,f'help-{engine}-{area}-native-390')
+    c.close()
 
 
 def audience_overview(browser,s,engine,area):

@@ -21,17 +21,20 @@ Legacy member-state test coverage was added to the exact-package upgrade suite:
 published/unpublished/soft-deleted histories. Each starts from real owner
 content forms (with the deleted state modeled only in isolated test SQL),
 checks the new Band public listing and Help-linked import flow after upgrade,
-and preserves data through independent recovery. This is **new, unverified
-source** until CI succeeds at the resulting commit; no host or owner acceptance
-is asserted. Help Center task instructions require no change because this adds
-verification only, not a user-facing workflow.
+and preserves data through independent recovery. Those historical fixtures passed on exact head 45a072c on both PHP/database
+matrices (737 assertions on each). This is synthetic CI evidence, not host or
+owner acceptance. Help Center task instructions are unchanged because these
+checks do not alter user-facing workflows.
 
-Remaining acceptance: exact-head CI on rc.1, visual review of true desktop,
-tablet and mobile screenshots of the Band, Help Center and content editor;
-keyboard/labels/focus and screen-reader review; explicit legacy member
-zero/private/published/unpublished/deleted state coverage; confirmation of
-owner/configuration/database/media preservation and recovery; final release
-metadata/package hash reconciliation and explicit owner acceptance.
+At 45a072c all eleven exact-head PR checks passed; the exact-package upgrade
+and recovery matrix included all five historical member-state conditions.
+The subsequent Help Center browser coverage now tests owner/staff filtering,
+topics, native keyboard search and link activation, mobile no-JavaScript
+search, horizontal overflow and synthetic screenshots at 1440/820/390/320px.
+That new coverage still needs successful exact-head CI and screenshot review.
+Remaining acceptance also requires human accessibility/screen-reader and
+physical-device review, final immutable package hash/version/docs
+reconciliation and explicit owner acceptance.
 Do not conflate CI fixtures with physical-device/live-host validation or
 merge/deploy the candidate.
 

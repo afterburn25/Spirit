@@ -18,22 +18,29 @@ itself as 1.1.0; those passing checks do **not** establish a successful
 
 Versioned review candidate 1.2.0-rc.1 adds a pinned final-1.1.0 source
 reproduction baseline to the actual installer ZIP upgrade/recovery matrix.
-Its own exact-head results must be observed before marking that verification
-complete. Source reproduction is not proof of byte-identical original delivery.
+At exact head 45a072c095cbbfc97eeaaca437a09de259645c15, all eleven PR
+workflows succeeded on October 28, 2026 UTC. Both PHP 8.2/MariaDB 11.4
+and PHP 8.4/MySQL 8.4 grouped-layout matrices passed 737 assertions each,
+including the real ZIP upgrade, historical member fixtures and independent
+recovery. Source reproduction does not prove byte identity with an earlier
+delivered 1.1.0 archive. Tests added after that head need their own CI result.
 
 ## Remaining blockers
 
-- Verify every GitHub Actions job and the exact-package 1.1.0-to-1.2.0-rc.1
-  root, subfolder and interruption/rollback journeys at this candidate head.
+- Verify the new exact-head Actions after adding Help Center browser checks;
+  all eleven workflows passed on preceding commit 45a072c, but passing an
+  earlier source commit does not establish acceptance of a newer one.
 - Inspect actual screenshots of Band pages, Help Center and content editing at
-  desktop, tablet and mobile widths, including keyboard labels, focus and
-  screen-reader interactions. Synthetic CI screenshots are evidence of test
-  rendering, not owner or physical-device acceptance.
-- Run the newly added final-1.1.0 exact-package legacy member fixtures: zero
-  records with confirmed import, private-only drafts, and mixed published,
-  unpublished and soft-deleted historical records. Inspect the new CI results
-  before claiming those fixtures passed or that deleted profiles cannot return.
-  Original private owner/configuration/media/database preservation remains required.
+  desktop, tablet and mobile widths. New Help topic/search screenshots,
+  keyword submission, link focus, permission filtering and no-JavaScript
+  checks are implemented in the browser suite, **not yet CI-verified** on
+  the updated head. Human screen-reader and physical-device acceptance
+  remain open; synthetic captures are not an owner review.
+- Retain passing exact-package legacy-member evidence (zero records with
+  confirmed owner import, drafts, published, unpublished, soft-deleted) and
+  independent data/media/configuration preservation at 45a072c; reverify
+  on any new test head. This is isolated synthetic CI, not actual owner or
+  original-delivery archive acceptance.
 - Reconcile final version, package integrity and documentation; obtain owner's
   explicit acceptance before promotion of a new final immutable 1.2.0 ZIP.
 - Keep PR #39 draft, never merge to main or change live hosting before gates.

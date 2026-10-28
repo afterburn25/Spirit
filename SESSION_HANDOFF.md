@@ -1,5 +1,17 @@
 # Active development handoff — Spiritual Gorillaz 1.2.0-rc.1 (unreleased)
 
+**Latest observed checkpoint (October 28, 2026 UTC):** All eleven exact-head
+PR #39 workflows succeeded at 45a072c095cbbfc97eeaaca437a09de259645c15.
+Both grouped-layout PHP/database matrices passed 737 real package/upgrade/
+rollback assertions each, including historical member states. The owner
+has not accepted screenshots, keyboard/screen-reader behavior or release
+packaging. The next change adds Help Center browser screenshots at 1440,
+820, 390 and 320px plus live synthetic keyboard search and permission
+filtering (including no-JavaScript); **its own exact-head CI is pending**.
+HelpCatalog text was not changed because routes and guide tasks are unchanged.
+Keep this as draft; do not merge or deploy.
+
+
 **Verified previous head:** ae31a7a97bb9fbf9cde9599bb10bc52ba3eaa274
 had all 11 exact-head PR workflows green as observed October 28, 2026 UTC,
 including both PHP/DB website matrices and grouped-layout test matrices.
