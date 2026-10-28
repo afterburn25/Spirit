@@ -7,11 +7,13 @@ function check(bool $ok,string $message):void{global $count;if(!$ok){throw new R
 function keys(array $menu):array{$keys=[];foreach($menu['groups'] as $group){foreach($group['links'] as $link){$keys[]=$link['key'];}}return $keys;}
 $owner=['id'=>1,'active'=>1,'role'=>'owner'];$menu=AdminNavigation::build($owner,'page');
 check($menu['overview'],'Owner keeps the direct overview destination');
-check(array_column($menu['groups'],'id')===['content','music','analytics','audience','commerce','settings','system'],'Owner navigation has a dedicated Analytics category');
-check(count(keys($menu))===36 && count(array_unique(keys($menu)))===36,'All 36 grouped destinations plus the direct Overview are unique');
+check(array_column($menu['groups'],'id')===['content','music','analytics','audience','commerce','settings','help','system'],'Owner navigation has dedicated Analytics and Help categories');
+check(count(keys($menu))===37 && count(array_unique(keys($menu)))===37,'All 37 grouped destinations plus the direct Overview are unique');
 $byGroup = array_column($menu['groups'], null, 'id');
 check(array_column($byGroup['analytics']['links'],'key')===['analytics','analytics-visitors','analytics-geography'],'Dashboard, visitor explorer and geography belong to Analytics');
 check(array_column($byGroup['audience']['links'],'key')===['bookings','subscribers','mail','communication'],'Bookings and communication contains no analytics destinations');
+check(array_column($byGroup['help']['links'],'key')===['help'],'Help Center has its own permission-controlled category');
+check(AdminNavigation::permissionForDestination('admin/help/')==='dashboard','Help Center route uses dashboard permission');
 foreach($menu['groups'] as $group){
     check(count($group['links'])>0,'No empty visible category: '.$group['id']);
     foreach($group['links'] as $link){
@@ -21,9 +23,9 @@ foreach($menu['groups'] as $group){
         check($active===1 && $activeMenu['label']===$link['label'],'Exactly one active link and matching context for '.$link['key']);
     }
 }
-$original=['page','release','track','event','member','gallery','video','press','library','bookings','communication','mail','subscribers','store','orders','settings','discovery','account','updates','installation','launch','staff','activity','backups','upgrades','maintenance','roadmap'];
+$original=['page','release','track','event','member','gallery','video','press','library','bookings','communication','mail','subscribers','store','orders','settings','discovery','account','updates','installation','launch','staff','activity','backups','upgrades','maintenance','roadmap','help'];
 check(!array_diff($original,keys($menu)),'Every previous sidebar destination remains represented');
-foreach(['content_editor'=>['page','member','library','gallery','video','press','release','track','event','account'],'store_manager'=>['library','store','store-categories','orders','account']] as $role=>$expected){
+foreach(['content_editor'=>['page','member','library','gallery','video','press','release','track','event','account','help'],'store_manager'=>['library','store','store-categories','orders','account','help']] as $role=>$expected){
     $user=['id'=>2,'active'=>1,'role'=>$role];$m=AdminNavigation::build($user,'payment-settings');$actual=keys($m);sort($actual);sort($expected);
     check($actual===$expected,'Role has only permitted destinations: '.$role);
     check(!array_intersect(['analytics','analytics-visitors','analytics-geography'],$actual),'Every analytics destination remains absent from staff navigation: '.$role);
