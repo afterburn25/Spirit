@@ -4,6 +4,10 @@ on:
     branches: [main, work/1.2.0-content-band-layout]
     paths:
       - 'app/HelpCatalog.php'
+      - 'assets/css/admin-media-preview.css'
+      - 'assets/js/admin-media-preview.js'
+      - 'admin/content/**'
+      - 'app/ContentAdmin.php'
       - 'app/ContentSchema.php'
       - 'app/SectionPages.php'
       - 'app/views/public/sections.php'
@@ -17,6 +21,10 @@ on:
   pull_request:
     paths:
       - 'app/HelpCatalog.php'
+      - 'assets/css/admin-media-preview.css'
+      - 'assets/js/admin-media-preview.js'
+      - 'admin/content/**'
+      - 'app/ContentAdmin.php'
       - 'app/ContentSchema.php'
       - 'app/SectionPages.php'
       - 'app/views/public/sections.php'
@@ -28,7 +36,7 @@ on:
       - 'assets/css/admin-help.css'
       - '.github/workflows/help-center-quality.yml'
 concurrency:
-  group: help-center-${{ github.ref }}
+  group: help-center-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 jobs:
   check-help:
@@ -53,6 +61,10 @@ jobs:
           php -l app/tests/page_controls_check.php
           php -l app/ContentSchema.php
           php -l app/SectionPages.php
+          php -l app/ContentAdmin.php
+          php -l admin/content/edit.php
+          php -l admin/content/delete.php
+          node --check assets/js/admin-media-preview.js
           php -l app/views/public/sections.php
           php -l app/views/public/store.php
           php -l app/views/header.php
