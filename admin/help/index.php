@@ -17,6 +17,7 @@ $canReadGuide=static function(string $path) use($user):bool {
 foreach($categories as $key=>$category){$categories[$key][2]=array_values(array_filter($category[2],static fn(array $guide):bool=>$canReadGuide($guide[2])));if(!$categories[$key][2]){unset($categories[$key]);}}
 if(!isset($categories[$selected])){$selected=array_key_first($categories);$screenPath=null;}
 if($screenPath!==null){$categories[$selected][2]=array_values(array_filter($categories[$selected][2],static fn(array $guide):bool=>$guide[2]===$screenPath));}
+$guideAnchor=static fn(int $n):string=>'guide-'.($n+1);
 $matches=[];
 if($query!==''){
  foreach($categories as $categoryKey=>[$categoryTitle,$intro,$guides]){
@@ -41,9 +42,10 @@ Spirit\View::start('Help center','admin','help',$user);
 <article class="panel help-guide"><span class="help-guide-number"><?=str_pad((string)($index+1),2,'0',STR_PAD_LEFT)?></span><div><p class="eyebrow"><?=e($category)?></p><h3><?=e($title)?></h3><p><?=e($instructions)?></p><a class="text-link" href="<?=e(app_url($path))?>">Open this admin screen →</a></div></article>
 <?php endforeach;?>
 <?php else:?>
-<div class="panel help-intro"><p class="eyebrow">GUIDES / <?=e(strtoupper($selected))?></p><h2 id="help-topic-title"><?=e($screenPath!==null?'Help for this screen: '.$categories[$selected][0]:$categories[$selected][0])?></h2><p><?=e($categories[$selected][1])?></p></div>
+<div class="panel help-intro"><p class="eyebrow">GUIDES / <?=e(strtoupper($selected))?></p><h2 id="help-topic-title"><?=e($screenPath!==null?'Help for this screen: '.$categories[$selected][0]:$categories[$selected][0])?></h2><p><?=e($categories[$selected][1])?></p><?php if($screenPath!==null):?><p><a class="text-link" href="<?=e(app_url($screenPath))?>">Return to this admin screen →</a></p><?php endif;?></div>
+<nav class="panel help-contents" aria-label="Articles in this topic"><h3>In this guide</h3><ol><?php foreach($categories[$selected][2] as $number=>$guide):?><li><a href="#<?=e($guideAnchor($number))?>"><?=e($guide[0])?></a></li><?php endforeach;?></ol></nav>
 <?php foreach($categories[$selected][2] as $number=>[$title,$instructions,$path]):?>
-<article class="panel help-guide"><span class="help-guide-number"><?=str_pad((string)($number+1),2,'0',STR_PAD_LEFT)?></span><div><h3><?=e($title)?></h3><p><?=e($instructions)?></p><a class="text-link" href="<?=e(app_url($path))?>">Open this admin screen →</a></div></article>
+<article id="<?=e($guideAnchor($number))?>" class="panel help-guide"><span class="help-guide-number"><?=str_pad((string)($number+1),2,'0',STR_PAD_LEFT)?></span><div><h3><?=e($title)?></h3><p><?=e($instructions)?></p><a class="text-link" href="<?=e(app_url($path))?>">Open this admin screen →</a></div></article>
 <?php endforeach;?>
 <?php endif;?>
 <div class="panel help-note"><h3>Documentation that stays current</h3><p>New administrator features must include current Help Center instructions and tested destinations before their release. Screens display links only to pages your account can access.</p></div>

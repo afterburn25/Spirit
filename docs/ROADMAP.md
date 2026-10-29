@@ -103,3 +103,7 @@ Help Center articles now include detailed task procedures for every documented a
 ### Browser regression follow-up — expanded Help Center
 
 The populated storefront browser matrix exposed an outdated assertion that demanded exactly five Band member articles despite the newly added detailed profile guide. The fixture now checks that the original five tasks remain covered and that the new complete-profile article is visible. This is a documentation/test expectation correction, not a production-site or commerce change. Exact-head browser CI must still pass before marking this regression resolved.
+
+### Expanded contextual help navigation (feature branch)
+
+Added an in-topic jump list with stable article anchors, a return-to-screen action for contextual admin help, and eight focused guides for website identity/settings, draft-to-publish behavior, homepage layout checks, member ordering, hero image sizing and safe bulk editing. The Help Center remains permission-filtered and uses only allowlisted admin destinations. Exact-head browser and Help Center checks are required after this source change. Do not treat these authoring improvements as owner acceptance or release authorization.
