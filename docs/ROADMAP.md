@@ -107,3 +107,7 @@ The populated storefront browser matrix exposed an outdated assertion that deman
 ### Expanded contextual help navigation (feature branch)
 
 Added an in-topic jump list with stable article anchors, a return-to-screen action for contextual admin help, and eight focused guides for website identity/settings, draft-to-publish behavior, homepage layout checks, member ordering, hero image sizing and safe bulk editing. The Help Center remains permission-filtered and uses only allowlisted admin destinations. Exact-head browser and Help Center checks are required after this source change. Do not treat these authoring improvements as owner acceptance or release authorization.
+
+### Contextual Help permission hardening
+
+The Help Center's `screen` query is now resolved through the requesting staff account's navigation permission before rendering screen-specific guides or the return-to-screen link. Previously a hand-written URL could display a return link to a known but unauthorized destination, even though the target endpoint still denied access. Owner, content editor, store manager, inactive-account and unknown-screen cases are covered by the Help Catalog check. This prevents misleading or unauthorized contextual navigation; it does not change any endpoint authorization or grant extra access. Exact-head CI must pass before release acceptance.

@@ -32,6 +32,28 @@ foreach($documentedDestinations as $path=>$permission){
     if(!isset($guidePaths[$path])){$errors[]='Missing Help Center coverage for: '.$path;}
     if(!is_string($permission)||$permission===''){$errors[]='Missing permission rule for: '.$path;}
 }
+// Contextual Help must never link an unauthorized screen even when a user
+// manually supplies a valid but forbidden ?screen= value.
+$helpOwner=['active'=>1,'role'=>'owner'];
+$helpEditor=['active'=>1,'role'=>'content_editor'];
+$helpStore=['active'=>1,'role'=>'store_manager'];
+$helpDisabled=['active'=>0,'role'=>'owner'];
+foreach([
+ ['payment-settings',$helpOwner,'admin/orders/payments.php'],
+ ['payment-settings',$helpEditor,null],
+ ['payment-settings',$helpStore,null],
+ ['member',$helpEditor,'admin/content/?kind=member'],
+ ['member',$helpStore,null],
+ ['settings',$helpOwner,'admin/settings.php'],
+ ['settings',$helpEditor,null],
+ ['dashboard',$helpStore,'admin/'],
+ ['help',$helpEditor,'admin/help/'],
+ ['not-a-screen',$helpOwner,null],
+ ['payment-settings',$helpDisabled,null],
+] as [$screen,$staff,$expectedHelpPath]){
+ $actualHelpPath=Spirit\HelpCatalog::visibleDestinationForAdmin($screen,$staff);
+ if($actualHelpPath!==$expectedHelpPath){$errors[]='Contextual Help permission mismatch for '.$screen.' / '.$staff['role'];}
+}
 if($errors){fwrite(STDERR,implode("\n",$errors)."\n");exit(1);}
 echo "Help catalog checked: ".count($categories)." categories, ".count($seen)." guides.\n";
 

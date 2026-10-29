@@ -18,6 +18,13 @@ final class HelpCatalog {
    default=>'getting-started'
   };
  }
+ /** Resolve a contextual admin destination only when this staff account may open it. */
+ public static function visibleDestinationForAdmin(string $active, ?array $user): ?string {
+  $path=AdminNavigation::destinationForActive($active);
+  if($path===null){return null;}
+  $permission=AdminNavigation::permissionForDestination($path);
+  return $permission!==null&&Permissions::allows($user,$permission)?$path:null;
+ }
  public static function categories(): array {
   $topics = [
    'getting-started'=>['Getting started','Launch checks, your dashboard and where to begin',[

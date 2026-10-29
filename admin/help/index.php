@@ -6,7 +6,7 @@ $categories=Spirit\HelpCatalog::categories();
 $selected=is_string($_GET['topic']??null)?$_GET['topic']:'getting-started';
 if(!array_key_exists($selected,$categories)){$selected='getting-started';}
 $screen=is_string($_GET['screen']??null)?$_GET['screen']:'';
-$screenPath=Spirit\AdminNavigation::destinationForActive($screen);
+$screenPath=Spirit\HelpCatalog::visibleDestinationForAdmin($screen,$user);
 if($screenPath!==null){$selected=Spirit\HelpCatalog::topicForAdmin($screen);}
 $query=is_string($_GET['q']??null)?trim($_GET['q']):'';
 if(strlen($query)>100){$query=substr($query,0,100);}
