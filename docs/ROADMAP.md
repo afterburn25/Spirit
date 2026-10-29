@@ -28,6 +28,24 @@ acceptance; reconcile final 1.2.0 version, immutable artifact/package digest
 and release documents; and obtain explicit approval. Do not merge, tag,
 distribute, deploy or manually dispatch redundant jobs.
 
+## October 29, 2026 — exact-head layout-transition regression (verification pending)
+
+The documentation-only head `f39acc6bfac0c469239ccece5cf0b1871914f5f0`
+passed 10/11 PR workflows but failed the PHP 8.4/MySQL 8.4
+grouped-layout matrix. After copying the grouped ZIP and immediately
+pruning legacy views, the running synthetic PHP server requested the
+previous `/views/header.php` path and returned 503 on `/admin/`.
+The PHP 8.2/MariaDB matrix passed. This is evidence of a stale-worker
+compatibility window, not proof that the new package omits its view files.
+
+The staged test sequence is being corrected to retain the old manifest-owned
+views during file replacement, refresh the disposable PHP worker while
+preserving sessions/private state, verify the new owner dashboard, and only
+then delete checksum-verified obsolete files. The upgrade Help Center and
+operator transition document now warn against early legacy-view removal.
+**Do not mark this issue resolved until the new exact-head matrix passes.**
+No live-host change is part of this work.
+
 ## Historical final 1.1.0 roadmap
 
 | Area | Final software status | Operational follow-up |

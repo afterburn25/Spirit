@@ -46,6 +46,18 @@ This is not physical-device, assistive-technology or owner acceptance. These
 results belong to the cited application-code commit; any newer branch head
 requires its own workflow verification before release.
 
+## October 29 exact-head regression (remediation awaiting CI)
+
+At `f39acc6bfac0c469239ccece5cf0b1871914f5f0`, 10/11 PR
+workflows passed. The grouped-layout PHP 8.4/MySQL 8.4 job failed:
+during the rc.8 same-root transition an old running PHP worker still
+required the removed root `views/header.php`, yielding HTTP 503 on
+the owner dashboard. PHP 8.2/MariaDB passed. The branch-only test
+sequence now retains old views until a synthetic worker refresh and
+successful dashboard check, then prunes unchanged obsolete files;
+Help and layout-transition guidance describe the same safety guard.
+New-head CI must prove the fix; the current candidate is **not green**.
+
 ## Remaining blockers
 
 - Confirm all required GitHub checks on the exact branch head after any later

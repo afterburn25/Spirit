@@ -1,5 +1,17 @@
 # Active development handoff — Spiritual Gorillaz 1.2.0-rc.1 (unreleased)
 
+**October 29 CI triage (pending new exact-head checks):** Source head
+`f39acc6bfac0c469239ccece5cf0b1871914f5f0` passed 10/11
+PR workflows; grouped-layout PHP 8.4/MySQL 8.4 failed when stale
+running PHP bytecode still required root `views/header.php` after
+the test removed that file during an rc.8 → grouped transition.
+PHP 8.2/MariaDB passed. The branch-only fixture now holds legacy views
+until the disposable worker reloads and confirms the owner dashboard;
+then removes only original checksum-matching obsolete files. Update
+operator guidance and the Help Center in the same commit. **Verify
+both matrix jobs and all exact-head workflows before calling this fixed.**
+No user installation, production worker or database was changed.
+
 **Verified application-code source head (October 28, 2026 UTC):**
 `c7f2d613252f8feb56a8a5339733005ec9f29d62` passed all 11 PR Actions workflows. Both PHP 8.2/MariaDB
 11.4 and PHP 8.4/MySQL 8.4 actual-package upgrade/independent-recovery suites
