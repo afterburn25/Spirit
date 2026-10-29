@@ -54,9 +54,9 @@ final class Media
                     $exif=@exif_read_data($file['tmp_name']);
                     $orientation=is_array($exif)?(int)($exif['Orientation']??1):1;
                     if (in_array($orientation,[2,4,5,7],true)) {imageflip($image, in_array($orientation,[2,5,7],true)?IMG_FLIP_HORIZONTAL:IMG_FLIP_VERTICAL);}
-                    if (in_array($orientation,[3,4],true)) {$turned=imagerotate($image,180,0);if($turned instanceof \\GdImage){imagedestroy($image);$image=$turned;}}
-                    elseif (in_array($orientation,[5,6],true)) {$turned=imagerotate($image,270,0);if($turned instanceof \\GdImage){imagedestroy($image);$image=$turned;}}
-                    elseif (in_array($orientation,[7,8],true)) {$turned=imagerotate($image,90,0);if($turned instanceof \\GdImage){imagedestroy($image);$image=$turned;}}
+                    if (in_array($orientation,[3,4],true)) {$turned=imagerotate($image,180,0);if($turned instanceof \GdImage){imagedestroy($image);$image=$turned;}}
+                    elseif (in_array($orientation,[5,6],true)) {$turned=imagerotate($image,270,0);if($turned instanceof \GdImage){imagedestroy($image);$image=$turned;}}
+                    elseif (in_array($orientation,[7,8],true)) {$turned=imagerotate($image,90,0);if($turned instanceof \GdImage){imagedestroy($image);$image=$turned;}}
                 }
                 imagesavealpha($image,true);
                 $ok=match($extension){'jpg'=>imagejpeg($image,$target,90),'png'=>imagepng($image,$target,6),'webp'=>imagewebp($image,$target,88)};
