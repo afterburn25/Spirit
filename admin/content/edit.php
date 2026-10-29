@@ -24,10 +24,10 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
    $file=$_FILES['direct_'.$field];
    if(($file['error']??UPLOAD_ERR_NO_FILE)===UPLOAD_ERR_NO_FILE)continue;
    if(post('image_rights_confirmed')!=='1')throw new InvalidArgumentException('Confirm image publishing rights before uploading.');
-   $mediaId=Spirit\\Media::upload($file,post('direct_alt_'.$field),(int)$user['id']);
+   $mediaId=Spirit\Media::upload($file,post('direct_alt_'.$field),(int)$user['id']);
    $submitted[$field]=(string)$mediaId;
   }
-  $saved=Spirit\\Content::save($kind,$submitted,(int)$user['id'],post('action'));flash(match(post('action')){'publish'=>'Published. Referenced media is now publicly available.','unpublish'=>'Unpublished. Your draft is preserved.',default=>'Private draft saved. The current published version has not changed.'});go('admin/content/edit.php?kind='.$kind.'&id='.$saved);}catch(InvalidArgumentException|RuntimeException $e){$error=$e instanceof PDOException?'The save could not complete. No changes were committed.':$e->getMessage();}
+  $saved=Spirit\Content::save($kind,$submitted,(int)$user['id'],post('action'));flash(match(post('action')){'publish'=>'Published. Referenced media is now publicly available.','unpublish'=>'Unpublished. Your draft is preserved.',default=>'Private draft saved. The current published version has not changed.'});go('admin/content/edit.php?kind='.$kind.'&id='.$saved);}catch(InvalidArgumentException|RuntimeException $e){$error=$e instanceof PDOException?'The save could not complete. No changes were committed.':$e->getMessage();}
 }
 Spirit\View::start($id?'Edit '.$item['title']:'Add '.$kind,'admin',$kind,$user);
 ?>
