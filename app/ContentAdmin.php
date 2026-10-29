@@ -22,13 +22,14 @@ final class ContentAdmin
             }
             echo '</select>';
             if($imagePicker){
+                echo '<div class="field-stack"><label for="upload-'.e($key).'">Or upload a new image directly</label><input type="file" id="upload-'.e($key).'" name="direct_'.e($key).'" accept="image/jpeg,image/png,image/webp"><label for="upload-alt-'.e($key).'">Description for new image (screen readers)</label><input id="upload-alt-'.e($key).'" name="direct_alt_'.e($key).'" maxlength="300" placeholder="Describe the image"></div>';
                 $selected=(int)$value>0?Media::get((int)$value):null;
                 $hasImage=$selected&&$selected['kind']==='image';
                 echo '<div class="admin-media-preview" data-media-preview-for="'.e($id).'">';
                 echo '<img data-media-preview-image alt="Selected image preview"'.($hasImage?' src="'.e(Media::url((int)$value)).'"':' hidden').'>';
                 echo '<span data-media-empty'.($hasImage?' hidden':'').'>No image selected</span></div>';
             }
-            if(str_starts_with($type,'media:')){echo '<small class="muted">Upload files in Media library. Files remain private until referenced by published content.</small>';}return;
+            if(str_starts_with($type,'media:')){echo '<small class="muted">You may select an existing file or upload an image directly here. Files remain private until published content references them.</small>';}return;
         }
         $inputType=in_array($type,['date','datetime-local','url','email'],true)?$type:'text';
         echo '<input id="'.e($id).'" type="'.e($inputType).'" name="'.e($key).'" value="'.e($value).'"'.(is_int($options)&&$options>0?' maxlength="'.$options.'"':'').'>';

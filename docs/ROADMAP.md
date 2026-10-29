@@ -111,3 +111,7 @@ Added an in-topic jump list with stable article anchors, a return-to-screen acti
 ### Contextual Help permission hardening
 
 The Help Center's `screen` query is now resolved through the requesting staff account's navigation permission before rendering screen-specific guides or the return-to-screen link. Previously a hand-written URL could display a return link to a known but unauthorized destination, even though the target endpoint still denied access. Owner, content editor, store manager, inactive-account and unknown-screen cases are covered by the Help Catalog check. This prevents misleading or unauthorized contextual navigation; it does not change any endpoint authorization or grant extra access. Exact-head CI must pass before release acceptance.
+
+### Editor direct image uploads and camera orientation (candidate, verification pending)
+
+Page and band-profile image fields now accept JPEG/PNG/WebP directly alongside existing Media library selection. The standard Media::upload checks (type, image dimensions, memory, private file storage and sanitization) still apply; image cap is 50 MiB, PDFs remain 12 MiB. JPEG EXIF rotations are normalized during re-encoding if EXIF is installed; no EXIF metadata is retained. Real PHP upload_max_filesize/post_max_size settings may remain lower and require host configuration; the application cannot override those per request. Changes require full exact-head CI and owner acceptance before release.

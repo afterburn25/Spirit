@@ -76,7 +76,7 @@ final class ImageVariants
         clearstatcache(true, $file);
         if (is_link($file) || !is_file($file) || (fileperms($file) & 0077) !== 0) { return null; }
         $size = filesize($file);
-        if ($size === false || $size < 1 || $size > 12 * 1024 * 1024) { return null; }
+        if ($size === false || $size < 1 || $size > 50 * 1024 * 1024) { return null; }
         $info = @getimagesize($file);
         if (!$info || $info[0] !== $width || $info[1] !== $height || $info['mime'] !== $mime) { return null; }
         $hash = hash_file('sha256', $file);
