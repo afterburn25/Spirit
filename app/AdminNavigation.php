@@ -71,6 +71,16 @@ final class AdminNavigation
         return $destinations;
     }
 
+    /** Exact destination for the active screen; never trust a requested URL. */
+    public static function destinationForActive(string $active): ?string
+    {
+        if ($active === 'dashboard') { return 'admin/'; }
+        foreach (self::GROUPS as $group) {
+            if (isset($group[2][$active])) { return $group[2][$active][1]; }
+        }
+        return null;
+    }
+
     public static function permissionForDestination(string $path): ?string
     {
         return self::documentedDestinations()[$path]??null;

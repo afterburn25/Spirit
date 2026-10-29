@@ -34,3 +34,9 @@ foreach($documentedDestinations as $path=>$permission){
 }
 if($errors){fwrite(STDERR,implode("\n",$errors)."\n");exit(1);}
 echo "Help catalog checked: ".count($categories)." categories, ".count($seen)." guides.\n";
+
+foreach(array_keys($documentedDestinations) as $path){
+    if($path==='admin/'){ $active='dashboard'; }
+    else { $active=null; foreach(['page','member','library','gallery','video','press','release','track','event','analytics','analytics-visitors','analytics-geography','bookings','subscribers','mail','communication','store','store-categories','customers','orders','store-settings','delivery-policy','payment-settings','payment-notifications','settings','discovery','staff','account','help','launch','installation','backups','upgrades','updates','maintenance','activity','roadmap'] as $key){if(Spirit\\AdminNavigation::destinationForActive($key)===$path){$active=$key;break;}} }
+    if($active===null){fwrite(STDERR,'No contextual help link for: '.$path."\\n");exit(1);}
+}
