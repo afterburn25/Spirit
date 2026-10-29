@@ -99,3 +99,7 @@ Earlier exact-head checks at `e8800f6` exposed outdated browser-test expectation
 ## October 29 — deeper Help Center and contextual navigation (feature branch only)
 
 Help Center articles now include detailed task procedures for every documented administration destination, covering publishing, band profiles, media, music, analytics, bookings, communication, commerce, security, website settings and recovery. The shared admin header passes its active screen key to the Help Center; the Help Center resolves that key through the allowlisted administration navigation and displays only matching guides permitted to the signed-in staff member. The sidebar still supports browsing all topics and search. No database migration or live-site change is required. Verify the help catalog validation, desktop/mobile links and full exact-head PR checks before acceptance. This remains an unreleased draft feature; physical-device, accessibility and owner sign-off gates remain open.
+
+### Browser regression follow-up — expanded Help Center
+
+The populated storefront browser matrix exposed an outdated assertion that demanded exactly five Band member articles despite the newly added detailed profile guide. The fixture now checks that the original five tasks remain covered and that the new complete-profile article is visible. This is a documentation/test expectation correction, not a production-site or commerce change. Exact-head browser CI must still pass before marking this regression resolved.
