@@ -6042,7 +6042,7 @@ main[data-page="press"] .page-hero {
     background-repeat: no-repeat!important;
   }
   main[data-page="press"] .page-hero {
-    background-image: url('../../images/extended/spiritual-gorillaz-band-hero-wide.webp'),linear-gradient(90deg,rgba(2,7,12,.98),rgba(2,7,12,.54) 42%,transparent 62%),url('../../images/spiritual-gorillaz-band-hero.png'),linear-gradient(90deg,#02070c,#061522 62%,#02070c)!important;
+    background-image: var(--sg-wide-hero),linear-gradient(90deg,rgba(2,7,12,.98),rgba(2,7,12,.54) 42%,transparent 62%),url('../../images/spiritual-gorillaz-band-hero.png')!important;
     background-size: cover,100% 100%,contain,100% 100%!important;
     background-position: center,center,right center,center!important;
     background-repeat: no-repeat!important;

@@ -123,3 +123,7 @@ The default Band hero now uses the approved Chad / Charlie / Ron performance com
 ### Band hero scope safety
 
 The shared background-selector initially applied the new Band photograph to Press as well. This regression was corrected before release: Press remains unchanged and retains its prior wide WebP plus PNG fallback; Band alone references the new 2026 performance artwork. Check both Band and Press at desktop and mobile widths, including when a Band Feature image is owner-selected. No change to live site.
+
+### Press hero CSS asset budget correction
+
+The exact-head software release gate found the public CSS/JS bundle 82 bytes over the unchanged 130,000-byte limit after isolating the Press hero. To retain the original Press visuals without relaxing the budget, its existing `--sg-wide-hero` background variable is now reused (instead of repeating the long WebP path), and the already obscured fourth background gradient was removed in favor of the preexisting `#02070c` page-hero background color. The original WebP and PNG fallback remain, and normal browser rendering is unchanged. The four-item size/position fallbacks remain harmlessly backward-compatible: CSS ignores trailing list values when fewer images are specified. Exact-head CSS rebuild and visual CI verification remain required.
