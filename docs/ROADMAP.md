@@ -119,3 +119,7 @@ Page and band-profile image fields now accept JPEG/PNG/WebP directly alongside e
 ### October 29 — Band page hero updated on PR #39 (unreleased)
 
 The default Band hero now uses the approved Chad / Charlie / Ron performance composition: Chad (glasses and floral shirt) on guitar, Charlie (long gray hair and white beard) on drums, and Ron (long brown hair and gray shirt) on harmonica, with the blue-and-gold crowned gorilla. Both responsive fallback `images/spiritual-gorillaz-band-hero-2026.jpg` (1672×941) and desktop `images/extended/spiritual-gorillaz-band-hero-2026-wide.jpg` (2640×1000) are embedded in the repository and referenced by the rendered Band page and site styles. A published owner-selected Band Feature image still takes precedence over the bundled fallback; the Help Center describes how to switch to the default without deleting media. No live website, production credentials or main-branch changes. Exact-head CI and owner visual acceptance remain required.
+
+### Band hero scope safety
+
+The shared background-selector initially applied the new Band photograph to Press as well. This regression was corrected before release: Press remains unchanged and retains its prior wide WebP plus PNG fallback; Band alone references the new 2026 performance artwork. Check both Band and Press at desktop and mobile widths, including when a Band Feature image is owner-selected. No change to live site.
