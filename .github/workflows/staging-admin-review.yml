@@ -1,0 +1,49 @@
+name: Isolated staging Admin walkthrough (opt-in, read-only)
+on:
+  pull_request:
+    types: [labeled]
+permissions:
+  contents: read
+concurrency:
+  group: spirit-staging-admin-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+jobs:
+  review:
+    if: >-
+      github.event.label.name == 'staging-admin-review' &&
+      github.event.pull_request.head.repo.full_name == 'afterburn25/Spirit' &&
+      github.event.pull_request.head.ref == 'work/1.2.0-content-band-layout' &&
+      github.event.pull_request.draft == true
+    runs-on: ubuntu-22.04
+    timeout-minutes: 17
+    env:
+      SPIRIT_STAGING_BASE_URL: ${{ secrets.SPIRIT_STAGING_BASE_URL }}
+      SPIRIT_STAGING_ADMIN_EMAIL: ${{ secrets.SPIRIT_STAGING_ADMIN_EMAIL }}
+      SPIRIT_STAGING_ADMIN_PASSWORD: ${{ secrets.SPIRIT_STAGING_ADMIN_PASSWORD }}
+      SPIRIT_STAGING_REPORT_DIR: ${{ runner.temp }}/spirit-staging-admin
+    steps:
+      - name: Require staging credentials without visiting any website
+        run: |
+          if [[ -z "$SPIRIT_STAGING_BASE_URL" || -z "$SPIRIT_STAGING_ADMIN_EMAIL" || -z "$SPIRIT_STAGING_ADMIN_PASSWORD" ]]; then
+            echo 'Separate staging URL, email and password are required as GitHub Actions secrets.' >&2
+            exit 1
+          fi
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Prepare isolated browser
+        run: |
+          python3 -m venv "$RUNNER_TEMP/spirit-stage-browser"
+          "$RUNNER_TEMP/spirit-stage-browser/bin/pip" install --disable-pip-version-check playwright==1.57.0
+          "$RUNNER_TEMP/spirit-stage-browser/bin/python" -m playwright install --with-deps chromium
+      - name: Verify staging Admin without editing content
+        run: |
+          "$RUNNER_TEMP/spirit-stage-browser/bin/python" app/tests/staging_admin_review.py
+      - name: Save redacted Help screenshots and results for three days
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: Spirit-staging-admin-readonly-${{ github.sha }}
+          path: ${{ runner.temp }}/spirit-staging-admin/*
+          if-no-files-found: ignore
+          retention-days: 3
