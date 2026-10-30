@@ -71,16 +71,6 @@ for (const [relative, content] of outputs) {
     });
     if (existing !== content) {
       process.stderr.write(`${relative} is stale; run node app/tools/build_public_assets.mjs.\n`);
-      // Temporary source-bundle reconciliation: bounded public CSS chunks, no credentials.
-      if (relative === cssSource.replace('site-source.css', 'site.css') && process.env.GITHUB_ACTIONS === 'true') {
-        const encoded = Buffer.from(content, 'utf8').toString('base64');
-        const chunkSize = 4096;
-        for (let i = 0; i < encoded.length; i += chunkSize) {
-          const idx = String(Math.floor(i / chunkSize)).padStart(3, '0');
-          process.stdout.write(`EXPECTED_PUBLIC_CSS_${idx}=${encoded.slice(i, i + chunkSize)}\\n`);
-        }
-      }
-
       stale = true;
     }
   } else {
