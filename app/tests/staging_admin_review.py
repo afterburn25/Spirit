@@ -21,6 +21,7 @@ def staging_config():
     if (url.scheme != 'https' or url.username or url.password or url.query or url.fragment
             or url.port not in (None, 443) or len(labels) < 3 or
             not any(label in approved for label in labels[:-2])
+            or labels[-2:] != ['spiritualgorillaz', 'com']
             or host in {'spiritualgorillaz.com','www.spiritualgorillaz.com'}
             or not re.fullmatch(r'[a-z0-9.-]+', host)):
         raise ValueError('An independent HTTPS staging subdomain is required, not production.')
