@@ -39,7 +39,7 @@
   --sg-wide-home: url('../../images/extended/spiritual-gorillaz-home-hero-wide.webp');
   --sg-wide-music: url('../../images/extended/spiritual-gorillaz-music-hero-wide.webp');
   --sg-wide-shows: url('../../images/extended/spiritual-gorillaz-shows-hero-wide.webp');
-  --sg-wide-band: url('../../images/extended/spiritual-gorillaz-band-hero-wide.webp');
+  --sg-wide-band: url('../../images/extended/spiritual-gorillaz-band-hero-2026-wide.jpg');
   --sg-wide-booking: url('../../images/extended/spiritual-gorillaz-booking-hero-wide.webp');
   --sg-wide-merch: url('../../images/extended/spiritual-gorillaz-merch-hero-wide.webp');
 }
@@ -6040,7 +6040,7 @@ main[data-page="press"] .page-hero {
     background-repeat: no-repeat!important;
   }
   main[data-page="press"] .page-hero {
-    background-image: var(--sg-wide-band),linear-gradient(90deg,rgba(2,7,12,.98),rgba(2,7,12,.54) 42%,transparent 62%),url('../../images/spiritual-gorillaz-band-hero.png'),linear-gradient(90deg,#02070c,#061522 62%,#02070c)!important;
+    background-image: var(--sg-wide-band),linear-gradient(90deg,rgba(2,7,12,.98),rgba(2,7,12,.54) 42%,transparent 62%),url('../../images/spiritual-gorillaz-band-hero-2026.jpg'),linear-gradient(90deg,#02070c,#061522 62%,#02070c)!important;
     background-size: cover,100% 100%,contain,100% 100%!important;
     background-position: center,center,right center,center!important;
     background-repeat: no-repeat!important;
