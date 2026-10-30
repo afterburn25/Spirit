@@ -79,6 +79,17 @@ def main():
                             else:
                                 expect('Ron Green' not in press_copy and 'Charlie Savell' not in press_copy, 'Updated Press copy does not resurrect historical lineup names on mobile')
                         if route == 'band/':
+                            # The fallback must not paint Chad twice as background and foreground.
+                            hero = page.locator('.band-hero.concept-band')
+                            bundled = hero.locator('img.concept-band-art')
+                            expect(bundled.count()==1, 'Band fallback is in the page markup')
+                            if width == 1440:
+                                computed = hero.evaluate('(el)=>({h:el.getBoundingClientRect().height,bg:getComputedStyle(el).backgroundImage})')
+                                expect(computed['h']>=620, 'Desktop Band banner retains cinematic height')
+                                expect('band-hero-2026-tall.jpg' in computed['bg'], 'Desktop Band hero uses the taller image')
+                                expect(bundled.evaluate('(el)=>getComputedStyle(el).display')=='none', 'Desktop does not overlay duplicate members')
+                            else:
+                                expect(bundled.is_visible(), 'Mobile renders one fallback Band photograph')
                             rows = page.locator('.band-profile-list .band-profile')
                             if width == 1440:
                                 # No member has ever been published: approved historical names remain
