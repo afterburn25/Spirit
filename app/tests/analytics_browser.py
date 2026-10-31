@@ -130,8 +130,8 @@ def main():
                     page.set_viewport_size({'width':1440,'height':960})
                     page.locator('.analytics-heading-actions a').filter(has_text='Explore visitors').click()
                     browser_expect(page.locator('.analytics-explorer h1')).to_contain_text('Every visit')
-                    expect(page.locator('.analytics-visitor-list tbody [data-visitor-id]').count() == 25,
-                           'Visitor explorer renders the first real paginated cohort')
+                    browser_expect(page.locator('.analytics-visitor-list tbody [data-visitor-id]')).to_have_count(25)
+                    expect(True, 'Visitor explorer renders the first real paginated cohort')
                     page.locator('.analytics-visitor-list a').filter(has_text='Inspect visit').first.click()
                     browser_expect(page.locator('.analytics-session-details')).to_contain_text('Arrival & discovery')
                     browser_expect(page.locator('.analytics-session-details')).to_contain_text('Device & location')

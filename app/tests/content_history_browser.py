@@ -88,7 +88,8 @@ def restore_in_browser(page: Page, s, item_id: int, revision: int, expected_titl
     expect(response is not None and response.status == 200 and
            'no-store' in response.headers.get('cache-control', '') and
            response.headers.get('x-robots-tag') == 'noindex, nofollow', 'Browser revision screen is private and unindexed')
-    be(page.locator('.revision-field')).to_have_count(11)
+    # The page schema now includes headline, CTA and additional section slots.
+    be(page.locator('.revision-field')).to_have_count(19)
     expect(True, 'Revision comparison renders every declared field')
     expect(snapshot(s, item_id) == before, 'Opening a saved comparison cannot mutate the draft or history')
     expect(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'), f'Revision comparison fits {label} without clipping')

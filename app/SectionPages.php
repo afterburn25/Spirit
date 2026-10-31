@@ -16,6 +16,26 @@ final class SectionPages
         'merch' => ['Merchandise', 'shop/', 'catalog', 1400, 'Introduction and feature artwork on the catalog, not private checkout pages.'],
     ];
 
+    /** Editable optional headings; intentionally scoped to existing designed sections. */
+    public static function slotLabels(string $slug): array
+    {
+        return match($slug){
+            'home'=>[
+                'slot_1'=>'Home · Music section heading',
+                'slot_2'=>'Home · Shows section heading',
+                'slot_3'=>'Home · Purpose section heading',
+                'slot_4'=>'Home · Booking callout heading',
+            ],
+            'music'=>['slot_1'=>'Music · More releases heading'],
+            'band'=>['slot_1'=>'Band · Member profiles heading'],
+            'media'=>['slot_1'=>'Media · Videos heading','slot_2'=>'Media · Photo gallery heading'],
+            'booking'=>['slot_1'=>'Booking · Details panel heading'],
+            'press'=>['slot_1'=>'Press · Story heading','slot_2'=>'Press · Downloads heading'],
+            'merch'=>['slot_1'=>'Merchandise · Empty-store heading'],
+            default=>[],
+        };
+    }
+
     public static function definition(string $slug): ?array
     {
         return self::SECTIONS[$slug] ?? null;
@@ -33,6 +53,26 @@ final class SectionPages
     {
         $value = $page['data'][$key] ?? '';
         return is_string($value) && trim($value) !== '' ? $value : $fallback;
+    }
+
+    /** Escape admin text, but preserve trusted built-in markup when unset. */
+    public static function heading(?array $page,string $slot,string $trustedFallbackHtml): string
+    {
+        $value=self::text($page,$slot);
+        return $value!==''?e($value):$trustedFallbackHtml;
+    }
+
+    /** Optional externally linked call-to-action; never render an incomplete override. */
+    public static function customButton(?array $page): string
+    {
+        $label=self::text($page,'button_label');
+        $url=self::text($page,'button_url');
+        if($label===''||$url===''){return '';}
+        // The editor checks HTTPS URLs; this is a defensive guard for legacy records.
+        if(!filter_var($url,FILTER_VALIDATE_URL)||parse_url($url,PHP_URL_SCHEME)!=='https'){
+            return '';
+        }
+        return '<a class="button outline" href="'.e($url).'" target="_blank" rel="noopener noreferrer">'.e($label).'</a>';
     }
 
     public static function focal(?array $page): string
