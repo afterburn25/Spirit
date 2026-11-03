@@ -20,7 +20,6 @@ jobs:
       SPIRIT_STAGING_BASE_URL: ${{ secrets.SPIRIT_STAGING_BASE_URL }}
       SPIRIT_STAGING_ADMIN_EMAIL: ${{ secrets.SPIRIT_STAGING_ADMIN_EMAIL }}
       SPIRIT_STAGING_ADMIN_PASSWORD: ${{ secrets.SPIRIT_STAGING_ADMIN_PASSWORD }}
-      SPIRIT_STAGING_REPORT_DIR: ${{ runner.temp }}/spirit-staging-admin
     steps:
       - name: Require staging credentials without visiting any website
         run: |
@@ -37,6 +36,8 @@ jobs:
           "$RUNNER_TEMP/spirit-stage-browser/bin/pip" install --disable-pip-version-check playwright==1.57.0
           "$RUNNER_TEMP/spirit-stage-browser/bin/python" -m playwright install --with-deps chromium
       - name: Verify staging Admin without editing content
+        env:
+          SPIRIT_STAGING_REPORT_DIR: ${{ runner.temp }}/spirit-staging-admin
         run: |
           "$RUNNER_TEMP/spirit-stage-browser/bin/python" app/tests/staging_admin_review.py
       - name: Save redacted Help screenshots and results for three days
