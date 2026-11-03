@@ -206,6 +206,80 @@ def original_owner_works(s, label: str):
                 label + ': original credentials still open owner-only administration')
 
 
+
+# This QA-only matrix models real 1.1.0 CMS records before applying the
+# unchanged 1.2.0 candidate package. Synthetic names never enter a release ZIP.
+LEGACY_MEMBER_NAMES = ['Chad Lindsey', 'Ron Green', 'Charlie Savell']
+
+
+def seed_member_history(s, case: str):
+    if case in ('none', 'zero'):
+        return
+    # All records are created by the 1.1.0 owner's real, CSRF-protected editor.
+    save_content(s, 'member', 'QA History Private',
+                 {'role': 'QA draft role', 'bio': 'QA draft biography'},
+                 action='save', slug='qa-history-private')
+    if case == 'private':
+        return
+    if case != 'mixed':
+        raise AssertionError('Unknown synthetic member history: ' + case)
+    save_content(s, 'member', 'QA History Published',
+                 {'role': 'QA live role', 'bio': 'QA published biography'},
+                 slug='qa-history-published')
+    unpublished = save_content(s, 'member', 'QA History Unpublished',
+                               {'role': 'QA former role', 'bio': 'QA former biography'},
+                               slug='qa-history-unpublished')
+    save_content(s, 'member', 'QA History Unpublished',
+                 {'role': 'QA former role', 'bio': 'QA former biography'},
+                 action='unpublish', item_id=unpublished, slug='qa-history-unpublished')
+    save_content(s, 'member', 'QA History Deleted',
+                 {'role': 'QA removed role', 'bio': 'QA removed biography'},
+                 slug='qa-history-deleted')
+    http.expect(s.database('qa-historical-member-soft-delete') == {'removed': 1},
+                'Disposable 1.1.0 database retains a soft-deleted historical member')
+
+
+def assert_member_transition(s, case: str, label: str):
+    status, html, _, _ = observer(s).request('band/')
+    names = re.findall(r'<article class="band-profile">.*?<h3>([^<]+)</h3>', html, re.S)
+    http.expect(status == 200 and 'band-profile-list' in html,
+                label + ': new vertical Band layout renders')
+    expected = ['QA History Published'] if case == 'mixed' else LEGACY_MEMBER_NAMES
+    http.expect(names == expected,
+                label + ': only appropriate members or legacy placeholders appear')
+    if case == 'mixed':
+        http.expect('QA published biography' in html and
+                    all(name not in html for name in
+                        ('QA History Private', 'QA History Unpublished', 'QA History Deleted')),
+                    label + ': draft, unpublished and deleted biographies do not leak')
+        http.expect('Approved biography and portrait have not yet been published.' not in html,
+                    label + ': old lineup is not resurrected alongside saved history')
+    if case == 'private':
+        http.expect('QA History Private' not in html and
+                    'Approved biography and portrait have not yet been published.' in html,
+                    label + ': draft-only history preserves factual placeholder lineup')
+    if case == 'zero':
+        http.expect('Approved biography and portrait have not yet been published.' in html,
+                    label + ': empty 1.1.0 installation retains factual lineup')
+    if case == 'imported':
+        http.expect('Approved biography and portrait have not yet been published.' not in html,
+                    label + ': imported editable members replace, not duplicate, placeholders')
+    status, admin, _, _ = s.client.request('admin/content/?kind=member')
+    http.expect(status == 200 and ('member-import-panel' in admin) == (case == 'zero'),
+                label + ': import is available only when no historical member row exists')
+
+
+def import_confirmed_members(s):
+    listing = s.client.request('admin/content/?kind=member')[1]
+    csrf = re.search(r'name="csrf" value="([a-f0-9]{64})"', listing)
+    http.expect(csrf is not None and 'member-import-panel' in listing,
+                'Fresh 1.1.0 upgrade offers an explicit owner-confirmed import')
+    result = s.client.request('admin/content/import-lineup.php',
+                              {'csrf': csrf.group(1), 'confirm': 'yes'})
+    http.expect(result[0] == 200 and '3 band members imported' in result[1],
+                'Owner confirms exactly three published editable legacy profiles')
+    assert_member_transition(s, 'imported', 'After confirmed member import')
+
 def stage(s, baseline: dict, target: dict):
     response = upload(s, Path(target['path']).read_bytes())
     if response[0] != 200 or 'Package validated and staged' not in response[1]:
@@ -228,7 +302,7 @@ def public_archive_info(package: dict, provenance: dict[str, str]) -> dict:
                                          'Supplied archive; original-delivery provenance is not asserted by this test')}
 
 
-def journey(area: Path, baseline: dict, target: dict, subfolder: str, interrupted: bool) -> dict:
+def journey(area: Path, baseline: dict, target: dict, subfolder: str, interrupted: bool, member_case: str = 'none') -> dict:
     start = http.CHECKS
     with http.site(area, Path(baseline['path']), None, subfolder) as s:
         s.open_installer()
@@ -238,6 +312,7 @@ def journey(area: Path, baseline: dict, target: dict, subfolder: str, interrupte
         http.expect(http.dashboard(s.login()[3]), 'Original owner signs in before upgrading')
         payload_matches(s, baseline, 'Installed baseline')
         seeded = seed(s)
+        seed_member_history(s, member_case)
         content_retained(s, seeded, 'Baseline')
         http.expect(http.Client(s.base).request('pages/?slug=exact-upgrade-content')[0] == 200,
                     'Baseline includes one ordinary anonymous visit before preservation checks')
@@ -272,6 +347,10 @@ def journey(area: Path, baseline: dict, target: dict, subfolder: str, interrupte
             unchanged(s, before, 'After confirmation')
             content_retained(s, seeded, 'Confirmed target')
             original_owner_works(s, 'Confirmed target')
+            if member_case != 'none':
+                assert_member_transition(s, member_case, 'Upgraded 1.1.0 history')
+                if member_case == 'zero':
+                    import_confirmed_members(s)
             save_content(s, 'page', 'Later content after exact upgrade',
                          {'body': 'Later business content must survive code recovery'},
                          slug='exact-upgrade-later')
@@ -301,6 +380,7 @@ def journey(area: Path, baseline: dict, target: dict, subfolder: str, interrupte
         return {'layout': subfolder or 'root',
                 'scenario': 'interrupted-copy-recovery' if interrupted else 'apply-confirm-independent-recovery',
                 'baseline': baseline['version'], 'target': target['version'], 'result': 'passed',
+                'historical_member_case': member_case,
                 'checks': http.CHECKS - start, 'changed_payload_files': len(job['changes']),
                 'retained_tables': sorted(before['database']['tables']),
                 'excluded_mutable_tables': ['audit', 'login_limits', 'request_limits'],
@@ -340,11 +420,18 @@ def main():
         report['target'] = public_archive_info(target, provenance)
         with tempfile.TemporaryDirectory(prefix='spirit-exact-upgrade-') as directory:
             for index, baseline in enumerate(baselines):
-                for folder, interrupted, label in [('', False, 'root'), ('band', False, 'subfolder'),
-                                                   ('band', True, 'interrupted')]:
+                cases = [('', False, 'root', 'none'), ('band', False, 'subfolder', 'none'),
+                         ('band', True, 'interrupted', 'none')]
+                if baseline['version'] == '1.1.0':
+                    cases = [('', False, 'root-history', 'mixed'),
+                             ('band', False, 'subfolder-zero', 'zero'),
+                             ('band', True, 'interrupted', 'none'),
+                             ('', False, 'root-private-only', 'private')]
+                for folder, interrupted, label, member_case in cases:
                     print(f"SCENARIO {baseline['version']} -> {target['version']}: {label}", flush=True)
                     area = Path(directory) / f'{index}-{label}'
-                    report['scenarios'].append(journey(area, baseline, target, folder, interrupted))
+                    report['scenarios'].append(journey(area, baseline, target, folder,
+                                                       interrupted, member_case))
         http.expect(all(digest(Path(value['path'])) == value['sha256'] for value in [*baselines, target]),
                     'Every supplied baseline and target archive remains byte-identical')
         report['result'] = 'passed'

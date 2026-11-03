@@ -3,6 +3,7 @@
 from __future__ import annotations
 import json
 import os
+import re
 import subprocess
 import tempfile
 from pathlib import Path
@@ -98,7 +99,11 @@ def journey(s):
     track=save_content(s,'track','Selected release track',{'release_id':str(release)},action='save',slug='selected-release-track')
     fixture(s,'seed',{'kind':'release','count':1001});fixture(s,'seed',{'kind':'media','count':1001})
     expect(f'value="{release}" selected' in s.client.request(f'admin/content/edit.php?kind=track&id={track}')[1],'Old selected release remains in a bounded selector beyond 1000 newer records')
-    expect(f'value="{new}" selected' in s.client.request(edit)[1],'Old selected media remains selected beyond 1000 newer uploads')
+    # An image preview source attribute may sit between value and selected.
+    # Match an actual selected option; do not require adjacent attributes.
+    option_html=s.client.request(edit)[1]
+    expect(bool(re.search(r'<option\b[^>]*\bvalue="'+str(new)+r'"[^>]*\bselected\b',option_html)),
+           'Old selected media remains selected beyond 1000 newer uploads')
     fixture(s,'duplicate-history',{'id':other})
     history=s.client.request(f'admin/content/history.php?id={other}')[1]
     expect('Page 1 of 2' in history and history.count('Compare #')==25,'Version metadata is paginated without loading every snapshot')

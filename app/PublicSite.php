@@ -23,7 +23,7 @@ final class PublicSite
         if(in_array('band-image',$classes,true)){return '(max-width: 600px) calc(100vw - 40px), 640px';}
         return '(max-width: 600px) calc(100vw - 40px), (max-width: 1100px) 50vw, 640px';
     }
-    public static function image(int $id,string $alt,string $class='',bool $eager=false): string
+    public static function image(int $id,string $alt,string $class='',bool $eager=false,?string $altOverride=null): string
     {
         if($id<1){return '<span class="art-placeholder '.e($class).'" aria-hidden="true"><span>♛</span><b>SG</b></span>';}
         $media=Media::get($id);if(!$media||$media['kind']!=='image'){return '<span class="art-placeholder '.e($class).'" aria-hidden="true">SG</span>';}
@@ -37,7 +37,8 @@ final class PublicSite
             $responsive=' srcset="'.e(implode(', ',$candidates)).'" sizes="'.e($sizes).'"';
             $source=$dimensions['width']>640?Media::url($id).'&width=640':Media::url($id);
         }
-        return '<img'.$size.' src="'.e($source).'"'.$responsive.' alt="'.e($media['alt_text']?:$alt).'" class="'.e($class).'" loading="'.($eager?'eager':'lazy').'"'.($eager?' fetchpriority="high"':'').' decoding="async">';
+        $resolvedAlt=$altOverride!==null && trim($altOverride)!=='' ? $altOverride : ($media['alt_text']?:$alt);
+        return '<img'.$size.' src="'.e($source).'"'.$responsive.' alt="'.e($resolvedAlt).'" class="'.e($class).'" loading="'.($eager?'eager':'lazy').'"'.($eager?' fetchpriority="high"':'').' decoding="async">';
     }
     public static function text(string $text): string {return nl2br(e($text));}
     public static function releaseCard(array $release): void
@@ -78,6 +79,8 @@ final class PublicSite
         if(($sectionSlug=SectionPages::slugForView($view))!==null){$pageContent??=$preview??Content::bySlug('page',$sectionSlug);}
         $titles=['home'=>'Music, People, Purpose','music'=>'Music | Recordings & Performances','shows'=>'Shows | Dates & Venue Information','band'=>'Meet Spiritual Gorillaz | The Band','media'=>'Media | Performances & Photographs','booking'=>'Book Spiritual Gorillaz | Event Inquiries','booking-thanks'=>'Inquiry received','newsletter'=>'Band updates','press'=>'Press Kit | Band & Booking Information','shop'=>'Merchandise | Official Collection','search'=>'Search the website','not-found'=>'Page not found'];
         $descriptions=['home'=>'Discover Spiritual Gorillaz through music, performances, band stories and event inquiries.','music'=>'Explore Spiritual Gorillaz recordings, performances and approved listening links.','shows'=>"Find confirmed Spiritual Gorillaz performances, venue information and links to the venue's ticket seller.",'band'=>'Meet Chad Lindsey, Ron Green and Charlie Savell, the musicians behind Spiritual Gorillaz.','media'=>"Watch selected Spiritual Gorillaz performances and explore the band's approved photographs.",'booking'=>'Send a Spiritual Gorillaz booking inquiry with your preferred date, venue and event details. An inquiry is not a confirmed booking.','press'=>'Band information, confirmed lineup, approved media and booking resources for Spiritual Gorillaz.','shop'=>'Explore approved Spiritual Gorillaz merchandise, product photographs, available options and care information.'];
+        // Historic names belong in the default Band description only while the legacy lineup remains visible.
+        if($view==='band'&&!MemberOnboarding::showLegacyFallback()){$descriptions['band']='Meet the musicians behind Spiritual Gorillaz and discover their stories and contributions.';}
         $title=$record?$record['title']:($titles[$view]??'Spiritual Gorillaz');$active=match($view){'release'=>'music','event'=>'shows','member','page'=>'band','booking-thanks'=>'booking',default=>$view};
         $description=$record?Metadata::text((string)($record['data']['description']??$record['data']['body']??$record['data']['bio']??$record['title']),180):Metadata::text(SectionPages::text($pageContent,'body',$descriptions[$view]??$settings['welcome']),180);
         $private=$isPreview||in_array($view,['booking','booking-thanks','newsletter','search'],true);

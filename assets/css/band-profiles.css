@@ -1,0 +1,13 @@
+/* Band member portraits and biographies — scoped to /band/. */
+.band-profile-list{display:flex;flex-direction:column;gap:2rem}
+.band-profile{display:grid;grid-template-columns:minmax(240px,36%) minmax(0,1fr);gap:clamp(1.5rem,4vw,4rem);align-items:start;padding:clamp(1.25rem,3vw,2.5rem);border:1px solid rgba(211,170,88,.24);border-radius:16px;background:linear-gradient(125deg,rgba(15,24,39,.96),rgba(9,14,25,.9))}
+.band-profile-photo{width:100%;min-width:0}
+.band-profile-photo img,.band-profile-photo .art-placeholder{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;border-radius:12px}
+.band-profile-copy{min-width:0;overflow-wrap:break-word}
+.band-profile-copy h3{font-size:clamp(1.6rem,3vw,2.6rem);line-height:1.2;margin:.5rem 0}
+.band-profile-copy .gold-subtitle{margin:.5rem 0 1.25rem}
+.band-profile-copy .prose{white-space:normal;line-height:1.75;margin:1rem 0}
+.band-profile-copy .text-link{display:inline-block;margin-top:1rem}
+.band-profile-copy .member-website-link{margin-left:1rem}
+@media(max-width:720px){.band-profile{grid-template-columns:minmax(0,1fr)}.band-profile-photo{max-width:440px}.band-profile-list{gap:1.25rem}}
+@media(prefers-reduced-motion:reduce){.band-profile *{scroll-behavior:auto}}

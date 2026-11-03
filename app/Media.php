@@ -37,7 +37,7 @@ final class Media
         $types=['image/jpeg'=>['image','jpg'],'image/png'=>['image','png'],'image/webp'=>['image','webp'],'audio/mpeg'=>['audio','mp3'],'audio/ogg'=>['audio','ogg'],'application/ogg'=>['audio','ogg'],'audio/x-wav'=>['audio','wav'],'audio/wav'=>['audio','wav'],'application/pdf'=>['pdf','pdf']];
         if (!isset($types[$mime])) {throw new InvalidArgumentException('Supported uploads: JPEG, PNG, WebP, MP3, OGG, WAV and PDF. SVG, scripts and archives are not accepted.');}
         [$kind,$extension]=$types[$mime];
-        if (($kind==='image' || $kind==='pdf') && $size>12*1024*1024) {throw new InvalidArgumentException('Images and PDF documents must be 12 MB or smaller.');}
+        if ($kind==='pdf' && $size>12*1024*1024) {throw new InvalidArgumentException('PDF documents must be 12 MB or smaller.');}
         $alt=trim($alt);if (strlen($alt)>300 || str_contains($alt,"\0")) {throw new InvalidArgumentException('Alternative text must be at most 300 bytes.');}
         $original=substr(preg_replace('/[\x00-\x1f\x7f]/','',basename(str_replace('\\','/',$file['name'])))??'upload',0,180);
         $directory=Paths::runtime().'/media';$name=bin2hex(random_bytes(16)).'.'.$extension;$target=$directory.'/'.$name;
@@ -49,6 +49,15 @@ final class Media
                 if (!ImageVariants::canDecode($info[0], $info[1])) {throw new InvalidArgumentException('This image needs more processing memory than the host allows. Upload a smaller-resolution copy.');}
                 $image=match($extension){'jpg'=>@imagecreatefromjpeg($file['tmp_name']),'png'=>@imagecreatefrompng($file['tmp_name']),'webp'=>function_exists('imagecreatefromwebp')?@imagecreatefromwebp($file['tmp_name']):false};
                 if (!$image) {throw new InvalidArgumentException('The image could not be decoded.');}
+                // JPEG phone cameras commonly store portrait rotation in EXIF rather than pixels.
+                if ($extension==='jpg' && function_exists('exif_read_data')) {
+                    $exif=@exif_read_data($file['tmp_name']);
+                    $orientation=is_array($exif)?(int)($exif['Orientation']??1):1;
+                    if (in_array($orientation,[2,4,5,7],true)) {imageflip($image, in_array($orientation,[2,5,7],true)?IMG_FLIP_HORIZONTAL:IMG_FLIP_VERTICAL);}
+                    if (in_array($orientation,[3,4],true)) {$turned=imagerotate($image,180,0);if($turned instanceof \GdImage){imagedestroy($image);$image=$turned;}}
+                    elseif (in_array($orientation,[5,6],true)) {$turned=imagerotate($image,270,0);if($turned instanceof \GdImage){imagedestroy($image);$image=$turned;}}
+                    elseif (in_array($orientation,[7,8],true)) {$turned=imagerotate($image,90,0);if($turned instanceof \GdImage){imagedestroy($image);$image=$turned;}}
+                }
                 imagesavealpha($image,true);
                 $ok=match($extension){'jpg'=>imagejpeg($image,$target,90),'png'=>imagepng($image,$target,6),'webp'=>imagewebp($image,$target,88)};
                 imagedestroy($image);if (!$ok) {throw new RuntimeException('The processed image could not be stored.');}

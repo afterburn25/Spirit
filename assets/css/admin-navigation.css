@@ -67,3 +67,13 @@
 @media(max-width:360px){.admin-nav-enhanced .topbar{flex-wrap:wrap;justify-content:flex-start;gap:5px;padding-top:12px;padding-bottom:12px}.admin .topbar .user-chip{max-width:100%}}
 @media(prefers-reduced-motion:reduce){.admin-nav-group,.admin-nav-chevron,.admin-nav-enhanced .grouped-sidebar{transition:none}}
 @media(forced-colors:active){.admin-nav-group,.admin-nav-count,.admin-nav-tools button{border-color:ButtonText}.admin-nav-group.has-current,.grouped-sidebar nav a[aria-current="page"]{border:2px solid Highlight}.admin-current-dot{background:Highlight}.admin-nav-backdrop{background:Canvas;opacity:.7}}
+
+/* Mobile admin header: allow a full-width section label instead of splitting
+   ADMINISTRATION mid-word when the contextual Help link and account chip appear. */
+@media (max-width:600px){
+  .admin .topbar{flex-wrap:wrap;justify-content:space-between;column-gap:10px;row-gap:6px;padding-top:10px;padding-bottom:10px}
+  .admin .topbar .admin-breadcrumb{flex:1 0 100%;min-width:0}
+  .admin .topbar .admin-breadcrumb span{overflow-wrap:normal;word-break:normal}
+  .admin .topbar .admin-context-help{display:inline-flex;align-items:center;min-height:44px;line-height:1.35}
+  .admin .topbar .user-chip{margin-left:auto}
+}

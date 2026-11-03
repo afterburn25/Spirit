@@ -14,8 +14,22 @@ final class ContentAdmin
             if ($type==='timezone') {$options=array_combine(\DateTimeZone::listIdentifiers(),\DateTimeZone::listIdentifiers());$value=$value?:'America/Chicago';}
             elseif ($type==='release') {$options=[''=>'Choose a release'];foreach(Content::listing('release') as $item){$options[$item['id']]=$item['title'];}if((int)$value>0&&!isset($options[(int)$value])){$selected=Content::get((int)$value);if($selected&&$selected['kind']==='release'){$options[$selected['id']]=$selected['title'];}}}
             elseif (str_starts_with($type,'media:')) {$options=[''=>'No file selected'];foreach(Media::all(substr($type,6)) as $item){$options[$item['id']]='#'.$item['id'].' · '.$item['original_name'];}if((int)$value>0&&!isset($options[(int)$value])){$selected=Media::get((int)$value);if($selected&&$selected['kind']===substr($type,6)){$options[$selected['id']]='#'.$selected['id'].' · '.$selected['original_name'];}}}
-            echo '<select id="'.e($id).'" name="'.e($key).'">';foreach($options as $option=>$text){echo '<option value="'.e($option).'"'.((string)$option===(string)$value?' selected':'').'>'.e($text).'</option>';}echo '</select>';
-            if(str_starts_with($type,'media:')){echo '<small class="muted">Upload files in Media library. Files remain private until referenced by published content.</small>';}return;
+            $imagePicker=$type==='media:image';
+            echo '<select id="'.e($id).'" name="'.e($key).'"'.($imagePicker?' data-media-picker="image"':'').'>';
+            foreach($options as $option=>$text){
+                $preview=$imagePicker&&ctype_digit((string)$option)?' data-media-src="'.e(Media::url((int)$option)).'"':'';
+                echo '<option value="'.e($option).'"'.$preview.((string)$option===(string)$value?' selected':'').'>'.e($text).'</option>';
+            }
+            echo '</select>';
+            if($imagePicker){
+                echo '<div class="field-stack"><label for="upload-'.e($key).'">Or upload a new image directly</label><input type="file" id="upload-'.e($key).'" name="direct_'.e($key).'" accept="image/jpeg,image/png,image/webp"><label for="upload-alt-'.e($key).'">Description for new image (screen readers)</label><input id="upload-alt-'.e($key).'" name="direct_alt_'.e($key).'" maxlength="300" placeholder="Describe the image"></div>';
+                $selected=(int)$value>0?Media::get((int)$value):null;
+                $hasImage=$selected&&$selected['kind']==='image';
+                echo '<div class="admin-media-preview" data-media-preview-for="'.e($id).'">';
+                echo '<img data-media-preview-image alt="Selected image preview"'.($hasImage?' src="'.e(Media::url((int)$value)).'"':' hidden').'>';
+                echo '<span data-media-empty'.($hasImage?' hidden':'').'>No image selected</span></div>';
+            }
+            if(str_starts_with($type,'media:')){echo '<small class="muted">You may select an existing file or upload an image directly here. Files remain private until published content references them.</small>';}return;
         }
         $inputType=in_array($type,['date','datetime-local','url','email'],true)?$type:'text';
         echo '<input id="'.e($id).'" type="'.e($inputType).'" name="'.e($key).'" value="'.e($value).'"'.(is_int($options)&&$options>0?' maxlength="'.$options.'"':'').'>';

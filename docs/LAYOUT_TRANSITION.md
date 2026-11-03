@@ -35,12 +35,24 @@ package before installation; compatibility is not assumed.
    was already removed. No database migration is needed for rc.8 → final 1.1.0.
    A 1.0.x installation still needs the additive analytics migrations described
    in INSTALLATION.md and ANALYTICS.md.
-6. After confirming the new public URLs and owner login work, remove only the
-   obsolete DISTRIBUTED source files from the old root folders: account, band,
+6. After confirming the new public URLs and owner login work **from a refreshed
+   PHP worker/opcode cache**, remove only the obsolete DISTRIBUTED source files
+   from the old root folders: account, band,
    booking, media, music, newsletter, pages, payments, press, shop, shows, tasks,
    views and database. Compare with the old package manifest first. Move any
    custom/unknown files to a private backup for review; never delete a directory
    recursively merely because its name is on this list. Remove empty folders.
+
+   **PHP worker safety:** The old worker can temporarily execute cached
+   `app/View.php` bytecode that still requires the old root `views/header.php`,
+   even after the new grouped files were copied. Leave legacy distributed
+   views in place until the host has refreshed its PHP workers/opcode cache
+   **and** the new dashboard and other routes work. Test a PHP worker recycle
+   on staging; for cPanel/LiteSpeed/PHP-FPM arrange a supported host cache
+   refresh/reload or wait for confirmed normal revalidation. Do not delete old
+   view files early, change private runtime paths, bypass recovery pins, or
+   force a reinstall to address stale compiled PHP. If the new worker cannot
+   serve the site, stop cleanup and restore from the verified backup.
 7. Update cPanel cron paths to app/tasks/*.php. Source checkouts additionally
    move tests/tools under app and design under docs; those development folders
    are excluded from deployment packages.

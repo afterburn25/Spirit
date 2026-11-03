@@ -1,3 +1,40 @@
+# 1.2.0-rc.1 — unreleased development review candidate
+
+- Extend existing owner/staff CMS editing of designed public page headings,
+  section copy, image choices, labeled subheadings and optional safe calls to
+  action. Preserve published/draft controls and existing designed fallbacks.
+- Display published Band profiles in responsive portrait-left/biography-right
+  vertical rows. Manage biographical text, portraits, roles, publication, sort
+  order and soft deletion through authenticated administration.
+- Provide explicit, one-time, confirmed, transactional import of the historically
+  displayed lineup without inventing photos/bios or reviving deleted members.
+- Add searchable, categorized, role-aware administration Help Center,
+  contextual shortcuts and current navigation destination coverage tests.
+- Add media selection previews and focused page/Band/Help regression coverage.
+- Preserve 1.1.0 installation identity, configuration, database/media, eight
+  migrations, pinned recovery kernel, approved identity, tickets and disabled
+  commerce. No deployment or merge is authorized by this candidate.
+- Extend CI to exercise **actual 1.1.0 final source reproduction ZIP -> this
+  candidate ZIP** in isolated root/subfolder/interrupted update-and-recovery
+  scenarios on PHP 8.2/MariaDB 11.4 and PHP 8.4/MySQL 8.4.
+- Previous source head `41d2dcf` passed all 11 CI workflows, 737 upgrade/recovery
+  assertions per PHP/database matrix, and synthetic screenshot inspection.
+- Expose per-member portrait description and optional HTTPS website link through
+  the existing JSON CMS; render safely in Band list/detail. Prevent abandoned
+  historical member names persisting in the default Band hero/SEO copy after
+  lineup publication, unpublication or removal; retain untouched-site fallback.
+  Update member Help Center instructions and targeted unit/browser checks.
+- Source head `4ae17b0` passed all 11 exact-head workflows and both 737-assertion
+  upgrade/recovery matrices after the Press roster and blank Page body fixes.
+- Keep the mobile administration breadcrumb on one row when contextual Help and
+  the account chip are present; preserve 44px Help access and add 320/390px
+  browser regressions. Exact application-code source head `c7f2d61` passed
+  all 11 PR Actions and both 737-assertion upgrade/recovery matrices.
+  Human device/screen-reader acceptance and owner approval still block release.
+  Source-reproduced 1.1.0 is not asserted identical to the delivered archive.
+
+---
+
 # 1.1.0 — final release
 
 - Promote the verified rc.12 runtime, including completed analytics/navigation,

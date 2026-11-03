@@ -1,0 +1,53 @@
+<?php
+declare(strict_types=1);
+require dirname(__DIR__,2).'/includes/bootstrap.php';
+$user=Spirit\Auth::requirePermission('dashboard');
+$categories=Spirit\HelpCatalog::categories();
+$selected=is_string($_GET['topic']??null)?$_GET['topic']:'getting-started';
+if(!array_key_exists($selected,$categories)){$selected='getting-started';}
+$screen=is_string($_GET['screen']??null)?$_GET['screen']:'';
+$screenPath=Spirit\HelpCatalog::visibleDestinationForAdmin($screen,$user);
+if($screenPath!==null){$selected=Spirit\HelpCatalog::topicForAdmin($screen);}
+$query=is_string($_GET['q']??null)?trim($_GET['q']):'';
+if(strlen($query)>100){$query=substr($query,0,100);}
+$canReadGuide=static function(string $path) use($user):bool {
+    $permission=Spirit\AdminNavigation::permissionForDestination($path);
+    return $permission!==null&&Spirit\Permissions::allows($user,$permission);
+};
+foreach($categories as $key=>$category){$categories[$key][2]=array_values(array_filter($category[2],static fn(array $guide):bool=>$canReadGuide($guide[2])));if(!$categories[$key][2]){unset($categories[$key]);}}
+if(!isset($categories[$selected])){$selected=array_key_first($categories);$screenPath=null;}
+if($screenPath!==null){$categories[$selected][2]=array_values(array_filter($categories[$selected][2],static fn(array $guide):bool=>$guide[2]===$screenPath));}
+$guideAnchor=static fn(int $n):string=>'guide-'.($n+1);
+$matches=[];
+if($query!==''){
+ foreach($categories as $categoryKey=>[$categoryTitle,$intro,$guides]){
+  foreach($guides as $guide){if(stripos($categoryTitle.' '.$guide[0].' '.$guide[1],$query)!==false){$matches[]=[$categoryKey,$categoryTitle,$guide];}}
+ }
+}
+Spirit\View::start('Help center','admin','help',$user);
+?>
+<link rel="stylesheet" href="<?=e(app_url('assets/css/admin-help.css'))?>">
+<div class="page-heading"><div><p class="eyebrow">BACKSTAGE / KNOWLEDGE BASE</p><h1>How can we <em>help?</em></h1><p class="lead">Clear guidance for managing Spiritual Gorillaz. Search the instructions, explore a topic, and open the right administration screen.</p></div><span class="pill">HELP · v<?=e(Spirit\Paths::version())?></span></div>
+<form class="panel help-search" action="<?=e(app_url('admin/help/'))?>" method="get" role="search">
+<label for="help-query">Search help articles</label><div class="help-search-row"><input id="help-query" type="search" name="q" maxlength="100" value="<?=e($query)?>" placeholder="Search: biography, photo, backup, SMTP, tickets…"><button class="button" type="submit">Search guides</button><?php if($query!==''):?><a class="button secondary" href="<?=e(app_url('admin/help/'))?>">Clear</a><?php endif;?></div></form>
+<div class="help-layout"><nav class="panel help-topics" aria-label="Help topics"><h2>Browse topics</h2>
+<?php foreach($categories as $key=>[$title,$intro,$guides]):?>
+<a href="<?=e(app_url('admin/help/?topic='.$key))?>" <?=($query===''&&$key===$selected)?'aria-current="page"':''?>><strong><?=e($title)?></strong><span><?=count($guides)?> guides</span></a>
+<?php endforeach;?></nav>
+<section class="help-articles" aria-labelledby="help-topic-title">
+<?php if($query!==''):?>
+<div class="panel help-intro"><p class="eyebrow">HELP SEARCH</p><h2 id="help-topic-title">Results for “<?=e($query)?>”</h2><p role="status"><?=count($matches)?> matching guides. Search checks article titles and instructions.</p></div>
+<?php if(!$matches):?><div class="panel help-note"><h3>No articles found</h3><p>Try shorter words such as “image”, “member”, “email”, “show” or “backup”, or browse the topics on the left.</p></div><?php endif;?>
+<?php foreach($matches as $index=>[$key,$category,$guide]):[$title,$instructions,$path]=$guide;?>
+<article class="panel help-guide"><span class="help-guide-number"><?=str_pad((string)($index+1),2,'0',STR_PAD_LEFT)?></span><div><p class="eyebrow"><?=e($category)?></p><h3><?=e($title)?></h3><p><?=e($instructions)?></p><a class="text-link" href="<?=e(app_url($path))?>">Open this admin screen →</a></div></article>
+<?php endforeach;?>
+<?php else:?>
+<div class="panel help-intro"><p class="eyebrow">GUIDES / <?=e(strtoupper($selected))?></p><h2 id="help-topic-title"><?=e($screenPath!==null?'Help for this screen: '.$categories[$selected][0]:$categories[$selected][0])?></h2><p><?=e($categories[$selected][1])?></p><?php if($screenPath!==null):?><p><a class="text-link" href="<?=e(app_url($screenPath))?>">Return to this admin screen →</a></p><?php endif;?></div>
+<nav class="panel help-contents" aria-label="Articles in this topic"><h3>In this guide</h3><ol><?php foreach($categories[$selected][2] as $number=>$guide):?><li><a href="#<?=e($guideAnchor($number))?>"><?=e($guide[0])?></a></li><?php endforeach;?></ol></nav>
+<?php foreach($categories[$selected][2] as $number=>[$title,$instructions,$path]):?>
+<article id="<?=e($guideAnchor($number))?>" class="panel help-guide"><span class="help-guide-number"><?=str_pad((string)($number+1),2,'0',STR_PAD_LEFT)?></span><div><h3><?=e($title)?></h3><p><?=e($instructions)?></p><a class="text-link" href="<?=e(app_url($path))?>">Open this admin screen →</a></div></article>
+<?php endforeach;?>
+<?php endif;?>
+<div class="panel help-note"><h3>Documentation that stays current</h3><p>New administrator features must include current Help Center instructions and tested destinations before their release. Screens display links only to pages your account can access.</p></div>
+</section></div>
+<?php Spirit\View::end();

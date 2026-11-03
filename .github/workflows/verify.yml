@@ -102,6 +102,8 @@ jobs:
           python3 app/tests/backup_integration.py
           python3 app/tests/upgrade_integration.py
           python3 app/tests/cleanup_integration.py
+      - name: GET-only smoke of every owner Admin destination on isolated sites
+        run: python3 app/tests/admin_destination_smoke.py
       - name: Install test-only Chromium
         if: matrix.php == '8.4'
         run: |

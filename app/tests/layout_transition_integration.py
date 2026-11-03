@@ -4,7 +4,7 @@ This runs the cPanel-equivalent file transition in a test directory, never the
 user's host. It does not bypass the old updater or change schema/credentials.
 """
 from __future__ import annotations
-import hashlib,json,os,re,shutil,subprocess,tempfile,zipfile
+import hashlib,json,os,re,shutil,socket,subprocess,tempfile,time,zipfile
 from pathlib import Path
 from urllib.parse import urlsplit
 from http_integration import ROOT,Client,build_package,expect,site,dashboard
@@ -49,7 +49,7 @@ def fixture(s,action,new_package=None):
     return json.loads(result.stdout)
 
 def apply_same_root(s,archive):
-    """Test implementation of the documented panel operations, not shipped updater."""
+    """Copy the new ZIP first; old distributed views must survive until worker refresh."""
     old=json.loads((s.root/'docs/PACKAGE-MANIFEST.json').read_text())['files']
     with zipfile.ZipFile(archive) as bundle:
         new=json.loads(bundle.read('docs/PACKAGE-MANIFEST.json'))['files']
@@ -59,13 +59,37 @@ def apply_same_root(s,archive):
             target=s.root/name;target.parent.mkdir(parents=True,exist_ok=True)
             if target.is_symlink():raise AssertionError('Unexpected symlink in isolated source')
             target.write_bytes(bundle.read(name))
-        for name,digest in old.items():
-            target=s.root/name
-            if name not in new and target.is_file():
-                if hashlib.sha256(target.read_bytes()).hexdigest()!=digest:raise AssertionError('Refusing to remove changed legacy file '+name)
-                target.unlink()
+    return old,new
+
+def refresh_test_php_worker(s):
+    """Simulate reloading PHP-FPM/opcode caches after replacing the application tree.
+
+    Keep the same root, URL, private runtime and client cookies; no reinstall.
+    This is a disposable test server only, never a production restart.
+    """
+    port=urlsplit(s.base).port
+    s.process.terminate()
+    try:s.process.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        s.process.kill();s.process.wait(timeout=10)
+    s.process=subprocess.Popen(
+        ['php','-d','display_errors=0','-S',f'127.0.0.1:{port}','-t',str(s.docroot),str(ROOT/'app/tests/router.php')],
+        cwd=s.root,env=s.env,stdout=s.log,stderr=s.log)
+    for _ in range(100):
+        if s.process.poll() is not None:raise AssertionError('Refreshed PHP test worker exited unexpectedly')
+        try:
+            with socket.create_connection(('127.0.0.1',port),timeout=.2):return
+        except OSError:time.sleep(.1)
+    raise AssertionError('Refreshed PHP test worker did not become ready')
+
+def prune_legacy_sources(s,old,new):
+    """Remove only unchanged manifest-owned obsolete files after new routes work."""
+    for name,digest in old.items():
+        target=s.root/name
+        if name not in new and target.is_file():
+            if hashlib.sha256(target.read_bytes()).hexdigest()!=digest:raise AssertionError('Refusing to remove changed legacy file '+name)
+            target.unlink()
     for directory in sorted([p for p in s.root.rglob('*') if p.is_dir()],key=lambda p:len(p.parts),reverse=True):
-        # Keep only the approved root directories, not old nested names such as views/admin.
         if directory.parent == s.root and directory.name in ['admin','app','assets','config','docs','images','includes','storage','uploads']:continue
         try:directory.rmdir()
         except OSError:pass
@@ -97,7 +121,8 @@ def main():
                 expect(rejected['rejected'] and any(word in rejected['reason'].lower() for word in ['pinned','unsafe','allow','schema','path']),'Old updater rejects changed routing/recovery foundation')
                 expect(code_hash==hashlib.sha256((s.root/'index.php').read_bytes()).hexdigest() and fixture(s,'snapshot')==before,'Rejected old upgrade changes neither application nor stored data')
                 fixture(s,'old-marker');old_marker=(s.runtime/'updates/latest.json').read_bytes()
-                apply_same_root(s,current)
+                old_files,new_files=apply_same_root(s,current)
+                expect((s.root/'views/header.php').is_file() and (s.root/'app/views/header.php').is_file(),'Old views are retained beside new views until the PHP worker refreshes')
                 after=fixture(s,'snapshot')
                 expect(after==before,'Same-root transition preserves every business/analytics table, owner, configuration, lock and runtime identity')
                 expect(not (s.root/'install').exists(),'Removed installer is not recreated')
@@ -105,8 +130,16 @@ def main():
                 expect(all((s.runtime/name).is_file() and hashlib.sha256((s.runtime/name).read_bytes()).hexdigest()==digest for name,digest in private_static.items()),'All original uploaded image bytes remain unchanged')
                 generation=fixture(s,'generation')
                 expect(generation=={'layout':'grouped-v2','latest':None} and (s.runtime/'updates/latest.json').read_bytes()==old_marker,'Old recovery checkpoint is preserved but cannot become a grouped-layout rollback')
+                # Before refresh, even a worker caching the old /views path must not 503.
+                interim=transition_request(s,'admin/')
+                transition_expect(s,interim,interim[0]==200 and dashboard(interim[3]),'Legacy views remain accessible during same-root transition')
+                refresh_test_php_worker(s)
                 retained=transition_request(s,'admin/')
                 transition_expect(s,retained,retained[0]==200 and dashboard(retained[3]),'Original authenticated owner session reaches administration after transition')
+                prune_legacy_sources(s,old_files,new_files)
+                expect(not (s.root/'views').exists(),'Obsolete root views removed only after refreshed PHP worker verified')
+                after_prune=transition_request(s,'admin/')
+                transition_expect(s,after_prune,after_prune[0]==200 and dashboard(after_prune[3]),'Owner dashboard remains available after verified legacy cleanup')
                 fresh=Client(s.base)
                 signin=transition_request(s,'admin/login.php',client=fresh)
                 token=re.search(r'name="csrf" value="([a-f0-9]{64})"',signin[1])

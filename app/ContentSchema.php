@@ -12,11 +12,11 @@ final class ContentSchema
     public static function fields(string $kind): array
     {
         $fields = match ($kind) {
-            'page' => ['subtitle'=>['Subtitle','text',200],'body'=>['Page text','textarea',16000],'image_id'=>['Feature image','media:image',0],'focal'=>['Image focus','select',['center'=>'Center','top'=>'Top','left'=>'Left','right'=>'Right']]],
+            'page' => ['headline'=>['Page headline (optional)','text',180],'eyebrow'=>['Small heading above headline (optional)','text',120],'subtitle'=>['Subtitle','text',200],'body'=>['Page text','textarea',16000],'button_label'=>['Primary button label (optional)','text',100],'button_url'=>['Primary button destination (HTTPS URL, optional)','url',2000],'slot_1'=>['Additional section heading 1','text',240],'slot_2'=>['Additional section heading 2','text',240],'slot_3'=>['Additional section heading 3','text',240],'slot_4'=>['Additional section heading 4','text',240],'image_id'=>['Feature image','media:image',0],'focal'=>['Image focus','select',['center'=>'Center','top'=>'Top','left'=>'Left','right'=>'Right']]],
             'release' => ['release_type'=>['Release type','select',['album'=>'Album','single'=>'Single','ep'=>'EP']],'release_date'=>['Release date','date',0],'description'=>['About this release','textarea',8000],'cover_id'=>['Cover artwork','media:image',0],'spotify'=>['Spotify URL','url',2000],'apple'=>['Apple Music URL','url',2000],'youtube'=>['YouTube URL','url',2000],'amazon'=>['Amazon Music URL','url',2000],'bandcamp'=>['Bandcamp URL','url',2000],'credits'=>['Credits','textarea',4000]],
             'track' => ['release_id'=>['Release','release',0],'audio_id'=>['Authorized audio recording','media:audio',0],'duration'=>['Display duration, for example 3:42','duration',0],'description'=>['Track notes','textarea',2000]],
             'event' => ['starts_at'=>['Start date and local time','datetime-local',0],'timezone'=>['Event timezone','timezone',0],'venue'=>['Venue','text',180],'city'=>['City / region','text',180],'address'=>['Street address','text',300],'event_state'=>['Admission / event status','select',['scheduled'=>'Scheduled','free'=>'Free admission','coming_soon'=>'Tickets coming soon','sold_out'=>'Sold out','postponed'=>'Postponed','cancelled'=>'Cancelled']],'ticket_url'=>['Venue ticket seller URL','url',2000],'description'=>['Event details','textarea',8000],'image_id'=>['Event image','media:image',0]],
-            'member' => ['role'=>['Musical role','text',180],'bio'=>['Approved biography','textarea',8000],'image_id'=>['Approved portrait','media:image',0]],
+            'member' => ['role'=>['Musical role','text',180],'bio'=>['Approved biography','textarea',8000],'image_id'=>['Approved portrait','media:image',0],'portrait_alt'=>['Portrait description (optional; overrides media alt text)','text',300],'website_url'=>['Member website (HTTPS, optional)','url',2000]],
             'gallery' => ['image_id'=>['Photograph','media:image',0],'caption'=>['Caption','textarea',1500],'credit'=>['Photographer / credit','text',200]],
             'video' => ['url'=>['YouTube or Vimeo video URL','video',2000],'image_id'=>['Video poster image','media:image',0],'description'=>['Description','textarea',3000]],
             'press' => ['file_id'=>['Approved PDF document','media:pdf',0],'description'=>['Document description','textarea',2000]],
@@ -68,6 +68,13 @@ final class ContentSchema
             $date = DateTimeImmutable::createFromFormat('!Y-m-d\TH:i',$data['starts_at'],new DateTimeZone($data['timezone']));
             if (!$date || $date->format('Y-m-d\TH:i') !== $data['starts_at']) { throw new InvalidArgumentException('The event time is invalid, including a possible daylight-saving time change.'); }
             $data['starts_utc'] = $date->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d H:i:s');
+        }
+        if ($publishing && $kind==='page') {
+            $section=is_string($input['slug']??null)?trim($input['slug']):'';
+            if(!in_array($section,['home','band','booking','press'],true)
+               && (($data['button_label']==='') !== ($data['button_url']===''))) {
+                throw new InvalidArgumentException('For this page, enter both the button label and an HTTPS destination, or leave both empty.');
+            }
         }
         if ($publishing) {
             $required = match($kind) { 'track'=>['release_id','audio_id'], 'event'=>['starts_at','venue','city'], 'gallery'=>['image_id'], 'video'=>['url'], 'press'=>['file_id'], default=>[] };

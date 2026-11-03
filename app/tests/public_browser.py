@@ -72,10 +72,45 @@ def main():
                         expect(page.locator('h1').count() == 1 and page.locator('h1').is_visible(), f'Chromium {width}px has a visible primary heading')
                         expect(page.evaluate('document.documentElement.scrollWidth <= window.innerWidth + 1'), f'Chromium {width}px has no horizontal page overflow')
                         decoded_images(page, f'Chromium {width}px {route or "home"}')
+                        if route == 'press/':
+                            press_copy = page.locator('.press-story .prose').inner_text()
+                            if width == 1440:
+                                expect('Ron Green' in press_copy and 'Charlie Savell' in press_copy, 'Untouched Press copy retains the original factual lineup')
+                            else:
+                                expect('Ron Green' not in press_copy and 'Charlie Savell' not in press_copy, 'Updated Press copy does not resurrect historical lineup names on mobile')
                         if route == 'band/':
-                            expect(page.locator('.member-card-factual').count() == 3, f'Chromium {width}px shows the three confirmed lineup cards when member profiles are unpublished')
-                            expect(page.locator('.member-card-factual a').count() == 0, f'Chromium {width}px factual lineup does not link to unpublished member pages')
-                            expect('Chad Lindsey' in page.locator('.member-grid').inner_text() and 'Ron Green' in page.locator('.member-grid').inner_text() and 'Charlie Savell' in page.locator('.member-grid').inner_text(), f'Chromium {width}px factual lineup names are present')
+                            # The fallback must not paint Chad twice as background and foreground.
+                            hero = page.locator('.band-hero.concept-band')
+                            bundled = hero.locator('img.concept-band-art')
+                            expect(bundled.count()==1, 'Band fallback is in the page markup')
+                            if width == 1440:
+                                computed = hero.evaluate('(el)=>({h:el.getBoundingClientRect().height,bg:getComputedStyle(el).backgroundImage})')
+                                expect(computed['h']>=620, 'Desktop Band banner retains cinematic height')
+                                expect('band-hero-2026-tall.jpg' in computed['bg'], 'Desktop Band hero uses the taller image')
+                                expect(bundled.evaluate('(el)=>getComputedStyle(el).display')=='none', 'Desktop does not overlay duplicate members')
+                            else:
+                                expect(bundled.is_visible(), 'Mobile renders one fallback Band photograph')
+                            rows = page.locator('.band-profile-list .band-profile')
+                            if width == 1440:
+                                # No member has ever been published: approved historical names remain
+                                # as unlinked placeholders in the new vertically stacked layout.
+                                expect(rows.count() == 3, 'Initial Band view shows three confirmed, unlinked fallback profiles')
+                                expect(rows.locator('a').count() == 0, 'Fallback profiles never link to unpublished member pages')
+                                names = page.locator('.band-profile-list').inner_text()
+                                expect(all(name in names for name in ('Chad Lindsey', 'Ron Green', 'Charlie Savell')), 'Initial factual lineup names remain visible')
+                            else:
+                                # The 1440px test below published, then unpublished and republished
+                                # Chad. Historical placeholders must not return after first publication.
+                                expect(rows.count() == 1, f'Chromium {width}px shows the one republished CMS profile, not legacy placeholders')
+                                expect('Chad L.' in rows.inner_text() and 'Ron Green' not in rows.inner_text(), f'Chromium {width}px does not resurrect omitted factual profiles')
+                                expect(rows.get_by_role('link', name='Member profile').count() == 1, f'Chromium {width}px links only the published profile')
+                            photo = rows.first.locator('.band-profile-photo').bounding_box()
+                            bio = rows.first.locator('.band-profile-copy').bounding_box()
+                            expect(photo is not None and bio is not None, f'Chromium {width}px renders a portrait and biography region')
+                            if width == 1440:
+                                expect(photo['x'] + photo['width'] <= bio['x'] + 2, 'Desktop Band profile has photograph on the left and biography on the right')
+                            else:
+                                expect(photo['y'] + photo['height'] <= bio['y'] + 2, f'Chromium {width}px stacks Band photograph above the biography')
                         if route == '':
                             expect(page.locator('#public-nav a').filter(has_text='Merch').count()==0, f'Chromium {width}px closed store is absent from global navigation markup')
                             expect(page.get_by_role('navigation',name='Footer').get_by_role('link',name='Your bag',exact=True).count()==0, f'Chromium {width}px closed store does not advertise an empty bag')
@@ -87,13 +122,44 @@ def main():
                         if route in screenshot_routes:
                             screenshot(page, f'public-{width}-' + screenshot_routes[route])
                     if width == 1440:
-                        chad_id=save_content(current, 'member', 'Chad L.', {'role': 'Guitar, keyboards and vocals', 'bio': 'Published fixture profile.'}, slug='chad-lindsey')
+                        member_fields={'role': 'Guitar, keyboards and vocals', 'bio': 'Published fixture profile.', 'image_id': str(image), 'portrait_alt': 'Chad playing a gold guitar on stage', 'website_url': 'https://member.example.test/chad'}
+                        chad_id=save_content(current, 'member', 'Chad L.', member_fields, slug='chad-lindsey')
                         page.goto(current.base + 'band/', wait_until='networkidle')
-                        expect(page.locator('.member-card:not(.member-card-factual) a').filter(has_text='Chad L.').count() == 1, 'Published confirmed member keeps a linked profile card')
-                        expect(page.locator('.member-card-factual').count() == 2, 'Only missing confirmed members use factual fallback cards during partial publishing')
-                        names=page.locator('.member-grid').inner_text()
-                        expect('Chad L.' in names and 'Ron Green' in names and 'Charlie Savell' in names and 'Chad Lindsey' not in names, 'Canonical slug suppresses a duplicate fallback even when the published profile title is edited')
-                        save_content(current, 'member', 'Chad L.', {'role': 'Guitar, keyboards and vocals', 'bio': 'Published fixture profile.'}, action='unpublish', item_id=chad_id, slug='chad-lindsey')
+                        rows = page.locator('.band-profile-list .band-profile')
+                        expect(rows.count() == 1 and rows.get_by_role('link', name='Member profile').count() == 1, 'First published member replaces all provisional historical placeholders')
+                        names = rows.inner_text()
+                        expect('Chad L.' in names and 'Published fixture profile.' in names and 'Ron Green' not in names and 'Charlie Savell' not in names and 'Chad Lindsey' not in names, 'Only approved CMS biographies appear when one member is published')
+                        expect('Ron Green' not in page.locator('.band-hero').inner_text() and 'Charlie Savell' not in page.locator('.band-hero').inner_text(), 'Default Band introduction stops naming removed or unpublished historical members')
+                        expect('Ron Green' not in (page.locator('meta[name="description"]').get_attribute('content') or ''), 'Default Band metadata stops naming removed historical members')
+                        page.goto(current.base + 'press/', wait_until='networkidle')
+                        initial_press = page.locator('.press-story .prose').inner_text()
+                        expect('Ron Green' not in initial_press and 'Charlie Savell' not in initial_press and 'For event inquiries' in initial_press, 'Press fallback stops advertising former members after roster publication')
+                        # A partial Page edit must not erase the designed Home/Band/Press introduction.
+                        save_content(current, 'page', 'Home introduction', {'headline': 'Edited Home headline'}, slug='home')
+                        save_content(current, 'page', 'Band introduction', {'headline': 'Edited Band headline'}, slug='band')
+                        save_content(current, 'page', 'Press introduction', {'headline': 'Edited Press headline'}, slug='press')
+                        page.goto(current.base, wait_until='networkidle')
+                        expect('Music can turn an ordinary moment' in page.locator('.purpose-section .prose').inner_text(), 'Empty Home Page body preserves the approved purpose copy')
+                        page.goto(current.base + 'band/', wait_until='networkidle')
+                        band_copy = page.locator('.band-hero .prose').inner_text()
+                        expect('Meet the musicians behind Spiritual Gorillaz' in band_copy and 'Ron Green' not in band_copy, 'Empty Band Page body preserves updated roster-safe default copy')
+                        page.goto(current.base + 'press/', wait_until='networkidle')
+                        press_copy = page.locator('.press-story .prose').inner_text()
+                        expect('For event inquiries' in press_copy and 'Ron Green' not in press_copy and 'Charlie Savell' not in press_copy, 'Empty Press Page body falls back through empty Band copy to roster-safe editorial text')
+                        page.goto(current.base + 'band/', wait_until='networkidle')
+                        expect(rows.locator('.band-profile-photo img').first.get_attribute('alt')=='Chad playing a gold guitar on stage', 'Member portrait description overrides Media library alt text')
+                        member_website=rows.get_by_role('link', name='Member website')
+                        expect(member_website.count()==1 and member_website.get_attribute('href')=='https://member.example.test/chad' and member_website.get_attribute('target')=='_blank' and 'noopener' in (member_website.get_attribute('rel') or ''), 'Member website is explicitly HTTPS and safely opens a new tab')
+                        screenshot(page, 'band-published-1440')
+                        page.goto(current.base+'band/member.php?slug=chad-lindsey',wait_until='networkidle')
+                        expect(page.locator('.member-detail .portrait').get_attribute('alt')=='Chad playing a gold guitar on stage', 'Member detail uses the same approved portrait description')
+                        expect(page.locator('.member-copy').get_by_role('link',name='Member website').count()==1, 'Member detail includes the approved optional website')
+                        page.goto(current.base+'band/',wait_until='networkidle')
+                        save_content(current, 'member', 'Chad L.', member_fields, action='unpublish', item_id=chad_id, slug='chad-lindsey')
+                        page.goto(current.base + 'band/', wait_until='networkidle')
+                        expect(page.locator('.band-profile').count() == 0 and page.get_by_text('Member profiles will appear here as soon as they are published.').count() == 1, 'Unpublishing the last member gives an honest empty state instead of resurrecting the prior lineup')
+                        expect('Ron Green' not in page.locator('.band-hero').inner_text(), 'An unpublished lineup does not restore historical names in the page introduction')
+                        save_content(current, 'member', 'Chad L.', member_fields, item_id=chad_id, slug='chad-lindsey')
                     page.goto(current.base, wait_until='networkidle')
                     if width <= 390:
                         page.locator('.nav-toggle').click()
